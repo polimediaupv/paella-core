@@ -5,7 +5,7 @@ import fullscreenIcon from 'paella/icons/fullscreen.svg';
 import windowedIcon from 'paella/icons/windowed.svg';
 
 export default class PauseButtonPlugin extends ButtonPlugin {
-	get icon() { return this._icon; }
+	get icon() { return this._icon || fullscreenIcon; }
 		
 	async load() {
 		this._icon = fullscreenIcon;
