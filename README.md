@@ -1,0 +1,1 @@
+# Paella Player core library
