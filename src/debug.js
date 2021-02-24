@@ -1,4 +1,4 @@
-import Paella from 'paella/js/Paella';
+import Paella from 'paella-core/js/Paella';
 
 let paella = new Paella('player-container')
 paella.loadManifest()

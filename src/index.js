@@ -1,14 +1,14 @@
-import './css/base.css';
+import 'paella-core/styles/base.css';
 
-import Paella from './js/Paella';
-import PopUp from './js/core/PopUp';
-import * as utils from './js/core/utils';
+import Paella from 'paella-core/js/Paella';
+import PopUp from 'paella-core/js/core/PopUp';
+import * as utils from 'paella-core/js/core/utils';
 
-import Plugin, { importPlugins } from './js/core/Plugin';
-import ButtonPlugin from './js/core/ButtonPlugin';
-import PopUpButtonPlugin from './js/core/PopUpButtonPlugin';
-import VideoLayout from './js/core/VideoLayout';
-import VideoPlugin from './js/core/VideoPlugin';
+import Plugin, { importPlugins } from 'paella-core/js/core/Plugin';
+import ButtonPlugin from 'paella-core/js/core/ButtonPlugin';
+import PopUpButtonPlugin from 'paella-core/js/core/PopUpButtonPlugin';
+import VideoLayout from 'paella-core/js/core/VideoLayout';
+import VideoPlugin from 'paella-core/js/core/VideoPlugin';
 
 export {
     Paella,

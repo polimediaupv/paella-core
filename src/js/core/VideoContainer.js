@@ -1,13 +1,13 @@
 
-import { DomClass, createElementWithHtmlText,createElement } from 'paella/js/core/dom';
-import { getValidLayouts, getValidContentIds, getLayoutStructure } from 'paella/js/core/VideoLayout';
-import { getVideoPlugin } from 'paella/js/core/VideoPlugin';
-import StreamProvider from 'paella/js/core/StreamProvider';
-import { resolveResourcePath } from 'paella/js/core/utils';
-import Events, { triggerEvent } from 'paella/js/core/Events';
+import { DomClass, createElementWithHtmlText,createElement } from 'paella-core/js/core/dom';
+import { getValidLayouts, getValidContentIds, getLayoutStructure } from 'paella-core/js/core/VideoLayout';
+import { getVideoPlugin } from 'paella-core/js/core/VideoPlugin';
+import StreamProvider from 'paella-core/js/core/StreamProvider';
+import { resolveResourcePath } from 'paella-core/js/core/utils';
+import Events, { triggerEvent } from 'paella-core/js/core/Events';
 
-import 'paella/styles/VideoContainer.css';
-import 'paella/styles/VideoLayout.css';
+import 'paella-core/styles/VideoContainer.css';
+import 'paella-core/styles/VideoLayout.css';
 
 export async function getContainerBaseSize(player) {
     // TODO: In the future, this function can be modified to support different

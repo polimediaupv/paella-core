@@ -3,7 +3,7 @@
 ## Define a VideoLayout plugin
 
 ```javascript
-import VideoLayout from 'paella/js/core/VideoLayout';
+import VideoLayout from 'paella-core/js/core/VideoLayout';
 
 export default class MyVideoLayout extends VideoLayout {
     // properties and functions

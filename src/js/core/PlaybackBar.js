@@ -1,10 +1,10 @@
-import { DomClass, createElementWithHtmlText } from 'paella/js/core/dom';
+import { DomClass, createElementWithHtmlText } from 'paella-core/js/core/dom';
 
-import Events, { bindEvent } from 'paella/js/core/Events';
-import ProgressIndicator from 'paella/js/core/ProgressIndicator';
-import { loadPluginsOfType } from 'paella/js/core/Plugin';
+import Events, { bindEvent } from 'paella-core/js/core/Events';
+import ProgressIndicator from 'paella-core/js/core/ProgressIndicator';
+import { loadPluginsOfType } from 'paella-core/js/core/Plugin';
 
-import 'paella/styles/PlaybackBar.css';
+import 'paella-core/styles/PlaybackBar.css';
 
 export default class PlaybackBar extends DomClass {
 	constructor(player,parent) {

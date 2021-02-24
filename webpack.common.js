@@ -57,9 +57,9 @@ module.exports = {
 	plugins: plugins,
 	resolve: {
 		alias: {
-			"paella/js": path.resolve(__dirname, "src/js"),
-			"paella/styles": path.resolve(__dirname, "src/css"),
-			"paella/icons": path.resolve(__dirname, "src/icons")
+			"paella-core/js": path.resolve(__dirname, "src/js"),
+			"paella-core/styles": path.resolve(__dirname, "src/css"),
+			"paella-core/icons": path.resolve(__dirname, "src/icons")
 		}
 	}
 }

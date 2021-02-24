@@ -5,17 +5,17 @@ import {
     defaultGetManifestUrlFunction,
     defaultGetManifestFileUrlFunction,
     defaultLoadVideoManifestFunction
-} from 'paella/js/core/initFunctions';
-import { resolveResourcePath, setupAutoHideUiTimer } from 'paella/js/core/utils';
-import { createElement } from 'paella/js/core/dom';
-import { registerPlugins } from 'paella/js/core/Plugin';
-import VideoContainer from 'paella/js/core/VideoContainer';
-import PreviewContainer from 'paella/js/core/PreviewContainer';
-import PlaybackBar from 'paella/js/core/PlaybackBar';
-import Events, { bindEvent } from 'paella/js/core/Events';
+} from 'paella-core/js/core/initFunctions';
+import { resolveResourcePath, setupAutoHideUiTimer } from 'paella-core/js/core/utils';
+import { createElement } from 'paella-core/js/core/dom';
+import { registerPlugins } from 'paella-core/js/core/Plugin';
+import VideoContainer from 'paella-core/js/core/VideoContainer';
+import PreviewContainer from 'paella-core/js/core/PreviewContainer';
+import PlaybackBar from 'paella-core/js/core/PlaybackBar';
+import Events, { bindEvent } from 'paella-core/js/core/Events';
 
 
-import "paella/styles/base.css";
+import 'paella-core/styles/base.css';
 
 export default class Paella {
     constructor(containerElement, initParams = {}) {

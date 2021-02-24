@@ -1,6 +1,6 @@
-import ButtonPlugin from 'paella/js/core/ButtonPlugin';
-import PopUp from 'paella/js/core/PopUp';
-import { createElementWithHtmlText } from 'paella/js/core/dom';
+import ButtonPlugin from 'paella-core/js/core/ButtonPlugin';
+import PopUp from 'paella-core/js/core/PopUp';
+import { createElementWithHtmlText } from 'paella-core/js/core/dom';
 
 export default class PopUpButtonPlugin extends ButtonPlugin {
 	async action() {
