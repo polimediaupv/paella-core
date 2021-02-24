@@ -1,10 +1,10 @@
 
 import MenuButtonPlugin from 'paella/js/core/MenuButtonPlugin';
-import editIcon from 'paella/icons/edit.svg';
+import volumeMuteIcon from 'paella/icons/volume-mute.svg';
 import { createElementWithHtmlText } from 'paella/js/core/dom';
 
 export default class TestPlugin extends MenuButtonPlugin {
-    get icon() { return editIcon; }
+    get icon() { return volumeMuteIcon; }
     
     async getMenu() {
         const items = [

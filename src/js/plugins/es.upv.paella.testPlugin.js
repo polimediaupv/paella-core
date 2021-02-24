@@ -1,10 +1,10 @@
 
 import PopUpButtonPlugin from 'paella/js/core/PopUpButtonPlugin';
-import editIcon from 'paella/icons/edit.svg';
+import screenIcon from 'paella/icons/screen.svg';
 import { createElementWithHtmlText } from 'paella/js/core/dom';
 
 export default class TestPlugin extends PopUpButtonPlugin {
-    get icon() { return editIcon; }
+    get icon() { return screenIcon; }
     
     async getContent() {
         const content = createElementWithHtmlText(`
