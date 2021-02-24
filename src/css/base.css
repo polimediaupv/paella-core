@@ -1,0 +1,12 @@
+.player-container {
+    width: 50%;
+    height: 50%;
+    left: 25%;
+    top: 25%;
+    position: relative;
+    font-family: helvetica, arial, sans-serif;
+}
+
+svg {
+    pointer-events: none;
+}
