@@ -113,6 +113,12 @@ export default class ProgressIndicator extends DomClass {
 			}
 		});
 		
+		bindEvent(this.player, Events.STOP, async () => {
+			await updateProgressIndicator(0);
+			const formattedTime = secondsToTime(0);
+			this.progressTimer.innerHTML = formattedTime;
+		})
+		
 		this.progressContainer.addEventListener("mousedown", async (evt) => {
 			drag = true;
 			const newTime = await positionToTime(evt.offsetX);

@@ -16,6 +16,9 @@ export default class PauseButtonPlugin extends ButtonPlugin {
 		bindEvent(this.player, Events.ENDED, () => {
 			this.hide();
 		});
+		bindEvent(this.player, Events.STOP, () => {
+			this.hide();
+		});
 	}
 	
 	async action() {

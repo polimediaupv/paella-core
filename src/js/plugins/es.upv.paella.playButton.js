@@ -16,6 +16,9 @@ export default class PlayButtonPlugin extends ButtonPlugin {
 		bindEvent(this.player, Events.ENDED, () => {
 			this.show();
 		});
+		bindEvent(this.player, Events.STOP, () => {
+			this.show();
+		});
 	}
 	
 	async action() {

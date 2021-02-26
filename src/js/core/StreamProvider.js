@@ -88,6 +88,9 @@ export default class SteramProvider extends PlayerResource {
 		// Important: this implementation must be done using promises instead of async/await, due to
 		// a bug in babel that causes that the resulting array may not be available when the async function
 		// is completed.
+		if (!Array.isArray(params)) {
+			params = [params];
+		}
 		return new Promise((resolve) => {
 			let res = [];
 			let p = [];

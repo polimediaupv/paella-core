@@ -219,6 +219,13 @@ export default class VideoContainer extends DomClass {
         return result;
     }
     
+    async stop() {
+        this.streamProvider.stopStreamSync()
+        await this.streamProvider.executeAction("pause");
+        await this.streamProvider.executeAction("setCurrentTime", 0);
+        triggerEvent(this.player, Events.STOP);
+    }
+    
     async paused() {
         return (await this.streamProvider.executeAction("paused"))[0];
     }

@@ -229,7 +229,7 @@ export default class Paella {
     }
 
     async pause() {
-        await this.videoContainer?.play();
+        await this.videoContainer?.pause();
     }
 
     async stop() {

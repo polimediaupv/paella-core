@@ -1,8 +1,8 @@
 .player-container {
-    width: 50%;
-    height: 50%;
-    left: 25%;
-    top: 25%;
+    width: 90vw;
+    height: 90vh;
+    left: 5vw;
+    top: 5vh;
     position: relative;
     font-family: helvetica, arial, sans-serif;
 }
