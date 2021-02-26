@@ -28,7 +28,7 @@ export default class PlaybackBar extends DomClass {
 		
 		async function addButtonPlugin(plugin, arrayButtons, parent) {
 			const button = createElementWithHtmlText(`
-				<button class="button-plugin ${ plugin.className }"><i style="pointer-events: none">${ plugin.icon }</i></button>
+				<button class="button-plugin ${ plugin.className }"><i class="button-icon" style="pointer-events: none">${ plugin.icon }</i></button>
 			`, parent);
 			plugin._button = button;
 			button._pluginData = plugin;

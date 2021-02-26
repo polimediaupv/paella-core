@@ -5,16 +5,29 @@ import fullscreenIcon from 'paella-core/icons/fullscreen.svg';
 import windowedIcon from 'paella-core/icons/windowed.svg';
 
 export default class PauseButtonPlugin extends ButtonPlugin {
-	get icon() { return this._icon || fullscreenIcon; }
-		
+	async isEnabled() {
+		const enabled = await super.isEnabled()
+		return this.player.isFullScreenSupported()
+	}
 	async load() {
-		this._icon = fullscreenIcon;
+		this.icon = fullscreenIcon;
+		bindEvent(this.player, Events.FULLSCREEN_CHANGED, (status) => {
+			console.log(status);
+			if (status) {
+				this.icon = fullscreenIcon;
+			}
+			else {
+				this.icon = windowedIcon;
+			}
+		})
 	}
 	
 	async action() {
-		alert("Fullscreen not implemented");
-		this._icon = this._icon === fullscreenIcon ? windowedIcon : fullscreenIcon;
-		
-		// TODO: implement icon toggle in button plugin API
+		if (this.player.isFullscreen) {
+			await this.player.exitFullscreen();
+		}
+		else {
+			await this.player.enterFullscreen();
+		}
 	}
 }

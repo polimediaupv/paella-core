@@ -18,8 +18,17 @@ export default class ButtonPlugin extends Plugin {
 	// this._button is loaded in PlaybackBar
 	get button() { return this._button; }
 	
+	get iconElement() {
+		return this.button?.getElementsByClassName("button-icon")[0];
+	}
+	
 	get icon() {
-		return null;	// return SVG icon
+		return this._icon;
+	}
+	
+	set icon(icon) {
+		this._icon = icon;
+		this.iconElement.innerHTML = icon;
 	}
 	
 	// "left" or "right"

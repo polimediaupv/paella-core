@@ -59,10 +59,7 @@ export default class Paella {
         window.addEventListener("resize", resize);
         
         this.containerElement.addEventListener("fullscreenchange", () => {
-            console.log("FS Change: " + this.isFullscreen);
-            triggerEvent(this, Events.FULLSCREEN_CHANGED, () => {
-                status: this.isFullscreen
-            });
+            triggerEvent(this, Events.FULLSCREEN_CHANGED, { status: this.isFullscreen });
         });
     }
 
@@ -243,19 +240,19 @@ export default class Paella {
         await this.videoContainer?.stop();
     }
     
-    async isFullScreensupported() {
+    async isFullScreenSupported() {
         return this.containerElement.requestFullscreen !== null;
     }
     
     async enterFullscreen() {
         if (this.containerElement.requestFullscreen) {
-            this.containerElement.requestFullscreen();
+            return this.containerElement.requestFullscreen();
         }
     } 
 
     async exitFullscreen() {
-        if (this.containerElement.exitFullscreen) {
-            this.containerElement.exitFullscreen();
+        if (document.exitFullscreen && this.isFullscreen) {
+            return document.exitFullscreen();
         }
     }
     
