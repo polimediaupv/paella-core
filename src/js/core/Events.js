@@ -4,7 +4,7 @@ export default {
 	PAUSE: "paella:pause",
 	ENDED: "paella:ended",
 	SEEK: "paella:seek",
-	FULLSCREEN: "paella:fullscreen",
+	FULLSCREEN_CHANGED: "paella:fullscreenchanged",
 	VOLUME_CHANGED: "paella:volumeChanged",
 	TIMEUPDATE: "paella:timeupdate"
 };

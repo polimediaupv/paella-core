@@ -12,7 +12,7 @@ import { registerPlugins } from 'paella-core/js/core/Plugin';
 import VideoContainer from 'paella-core/js/core/VideoContainer';
 import PreviewContainer from 'paella-core/js/core/PreviewContainer';
 import PlaybackBar from 'paella-core/js/core/PlaybackBar';
-import Events, { bindEvent } from 'paella-core/js/core/Events';
+import Events, { bindEvent, triggerEvent } from 'paella-core/js/core/Events';
 
 
 import 'paella-core/styles/base.css';
@@ -57,6 +57,13 @@ export default class Paella {
             this.resize();
         }
         window.addEventListener("resize", resize);
+        
+        this.containerElement.addEventListener("fullscreenchange", () => {
+            console.log("FS Change: " + this.isFullscreen);
+            triggerEvent(this, Events.FULLSCREEN_CHANGED, () => {
+                status: this.isFullscreen
+            });
+        });
     }
 
     
@@ -235,5 +242,24 @@ export default class Paella {
     async stop() {
         await this.videoContainer?.stop();
     }
+    
+    async isFullScreensupported() {
+        return this.containerElement.requestFullscreen !== null;
+    }
+    
+    async enterFullscreen() {
+        if (this.containerElement.requestFullscreen) {
+            this.containerElement.requestFullscreen();
+        }
+    } 
 
+    async exitFullscreen() {
+        if (this.containerElement.exitFullscreen) {
+            this.containerElement.exitFullscreen();
+        }
+    }
+    
+    get isFullscreen() {
+        return document.fullscreenElement === this.containerElement;
+    }
 }
