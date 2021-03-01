@@ -72,6 +72,14 @@ export default class VideoContainer extends DomClass {
         return this._validContentIds;
     }
 
+    get validLayouts() {
+        return getValidLayouts(this.player, this.streamData);
+    }
+
+    get streamData() {
+        return this._streamData;
+    }
+
     get baseVideoRect() {
         return this._baseVideoRect;
     }
@@ -81,7 +89,8 @@ export default class VideoContainer extends DomClass {
     }
 
     async load(streamData) {
-        
+        this._streamData = streamData;
+
         await this.streamProvider.load(streamData);
         
         // Find the content identifiers that are compatible with the stream data
