@@ -7,17 +7,17 @@ import windowedIcon from 'paella-core/icons/windowed.svg';
 export default class PauseButtonPlugin extends ButtonPlugin {
 	async isEnabled() {
 		const enabled = await super.isEnabled()
-		return this.player.isFullScreenSupported()
+		return enabled && this.player.isFullScreenSupported()
 	}
+	
 	async load() {
 		this.icon = fullscreenIcon;
-		bindEvent(this.player, Events.FULLSCREEN_CHANGED, (status) => {
-			console.log(status);
-			if (status) {
-				this.icon = fullscreenIcon;
+		bindEvent(this.player, Events.FULLSCREEN_CHANGED, (data) => {
+			if (data.status) {
+				this.icon = windowedIcon;
 			}
 			else {
-				this.icon = windowedIcon;
+				this.icon = fullscreenIcon;
 			}
 		})
 	}

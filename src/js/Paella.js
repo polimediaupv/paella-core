@@ -236,6 +236,10 @@ export default class Paella {
         await this.videoContainer?.pause();
     }
 
+    async paused() {
+        return this.videoContainer?.paused();
+    }
+
     async stop() {
         await this.videoContainer?.stop();
     }

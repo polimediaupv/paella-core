@@ -2,26 +2,31 @@ import ButtonPlugin from 'paella-core/js/core/ButtonPlugin';
 import Events, { bindEvent } from 'paella-core/js/core/Events';
 
 import playIcon from 'paella-core/icons/play.svg';
+import pauseIcon from 'paella-core/icons/pause.svg';
 
 export default class PlayButtonPlugin extends ButtonPlugin {
-	get icon() { return playIcon; }
-	
 	async load() {
+		this.icon = playIcon;
 		bindEvent(this.player, Events.PLAY, () => {
-			this.hide();
+			this.icon = pauseIcon;
 		});
 		bindEvent(this.player, Events.PAUSE, () => {
-			this.show();
+			this.icon = playIcon;
 		});
 		bindEvent(this.player, Events.ENDED, () => {
-			this.show();
+			this.icon.playIcon;
 		});
 		bindEvent(this.player, Events.STOP, () => {
-			this.show();
+			this.icon.playIcon;
 		});
 	}
 	
 	async action() {
-		await this.player.videoContainer.play();
+		if (await this.player.paused()) {
+			await this.player.videoContainer.play();
+		}
+		else {
+			await this.player.videoContainer.pause();
+		}
 	}
 }

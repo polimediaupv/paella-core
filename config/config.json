@@ -39,11 +39,7 @@
             "order": 1
         },
         
-        "es.upv.paella.playButton": {
-            "enabled": true,
-            "order": 1
-        },
-        "es.upv.paella.pauseButton": {
+        "es.upv.paella.playPauseButton": {
             "enabled": true,
             "order": 1
         },
