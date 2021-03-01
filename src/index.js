@@ -9,16 +9,22 @@ import ButtonPlugin from 'paella-core/js/core/ButtonPlugin';
 import PopUpButtonPlugin from 'paella-core/js/core/PopUpButtonPlugin';
 import VideoLayout from 'paella-core/js/core/VideoLayout';
 import VideoPlugin from 'paella-core/js/core/VideoPlugin';
+import Events, { bindEvent, triggerEvent } from 'paella-core/js/core/Events';
 
 export {
     Paella,
     PopUp,
     utils,
+    
     Plugin,
     importPlugins,
     ButtonPlugin,
     PopUpButtonPlugin,
     VideoLayout,
-    VideoPlugin
+    VideoPlugin,
+    
+    Events,
+    bindEvent,
+    triggerEvent
 }
 
