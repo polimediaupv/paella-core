@@ -1,6 +1,10 @@
 
 import { DomClass, createElementWithHtmlText,createElement } from 'paella-core/js/core/dom';
-import { getValidLayouts, getValidContentIds, getLayoutStructure } from 'paella-core/js/core/VideoLayout';
+import { 
+    getValidLayouts, 
+    getValidContentIds, 
+    getLayoutStructure, 
+    getValidContentSettings } from 'paella-core/js/core/VideoLayout';
 import { getVideoPlugin } from 'paella-core/js/core/VideoPlugin';
 import StreamProvider from 'paella-core/js/core/StreamProvider';
 import { resolveResourcePath } from 'paella-core/js/core/utils';
@@ -71,6 +75,10 @@ export default class VideoContainer extends DomClass {
     get validContentIds() {
         return this._validContentIds;
     }
+    
+    get validContentSettings() {
+        return this._validContentSettings;
+    }
 
     get validLayouts() {
         return getValidLayouts(this.player, this.streamData);
@@ -95,6 +103,8 @@ export default class VideoContainer extends DomClass {
         
         // Find the content identifiers that are compatible with the stream data
         this._validContentIds = getValidContentIds(this.player, streamData);
+        
+        this._validContentSettings = getValidContentSettings(this.player, streamData);
         
         // Load video layout
         await this.updateLayout();

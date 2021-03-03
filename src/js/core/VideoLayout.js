@@ -30,6 +30,19 @@ export function getLayoutWithContentId(player, streamData, contentId) {
     return result;
 }
 
+export function getValidContentSettings(player, streamData) {
+    const validLayouts = getValidLayouts(player, streamData);
+    const validIds = getValidContentIds(player, streamData)
+    let result = []
+    validLayouts.forEach(lo => {
+        result = [...result,...lo.config.validContent];
+    });
+    
+    return result.filter(cfg => {
+        return validIds.indexOf(cfg.id) !== -1
+    });
+}
+
 export function getLayoutStructure(player, streamData, contentId) {
     const selectedLayout = getLayoutWithContentId(player, streamData, contentId);
     if (selectedLayout) {

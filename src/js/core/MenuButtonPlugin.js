@@ -77,7 +77,14 @@ export default class MenuButtonPlugin extends PopUpButtonPlugin {
 				if (this.buttonType !== "check") {
 					this.closeMenu();
 				}
-			})
+			});
+			
+			// Remove "width" and "height" options from `svg` if is set to any percentage
+			const svgs = itemButton.getElementsByTagName("svg");
+			if (svgs.length>0) {
+				/\%$/.test(svgs[0].getAttribute("width")) && svgs[0].removeAttribute("width");
+				/\%$/.test(svgs[0].getAttribute("height")) && svgs[0].removeAttribute("height");
+			}
 		});
 		
 		return content;

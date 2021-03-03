@@ -17,17 +17,17 @@
         "es.upv.paella.singleVideo": {
             "enabled": true,
             "validContent": [
-                { "id": "presenter", "content": ["presenter"] },
-                { "id": "presentation", "content": ["presentation"] },
-                { "id": "presenter-2", "content": ["presenter-2"] }
+                { "id": "presenter", "content": ["presenter"], "icon": "present-mode-2.svg" },
+                { "id": "presentation", "content": ["presentation"], "icon": "present-mode-1.svg" },
+                { "id": "presenter-2", "content": ["presenter-2"], "icon": "present-mode-1.svg" }
             ]
         },
         "es.upv.paella.dualVideo": {
             "enabled": true,
             "validContent": [
-                { "id": "presenter-presentation", "content": ["presenter","presentation"] },
-                { "id": "presenter-2-presentation", "content": ["presenter-2","presentation"] },
-                { "id": "presenter-presenter-2", "content": ["presenter","presenter-2"] }
+                { "id": "presenter-presentation", "content": ["presenter","presentation"], "icon": "present-mode-3.svg" },
+                { "id": "presenter-2-presentation", "content": ["presenter-2","presentation"], "icon": "present-mode-3.svg" },
+                { "id": "presenter-presenter-2", "content": ["presenter","presenter-2"], "icon": "present-mode-3.svg" }
             ]
         },
         "es.upv.paella.hlsVideoFormat": {
@@ -42,6 +42,11 @@
         "es.upv.paella.playPauseButton": {
             "enabled": true,
             "order": 1
+        },
+        
+        "es.upv.paella.layoutSelector": {
+            "enabled": true,
+            "side": "right"
         }
     }
 }
