@@ -36,6 +36,7 @@ paella.loadManifest()
 ```javascript
 const initParams = {
     // Initialiation attributes
+    configResourcesUrll: 'config/',    // Location of resources to be configured in the config.json file
     configUrl: 'config/config.json',    // Used by the default loadConfig function
     repositoryUrl: 'repository',    // URL to locate the video manifests (see getManifestUrl)
     manifestFileName: 'data.json',     // manifest file name (can be overrided in config.json)

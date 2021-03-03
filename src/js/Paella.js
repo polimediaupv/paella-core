@@ -99,6 +99,10 @@ export default class Paella {
         return this._playerLoaded;
     }
 
+    get configResourcesUrl() {
+        return this._initParams?.configResourcesUrl || 'config/';
+    }
+    
     get configUrl() {
         return this._initParams?.configUrl || 'config/config.json';
     }
