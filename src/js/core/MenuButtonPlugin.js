@@ -28,8 +28,29 @@ export default class MenuButtonPlugin extends PopUpButtonPlugin {
 					radioItemChecked = true;
 				}
 			}
+			let itemContent = "";
+			
+			//item.icon ? item.icon : item.title;
+			if (item.icon && item.title && this.showTitles) {
+				itemContent = `
+				<i class="menu-icon">${ item.icon }</i>
+				<span class="menu-title">${ item.title }</span>
+				`;
+			}
+			else if (item.icon) {
+				itemContent = `
+				<i class="menu-icon">${ item.icon }</i>
+				`;
+			}
+			else if (item.title) {
+				itemContent = `
+				<span class="menu-title">${ item.title }</span>
+				`;
+			}
+			
+			
 			const itemButton = createElementWithHtmlText(`
-				<button class="${ className }">${ item.title }</button>`
+				<button class="${ className }" aria-label="${ item.title }">${ itemContent }</button>`
 				, itemElem);
 			item.buttonElement = itemButton;
 			itemButton._itemData = item;
@@ -76,6 +97,13 @@ export default class MenuButtonPlugin extends PopUpButtonPlugin {
 	// Returns the menuItems with the current menu state
 	get menuItems() {
 		return this._menuItems;
+	}
+	
+	// If showTitles is false, then the 'title' attribute of the menu
+	// items is used only as aria-label.
+	// If the menu item has no icon, then the `showTitles` property is ignored
+	get showTitles() {
+		return true;
 	}
 	
 	buttonType() {
