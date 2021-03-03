@@ -4,7 +4,9 @@ import volumeMuteIcon from 'paella-core/icons/volume-mute.svg';
 import { createElementWithHtmlText } from 'paella-core/js/core/dom';
 
 export default class TestPlugin extends MenuButtonPlugin {
-    get icon() { return volumeMuteIcon; }
+    async load() {
+        this.icon = volumeMuteIcon;
+    }
     
     async getMenu() {
         const items = [
