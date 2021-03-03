@@ -2,6 +2,19 @@
 import Events, { bindEvent } from 'paella-core/js/core/Events';
 import PopUp from 'paella-core/js/core/PopUp';
 
+export function loadSvgIcon(url) {
+    return new Promise((resolve,reject) => {
+        fetch(url)
+            .then((icon) => {
+                return icon.text()
+            })
+            .then(svg => {
+                resolve(svg);
+            })
+            .catch(err => reject(err));
+    })
+}
+
 export function getUrlParameter(name) {
     // Optional: implement this using a fallback to support IE11
     const urlParams = new URLSearchParams(window.location.search);
