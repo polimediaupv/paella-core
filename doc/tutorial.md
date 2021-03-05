@@ -407,11 +407,11 @@ Relaunch `npm run dev` to test your paella player, and you will see two new butt
 
 ![img/basic-plugins.jpg](img/basic-plugins.jpg)
 
-## Add your first plugin
+## Create your first plugin
 
 Create a new directory to place your custom plugins. Inside it, create a file with the name of your plugin:
 
-`plugins/com.mycompany.paella.forwardPlugin.js`
+`src/plugins/com.mycompany.paella.forwardPlugin.js`
 
 ```javascript
 import { ButtonPlugin } from 'paella-core';
@@ -432,7 +432,7 @@ export default class ForwardButtonPlugin extends ButtonPlugin {
 
 Create the icon SVG file inside `plugins/img`:
 
-`plugins/img/forward-icon.svg`
+`src/plugins/img/forward-icon.svg`
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -469,6 +469,32 @@ Add the plugin to the configuration file. Your plugin unique identifier will be 
 		}
 }
 ```
+
+### Add the plugin context
+
+The last step is to add the plugin context. The plugin context is added for the folder that contains our plugins, so we will only have to add it once for that folder, and the rest of the plugins we add to it will already be registered.
+
+```javascript
+import { Paella } from 'paella-core';
+import getBasicPluginContext from 'paella-basic-plugins';
+
+const initParams = {
+	customPluginContext: [
+		getBasicPluginContext(),
+		
+		// Add the plugin context of our new plugins folder.
+		require.context('./plugins', true, /\.js/)
+	]
+};
+
+const paella = new Paella('player-container', initParams);
+paella.loadManifest()
+	.then(() => console.log("done"))
+	.catch(e => console.error(e));
+
+```
+
+The path we use to get the plugin directory context must be a static string. This is because this path will be processed by Webpack at compile time.
 
 Rebuild your player. A new button will have been added to the right of the play/pause icon, which allows you to advance the video by 30 seconds.
 
