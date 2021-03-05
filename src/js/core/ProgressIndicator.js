@@ -108,7 +108,7 @@ export default class ProgressIndicator extends DomClass {
 		bindEvent(this.player, Events.SEEK, async ({ prevTime, newTime }) => {
 			if (!drag) {
 				await updateProgressIndicator(newTime);
-				const formattedTime = secondsToTime(currentTime);
+				const formattedTime = secondsToTime(newTime);
 				this.progressTimer.innerHTML = formattedTime;
 			}
 		});
