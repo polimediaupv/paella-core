@@ -55,13 +55,14 @@ const initParams = {
 The default initialization functions are located at `src/core/initFunctions`.
 
 ```javascript
-import {
-    defaultLoadConfigFunction,
-    defaultGetVideoIdFunction,
-    defaultGetManifestUrlFunction,
-    defaultGetManifestFileUrlFunction,
-    defaultLoadVideoManifestFunction
-} from 'paella-core/js/core/initFunctions';
+import { initFunctions } from 'paella-core';
+
+const { defaultLoadConfigFunction,
+        defaultGetVideoIdFunction,
+        defaultGetManifestUrlFunction,
+        defaultGetManifestFileUrlFunction,
+        defaultLoadVideoManifestFunction } = initFunctions;
+
 ```
 
 default load config funciton:
@@ -77,7 +78,8 @@ export async function defaultLoadConfigFunction(configUrl) {
 default video id function
 
 ```javascript
-import { getUrlParameter } from 'paella-core/js/core/utils';
+import { utils } from 'paella-core';
+const { getUrlParameter } = utils;
 
 
 export async function defaultGetVideoIdFunction() {
@@ -89,7 +91,8 @@ export async function defaultGetVideoIdFunction() {
 default manifest url function
 
 ```javascript
-import { joinPath } from 'paella-core/js/core/utils';
+import { utils } from 'paella-core';
+const { joinPath } = utils;
 
 // repoUrl: the value specified in initParams.repositoryUrl
 // videoId: the video identifier returned by initParams.getVideoId()

@@ -23,7 +23,7 @@ The filename must match the plugin name. See section `Plugin name`.
 Inside this file, we will extend the class of the plugin we want to implement:
 
 ```javascript
-import VideoLayout from 'paella-core/js/core/VideoLayout';
+import { VideoLayout } from 'paella-core';
 
 export default class MyVideoLayout extends VideoLayout {
     async isEnabled() {
@@ -110,7 +110,7 @@ As for the loading order of plugin types, it depends on the implementation. For 
 To create a new plugin type, we first define a class that returns a new type identifier
 
 ```javascript
-import Plugin from 'paella-core/js/core/Plugin';
+import { Plugin } from 'paella-core';
 
 export default class MyPluginType extends Plugin {
 

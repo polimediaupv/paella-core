@@ -19,13 +19,15 @@ export default class MyVideoLayout extends VideoLayout {
         "es.upv.paella.myVideoLayout": {
             "enabled": true,
             "validContent": [
-                { "id": "presenter", "content": ["presenter"] },
-                { "id": "presentation", "content": ["presentation"] }
+                { "id": "presenter", "content": ["presenter"], "icon": "present-mode-2.svg", "title": "Presenter" },
+                { "id": "presentation", "content": ["presentation"], "icon": "present-mode-1.svg", "title": "Presentation" }
             ]
         }
     }
 }
 ```
+
+The icons used to identify each layout content must be in `svg` format, and placed in the same directory as the `config.json` configuration file.
 
 ## Layout properties and functions
 
