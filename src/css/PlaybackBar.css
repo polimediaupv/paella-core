@@ -41,7 +41,11 @@
 	float: right;
 }
 
-.playback-bar .button-plugins button {
+.playback-bar .button-plugins .button-plugin-container {
+	display: inline;
+}
+
+.playback-bar .button-plugins .button-plugin-container button {
 	width: 40px;
 	height: 40px;
 	display: block;
@@ -71,6 +75,13 @@
 
 .playback-bar .button-plugins button i svg {
 	fill: white;
+}
+
+.playback-bar .button-plugin-side-area {
+	display: inline;
+	color: white;
+	height: 40px;
+	line-height: 40px;
 }
 
 .progress-indicator {

@@ -26,14 +26,56 @@ export default class PlaybackBar extends DomClass {
 		
 		this._frameList = this.player.videoManifest;
 		
-		async function addButtonPlugin(plugin, arrayButtons, parent) {
+		async function addButtonPlugin(plugin, arrayButtons, buttonAreaElem) {
+			const parent = createElementWithHtmlText('<div class="button-plugin-container"></div>', buttonAreaElem);
+
+			const leftArea = createElementWithHtmlText(`
+				<div class="button-plugin-side-area left-side ${ plugin.className }"></div>
+			`, parent);
 			const button = createElementWithHtmlText(`
 				<button class="button-plugin ${ plugin.className }"><i class="button-icon" style="pointer-events: none">${ plugin.icon }</i></button>
 			`, parent);
+			const rightArea = createElementWithHtmlText(`
+				<div class="button-plugin-side-area right-side ${ plugin.className }"></div>
+			`, parent);
+			plugin._leftArea = leftArea;
+			plugin._rightArea = rightArea;
 			plugin._button = button;
+			plugin._container = parent;
 			button._pluginData = plugin;
+			leftArea._pluginData = plugin;
+			rightArea._pluginData = plugin;
+			parent._pluginData = plugin;
+
+			// Event listeners
+			parent.addEventListener("mouseover", (evt) => {
+				evt.target._pluginData.mouseOver(evt.target._pluginData._container);
+			});
+			parent.addEventListener("mouseout", (evt) => {
+				evt.target._pluginData.mouseOut(evt.target._pluginData._container);
+			});
+
 			button.addEventListener("click", (evt) => {
 				evt.target._pluginData.action();
+			});
+			button.addEventListener("mouseover", (evt) => {
+				evt.target._pluginData.mouseOver(evt.target._pluginData._button);
+			});
+			button.addEventListener("mouseout", (evt) => {
+				evt.target._pluginData.mouseOut(evt.target._pluginData._button);
+			});
+
+			leftArea.addEventListener("mouseover", (evt) => {
+				evt.target._pluginData.mouseOver(evt.target._pluginData._leftArea);
+			});
+			leftArea.addEventListener("mouseout", (evt) => {
+				evt.target._pluginData.mouseOut(evt.target._pluginData._leftArea);
+			});
+			rightArea.addEventListener("mouseover", (evt) => {
+				evt.target._pluginData.mouseOver(evt.target._pluginData._rightArea);
+			});
+			rightArea.addEventListener("mouseout", (evt) => {
+				evt.target._pluginData.mouseOut(evt.target._pluginData._rightArea);
 			});
 		}
 		

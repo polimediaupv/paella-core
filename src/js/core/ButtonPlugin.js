@@ -15,7 +15,10 @@ export function getRightButtonPlugins(player) {
 export default class ButtonPlugin extends Plugin {
 	get type() { return "button" }
 	
-	// this._button is loaded in PlaybackBar
+	// _container, _leftArea, _rightArea and _button are loaded in PlaybackBar
+	get container() { return this._container; }
+	get leftArea() { return this._leftArea; }
+	get rightArea() { return this._rightArea; }
 	get button() { return this._button; }
 	
 	get iconElement() {
@@ -51,6 +54,14 @@ export default class ButtonPlugin extends Plugin {
 		}
 	}
 	
+	async mouseOver(target) {
+
+	}
+
+	async mouseOut(target) {
+
+	}
+
 	async action() {
 		console.log(`Action not implemented in button plugin ${ this.name }`);	
 	}

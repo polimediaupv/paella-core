@@ -6,6 +6,22 @@ import { createElementWithHtmlText } from 'paella-core/js/core/dom';
 export default class TestPlugin extends PopUpButtonPlugin {
     get icon() { return screenIcon; }
     
+    async action() {
+        super.action();
+    }
+
+    async mouseOver(target) {
+        if (target === this.container) {
+            this._rightArea.innerHTML = "Hola";
+        }
+    }
+
+    async mouseOut(target) {
+        if (target === this.container) {
+            this._rightArea.innerHTML = "";
+        }
+    }
+
     async getContent() {
         const content = createElementWithHtmlText(`
             <div>
