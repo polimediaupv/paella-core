@@ -13,6 +13,8 @@ import VideoLayout from 'paella-core/js/core/VideoLayout';
 import VideoPlugin from 'paella-core/js/core/VideoPlugin';
 import Events, { bindEvent, triggerEvent } from 'paella-core/js/core/Events';
 
+import { DomClass, createElementWithHtmlText, createElement } from 'paella-core/js/core/dom';
+
 export {
     Paella,
     PopUp,
@@ -29,6 +31,10 @@ export {
     
     Events,
     bindEvent,
-    triggerEvent
+    triggerEvent,
+
+    DomClass,
+    createElement,
+    createElementWithHtmlText
 }
 
