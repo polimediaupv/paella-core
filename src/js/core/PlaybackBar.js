@@ -48,34 +48,15 @@ export default class PlaybackBar extends DomClass {
 			parent._pluginData = plugin;
 
 			// Event listeners
-			parent.addEventListener("mouseover", (evt) => {
-				evt.target._pluginData.mouseOver(evt.target._pluginData._container, evt);
+			parent.addEventListener("mouseenter", (evt) => {
+				parent._pluginData.mouseOver(parent, evt);
 			});
-			parent.addEventListener("mouseout", (evt) => {
-				evt.target._pluginData.mouseOut(evt.target._pluginData._container, evt);
+			parent.addEventListener("mouseleave", (evt) => {
+				parent._pluginData.mouseOut(parent, evt);
 			});
 
 			button.addEventListener("click", (evt) => {
-				evt.target._pluginData.action(evt);
-			});
-			button.addEventListener("mouseover", (evt) => {
-				evt.target._pluginData.mouseOver(evt.target._pluginData._button, evt);
-			});
-			button.addEventListener("mouseout", (evt) => {
-				evt.target._pluginData.mouseOut(evt.target._pluginData._button, evt);
-			});
-
-			leftArea.addEventListener("mouseover", (evt) => {
-				evt.target._pluginData.mouseOver(evt.target._pluginData._leftArea, evt);
-			});
-			leftArea.addEventListener("mouseout", (evt) => {
-				evt.target._pluginData.mouseOut(evt.target._pluginData._leftArea, evt);
-			});
-			rightArea.addEventListener("mouseover", (evt) => {
-				evt.target._pluginData.mouseOver(evt.target._pluginData._rightArea, evt);
-			});
-			rightArea.addEventListener("mouseout", (evt) => {
-				evt.target._pluginData.mouseOut(evt.target._pluginData._rightArea, evt);
+				button._pluginData.action(evt);
 			});
 		}
 		
