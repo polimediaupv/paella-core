@@ -1,6 +1,6 @@
 {
   "name": "paella-core",
-  "version": "1.0.0",
+  "version": "1.0.0-alpha.0",
   "description": "Multistream HTML video player",
   "main": "src/index.js",
   "module": "dist/paella-core.js",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/polimediaupv/paella.git"
+    "url": "git+https://github.com/polimediaupv/paella-core.git"
   },
   "keywords": [
     "html",
@@ -21,9 +21,9 @@
   "author": "Fernando Serrano Carpena <ferserc1@gmail.com>",
   "license": "SEE LICENSE IN license.txt",
   "bugs": {
-    "url": "https://github.com/polimediaupv/paella/js/issues"
+    "url": "https://github.com/polimediaupv/paella-core/issues"
   },
-  "homepage": "https://github.com/polimediaupv/paella#readme",
+  "homepage": "https://github.com/polimediaupv/paella-core#readme",
   "devDependencies": {
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
