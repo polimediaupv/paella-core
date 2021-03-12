@@ -4,16 +4,14 @@ Starting with version 7, Paella Player is divided into several packages:
 
 - `paella-core`: is the base library from which we can create our own custom player.
 - `paella-*-plugin`: a series of packages that include different plugins to extend Paella.
-- `paella-player`: is the main package of Paella Player, which integrates `paella-core` with other plugins.
+- `paella-player`: is the main package of Paella Player, which integrates `paella-core` with other plugins. Unlike the other packages, `paella-player` is not a library. If you want to create your own player, the easiest way is to start from a fork of the `paella-player` repository on Github.
 
-To create your own Paella Player configuration, you must set up an installation with the dependencies you need, which will usually be `paella-core` and some plugins. The setup is done using [Webpack](https://webpack.js.org). In this document we show you how to create your own Paella Player installation.
+In this tutorial, you are going to create your own Paella Player configuration from scratch. You will set up an installation with the dependencies you need, which will usually be `paella-core` and some plugins. The setup is done using [Webpack](https://webpack.js.org).
 
 
 ## Requirements
 
 Before starting, you need to have [Node.js](https://nodejs.org) installed. The development of Paella Player 7 is being done with version 14, but it is possible to work with earlier versions. If you had an earlier version installed previously, you can test if everything works fine before upgrading.
-
-**NOTE:** during the pre-release version of Paella Player 7, you will install the Paella packages from git, so you also need the git command available in the terminal.
 
 For Mac users, you need to have Xcode and the development tools for the command terminal installed. You can download Xcode from the Mac App Store, and then install the development tools in the terminal using this command:
 
@@ -30,21 +28,7 @@ mkdir my-paella-player
 cd my-paella-player
 npm init -y
 npm install --save-dev webpack webpack-cli copy-webpack-plugin html-webpack-plugin webpack-dev-server svg-inline-loader @babel/core @babel/preset-env babel-loader 
-```
-
-
-**NOTE:** Como Paella Player 7 está en fase pre-release, todavía no hay paquetes creados en `npm`. La instalación de los paquetes de paella se realizará manualmente modificando el fichero `package.json`, pero al publicar la primera versión alpha ya estarán disponibles los paquetes en `npm`:
-
-Add the paella player repositories to the `package.json` file and after that, run `npm install` to download them:
-
-```json
-{
-	...
-	"dependencies": {	
-		"paella-core": "polimediaupv/paella-core#main",
-		"paella-basic-plugins": "polimediaupv/paella-basic-plugins#main"
-	}
-}
+npm install --save paella-core paella-basic-plugins
 ```
 
 Add the script commands to the `package.json` file:
@@ -82,7 +66,7 @@ module.exports = {
 			{
 				test: /\.js$/,
 				exclude: /(node_modules)/,
-				use {
+				use: {
 					loader: 'babel-loader',
 					options: {
 						presets: ['@babel/preset-env']
@@ -133,11 +117,15 @@ paella.loadManifest()
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
 	<style>
+		body {
+			margin: 0px;
+		}
+
 		#player-container {
-			width: 90vw;
-			height: 90vh;
-			left: 5vh;
-			top: 5vh;
+			width: 100vw;
+			height: 100vh;
+			left: 0px;
+			top: 0px;
 			position: relative;
 		}
 	</style>
@@ -318,7 +306,7 @@ And open the following URL in a browser: [http://localhost:8080/?id=test-video](
 
 ## Add basic paella plugins
 
-El paquete `paella-basic-plugins` incluye una serie de plugins predefinidos en un mismo paquete. Hemos instalado este paquete en la fase de instalación, y ahora vamos a utilizarlo para añadir dos plugins interesantes: el selector de layout de vídeo y el botón de pantalla completa. Puedes obtener más información sobre el resto de plugins de este paquete en [su repositorio de github](https://github.com/polimediaupv/paella-basic-plugins).
+The `paella-basic-plugins` package includes a number of predefined plugins in a single package. We have installed this package in the installation phase, and now we are going to use it to add two interesting plugins: the video layout selector and the fullscreen button. You can learn more about the other plugins in this package at [their github repository](https://github.com/polimediaupv/paella-basic-plugins).
 
 ### Add the plugin context
 
@@ -330,11 +318,11 @@ Modify your `index.js` file to provide the plugin context of the `paella-basic-p
 
 ```javascript
 import { Paella } from 'paella-core';
-import getBasicPluginContext from 'paella-basic-plugins';
+import getBasicPluginsContext from 'paella-basic-plugins';
 
 const initParams = {
 	customPluginContext: [
-		getBasicPluginContext()
+		getBasicPluginsContext()
 	]
 };
 
@@ -342,39 +330,6 @@ const paella = new Paella('player-container', initParams);
 paella.loadManifest()
 	.then(() => console.log("done"))
 	.catch(e => console.error(e));
-```
-
-### Add rules to process SVG an CSS files
-
-To use third-party plugins, it is necessary to configure Webpack so that it knows how to interpret the files of these plugins. Note that these rules use some packages that we have previously installed with `npm install`. If a third-party plugin requires some other rule to process files, the plugin author must specify it in the documentation, but following plugin development recommendations, it should be sufficient to add the following configuration to the `webpack.config.js` file:
-
-```javascript
-module: {
-	rules: [
-		...
-		
-		{	// Needed if you want to add new svg icons
-			test: /\.svg$/i,
-			use: {
-				loader: 'svg-inline-loader'
-			}
-		},
-		
-		{	// You need this if you plan to add your custom CSS
-			test: /\.css$/i,
-			use: ['style-loader', 'css-loader']
-		},
-		
-		{	// Optional: vector images with embedded svg preferred
-			test: /\.(png|jpe?g|gif)$/i,
-			use: [
-				{
-					loader: 'file-loader'
-				}
-			]
-		}
-	]
-}
 ```
 
 ### Add the plugin configuration
@@ -427,6 +382,39 @@ export default class ForwardButtonPlugin extends ButtonPlugin {
 		const currentTime = await this.player.videoContainer.currentTime();
 		await this.player.videoContainer.setCurrentTime(currentTime + 30);
 	}
+}
+```
+
+### Add rules to process SVG an CSS files
+
+To use SVG and CSS files in your plugins, it is necessary to configure Webpack so that it knows how to interpret the files of these plugins. Note that these rules use some packages that we have previously installed with `npm install`. Add the following rules to `webpack.config.js` file:
+
+```javascript
+module: {
+	rules: [
+		...
+		
+		{	// Needed if you want to add new svg icons
+			test: /\.svg$/i,
+			use: {
+				loader: 'svg-inline-loader'
+			}
+		},
+		
+		{	// You need this if you plan to add your custom CSS
+			test: /\.css$/i,
+			use: ['style-loader', 'css-loader']
+		},
+		
+		{	// Optional: vector images with embedded svg preferred
+			test: /\.(png|jpe?g|gif)$/i,
+			use: [
+				{
+					loader: 'file-loader'
+				}
+			]
+		}
+	]
 }
 ```
 
