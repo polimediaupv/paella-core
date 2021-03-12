@@ -5,7 +5,7 @@ import PopUp from 'paella-core/js/core/PopUp';
 import * as utils from 'paella-core/js/core/utils';
 import * as initFunctions from 'paella-core/js/core/initFunctions';
 
-import Plugin, { importPlugins } from 'paella-core/js/core/Plugin';
+import Plugin, { importPlugins, getPluginsOfType, loadPluginsOfType } from 'paella-core/js/core/Plugin';
 import ButtonPlugin from 'paella-core/js/core/ButtonPlugin';
 import PopUpButtonPlugin from 'paella-core/js/core/PopUpButtonPlugin';
 import MenuButtonPlugin from 'paella-core/js/core/MenuButtonPlugin';
@@ -25,6 +25,8 @@ export {
     
     Plugin,
     importPlugins,
+    getPluginsOfType,
+    loadPluginsOfType,
     ButtonPlugin,
     PopUpButtonPlugin,
     MenuButtonPlugin,
