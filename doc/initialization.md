@@ -121,3 +121,5 @@ export async function defaultLoadVideoManifestFunction(videoManifestUrl) {
 }
 ```
 
+## Plugin context
+
