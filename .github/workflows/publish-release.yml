@@ -29,6 +29,7 @@ jobs:
         with:
           author_name: polimediaupv
           author_email: polim@upv.es
+          branch: main
           message: 'Distribution files updated'
           add: 'dist/paella-core.js'
 
