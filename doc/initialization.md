@@ -47,6 +47,8 @@ const initParams = {
     getManifestUrl: [default_manifest_url_function],    // get the video manifest url
     getManifestFileUrl: [default_manifest_file_url_function],   // get the full manifest file url
     loadVideoManifest: [default_load_video_manifest_function],   // get the manifest file content
+  
+  	customPluginContext: []	// an array of require.context() function call results
 } 
 ```
 
@@ -121,5 +123,21 @@ export async function defaultLoadVideoManifestFunction(videoManifestUrl) {
 }
 ```
 
+
+
 ## Plugin context
+
+Paella Player can load plugins that are located in several directories. This loading is done during initialization. Using the `customPluginContext` attribute, which is an array formed by the result of a special Webpack function: `require.context()`. 
+
+`require.context()` is used to get the compilable files from a directory. Since Webpack has to execute this function at compile time, the directory specified must be a static string. Based on this call, Paella Player will load the files located in these directories.
+
+To learn more about the use of plugins, see [this document](plugins.md).
+
+```javascript
+const initParams = {
+  customPluginContext: [
+    require.context("./plugins", true, /\.js/)
+  ]
+}
+```
 
