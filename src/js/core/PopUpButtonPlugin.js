@@ -19,13 +19,14 @@ export default class PopUpButtonPlugin extends ButtonPlugin {
 	}
 	
 	async showPopUp() {
+		const parentContainer = this.player.isFullscreen ? this.player.containerElement : document.body;
 		if (!this._popUp) {
-			this._popUp = new PopUp(this.player, document.body, this.button);
+			this._popUp = new PopUp(this.player, parentContainer, this.button);
 			const content = await this.getContent();
 			this._popUp.setContent(content);
 		}
 		else  {
-			this._popUp.show();
+			this._popUp.show(parentContainer);
 		}
 	}
 }

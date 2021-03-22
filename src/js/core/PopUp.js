@@ -110,9 +110,12 @@ export default class PopUp extends DomClass {
 		}
 	}
 	
-	show() {
+	show(parent = null) {
 		if (this._anchorElement) {
 			placePopUp(this.player, this._anchorElement, this.contentElement);
+		}
+		if (parent) {
+			this.setParent(parent);
 		}
 		super.show();
 	}

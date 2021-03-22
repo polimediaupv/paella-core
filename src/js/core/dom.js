@@ -63,4 +63,9 @@ export class DomClass extends PlayerResource {
     removeFromParent() {
         this._element.parentElement.removeChild(this._element);
     }
+    
+    setParent(parent) {
+        this.removeFromParent();
+        parent.appendChild(this._element);
+    }
 }
