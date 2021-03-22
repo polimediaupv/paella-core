@@ -14,8 +14,8 @@ export default class SteramProvider extends PlayerResource {
 		
 		this._trimming = {
 			enabled: false,
-			start: 0,
-			end: 0
+			start: 100,
+			end: 200
 		}
 	}
 	
@@ -70,23 +70,47 @@ export default class SteramProvider extends PlayerResource {
 		return this._streams;
 	}
 	
+	get isTrimEnabled() {
+		return this._trimming?.enabled &&
+			this._trimming?.end > this._trimming?.start;
+	}
+	
+	get trimStart() {
+		return this._trimming?.start;
+	}
+	
+	get trimEnd() {
+		return this._trimming?.end;
+	}
+	
 	startStreamSync() {
-		const setupSyncTimer = () => {
+		const setupSyncTimer = async () => {
 			// TODO: sync
 			// TODO: Event.ENDED
 			
-			const currentTime = this._players[0].currentTimeSync;
+			let currentTime = this._players[0].currentTimeSync;
 			
 			// Check trimming
-			if (this._trimming.enabled && this._trimming.end<=currentTime) {
-				// TODO: end video	
+			if (this.isTrimEnabled && this.trimEnd<=currentTime) {
+				await this.executeAction("pause");
+				await this.setCurrentTime(this.trimStart);
+				this.stopStreamSync();
+				currentTime = this.trimStart;
+				triggerEvent(this.player, Events.ENDED, {});
+				return;
 			}
-			else {				
-				triggerEvent(this.player, Events.TIMEUPDATE, { currentTime });
-				this._timeupdateTimer = setTimeout(() => {
-					setupSyncTimer();	
-				}, 250);
+			else if (this.isTrimEnabled && currentTime<this.trimStart) {
+				await this.setCurrentTime(this.trimStart);
+				currentTime = this.trimStart;
 			}
+			else if (this.isTrimEnabled) {
+				currentTime = currentTime - this.trimStart;
+			}
+				
+			triggerEvent(this.player, Events.TIMEUPDATE, { currentTime });
+			this._timeupdateTimer = setTimeout(() => {
+				setupSyncTimer();	
+			}, 250);
 		}
 		setupSyncTimer();
 	}
@@ -144,13 +168,31 @@ export default class SteramProvider extends PlayerResource {
 
 	async setCurrentTime(t) {
 		const prevTime = (await this.executeAction("currentTime"))[0];
-		const result = (await this.executeAction("setCurrentTime", [t]))[0];
 		const newTime = (await this.executeAction("currentTime"))[0];
-		return { result, prevTime, newTime };
+		if (this.isTrimEnabled) {
+			t = t + this.trimStart;
+			t = t >= this.trimEnd ? this.trimEnd : t;
+			const result = (await this.executeAction("setCurrentTime", [t]))[0];
+			return {
+				result,
+				prevTime: prevTime + this.trimStart,
+				newTime: newTime + this.trimStart
+			}
+		}
+		else {
+			const result = (await this.executeAction("setCurrentTime", [t]))[0];
+			return { result, prevTime, newTime };
+		}
 	}
 	
 	async currentTime() {
-		return (await this.executeAction("currentTime"))[0];
+		const currentTime = (await this.executeAction("currentTime"))[0];
+		if (this.isTrimEnabled) {
+			return currentTime - this.trimStart;
+		}
+		else {
+			return currentTime;
+		}
 	}
 	
 	async volume() {
@@ -163,7 +205,12 @@ export default class SteramProvider extends PlayerResource {
 	}
 	
 	async duration() {
-		return (await this.executeAction("duration"))[0];
+		if (this.isTrimEnabled) {
+			return this.trimEnd - this.trimStart;	
+		}
+		else {
+			return (await this.executeAction("duration"))[0];	
+		}
 	}
 
 }
