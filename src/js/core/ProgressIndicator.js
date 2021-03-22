@@ -138,6 +138,8 @@ export default class ProgressIndicator extends DomClass {
 			const newTime = await positionToTime(evt.offsetX);
 			await updateProgressIndicator(newTime);
 			await player.videoContainer.setCurrentTime(newTime);
+			const formattedTime = secondsToTime(newTime);
+			this.progressTimer.innerHTML = formattedTime;
 			drag = false;
 		});
 		

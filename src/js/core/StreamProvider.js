@@ -83,6 +83,19 @@ export default class SteramProvider extends PlayerResource {
 		return this._trimming?.end;
 	}
 	
+	async setTrimming({ enabled, start, end }) {
+		if (start>=end) {
+			throw Error(`Error setting trimming: start time (${ start }) must be lower than end time ${ end }`);
+		}
+		this._trimming = {
+			enabled,
+			start,
+			end
+		};
+		const currentTime = await this.currentTime();
+		triggerEvent(this.player, Events.TIMEUPDATE, { currentTime: currentTime });
+	}
+	
 	startStreamSync() {
 		const setupSyncTimer = async () => {
 			// TODO: sync
@@ -190,6 +203,9 @@ export default class SteramProvider extends PlayerResource {
 			const result = (await this.executeAction("setCurrentTime", [t]))[0];
 			return { result, prevTime, newTime };
 		}
+		
+		const currentTime = await this.currentTime();
+		triggerEvent(this.player, Events.TIMEUPDATE, { currentTime: currentTime });
 	}
 	
 	async currentTime() {
