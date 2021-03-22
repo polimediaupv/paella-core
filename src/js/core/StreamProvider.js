@@ -11,6 +11,12 @@ export default class SteramProvider extends PlayerResource {
 		this._players = [];
 		
 		this._streamSyncTimer = null;
+		
+		this._trimming = {
+			enabled: false,
+			start: 0,
+			end: 0
+		}
 	}
 	
 	async load(streamData) {
@@ -70,10 +76,17 @@ export default class SteramProvider extends PlayerResource {
 			// TODO: Event.ENDED
 			
 			const currentTime = this._players[0].currentTimeSync;
-			triggerEvent(this.player, Events.TIMEUPDATE, { currentTime });
-			this._timeupdateTimer = setTimeout(() => {
-				setupSyncTimer();	
-			}, 250);
+			
+			// Check trimming
+			if (this._trimming.enabled && this._trimming.end<=currentTime) {
+				// TODO: end video	
+			}
+			else {				
+				triggerEvent(this.player, Events.TIMEUPDATE, { currentTime });
+				this._timeupdateTimer = setTimeout(() => {
+					setupSyncTimer();	
+				}, 250);
+			}
 		}
 		setupSyncTimer();
 	}
@@ -105,6 +118,52 @@ export default class SteramProvider extends PlayerResource {
 			
 			Promise.all(p).then(() => resolve(res));
 		})
+	}
+	
+	async play() {
+		this.startStreamSync();
+		const result = await this.executeAction("play");
+		return result;
+	}
+
+	async pause() {
+		this.stopStreamSync();
+		const result = await this.executeAction("pause");
+		return result;
+	}
+	
+	async stop() {
+		this.stopStreamSync()
+		await this.executeAction("pause");
+		await this.executeAction("setCurrentTime", 0);
+	}
+	
+	async paused() {
+		return (await this.executeAction("paused"))[0];
+	}
+
+	async setCurrentTime(t) {
+		const prevTime = (await this.executeAction("currentTime"))[0];
+		const result = (await this.executeAction("setCurrentTime", [t]))[0];
+		const newTime = (await this.executeAction("currentTime"))[0];
+		return { result, prevTime, newTime };
+	}
+	
+	async currentTime() {
+		return (await this.executeAction("currentTime"))[0];
+	}
+	
+	async volume() {
+		return (await this.executeAction("volume"))[0];
+	}
+	
+	async setVolume(v) {
+		const result = (await this.executeAction("setVolume",[v]))[0];
+		return result;
+	}
+	
+	async duration() {
+		return (await this.executeAction("duration"))[0];
 	}
 
 }

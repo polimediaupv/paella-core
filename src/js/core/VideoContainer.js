@@ -225,54 +225,48 @@ export default class VideoContainer extends DomClass {
     }
 
     async play() {
-        this.streamProvider.startStreamSync();
-        const result = await this.streamProvider.executeAction("play");
+        const result = await this.streamProvider.play();
         triggerEvent(this.player, Events.PLAY);
         return result;
     }
 
     async pause() {
-        this.streamProvider.stopStreamSync();
-        const result = await this.streamProvider.executeAction("pause");
+        const result = await this.streamProvider.pause();
         triggerEvent(this.player, Events.PAUSE);
         return result;
     }
     
     async stop() {
-        this.streamProvider.stopStreamSync()
-        await this.streamProvider.executeAction("pause");
-        await this.streamProvider.executeAction("setCurrentTime", 0);
+        this.streamProvider.stop();
         triggerEvent(this.player, Events.STOP);
     }
     
     async paused() {
-        return (await this.streamProvider.executeAction("paused"))[0];
+        return this.streamProvider.paused();
     }
 
     async setCurrentTime(t) {
-        const prevTime = (await this.streamProvider.executeAction("currentTime"))[0];
-        const result = (await this.streamProvider.executeAction("setCurrentTime", [t]))[0];
-        const newTime = (await this.streamProvider.executeAction("currentTime"))[0];
-        triggerEvent(this.player, Events.SEEK, { prevTime, newTime });
-        return result;
+        const result = await this.streamProvider.setCurrentTime(t);
+        triggerEvent(this.player, Events.SEEK, { prevTime: result.prevTime, newTime: result.newTime });
+        return result.result;
     }
     
     async currentTime() {
-        return (await this.streamProvider.executeAction("currentTime"))[0];
+        return this.streamProvider.currentTime();
     }
     
     async volume() {
-        return (await this.streamProvider.executeAction("volume"))[0];
+        return this.streamProvider.volume();
     }
     
     async setVolume(v) {
-        const result = (await this.streamProvider.executeAction("setVolume",[v]))[0];
+        const result = await this.streamProvider.setVolume(v);
         triggerEvent(this.player, Events.VOLUME_CHANGED, { volume: v });
         return result;
     }
     
     async duration() {
-        return (await this.streamProvider.executeAction("duration"))[0];
+        return await this.streamProvider.duration();
     }
 }
 
