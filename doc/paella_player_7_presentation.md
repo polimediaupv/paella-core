@@ -1,20 +1,20 @@
 # Paella Player 7
 
-## Briefly
+## TL;DR
 
 Next fall 2021 we will release version 7 of Paella Player, which will include the most important changes since the first version was released in 2013.
 
-The video manifest format will remain unchanged, but there are some features that have been consistently problematic and will no longer be supported.
+Paella 7 will be a complete rewrite of Paella, aiming several issues
 
-- Multiple quality videos in progressive download format (mp4, ogv, webm, etc. files). In the manifest file (by default, data.json), only the highest resolution stream will be loaded.
-- Disable non-visible streams, although it is possible that this feature will return in the future.
-- Multiple audio tracks, using the "audioTag" attribute (this feature is marked as deprecated since version 6.4). For multiple audio tracks, another API is being prepared, which is expected to work only with video formats that can natively support it.
+- Allow easier integration in other platforms by leaving out the singleton design pattern.
+- Easier stlyling and accessibility support.
+- Reduce the number of dependences.
+- Allow easier long-term maintenance of the project.
+- Solve the technical debt of 10 years of development.
 
-However, the biggest change has to do with the player implementation, which we have designed from scratch for the first time. For this reason, any code developed for Paella Player 6.x and earlier versions is not going to be compatible with Paella Player 7. 
+The video manifest format will remain unchanged, but there are some features that have been consistently problematic and will no longer be supported. However, the biggest change has to do with the player implementation, which we have designed from scratch for the first time. For this reason, any code developed for Paella Player 6.x and earlier versions is not going to be compatible with Paella Player 7. 
 
 We will maintain support for version 6.5 for bug fixes, although no new features will be included.
-
-
 
 ## Motivation
 
@@ -25,9 +25,6 @@ Over the years we have tried to incorporate these improvements gradually, while 
 On the other hand, although internally Paella Player is strongly oriented to plugins, the organization of the project as a large monolithic application leads more and more to the core developers of the project having to perform maintenance tasks of code that we have not created or that we are not using within the Universidad Politécnica de Valencia.
 
 For these reasons we have approached Paella Player 7 as a new project, which we have started from scratch.
-
-
-
 
 
 ## Improvements in Paella Player 7
@@ -76,11 +73,14 @@ There are some browser APIs that can be used to display advertising in an invasi
 
 For example, changing video quality in progressive download sources (mp4, ogv, webm...) was done by downloading one video and loading another. Generally, this quality change is triggered by a user event, but because a number of actions have to be performed in order, and some of them are performed asynchronously (promises, callbacks, etc.), the process is interrupted in the middle, causing many problems in some browsers.
 
-All features that have been lost since version 6 have been removed after careful study of the options, and the conclusion that it is not possible to provide a sufficiently stable implementation.
+All features that have been lost since version 6 have been removed after careful study of the options, and the conclusion that it is not possible to provide a sufficiently stable implementation. Note that for all of them (but for disable non-visible streams) there are solutions that allow those funcionalities in a better way.
 
+These features will be deprecated in paella 7
+- Multiple quality videos in progressive download format (mp4, ogv, webm, etc. files). Only the highest resolution stream in the manifest file (by default, data.json) will be loaded.
+- Disable non-visible streams, although it is possible that this feature will return in the future.
+- Multiple audio tracks using the "audioTag" attribute (this feature is marked as deprecated since version 6.4). For multiple audio tracks, another API is being prepared, which is expected to work only with video formats that can natively support it.
 
-
-## Missing features to be included in the future
+## Work-in-progress features 
 
 The current version of Paella Player 7 is a pre-release that we are going to publish so that the community can test and make suggestions and improvements. Some features of Paella Player 6 are not included due to missing APIs, but they will be available when the first beta version is released:
 
