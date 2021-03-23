@@ -490,3 +490,16 @@ You can read more about the Paella Player plugin API [in this document](plugins.
 
 ![img/test-plugin.jpg](img/test-plugin.jpg)
 
+
+
+## Debug
+
+Paella Player maintains an array of player instances that have been created on the current web site. It is not a good practice to rely on this array for production development, but it can be used for debugging or testing.
+
+From the web develpment tools console, you can access to the paella player instances with the `__paella_instances__` array:
+
+```javascript
+__paella_instances__[0].play();
+setTimeout(async () => __paella_instances__[0].pause(), 5000);
+```
+
