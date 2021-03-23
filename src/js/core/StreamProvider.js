@@ -13,7 +13,7 @@ export default class SteramProvider extends PlayerResource {
 		this._streamSyncTimer = null;
 		
 		this._trimming = {
-			enabled: true,
+			enabled: false,
 			start: 100,
 			end: 200
 		}
