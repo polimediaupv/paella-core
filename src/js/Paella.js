@@ -63,7 +63,14 @@ export default class Paella {
         });
     }
 
-    
+    get Events() {
+        return Events;
+    }
+
+    bindEvent(eventName, fn) {
+        bindEvent(this, eventName, data => fn(data));
+    }
+
     get hideUiTime() {
         return this._hideUiTime;
     }

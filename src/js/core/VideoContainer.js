@@ -268,5 +268,31 @@ export default class VideoContainer extends DomClass {
     async duration() {
         return await this.streamProvider.duration();
     }
+
+    get isTrimEnabled() {
+        return this.streamProvider.isTrimEnabled;
+    }
+
+    get trimStart() {
+        return this.streamProvider.trimStart;
+    }
+
+    get trimEnd() {
+        return this.streamProvider.trimEnd;
+    }
+
+    async setTrimming({ enabled, start, end }) {
+        const result = await this.streamProvider.setTrimming({
+            enabled,
+            start,
+            end
+        });
+        triggerEvent(this.player, Events.TRIMMING_CHANGED, { 
+            enabled, 
+            start, 
+            end 
+        });
+        return result;
+    }
 }
 
