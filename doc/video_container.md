@@ -189,14 +189,47 @@ export default class LayoutSelectorPlugin extends MenuButtonPlugin {
 
 ## Playback API
 
-TODO: complete this
+`async videoContainer.play()`: Starts video playback. Triggers the  `Events.PLAY` event.
 
-TODO: Events
+`async videoContainer.pause()`: Pause video playback. Trigger the `Events.PAUSE` event.
+
+`async videoContainer.stop()`: Stops the video and resets the initial time to zero. Triggers the `Events.STOP` event.
+
+`async videoContainer.paused()`: Returns true if the video is paused.
+
+`async videoContainer.setCurrentTime(t)`: Seek to the specified time, in seconds. Triggers the `Events.SEEK` event.
+
+`async videoContainer.currentTime()`: Returns the current playback time, in seconds
+
+`async videoContainer.volume()`: Returns the volume, as a number between 0 and 1. Triggers the `Events.VOLUME_CHANGED` event.
+
+`async videoContainer.setVolume(v)`: Sets the volume to the specified intensity, from 0 to 1. This API only works on desktop browsers.
+
+`async videoContainer.duration`:Returns the video duration.0090
 
 
 
 ## Soft trimming API
 
-TODO: complete this
+Soft trimming allows you to modify the start and end time of the video, in order to play only an intermediate part. It is useful to trim a central part of a video, without having to process it. For example, it allows to prepare a video to display only the relevant part of an event recorded without production, eliminating the entrance and exit of the audience.
+
+The soft trimming APIs only allow to set the initial and final instant of the video, i.e., we cannot eliminate intermediate parts. There is also no mechanism to store or retrieve the trimming. However, we can write a plugin that loads this data from a server, and activate the trimming using these APIs.
+
+Soft trimming can be enabled, disabled and modified at runtime, and the changes will be visible immediately.
+
+Sets the trimming values for the video. If we set `enabled=true`, but the start time is greater than or equal to the end time, trimming will remain disabled.
+
+If soft trimming is enabled, the timeline interaction functions will use moments relative to the trimming we have configured. For example, if the video lasts 900 seconds and we activate a trimming between instant 100 and instant 160, the video will last 60 seconds. If we execute `setCurrentTime(30)`, we will be placing the current time instant in the second 130, that is `trimming.start + 30`.
+
+To get the actual current time values while keeping trimming enabled, we can use the APIs of [stream provider](stream_provider.md).
+
+`videoContainer.isTrimEnabled`: returns true if the soft trimming is enabled.
+
+`videoContainer.trimStart`: returns the start instant of the trimming, in seconds
+
+`videoContainer.trimEnd`: returns the end instant of the trimming, in seconds
+
+`async videoContainer.setTrimming({ enabled, start, end })`: sets the trimming values for the video. If we set `enabled=true`, but the start time is greater than or equal to the end time, trimming will remain disabled.
 
 TRIMMING_CHANGED event
+
