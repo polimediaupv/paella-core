@@ -14,10 +14,10 @@ export default class PlayButtonPlugin extends ButtonPlugin {
 			this.icon = playIcon;
 		});
 		bindEvent(this.player, Events.ENDED, () => {
-			this.icon.playIcon;
+			this.icon = playIcon;
 		});
 		bindEvent(this.player, Events.STOP, () => {
-			this.icon.playIcon;
+			this.icon = playIcon;
 		});
 	}
 	
