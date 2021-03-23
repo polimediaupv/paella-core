@@ -191,8 +191,12 @@ export default class LayoutSelectorPlugin extends MenuButtonPlugin {
 
 TODO: complete this
 
+TODO: Events
+
 
 
 ## Soft trimming API
 
 TODO: complete this
+
+TRIMMING_CHANGED event
