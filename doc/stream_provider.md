@@ -38,6 +38,36 @@ At load time, StreamProvider uses the information from the video manifest regard
 
 `get streams()`: Returns an array with the grouped information of streams, video plugins and players
 
+`get mainAudioPlayer()`: Returns the main audio player. The main audio player is obtained from the Paella Player configuration, and from the information of the video streams.
+
+- In the video manifeset, with the `role` property of each stream, the main audio will be the one corresponding to the first stream whose role is `mainAudio`:
+
+```json
+{	// data.json (video manifest)
+  ...
+  "streams": [
+    {
+      "sources": [...],
+      "content": "presenter",
+      "role": "mainAudio"
+    }
+    ...
+  ]
+}
+```
+
+
+
+- If none of the streams contains the role, then it will be the audio whose `content` is the one defined in the `defaultAudioStream` property in the player configuration:
+
+```json
+{	// config.json
+  ...
+  "defaultAudioStream": "presenter"
+  ...
+}
+```
+
 
 
 ### Playback control functions
