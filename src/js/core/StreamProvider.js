@@ -218,6 +218,11 @@ export default class SteramProvider extends PlayerResource {
 		}
 	}
 	
+	async currentTimeIgnoringTrimming() {
+		const currentTime = (await this.executeAction("currentTime"))[0];
+		return currentTime;
+	}
+	
 	async volume() {
 		return (await this.executeAction("volume"))[0];
 	}
@@ -235,5 +240,8 @@ export default class SteramProvider extends PlayerResource {
 			return (await this.executeAction("duration"))[0];	
 		}
 	}
-
+	
+	async durationIgnoringTrimming() {
+		return (await this.executeAction("duration"))[0];
+	}
 }
