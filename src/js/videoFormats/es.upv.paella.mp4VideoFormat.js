@@ -101,6 +101,10 @@ export class Mp4Video extends Video {
         this._currentQuality = this._sources.length - 1;
         this._currentSource = this._sources[this._currentQuality];
 
+        if (!this.isMainAudioPlayer) {
+            this.video.muted = true;
+        }
+        
         this.video.src = resolveResourcePath(this.player, this._currentSource.src);
         this.video.addEventListener("ended", () => {
             if (typeof(this._videoEndedCallback) == "function") {

@@ -42,6 +42,7 @@ export class Video extends DomClass {
         };
         super(player, {tag, attributes, parent});
 
+        this._streamProvider = null;
         this._streamData = null;
         this._ready = false;
     }
@@ -54,11 +55,15 @@ export class Video extends DomClass {
         return this._ready;
     }
 
-    async load(streamData) {
+    async load(streamData, streamProvider) {
+        this._streamProvider = streamProvider;
         this._streamData = streamData;
         return this.loadStreamData(streamData);
     }
 
+    get isMainAudioPlayer() {
+        return this._streamProvider.mainAudioPlayer === this;
+    }
     
     // The player must call _videoEndedCallback when the video is ended
     onVideoEnded(fn) {

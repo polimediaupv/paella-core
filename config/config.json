@@ -4,6 +4,8 @@
 
     "defaultLayout": "presenter-presentation",
     
+    "defaultAudioStream": "presenter",
+    
     "plugins": {
         "es.upv.paella.testPlugin": {
             "enabled": true,

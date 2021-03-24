@@ -10,6 +10,8 @@ export default class SteramProvider extends PlayerResource {
 		this._streams = null;
 		this._players = [];
 		
+		this._mainAudioPlayer = null;
+		
 		this._streamSyncTimer = null;
 		
 		this._trimming = {
@@ -22,6 +24,15 @@ export default class SteramProvider extends PlayerResource {
 	async load(streamData) {
 		this._streamData = streamData;
 		this._streams = {};
+		
+		const mainAudioContent = this.player.config.defaultAudioStream || "presenter";
+		streamData.some(s => {
+			if (s.role === "mainAudio") {
+				mainAudioContent = s.content;
+				return true;
+			}
+		});
+	
 		
 		console.debug("Finding compatible video plugins");
 		
@@ -42,7 +53,11 @@ export default class SteramProvider extends PlayerResource {
 		for (const content in this._streams) {
 			const s = this._streams[content];
 			s.player = await s.videoPlugin.getVideoInstance(this._videoContainer);
-			await s.player.load(s.stream);			
+			if (mainAudioContent===content) {
+				this._mainAudioPlayer = s.player;
+			}
+			
+			await s.player.load(s.stream, this);			
 			s.player.onVideoEnded(() => {
 				if (videoEndedEventTimer === null) {
 					triggerEvent(this.player, Events.ENDED);
@@ -68,6 +83,10 @@ export default class SteramProvider extends PlayerResource {
 	// stream data, the video plugin and the player, for each content identifier.
 	get streams() {
 		return this._streams;
+	}
+	
+	get mainAudioPlayer() {
+		return this._mainAudioPlayer;
 	}
 	
 	get isTrimEnabled() {
@@ -223,14 +242,22 @@ export default class SteramProvider extends PlayerResource {
 		return currentTime;
 	}
 	
-	// TODO: Set and get the volume of the main player only
 	async volume() {
-		return (await this.executeAction("volume"))[0];
+		if (this.mainAudioPlayer) {
+			return await this.mainAudioPlayer.volume();
+		}
+		else {		
+			return (await this.executeAction("volume"))[0];
+		}
 	}
 	
 	async setVolume(v) {
-		const result = (await this.executeAction("setVolume",[v]))[0];
-		return result;
+		if (this.mainAudioPlayer) {
+			return await this.mainAudioPlayer.setVolume(v);
+		}
+		else {
+			return (await this.executeAction("setVolume",[v]))[0];
+		}
 	}
 	
 	async duration() {

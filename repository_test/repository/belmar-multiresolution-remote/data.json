@@ -105,7 +105,8 @@
 				]
 			},
 			"preview": "https://repository.paellaplayer.upv.es/belmar-multiresolution/preview/presentation_cut.jpg",
-			"content":"presentation"
+			"content":"presentation",
+			"role": "mainAudio"
 		},
 		{
 			"sources": {
@@ -137,8 +138,7 @@
 				]
 			},
 			"preview": "https://repository.paellaplayer.upv.es/belmar-multiresolution/preview/presenter_cut.jpg",
-			"content":"presenter",
-			"audioTag":"es"
+			"content":"presenter"
 		}
 	],
 	"frameList": [
