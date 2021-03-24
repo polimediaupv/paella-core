@@ -223,6 +223,7 @@ export default class SteramProvider extends PlayerResource {
 		return currentTime;
 	}
 	
+	// TODO: Set and get the volume of the main player only
 	async volume() {
 		return (await this.executeAction("volume"))[0];
 	}

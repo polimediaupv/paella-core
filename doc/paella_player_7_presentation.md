@@ -1,7 +1,5 @@
 # Paella Player 7
 
-## TL;DR
-
 Next fall 2021 we will release version 7 of Paella Player, which will include the most important changes since the first version was released in 2013.
 
 Paella 7 will be a complete rewrite of Paella, aiming several issues
