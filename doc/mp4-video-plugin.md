@@ -30,7 +30,7 @@ As of Paella Player 7, this video format does not support multi audio and multi 
 
 
 
-El identificador de formato es `mp4`. En versiones anteriores, el array de fuentes podía contener más de un elemento, que representaban los vídeos disponibles para las difertentes calidades. Actualmente solo está soportada una calidad de vídeo, por lo que si el array contiene más de un elemento, se cargará el de mayor resolución
+The format identifier is `mp4`. In previous versions, the source array could contain more than one element, representing the videos available for the different qualities. Currently only one video quality is supported, so if the array contains more than one element, the one with the highest resolution will be loaded.
 
 - **src:** Absolute URL or relative path to the video manifest file, which indicates the location of the mp4 file corresponding to the source.
 - **mimetype:** the mimetype format. Currently it can only contain `video/mp4`, but it is mandatory to add it in case more formats are supported in the future.

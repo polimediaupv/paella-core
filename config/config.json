@@ -32,7 +32,7 @@
                 { "id": "presenter-presenter-2", "content": ["presenter","presenter-2"], "icon": "present-mode-3.svg", "title": "Presenter and presentation" }
             ]
         },
-        "es.upv.paella.hlsVideoFormat": {
+        "es.upv.paella.imageVideoFormat": {
             "enabled": true,
             "order": 0
         },

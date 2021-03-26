@@ -130,7 +130,7 @@ export default class VideoContainer extends DomClass {
         // Hide all video players
         for (const key in this.streamProvider.streams) {
             const videoData = this.streamProvider.streams[key];
-            videoData.player.video.style.display = "none";
+            videoData.player.element.style.display = "none";
         }
 
         // Conversion factors for video rect
@@ -166,13 +166,13 @@ export default class VideoContainer extends DomClass {
                 }
             });
 
-            player.video.style.display = "block";
-            player.video.style.position = "absolute";
-            player.video.style.left = `${ resultRect.left * wFactor }%`;
-            player.video.style.top = `${ resultRect.top * hFactor }%`;
-            player.video.style.width = `${ resultRect.width * wFactor }%`;
-            player.video.style.height = `${ resultRect.height * hFactor }%`;
-            player.video.style.zIndex = video.layer;
+            player.element.style.display = "block";
+            player.element.style.position = "absolute";
+            player.element.style.left = `${ resultRect.left * wFactor }%`;
+            player.element.style.top = `${ resultRect.top * hFactor }%`;
+            player.element.style.width = `${ resultRect.width * wFactor }%`;
+            player.element.style.height = `${ resultRect.height * hFactor }%`;
+            player.element.style.zIndex = video.layer;
             
         });
         

@@ -25,7 +25,7 @@ export default class SteramProvider extends PlayerResource {
 		this._streamData = streamData;
 		this._streams = {};
 		
-		const mainAudioContent = this.player.config.defaultAudioStream || "presenter";
+		let mainAudioContent = this.player.config.defaultAudioStream || "presenter";
 		streamData.some(s => {
 			if (s.role === "mainAudio") {
 				mainAudioContent = s.content;
