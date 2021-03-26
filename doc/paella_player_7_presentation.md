@@ -87,4 +87,6 @@ The current version of Paella Player 7 is a pre-release that we are going to pub
 - 360° video
 - Chroma key
 - Read and write APIs (DataDelegate)
+- Playback Rate
+- Captions: we are working on the new captioning system to integrate with native video captions, so that they can be displayed in single stream videos when sending the image to remote devices (airplay, miracast, chromecast, etc.).
 
