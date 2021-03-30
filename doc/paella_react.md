@@ -6,6 +6,10 @@ Before we start it is important that you know the basics of using Paella Player.
 
 To complete this tutorial you only need to have Node v12 or higher and your favorite code editor installed.
 
+You can get the source code of this tutorial from [the github repository](https://github.com/polimediaupv/paella-react-tutorial).
+
+
+
 ## Create the app
 
 We are going to start from scratch, creating an application using create-react-app. After that, install `paella-core` and all the plugins you want to use:
@@ -222,4 +226,6 @@ $ npm start
 To load the video, you need to specify the manifest identifier. The data.json file has been created inside the `test` folder, so the manifest identifier will be `test`. Enter the following URL in the browser to view the app:
 
 [http://localhost:3000/?id=test](http://localhost:3000/?id=test)
+
+
 
