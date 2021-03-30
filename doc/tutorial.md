@@ -503,3 +503,54 @@ __paella_instances__[0].play();
 setTimeout(async () => __paella_instances__[0].pause(), 5000);
 ```
 
+
+
+## Override styles
+
+To overwrite the predefined styles of paella player, it is necessary to define a separate style sheet file and import it directly into the HTML file.
+
+**src/custom_style.css:**
+
+```css
+.video-container {
+  background-color: #686868;
+}
+```
+
+
+
+We can use Webpack to copy the style sheet file to the output directory using the `CopyWebpackPlugin` plugin, which we had previously configured:
+
+```javascript
+  plugis: [
+    ...
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: './config', to: 'config' },
+        { from: './manifest', to: 'manifest' },
+          
+        // Copy the custom style sheet
+        { from: './src/custom_style.css' to: '' }	
+      ]
+    })
+  ]
+```
+
+
+
+Webpack will inject the CSS code from paella-core and all plugin libraries at the end of the header. If we want our stylesheet to have more priority, we have to import it at the end of the file. A good place to do this is after the body of the page:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+...
+<body>
+	<div id="player-container"></div>
+</body>
+<!-- Override paella player styles -->
+<link rel="stylesheet" href="custom_style.css">
+</html>
+```
+
+
+
