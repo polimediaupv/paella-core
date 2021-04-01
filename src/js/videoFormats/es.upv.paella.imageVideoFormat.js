@@ -1,5 +1,6 @@
 import VideoPlugin, { Video } from 'paella-core/js/core/VideoPlugin';
 import { resolveResourcePath } from 'paella-core/js/core/utils';
+import VideoQualityItem from 'paella-core/js/core/VideoQualityItem';
 
 function updateFrame(t) {
 	let frame = this._currentSource.frames[0];
@@ -93,7 +94,7 @@ export class ImageVideo extends Video {
 	}
 	
 	async getQualities() {
-		// TODO: Implement this
+		return this._qualities;
 	}
 	
 	async setQuality(/* q */) {
@@ -110,13 +111,21 @@ export class ImageVideo extends Video {
 	
 	async loadStreamData(streamData) {
 		this._sources = streamData.sources.image;
-		
+		this._qualities = this._sources.map(src => {
+			return new VideoQualityItem({
+				src: src.frames[0].src,
+				label: `${src.res.w}x${src.res.h}`,
+				shortLabel: `${src.res.h}p`,
+				width: src.res.w,
+				height: src.res.h
+			});
+		});
+
 		// Select the higher quality frame, by default
-		this._currentQuality = this._sources.length - 1;
-		this._sources.forEach((src,i) => {
-			const { w, h } = this._sources[this._currentQuality].res;
-			const currentQuality = w * h;
-			if ((src.res.w * src.res.h) > currentQuality) {
+		this._currentQuality = this._qualities.length - 1;
+		this._qualities.forEach((q,i) => {
+			const currentQuality = this._qualities[this._currentQuality];
+			if (currentQuality.compare(q)>0) {
 				this._currentQuality = i;
 			}
 		});
