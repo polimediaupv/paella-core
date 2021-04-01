@@ -80,3 +80,44 @@ async mouseOver(target) {
 `hide()`: hide the button.
 
 `show()`: shows the button.
+
+
+
+## Button icon
+
+To specify the icon it is necessary to use icons in vector SVG format. This is a prerequisite, since CSS styles are used to specify the color of the icons. To do the loading, using the webpack configuration defined in the [paella player tutorial](tutorial.md), the icon will be automatically embedded in the code.
+
+The button can be set at any time, using the `set icon()` property. For example, we can use the `async load()` method, but we can also change it at another time:
+
+```javascript
+...
+import myPluginIcon1 from 'icons/my-plugin-icon-1.svg';
+import myPluginIcon2 from 'icons/my-plugin-icon-2.svg';
+
+export default class MyButtonPlugin extends ButtonPlugin {
+  ...
+  async load() {
+    this.icon = myPluginIcon1;
+  }
+
+	async action() {
+    if (this.icon === myPluginIcon1) {
+      this.icon = myPluginIcon2;
+    }
+    else {
+      this.icon = myPluginIcon1;
+    }
+  }
+}
+```
+
+To load the SVG icons, besides using Webpack, it is possible to use a Paella Player utility that loads the icon and makes it ready to be added as a DOM element:
+
+```javascript
+import { utils } from 'paella-core';
+
+...
+
+const icon = await utils.loadSvgIcon(iconPath);
+```
+
