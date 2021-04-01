@@ -1,5 +1,9 @@
 ## Embedding Paella Player in a React application
 
+You can download the source code of this tutorial from [https://github.com/polimediaupv/paella-svelte-tutorial](https://github.com/polimediaupv/paella-svelte-tutorial).
+
+
+
 ## Create the project
 
 Create a Svelte template and install `paella-core`
