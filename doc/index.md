@@ -8,7 +8,7 @@
 
 ## Getting started
 
-[Tutorial](tutorial.md)
+[Tutorial. Create your own paella player](tutorial.md)
 
 [Video manifest (data.json)](video_manifest.md): the video manifest is a set of resources that compose the video, specified in JSON format.
 
