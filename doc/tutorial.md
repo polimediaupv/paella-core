@@ -1,13 +1,15 @@
-# Start using Paella development version
+# Start using Paella for developers
 
 Starting with version 7, Paella Player is divided into several packages:
 
 - `paella-core`: is the base library from which we can create our own custom player.
 - `paella-*-plugin`: a series of packages that include different plugins to extend Paella.
-- `paella-player`: is the main package of Paella Player, which integrates `paella-core` with other plugins. Unlike the other packages, `paella-player` is not a library. If you want to create your own player, the easiest way is to start from a fork of the `paella-player` repository on Github.
+- `paella-player`: is the main package of Paella Player, which integrates `paella-core` with other plugins. Unlike the other packages, `paella-player` is not a library. 
 
 In this tutorial, you are going to create your own Paella Player configuration from scratch. You will set up an installation with the dependencies you need, which will usually be `paella-core` and some plugins. The setup is done using [Webpack](https://webpack.js.org).
 
+If you want to create your own player, the easiest way is to start from a fork of the `paella-player` repository on Github.
+ 
 
 ## Requirements
 
