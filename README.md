@@ -1,4 +1,4 @@
-Paella Player
+Paella Player (version 7 and beyond) core libraries
 =============
 
 The Paella (pronounced 'paeja') Player is an HTML 5 multistream player, developed by the [Universitat Politècnica de València](https://www.upv.es/).
