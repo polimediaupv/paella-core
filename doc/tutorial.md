@@ -8,7 +8,7 @@ Starting with version 7, Paella Player is divided into several packages:
 
 In this tutorial, you are going to create your own Paella Player configuration from scratch. You will set up an installation with the dependencies you need, which will usually be `paella-core` and some plugins. The setup is done using [Webpack](https://webpack.js.org).
 
-If you want to create your own player, the easiest way is to start from a fork of the `paella-player` repository on Github.
+If you want to create your own player, the easiest way is to start from a fork of the [`paella-player`](https://github.com/polimediaupv/paella-player) repository on Github.
  
 
 ## Requirements
