@@ -1,4 +1,4 @@
-# Start using Paella
+# Start using Paella development version
 
 Starting with version 7, Paella Player is divided into several packages:
 
