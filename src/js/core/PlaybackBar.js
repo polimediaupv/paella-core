@@ -62,16 +62,19 @@ export default class PlaybackBar extends DomClass {
 		
 		console.debug("Loading button plugins");
 		loadPluginsOfType(this.player,"button",(plugin) => {
-			if (plugin.container !== "playbackBar") {
-				return;
-			}
-
 			console.debug(` Button plugin: ${ plugin.name }`);
 			if (plugin.side === "left") {
 				addButtonPlugin(plugin, leftButtons, this.buttonPluginsLeft);
 			}
 			else if (plugin.side === "right") {
 				addButtonPlugin(plugin, rightButtons, this.buttonPluginsRight);
+			}
+		}, async plugin => {
+			if (plugin.container === "playbackBar") {
+				return await plugin.isEnabled();
+			}
+			else {
+				return false;
 			}
 		});
 		

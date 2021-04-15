@@ -42,9 +42,15 @@ export function getPluginsOfType(player,type) {
     return player.__pluginData__?.pluginInstances[type];
 }
 
-export async function loadPluginsOfType(player,type,onLoad=null) {
+export async function loadPluginsOfType(player,type,onLoad=null,onPreload=null) {
+    if (typeof(onPreload) !== "function") {
+        onPreload = async function(plugin) {
+            return await plugin.isEnabled();
+        }
+    }
+
     player.__pluginData__.pluginInstances[type]?.forEach(async (plugin) => {
-        const enabled = await plugin.isEnabled();
+        const enabled = await onPreload(plugin);
         if (enabled) {
             if (typeof(onLoad) === "function") {
                 onLoad(plugin);

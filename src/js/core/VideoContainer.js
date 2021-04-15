@@ -9,9 +9,11 @@ import { getVideoPlugin } from 'paella-core/js/core/VideoPlugin';
 import StreamProvider from 'paella-core/js/core/StreamProvider';
 import { resolveResourcePath } from 'paella-core/js/core/utils';
 import Events, { triggerEvent } from 'paella-core/js/core/Events';
+import { getButtonPlugins } from 'paella-core/js/core/ButtonPlugin';
 
 import 'paella-core/styles/VideoContainer.css';
 import 'paella-core/styles/VideoLayout.css';
+import { loadPluginsOfType } from './Plugin';
 
 export async function getContainerBaseSize(player) {
     // TODO: In the future, this function can be modified to support different
@@ -108,6 +110,67 @@ export default class VideoContainer extends DomClass {
         
         // Load video layout
         await this.updateLayout();
+
+        async function addButtonPlugin(plugin, buttonAreaElem) {
+			const parent = createElementWithHtmlText('<div class="button-plugin-container"></div>', buttonAreaElem);
+
+			const leftArea = createElementWithHtmlText(`
+				<div class="button-plugin-side-area left-side ${ plugin.className }"></div>
+			`, parent);
+			const button = createElementWithHtmlText(`
+				<button class="button-plugin ${ plugin.className }"><i class="button-icon" style="pointer-events: none">${ plugin.icon }</i></button>
+			`, parent);
+			const rightArea = createElementWithHtmlText(`
+				<div class="button-plugin-side-area right-side ${ plugin.className }"></div>
+			`, parent);
+			plugin._leftArea = leftArea;
+			plugin._rightArea = rightArea;
+			plugin._button = button;
+			plugin._container = parent;
+			button._pluginData = plugin;
+			leftArea._pluginData = plugin;
+			rightArea._pluginData = plugin;
+			parent._pluginData = plugin;
+
+			// Event listeners
+			parent.addEventListener("mouseenter", (evt) => {
+				parent._pluginData.mouseOver(parent, evt);
+			});
+			parent.addEventListener("mouseleave", (evt) => {
+				parent._pluginData.mouseOut(parent, evt);
+			});
+
+			button.addEventListener("click", (evt) => {
+				button._pluginData.action(evt);
+			});
+		}
+
+        const leftSideButtons = createElementWithHtmlText(
+            `<div class="button-plugins left-side"></div>`, this.element
+        );
+        const rightSideButtons = createElementWithHtmlText(
+            `<div class="button-plugins right-side"></div>`, this.element
+        );
+
+        // Load videoContainer plugins
+        console.debug("Loading videoContainer button plugins");
+        loadPluginsOfType(this.player,"button",(plugin) => {
+            console.debug(` Button plugin: ${ plugin.name }`);
+            if (plugin.side === "left") {
+                addButtonPlugin(plugin, leftSideButtons);
+            }
+            else if (plugin.side === "right") {
+                addButtonPlugin(plugin, rightSideButtons);
+            }
+        }, async plugin => {
+            if (plugin.container === "videoContainer") {
+                return await plugin.isEnabled();
+            }
+            else {
+                return false;
+            }
+        })
+        
         
         this._ready = true;
     }
