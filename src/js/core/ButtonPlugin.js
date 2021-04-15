@@ -1,16 +1,20 @@
 import Plugin, { getPluginsOfType } from 'paella-core/js/core/Plugin';
 
-export function getButtonPlugins(player) {
-	return getPluginsOfType(player, "button");
+export function getButtonPlugins(player, side = "any", container = "playbackBar") {
+	return getPluginsOfType(player, "button")
+		.filter(btn => {
+			return (btn.side === side || side === "any") && btn.container === container
+		});
 }
 
 export function getLeftButtonPlugins(player) {
-	return getButtonPlugins(player).filter(btn => btn.side === "left");
+	return getButtonPlugins(player, "left", "playbackBar");
 }
 
 export function getRightButtonPlugins(player) {
-	return getButtonPlugins(player).filter(btn => btn.side === "right");
+	return getButtonPlugins(player, "right", "playbackBar");
 }
+
 
 export default class ButtonPlugin extends Plugin {
 	get type() { return "button" }
@@ -38,6 +42,12 @@ export default class ButtonPlugin extends Plugin {
 	get side() {
 		const side = this.config?.side;
 		return side || "left";
+	}
+
+	// "playbackBar" or "videoContainer"
+	get container() {
+		const container = this.config?.container;
+		return container || "playbackBar";
 	}
 	
 	get className() { return ""; }
