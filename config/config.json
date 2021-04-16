@@ -46,6 +46,18 @@
             "order": 1,
             "container": "playbackBar",
             "side": "left"
+        },
+
+        "es.upv.paella.testFoldableButton": {
+            "enabled": "true",
+            "side": "left",
+            "order": 2
+        },
+
+        "es.upv.paella.testVideoContainerButton": {
+            "enabled": true,
+            "side": "left",
+            "parentContainer": "videoContainer"
         }
     }
 }

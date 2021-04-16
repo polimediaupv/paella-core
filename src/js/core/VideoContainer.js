@@ -5,11 +5,9 @@ import {
     getValidContentIds, 
     getLayoutStructure, 
     getValidContentSettings } from 'paella-core/js/core/VideoLayout';
-import { getVideoPlugin } from 'paella-core/js/core/VideoPlugin';
 import StreamProvider from 'paella-core/js/core/StreamProvider';
-import { resolveResourcePath } from 'paella-core/js/core/utils';
 import Events, { triggerEvent } from 'paella-core/js/core/Events';
-import { getButtonPlugins } from 'paella-core/js/core/ButtonPlugin';
+import { addButtonPlugin } from 'paella-core/js/core/ButtonPlugin';
 
 import 'paella-core/styles/VideoContainer.css';
 import 'paella-core/styles/VideoLayout.css';
@@ -19,11 +17,6 @@ export async function getContainerBaseSize(player) {
     // TODO: In the future, this function can be modified to support different
     // aspect ratios, which can be loaded from the video manifest.
     return { w: 1280, h: 720 }
-}
-
-function getStreamWithContent(streamData, content) {
-    const result = streamData.filter(sd => sd.content === content);
-    return result.length >= 1 ? result[0] : null;
 }
 
 export default class VideoContainer extends DomClass {
@@ -111,40 +104,6 @@ export default class VideoContainer extends DomClass {
         // Load video layout
         await this.updateLayout();
 
-        async function addButtonPlugin(plugin, buttonAreaElem) {
-			const parent = createElementWithHtmlText('<div class="button-plugin-container"></div>', buttonAreaElem);
-
-			const leftArea = createElementWithHtmlText(`
-				<div class="button-plugin-side-area left-side ${ plugin.className }"></div>
-			`, parent);
-			const button = createElementWithHtmlText(`
-				<button class="button-plugin ${ plugin.className }"><i class="button-icon" style="pointer-events: none">${ plugin.icon }</i></button>
-			`, parent);
-			const rightArea = createElementWithHtmlText(`
-				<div class="button-plugin-side-area right-side ${ plugin.className }"></div>
-			`, parent);
-			plugin._leftArea = leftArea;
-			plugin._rightArea = rightArea;
-			plugin._button = button;
-			plugin._container = parent;
-			button._pluginData = plugin;
-			leftArea._pluginData = plugin;
-			rightArea._pluginData = plugin;
-			parent._pluginData = plugin;
-
-			// Event listeners
-			parent.addEventListener("mouseenter", (evt) => {
-				parent._pluginData.mouseOver(parent, evt);
-			});
-			parent.addEventListener("mouseleave", (evt) => {
-				parent._pluginData.mouseOut(parent, evt);
-			});
-
-			button.addEventListener("click", (evt) => {
-				button._pluginData.action(evt);
-			});
-		}
-
         const leftSideButtons = createElementWithHtmlText(
             `<div class="button-plugins left-side"></div>`, this.element
         );
@@ -163,7 +122,7 @@ export default class VideoContainer extends DomClass {
                 addButtonPlugin(plugin, rightSideButtons);
             }
         }, async plugin => {
-            if (plugin.container === "videoContainer") {
+            if (plugin.parentContainer === "videoContainer") {
                 return await plugin.isEnabled();
             }
             else {

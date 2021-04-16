@@ -28,12 +28,12 @@ function placePopUp(player, anchorElement, contentElement) {
 		else if (viewportCenterX>centerX && viewportCenterY>centerY) {
 			// top left quadrant
 			contentElement.style.left = `${ left }px`;
-			contentElement.style.top = `${ top }px`;
+			contentElement.style.top = `${ top + height }px`;
 		}
 		else if (viewportCenterX<=centerX && viewportCenterY>centerY) {
 			// top right quadrant
 			contentElement.style.right = `${ viewportWidth - right }px`;
-			contentElement.style.top = `${ top }px`;
+			contentElement.style.top = `${ top + height }px`;
 		}
 		else if (viewportCenterX<=centerX && viewportCenterY<=centerY) {
 			// bottom right quadrant

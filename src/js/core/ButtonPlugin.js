@@ -1,9 +1,10 @@
 import Plugin, { getPluginsOfType } from 'paella-core/js/core/Plugin';
+import { createElementWithHtmlText } from 'paella-core/js/core/dom';
 
-export function getButtonPlugins(player, side = "any", container = "playbackBar") {
+export function getButtonPlugins(player, side = "any", parent = "playbackBar") {
 	return getPluginsOfType(player, "button")
 		.filter(btn => {
-			return (btn.side === side || side === "any") && btn.container === container
+			return (btn.side === side || side === "any") && btn.parent === parent
 		});
 }
 
@@ -15,6 +16,39 @@ export function getRightButtonPlugins(player) {
 	return getButtonPlugins(player, "right", "playbackBar");
 }
 
+export async function addButtonPlugin(plugin, buttonAreaElem) {
+	const parent = createElementWithHtmlText('<div class="button-plugin-container"></div>', buttonAreaElem);
+
+	const leftArea = createElementWithHtmlText(`
+		<div class="button-plugin-side-area left-side ${ plugin.className }"></div>
+	`, parent);
+	const button = createElementWithHtmlText(`
+		<button class="button-plugin ${ plugin.className }"><i class="button-icon" style="pointer-events: none">${ plugin.icon }</i></button>
+	`, parent);
+	const rightArea = createElementWithHtmlText(`
+		<div class="button-plugin-side-area right-side ${ plugin.className }"></div>
+	`, parent);
+	plugin._leftArea = leftArea;
+	plugin._rightArea = rightArea;
+	plugin._button = button;
+	plugin._container = parent;
+	button._pluginData = plugin;
+	leftArea._pluginData = plugin;
+	rightArea._pluginData = plugin;
+	parent._pluginData = plugin;
+
+	// Event listeners
+	parent.addEventListener("mouseenter", (evt) => {
+		parent._pluginData.mouseOver(parent, evt);
+	});
+	parent.addEventListener("mouseleave", (evt) => {
+		parent._pluginData.mouseOut(parent, evt);
+	});
+
+	button.addEventListener("click", (evt) => {
+		button._pluginData.action(evt);
+	});
+}
 
 export default class ButtonPlugin extends Plugin {
 	get type() { return "button" }
@@ -45,9 +79,9 @@ export default class ButtonPlugin extends Plugin {
 	}
 
 	// "playbackBar" or "videoContainer"
-	get container() {
-		const container = this.config?.container;
-		return container || "playbackBar";
+	get parentContainer() {
+		const parent = this.config?.parentContainer;
+		return parent || "playbackBar";
 	}
 	
 	get className() { return ""; }

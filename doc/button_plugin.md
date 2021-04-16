@@ -17,7 +17,7 @@ export default class MyButtonPlugin extends ButtonPlugin {
   	return "left"; // or right  
   }
   
-  get container() {
+  get parentContainer() {
     return "playbackBar";  // or videoContainer
   }
 
@@ -42,7 +42,7 @@ export default class MyButtonPlugin extends ButtonPlugin {
 Apart from the `Plugin` methods, `ButtonPlugin` provides three methods and one property that can be overridden:
 
 - `get side()`: returns the end where we want to place the button. The default implementation gets this value from the configuration. This method should be overridden only in case we want the button to be always displayed in the same place, regardless of the configuration.
-- `get container()`: returns the container where we want to add the button, which can be either `playbackBar` or `videoContainer`. If this function is not overridden, the value is obtained from the plugin configuration, and if it is not specified in the configuration either, it defaults to `playbackBar`.
+- `get parentContainer()`: returns the container where we want to add the button, which can be either `playbackBar` or `videoContainer`. If this function is not overridden, the value is obtained from the plugin configuration, and if it is not specified in the configuration either, it defaults to `playbackBar`.
 - `async mouseOver(target)`: is called when the mouse enters the button area. See the section on button sections below for more information.
 - `async mouseOut(target)`: called when the mouse leaves one of the button areas
 - `async action()`: called when the user clicks the button.
