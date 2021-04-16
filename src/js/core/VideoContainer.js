@@ -110,6 +110,7 @@ export default class VideoContainer extends DomClass {
         const rightSideButtons = createElementWithHtmlText(
             `<div class="button-plugins right-side"></div>`, this.element
         );
+        this._buttonPlugins = [ leftSideButtons, rightSideButtons ];
 
         // Load videoContainer plugins
         console.debug("Loading videoContainer button plugins");
@@ -230,16 +231,18 @@ export default class VideoContainer extends DomClass {
     
     hideUserInterface() {
         console.debug("Hide video container user interface");
-        this._layoutButtons.forEach(button => {
+        const hideFunc = button => {
             button._prevDisplay = button.style.display;
             button.style.display = "none";
-        });
+        }
+        this._layoutButtons.forEach(hideFunc);
+        this._buttonPlugins.forEach(hideFunc);
     }
     
     showUserInterface() {
-        this._layoutButtons.forEach(button => {
-            button.style.display = button._prevDisplay || "block";
-        });
+        const showFunc = button => button.style.display = button._prevDisplay || "block";
+        this._layoutButtons.forEach(showFunc);
+        this._buttonPlugins.forEach(showFunc);
     }
 
     get ready() {
