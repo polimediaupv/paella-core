@@ -46,7 +46,7 @@ Apart from the `Plugin` methods, `ButtonPlugin` provides three methods and one p
 - `async mouseOver(target)`: is called when the mouse enters the button area. See the section on button sections below for more information.
 - `async mouseOut(target)`: called when the mouse leaves one of the button areas
 - `async action()`: called when the user clicks the button.
-
+- `get titleSize()`: is used to set the font size of the button title. It can return `small`, `medium` or `large`.
 
 
 ## Button elements
@@ -83,6 +83,8 @@ async mouseOver(target) {
 ## Other ButtonPlugin APIs
 
 `get iconElement()`: Returns the icon DOM element, that is a child of the `button` element.
+
+`get titleContainer()`: Returns the DOM container of the button title.
 
 `hide()`: hide the button.
 
@@ -126,5 +128,25 @@ import { utils } from 'paella-core';
 ...
 
 const icon = await utils.loadSvgIcon(iconPath);
+```
+
+## Icon title
+
+To specify the button text, we use the `set title()` accessor. It is possible to change the button text at any time.
+
+```javascript
+...
+export default class MyButtonPlugin extends ButtonPlugin {
+  ...
+  get titleSize() { return "small"; }
+  
+  async load() {
+    this.title = "Hello";
+  }
+
+	async action() {
+    this.title = "World";
+  }
+}
 ```
 
