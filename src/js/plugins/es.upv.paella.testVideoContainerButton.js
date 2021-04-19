@@ -6,5 +6,10 @@ import screenIcon from 'paella-core/icons/screen.svg';
 export default class VideoContainerButtonPlugin extends MenuButtonPlugin {
     async load() {
         this.icon = screenIcon;
+        this.title = "tx";
+    }
+
+    get titleSize() {
+        return "medium";
     }
 }

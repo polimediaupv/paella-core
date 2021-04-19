@@ -28,10 +28,14 @@ export async function addButtonPlugin(plugin, buttonAreaElem) {
 	const rightArea = createElementWithHtmlText(`
 		<div class="button-plugin-side-area right-side ${ plugin.className }"></div>
 	`, parent);
+	const titleContainer = createElementWithHtmlText(`
+		<span class="button-title button-title-${ plugin.titleSize }">${ plugin.title }</span>
+	`, button);
 	plugin._leftArea = leftArea;
 	plugin._rightArea = rightArea;
 	plugin._button = button;
 	plugin._container = parent;
+	plugin._titleContainer = titleContainer;
 	button._pluginData = plugin;
 	leftArea._pluginData = plugin;
 	rightArea._pluginData = plugin;
@@ -53,11 +57,12 @@ export async function addButtonPlugin(plugin, buttonAreaElem) {
 export default class ButtonPlugin extends Plugin {
 	get type() { return "button" }
 	
-	// _container, _leftArea, _rightArea and _button are loaded in PlaybackBar
+	// _container, _leftArea, _rightArea, _button and _titleContainer are loaded in PlaybackBar
 	get container() { return this._container; }
 	get leftArea() { return this._leftArea; }
 	get rightArea() { return this._rightArea; }
 	get button() { return this._button; }
+	get titleContainer() { return this._titleContainer; }
 	
 	get iconElement() {
 		return this.button?.getElementsByClassName("button-icon")[0];
@@ -70,6 +75,20 @@ export default class ButtonPlugin extends Plugin {
 	set icon(icon) {
 		this._icon = icon;
 		this.iconElement.innerHTML = icon;
+	}
+
+	get title() {
+		return this._title || "";
+	}
+
+	set title(t) {
+		this._title = t;
+		this._titleContainer.innerHTML = t;
+	}
+
+	// "small", "medium", "large"
+	get titleSize() {
+		return "medium";
 	}
 	
 	// "left" or "right"

@@ -73,6 +73,30 @@
 	margin-left: 5px;
 }
 
+.button-plugins span.button-title {
+    display: block;
+}
+
+.button-plugins span.button-title.button-title-small {
+	margin-top: -16px;
+    font-size: 8px;
+}
+
+.button-plugins span.button-title.button-title-medium {
+	margin-top: -17px;
+    font-size: 10px;
+}
+
+.button-plugins span.button-title.button-title-large {
+	margin-top: -19px;
+    font-size: 12px;
+}
+
+.button-plugins span.button-title:empty {
+	margin-top: 0 !important;
+}
+
+
 .playback-bar .button-plugins button i svg {
 	fill: white;
 }
