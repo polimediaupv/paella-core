@@ -58,6 +58,11 @@
             "enabled": true,
             "side": "left",
             "parentContainer": "videoContainer"
+        },
+
+        "es.upv.paella.testPopUpButton": {
+            "enabled": true,
+            "side": "right"
         }
     }
 }
