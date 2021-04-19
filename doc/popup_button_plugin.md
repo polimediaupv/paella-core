@@ -17,12 +17,21 @@ export default class MyPupUpPlugin extends PopUpButtonPlugin {
     const content = createElementWithHtmlText("<p>Pop Up Button Plugin</p>");
     return content;
   }
-  
+
+  get popUpType() {
+    return "modal"; // or "timeline"
+  }
+
   async load() {
     this.icon = myPluginIcon;
   }
 }
 ```
+
+`get popUpType()`: Defines the type of pop up that the button will display:
+
+- "modal": The pop up is displayed as a modal area, which is hidden when the user clicks out of it. It will be displayed next to the button, and the position of the pop up relative to the button will depend on the available gap in the window.
+- "timeline": The pop up is displayed above the timeline, and measures the full width of the timeline. The height will depend on the content of the pop up.
 
 
 
