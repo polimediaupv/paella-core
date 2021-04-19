@@ -272,4 +272,12 @@ export default class SteramProvider extends PlayerResource {
 	async durationIgnoringTrimming() {
 		return (await this.executeAction("duration"))[0];
 	}
+
+	async playbackRate() {
+		return (await this.executeAction("playbackRate"))[0];
+	}
+
+	async setPlaybackRate(rate) {
+		return (await this.executeAction("setPlaybackRate",[rate]))[0];
+	}
 }

@@ -294,6 +294,14 @@ export default class VideoContainer extends DomClass {
         return await this.streamProvider.duration();
     }
 
+    async playbackRate() {
+        return await this.streamProvider.playbackRate();
+    }
+
+    async setPlaybackRate(r) {
+        return await this.streamProvider.setPlaybackRate(r);
+    }
+
     get isTrimEnabled() {
         return this.streamProvider.isTrimEnabled;
     }
