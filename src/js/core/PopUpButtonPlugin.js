@@ -9,7 +9,7 @@ export default class PopUpButtonPlugin extends ButtonPlugin {
 	}
 	
 	async getContent() {
-		const content = createElementWithHtmlText('<p>Pop Up Button Plugin Content');
+		const content = createElementWithHtmlText('<p>Pop Up Button Plugin Content</p>');
 		return content;
 	}
 
@@ -36,7 +36,10 @@ export default class PopUpButtonPlugin extends ButtonPlugin {
 			const content = await this.getContent();
 			this._popUp.setContent(content);
 		}
-		else  {
+		else if (this.popUpType === "timeline" && this._popUp.isVisible) {
+			this._popUp.hide();
+		}
+		else {
 			this._popUp.show(parentContainer);
 		}
 	}

@@ -44,16 +44,16 @@ export class DomClass extends PlayerResource {
     }
     
     hide() {
-        this._prevDisplay = this.element.style.display;
         this.element.style.display = "none";
     }
     
     show() {
-        this.element.style.display = this._prevDisplay || "block";
+        this.element.style.display = "block";
     }
     
     get isVisible() {
-        return this.element.style.display !== "none";
+        return  this.element.style.display !== "none" &&
+                this.element.style.display !== "";
     }
 
     setAttribute(name,value) {

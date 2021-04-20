@@ -1,12 +1,14 @@
 .timeline-popup-content {
     display: block;
-    background-color: rgba(0,0,0,0.4);
+    background-color: rgba(50,50,50,0.78);
     padding-top: 10px;
     padding-bottom: 10px;
     position: absolute;
-    left: 0px;
-    right: 0px;
-    bottom: 50px;
+    border-radius: 4px;
+    left: 2px;
+    right: 2px;
+    bottom: 52px;
     color: white;
     border-top: 1px solid rgba(125,125,125,0.4);
+    z-index: 100;
 }

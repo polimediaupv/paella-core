@@ -14,17 +14,20 @@ export default class TimeLinePopUp extends DomClass {
 
         super(player, { attributes, parent });
 
+        // Hide other pop ups
+        g_popUps.forEach(p => p.hide());
+        
         this._id = Symbol(this);
         g_popUps.push(this);
     }
 
     show() {
-        console.log("Show");
+        // Hide other pop ups
+        g_popUps.forEach(p => p.hide());
         super.show();
     }
 
     hide() {
-        console.log("Hide");
         super.hide();
     }
 

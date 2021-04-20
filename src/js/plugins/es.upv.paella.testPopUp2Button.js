@@ -3,12 +3,12 @@ import { createElementWithHtmlText } from 'paella-core/js/core/dom';
 
 import screenIcon from 'paella-core/icons/screen.svg';
 
-export default class TestPopUpButtonPlugin extends PopUpButtonPlugin {
+export default class TestPopUpButton2Plugin extends PopUpButtonPlugin {
 
     get popUpType() { return "timeline"; }
 
     async getContent() {
-		const content = createElementWithHtmlText('<p>Pop Up Button Plugin Content 1</p>');
+		const content = createElementWithHtmlText('<p>Pop Up Button Plugin Content 2</p>');
 		return content;
 	}
 
