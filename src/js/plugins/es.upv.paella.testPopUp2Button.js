@@ -14,5 +14,6 @@ export default class TestPopUpButton2Plugin extends PopUpButtonPlugin {
 
     async load() {
         this.icon = screenIcon;
+        this.title = "2";
     }
 }
