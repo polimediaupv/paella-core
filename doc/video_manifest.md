@@ -12,7 +12,11 @@ It consists of four attributes, two of which, metadata and streams, are mandator
 
 - **captions:** Contains the subtitle information.
 
+Once loaded, you can access the videoManifest through the following API:
 
+```javascript
+myPlayerInstance.videoManifest
+```
 
 ## Metadata
 
