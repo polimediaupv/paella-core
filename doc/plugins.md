@@ -82,6 +82,13 @@ The base Plugin class provides the following API:
 
 ```javascript
 export default class MyPlugin extends Plugin {
+  // You can overwrite `isEnabled()` if you have to control
+  // some extra loading condition, apart from the plugin
+  // configuration
+  async isEnabled() {
+    return this.config?.enabled;
+  }
+
   // You can override the `load()` method to initialize your plugin
   async load() {
     this.player;	// The instance of the player that created the plugin
