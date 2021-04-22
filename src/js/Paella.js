@@ -13,7 +13,7 @@ import VideoContainer from 'paella-core/js/core/VideoContainer';
 import PreviewContainer from 'paella-core/js/core/PreviewContainer';
 import PlaybackBar from 'paella-core/js/core/PlaybackBar';
 import Events, { bindEvent, triggerEvent } from 'paella-core/js/core/Events';
-
+import TimeLinePopUp from 'paella-core/js/core/TimeLinePopUp';
 
 import 'paella-core/styles/base.css';
 
@@ -226,12 +226,14 @@ export default class Paella {
         if (!(await this.videoContainer?.paused())) {
             this.videoContainer?.hideUserInterface();
             this.playbackBar?.hideUserInterface();
+            TimeLinePopUp.HideUserInterface();
         }
     }
     
     async showUserInterface() {
         this.videoContainer?.showUserInterface();
         this.playbackBar?.showUserInterface();
+        TimeLinePopUp.ShowUserInterface();
     }
 
     // Playback functions
