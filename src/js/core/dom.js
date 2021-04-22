@@ -52,8 +52,9 @@ export class DomClass extends PlayerResource {
     }
     
     get isVisible() {
-        return  this.element.style.display !== "none" &&
-                this.element.style.display !== "";
+        const style = window.getComputedStyle(this.element);
+        return  style.display !== "none" &&
+                style.display !== "";
     }
 
     setAttribute(name,value) {
