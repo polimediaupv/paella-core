@@ -65,7 +65,7 @@ export class ImageVideo extends Video {
 	}
 	
 	async currentTime() {
-		this._currentTime;
+		return this._currentTime;
 	}
 	
 	async setCurrentTime(t) {

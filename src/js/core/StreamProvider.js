@@ -207,11 +207,12 @@ export default class SteramProvider extends PlayerResource {
 
 	async setCurrentTime(t) {
 		const prevTime = (await this.executeAction("currentTime"))[0];
-		const newTime = (await this.executeAction("currentTime"))[0];
+		
 		if (this.isTrimEnabled) {
 			t = t + this.trimStart;
 			t = t >= this.trimEnd ? this.trimEnd : t;
 			const result = (await this.executeAction("setCurrentTime", [t]))[0];
+			const newTime = (await this.executeAction("currentTime"))[0];
 			return {
 				result,
 				prevTime: prevTime + this.trimStart,
@@ -220,6 +221,7 @@ export default class SteramProvider extends PlayerResource {
 		}
 		else {
 			const result = (await this.executeAction("setCurrentTime", [t]))[0];
+			const newTime = (await this.executeAction("currentTime"))[0];
 			return { result, prevTime, newTime };
 		}
 		
