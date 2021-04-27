@@ -1,5 +1,6 @@
 import PlayerResource from 'paella-core/js/core/PlayerResource';
 import { getVideoPlugin } from 'paella-core/js/core/VideoPlugin';
+import { getCanvasPlugin } from 'paella-core/js/core/CanvasPlugin';
 import Events, { triggerEvent } from 'paella-core/js/core/Events';
 
 export default class SteramProvider extends PlayerResource {
@@ -38,6 +39,11 @@ export default class SteramProvider extends PlayerResource {
 		
 		// Find video plugins for each stream
 		this._streamData.forEach(stream => {
+			const canvasPlugin = getCanvasPlugin(this.player, stream);
+			if (!canvasPlugin) {
+				throw Error(`Canvas plugin not found: ${ stream.canvas }`);
+			}
+
 			const videoPlugin = getVideoPlugin(this.player, stream);
 			if (!videoPlugin) {
 				throw Error(`Incompatible stream type: ${ stream.content }`);
@@ -45,14 +51,16 @@ export default class SteramProvider extends PlayerResource {
 			
 			this._streams[stream.content] = {
 				stream,
-				videoPlugin
+				videoPlugin,
+				canvasPlugin
 			}
 		})
 		
 		let videoEndedEventTimer = null;
 		for (const content in this._streams) {
 			const s = this._streams[content];
-			s.player = await s.videoPlugin.getVideoInstance(this._videoContainer);
+			s.canvas = await s.canvasPlugin.getCanvasInstance(this._videoContainer);
+			s.player = await s.videoPlugin.getVideoInstance(s.canvas.element);
 			if (mainAudioContent===content) {
 				this._mainAudioPlayer = s.player;
 			}
