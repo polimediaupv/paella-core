@@ -153,7 +153,7 @@ export default class VideoContainer extends DomClass {
         // Hide all video players
         for (const key in this.streamProvider.streams) {
             const videoData = this.streamProvider.streams[key];
-            videoData.player.element.style.display = "none";
+            videoData.canvas.element.style.display = "none";
         }
 
         // Conversion factors for video rect
@@ -172,8 +172,7 @@ export default class VideoContainer extends DomClass {
 
         layoutStructure?.videos?.forEach(async video => {
             const videoData = this.streamProvider.streams[video.content];
-            const { stream } = videoData;
-            const { player } = videoData;
+            const { stream, player, canvas } = videoData;
             const res = await player.getDimensions();
             const videoAspectRatio = res.w / res.h;  // TODO: Get video aspect ratio
             let difference = Number.MAX_VALUE;
@@ -189,13 +188,13 @@ export default class VideoContainer extends DomClass {
                 }
             });
 
-            player.element.style.display = "block";
-            player.element.style.position = "absolute";
-            player.element.style.left = `${ resultRect.left * wFactor }%`;
-            player.element.style.top = `${ resultRect.top * hFactor }%`;
-            player.element.style.width = `${ resultRect.width * wFactor }%`;
-            player.element.style.height = `${ resultRect.height * hFactor }%`;
-            player.element.style.zIndex = video.layer;
+            canvas.element.style.display = "block";
+            canvas.element.style.position = "absolute";
+            canvas.element.style.left = `${ resultRect.left * wFactor }%`;
+            canvas.element.style.top = `${ resultRect.top * hFactor }%`;
+            canvas.element.style.width = `${ resultRect.width * wFactor }%`;
+            canvas.element.style.height = `${ resultRect.height * hFactor }%`;
+            canvas.element.style.zIndex = video.layer;
             
         });
         

@@ -65,7 +65,8 @@ export default class SteramProvider extends PlayerResource {
 				this._mainAudioPlayer = s.player;
 			}
 			
-			await s.player.load(s.stream, this);			
+			await s.player.load(s.stream, this);
+			await s.canvas.loadCanvas(s.player);		
 			s.player.onVideoEnded(() => {
 				if (videoEndedEventTimer === null) {
 					triggerEvent(this.player, Events.ENDED);

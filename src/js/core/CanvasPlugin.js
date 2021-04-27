@@ -18,6 +18,10 @@ export class Canvas extends DomClass {
     constructor(tag, player, parent) {
         super(player, { parent });
     }
+
+    async loadCanvas(player) {
+        throw Error(`${this.name}: loadCanvas() not implemented`);
+    }
 }
 
 export default class CanvasPlugin extends Plugin {

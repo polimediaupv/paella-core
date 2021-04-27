@@ -4,6 +4,11 @@ export class VideoCanvas extends Canvas {
     constructor(player, videoContainer) {
         super('div', player, videoContainer);
     }
+
+    async loadCanvas(player) {
+        player.element.style.width = "100%";
+        player.element.style.height = "100%";
+    }
 }
 
 export default class VideoCanvasPlugin extends CanvasPlugin {
@@ -16,10 +21,6 @@ export default class VideoCanvasPlugin extends CanvasPlugin {
         }
         
         return super.isCompatible(stream);
-    }
-
-    async getCanvas(videoElement) {
-        return videoElement;
     }
 
     getCanvasInstance(videoContainer) {
