@@ -16,7 +16,7 @@ export function getCanvasPlugin(player, stream) {
 
 export class Canvas extends DomClass {
     constructor(tag, player, parent) {
-        super(player, { parent });
+        super(player, { tag, parent });
     }
 
     async loadCanvas(player) {
