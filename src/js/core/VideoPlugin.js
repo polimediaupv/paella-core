@@ -21,7 +21,7 @@ export default class VideoPlugin extends Plugin {
 const g_enabledVideoPlugins = [];
 
 export async function loadVideoPlugins(player) {
-    await loadPluginsOfType(player, "video", null, (plugin) => {
+    await loadPluginsOfType(player, "video", (plugin) => {
         g_enabledVideoPlugins.push(plugin);
     });
 }
