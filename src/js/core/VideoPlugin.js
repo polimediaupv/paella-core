@@ -1,7 +1,7 @@
 
 
 import { DomClass } from './dom';
-import Plugin, { getPluginsOfType } from './Plugin';
+import Plugin, { getPluginsOfType, loadPluginsOfType } from './Plugin';
 
 
 export default class VideoPlugin extends Plugin {
@@ -18,8 +18,19 @@ export default class VideoPlugin extends Plugin {
     }
 }
 
+const g_enabledVideoPlugins = [];
+
+export async function loadVideoPlugins(player) {
+    await loadPluginsOfType(player, "video", null, (plugin) => {
+        g_enabledVideoPlugins.push(plugin);
+    });
+}
+
 export function getVideoPlugins(player) {
-    return getPluginsOfType(player, "video");
+    if (g_enabledVideoPlugins.length === 0) {
+        throw Error("No video plugins loaded. Note that `loadVideoPlugins()` must to be called before using `getVideoPlugins()`.")
+    }
+    return g_enabledVideoPlugins;
 }
 
 export function getVideoPlugin(player, streamData) {

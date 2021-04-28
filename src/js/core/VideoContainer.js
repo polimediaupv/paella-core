@@ -12,6 +12,7 @@ import { addButtonPlugin } from 'paella-core/js/core/ButtonPlugin';
 import 'paella-core/styles/VideoContainer.css';
 import 'paella-core/styles/VideoLayout.css';
 import { loadPluginsOfType } from './Plugin';
+import { loadVideoPlugins } from './VideoPlugin';
 
 export async function getContainerBaseSize(player) {
     // TODO: In the future, this function can be modified to support different
@@ -93,6 +94,8 @@ export default class VideoContainer extends DomClass {
 
     async load(streamData) {
         this._streamData = streamData;
+
+        await loadVideoPlugins(this.player);
 
         await this.streamProvider.load(streamData);
         
