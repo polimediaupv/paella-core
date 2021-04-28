@@ -24,6 +24,10 @@ export class TestVideoCanvas extends Canvas {
 export default class TestVideoCanvasPlugin extends CanvasPlugin {
     get canvasType() { return "video"; }
 
+    async isEnabled() {
+        console.log("TestVideoCanvasPlugin");
+        return super.isEnabled();
+    } 
     isCompatible(stream) {
         if (!Array.isArray(stream.canvas) || stream.canvas.length === 0) {
             return true;

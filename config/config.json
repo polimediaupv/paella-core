@@ -77,7 +77,7 @@
         },
 
         "es.upv.paella.testVideoCanvas": {
-            "enabled": true,
+            "enabled": false,
             "order": 0
         }
     }

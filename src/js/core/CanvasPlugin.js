@@ -1,10 +1,20 @@
-import Plugin, { getPluginsOfType } from 'paella-core/js/core/Plugin';
+import Plugin, { getPluginsOfType, loadPluginsOfType } from 'paella-core/js/core/Plugin';
 import { DomClass } from 'paella-core/js/core/dom';
 
+const g_enabledCanvasPlugins = [];
+export async function loadCanvasPlugins(player) {
+    await loadPluginsOfType(player, "canvas", (plugin) => {
+        g_enabledCanvasPlugins.push(plugin);
+    });
+}
+
 export function getCanvasPlugin(player, stream) {
+    if (g_enabledCanvasPlugins.length === 0) {
+        throw Error("No canvas plugins loaded. Note that `loasCanvasPlugins()` must to be called before use `getCanvasPlugins()`");
+    }
     let plugin = null;
 
-    getPluginsOfType(player, "canvas").some(p => {
+    g_enabledCanvasPlugins.some(p => {
         if (p.isCompatible(stream)) {
             plugin = p;
             return true;

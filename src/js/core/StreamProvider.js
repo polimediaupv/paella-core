@@ -1,6 +1,6 @@
 import PlayerResource from 'paella-core/js/core/PlayerResource';
 import { getVideoPlugin } from 'paella-core/js/core/VideoPlugin';
-import { getCanvasPlugin } from 'paella-core/js/core/CanvasPlugin';
+import { loadCanvasPlugins, getCanvasPlugin } from 'paella-core/js/core/CanvasPlugin';
 import Events, { triggerEvent } from 'paella-core/js/core/Events';
 
 export default class SteramProvider extends PlayerResource {
@@ -36,6 +36,8 @@ export default class SteramProvider extends PlayerResource {
 	
 		
 		console.debug("Finding compatible video plugins");
+
+		await loadCanvasPlugins(this.player);
 		
 		// Find video plugins for each stream
 		this._streamData.forEach(stream => {
