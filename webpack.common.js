@@ -41,10 +41,6 @@ const plugins = [];
 
 module.exports = {
 	entry: './src/index.js',
-	devServer: {
-		port: 8000,
-		disableHostCheck: true
-	},
 	
 	module: {
 		rules: [
