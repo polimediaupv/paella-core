@@ -173,6 +173,12 @@ These are plugins that specify the arrangement of videos in the display area. By
 
 
 
+### Video canvas plugins
+
+If the video format plugins are used to decide the video decoding method, the video canvas plugins are responsible for determining how they will be displayed in the video container. The most basic method of representation is a `<video>` tag, and for this the `en.upv.paella.VideoCanvas` plugin is used, which is included inside `paella-core`, but other plugins can be defined to modify the video representation, for example, using a WebGL canvas to represent video in 360º, or implementing a zoom system to the video. [CanvasPlugin](canvas_plugin.md).
+
+
+
 ## Create a plugin type
 
 You can extend Paella Player creating new plugin types. The most common case is when we need to extend a predefined plugin. For example, if we have a button type plugin, which when pressed we want to display subtitles, we can make this button in turn define a new type of plugin that allows to load subtitles from different sources.
