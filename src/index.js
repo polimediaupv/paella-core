@@ -13,6 +13,7 @@ import VideoLayout from 'paella-core/js/core/VideoLayout';
 import VideoPlugin from 'paella-core/js/core/VideoPlugin';
 import Events, { bindEvent, triggerEvent } from 'paella-core/js/core/Events';
 import PlayerResource from 'paella-core/js/core/PlayerResource';
+import CanvasPlugin, { Canvas } from 'paella-core/js/core/CanvasPlugin';
 
 import { DomClass, createElementWithHtmlText, createElement } from 'paella-core/js/core/dom';
 
@@ -32,6 +33,8 @@ export {
     MenuButtonPlugin,
     VideoLayout,
     VideoPlugin,
+    Canvas,
+    CanvasPlugin,
     
     Events,
     bindEvent,
