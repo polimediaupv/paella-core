@@ -3,7 +3,7 @@
 ## Define a CanvasPlugin
 
 ```javascript
-import CanvasPlugin, { Canvas } from 'paella-core/js/core/CanvasPlugin';
+import { CanvasPlugin, Canvas } from 'paella-core';
 
 // Canvas implementation
 export class VideoCanvas extends Canvas {
