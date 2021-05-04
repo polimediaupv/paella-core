@@ -17,6 +17,7 @@
     position: absolute;
     top: 10px;
     height: 40px;
+	z-index: 100;
 }
 
 .video-container .button-plugins.left-side {
