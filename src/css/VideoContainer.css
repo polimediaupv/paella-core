@@ -43,6 +43,8 @@
 	outline: none;
 	border: none;
 	float: left;
+	margin-left: 2px;
+    margin-right: 2px;
 }
 
 .video-container .button-plugins button:hover {
