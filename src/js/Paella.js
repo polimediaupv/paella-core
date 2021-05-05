@@ -226,14 +226,14 @@ export default class Paella {
         if (!(await this.videoContainer?.paused())) {
             this.videoContainer?.hideUserInterface();
             this.playbackBar?.hideUserInterface();
-            TimeLinePopUp.HideUserInterface();
+            TimeLinePopUp.HideUserInterface(this);
         }
     }
     
     async showUserInterface() {
         this.videoContainer?.showUserInterface();
         this.playbackBar?.showUserInterface();
-        TimeLinePopUp.ShowUserInterface();
+        TimeLinePopUp.ShowUserInterface(this);
     }
 
     // Playback functions

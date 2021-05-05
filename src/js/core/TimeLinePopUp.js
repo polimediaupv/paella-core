@@ -2,27 +2,35 @@ import { DomClass, createElementWithHtmlText } from 'paella-core/js/core/dom';
 
 import 'paella-core/styles/TimeLinePopUp.css';
 
-const g_popUps = [];
-let g_currentPopUp = null;
+function setupPlayerInstance(player) {
+    if (!player.__timeLinePopUp) {
+        player.__timeLinePopUp = {
+            popUps: [],
+            current: null
+        }
+    }
+}
 
 export default class TimeLinePopUp extends DomClass {
-    static HideUserInterface() {
-        if (g_currentPopUp) {
-            const tmpCurrentPopup = g_currentPopUp;
-            g_currentPopUp.hide();
-            // g_currentPopUp is set to null on hide, with this
-            // line we restore the current popup
-            g_currentPopUp = tmpCurrentPopup;
+    static HideUserInterface(player) {
+        setupPlayerInstance(player);
+        if (player.__timeLinePopUp.current) {
+            const tmpCurrentPopup = player.__timeLinePopUp.current;
+            player.__timeLinePopUp.current.hide();
+            player.__timeLinePopUp.current = tmpCurrentPopup;
         }
     }
 
-    static ShowUserInterface() {
-        if (g_currentPopUp) {
-            g_currentPopUp.show();
+    static ShowUserInterface(player) {
+        setupPlayerInstance(player);
+        if (player.__timeLinePopUp.current) {
+            player.__timeLinePopUp.current.show();
         }
     }
 
     constructor(player) {
+        setupPlayerInstance(player);
+
         const attributes = {
             "class": "timeline-popup-content"
         };
@@ -32,24 +40,24 @@ export default class TimeLinePopUp extends DomClass {
         super(player, { attributes, parent });
 
         // Hide other pop ups
-        g_popUps.forEach(p => p.hide());
+        player.__timeLinePopUp.popUps.forEach(p => p.hide());
         
         this._id = Symbol(this);
-        g_popUps.push(this);
+        player.__timeLinePopUp.popUps.push(this);
 
-        g_currentPopUp = this;
+        player.__timeLinePopUp.current = this;
     }
 
     show() {
         // Hide other pop ups
-        g_popUps.forEach(p => p.hide());
+        this.player.__timeLinePopUp.popUps.forEach(p => p.hide());
         super.show();
-        g_currentPopUp = this;
+        this.player.__timeLinePopUp.current = this;
     }
 
     hide() {
         super.hide();
-        g_currentPopUp = null;
+        this.player.__timeLinePopUp.current = null;
     }
 
     setContent(content) {
