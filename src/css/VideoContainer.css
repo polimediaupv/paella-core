@@ -38,7 +38,8 @@
 	width: 40px;
 	height: 40px;
 	display: block;
-	background: none;
+	background-color: rgba(50,50,50,0.7);
+    border-radius: 6px;
 	outline: none;
 	border: none;
 	float: left;
