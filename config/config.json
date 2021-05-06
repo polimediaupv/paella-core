@@ -79,6 +79,12 @@
         "es.upv.paella.testVideoCanvas": {
             "enabled": false,
             "order": 0
+        },
+
+        "es.upv.paella.cookieDataPlugin": {
+            "enabled": true,
+            "order": 0,
+            "context": ["default","trimming"]
         }
     }
 }
