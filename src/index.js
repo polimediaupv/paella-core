@@ -14,6 +14,7 @@ import VideoPlugin from 'paella-core/js/core/VideoPlugin';
 import Events, { bindEvent, triggerEvent } from 'paella-core/js/core/Events';
 import PlayerResource from 'paella-core/js/core/PlayerResource';
 import CanvasPlugin, { Canvas } from 'paella-core/js/core/CanvasPlugin';
+import Data, { DataPlugin } from 'paella-core/js/core/Data';
 
 import { DomClass, createElementWithHtmlText, createElement } from 'paella-core/js/core/dom';
 
@@ -42,6 +43,9 @@ export {
 
     DomClass,
     createElement,
-    createElementWithHtmlText
+    createElementWithHtmlText,
+
+    Data,
+    DataPlugin
 }
 

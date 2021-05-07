@@ -14,6 +14,7 @@ import PreviewContainer from 'paella-core/js/core/PreviewContainer';
 import PlaybackBar from 'paella-core/js/core/PlaybackBar';
 import Events, { bindEvent, triggerEvent } from 'paella-core/js/core/Events';
 import TimeLinePopUp from 'paella-core/js/core/TimeLinePopUp';
+import Data from 'paella-core/js/core/Data';
 
 import 'paella-core/styles/base.css';
 
@@ -158,6 +159,10 @@ export default class Paella {
     get playbackBar() {
         return this._playbackBar;
     }
+
+    get data() {
+        return this._data;
+    }
     
     async loadManifest() {
         console.debug("Loading paella player");
@@ -177,6 +182,9 @@ export default class Paella {
 
         console.debug("Video manifest loaded:");
         console.debug(this.videoManifest);
+
+        // Load data plugins
+        this._data = new Data(this);
 
         // The video preview is required to use the lazy load
         if (!this.videoManifest?.metadata?.preview) {
