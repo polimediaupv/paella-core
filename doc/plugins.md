@@ -171,7 +171,9 @@ These are plugins that allow you to extend the video formats supported by Paella
 
 These are plugins that specify the arrangement of videos in the display area. By means of video layouts we enable the playback of one or several streams simultaneously. [VideoLayout](video_layout.md)
 
+## Data plugins
 
+Data plugins provide an interface for communication with the backend that can be extended through the use of plugins. [Data plugins](data_plugins.md).
 
 ### Video canvas plugins
 
