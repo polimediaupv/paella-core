@@ -17,6 +17,8 @@ import CanvasPlugin, { Canvas } from 'paella-core/js/core/CanvasPlugin';
 
 import { DomClass, createElementWithHtmlText, createElement } from 'paella-core/js/core/dom';
 
+import WebVTTParser, { parseWebVTT } from './js/captions/WebVTTParser';
+
 export {
     Paella,
     PopUp,
@@ -42,6 +44,9 @@ export {
 
     DomClass,
     createElement,
-    createElementWithHtmlText
+    createElementWithHtmlText,
+
+    WebVTTParser,
+    parseWebVTT
 }
 
