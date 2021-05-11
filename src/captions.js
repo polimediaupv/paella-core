@@ -1,6 +1,5 @@
 import WebVTTParser from 'paella-core/js/captions/WebVTTParser';
 
-
 console.log("Captions");
 
 let text = "WEBVTT\r\n\r\n" +

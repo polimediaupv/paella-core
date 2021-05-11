@@ -98,3 +98,15 @@ export function secondsToTime(timestamp) {
             seconds.toString().padStart(2,'0');
 }
 
+export function timeToSeconds(timeString) {
+    const re = /(?:(\d*):){0,1}(\d*):(\d*)/;
+    const result = re.exec(timeString);
+    if (result) {
+        const hours = result[1] !== undefined ? Number(result[1]) : 0;
+        const minutes = Number(result[2]);
+        const seconds = Number(result[3]);
+        return hours * 3600 + minutes * 60 + seconds;
+    }
+    return null;
+}
+

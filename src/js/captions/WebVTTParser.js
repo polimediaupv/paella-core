@@ -1,4 +1,5 @@
 
+import { timeToSeconds } from 'paella-core/js/core/utils';
 
 const TIMESTAMP = "(?:\\d*:){1,2}\\d*";
 const CUE_TIMING = `(${TIMESTAMP})\\s*\\-\\->\\s*(${TIMESTAMP})`;
@@ -17,8 +18,10 @@ const parseCue = (line,i,lines) => {
         }
         return {
             label: label,
-            start: result[1],
-            end: result[2],
+            start: timeToSeconds(result[1]),
+            end: timeToSeconds(result[2]),
+            startString: result[1],
+            endString: result[2],
             caption: captions
         };
     }
@@ -64,3 +67,4 @@ export default class WebVTTParser {
         return this._data.cues;
     }
 }
+
