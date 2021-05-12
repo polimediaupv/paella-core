@@ -40,5 +40,6 @@ let text = "WEBVTT\r\n\r\n" +
     "\r\n";
 
 const parser = new WebVTTParser(text);
+const captions = parser.captions;
 
-console.log(parser.cues);
+console.log(captions.cues);

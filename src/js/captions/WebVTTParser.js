@@ -1,5 +1,5 @@
 
-import { timeToSeconds } from 'paella-core/js/core/utils';
+import Captions from 'paella-core/js/captions/Captions';
 
 const TIMESTAMP = "(?:\\d*:){1,2}\\d*";
 const CUE_TIMING = `(${TIMESTAMP})\\s*\\-\\->\\s*(${TIMESTAMP})`;
@@ -8,50 +8,42 @@ const re = {
     cueTiming: new RegExp(CUE_TIMING)
 };
 
-const parseCue = (line,i,lines) => {
+const parseCue = (captions,line,i,lines) => {
     const result = re.cueTiming.exec(line);
     if (result) {
         const label = lines[i - 1];
-        let captions = [];
+        const cap = [];
         for (let j = 1; i+j<lines.length && lines[i+j] !== ''; ++j) {
-            captions.push(lines[i+j]);
+            cap.push(lines[i+j]);
         }
-        return {
+        captions.addCue({
             label: label,
-            start: timeToSeconds(result[1]),
-            end: timeToSeconds(result[2]),
-            startString: result[1],
-            endString: result[2],
-            caption: captions
-        };
+            start: result[1],
+            end: result[2],
+            captions: cap
+        });
     }
-    return null;
 }
 
 export function parseWebVTT(text) {
-    const result = {
-        cues: []
-    }
+    const captions = new Captions();
     
     if (text !== "") {
         text = text.replace(/\r\n/gm,"\n");
         text = text.replace(/\r/gm,"\n");
 
         text.split(/\n/).forEach((line,i,lines) => {
-            let cue = parseCue(line,i,lines);
-            if (cue) {
-                result.cues.push(cue);
-            }
+            parseCue(captions,line,i,lines);
         })
     }
 
-    return result;
+    return captions;
 }
 
 export default class WebVTTParser {
     constructor(text = "") {
         this._text = text;
-        this._data = parseWebVTT(text);
+        this._captions = parseWebVTT(text);
     }
 
     get text() {
@@ -60,11 +52,11 @@ export default class WebVTTParser {
 
     set text(text) {
         this._text = text;
-        this._data = parseWebVTT(text);
+        this._captions = parseWebVTT(text);
     }
 
-    get cues() {
-        return this._data.cues;
+    get captions() {
+        return this._captions;
     }
 }
 
