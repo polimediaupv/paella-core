@@ -6,8 +6,18 @@ export default class Captions {
         return this._cues;
     }
 
-    constructor() {
+    get label() {
+        return this._label;
+    }
+
+    get language() {
+        return this._lang;
+    }
+
+    constructor(label = "", lang = "") {
         this._cues = [];
+        this._label = label;
+        this._lang = lang;
     }
 
     addCue({ label = "", start, end, captions }) {

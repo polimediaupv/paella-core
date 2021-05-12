@@ -15,6 +15,7 @@ import PlaybackBar from 'paella-core/js/core/PlaybackBar';
 import Events, { bindEvent, triggerEvent } from 'paella-core/js/core/Events';
 import TimeLinePopUp from 'paella-core/js/core/TimeLinePopUp';
 import Data from 'paella-core/js/core/Data';
+import CaptionCanvas from 'paella-core/js/captions/CaptionsCanvas';
 
 import 'paella-core/styles/base.css';
 
@@ -217,6 +218,10 @@ export default class Paella {
         this._hideUiTime = 5000;
         setupAutoHideUiTimer(this);
         
+        this._captionsCanvas = new CaptionCanvas(this, this._containerElement);
+        
+        this._captionsCanvas.load();
+
         // TODO: this._playerLoaded = true;  the player user interface is loaded
     }
 
