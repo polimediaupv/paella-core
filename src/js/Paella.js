@@ -161,6 +161,10 @@ export default class Paella {
         return this._playbackBar;
     }
 
+    get captionsCanvas() {
+        return this._captionsCanvas;
+    }
+
     get data() {
         return this._data;
     }

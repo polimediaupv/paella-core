@@ -1,5 +1,6 @@
 
 import { DomClass, createElementWithHtmlText } from 'paella-core/js/core/dom';
+import { loadCaptionsPlugins } from 'paella-core/js/captions/CaptionsPlugin';
 
 import 'paella-core/styles/CaptionCanvas.css';
 
@@ -17,8 +18,7 @@ export default class CaptionCanvas extends DomClass {
     }
 
     load() {
-        // TODO: Load captions plugins
-
+        loadCaptionsPlugins(this.player);
     }
 
     addCaptions(captions) {

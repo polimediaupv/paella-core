@@ -85,6 +85,10 @@
             "enabled": true,
             "order": 0,
             "context": ["default","trimming"]
+        },
+
+        "es.upv.paella.testCaptionsPlugin": {
+            "enabled": true
         }
     }
 }
