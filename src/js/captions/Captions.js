@@ -14,6 +14,14 @@ export default class Captions {
         return this._lang;
     }
 
+    set label(l) {
+        this._label = l;
+    }
+
+    set language(l) {
+        this._lang = l;
+    }
+
     constructor(label = "", lang = "") {
         this._cues = [];
         this._label = label;

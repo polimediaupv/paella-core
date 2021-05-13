@@ -89,6 +89,10 @@
 
         "es.upv.paella.testCaptionsPlugin": {
             "enabled": true
+        },
+
+        "es.upv.paella.vttManifestCaptionsPlugin": {
+            "enabled": true
         }
     }
 }
