@@ -1,3 +1,4 @@
+
 import CaptionsPlugin from 'paella-core/js/captions/CaptionsPlugin';
 import WebVTTParser from 'paella-core/js/captions/WebVTTParser';
 
@@ -13,21 +14,33 @@ export default class VttManifestCaptionsPlugin extends CaptionsPlugin {
 
     async getCaptions() {
         const result = [];
-        this.player.videoManifest.captions.forEach(async captions => {
-            if (/vtt/i.test(captions.format)) {
-                const fileUrl = resolveResourcePath(this.player, captions.url);
-                console.log(fileUrl);
-                const result = await fetch(fileUrl);
-                if (result.ok) {
-                    const text = await result.text();
-                    const parser = new WebVTTParser(text);
-                    console.log(text);
-                    parser.captions.label = captions.text;
-                    parser.captions.language = captions.lang;
-                    result.push(parser.captions);
+        const p = [];
+        this.player.videoManifest.captions.forEach(captions => {
+            p.push(new Promise(resolve => {
+                if (/vtt/i.test(captions.format)) {
+                    const fileUrl = resolveResourcePath(this.player, captions.url);
+                    console.log(fileUrl);
+                    fetch(fileUrl)
+                        .then(fetchResult => {
+                            if (fetchResult.ok) {
+                                return fetchResult.text();
+                            }
+                            else {
+                                reject();
+                            }
+                        })
+                        .then((text) => {
+                            const parser = new WebVTTParser(text);
+                            parser.captions.label = captions.text;
+                            parser.captions.language = captions.lang;
+                            result.push(parser.captions);
+                            resolve();
+                        })
+                    
                 }
-            }
+            }));
         });
+        await Promise.all(p);
         return result;
     }
 }

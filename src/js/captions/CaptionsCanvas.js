@@ -1,6 +1,7 @@
 
 import { DomClass, createElementWithHtmlText } from 'paella-core/js/core/dom';
 import { loadCaptionsPlugins } from 'paella-core/js/captions/CaptionsPlugin';
+import Event, { bindEvent } from 'paella-core/js/core/Events';
 
 import 'paella-core/styles/CaptionCanvas.css';
 
@@ -15,6 +16,25 @@ export default class CaptionCanvas extends DomClass {
             <div class="captions-container">Test caption</div>`, this.element);
 
         this._captions = [];
+
+        this.hide();
+
+        this._currentCaptions = null;
+
+        const timeChanged = evt => {
+            const time = evt.currentTime || evt.newTime || 0;
+            if (this._currentCaptions) {
+                const cue = this._currentCaptions.getCue(time);
+                this._captionsContainer.innerHTML = "";
+                cue && cue.captions.forEach(c => {
+                    this._captionsContainer.innerHTML += c;
+                    this._captionsContainer.innerHTML += '<br/>';
+                });
+            }
+        };
+
+        bindEvent(this.player, Event.TIMEUPDATE, timeChanged);
+        bindEvent(this.player, Event.SEEK, timeChanged);
     }
 
     load() {
@@ -25,8 +45,12 @@ export default class CaptionCanvas extends DomClass {
         this._captions.push(captions);
     }
 
+    get captions() {
+        return this._captions;
+    }
+
     getCaptions({ label, index, lang }) {
-        if (label === undefined && index === undefined) {
+        if (label === undefined && index === undefined && lang === undefined) {
             throw Error("Could not find captions: you must specify the label, the index or the language");
         }
 
@@ -46,8 +70,12 @@ export default class CaptionCanvas extends DomClass {
     }
 
     enableCaptions(searchOptions) {
-        const captions = this.getCaptions(searchOptions);
-        
-        // TODO: Implement this
+        this._currentCaptions = this.getCaptions(searchOptions);
+        this.show();
+    }
+
+    disableCaptions() {
+        this._currentCaptions = null;
+        this.hide();
     }
 }

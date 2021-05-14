@@ -70,4 +70,22 @@ export default class Captions {
         this._cues.push(cue);
         return cue;
     }
+
+    getCue(instant) {
+        if (typeof(instant) === "string") {
+            instant = timeToSeconds(instant);
+        }
+        else if (typeof(instant) !== "number") {
+            throw Error("Invalid time instant format getting cue");
+        }
+
+        let result = null;
+        this._cues.some(cue => {
+            if (instant>=cue.start && instant<=cue.end) {
+                result = cue;
+                return true;
+            }
+        });
+        return result;
+    }
 }
