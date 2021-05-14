@@ -28,6 +28,8 @@
 
 [The Stream Provider](stream_provider.md): is responsible for managing the synchronization of the different video streams, and handling the soft trimming.
 
+[Captions](captions.md): APIs to load captions and subtitles.
+
 [Plugins](plugins.md): introduction to the plugin system in Paella Player 7
 
 [Video layout](video_layout.md): how to implement plugins to distribute the position of the video streams in the player container area.
@@ -46,4 +48,7 @@ Video plugin formats available in [paella core](https://github.com/polimediaupv/
 - [MP4 video plugin](mp4-video-plugin.md)
 
 [Data plugins](data_plugins.md): provides an interface to implement communication with the backend through the use of plugins
+
+[Captions plugins](captions_plugins.md): allows to load different formats of captions.
+
 

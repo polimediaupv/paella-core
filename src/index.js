@@ -19,6 +19,7 @@ import Data, { DataPlugin } from 'paella-core/js/core/Data';
 import { DomClass, createElementWithHtmlText, createElement } from 'paella-core/js/core/dom';
 
 import WebVTTParser, { parseWebVTT } from './js/captions/WebVTTParser';
+import CaptionsPlugin from 'paella-core/js/captions/CaptionsPlugin';
 
 export {
     Paella,
@@ -49,6 +50,7 @@ export {
 
     WebVTTParser,
     parseWebVTT,
+    CaptionsPlugin,
 
     Data,
     DataPlugin
