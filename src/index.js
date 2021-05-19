@@ -20,6 +20,7 @@ import { DomClass, createElementWithHtmlText, createElement } from 'paella-core/
 
 import WebVTTParser, { parseWebVTT } from './js/captions/WebVTTParser';
 import CaptionsPlugin from 'paella-core/js/captions/CaptionsPlugin';
+import Captions from 'paella-core/js/captions/Captions';
 
 export {
     Paella,
@@ -51,6 +52,7 @@ export {
     WebVTTParser,
     parseWebVTT,
     CaptionsPlugin,
+    Captions,
 
     Data,
     DataPlugin
