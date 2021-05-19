@@ -162,7 +162,19 @@ export default class Paella {
     }
 
     get captionsCanvas() {
-        return this._captionsCanvas;
+        return new Promise(resolve => {
+            const getCanvas = () => {
+                if (this._captionsCanvas) {
+                    resolve(this._captionsCanvas);
+                }
+                else {
+                    setTimeout(() => {
+                        getCanvas();
+                    }, 100);
+                }
+            }
+            getCanvas();
+        });
     }
 
     get data() {

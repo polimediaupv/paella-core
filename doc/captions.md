@@ -52,11 +52,11 @@ As you can see in the above example:
 
 ## CaptionsCanvas
 
-The `CaptionCanvas` is the element of paella player where the captions are represented, and it is also the interface through which we can load them, consult them, activate and deactivate them. It is accessible through the `paella` instance through the `captionsCanvas` attribute:
+The `CaptionCanvas` is the element of paella player where the captions are represented, and it is also the interface through which we can load them, consult them, activate and deactivate them. It is accessible through the `paella` instance through the `async captionsCanvas` attribute:
 
 ```javascript
 ... 
-const captionCanvas = myPlayerInstance.captionCanvas;
+const captionCanvas = await myPlayerInstance.captionCanvas;
 
 // Add captions to the canvas
 captionCanvas.addCaptions(spanishCaptions):

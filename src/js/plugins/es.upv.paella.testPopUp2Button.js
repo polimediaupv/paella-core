@@ -15,5 +15,7 @@ export default class TestPopUpButton2Plugin extends PopUpButtonPlugin {
     async load() {
         this.icon = screenIcon;
         this.title = "2";
+        const captionsCanvas = await this.player.captionsCanvas;
+        console.log(captionsCanvas);
     }
 }
