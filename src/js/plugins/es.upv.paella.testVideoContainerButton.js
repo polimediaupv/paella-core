@@ -15,7 +15,6 @@ export default class VideoContainerButtonPlugin extends MenuButtonPlugin {
 
     async getMenu() {
         console.log("Get menu");
-        setTimeout(() => this.refreshContent = true, 2000);
 
 		const items = [
 			{ id: 0, title: "Option 1" },
@@ -26,4 +25,15 @@ export default class VideoContainerButtonPlugin extends MenuButtonPlugin {
 		];
 		return items;
 	}
+
+    itemSelected(itemData) {
+        if (itemData.id === 0) {
+            // The next time the user press the button icon, the menu will be regenerated
+            this.refreshContent = true;
+        }
+    }
+
+    get buttonType() {
+        return "radio";
+    }
 }
