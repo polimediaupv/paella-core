@@ -7,7 +7,8 @@ export default {
 	FULLSCREEN_CHANGED: "paella:fullscreenchanged",
 	VOLUME_CHANGED: "paella:volumeChanged",
 	TIMEUPDATE: "paella:timeupdate",
-	TRIMMING_CHANGED: "paella:trimmingChanged"
+	TRIMMING_CHANGED: "paella:trimmingChanged",
+	CAPTIONS_CHANGED: "paella:captionsChanged"
 };
 
 export function bindEvent(player, event, callback) {
