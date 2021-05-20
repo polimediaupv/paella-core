@@ -43,7 +43,7 @@ export default class CaptionCanvas extends DomClass {
 
     addCaptions(captions) {
         this._captions.push(captions);
-        triggerEvent(this.player, Events.CAPTIONS_CHANGED, { captions: this._captions });
+        triggerEvent(this.player, Event.CAPTIONS_CHANGED, { captions: this._captions });
     }
 
     get captions() {
