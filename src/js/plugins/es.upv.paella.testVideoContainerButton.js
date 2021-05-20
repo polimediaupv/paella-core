@@ -34,6 +34,6 @@ export default class VideoContainerButtonPlugin extends MenuButtonPlugin {
     }
 
     get buttonType() {
-        return "radio";
+        return "check";
     }
 }
