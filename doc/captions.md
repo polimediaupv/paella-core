@@ -78,6 +78,7 @@ captionsCanvas.getCaption({
 });
 ```
 
+When the `addCaptions` method is used, the `Events.CAPTIONS_CHANGED` event is fired. We can capture this event from plugins to, for example, generate a subtitle selection menu.
 
 
 ## WebVTT
