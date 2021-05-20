@@ -15,7 +15,8 @@ export default class VideoContainerButtonPlugin extends MenuButtonPlugin {
 
     async getMenu() {
         console.log("Get menu");
-        
+        setTimeout(() => this.refreshContent = true, 2000);
+
 		const items = [
 			{ id: 0, title: "Option 1" },
 			{ id: 1, title: "Option 2" },

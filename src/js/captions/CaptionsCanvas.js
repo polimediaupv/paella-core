@@ -13,7 +13,7 @@ export default class CaptionCanvas extends DomClass {
         super(player, { tag: 'div', attributes, parent });
 
         this._captionsContainer = createElementWithHtmlText(`
-            <div class="captions-container">Test caption</div>`, this.element);
+            <div class="captions-container"></div>`, this.element);
 
         this._captions = [];
 

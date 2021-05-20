@@ -4,6 +4,16 @@ import { createElementWithHtmlText } from 'paella-core/js/core/dom';
 import TimeLinePopUp from 'paella-core/js/core/TimeLinePopUp';
 
 export default class PopUpButtonPlugin extends ButtonPlugin {
+	constructor() {
+		super(...arguments);
+
+		this._refreshContent = true;
+	}
+
+	set refreshContent(c) { this._refreshContent = c; }
+
+	get refreshContent() { return this._refreshContent; }
+
 	async action() {
 		await this.showPopUp();
 	}
@@ -36,13 +46,17 @@ export default class PopUpButtonPlugin extends ButtonPlugin {
 				this._popUp = new TimeLinePopUp(this.player);
 			}
 			this._popUp.setContent(content);
+			this.refreshContent = false;
 		}
 		else if (this.popUpType === "timeline" && this._popUp.isVisible) {
 			this._popUp.hide();
 		}
 		else {
-			const content = await this.getContent();
-			this._popUp.setContent(content);
+			if (this.refreshContent) {
+				const content = await this.getContent();
+				this._popUp.setContent(content);
+				this.refreshContent = false;
+			}
 			this._popUp.show(parentContainer);
 		}
 	}
