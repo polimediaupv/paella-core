@@ -62,6 +62,7 @@ export default class TimeLinePopUp extends DomClass {
 
     setContent(content) {
         if (content) {
+            this.element.innerHTML = "";
             this.element.appendChild(content);
         }
     }

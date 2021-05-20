@@ -35,6 +35,7 @@ export default class PopUpButtonPlugin extends ButtonPlugin {
 			else if (this.popUpType === "timeline") {
 				this._popUp = new TimeLinePopUp(this.player);
 			}
+			this._popUp.setContent(content);
 		}
 		else if (this.popUpType === "timeline" && this._popUp.isVisible) {
 			this._popUp.hide();
