@@ -12,4 +12,17 @@ export default class VideoContainerButtonPlugin extends MenuButtonPlugin {
     get titleSize() {
         return "medium";
     }
+
+    async getMenu() {
+        console.log("Get menu");
+        
+		const items = [
+			{ id: 0, title: "Option 1" },
+			{ id: 1, title: "Option 2" },
+			{ id: 2, title: "Option 3" },
+			{ id: 3, title: "Option 4" },
+			{ id: 4, title: "Option 5" }
+		];
+		return items;
+	}
 }

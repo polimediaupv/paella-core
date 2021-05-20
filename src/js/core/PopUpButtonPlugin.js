@@ -25,7 +25,9 @@ export default class PopUpButtonPlugin extends ButtonPlugin {
 	
 	async showPopUp() {
 		const parentContainer = this.player.isFullscreen ? this.player.containerElement : document.body;
+		
 		if (!this._popUp) {
+			const content = await this.getContent();
 			this._popUp = null;
 			if (this.popUpType === "modal") {
 				this._popUp = new PopUp(this.player, parentContainer, this.button);
@@ -33,13 +35,13 @@ export default class PopUpButtonPlugin extends ButtonPlugin {
 			else if (this.popUpType === "timeline") {
 				this._popUp = new TimeLinePopUp(this.player);
 			}
-			const content = await this.getContent();
-			this._popUp.setContent(content);
 		}
 		else if (this.popUpType === "timeline" && this._popUp.isVisible) {
 			this._popUp.hide();
 		}
 		else {
+			const content = await this.getContent();
+			this._popUp.setContent(content);
 			this._popUp.show(parentContainer);
 		}
 	}
