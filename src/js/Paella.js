@@ -162,19 +162,7 @@ export default class Paella {
     }
 
     get captionsCanvas() {
-        return new Promise(resolve => {
-            const getCanvas = () => {
-                if (this._captionsCanvas) {
-                    resolve(this._captionsCanvas);
-                }
-                else {
-                    setTimeout(() => {
-                        getCanvas();
-                    }, 100);
-                }
-            }
-            getCanvas();
-        });
+        return this._captionsCanvas;
     }
 
     get data() {
@@ -223,6 +211,7 @@ export default class Paella {
         
         await this.videoContainer.load(this.videoManifest?.streams);
 
+        this._captionsCanvas = new CaptionCanvas(this, this._containerElement);
         
         this._playbackBar = new PlaybackBar(this, this.containerElement);
 
@@ -233,8 +222,6 @@ export default class Paella {
         // UI hide timer
         this._hideUiTime = 5000;
         setupAutoHideUiTimer(this);
-        
-        this._captionsCanvas = new CaptionCanvas(this, this._containerElement);
         
         this._captionsCanvas.load();
 
