@@ -99,6 +99,36 @@ export default class MyPlugin extends Plugin {
 }
 ```
 
+**About overriding the `isEnabled()` method:** si necesitas llamar al método padre para extender el comportamiento por defecto, ten en cuenta que `isEnabled()` es un método asíncrono. Es un error muy habitual el no utilizar adecuadamente `await`:
+
+```javascript
+async isEnabled() {
+  // This will NOT WORK: isEnabled is asynchronous
+  if (!super.isEnabled()) {
+    return false;
+  }
+  else {
+    // Extend the isEnabled() funcionality
+    ...
+    return condition;
+  }
+}
+```
+
+```javascript
+async isEnabled() {
+  // This is the CORRECT WAY to extend isEnabled() default behavior
+  if (!(await super.isEnabled())) {
+    return false;
+  }
+  else {
+    // Extend the isEnabled() funcionality
+    ...
+    return condition;
+  }
+}
+```
+
 
 
 ## Plugin configuration
