@@ -183,9 +183,6 @@ export class HlsVideo extends Mp4Video {
             const [hls, promise] = loadHls(this.player, streamData, this.video, this._config, this._cors);
             this._hls = hls;
             await promise;
-
-            console.log(streamData);
-            console.log(this._config);
         }
     }
 
@@ -197,6 +194,7 @@ export class HlsVideo extends Mp4Video {
             await (new Promise((resolve,reject) => {
                 const checkReady = () => {
                     if (this.video.readyState > 2) {
+                        this._ready = true;
                         resolve();
                     }
                     else {
