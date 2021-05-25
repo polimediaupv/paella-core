@@ -218,13 +218,14 @@ export default class SteramProvider extends PlayerResource {
 
 	async setCurrentTime(t) {
 		const prevTime = (await this.executeAction("currentTime"))[0];
-		
+		let returnValue = null;
+
 		if (this.isTrimEnabled) {
 			t = t + this.trimStart;
 			t = t >= this.trimEnd ? this.trimEnd : t;
 			const result = (await this.executeAction("setCurrentTime", [t]))[0];
 			const newTime = (await this.executeAction("currentTime"))[0];
-			return {
+			returnValue = {
 				result,
 				prevTime: prevTime + this.trimStart,
 				newTime: newTime + this.trimStart
@@ -233,11 +234,13 @@ export default class SteramProvider extends PlayerResource {
 		else {
 			const result = (await this.executeAction("setCurrentTime", [t]))[0];
 			const newTime = (await this.executeAction("currentTime"))[0];
-			return { result, prevTime, newTime };
+			returnValue = { result, prevTime, newTime };
 		}
 		
 		const currentTime = await this.currentTime();
 		triggerEvent(this.player, Events.TIMEUPDATE, { currentTime: currentTime });
+
+		return returnValue;
 	}
 	
 	async currentTime() {
@@ -292,5 +295,30 @@ export default class SteramProvider extends PlayerResource {
 
 	async setPlaybackRate(rate) {
 		return (await this.executeAction("setPlaybackRate",[rate]))[0];
+	}
+
+	async getQualityReferencePlayer() {
+		let player = null;
+		let referenceQualities = null;
+		if (Object.keys(this.streams).length>0) {
+			for (const content in this.streams) {
+				const stream = this.streams[content];
+				const q = await stream.player.getQualities();
+				if (!player || q.length > referenceQualities.length) {
+					referenceQualities = q;
+					player = stream.player;
+				}
+			}
+		}
+		return player;
+	}
+
+	async getQualities() {
+		const player = await this.getQualityReferencePlayer();
+		return await player.getQualities();
+	}
+
+	async setQuality(q) {
+
 	}
 }
