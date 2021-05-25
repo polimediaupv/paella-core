@@ -21,31 +21,32 @@ export function getCurrentFrame(sortedFrameList,time) {
 
 function updateFrameThumbnail(offsetX,time) {
 	let frame = getCurrentFrame(this.frameList, time);
-	
-	this._frameThumbnail.style.display = "block";
-	const thumbWidth = this._frameThumbnail.getBoundingClientRect().width;
-	const playbackBar = this.playbackBar;
-	const { top, left, bottom, width, height } = playbackBar.getBoundingClientRect();
-	const centerX = width / 2;
-	
-	this.frameThumbnail.style.bottom = `${ height }px`;
-	if (centerX > offsetX) {
-		this.frameThumbnail.style.left = `${ offsetX }px`;		
+	if (frame) {
+		this._frameThumbnail.style.display = "block";
+		const thumbWidth = this._frameThumbnail.getBoundingClientRect().width;
+		const playbackBar = this.playbackBar;
+		const { top, left, bottom, width, height } = playbackBar.getBoundingClientRect();
+		const centerX = width / 2;
+		
+		this.frameThumbnail.style.bottom = `${ height }px`;
+		if (centerX > offsetX) {
+			this.frameThumbnail.style.left = `${ offsetX }px`;		
+		}
+		else {
+			this.frameThumbnail.style.left = `${ offsetX - thumbWidth }px`;
+		}
+		
+		const frameImage = resolveResourcePath(this.player, frame.url);
+		const thumbImageContainer = this.frameThumbnail.getElementsByClassName("thumbnail-image")[0];
+		const timeContainer = this.frameThumbnail.getElementsByClassName("thumbnail-time")[0];
+		if (frameImage !== this._prevFrameImage) {
+			thumbImageContainer.src = frameImage;
+			thumbImageContainer.alt = frame.id;
+			this._prevFrameImage = frameImage;
+		}
+		
+		timeContainer.innerHTML = secondsToTime(time);
 	}
-	else {
-		this.frameThumbnail.style.left = `${ offsetX - thumbWidth }px`;
-	}
-	
-	const frameImage = resolveResourcePath(this.player, frame.url);
-	const thumbImageContainer = this.frameThumbnail.getElementsByClassName("thumbnail-image")[0];
-	const timeContainer = this.frameThumbnail.getElementsByClassName("thumbnail-time")[0];
-	if (frameImage !== this._prevFrameImage) {
-		thumbImageContainer.src = frameImage;
-		thumbImageContainer.alt = frame.id;
-		this._prevFrameImage = frameImage;
-	}
-	
-	timeContainer.innerHTML = secondsToTime(time);
 }
 
 export default class ProgressIndicator extends DomClass {
