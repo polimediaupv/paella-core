@@ -28,7 +28,7 @@ export {
     PopUp,
     utils,
     initFunctions,
-    PlayerResource,src,
+    PlayerResource,
     
     Plugin,
     importPlugins,
