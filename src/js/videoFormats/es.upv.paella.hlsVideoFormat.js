@@ -1,5 +1,6 @@
 import { Mp4Video, supportsVideoType } from "./es.upv.paella.mp4VideoFormat";
 import VideoPlugin from 'paella-core/js/core/VideoPlugin';
+import VideoQualityItem from 'paella-core/js/core/VideoQualityItem';
 
 import Hls from "hls.js";
 
@@ -170,6 +171,11 @@ export class HlsVideo extends Mp4Video {
         }
 
         this._ready = false;
+        this._autoQuality = true;
+    }
+
+    get autoQuality() {
+        return this._autoQuality;
     }
 
     async loadStreamData(streamData) {
@@ -177,7 +183,6 @@ export class HlsVideo extends Mp4Video {
             return super.loadStreamData(streamData);
         }
         else {
-            // TODO: Implement HLS support
             console.debug("Loading HLS stream");
 
             const [hls, promise] = loadHls(this.player, streamData, this.video, this._config, this._cors);
@@ -213,6 +218,49 @@ export class HlsVideo extends Mp4Video {
             w: video.videoWidth,
             h: video.videoHeight
         }
+    }
+
+    async getQualities() {
+        const q = [];
+        q.push(new VideoQualityItem({
+            label: "auto",
+            shortLabel: "auto",
+            index: -1,
+            width: 1,
+            height: 1,
+            isAuto: true
+        }));
+
+        if (hlsSupport === HlsSupport.MEDIA_SOURCE_EXTENSIONS) {
+            this._hls.levels.forEach((level, index) => {
+                q.push(new VideoQualityItem({
+                    index: level.id,
+                    label: `${level.width}x${level.height}`,
+                    shortLabel: `${level.height}p`,
+                    index: index
+                }));
+            });
+        }
+
+        return q;
+    }
+
+    async setQuality(q) {
+        if (!(q instanceof VideoQualityItem)) {
+            throw Error("Invalid parameter setting video quality. VideoQualityItem object expected.");
+        }
+        
+        if (hlsSupport === HlsSupport.MEDIA_SOURCE_EXTENSIONS) {
+            this._currentQuality = q;
+            this._hls.currentLevel = q.index;
+        }
+        else {
+            console.warn("Could not set video quality of HLS stream, because the HLS support of this browser is native.");
+        }
+    }
+
+    get currentQuality() {
+        return this._currentQuality;
     }
 }
 

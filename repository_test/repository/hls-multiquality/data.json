@@ -9,8 +9,6 @@
 				"hls": [
 					{
 						"src": "https://streaming.upv.es/paellaplayerdemo/_definst_/smil:belmar-hls/belmar/playlist.m3u8",
-						"src__":"https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8",
-						"src_":"http://streaming.upv.es:1935/VODTestMau/smil:belmar-demobn.smil/playlist.m3u8",
 						"mimetype": "video/mp4",
 						"res": {
 							"w": "1920",
@@ -34,7 +32,8 @@
 						}
 					}
 				]
-			}
+			},
+			"content": "presentation"
 		}
 	],
 	"frameList": []
