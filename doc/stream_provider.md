@@ -104,3 +104,12 @@ Of the playback control functions, those that affect the time instant all take v
 
 `async setTrimming({ enabled, start, end })`: Configures video trimming. Esta función genera el evento `Events.TIMEUPDATE`, de forma que si el vídeo está pausado, todos los observadores del evento puedan recalcular las propiedades del vídeo.
 
+### Quality management functions
+
+There are two functions to control the quality change of videos: one to get the list of available qualities and one to set the quality.
+
+It is important to note that for the quality change mechanism to work predictably, all streams must have the same number of selectable qualities. In addition to this, it is highly recommended that both streams are played using the same plugin. If either of these two conditions are not met, the quality change may not be 100% well behaved.
+
+`async getQualities()`: Returns the array of `VideoQualityItem` objects corresponding to the quality reference video. The reference video for qualities is the one that has more elements in its array of `VideoQualityItem` elements. If the recommendations are met and all streams have the same qualities, then the one from the main stream will be returned.
+
+`async setQuality(q)`: Sets the current quality for the video. The parameter passed is one of the elements of the array obtained with `getQualities()`.
