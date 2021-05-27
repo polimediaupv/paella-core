@@ -237,9 +237,13 @@ export class HlsVideo extends Mp4Video {
                     index: level.id,
                     label: `${level.width}x${level.height}`,
                     shortLabel: `${level.height}p`,
-                    index: index
+                    index: index,
+                    width: level.width,
+                    height: level.height
                 }));
             });
+
+            q.sort((a,b) => a.res.h-b.res.h);
         }
 
         return q;

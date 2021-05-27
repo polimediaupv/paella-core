@@ -318,7 +318,31 @@ export default class SteramProvider extends PlayerResource {
 		return await player.getQualities();
 	}
 
-	async setQuality(q) {
+	async setQuality(quality) {
+		const player = await this.getQualityReferencePlayer();
 
+		const qualities = await player.getQualities();
+		const total = qualities.length;
+		let index = -1;
+		qualities.some((q,i) => {
+			if (quality.index === q.index) {
+				index = i;
+			}
+			return index !== -1;
+		});
+
+		if (index>=0) {
+			const qualityFactor = index / total;
+			for (const content in this.streams) {
+				const stream = this.streams[content];
+				const streamQualities = await stream.player.getQualities();
+				console.log(streamQualities);
+				if (streamQualities.length>1) {
+					const qualityIndex = Math.round(streamQualities.length * qualityFactor);
+					const selectedQuality = streamQualities[qualityIndex];
+					await stream.player.setQuality(selectedQuality);
+				}
+			}
+		}
 	}
 }
