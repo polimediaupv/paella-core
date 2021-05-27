@@ -2,6 +2,7 @@
 export default {
 	PLAY: "paella:play",
 	PAUSE: "paella:pause",
+	STOP: "paella:stop",
 	ENDED: "paella:ended",
 	SEEK: "paella:seek",
 	FULLSCREEN_CHANGED: "paella:fullscreenchanged",

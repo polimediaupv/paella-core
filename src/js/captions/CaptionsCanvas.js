@@ -1,7 +1,7 @@
 
 import { DomClass, createElementWithHtmlText } from 'paella-core/js/core/dom';
 import { loadCaptionsPlugins } from 'paella-core/js/captions/CaptionsPlugin';
-import Event, { bindEvent, triggerEvent } from 'paella-core/js/core/Events';
+import Events, { bindEvent, triggerEvent } from 'paella-core/js/core/Events';
 
 import 'paella-core/styles/CaptionCanvas.css';
 
@@ -33,8 +33,8 @@ export default class CaptionCanvas extends DomClass {
             }
         };
 
-        bindEvent(this.player, Event.TIMEUPDATE, timeChanged);
-        bindEvent(this.player, Event.SEEK, timeChanged);
+        bindEvent(this.player, Events.TIMEUPDATE, timeChanged);
+        bindEvent(this.player, Events.SEEK, timeChanged);
     }
 
     load() {
@@ -43,7 +43,7 @@ export default class CaptionCanvas extends DomClass {
 
     addCaptions(captions) {
         this._captions.push(captions);
-        triggerEvent(this.player, Event.CAPTIONS_CHANGED, { captions: this._captions });
+        triggerEvent(this.player, Events.CAPTIONS_CHANGED, { captions: this._captions });
     }
 
     get captions() {

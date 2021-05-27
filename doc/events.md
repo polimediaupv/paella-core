@@ -57,3 +57,56 @@ player.bindEvent(player.Events.TRIMMING_CHANGED, (eventData) => {
 ```
 
 **Note:** Please note that the preferred API for triggering events is the ES6 module API. The paella.bindEvent() function is only recommended for debugging tasks from the web browser development tools console.
+
+## Predefined events
+
+**`PLAY`:** Thrown when the method [`videoContainer.play()`](video_container.md) is called. It does not receive parameters.
+
+**`PAUSE`:** Triggered when calling the method [`videoContainer.pause()`](video_container.md). It does not receive parameters.
+
+**`STOP`:** Triggered when [`videoContainer.stop()`](video_container.md) method is called. It does not receive parameters.
+
+**`ENDED`:** Triggered when the video ends. It does not receive parameters.
+
+**`SEEK`:** Triggered when the method [`videoContainer.setCurrentTime()`](video_container.md) is called. It receives the following parameters:
+
+- `prevTime`: time instant before executing the `seek` action.
+- `newTime`: new time instant.
+
+**`FULLSCREEN_CHANGED`:** It is triggered when the `fullscreen` state changes. It receives as parameter:
+
+- `status (true | false)`: the status to change to.
+
+**`VOLUME_CHANGED`:** Triggered when calling the method [`videoContainer.setVolume()`](video_container.md). It receives as parameter:
+
+- `volume [0..1]`: The volume that has been set.
+
+**`TIMEUPDATE`:** It is triggered during the video playback, every certain time, typically every 250 ms. The event is also sent when changes occur in the timeline, while the video is paused, for example, when the time instant is manually changed using the function [`videoContainer.setCurrentTime()`](video_container.md) Receives as parameter:
+
+- `currentTime`: the new time instant.
+
+**`TRIMMING_CHANGED`:** Triggered when the function [`videoContainer.setTrimming()`](video_container.md) is called. It receives as parameters the new soft trimming data:
+
+- `enabled (true | false)`
+- `start`: soft trimming start time
+- `end`: soft trimming end time
+
+**`CAPTIONS_CHANGED`:** Triggered when captions are added to the video using the [`captionCanvas`](captions.md) API. It receives as parameter:
+
+- `captions`: the array with all available captions, including the one just added, which will be the last element of that array.
+
+**`BUTTON_PRESS`:** It is launched when the user presses a button of type [ButtonPlugin](button_plugin.md) or a button of a [video layout](video_layout.md). It receives as parameter:
+
+- `plugin`: the instance of the plugin that triggered the event.
+- `playoutStructure` (only for buttons in a [video layout](video_layout.md)): the structure of the layout containing the button that triggered the event.
+
+**`SHOW_POPUP`:** It is triggered when a [popup](popup_button_plugin.md) is displayed, either a modal popup or a timeline popup. It receives as parameters:
+
+- `popUp (PopUp | TimeLinePopUp)`: the instance of the popup that has been opened.
+- `plugin`: the plugin that triggered the event.
+
+**`HIDE_POPUP`:** fired when a [popup](popup_button_plugin.md) is hidden, either a modal popup or a timeline popup. It receives as parameters:
+
+- `popUp (PopUp | TimeLinePopUp)`: the instance of the popup that has been closed.
+- `plugin`: the plugin that triggered the event.
+
