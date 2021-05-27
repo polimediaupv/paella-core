@@ -1,4 +1,5 @@
 import { DomClass, createElementWithHtmlText } from 'paella-core/js/core/dom';
+import Events, { triggerEvent } from 'paella-core/js/core/Events';
 
 import 'paella-core/styles/TimeLinePopUp.css';
 
@@ -16,7 +17,7 @@ export default class TimeLinePopUp extends DomClass {
         setupPlayerInstance(player);
         if (player.__timeLinePopUp.current) {
             const tmpCurrentPopup = player.__timeLinePopUp.current;
-            player.__timeLinePopUp.current.hide();
+            player.__timeLinePopUp.current.hide(true);
             player.__timeLinePopUp.current = tmpCurrentPopup;
         }
     }
@@ -24,11 +25,11 @@ export default class TimeLinePopUp extends DomClass {
     static ShowUserInterface(player) {
         setupPlayerInstance(player);
         if (player.__timeLinePopUp.current) {
-            player.__timeLinePopUp.current.show();
+            player.__timeLinePopUp.current.show(true);
         }
     }
 
-    constructor(player) {
+    constructor(player, contextObject = null) {
         setupPlayerInstance(player);
 
         const attributes = {
@@ -39,6 +40,8 @@ export default class TimeLinePopUp extends DomClass {
 
         super(player, { attributes, parent });
 
+        this._contextObject = contextObject;
+
         // Hide other pop ups
         player.__timeLinePopUp.popUps.forEach(p => p.hide());
         
@@ -46,18 +49,47 @@ export default class TimeLinePopUp extends DomClass {
         player.__timeLinePopUp.popUps.push(this);
 
         player.__timeLinePopUp.current = this;
+
+        triggerEvent(this.player, Events.SHOW_POPUP, {
+            popUp: this,
+            plugin: this.contextObject
+        });
     }
 
-    show() {
+    get contextObject() {
+        return this._contextObject;
+    }
+
+    show(uiTimerTriggered = false) {
+        if (this.isVisible) {
+            return;
+        }
+
         // Hide other pop ups
         this.player.__timeLinePopUp.popUps.forEach(p => p.hide());
         super.show();
         this.player.__timeLinePopUp.current = this;
+        if (!(uiTimerTriggered === true)) {
+            triggerEvent(this.player, Events.SHOW_POPUP, {
+                popUp: this,
+                plugin: this.contextObject
+            });
+        }
     }
 
-    hide() {
+    hide(uiTimerTriggered = false) {
+        if (!this.isVisible) {
+            return;
+        }
+
         super.hide();
         this.player.__timeLinePopUp.current = null;
+        if (!(uiTimerTriggered === true)) {
+            triggerEvent(this.player, Events.HIDE_POPUP, {
+                popUp: this,
+                plugin: this.contextObject
+            });
+        }
     }
 
     setContent(content) {

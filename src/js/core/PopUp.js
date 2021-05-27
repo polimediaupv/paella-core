@@ -1,4 +1,5 @@
 import { DomClass, createElementWithHtmlText } from 'paella-core/js/core/dom';
+import Events, { triggerEvent } from 'paella-core/js/core/Events';
 
 import 'paella-core/styles/PopUp.css';
 
@@ -60,7 +61,7 @@ export default class PopUp extends DomClass {
 		g_popUps.forEach(p => p.hide());
 	}
 	
-	constructor(player, parent, anchorElement = null) {
+	constructor(player, parent, anchorElement = null, contextObject = null) {
 		const attributes = {
 			"class": "popup-container"
 		};
@@ -70,6 +71,8 @@ export default class PopUp extends DomClass {
 		`;
 		super(player,{ attributes, children, parent });
 		
+		this._contextObject = contextObject;
+
 		this._id = Symbol(this);
 		g_popUps.push(this);
 		
@@ -83,7 +86,16 @@ export default class PopUp extends DomClass {
 		if (anchorElement) {
 			placePopUp(player, anchorElement, this.contentElement);
 		}
+
+		triggerEvent(this.player, Events.SHOW_POPUP, {
+			popUp: this,
+			plugin: this.contextObject
+		});
 	}
+
+	get contextObject() {
+        return this._contextObject;
+    }
 	
 	get id() {
 		return this._id;
@@ -118,5 +130,19 @@ export default class PopUp extends DomClass {
 			this.setParent(parent);
 		}
 		super.show();
+		triggerEvent(this.player, Events.SHOW_POPUP, {
+			popUp: this,
+			plugin: this.contextObject
+		});
+	}
+
+	hide() {
+		if (this.isVisible) {
+			triggerEvent(this.player, Events.HIDE_POPUP, {
+				popUp: this,
+				plugin: this.contextObject
+			});
+		}
+		super.hide();
 	}
 }

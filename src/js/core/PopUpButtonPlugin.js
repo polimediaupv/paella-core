@@ -40,10 +40,10 @@ export default class PopUpButtonPlugin extends ButtonPlugin {
 			const content = await this.getContent();
 			this._popUp = null;
 			if (this.popUpType === "modal") {
-				this._popUp = new PopUp(this.player, parentContainer, this.button);
+				this._popUp = new PopUp(this.player, parentContainer, this.button, this);
 			}
 			else if (this.popUpType === "timeline") {
-				this._popUp = new TimeLinePopUp(this.player);
+				this._popUp = new TimeLinePopUp(this.player, this);
 			}
 			this._popUp.setContent(content);
 			this.refreshContent = false;

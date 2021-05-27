@@ -9,7 +9,9 @@ export default {
 	TIMEUPDATE: "paella:timeupdate",
 	TRIMMING_CHANGED: "paella:trimmingChanged",
 	CAPTIONS_CHANGED: "paella:captionsChanged",
-	BUTTON_PRESS: "paella:buttonPress"
+	BUTTON_PRESS: "paella:buttonPress",
+	SHOW_POPUP: "paella:showPopUp",
+	HIDE_POPUP: "paella:hidePopUp"
 };
 
 export function bindEvent(player, event, callback) {
