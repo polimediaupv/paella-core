@@ -1,5 +1,6 @@
 import Plugin, { getPluginsOfType } from 'paella-core/js/core/Plugin';
 import { createElementWithHtmlText } from 'paella-core/js/core/dom';
+import Events, { triggerEvent } from 'paella-core/js/core/Events';
 
 export function getButtonPlugins(player, side = "any", parent = "playbackBar") {
 	return getPluginsOfType(player, "button")
@@ -50,7 +51,11 @@ export async function addButtonPlugin(plugin, buttonAreaElem) {
 	});
 
 	button.addEventListener("click", (evt) => {
-		button._pluginData.action(evt);
+		const plugin = button._pluginData;
+		triggerEvent(plugin.player, Events.BUTTON_PRESS, {
+			plugin: plugin
+		});
+		plugin.action(evt);
 	});
 }
 

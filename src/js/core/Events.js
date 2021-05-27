@@ -8,7 +8,8 @@ export default {
 	VOLUME_CHANGED: "paella:volumeChanged",
 	TIMEUPDATE: "paella:timeupdate",
 	TRIMMING_CHANGED: "paella:trimmingChanged",
-	CAPTIONS_CHANGED: "paella:captionsChanged"
+	CAPTIONS_CHANGED: "paella:captionsChanged",
+	BUTTON_PRESS: "paella:buttonPress"
 };
 
 export function bindEvent(player, event, callback) {
