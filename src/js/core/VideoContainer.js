@@ -4,6 +4,7 @@ import {
     getValidLayouts, 
     getValidContentIds, 
     getLayoutStructure, 
+    getLayoutWithId,
     getValidContentSettings } from 'paella-core/js/core/VideoLayout';
 import StreamProvider from 'paella-core/js/core/StreamProvider';
 import Events, { triggerEvent } from 'paella-core/js/core/Events';
@@ -222,6 +223,10 @@ export default class VideoContainer extends DomClass {
             button.layout = layoutStructure;
             button.buttonAction = buttonData.onClick;
             button.addEventListener("click", (evt) => {
+                triggerEvent(this.player, Events.BUTTON_PRESS, {
+                    plugin: layoutStructure.plugin,
+                    layoutStructure: layoutStructure
+                });
                 evt.target.buttonAction.apply(evt.target.layout);
                 evt.stopPropagation();
             });

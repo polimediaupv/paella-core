@@ -9,6 +9,16 @@ export function getValidLayouts(player, streamData) {
     return result;
 }
 
+export function getLayoutWithId(player, layoutId) {
+    const result = getPluginsOfType(player, "layout");
+    result.find(layout => {
+        console.log(layout);
+        return layout.identifier === layoutId
+    });
+    return result;
+
+}
+
 export function getValidContentIds(player, streamData) {
     const validLayouts = getValidLayouts(player, streamData);
     const result = [];
@@ -46,7 +56,9 @@ export function getValidContentSettings(player, streamData) {
 export function getLayoutStructure(player, streamData, contentId) {
     const selectedLayout = getLayoutWithContentId(player, streamData, contentId);
     if (selectedLayout) {
-        return selectedLayout.getLayoutStructure(streamData, contentId);
+        const structure = selectedLayout.getLayoutStructure(streamData, contentId);
+        structure.plugin = selectedLayout;
+        return structure;
     }
     return null;
 }
