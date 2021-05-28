@@ -113,3 +113,5 @@ It is important to note that for the quality change mechanism to work predictabl
 `async getQualities()`: Returns the array of `VideoQualityItem` objects corresponding to the quality reference video. The reference video for qualities is the one that has more elements in its array of `VideoQualityItem` elements. If the recommendations are met and all streams have the same qualities, then the one from the main stream will be returned.
 
 `async setQuality(q)`: Sets the current quality for the video. The parameter passed is one of the elements of the array obtained with `getQualities()`.
+
+`async getCurrentQuality()`: Returns the `VideoQualityItem` object corresponding to the current video quality.
