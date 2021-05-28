@@ -313,6 +313,10 @@ export default class SteramProvider extends PlayerResource {
 		return player;
 	}
 
+	async getCurrentQuality() {
+		return (await this.getQualityReferencePlayer()).currentQuality;
+	}
+
 	async getQualities() {
 		const player = await this.getQualityReferencePlayer();
 		return await player.getQualities();

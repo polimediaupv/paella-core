@@ -188,6 +188,16 @@ export class HlsVideo extends Mp4Video {
             const [hls, promise] = loadHls(this.player, streamData, this.video, this._config, this._cors);
             this._hls = hls;
             await promise;
+
+            this._autoQuality = new VideoQualityItem({
+                label: "auto",
+                shortLabel: "auto",
+                index: -1,
+                width: 1,
+                height: 1,
+                isAuto: true
+            });
+            this._currentQuality = this._autoQuality;
         }
     }
 
@@ -222,14 +232,7 @@ export class HlsVideo extends Mp4Video {
 
     async getQualities() {
         const q = [];
-        q.push(new VideoQualityItem({
-            label: "auto",
-            shortLabel: "auto",
-            index: -1,
-            width: 1,
-            height: 1,
-            isAuto: true
-        }));
+        q.push(this._autoQuality);
 
         if (hlsSupport === HlsSupport.MEDIA_SOURCE_EXTENSIONS) {
             this._hls.levels.forEach((level, index) => {
