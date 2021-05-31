@@ -115,3 +115,20 @@ It is important to note that for the quality change mechanism to work predictabl
 `async setQuality(q)`: Sets the current quality for the video. The parameter passed is one of the elements of the array obtained with `getQualities()`.
 
 `async getCurrentQuality()`: Returns the `VideoQualityItem` object corresponding to the current video quality.
+
+
+
+## Multi audio functions
+
+The multiple audio control functions allow you to change the audio track of the main audio stream, provided that the [video plug-in](video_plugin.md) supports it. All multi audio functions work with instances of objects of the `AudioTrackData` class.
+
+`async supportsMultiaudio()`: returns true if the main audio source supports multiple audio tracks.
+
+`async getAudioTracks()`: returns an array of instances of `AudioTrackData` objects, or null if the video does not support multi audio.
+
+`async setCurrentAudioTrack(audioTrackData)`: sets the current active audio track.
+
+`get currentAudioTrack()`: returns the current active audio track.
+
+
+
