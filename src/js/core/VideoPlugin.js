@@ -145,4 +145,16 @@ export class Video extends DomClass {
     async loadStreamData(streamData) {
         return false;
     }
+
+    async supportsMultiaudio() {
+        return false;
+    }
+
+    async getAudioTracks() {
+        return null;
+    }
+
+    async setCurrentAudioTrack() {
+        
+    }
 }
