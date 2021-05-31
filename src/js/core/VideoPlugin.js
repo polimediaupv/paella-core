@@ -153,7 +153,11 @@ export class Video extends DomClass {
     async setCurrentAudioTrack() {
 
     }
-    
+
+    get currentAudioTrack() {
+        return null;
+    }
+
     async loadStreamData(streamData) {
         return false;
     }

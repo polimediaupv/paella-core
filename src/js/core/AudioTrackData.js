@@ -4,12 +4,14 @@ export default class AudioTrackData {
         id, 
         name,
         groupId = "", 
-        language = ""
+        language = "",
+        selected = false
     }) {
         this._id = id;
         this._name = name;
         this._groupId = groupId;
         this._lang = language;
+        this._selected = selected;
     }
 
     get id() {
@@ -26,5 +28,13 @@ export default class AudioTrackData {
 
     get language() {
         return this._lang;
+    }
+
+    get selected() {
+        return this._selected;
+    }
+
+    set selected(s) {
+        this._selected = s;
     }
 }

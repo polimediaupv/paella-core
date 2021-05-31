@@ -1,6 +1,7 @@
 import { Mp4Video, supportsVideoType } from "./es.upv.paella.mp4VideoFormat";
 import VideoPlugin from 'paella-core/js/core/VideoPlugin';
 import VideoQualityItem from 'paella-core/js/core/VideoQualityItem';
+import AudioTrackData from "paella-core/js/core/AudioTrackData";
 
 import Hls from "hls.js";
 
@@ -197,7 +198,12 @@ export class HlsVideo extends Mp4Video {
                 height: 1,
                 isAuto: true
             });
+            // Initialize current quality
             this._currentQuality = this._autoQuality;
+
+            // Initialize current audio track
+            const tracks = await this.getAudioTracks();
+            this._currentAudioTrack = tracks.find(track => track.selected);
         }
     }
 
@@ -268,6 +274,76 @@ export class HlsVideo extends Mp4Video {
 
     get currentQuality() {
         return this._currentQuality;
+    }
+
+    async supportsMultiaudio() {
+        await this.waitForLoaded();
+
+        if (hlsSupport === HlsSupport.MEDIA_SOURCE_EXTENSIONS) {
+            return this._hls.audioTracks.length > 1;
+        }
+        else if (hlsSupport === HlsSupport.NATIVE) {
+            return this.video.audioTracks?.length > 1;
+        }
+        else {
+            return false;
+        }
+    }
+
+    async getAudioTracks() {
+        await this.waitForLoaded();
+
+        if (hlsSupport === HlsSupport.MEDIA_SOURCE_EXTENSIONS) {
+            const result = this._hls.audioTracks.map(track => {
+                return new AudioTrackData({
+                    id: track.id,
+                    name: track.name,
+                    language: track.lang,
+                    selected: this._hls.audioTrack === track.id
+                });
+            });
+            return result;       
+        }
+        else if (hlsSupport === HlsSupport.NATIVE) {
+            const result = Array.from(this.video.audioTracks).map(track => {
+                return new AudioTrackData({
+                    id: track.id,
+                    name: track.label,
+                    language: track.language,
+                    selected: track.enabled
+                });
+            });
+            return result;
+        }
+        else {
+            return null;
+        }
+    }
+
+    async setCurrentAudioTrack(newTrack) {
+        await this.waitForLoaded();
+
+        const tracks = await this.getAudioTracks();
+        const selected = tracks.find(track => track.id === newTrack.id);
+        if (hlsSupport === HlsSupport.MEDIA_SOURCE_EXTENSIONS && selected) {
+            this._hls.audioTrack = selected.id;
+        }
+        else if (hlsSupport === HlsSupport.NATIVE && selected) {
+            Array.from(this.video.audioTracks).forEach(track => {
+                if (track.id === selected.id) {
+                    track.enabled = true;
+                }
+                else {
+                    track.enabled = false;
+                }
+            })
+        }
+        this._currentAudioTrack = selected;
+        return selected;
+    }
+
+    get currentAudioTrack() {
+        return this._currentAudioTrack;
     }
 }
 
