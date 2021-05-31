@@ -349,4 +349,20 @@ export default class SteramProvider extends PlayerResource {
 			}
 		}
 	}
+
+	async supportsMultiaudio() {
+		return this.mainAudioPlayer.supportsMultiaudio();
+	}
+
+	async getAudioTracks() {
+		return this.mainAudioPlayer.getAudioTracks();
+	}
+
+	async setCurrentAudioTrack(track) {
+		return this.mainAudioPlayer.setCurrentAudioTrack(track);
+	}
+
+	get currentAudioTrack() {
+		return this.mainAudioPlayer.currentAudioTrack;
+	}
 }
