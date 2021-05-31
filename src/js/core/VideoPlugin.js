@@ -141,11 +141,7 @@ export class Video extends DomClass {
     async getDimensions() {
         return null;
     }
-
-    async loadStreamData(streamData) {
-        return false;
-    }
-
+    
     async supportsMultiaudio() {
         return false;
     }
@@ -155,6 +151,11 @@ export class Video extends DomClass {
     }
 
     async setCurrentAudioTrack() {
-        
+
     }
+    
+    async loadStreamData(streamData) {
+        return false;
+    }
+
 }
