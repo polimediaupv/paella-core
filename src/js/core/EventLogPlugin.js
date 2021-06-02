@@ -6,8 +6,8 @@ import { loadPluginsOfType } from "paella-core/js/core/Plugin";
 export async function loadLogEventPlugins(player) {
     await loadPluginsOfType(player, "eventLog", async (plugin) => {
         plugin.events.forEach(event => {
-            bindEvent(player, event, (params) => {
-                plugin.onEvent(event, params);
+            bindEvent(player, event, async (params) => {
+                await plugin.onEvent(event, params);
             })
         })
     });
@@ -20,7 +20,7 @@ export default class EventLogPlugin extends Plugin {
         return [];
     }
 
-    onEvent(event, params) {
+    async onEvent(event, params) {
         console.warn(`${this.name}: onEvent() function is not overwritten.`)
     }
 }

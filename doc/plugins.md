@@ -201,7 +201,7 @@ These are plugins that allow you to extend the video formats supported by Paella
 
 These are plugins that specify the arrangement of videos in the display area. By means of video layouts we enable the playback of one or several streams simultaneously. [VideoLayout](video_layout.md)
 
-## Data plugins
+### Data plugins
 
 Data plugins provide an interface for communication with the backend that can be extended through the use of plugins. [Data plugins](data_plugins.md).
 
@@ -209,7 +209,9 @@ Data plugins provide an interface for communication with the backend that can be
 
 If the video format plugins are used to decide the video decoding method, the video canvas plugins are responsible for determining how they will be displayed in the video container. The most basic method of representation is a `<video>` tag, and for this the `en.upv.paella.VideoCanvas` plugin is used, which is included inside `paella-core`, but other plugins can be defined to modify the video representation, for example, using a WebGL canvas to represent video in 360º, or implementing a zoom system to the video. [CanvasPlugin](canvas_plugin.md).
 
+### Event log plugins
 
+These are plugins designed to capture events that are triggered in the player, or as a result of user actions. They are very useful for implementing user action tracking systems, for example, to integrate with tools such as Matomo or Google Analytics. See [events](events.md) and [event log plugins](event_log_plugins.md) for more information.
 
 ## Create a plugin type
 

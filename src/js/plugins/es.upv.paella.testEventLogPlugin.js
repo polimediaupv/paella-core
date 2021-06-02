@@ -11,7 +11,7 @@ export default class TestEventLogPlugin extends EventLogPlugin {
         ];
     }
 
-    onEvent(event, params) {
+    async onEvent(event, params) {
         console.log(event);
         console.log(params);
     }
