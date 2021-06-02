@@ -106,6 +106,10 @@
 
         "es.upv.paella.vttManifestCaptionsPlugin": {
             "enabled": true
+        },
+
+        "es.upv.paella.testEventLogPlugin": {
+            "enabled": true
         }
     }
 }

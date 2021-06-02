@@ -17,6 +17,7 @@ import CanvasPlugin, { Canvas } from 'paella-core/js/core/CanvasPlugin';
 import Data, { DataPlugin } from 'paella-core/js/core/Data';
 import VideoQualityItem from 'paella-core/js/core/VideoQualityItem';
 import AudioTrackData from 'paella-core/js/core/AudioTrackData';
+import EventLogPlugin from 'paella-core/js/core/EventLogPlugin';
 
 import { DomClass, createElementWithHtmlText, createElement } from 'paella-core/js/core/dom';
 
@@ -44,6 +45,7 @@ export {
     CanvasPlugin,
     VideoQualityItem,
     AudioTrackData,
+    EventLogPlugin,
     
     Events,
     bindEvent,

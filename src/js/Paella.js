@@ -16,6 +16,7 @@ import Events, { bindEvent, triggerEvent } from 'paella-core/js/core/Events';
 import TimeLinePopUp from 'paella-core/js/core/TimeLinePopUp';
 import Data from 'paella-core/js/core/Data';
 import CaptionCanvas from 'paella-core/js/captions/CaptionsCanvas';
+import { loadLogEventPlugins } from "paella-core/js/core/EventLogPlugin";
 
 import 'paella-core/styles/base.css';
 
@@ -174,6 +175,9 @@ export default class Paella {
         this._config = await this.initParams.loadConfig(this.configUrl);
 
         registerPlugins(this);
+
+        // EventLogPlugin plugins are loaded first, so that all lifecycle events can be captured.
+        await loadLogEventPlugins(this);
 
         this._videoId = await this.initParams.getVideoId();
 
