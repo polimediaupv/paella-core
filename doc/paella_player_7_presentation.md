@@ -41,7 +41,6 @@ Unlike previous versions, Paella Player 7 is implemented as a library and a seri
   * Timeline navigator using slides.
   * Next/previous slide timeline navigator.
   * Slide indicator in the timeline.
-- `paella-hls`: support plugin for HLS video format, via m3u8 playlists.
 - `paella-captions`: collection of plugins to support subtitles.
 - `paella-image-stream`: plugin for video support via image list.
 - `paella-user-tracking`: extensions to enable tracking of user actions.
@@ -82,11 +81,11 @@ These features will be deprecated in paella 7
 
 The current version of Paella Player 7 is a pre-release that we are going to publish so that the community can test and make suggestions and improvements. Some features of Paella Player 6 are not included due to missing APIs, but they will be available when the first beta version is released:
 
-- Multiple video canvas types
-- Zoom support
 - 360° video
 - Chroma key
-- Read and write APIs (DataDelegate)
-- Playback Rate
-- Captions: we are working on the new captioning system to integrate with native video captions, so that they can be displayed in single stream videos when sending the image to remote devices (airplay, miracast, chromecast, etc.).
+- Unload player API and automatic unload: if you have a page with more than one player, you can set Paella Player to download automatically when these conditions occur:
+  - The player has exited the page scroll with a gap greater than a certain number of pixels.
+  - There is another player that remains visible within the screen and it is fully loaded.
+  - The video manifest contains a preview image.
+  - All the players are included in the page as `<div>` elements. This feature will not work if you embed players using `<iframe>` tags.
 
