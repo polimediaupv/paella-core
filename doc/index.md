@@ -16,7 +16,7 @@
 
 [Embedding Paella Player in a Svelte application](paella_svelte.md)
 
-
+[paella-core plugins](paella-core-plugins.md): list of plugins that paella-core includes as standard.
 
 ## Reference
 
@@ -50,5 +50,4 @@ Video plugin formats available in [paella core](https://github.com/polimediaupv/
 [Data plugins](data_plugins.md): provides an interface to implement communication with the backend through the use of plugins
 
 [Captions plugins](captions_plugins.md): allows to load different formats of captions.
-
 
