@@ -84,7 +84,7 @@ The format of the `sources` object depends on each particular source, but roughl
 The type identifier determines which video plugin will be used to display that source, and the content of the array is determined by the video plugin: each video plugin expects some or other data, so to know exactly the format of the manifest, you should consult the documentation of the video plugins. The most common formats are:
 
 - **mp4:** mp4 video file with codec compatible with this format, obtained by progressive download. Check the format in the [mp4 video plugin documentation](mp4_video_plugin.md)
-- **hls:** hls m3u8 stream. It is not part of paella-core, it is implemented in the plugin. [paella-hls-video-plugin](https://githjub.com/polimediaupv/paella-hls-video-plugin).
+- **hls:** hls m3u8 stream. Está implementado mediante la biblioteca [hls.js](https://github.com/video-dev/hls.js) en navegadores que soporten [Media Source Extensions](https://developer.mozilla.org/en-US/docs/Web/API/Media_Source_Extensions_API), y de forma nativa en iOS.
 - **images:** It is a very suitable plugin for slide-based presentations. It is not a video, but a list of images with a duration, where each image has a timecode associated with it. You can check the format in the documentation of the [image video plugin](image-video-plugin.md).
 
 Podemos tener configurados tantos plugins de vídeo como queramos, y un stream a su vez puede contener información para tantos formatos de vídeo como sea necesario. Si el navegador es compatible con más de un formato, el plugin de vídeo que se utilizará dependerá del atributo `order` en la [configuración de los plugins](plugins.md).
