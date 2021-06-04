@@ -25,6 +25,12 @@ import WebVTTParser, { parseWebVTT } from './js/captions/WebVTTParser';
 import CaptionsPlugin from 'paella-core/js/captions/CaptionsPlugin';
 import Captions from 'paella-core/js/captions/Captions';
 
+// Export the built in video format plugins
+
+import { HlsVideo, getHlsSupport, defaultHlsConfig, HlsSupport } from './js/videoFormats/es.upv.paella.hlsVideoFormat';
+import { Mp4Video } from './js/videoFormats/es.upv.paella.mp4VideoFormat';
+import { ImageVideo } from './js/videoFormats/es.upv.paella.imageVideoFormat';
+
 export {
     Paella,
     PopUp,
@@ -61,6 +67,13 @@ export {
     Captions,
 
     Data,
-    DataPlugin
+    DataPlugin,
+
+    HlsVideo,
+    getHlsSupport,
+    defaultHlsConfig,
+    HlsSupport,
+    Mp4Video,
+    ImageVideo
 }
 

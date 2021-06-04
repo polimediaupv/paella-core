@@ -65,13 +65,13 @@ const defaultCorsConfig = {
     }
 }
 
-const HlsSupport = {
+export const HlsSupport = {
     UNSUPPORTED: 0,
     MEDIA_SOURCE_EXTENSIONS: 1,
     NATIVE: 2
 };
 
-const hlsSupport = (function getHlsSupport() {
+export function getHlsSupport() {
     const video = document.createElement("video");
     if (Hls.isSupported()) {
         return HlsSupport.MEDIA_SOURCE_EXTENSIONS;
@@ -82,7 +82,9 @@ const hlsSupport = (function getHlsSupport() {
     else {
         return HlsSupport.UNSUPPORTED;
     }
-})();
+}
+
+const hlsSupport = getHlsSupport();
 
 const loadHls = (player, streamData, video, config, cors) => {
     

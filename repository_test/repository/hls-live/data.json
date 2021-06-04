@@ -1,0 +1,25 @@
+{
+	"metadata": {
+		"duration": 228,
+        "title": "HLS live",
+		"preview": "https://repository.paellaplayer.upv.es/hls-multiaudio/preview.jpg",
+		"related": []
+	},
+	"streams": [
+		{
+			"sources": {
+				"hlsLive": [
+					{
+						"src": "https://bitmovin-a.akamaihd.net/content/sintel/hls/playlist.m3u8",
+						"mimetype": "video/mp4"
+					}
+				]
+			},
+			"preview": "",
+			"content":"presenter",
+			"role": "mainAudio"
+		}
+	],
+	"frameList": [
+	]
+}
