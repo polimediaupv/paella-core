@@ -5,7 +5,7 @@ import AudioTrackData from "paella-core/js/core/AudioTrackData";
 
 import Hls from "hls.js";
 
-const defaultHlsConfig = {
+export const defaultHlsConfig = {
     autoStartLoad: true,
     startPosition : -1,
     capLevelToPlayerSize: true,
