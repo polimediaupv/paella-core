@@ -162,9 +162,10 @@ export default class DualVideoLayout extends VideoLayout {
     }
 
     getLayoutStructure(streamData, contentId) {
-        if (!this._currentContent) {
+        if (!this._currentContent || this._currentContentId!==contentId) {
             const {content} = this.validContent.find(content => content.id === contentId);
             this._currentContent = content;
+            this._currentContentId = contentId;
         }
         const selectedLayout = currentLayout(this._currentContent);
         
