@@ -96,6 +96,8 @@ export default class VideoContainer extends DomClass {
     async load(streamData) {
         this._streamData = streamData;
 
+        this._baseVideoRect.style.display = "none";
+
         await loadVideoPlugins(this.player);
 
         await this.streamProvider.load(streamData);
@@ -135,7 +137,7 @@ export default class VideoContainer extends DomClass {
             }
         })
         
-        
+        this._baseVideoRect.style.display = "";
         this._ready = true;
     }
 
