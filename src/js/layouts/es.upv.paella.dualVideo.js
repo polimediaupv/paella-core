@@ -3,6 +3,14 @@ import VideoLayout from 'paella-core/js/core/VideoLayout';
 
 import iconRotate from 'paella-core/icons/icon_rotate.svg';
 import iconMinimize from 'paella-core/icons/minimize.svg';
+import iconMinimize2 from 'paella-core/icons/minimize-2.svg';
+import iconDualVideo from 'paella-core/icons/dual-video.svg';
+
+const layoutIcons = [
+    iconMinimize,
+    iconMinimize2,
+    iconDualVideo
+];
 
 let layout = 0;
 const layouts = [
@@ -168,7 +176,7 @@ export default class DualVideoLayout extends VideoLayout {
             this._currentContentId = contentId;
         }
         const selectedLayout = currentLayout(this._currentContent);
-        
+
         const result = {
             player: this.player,
             name:{es:"Dos streams con posición dinámica"},
@@ -186,7 +194,7 @@ export default class DualVideoLayout extends VideoLayout {
                     rect: selectedLayout.buttons[1].rect,
                     onClick: () => { this.switchMinimized(); },
                     label:"Minimize",
-                    icon: iconMinimize,
+                    icon: layoutIcons[layout],
                     layer: 2
                 }
             ]
