@@ -41,7 +41,7 @@ const plugins = [];
 
 module.exports = {
 	entry: './src/index.js',
-	
+	devtool: "source-map",
 	module: {
 		rules: [
 			javascriptRules,
