@@ -84,7 +84,7 @@ import { utils } from 'paella-core';
 const { getUrlParameter } = utils;
 
 
-export async function defaultGetVideoIdFunction() {
+export async function defaultGetVideoIdFunction(config) {
     console.debug("Using default getVideoId function");
     return getUrlParameter("id");
 }
@@ -98,7 +98,7 @@ const { joinPath } = utils;
 
 // repoUrl: the value specified in initParams.repositoryUrl
 // videoId: the video identifier returned by initParams.getVideoId()
-export async function defaultGetManifestUrlFunction(repoUrl,videoId) {
+export async function defaultGetManifestUrlFunction(repoUrl,videoId,config) {
     console.debug("Using default getManifestUrl function");
     return joinPath([repoUrl,videoId]);
 }
@@ -107,7 +107,7 @@ export async function defaultGetManifestUrlFunction(repoUrl,videoId) {
 default manifest file URL function
 
 ```javascript
-export async function defaultGetManifestFileUrlFunction(manifestUrl,manifestFileName) {
+export async function defaultGetManifestFileUrlFunction(manifestUrl,manifestFileName,config) {
     console.debug("Using default getManifestFileUrl function");
     return joinPath([manifestUrl,manifestFileName]);
 }
@@ -116,7 +116,7 @@ export async function defaultGetManifestFileUrlFunction(manifestUrl,manifestFile
 default manifest file content function
 
 ```javascript
-export async function defaultLoadVideoManifestFunction(videoManifestUrl) {
+export async function defaultLoadVideoManifestFunction(videoManifestUrl,config) {
     console.debug("Using default loadVideoManifest function");
     const response = await fetch(videoManifestUrl);
     return response.json();
