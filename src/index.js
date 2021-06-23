@@ -3,7 +3,13 @@ import 'paella-core/styles/base.css';
 import Paella from 'paella-core/js/Paella';
 import PopUp from 'paella-core/js/core/PopUp';
 import * as utils from 'paella-core/js/core/utils';
-import * as initFunctions from 'paella-core/js/core/initFunctions';
+import {
+    defaultLoadConfigFunction,
+    defaultGetVideoIdFunction,
+    defaultGetManifestUrlFunction,
+    defaultGetManifestFileUrlFunction,
+    defaultLoadVideoManifestFunction
+} from 'paella-core/js/core/initFunctions';
 
 import Plugin, { importPlugins, getPluginsOfType, loadPluginsOfType } from 'paella-core/js/core/Plugin';
 import ButtonPlugin from 'paella-core/js/core/ButtonPlugin';
@@ -35,7 +41,11 @@ export {
     Paella,
     PopUp,
     utils,
-    initFunctions,
+    defaultLoadConfigFunction,
+    defaultGetVideoIdFunction,
+    defaultGetManifestUrlFunction,
+    defaultGetManifestFileUrlFunction,
+    defaultLoadVideoManifestFunction,
     PlayerResource,
     
     Plugin,

@@ -1,7 +1,15 @@
 import Paella from 'paella-core/js/Paella';
 import Events, { bindEvent } from 'paella-core/js/core/Events';
+import { defaultLoadVideoManifestFunction } from 'paella-core/js/core/initFunctions';
 
-let paella = new Paella('player-container')
+const initParams = {
+	loadVideoManifest: async function(videoManifestUrl,config) {
+		console.log(config);
+		return await defaultLoadVideoManifestFunction(videoManifestUrl, config);
+	}
+};
+
+let paella = new Paella('player-container', initParams);
 
 bindEvent(paella, Events.BUTTON_PRESS, (params) => {
 	console.log(params);
