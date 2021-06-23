@@ -179,15 +179,15 @@ export default class Paella {
         // EventLogPlugin plugins are loaded first, so that all lifecycle events can be captured.
         await loadLogEventPlugins(this);
 
-        this._videoId = await this.initParams.getVideoId();
+        this._videoId = await this.initParams.getVideoId(this._config);
 
-        this._manifestUrl = await this.initParams.getManifestUrl(this.repositoryUrl,this.videoId);
+        this._manifestUrl = await this.initParams.getManifestUrl(this.repositoryUrl,this.videoId,this._config);
         
-        this._manifestFileUrl = await this.initParams.getManifestFileUrl(this._manifestUrl, this.manifestFileName);
+        this._manifestFileUrl = await this.initParams.getManifestFileUrl(this._manifestUrl, this.manifestFileName,this._config);
 
         console.debug(`Loading video with identifier '${this.videoId}' from URL '${this.manifestFileUrl}'`);
 
-        this._videoManifest = await this.initParams.loadVideoManifest(this.manifestFileUrl);
+        this._videoManifest = await this.initParams.loadVideoManifest(this.manifestFileUrl,this._config);
 
         console.debug("Video manifest loaded:");
         console.debug(this.videoManifest);
