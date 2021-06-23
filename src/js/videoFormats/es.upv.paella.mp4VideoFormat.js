@@ -54,6 +54,12 @@ export class Mp4Video extends Video {
 
     async setVolume(v) {
         await this.waitForLoaded();
+        if (v === 0) {
+            this.video.setAttribute("muted", true);
+        }
+        else {
+            this.video.removeAttribute("muted");
+        }
         return this.video.volume = v;
     }
 

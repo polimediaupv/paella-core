@@ -65,6 +65,10 @@ export default class SteramProvider extends PlayerResource {
 			s.player = await s.videoPlugin.getVideoInstance(s.canvas.element);
 			if (mainAudioContent===content) {
 				this._mainAudioPlayer = s.player;
+				s.player.setVolume(1);
+			}
+			else {
+				s.player.setVolume(0);
 			}
 			
 			await s.player.load(s.stream, this);
