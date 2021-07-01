@@ -46,6 +46,7 @@ export default class SteramProvider extends PlayerResource {
 				throw Error(`Canvas plugin not found: ${ stream.canvas }`);
 			}
 
+			const isMainAudio = stream.content === mainAudioContent;
 			const videoPlugin = getVideoPlugin(this.player, stream);
 			if (!videoPlugin) {
 				throw Error(`Incompatible stream type: ${ stream.content }`);
@@ -53,6 +54,7 @@ export default class SteramProvider extends PlayerResource {
 			
 			this._streams[stream.content] = {
 				stream,
+				isMainAudio,
 				videoPlugin,
 				canvasPlugin
 			}
@@ -62,7 +64,7 @@ export default class SteramProvider extends PlayerResource {
 		for (const content in this._streams) {
 			const s = this._streams[content];
 			s.canvas = await s.canvasPlugin.getCanvasInstance(this._videoContainer);
-			s.player = await s.videoPlugin.getVideoInstance(s.canvas.element);
+			s.player = await s.videoPlugin.getVideoInstance(s.canvas.element, s.isMainAudio);
 			if (mainAudioContent===content) {
 				this._mainAudioPlayer = s.player;
 				s.player.setVolume(1);
@@ -135,6 +137,8 @@ export default class SteramProvider extends PlayerResource {
 			// TODO: sync
 			// TODO: Event.ENDED
 			
+			console.log("players:");
+			console.log(this._players[0]);
 			let currentTime = this._players[0].currentTimeSync;
 			
 			// Check trimming

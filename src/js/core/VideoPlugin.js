@@ -13,7 +13,7 @@ export default class VideoPlugin extends Plugin {
         return false;
     }
 
-    async getVideoInstance(/*playerContainer*/) {
+    async getVideoInstance(/*playerContainer, isMainAudio*/) {
         return null;
     }
 }
@@ -69,7 +69,8 @@ export class Video extends DomClass {
     async load(streamData, streamProvider) {
         this._streamProvider = streamProvider;
         this._streamData = streamData;
-        return this.loadStreamData(streamData);
+        const result = await this.loadStreamData(streamData);
+        return result;
     }
 
     get isMainAudioPlayer() {

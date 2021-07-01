@@ -14,8 +14,20 @@ export function supportsVideoType(type) {
 }
 
 export class Mp4Video extends Video {
-    constructor(player, parent) {
+    constructor(player, parent, isMainAudio) {
         super('video', player, parent);
+        this.element.setAttribute("playsinline","true");
+
+        this.isMainAudio = isMainAudio;
+
+        // Autoplay is required to play videos in some browsers
+        this.element.setAttribute("autoplay","true");
+        this.element.autoplay = true;
+
+        // The video is muted by default, to allow autoplay to work
+        if (!isMainAudio) {
+            this.element.muted = true;
+        }
     }
 
     async play() { 
@@ -123,18 +135,33 @@ export class Mp4Video extends Video {
         console.debug(`es.upv.paella.mp4VideoFormat (${ this.streamData.content }): video loaded and ready.`);
     }
 
-    async waitForLoaded() {
+    waitForLoaded() {
         return new Promise((resolve,reject) => {
+            console.log(this.ready);
             if (this.ready) {
                 resolve();
             }
             else {
-                this.video.addEventListener('loadeddata', () => {
+                const startWaitTimer = () => {
                     if (this.video.readyState >= 2) {
+                        this.video.pause(); // Pause the video because it is loaded in autoplay mode
                         this._ready = true;
                         resolve();
                     }
-                })
+                    else {
+                        setTimeout(() => startWaitTimer(), 100);
+                    }
+                }
+
+                startWaitTimer();
+                
+                // this.video.addEventListener('loadeddata', () => {
+                //     console.log("this.loadeddata");
+                //     if (this.video.readyState >= 2) {
+                //         this._ready = true;
+                //         resolve();
+                //     }
+                // })
             }
         })
     }
@@ -150,7 +177,7 @@ export default class Mp4VideoPlugin extends VideoPlugin {
         return mp4 && supportsVideoType(mp4[0]?.mimetype);
     }
 
-    async getVideoInstance(playerContainer) {
-        return new Mp4Video(this.player, playerContainer);
+    async getVideoInstance(playerContainer, isMainAudio) {
+        return new Mp4Video(this.player, playerContainer, isMainAudio);
     }
 }

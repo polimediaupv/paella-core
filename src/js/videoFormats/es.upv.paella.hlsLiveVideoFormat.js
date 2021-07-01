@@ -111,7 +111,7 @@ export default class HlsLiveVideoFormat extends VideoPlugin {
         return hlsLive && hlsSupport;
     }
 
-    async getVideoInstance(playerContainer) {
-        return new HlsLiveVideo(this.player, playerContainer, this.config);
+    async getVideoInstance(playerContainer, isMainAudio) {
+        return new HlsLiveVideo(this.player, playerContainer, this.config, isMainAudio);
     }
 }

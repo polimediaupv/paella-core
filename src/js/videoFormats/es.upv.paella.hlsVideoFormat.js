@@ -152,8 +152,8 @@ const loadHls = (player, streamData, video, config, cors) => {
 }
 
 export class HlsVideo extends Mp4Video {
-    constructor(player, parent, config) {
-        super(player, parent);
+    constructor(player, parent, config, isMainAudio) {
+        super(player, parent, isMainAudio);
         
         this._config = {}
         for (const key in defaultHlsConfig) {
@@ -359,7 +359,7 @@ export default class HlsVideoPlugin extends VideoPlugin {
         return hls && hlsSupport;
     }
 
-    async getVideoInstance(playerContainer) {
-        return new HlsVideo(this.player, playerContainer, this.config);
+    async getVideoInstance(playerContainer, isMainAudio) {
+        return new HlsVideo(this.player, playerContainer, this.config, isMainAudio);
     }
 }

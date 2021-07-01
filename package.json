@@ -6,7 +6,7 @@
   "module": "dist/paella-core.js",
   "scripts": {
     "build": "webpack --mode production",
-    "dev": "webpack serve --mode development --config webpack.debug.js",
+    "dev": "webpack serve --mode development --config webpack.debug.js --host 0.0.0.0",
     "captions": "webpack serve --mode development --config webpack.captions.js"
   },
   "repository": {
