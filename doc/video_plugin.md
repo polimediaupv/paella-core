@@ -12,11 +12,14 @@ import VideoPlugin, { Video } from 'paella-core/js/core/VideoPlugin';
 
 export class MyVideoPlayer extends Video {
 
-    constructor(player, parent) {
+    constructor(player, parent, isMainAudio) {
         super(player, {
             tag: 'video',   // Define here the DOM element type of the player
             parent
         });
+
+        // if !isMainAudio you should mute the audio
+        this.isMainAudio = isMainAudio;
     }
 
     // Implement the following functions and properties 
@@ -88,8 +91,8 @@ export default class MyVideoPlugin extends VideoPlugin {
         return true;
     }
 
-    async getVideoInstance(playerContainer) {
-        new MyVideoPlayer()
+    async getVideoInstance(playerContainer, isMainAudio) {
+        new MyVideoPlayer(this.player, playerContainer, isMainAudio);
     }
 }
 ```
