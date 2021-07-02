@@ -133,6 +133,7 @@ export default class SteramProvider extends PlayerResource {
 	}
 	
 	startStreamSync() {
+		this._timeSync = true;
 		const setupSyncTimer = async () => {
 			// TODO: sync
 			// TODO: Event.ENDED
@@ -160,7 +161,9 @@ export default class SteramProvider extends PlayerResource {
 				
 				triggerEvent(this.player, Events.TIMEUPDATE, { currentTime: trimmedCurrentTime });
 				this._timeupdateTimer = setTimeout(() => {
-					setupSyncTimer();	
+					if (this._timeSync) {
+						setupSyncTimer();
+					}
 				}, 250);
 			}
 			else {
@@ -174,6 +177,7 @@ export default class SteramProvider extends PlayerResource {
 	}
 	
 	stopStreamSync() {
+		this._timeSync = false;
 		if (this._timeupdateTimer) {
 			clearTimeout(this._timeupdateTimer);
 		}

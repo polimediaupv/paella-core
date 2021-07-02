@@ -73,6 +73,14 @@
 	margin-left: 5px;
 }
 
+/* Fix default iPad button padding */
+.playback-bar .button-plugins .button-plugin-container button {
+	padding: 2px 6px 3px 6px;
+}
+.video-container .button-plugins .button-plugin-container button {
+	padding: 2px 6px 3px 6px;
+}
+
 .button-plugins span.button-title {
     display: block;
 }
