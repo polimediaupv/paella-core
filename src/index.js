@@ -37,6 +37,8 @@ import { HlsVideo, getHlsSupport, defaultHlsConfig, HlsSupport } from './js/vide
 import { Mp4Video } from './js/videoFormats/es.upv.paella.mp4VideoFormat';
 import { ImageVideo } from './js/videoFormats/es.upv.paella.imageVideoFormat';
 
+import KeyShortcutPlugin, { KeyCodes } from './js/core/KeyShortcutPlugin';
+
 export {
     Paella,
     PopUp,
@@ -84,6 +86,9 @@ export {
     defaultHlsConfig,
     HlsSupport,
     Mp4Video,
-    ImageVideo
+    ImageVideo,
+
+    KeyShortcutPlugin,
+    KeyCodes
 }
 
