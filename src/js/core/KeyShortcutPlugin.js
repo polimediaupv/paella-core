@@ -14,13 +14,13 @@ export async function loadKeyShortcutPlugins(player) {
     });
 
     console.log(g_shortcuts);
-    window.onkeypress = (event) => {
+    window.onkeyup = async (event) => {
         const shortcut = g_shortcuts[event.code];
         console.log("key press", shortcut);
         if (shortcut) {
-            shortcut.forEach(s => {
-                s.action.apply(s.plugin, [event]);
-            })
+            await shortcut.forEach(async s => {
+                await s.action(event);
+            });
         }
     }
 }
@@ -108,7 +108,7 @@ export default class KeyShortcutPlugin extends Plugin {
 
     /**
      * 
-     * @returns [{ keyCode: KeyCode, description: string, action: function }]
+     * @returns [{ keyCode: KeyCode, description: string, action: async function }]
      */
     async getKeys() {
 
