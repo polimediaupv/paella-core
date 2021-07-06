@@ -213,6 +213,10 @@ If the video format plugins are used to decide the video decoding method, the vi
 
 These are plugins designed to capture events that are triggered in the player, or as a result of user actions. They are very useful for implementing user action tracking systems, for example, to integrate with tools such as Matomo or Google Analytics. See [events](events.md) and [event log plugins](event_log_plugins.md) for more information.
 
+### Keyboard Shortcut plugins
+
+The key shortcut plugins allows to map keys to actions. See [key shortcuts](key_shortcuts.md) for more information.
+
 ## Create a plugin type
 
 You can extend Paella Player creating new plugin types. The most common case is when we need to extend a predefined plugin. For example, if we have a button type plugin, which when pressed we want to display subtitles, we can make this button in turn define a new type of plugin that allows to load subtitles from different sources.
