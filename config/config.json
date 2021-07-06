@@ -130,6 +130,10 @@
 
         "es.upv.paella.testEventLogPlugin": {
             "enabled": true
+        },
+
+        "es.upv.paella.defaultShortcuts": {
+            "enabled": true
         }
     }
 }

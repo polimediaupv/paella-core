@@ -17,6 +17,7 @@ import TimeLinePopUp from 'paella-core/js/core/TimeLinePopUp';
 import Data from 'paella-core/js/core/Data';
 import CaptionCanvas from 'paella-core/js/captions/CaptionsCanvas';
 import { loadLogEventPlugins } from "paella-core/js/core/EventLogPlugin";
+import { loadKeyShortcutPlugins } from "paella-core/js/core/KeyShortcutPlugin";
 
 import 'paella-core/styles/base.css';
 
@@ -178,6 +179,9 @@ export default class Paella {
 
         // EventLogPlugin plugins are loaded first, so that all lifecycle events can be captured.
         await loadLogEventPlugins(this);
+
+        // KeyShortcutPlugins are loaded before UI load to allow the video load using shortcuts
+        await loadKeyShortcutPlugins(this);
 
         this._videoId = await this.initParams.getVideoId(this._config);
 
