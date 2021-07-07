@@ -274,7 +274,12 @@ export default class Paella {
     }
 
     async paused() {
-        return this.videoContainer?.paused();
+        if (!this.videoContainer) {
+            return true;
+        }
+        else {
+            return this.videoContainer.paused();
+        }
     }
 
     async stop() {
