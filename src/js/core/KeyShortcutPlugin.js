@@ -16,10 +16,14 @@ export async function loadKeyShortcutPlugins(player) {
     console.log(g_shortcuts);
     window.onkeyup = async (event) => {
         const shortcut = g_shortcuts[event.code];
-        console.log("key press", shortcut);
         if (shortcut) {
             await shortcut.forEach(async s => {
-                await s.action(event);
+                const altStatus = !s.keyModifiers?.altKey || (s.keyModifiers?.altKey && event.altKey);
+                const ctrlStatus = !s.keyModifiers?.ctrlKey || (s.keyModifiers?.ctrlKey && event.ctrlKey);
+                const shiftStatus = !s.keyModifiers?.shiftKey || (s.keyModifiers?.shiftKey && event.shiftKey);
+                if (altStatus && ctrlStatus && shiftStatus) {
+                    await s.action(event);
+                }
             });
         }
     }
@@ -108,7 +112,7 @@ export default class KeyShortcutPlugin extends Plugin {
 
     /**
      * 
-     * @returns [{ keyCode: KeyCode, description: string, action: async function }]
+     * @returns [{ keyCode: KeyCode, keyModifiers: [KeyModifiers], description: string, action: async function }]
      */
     async getKeys() {
 

@@ -13,6 +13,9 @@ export default class MyKeyShortcuts extends KeyShortcutPlugin {
         return [
             {
                 keyCode: "KeyK",
+                keyModifiers: {
+                    altKey: true
+                },
                 description: "Toggle play/pause",
                 action: async event => {
                     const paused = await this.player.paused();
@@ -30,7 +33,7 @@ export default class MyKeyShortcuts extends KeyShortcutPlugin {
 ```
 
 
-In addition, an object with the values of each `keycode` is also exported. In this way we can make use of the code completion tools:
+In addition, an object with the values of each `keycode` is also exported. In this way we can make use of the code completion tools.
 
 ```javascript
 import { KeyShortcutPlugin, KeyCode } from 'paella-core';
@@ -40,6 +43,9 @@ export default class MyKeyShortcuts extends KeyShortcutPlugin {
         return [
             {
                 keyCode: KeyCode.KeyK,
+                keyModifiers: {
+                    altKey: true
+                },
                 description: "Toggle play/pause",
                 action: async event => {
                     const paused = await this.player.paused();

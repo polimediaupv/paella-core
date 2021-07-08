@@ -137,7 +137,6 @@ export class Mp4Video extends Video {
 
     waitForLoaded() {
         return new Promise((resolve,reject) => {
-            console.log(this.ready);
             if (this.ready) {
                 resolve();
             }
@@ -154,14 +153,6 @@ export class Mp4Video extends Video {
                 }
 
                 startWaitTimer();
-                
-                // this.video.addEventListener('loadeddata', () => {
-                //     console.log("this.loadeddata");
-                //     if (this.video.readyState >= 2) {
-                //         this._ready = true;
-                //         resolve();
-                //     }
-                // })
             }
         })
     }
