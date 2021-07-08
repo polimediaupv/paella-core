@@ -38,9 +38,6 @@ export default class DefaultKeyShortcutsPlugin extends KeyShortcutPlugin {
         return [
             {
                 keyCode: KeyCodes.KeyK,
-                keyModifiers: {
-                    altKey: true
-                },
                 description: "Toggle play/pause",
                 action: async (event) => {
                     await this.togglePlayPause();
