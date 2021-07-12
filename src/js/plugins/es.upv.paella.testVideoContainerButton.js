@@ -13,6 +13,10 @@ export default class VideoContainerButtonPlugin extends MenuButtonPlugin {
         return "medium";
     }
 
+    get popUpType() {
+        return "no-modal";
+    }
+
     async getMenu() {
         console.log("Get menu");
 

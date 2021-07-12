@@ -19,7 +19,7 @@ export default class MyPupUpPlugin extends PopUpButtonPlugin {
   }
 
   get popUpType() {
-    return "modal"; // or "timeline"
+    return "modal"; // "modal", "timeline" or "no-modal"
   }
 
   async load() {
@@ -31,6 +31,7 @@ export default class MyPupUpPlugin extends PopUpButtonPlugin {
 `get popUpType()`: Defines the type of pop up that the button will display:
 
 - "modal": The pop up is displayed as a modal area, which is hidden when the user clicks out of it. It will be displayed next to the button, and the position of the pop up relative to the button will depend on the available gap in the window.
+- "no-modal": The pop up is displayed in the same way as the "modal" one, but you can still interact with the player. To hide a "no-modal" pop up, the user must to click the button again.
 - "timeline": The pop up is displayed above the timeline, and measures the full width of the timeline. The height will depend on the content of the pop up.
 
 

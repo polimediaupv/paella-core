@@ -61,9 +61,9 @@ export default class PopUp extends DomClass {
 		g_popUps.forEach(p => p.hide());
 	}
 	
-	constructor(player, parent, anchorElement = null, contextObject = null) {
+	constructor(player, parent, anchorElement = null, contextObject = null, modal = true) {
 		const attributes = {
-			"class": "popup-container"
+			"class": modal ? "popup-container" :  "popup-container no-modal"
 		};
 		
 		const children = `
