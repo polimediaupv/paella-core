@@ -73,6 +73,8 @@ export default class Plugin extends PlayerResource {
 
     get order() { return this._config?.order || 0; }
     
+    get description() { return this._config?.description || ""; }
+
     get name() { return this._name; }
 
     async isEnabled() {

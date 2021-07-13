@@ -90,12 +90,16 @@
         "es.upv.paella.testVideoContainerButton": {
             "enabled": true,
             "side": "left",
-            "parentContainer": "videoContainer"
+            "_parentContainer": "videoContainer",
+            "parentContainer": "testButtonGroup",
+            "description": "Test menu plugin"
         },
 
         "es.upv.paella.testPopUpButton": {
             "enabled": true,
-            "side": "right"
+            "side": "right",
+            "parentContainer": "testButtonGroup",
+            "description": "Test popup button"
         },
 
         "es.upv.paella.testPopUp2Button": {
@@ -134,6 +138,12 @@
 
         "es.upv.paella.defaultShortcuts": {
             "enabled": true
+        },
+
+        "es.upv.paella.testButtonGroupPlugin": {
+            "enabled": true,
+            "groupName": "testButtonGroup",
+            "side": "right"
         }
     }
 }
