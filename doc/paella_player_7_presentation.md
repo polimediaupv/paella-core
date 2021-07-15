@@ -41,9 +41,7 @@ Unlike previous versions, Paella Player 7 is implemented as a library and a seri
   * Timeline navigator using slides.
   * Next/previous slide timeline navigator.
   * Slide indicator in the timeline.
-- `paella-captions`: collection of plugins to support subtitles.
-- `paella-image-stream`: plugin for video support via image list.
-- `paella-user-tracking`: extensions to enable tracking of user actions.
+- `paella-zoom-plugin`: implements a video canvas to provide video zoom.
 - `paella-player`: reference application. It includes a basic implementation of Paella Player that includes the above plugin list. This repository can be used as a base to create your own player, although depending on the case, it is often advisable to create a project from scratch.
 
 
@@ -83,6 +81,7 @@ The current version of Paella Player 7 is a pre-release that we are going to pub
 
 - 360° video
 - Chroma key
+- Accesibility options
 - Unload player API and automatic unload: if you have a page with more than one player, you can set Paella Player to download automatically when these conditions occur:
   - The player has exited the page scroll with a gap greater than a certain number of pixels.
   - There is another player that remains visible within the screen and it is fully loaded.
