@@ -57,8 +57,12 @@ export default class PopUp extends DomClass {
 		return g_popUps.find(p => p.id === id);
 	}
 	
-	static HideAllPopUps() {
-		g_popUps.forEach(p => p.hide());
+	static HideAllPopUps(onlyModal = true) {
+		g_popUps.forEach(p => {
+			if (onlyModal && p.isModal || !onlyModal) {
+				p.hide();
+			}
+		});
 	}
 	
 	constructor(player, parent, anchorElement = null, contextObject = null, modal = true) {
@@ -70,7 +74,7 @@ export default class PopUp extends DomClass {
 		<div class="popup-content"></div>
 		`;
 		super(player,{ attributes, children, parent });
-		
+		this._modal = modal;
 		this._contextObject = contextObject;
 
 		this._id = Symbol(this);
@@ -87,10 +91,11 @@ export default class PopUp extends DomClass {
 			placePopUp(player, anchorElement, this.contentElement);
 		}
 
-		triggerEvent(this.player, Events.SHOW_POPUP, {
-			popUp: this,
-			plugin: this.contextObject
-		});
+		this.hide();
+	}
+
+	get isModal() {
+		return this._modal;
 	}
 
 	get contextObject() {
@@ -122,12 +127,16 @@ export default class PopUp extends DomClass {
 		}
 	}
 	
-	show(parent = null) {
+	show(parent = null, parentPopUp = null) {
 		if (this._anchorElement) {
 			placePopUp(this.player, this._anchorElement, this.contentElement);
 		}
 		if (parent) {
 			this.setParent(parent);
+		}
+		this._parentPopUp = parentPopUp;
+		if (parentPopUp) {
+			parentPopUp.addChild(this);
 		}
 		super.show();
 		triggerEvent(this.player, Events.SHOW_POPUP, {
@@ -138,11 +147,32 @@ export default class PopUp extends DomClass {
 
 	hide() {
 		if (this.isVisible) {
+			if (this._children) {
+				this._children.forEach(child => child.hide());
+			}
+			if (this._parentPopUp) {
+				this._parentPopUp.removeChild(this);
+			}
 			triggerEvent(this.player, Events.HIDE_POPUP, {
 				popUp: this,
 				plugin: this.contextObject
 			});
 		}
 		super.hide();
+	}
+
+	// Child popUp management
+	addChild(childPopUp) {
+		this._children = this._children || [];
+		if (!this._children.find(child => child === childPopUp)) {
+			this._children.push(childPopUp);
+		}
+	}
+
+	removeChild(childPopUp) {
+		if (this._children) {
+			this._children = this._children.filter(child => child !== childPopUp);
+		}
+		
 	}
 }

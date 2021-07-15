@@ -30,7 +30,7 @@ export async function addButtonPlugin(plugin, buttonAreaElem) {
 		<div class="button-plugin-side-area right-side ${ plugin.className }"></div>
 	`, parent);
 	const titleContainer = createElementWithHtmlText(`
-		<span class="button-title button-title-${ plugin.titleSize }">${ plugin.title }</span>
+		<span class="button-title button-title-${ plugin.titleSize }">${ plugin.title || "&nbsp;" }</span>
 	`, button);
 	plugin._leftArea = leftArea;
 	plugin._rightArea = rightArea;
@@ -56,6 +56,7 @@ export async function addButtonPlugin(plugin, buttonAreaElem) {
 			plugin: plugin
 		});
 		plugin.action(evt);
+		evt.stopPropagation();
 	});
 }
 

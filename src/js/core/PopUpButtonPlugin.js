@@ -18,6 +18,18 @@ export default class PopUpButtonPlugin extends ButtonPlugin {
 		await this.showPopUp();
 	}
 	
+	get parentPopUp() {
+		return this._parentPopUp;
+	}
+
+	set parentPopUp(p) {
+		this._parentPopUp = p;
+	}
+
+	get popUp() {
+		return this._popUp;
+	}
+
 	async getContent() {
 		const content = createElementWithHtmlText('<p>Pop Up Button Plugin Content</p>');
 		return content;
@@ -37,7 +49,6 @@ export default class PopUpButtonPlugin extends ButtonPlugin {
 		const parentContainer = this.player.isFullscreen ? this.player.containerElement : document.body;
 		
 		if (!this._popUp) {
-			const content = await this.getContent();
 			this._popUp = null;
 			if (this.popUpType === "modal" || this.popUpType === "no-modal") {
 				this._popUp = new PopUp(this.player, parentContainer, this.button, this, this.popUpType === "modal");
@@ -45,7 +56,9 @@ export default class PopUpButtonPlugin extends ButtonPlugin {
 			else if (this.popUpType === "timeline") {
 				this._popUp = new TimeLinePopUp(this.player, this);
 			}
+			const content = await this.getContent();
 			this._popUp.setContent(content);
+			this._popUp.show(parentContainer, this._parentPopUp);
 			this.refreshContent = false;
 		}
 		else if (this.popUpType === "timeline" && this._popUp.isVisible) {
@@ -60,7 +73,7 @@ export default class PopUpButtonPlugin extends ButtonPlugin {
 				this._popUp.setContent(content);
 				this.refreshContent = false;
 			}
-			this._popUp.show(parentContainer);
+			this._popUp.show(parentContainer, this._parentPopUp);
 		}
 	}
 }

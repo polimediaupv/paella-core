@@ -16,13 +16,19 @@ export default class ButtonGroupPlugin extends PopUpButtonPlugin {
     async getContent() {
         const content = createElementWithHtmlText('<div class="button-group"></div>');
 
-
         // Get the button plugins with "parentContainer" === this.groupName
         if (!this._initialized) {
             console.debug(`Load button plugins into "${this.groupName}" container`);
             loadPluginsOfType(this.player,"button",(plugin) => {
                 console.debug(` Button plugin: ${ plugin.name }`);
                 const pluginWrapper = createElementWithHtmlText('<div class="button-plugin-wrapper"></div>', content);
+
+                // Configure the parent pop up if the plugin is a 
+                // PopUpButtonPlugin
+                if (plugin instanceof PopUpButtonPlugin) {
+                    plugin.parentPopUp = this._popUp;
+                }
+
                 addButtonPlugin(plugin, pluginWrapper);
                 createElementWithHtmlText(`<div class="button-description">${ plugin.description }</div>`, pluginWrapper);
             }, async plugin => {
