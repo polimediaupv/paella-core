@@ -189,6 +189,8 @@ These are plugins that allow you to add functionality to the playback bar.
 
 **[MenuButtonPlugin](menu_button_plugin.md):** Implements a button that displays a menu with options.
 
+**[ButtonGroupPlugin](button_group_plugin.md):** Allows to group several button plugins inside a pop up.
+
 
 
 ### Video format plugins

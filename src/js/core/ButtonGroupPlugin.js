@@ -3,6 +3,8 @@ import { createElementWithHtmlText } from 'paella-core/js/core/dom';
 import { loadPluginsOfType } from 'paella-core/js/core/Plugin';
 import { addButtonPlugin } from 'paella-core/js/core/ButtonPlugin';
 
+import 'paella-core/styles/ButtonGroup.css'; 
+
 export default class ButtonGroupPlugin extends PopUpButtonPlugin {
 
     get groupName() {
