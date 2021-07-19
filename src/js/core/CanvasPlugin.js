@@ -27,10 +27,21 @@ export function getCanvasPlugin(player, stream) {
 export class Canvas extends DomClass {
     constructor(tag, player, parent) {
         super(player, { tag, parent });
+
+        this._userArea = null;
     }
 
     async loadCanvas(player) {
         throw Error(`${this.name}: loadCanvas() not implemented`);
+    }
+
+    get userArea() {
+        if (!this._userArea) {
+            this._userArea = document.createElement('div');
+            this._userArea.className = "user-area";
+            this.element.appendChild(this._userArea);
+        }
+        return this._userArea;
     }
 }
 

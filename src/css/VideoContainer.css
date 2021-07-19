@@ -28,7 +28,14 @@
     right: 10px;
 }
 
-
+.video-container .user-area {
+	position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    pointer-events: none;
+}
 
 .video-container .button-plugins .button-plugin-container {
 	display: inline;
