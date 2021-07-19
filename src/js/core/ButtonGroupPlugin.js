@@ -32,7 +32,11 @@ export default class ButtonGroupPlugin extends PopUpButtonPlugin {
                 }
 
                 addButtonPlugin(plugin, pluginWrapper);
-                createElementWithHtmlText(`<div class="button-description">${ plugin.description }</div>`, pluginWrapper);
+                const descriptionText = createElementWithHtmlText(`<a class="button-description">${ plugin.description }</a>`, pluginWrapper);
+                descriptionText.addEventListener("click", (evt) => {
+                    plugin.action();
+                    evt.stopPropagation();
+                });
             }, async plugin => {
                 const containerName = plugin.parentContainer;
                 if (containerName === this.groupName) {
