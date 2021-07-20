@@ -199,6 +199,8 @@ export default class Paella {
         // Load data plugins
         this._data = new Data(this);
 
+        triggerEvent(this, Events.MANIFEST_LOADED);
+
         // The video preview is required to use the lazy load
         if (!this.videoManifest?.metadata?.preview) {
             await this.loadPlayer();
@@ -220,6 +222,8 @@ export default class Paella {
         await this.videoContainer.load(this.videoManifest?.streams);
 
         this._captionsCanvas = new CaptionCanvas(this, this._containerElement);
+
+        triggerEvent(this, Events.STREAM_LOADED);
         
         this._playbackBar = new PlaybackBar(this, this.containerElement);
 
@@ -233,7 +237,7 @@ export default class Paella {
         
         this._captionsCanvas.load();
 
-        // TODO: this._playerLoaded = true;  the player user interface is loaded
+        triggerEvent(this, Events.PLAYER_LOADED);
     }
 
     async load() {

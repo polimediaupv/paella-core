@@ -110,3 +110,8 @@ player.bindEvent(player.Events.TRIMMING_CHANGED, (eventData) => {
 - `popUp (PopUp | TimeLinePopUp)`: the instance of the popup that has been closed.
 - `plugin`: the plugin that triggered the event.
 
+**`MANIFEST_LOADED`:** fired when the video manifest is loaded and processed. if video loading is lazy, this is the last event to be triggered until the user plays the video.
+
+**`STREAM_LOADED`:** fired when the video streams are processed, but before the user interface is loaded.
+
+**`PLAYER_LOADED`:** fired when the user interface is loaded.

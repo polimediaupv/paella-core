@@ -12,7 +12,10 @@ export default {
 	CAPTIONS_CHANGED: "paella:captionsChanged",
 	BUTTON_PRESS: "paella:buttonPress",
 	SHOW_POPUP: "paella:showPopUp",
-	HIDE_POPUP: "paella:hidePopUp"
+	HIDE_POPUP: "paella:hidePopUp",
+	MANIFEST_LOADED: "paella:manifestLoaded",
+	STREAM_LOADED: "paella:streamLoaded",
+	PLAYER_LOADED: "paella:playerLoaded"
 };
 
 export function bindEvent(player, event, callback) {
