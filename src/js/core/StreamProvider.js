@@ -166,7 +166,7 @@ export default class SteramProvider extends PlayerResource {
 					}
 				}, 250);
 			}
-			else {
+			else if (this._timeSync) {
 				triggerEvent(this.player, Events.TIMEUPDATE, { currentTime });
 				this._timeupdateTimer = setTimeout(() => {
 					setupSyncTimer();	
