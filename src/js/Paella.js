@@ -65,6 +65,13 @@ export default class Paella {
         this.containerElement.addEventListener("fullscreenchange", () => {
             triggerEvent(this, Events.FULLSCREEN_CHANGED, { status: this.isFullscreen });
         });
+
+        // This flag is set to true after trigger the Events.PLAYER_LOADED event
+        this._ready = false;
+    }
+
+    get ready() {
+        return this._ready;
     }
 
     get Events() {
@@ -210,13 +217,9 @@ export default class Paella {
             const preview = resolveResourcePath(this, this.videoManifest?.metadata?.preview);
             this._previewContainer = new PreviewContainer(this, this._containerElement, preview);
         }
-
-        
-        // TODO load the "preload" type plugins
     }
 
     async loadPlayer() {
-        // TODO: add two ready flags, one for lazy load and another for full load
         this._videoContainer = new VideoContainer(this, this._containerElement);
         
         await this.videoContainer.load(this.videoManifest?.streams);
@@ -238,6 +241,8 @@ export default class Paella {
         this._captionsCanvas.load();
 
         triggerEvent(this, Events.PLAYER_LOADED);
+
+        this._ready = true;
     }
 
     async load() {

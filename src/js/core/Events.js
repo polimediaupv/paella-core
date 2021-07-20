@@ -30,3 +30,9 @@ export function triggerEvent(player, event, params = {}) {
 	player.__eventListeners__[event] &&
 	player.__eventListeners__[event].forEach(cb => cb(params));
 }
+
+export function triggerIfReady(player, event, params = {}) {
+	if (player.ready) {
+		triggerEvent(player, event, params);
+	}
+}

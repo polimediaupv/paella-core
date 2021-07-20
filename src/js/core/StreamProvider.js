@@ -1,7 +1,7 @@
 import PlayerResource from 'paella-core/js/core/PlayerResource';
 import { getVideoPlugin } from 'paella-core/js/core/VideoPlugin';
 import { loadCanvasPlugins, getCanvasPlugin } from 'paella-core/js/core/CanvasPlugin';
-import Events, { triggerEvent } from 'paella-core/js/core/Events';
+import Events, { triggerEvent, triggerIfReady } from 'paella-core/js/core/Events';
 
 export default class SteramProvider extends PlayerResource {
 	constructor(player, videoContainer) {
@@ -77,7 +77,7 @@ export default class SteramProvider extends PlayerResource {
 			await s.canvas.loadCanvas(s.player);		
 			s.player.onVideoEnded(() => {
 				if (videoEndedEventTimer === null) {
-					triggerEvent(this.player, Events.ENDED);
+					triggerIfReady(this.player, Events.ENDED);
 					videoEndedEventTimer = setTimeout(() => {
 						videoEndedEventTimer = null;
 					}, 2000);
@@ -129,7 +129,7 @@ export default class SteramProvider extends PlayerResource {
 			end
 		};
 		const currentTime = await this.currentTime();
-		triggerEvent(this.player, Events.TIMEUPDATE, { currentTime: currentTime });
+		triggerIfReady(this.player, Events.TIMEUPDATE, { currentTime: currentTime });
 	}
 	
 	startStreamSync() {
@@ -150,7 +150,7 @@ export default class SteramProvider extends PlayerResource {
 					await this.setCurrentTime(0);
 					this.stopStreamSync();
 					currentTime = 0;
-					triggerEvent(this.player, Events.ENDED, {});
+					triggerIfReady(this.player, Events.ENDED, {});
 					return;
 				}
 				else if (currentTime<this.trimStart) {
@@ -159,7 +159,7 @@ export default class SteramProvider extends PlayerResource {
 					trimmedCurrentTime = 0;
 				}
 				
-				triggerEvent(this.player, Events.TIMEUPDATE, { currentTime: trimmedCurrentTime });
+				triggerIfReady(this.player, Events.TIMEUPDATE, { currentTime: trimmedCurrentTime });
 				this._timeupdateTimer = setTimeout(() => {
 					if (this._timeSync) {
 						setupSyncTimer();
@@ -167,7 +167,7 @@ export default class SteramProvider extends PlayerResource {
 				}, 250);
 			}
 			else if (this._timeSync) {
-				triggerEvent(this.player, Events.TIMEUPDATE, { currentTime });
+				triggerIfReady(this.player, Events.TIMEUPDATE, { currentTime });
 				this._timeupdateTimer = setTimeout(() => {
 					setupSyncTimer();	
 				}, 250);
@@ -250,7 +250,7 @@ export default class SteramProvider extends PlayerResource {
 		}
 		
 		const currentTime = await this.currentTime();
-		triggerEvent(this.player, Events.TIMEUPDATE, { currentTime: currentTime });
+		triggerIfReady(this.player, Events.TIMEUPDATE, { currentTime: currentTime });
 
 		return returnValue;
 	}
