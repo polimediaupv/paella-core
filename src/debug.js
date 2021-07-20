@@ -25,6 +25,11 @@ bindEvent(paella, Events.HIDE_POPUP, (params) => {
 	console.log(params);
 });
 
+bindEvent(paella, Events.MANIFEST_LOADED, () => {
+	console.log("Video manifest loaded");
+});
+
+
 paella.loadManifest()
 	.then(() => console.log("done"))
 	.catch(e => console.error(e));

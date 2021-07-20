@@ -7,7 +7,10 @@ export default class TestEventLogPlugin extends EventLogPlugin {
         return [
             Events.PLAY,
             Events.PAUSE,
-            Events.TIMEUPDATE
+            Events.TIMEUPDATE,
+            Events.MANIFEST_LOADED,
+            Events.STREAM_LOADED,
+            Events.PLAYER_LOADED
         ];
     }
 
