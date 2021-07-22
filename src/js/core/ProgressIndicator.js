@@ -128,11 +128,13 @@ export default class ProgressIndicator extends DomClass {
 		
 		this.progressContainer._progressIndicator = this;
 		this.progressContainer.addEventListener("mousemove", async (evt) => {
+			const { isTrimEnabled, trimStart } = this.player.videoContainer;
+			const offset = isTrimEnabled ? trimStart : 0;
 			const newTime = await positionToTime(evt.offsetX);
 			if (drag) {
 				await updateProgressIndicator(newTime);
 			}
-			updateFrameThumbnail.apply(this, [evt.offsetX,newTime]);
+			updateFrameThumbnail.apply(this, [evt.offsetX,newTime + offset]);
 		});
 		
 		this.progressContainer.addEventListener("mouseup", async (evt) => {
