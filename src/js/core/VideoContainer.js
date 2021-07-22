@@ -7,7 +7,7 @@ import {
     getLayoutWithId,
     getValidContentSettings } from 'paella-core/js/core/VideoLayout';
 import StreamProvider from 'paella-core/js/core/StreamProvider';
-import Events, { triggerEvent } from 'paella-core/js/core/Events';
+import Events, { bindEvent, triggerEvent } from 'paella-core/js/core/Events';
 import { addButtonPlugin } from 'paella-core/js/core/ButtonPlugin';
 
 import 'paella-core/styles/VideoContainer.css';
@@ -135,7 +135,7 @@ export default class VideoContainer extends DomClass {
             else {
                 return false;
             }
-        })
+        });
         
         this._baseVideoRect.style.display = "";
         this._ready = true;

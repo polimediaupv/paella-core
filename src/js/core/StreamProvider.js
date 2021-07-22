@@ -128,8 +128,8 @@ export default class SteramProvider extends PlayerResource {
 			start,
 			end
 		};
-		const currentTime = await this.currentTime();
-		triggerIfReady(this.player, Events.TIMEUPDATE, { currentTime: currentTime });
+		const currentTime = await this.currentTime()
+		triggerIfReady(this.player, Events.TIMEUPDATE, { currentTime: enabled ? start + currentTime : currentTime });
 	}
 	
 	startStreamSync() {
