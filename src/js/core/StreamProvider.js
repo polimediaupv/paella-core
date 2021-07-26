@@ -239,8 +239,8 @@ export default class SteramProvider extends PlayerResource {
 			const newTime = (await this.executeAction("currentTime"))[0];
 			returnValue = {
 				result,
-				prevTime: prevTime + this.trimStart,
-				newTime: newTime + this.trimStart
+				prevTime: prevTime - this.trimStart,
+				newTime: newTime - this.trimStart
 			}
 		}
 		else {

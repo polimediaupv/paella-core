@@ -281,10 +281,6 @@ export default class VideoContainer extends DomClass {
 
     async setCurrentTime(t) {
         const result = await this.streamProvider.setCurrentTime(t);
-        if (this.isTrimEnabled) {
-            result.prevTime -= this.trimStart;
-            result.newTime -= this.trimStart;
-        }
         triggerEvent(this.player, Events.SEEK, { prevTime: result.prevTime, newTime: result.newTime });
         return result.result;
     }
