@@ -34,5 +34,27 @@ export default class MyPupUpPlugin extends PopUpButtonPlugin {
 - "no-modal": The pop up is displayed in the same way as the "modal" one, but you can still interact with the player. To hide a "no-modal" pop up, the user must to click the button again.
 - "timeline": The pop up is displayed above the timeline, and measures the full width of the timeline. The height will depend on the content of the pop up.
 
+## Reload content
+
+In general, the pop up content is only generated once, although it is sometimes reloaded due to changes in the player state. If the content needs to be reloaded, the `refreshContent` property of the plugin can be used to reload the content the next time it is generated. This property causes the content to reload the next time the user presses the plugin button.
+
+```javascript
+import { 
+    PopUpButtonPlugin,
+    Events,
+    bindEvent
+} from 'paella-core';
+
+export default class FrameControlButtonPlugin extends PopUpButtonPlugin {
+  ... 
+
+  async load() {
+    bindEvent(this.player, Events.TRIMMING_CHANGED, (evt) => {
+      this.refreshContent = true;
+    });
+  }
+}
+
+```
 
 
