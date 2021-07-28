@@ -32,7 +32,7 @@ The buttons that we want to group inside the new group, will use the value of `g
 In general, a plugin of type Button Group only implements the icon specification, but it is possible to customize the behavior of any other function of its parent classes, which in this case is [PopUpButtonPlugin](popup_button_plugin.md):
 
 ```javascript
-import ButtonGroupPlugin from 'paella-core/js/core/ButtonGroupPlugin';
+import { ButtonGroupPlugin } from 'paella-core';
 
 import ScreenIcon from 'paella-core/icons/screen.svg';
 
