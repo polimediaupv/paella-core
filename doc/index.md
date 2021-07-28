@@ -39,6 +39,7 @@ Add buttons to the playback bar:
 - [Button plugins](button_plugin.md): simple click button to execute an action.
 - [Popup button plugins](popup_button_plugin.md): a button that shows a popup window to display custom content.
 - [Menu button plugins](menu_button_plugin.md): a special type of popup button plugin that shows a menu.
+- [Button group plugins](button_group_plugin.md): create groups of buttons in a pop up window.
 
 [Video plugins](video_plugin.md): Extend the video formats that Paella Player can handle.
 
@@ -52,3 +53,4 @@ Video plugin formats available in [paella core](https://github.com/polimediaupv/
 
 [Captions plugins](captions_plugins.md): allows to load different formats of captions.
 
+[Event plugins](event_log_plugin.md): capture events to trigger actions using a plugin.
