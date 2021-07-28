@@ -24,6 +24,7 @@ import Data, { DataPlugin } from 'paella-core/js/core/Data';
 import VideoQualityItem from 'paella-core/js/core/VideoQualityItem';
 import AudioTrackData from 'paella-core/js/core/AudioTrackData';
 import EventLogPlugin from 'paella-core/js/core/EventLogPlugin';
+import ButtonGroupPlugin from 'paella-core/js/core/ButtonGroupPlugin';
 
 import { DomClass, createElementWithHtmlText, createElement } from 'paella-core/js/core/dom';
 
@@ -64,6 +65,7 @@ export {
     VideoQualityItem,
     AudioTrackData,
     EventLogPlugin,
+    ButtonGroupPlugin,
     
     Events,
     bindEvent,
