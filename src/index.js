@@ -40,6 +40,15 @@ import { ImageVideo } from './js/videoFormats/es.upv.paella.imageVideoFormat';
 
 import KeyShortcutPlugin, { KeyCodes } from './js/core/KeyShortcutPlugin';
 
+import {
+    defaultTranslateFunction,
+    defaultSetLanguageFunction,
+    defaultAddDictionaryFunction,
+    translate,
+    setLanguage,
+    addDictionary
+} from "paella-core/js/core/Localization";
+
 export {
     Paella,
     PopUp,
@@ -91,6 +100,13 @@ export {
     ImageVideo,
 
     KeyShortcutPlugin,
-    KeyCodes
+    KeyCodes,
+
+    defaultTranslateFunction,
+    defaultSetLanguageFunction,
+    defaultAddDictionaryFunction,
+    translate,
+    setLanguage,
+    addDictionary
 }
 

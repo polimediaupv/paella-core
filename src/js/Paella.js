@@ -19,6 +19,18 @@ import CaptionCanvas from 'paella-core/js/captions/CaptionsCanvas';
 import { loadLogEventPlugins } from "paella-core/js/core/EventLogPlugin";
 import { loadKeyShortcutPlugins } from "paella-core/js/core/KeyShortcutPlugin";
 
+import {
+    defaultTranslateFunction,
+    defaultSetLanguageFunction,
+    defaultAddDictionaryFunction,
+    setTranslateFunction,
+    setSetLanguageFunction,
+    setAddDictionaryFunction,
+    addDictionary,
+    translate,
+    setLanguage
+} from "paella-core/js/core/Localization";
+
 import 'paella-core/styles/base.css';
 
 export default class Paella {
@@ -46,6 +58,27 @@ export default class Paella {
         this._initParams.getManifestFileUrl = this._initParams.getManifestFileUrl || defaultGetManifestFileUrlFunction;
         this._initParams.loadVideoManifest = this._initParams.loadVideoManifest || defaultLoadVideoManifestFunction;
         this._initParams.customPluginContext = this._initParams.customPluginContext || [];
+        this._initParams.translateFunction = this._initParams.translateFunction || defaultTranslateFunction;
+        this._initParams.setLanguageFunction = this._initParams.setLanguageFunction || defaultSetLanguageFunction;
+        this._initParams.addDictionaryFunction = this._initParams.addDictionaryFunction || defaultAddDictionaryFunction;
+
+        this._initParams.loadDictionaries = this._initParams.loadDictionaries || async function(player) {
+            addDictionary("en", {
+                "Hello": "Hello",
+                "World": "World"
+            });
+
+            addDictionary("es", {
+                "Hello": "Hola",
+                "World": "Mundo"
+            });
+
+            setLanguage(navigator.language.substring(0,2));
+        }
+
+        setTranslateFunction(this._initParams.translateFunction);
+        setSetLanguageFunction(this._initParams.setLanguageFunction);
+        setAddDictionaryFunction(this._initParams.addDictionaryFunction);
 
         this._config = null;
         this._videoId = null;
@@ -76,6 +109,18 @@ export default class Paella {
 
     get Events() {
         return Events;
+    }
+
+    translate(word) {
+        return translate(word);
+    }
+
+    setLanguage(lang) {
+        setLanguage(lang);
+    }
+
+    addDictionary(lang,dict) {
+        addDictionary(lang,dict);
     }
 
     bindEvent(eventName, fn) {
@@ -181,6 +226,9 @@ export default class Paella {
     async loadManifest() {
         console.debug("Loading paella player");
         this._config = await this.initParams.loadConfig(this.configUrl);
+
+        // Load localization dictionaries
+        await this._initParams.loadDictionaries(this);
 
         registerPlugins(this);
 
