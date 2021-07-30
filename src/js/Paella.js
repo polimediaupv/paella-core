@@ -24,14 +24,17 @@ import {
     defaultSetLanguageFunction,
     defaultAddDictionaryFunction,
     setTranslateFunction,
+    setGetLanguageFunction,
     setSetLanguageFunction,
     setAddDictionaryFunction,
     addDictionary,
     translate,
-    setLanguage
+    setLanguage,
+    getLanguage
 } from "paella-core/js/core/Localization";
 
 import 'paella-core/styles/base.css';
+import { defaultGetLanguageFunction } from "./core/Localization";
 
 export default class Paella {
     constructor(containerElement, initParams = {}) {
@@ -59,6 +62,7 @@ export default class Paella {
         this._initParams.loadVideoManifest = this._initParams.loadVideoManifest || defaultLoadVideoManifestFunction;
         this._initParams.customPluginContext = this._initParams.customPluginContext || [];
         this._initParams.translateFunction = this._initParams.translateFunction || defaultTranslateFunction;
+        this._initParams.getLanguageFunction = this._initParams.getLanguageFunction || defaultGetLanguageFunction;
         this._initParams.setLanguageFunction = this._initParams.setLanguageFunction || defaultSetLanguageFunction;
         this._initParams.addDictionaryFunction = this._initParams.addDictionaryFunction || defaultAddDictionaryFunction;
 
@@ -78,6 +82,7 @@ export default class Paella {
 
         setTranslateFunction(this._initParams.translateFunction);
         setSetLanguageFunction(this._initParams.setLanguageFunction);
+        setGetLanguageFunction(this._initParams.getLanguageFunction);
         setAddDictionaryFunction(this._initParams.addDictionaryFunction);
 
         this._config = null;
@@ -117,6 +122,10 @@ export default class Paella {
 
     setLanguage(lang) {
         setLanguage(lang);
+    }
+
+    getLanguage() {
+        return getLanguage();
     }
 
     addDictionary(lang,dict) {

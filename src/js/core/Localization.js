@@ -13,6 +13,10 @@ export function defaultSetLanguageFunction(lang) {
     g_currentLang = lang;    
 }
 
+export function defaultGetLanguageFunction() {
+    return g_currentLang;
+}
+
 export function defaultAddDictionaryFunction(lang,dict) {
     g_dictionaries[lang] = dict;
 }
@@ -20,6 +24,8 @@ export function defaultAddDictionaryFunction(lang,dict) {
 let g_translateFunc = defaultTranslateFunction;
 
 let g_setLanguageFunc = defaultSetLanguageFunction;
+
+let g_getLanguageFunc = defaultGetLanguageFunction;
 
 let g_defaultAddDictionary = defaultAddDictionaryFunction;
 
@@ -29,6 +35,10 @@ export function translate(word) {
 
 export function setLanguage(lang) {
     g_setLanguageFunc(lang);
+}
+
+export function getLanguage() {
+    return g_getLanguageFunc();
 }
 
 export function addDictionary(lang,dict) {
@@ -43,6 +53,9 @@ export function setSetLanguageFunction(fn) {
     g_setLanguageFunc = fn;
 }
 
+export function setGetLanguageFunction(fn) {
+    g_getLanguageFunc = fn;
+}
 export function setAddDictionaryFunction(fn) {
     g_defaultAddDictionary = fn;
 }
