@@ -54,3 +54,6 @@ Video plugin formats available in [paella core](https://github.com/polimediaupv/
 [Captions plugins](captions_plugins.md): allows to load different formats of captions.
 
 [Event plugins](event_log_plugin.md): capture events to trigger actions using a plugin.
+
+[Localization](localization.md): translate text strings, add dictionaries and set up your preferred localization library in Paella Player.
+

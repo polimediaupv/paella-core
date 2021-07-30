@@ -43,9 +43,11 @@ import KeyShortcutPlugin, { KeyCodes } from './js/core/KeyShortcutPlugin';
 import {
     defaultTranslateFunction,
     defaultSetLanguageFunction,
+    defaultGetLanguageFunction,
     defaultAddDictionaryFunction,
     translate,
     setLanguage,
+    getLanguage,
     addDictionary
 } from "paella-core/js/core/Localization";
 
@@ -104,9 +106,11 @@ export {
 
     defaultTranslateFunction,
     defaultSetLanguageFunction,
+    defaultGetLanguageFunction,
     defaultAddDictionaryFunction,
     translate,
     setLanguage,
+    getLanguage,
     addDictionary
 }
 
