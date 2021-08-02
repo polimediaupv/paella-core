@@ -30,7 +30,8 @@ const initParams = {
 			'Rice': 'Arroz',
 			'Chicken': 'Pollo',
 			'Hello': 'Hola',
-			'World': 'Mundo'
+			'World': 'Mundo',
+			'Test popup button': 'Botón desplegable de prueba'
 		});
 
 		// Or you can use the player object
@@ -39,7 +40,8 @@ const initParams = {
 			'Rice': 'Arroz',
 			'Chicken': 'Pollo',
 			'Hello': 'Hola',
-			'World': 'Mundo'
+			'World': 'Mundo',
+			'Test popup button': 'Botón desplegable de prueba'
 		});
 	}
 

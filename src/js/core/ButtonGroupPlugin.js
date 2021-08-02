@@ -2,6 +2,7 @@ import PopUpButtonPlugin from 'paella-core/js/core/PopUpButtonPlugin';
 import { createElementWithHtmlText } from 'paella-core/js/core/dom';
 import { loadPluginsOfType } from 'paella-core/js/core/Plugin';
 import { addButtonPlugin } from 'paella-core/js/core/ButtonPlugin';
+import { translate } from 'paella-core/js/core/Localization';
 
 import 'paella-core/styles/ButtonGroup.css'; 
 
@@ -32,7 +33,7 @@ export default class ButtonGroupPlugin extends PopUpButtonPlugin {
                 }
 
                 addButtonPlugin(plugin, pluginWrapper);
-                const descriptionText = createElementWithHtmlText(`<a class="button-description">${ plugin.description }</a>`, pluginWrapper);
+                const descriptionText = createElementWithHtmlText(`<a class="button-description">${ translate(plugin.description) }</a>`, pluginWrapper);
                 descriptionText.addEventListener("click", (evt) => {
                     plugin.action();
                     evt.stopPropagation();
