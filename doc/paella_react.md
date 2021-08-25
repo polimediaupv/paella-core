@@ -155,19 +155,18 @@ From the tutorial example, we are going to create a React component to embed the
 ```javascript
 import { Paella } from 'paella-core';
 import basicPluginContext from 'paella-basic-plugins';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
-let paella = null;
 function Player({ width, height }) {
-
+    const paella = useRef();
     useEffect(() => {
-        if (!paella) {
-            paella = new Paella('player-container', {
+        if (!paella.current) {
+            paella.current = new Paella('player-container', {
                 customPluginContext: [
                     basicPluginContext()
                 ]
             });
-            paella.loadManifest()
+            paella.current.loadManifest()
                 .then(() => console.log("Done"))
                 .catch(e => console.error(e));
         }
@@ -183,8 +182,8 @@ function Player({ width, height }) {
             marginRight: "auto",
             left: "0",
             right: "0"
-            }}></div>
-    
+        }}></div>
+
     )
 }
 
