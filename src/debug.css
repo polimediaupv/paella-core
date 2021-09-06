@@ -1,0 +1,7 @@
+.player-container {
+    width: 90vw;
+    height: 90vh;
+    left: 5vw;
+    top: 5vh;
+    font-family: helvetica, arial, sans-serif;
+}

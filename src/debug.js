@@ -2,6 +2,8 @@ import Paella from 'paella-core/js/Paella';
 import Events, { bindEvent } from 'paella-core/js/core/Events';
 import { defaultLoadVideoManifestFunction } from 'paella-core/js/core/initFunctions';
 
+import './debug.css';
+
 // Objects to store the custom localization dictionaries
 const g_dictionaries = {};
 let g_currentLanguage = navigator.language.substring(0,2);
