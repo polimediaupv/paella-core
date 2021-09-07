@@ -108,7 +108,7 @@ paella.loadManifest()
 	.catch(e => console.error(e));
 ```
 
-`src/index.htlm`
+`src/index.html`
 
 ```html
 <!DOCTYPE html>
