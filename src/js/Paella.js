@@ -36,8 +36,17 @@ import {
 import 'paella-core/styles/base.css';
 import { defaultGetLanguageFunction } from "./core/Localization";
 
+import Log, { LOG_LEVEL } from "paella-core/js/core/log";
+
 export default class Paella {
+
     constructor(containerElement, initParams = {}) {
+        this._log = new Log(this);
+
+        // The default log level before loading the configuration is
+        // VERBOSE, to ensure that all previous messages are displayed
+        this._log.setLevel(LOG_LEVEL.VERBOSE);
+
         // Debug: create an array of all paella player instances
         window.__paella_instances__ = window.__paella_instances__ || [];
         window.__paella_instances__.push(this);
@@ -106,6 +115,10 @@ export default class Paella {
 
         // This flag is set to true after trigger the Events.PLAYER_LOADED event
         this._ready = false;
+    }
+
+    get log() {
+        return this._log;
     }
 
     get ready() {
@@ -235,6 +248,9 @@ export default class Paella {
     async loadManifest() {
         console.debug("Loading paella player");
         this._config = await this.initParams.loadConfig(this.configUrl);
+
+        const logLevel = this._config.logLevel || "INFO";
+        this._log.setLevel(logLevel);
 
         // Load localization dictionaries
         await this._initParams.loadDictionaries(this);

@@ -5,6 +5,8 @@
     "defaultLayout": "presenter-presentation",
     
     "defaultAudioStream": "presenter",
+
+    "logLevel": "INFO",
     
     "plugins": {
         "es.upv.paella.testPlugin": {

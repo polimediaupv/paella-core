@@ -51,6 +51,11 @@ import {
     addDictionary
 } from "paella-core/js/core/Localization";
 
+import Log, {
+    log,
+    LOG_LEVEL
+} from "paella-core/js/core/Log";
+
 export {
     Paella,
     PopUp,
@@ -111,6 +116,10 @@ export {
     translate,
     setLanguage,
     getLanguage,
-    addDictionary
+    addDictionary,
+
+    Log,
+    log,
+    LOG_LEVEL
 }
 
