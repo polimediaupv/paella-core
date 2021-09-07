@@ -53,7 +53,7 @@ Create a file with the name `webpack.config.js`. Feel free to modify this webpac
 
 ```javascript
 const path = require('path');
-const HtlmWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
