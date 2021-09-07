@@ -53,9 +53,13 @@ export const printMessage = ({
             console.warn(`${ context }  - Warning: ${msg}`);
             break;
         case LOG_LEVEL.INFO:
+            console.log(`${ context } - Info: ${msg}`);
+            break;
         case LOG_LEVEL.DEBUG:
+            console.log(`${ context } - Debug: ${msg}`);
+            break;
         case LOG_LEVEL.VERBOSE:
-            console.log(`${ context } : ${msg}`);
+            console.log(`${ context } - Verbose: ${msg}`);
             break;
         }
     }
