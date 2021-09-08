@@ -45,6 +45,18 @@ Add the script commands to the `package.json` file:
 }
 ```
 
+**Note:** this tutorial is designed for a specific version of Paella Player and its dependencies. To make sure you install the same version, replace the paella-* dependencies in package.json file:
+
+```json
+{
+  ...
+  "dependencies": {
+    "paella-basic-plugins": "^1.0.0-beta.2",
+    "paella-core": "^1.0.0-beta.19"
+  }
+}
+```
+
 ## Prepare the Webpack configuration file
 
 Create a file with the name `webpack.config.js`. Feel free to modify this webpack configuration file to suit your needs:
@@ -168,6 +180,13 @@ In addition to the configuration file, it is necessary to include other files th
 				{ "id": "presenter-presenter-2", "content": ["presenter","presenter-2"], "icon": "present-mode-3.svg", "title": "Presenter and presentation" }
 			]
 		},
+		"es.upv.paella.tripleVideo": {
+            "enabled": true,
+            "validContent": [
+                { "id": "presenter-presenter-2-presentation", "content": ["presenter","presenter-2","presentation"], "icon": "present-mode-4.svg", "title": "Presenter and presentation" },
+                { "id": "presenter-2-presenter-3-presentation", "content": ["presenter-2","presenter-3","presentation"], "icon": "present-mode-4.svg", "title": "Presenter and presentation" }
+            ]
+        },
 		"es.upv.paella.mp4VideoFormat": {
 			"enabled": true,
 			"order": 1
@@ -175,10 +194,21 @@ In addition to the configuration file, it is necessary to include other files th
 		"es.upv.paella.playPauseButton": {
 			"enabled": true,
 			"order": 1
-		}
+		},
+		"es.upv.paella.videoCanvas": {
+            "enabled": true,
+            "order": 1
+        }
 	}
 }
 ```
+
+**Note:** The following plugins are required to load Paella Player:
+- `es.upv.paella.singleVideo`
+- `es.upv.paella.dualVideo`
+- `es.upv.paella.tripleVideo`
+- `es.upv.paella.mp4VideoFormat`
+- `es.upv.paella.videoCanvas` or any other video canvas plugin
 
 The following files are the icons required by the video layout configuration:
 
