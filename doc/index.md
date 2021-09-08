@@ -22,6 +22,8 @@
 
 [Initialization](initialization.md): initialize paella and customize the default parameters and settings.
 
+[Log](log.md): write messages to the console using the logging API
+
 [Events](events.md): events that Paella Player triggers during the player's live cycle
 
 [The video container](video_container.md): is the element that displays the different videos within its area, and manages the layout of these videos through plugins.
