@@ -36,7 +36,7 @@ import {
 import 'paella-core/styles/base.css';
 import { defaultGetLanguageFunction } from "./core/Localization";
 
-import Log, { LOG_LEVEL } from "paella-core/js/core/log";
+import Log, { LOG_LEVEL } from "paella-core/js/core/Log";
 
 export default class Paella {
 
