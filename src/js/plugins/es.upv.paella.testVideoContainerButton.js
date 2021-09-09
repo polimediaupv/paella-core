@@ -18,9 +18,7 @@ export default class VideoContainerButtonPlugin extends MenuButtonPlugin {
     }
 
     async getMenu() {
-        console.log("Get menu");
-
-		const items = [
+        const items = [
 			{ id: 0, title: "Option 1" },
 			{ id: 1, title: "Option 2" },
 			{ id: 2, title: "Option 3" },

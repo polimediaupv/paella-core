@@ -54,7 +54,7 @@ export default class TripleVideoLayout extends VideoLayout {
     get identifier() { return "triple-video"; }
 
     async load() {
-        console.debug("Triple video layout loaded");
+        this.player.log.debug("Triple video layout loaded");
     }
 
     getValidStreams(streamData) {

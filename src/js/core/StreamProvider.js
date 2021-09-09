@@ -35,7 +35,7 @@ export default class SteramProvider extends PlayerResource {
 		});
 	
 		
-		console.debug("Finding compatible video plugins");
+		this.player.log.debug("Finding compatible video plugins");
 
 		await loadCanvasPlugins(this.player);
 		
@@ -138,8 +138,8 @@ export default class SteramProvider extends PlayerResource {
 			// TODO: sync
 			// TODO: Event.ENDED
 			
-			console.log("players:");
-			console.log(this._players[0]);
+			this.player.log.debug("players:");
+			this.player.log.debug(this._players[0]);
 			let currentTime = this._players[0].currentTimeSync;
 			
 			// Check trimming
@@ -352,7 +352,7 @@ export default class SteramProvider extends PlayerResource {
 			for (const content in this.streams) {
 				const stream = this.streams[content];
 				const streamQualities = await stream.player.getQualities();
-				console.log(streamQualities);
+				this.player.log.debug(streamQualities);
 				if (streamQualities.length>1) {
 					const qualityIndex = Math.round(streamQualities.length * qualityFactor);
 					const selectedQuality = streamQualities[qualityIndex];

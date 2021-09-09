@@ -110,7 +110,7 @@ export class Mp4Video extends Video {
     // This function is called when the player loads, and it should
     // make everything ready for video playback to begin.
     async loadStreamData(streamData) {
-        console.debug("es.upv.paella.mp4VideoFormat: loadStreamData");
+        this.player.log.debug("es.upv.paella.mp4VideoFormat: loadStreamData");
 
         this._sources = null;
         this._currentQuality = 0;
@@ -132,7 +132,7 @@ export class Mp4Video extends Video {
 
         await this.waitForLoaded();
         
-        console.debug(`es.upv.paella.mp4VideoFormat (${ this.streamData.content }): video loaded and ready.`);
+        this.player.log.debug(`es.upv.paella.mp4VideoFormat (${ this.streamData.content }): video loaded and ready.`);
     }
 
     waitForLoaded() {

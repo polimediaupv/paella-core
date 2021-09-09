@@ -51,7 +51,8 @@ export default class Paella {
         window.__paella_instances__ = window.__paella_instances__ || [];
         window.__paella_instances__.push(this);
 
-        console.debug("New paella player instance");
+        this.log.debug("New paella player instance");
+        
         
         if (typeof(containerElement) === "string") {
             containerElement = document.getElementById(containerElement);
@@ -246,8 +247,8 @@ export default class Paella {
     }
     
     async loadManifest() {
-        console.debug("Loading paella player");
-        this._config = await this.initParams.loadConfig(this.configUrl);
+        this.log.debug("Loading paella player");
+        this._config = await this.initParams.loadConfig(this.configUrl,this);
 
         const logLevel = this._config.logLevel || "INFO";
         this._log.setLevel(logLevel);
@@ -263,18 +264,18 @@ export default class Paella {
         // KeyShortcutPlugins are loaded before UI load to allow the video load using shortcuts
         await loadKeyShortcutPlugins(this);
 
-        this._videoId = await this.initParams.getVideoId(this._config);
+        this._videoId = await this.initParams.getVideoId(this._config, this);
 
-        this._manifestUrl = await this.initParams.getManifestUrl(this.repositoryUrl,this.videoId,this._config);
+        this._manifestUrl = await this.initParams.getManifestUrl(this.repositoryUrl,this.videoId,this._config,this);
         
-        this._manifestFileUrl = await this.initParams.getManifestFileUrl(this._manifestUrl, this.manifestFileName,this._config);
+        this._manifestFileUrl = await this.initParams.getManifestFileUrl(this._manifestUrl, this.manifestFileName,this._config,this);
 
-        console.debug(`Loading video with identifier '${this.videoId}' from URL '${this.manifestFileUrl}'`);
+        this.log.debug(`Loading video with identifier '${this.videoId}' from URL '${this.manifestFileUrl}'`);
 
-        this._videoManifest = await this.initParams.loadVideoManifest(this.manifestFileUrl,this._config);
+        this._videoManifest = await this.initParams.loadVideoManifest(this.manifestFileUrl,this._config,this);
 
-        console.debug("Video manifest loaded:");
-        console.debug(this.videoManifest);
+        this.log.debug("Video manifest loaded:");
+        this.log.debug(this.videoManifest);
 
         // Load data plugins
         this._data = new Data(this);

@@ -12,7 +12,7 @@ export function getValidLayouts(player, streamData) {
 export function getLayoutWithId(player, layoutId) {
     const result = getPluginsOfType(player, "layout");
     result.find(layout => {
-        console.log(layout);
+        player.log.debug(layout);
         return layout.identifier === layoutId
     });
     return result;

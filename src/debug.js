@@ -15,9 +15,9 @@ import {
 } from 'paella-core/js/core/Localization';
 
 const initParams = {
-	loadVideoManifest: async function(videoManifestUrl,config) {
-		console.log(config);
-		return await defaultLoadVideoManifestFunction(videoManifestUrl, config);
+	loadVideoManifest: async function(videoManifestUrl,config,player) {
+		player.log.debug(config);
+		return await defaultLoadVideoManifestFunction(videoManifestUrl, config, player);
 	},
 
 	// Setup custom localization functions
@@ -52,24 +52,24 @@ const initParams = {
 let paella = new Paella('player-container', initParams);
 
 bindEvent(paella, Events.BUTTON_PRESS, (params) => {
-	console.log(params);
+	paella.log.debug(params);
 });
 
 bindEvent(paella, Events.SHOW_POPUP, (params) => {
-	console.log("Show popup");
-	console.log(params);
+	paella.log.debug("Show popup");
+	paella.log.debug(params);
 });
 
 bindEvent(paella, Events.HIDE_POPUP, (params) => {
-	console.log("Hide popup");
-	console.log(params);
+	paella.log.debug("Hide popup");
+	paella.log.debug(params);
 });
 
 bindEvent(paella, Events.MANIFEST_LOADED, () => {
-	console.log("Video manifest loaded");
+	paella.log.debug("Video manifest loaded");
 });
 
 
 paella.loadManifest()
-	.then(() => console.log(`${paella.translate("Rice")} ${paella.translate("Chicken")}`))
-	.catch(e => console.error(e));
+	.then(() => paella.log.debug(`${paella.translate("Rice")} ${paella.translate("Chicken")}`))
+	.catch(e => paella.log.error(e));

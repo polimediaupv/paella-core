@@ -119,9 +119,9 @@ export default class VideoContainer extends DomClass {
         this._buttonPlugins = [ leftSideButtons, rightSideButtons ];
 
         // Load videoContainer plugins
-        console.debug("Loading videoContainer button plugins");
+        this.player.log.debug("Loading videoContainer button plugins");
         loadPluginsOfType(this.player,"button",(plugin) => {
-            console.debug(` Button plugin: ${ plugin.name }`);
+            this.player.log.debug(` Button plugin: ${ plugin.name }`);
             if (plugin.side === "left") {
                 addButtonPlugin(plugin, leftSideButtons);
             }
@@ -239,7 +239,7 @@ export default class VideoContainer extends DomClass {
     }
     
     hideUserInterface() {
-        console.debug("Hide video container user interface");
+        this.player.log.debug("Hide video container user interface");
         const hideFunc = button => {
             button._prevDisplay = button.style.display;
             button.style.display = "none";

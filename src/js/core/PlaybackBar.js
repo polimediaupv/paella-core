@@ -23,9 +23,9 @@ export default class PlaybackBar extends DomClass {
 	async load() {		
 		this._frameList = this.player.videoManifest;
 		
-		console.debug("Loading button plugins");
+		this.player.log.debug("Loading button plugins");
 		loadPluginsOfType(this.player,"button",(plugin) => {
-			console.debug(` Button plugin: ${ plugin.name }`);
+			this.player.log.debug(` Button plugin: ${ plugin.name }`);
 			if (plugin.side === "left") {
 				addButtonPlugin(plugin, this.buttonPluginsLeft);
 			}
@@ -44,7 +44,7 @@ export default class PlaybackBar extends DomClass {
 	}
 	
 	hideUserInterface() {
-		console.debug("Hide playback bar user interface");
+		this.player.log.debug("Hide playback bar user interface");
 		this.hide();
 	}
 	

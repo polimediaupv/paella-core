@@ -13,7 +13,7 @@ export async function loadKeyShortcutPlugins(player) {
         });
     });
 
-    console.log(g_shortcuts);
+    player.log.debug(g_shortcuts);
     window.onkeyup = async (event) => {
         const shortcut = g_shortcuts[event.code];
         if (shortcut) {

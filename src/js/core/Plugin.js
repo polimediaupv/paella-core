@@ -29,12 +29,12 @@ export function registerPlugins(player) {
     // Custom plugins
     player.initParams.customPluginContext.forEach(ctx => importPlugins(player, ctx));
 
-    console.debug("Plugins have been registered:")
+    player.log.debug("Plugins have been registered:")
 
     // Sort the plugins
     for (const type in player.__pluginData__.pluginInstances) {
         player.__pluginData__.pluginInstances[type].sort((a,b) => a.order - b.order);
-        player.__pluginData__.pluginInstances[type].forEach(p => console.debug(`type: ${type}, name: ${p.name}`));
+        player.__pluginData__.pluginInstances[type].forEach(p => player.log.debug(`type: ${type}, name: ${p.name}`));
     }
 }
 

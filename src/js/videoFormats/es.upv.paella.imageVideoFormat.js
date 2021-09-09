@@ -134,7 +134,7 @@ export class ImageVideo extends Video {
 		// Sort frames
 		this._sources.forEach(src => {
 			src.frames.sort((a,b) => a.time - b.time);
-			console.log(src.frames);
+
 		});
 		
 		return true;

@@ -22,11 +22,11 @@ export default class CaptionsPlugin extends Plugin {
     get type() { return "captions"; }
     
     async load() {
-        console.log("load captions plugin");
+        this.player.log.debug("load captions plugin");
     }
 
     async getCaptions() {
-        console.warn(`CaptionsPlugin ${this.name}: getCaptions() is not implemented.`);
+        this.player.log.warn(`CaptionsPlugin ${this.name}: getCaptions() is not implemented.`);
         return [];
     }
 }

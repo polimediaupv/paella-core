@@ -132,6 +132,6 @@ export default class ButtonPlugin extends Plugin {
 	}
 
 	async action() {
-		console.log(`Action not implemented in button plugin ${ this.name }`);	
+		this.player.log.warn(`Action not implemented in button plugin ${ this.name }`);	
 	}
 }

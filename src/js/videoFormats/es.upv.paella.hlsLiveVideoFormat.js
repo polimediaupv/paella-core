@@ -27,7 +27,7 @@ const loadHls = (player, streamData, video, config, cors) => {
     return [hls, new Promise((resolve,reject) => {
         hls.on(Hls.Events.LEVEL_SWITCHED, (evt, data) => {
             // TODO: Trigger quality changed event
-            console.debug(`HLS: quality level switched to ${data.level}`)
+            this.player.log.debug(`HLS: quality level switched to ${data.level}`)
         });
 
         hls.on(Hls.Events.ERROR, (event,data) => {
@@ -77,7 +77,7 @@ export class HlsLiveVideo extends HlsVideo {
             return super.loadStreamData(streamData);
         }
         else {
-            console.debug("Loading HLS stream");
+            this.player.log.debug("Loading HLS stream");
 
             const [hls, promise] = loadHls(this.player, streamData, this.video, this._config, this._cors);
             this._hls = hls;

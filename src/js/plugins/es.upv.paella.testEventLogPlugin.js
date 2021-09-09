@@ -15,7 +15,7 @@ export default class TestEventLogPlugin extends EventLogPlugin {
     }
 
     async onEvent(event, params) {
-        console.log(event);
-        console.log(params);
+        this.player.log.verbose(event);
+        this.player.log.verbose(params);
     }
 }

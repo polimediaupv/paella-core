@@ -145,7 +145,7 @@ export default class DualVideoLayout extends VideoLayout {
     get identifier() { return "dual-video"; }
 
     async load() {
-        console.debug("Dual video layout loaded");
+        this.player.log.debug("Dual video layout loaded");
     }
 
     getValidStreams(streamData) {

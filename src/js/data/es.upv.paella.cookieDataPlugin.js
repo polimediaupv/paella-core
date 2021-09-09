@@ -18,7 +18,7 @@ export default class CookieDataPlugin extends DataPlugin {
             value = JSON.parse(value);
         }
         catch (e) {}
-        console.debug(`CookieDataPlugin.read: ${key}`);
+        this.player.log.debug(`CookieDataPlugin.read: ${key}`);
         return value;
     }
 
@@ -29,12 +29,12 @@ export default class CookieDataPlugin extends DataPlugin {
         }
         data = escape(data);
         setCookie(key, data);
-        console.debug(`CookieDataPlugin.write: ${key}`);
+        this.player.log.debug(`CookieDataPlugin.write: ${key}`);
     }
 
     async remove(context, keyParams) {
         const key = this.serializeKey(context, keyParams);
         setCookie(key, "");
-        console.debug(`CookieDataPlugin.remove: ${key}`);
+        this.player.log.debug(`CookieDataPlugin.remove: ${key}`);
     }
 };

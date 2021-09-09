@@ -4,7 +4,7 @@ export default class SingleVideoLayout extends VideoLayout {
     get identifier() { return "single-video"; }
 
     async load() {
-        console.log("Single video layout loaded");
+        this.player.log.debug("Single video layout loaded");
     }
 
     getValidStreams(streamData) {

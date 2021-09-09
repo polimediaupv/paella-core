@@ -63,7 +63,7 @@ export function setupAutoHideUiTimer(player, hideUiTimePropertyName = "hideUiTim
             player.__hideTimer__ = null;
             const visible = PopUp.IsSomePopUpVisible();
             if (visible) {
-                console.debug("UI not hidden because there are visible pop ups");
+                player.log.debug("UI not hidden because there are visible pop ups");
                 setupTimer();
             }
             else {

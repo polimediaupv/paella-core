@@ -17,7 +17,7 @@ export class TestVideoCanvas extends Canvas {
         this.element.style.overflow = "hidden";
         this.element.style.position = "relative";
 
-        console.log("test video canvas");
+        this.player.log.debug("test video canvas");
     }
 }
 
@@ -25,7 +25,7 @@ export default class TestVideoCanvasPlugin extends CanvasPlugin {
     get canvasType() { return "video"; }
 
     async isEnabled() {
-        console.log("TestVideoCanvasPlugin");
+        this.player.log.debug("TestVideoCanvasPlugin");
         return super.isEnabled();
     } 
     isCompatible(stream) {
