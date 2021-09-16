@@ -42,17 +42,19 @@ export default class HlsCaptionsPlugin extends CaptionsPlugin {
         this.captions.forEach(caption => {
             p.push(new Promise(async resolve => {
                 const response = await fetch(caption.url);
+                const baseUrl = caption.url.substring(0, caption.url.lastIndexOf('/') + 1);
                 const data = await response.text();
                 const re = /([a-z0-9_\-]+\.vtt)/im;
                 const m3u8Data = re.exec(data);
                 if (m3u8Data) {
-                    // TODO: Load captions files from the .m3u8 reference
-                    const vttUrl = "" + m3u8Data[1];
+                    const vttUrl = baseUrl + m3u8Data[1];
                     const vttResponse =await fetch(vttUrl);
-                    const vtt = await vttResponse.text();
-                    console.log(vtt);
-
-                    // TODO: result.push(...)
+                    const vttText = await vttResponse.text();
+                    
+                    const parser = new WebVTTParser(vttText);
+                    parser.captions.label = caption.label;
+                    parser.captions.language = caption.language;
+                    result.push(parser.captions);
                     resolve();
                 }
                 else {
