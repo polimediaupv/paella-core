@@ -14,16 +14,10 @@ export function getValidContentIds(player, streamData) {
 }
 
 export function getValidContentSettings(player, streamData) {
-    const validLayouts = getValidLayouts(player, streamData);
     const validIds = getValidContentIds(player, streamData)
-    let result = []
-    validLayouts.forEach(lo => {
-        result = [...result,...lo.config.validContent];
-    });
-    
-    return result.filter(cfg => {
-        return validIds.indexOf(cfg.id) !== -1
-    });
+    return getValidLayouts(player, streamData)
+        .flatMap(lo => lo.config.validContent)
+        .filter(cfg => validIds.includes(cfg.id));
 }
 
 export function getLayoutStructure(player, streamData, contentId) {
