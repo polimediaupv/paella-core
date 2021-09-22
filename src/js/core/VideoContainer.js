@@ -4,7 +4,6 @@ import {
     getValidLayouts, 
     getValidContentIds, 
     getLayoutStructure, 
-    getLayoutWithId,
     getValidContentSettings } from 'paella-core/js/core/VideoLayout';
 import StreamProvider from 'paella-core/js/core/StreamProvider';
 import Events, { bindEvent, triggerEvent } from 'paella-core/js/core/Events';

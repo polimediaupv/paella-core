@@ -9,16 +9,6 @@ export function getValidLayouts(player, streamData) {
     return result;
 }
 
-export function getLayoutWithId(player, layoutId) {
-    const result = getPluginsOfType(player, "layout");
-    result.find(layout => {
-        player.log.debug(layout);
-        return layout.identifier === layoutId
-    });
-    return result;
-
-}
-
 export function getValidContentIds(player, streamData) {
     const validLayouts = getValidLayouts(player, streamData);
     const result = [];
