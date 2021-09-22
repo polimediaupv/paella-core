@@ -4,18 +4,13 @@ import Plugin, { getPluginsOfType } from "./Plugin";
 
 export function getValidLayouts(player, streamData) {
     // Find the valid layouts that matches the streamData content
-    const result = getPluginsOfType(player, "layout")
+    return getPluginsOfType(player, "layout")
         .filter(layout => layout.config && layout.canApply(streamData));
-    return result;
 }
 
 export function getValidContentIds(player, streamData) {
-    const validLayouts = getValidLayouts(player, streamData);
-    const result = [];
-    validLayouts.forEach(lo => {
-        result.push(...lo.getValidContentIds(streamData));
-    });
-    return result;
+    return getValidLayouts(player, streamData)
+        .flatMap(lo => lo.getValidContentIds(streamData));
 }
 
 export function getValidContentSettings(player, streamData) {
@@ -57,23 +52,16 @@ export default class VideoLayout extends Plugin {
     }
 
     get validContentIds() {
-        const result = [];
-        this.validContent.forEach(c => result.push(c.id));
-        return result;
+        return this.validContent.map(c => c.id);
     }
 
     // Gets the valid content ids that matches the streamData
     getValidContentIds(streamData) {
-        const contentIds = [];
-        this.validContent.forEach(validContent => {
-            if (validContent.content.every(c => {
-                return streamData.some(sd => c === sd.content)
-            })) {
-                contentIds.push(validContent.id);
-            }
-        });
-
-        return contentIds;
+        return this.validContent
+            .filter(validContent => {
+                validContent.content.every(c => streamData.some(sd => c === sd.content))
+            })
+            .map(validContent => validContent.id);
     }
 
     // Get the valid stream data combination, according to the plugin configuration
