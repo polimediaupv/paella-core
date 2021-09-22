@@ -147,7 +147,7 @@ export default class VideoContainer extends DomClass {
         this._layoutButtons = [];
         
         // Current layout: if not selected, or the selected layout is not compatible, load de default layout
-        if (!this._layoutId || this._validContentIds.indexOf(this._layoutId) === -1) {
+        if (!this._layoutId || !this._validContentIds.includes(this._layoutId)) {
             // TODO: check if the default layout can be applied to the stream data
             this._layoutId = this._validContentIds[0];
             status = false;
