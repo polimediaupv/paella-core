@@ -8,6 +8,10 @@ It is also possible to create extensible plugins via plugins in the same way: by
 
 
 
+**Note:** you can view the list of included plugins [here](predefined_plugins.md)
+
+
+
 ## Create a plugin
 
 To create a new plugin, you must select a directory to place it in. In this directory you can place one or more plugins. The selection of this directory is done by setting a require context, which is a standard feature of Webpack. This context is resolved at compile time, so the path to the plugin folder must be a static string.

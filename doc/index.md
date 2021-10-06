@@ -60,3 +60,5 @@ Video plugin formats available in [paella core](https://github.com/polimediaupv/
 [Localization](localization.md): translate text strings, add dictionaries and set up your preferred localization library in Paella Player.
 
 [Utilities](utils.md): common-use utility package.
+
+[Predefined plugins](predefined_plugins.md): Lista de plugins incluidos en `paella-core`
