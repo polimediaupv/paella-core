@@ -6,11 +6,31 @@ TODO: Work in progress
 
 ### es.upv.paella.defaultShortcuts.js
 
-Define los atajos de teclado por defecto del reproductor de vídeo:
+Defines the default keyboard shortcuts of the video player:
 
-TODO: List of default shortcuts
+#### K and/or space key
 
+Pauses or replays the player.
 
+#### F key
+
+Switches between entering or exiting full screen mode.
+
+#### Arrow left key
+
+Rewinds the video 30 seconds in time.
+
+#### Arrow right key
+
+Fowards the video 30 seconds in time.
+
+#### Arrow up key
+
+Raises the video volume by 10%.
+
+#### Arrow down key
+
+Lowers the video volume by 10%.
 
 ### es.upv.paella.testEventLogPlugin.js
 
