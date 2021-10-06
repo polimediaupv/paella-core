@@ -50,7 +50,7 @@
 	height: 40px;
 	display: block;
 	background: none;
-	outline: none;
+	/*outline: none;*/
 	border: none;
 	float: left;
 }

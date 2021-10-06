@@ -17,14 +17,28 @@ export function getRightButtonPlugins(player) {
 	return getButtonPlugins(player, "right", "playbackBar");
 }
 
+
+
+export function getNextTabIndex(player) {
+	player.__tabIndex = player.__tabIndex || 0;
+	++player.__tabIndex;
+	return player.__tabIndex;
+}
+
+export function getCurrentTabIndex(player) {
+	return player.__tabIndex || 0;
+}
+
 export async function addButtonPlugin(plugin, buttonAreaElem) {
 	const parent = createElementWithHtmlText('<div class="button-plugin-container"></div>', buttonAreaElem);
+	const tabIndex = plugin.tabIndex;
+	const ariaLabel = plugin.ariaLabel;
 
 	const leftArea = createElementWithHtmlText(`
 		<div class="button-plugin-side-area left-side ${ plugin.className }"></div>
 	`, parent);
 	const button = createElementWithHtmlText(`
-		<button class="button-plugin ${ plugin.className }"><i class="button-icon" style="pointer-events: none">${ plugin.icon }</i></button>
+		<button class="button-plugin ${ plugin.className }" tabindex="${ tabIndex }" aria-label="${ ariaLabel }"><i class="button-icon" style="pointer-events: none">${ plugin.icon }</i></button>
 	`, parent);
 	const rightArea = createElementWithHtmlText(`
 		<div class="button-plugin-side-area right-side ${ plugin.className }"></div>
@@ -69,6 +83,22 @@ export default class ButtonPlugin extends Plugin {
 	get rightArea() { return this._rightArea; }
 	get button() { return this._button; }
 	get titleContainer() { return this._titleContainer; }
+
+	get ariaLabel() {
+		return this.config.ariaLabel || this.getAriaLabel();
+	}
+
+	getAriaLabel() {
+		return "";
+	}
+
+	get tabIndex() {
+		return this.config.tabIndex || this.getTabIndex();
+	}
+
+	getTabIndex() {
+		return getNextTabIndex(this.player);
+	}
 	
 	get iconElement() {
 		return this.button?.getElementsByClassName("button-icon")[0];
