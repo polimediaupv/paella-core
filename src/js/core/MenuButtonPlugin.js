@@ -12,6 +12,7 @@ export default class MenuButtonPlugin extends PopUpButtonPlugin {
 		const menuItems = await this.getMenu();
 		this._menuItems = menuItems;
 		let radioItemChecked = false;
+		let firstItem = null;
 		menuItems.forEach(item => {
 			const itemElem = createElementWithHtmlText(`<li class="menu-button-item"></li>`, content);
 			let className = "";
@@ -48,10 +49,12 @@ export default class MenuButtonPlugin extends PopUpButtonPlugin {
 				`;
 			}
 			
-			
 			const itemButton = createElementWithHtmlText(`
 				<button class="${ className }" aria-label="${ item.title }">${ itemContent }</button>`
 				, itemElem);
+			if (!firstItem) {
+				firstItem = itemButton;
+			}
 			item.buttonElement = itemButton;
 			itemButton._itemData = item;
 			itemButton.addEventListener("click", (evt) => {
@@ -87,6 +90,10 @@ export default class MenuButtonPlugin extends PopUpButtonPlugin {
 			}
 		});
 		
+		setTimeout(() => {
+			firstItem.focus();
+		}, 50);
+
 		return content;
 	}
 	
@@ -124,5 +131,11 @@ export default class MenuButtonPlugin extends PopUpButtonPlugin {
 	
 	closeMenu() {
 		this._popUp.hide();
+	}
+
+	async showPopUp() {
+		// Refresh popup content to set focus on the first menu item
+		this.refreshContent = true;
+		await super.showPopUp();
 	}
 }

@@ -20,6 +20,7 @@ export default class ButtonGroupPlugin extends PopUpButtonPlugin {
         const content = createElementWithHtmlText('<div class="button-group"></div>');
 
         // Get the button plugins with "parentContainer" === this.groupName
+        this._firstItem = null;
         if (!this._initialized) {
             this.player.log.debug(`Load button plugins into "${this.groupName}" container`);
             loadPluginsOfType(this.player,"button",(plugin) => {
@@ -38,6 +39,11 @@ export default class ButtonGroupPlugin extends PopUpButtonPlugin {
                     plugin.action();
                     evt.stopPropagation();
                 });
+
+                if (!this._firstItem) {
+                    const button = pluginWrapper.getElementsByTagName("button");
+                    this._firstItem = button && button[0];
+                }
             }, async plugin => {
                 const containerName = plugin.parentContainer;
                 if (containerName === this.groupName) {
@@ -52,4 +58,14 @@ export default class ButtonGroupPlugin extends PopUpButtonPlugin {
 
         return content;
     }
+
+    async showPopUp() {
+		await super.showPopUp();
+
+        setTimeout(() => {
+            if (this._firstItem) {
+                this._firstItem.focus();
+            }
+        }, 50);
+	}
 }
