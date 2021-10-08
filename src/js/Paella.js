@@ -38,6 +38,8 @@ import { defaultGetLanguageFunction } from "./core/Localization";
 
 import Log, { LOG_LEVEL } from "paella-core/js/core/Log";
 
+import defaultDictionaries from "./default-dictionaries.js";
+
 export default class Paella {
 
     constructor(containerElement, initParams = {}) {
@@ -290,6 +292,12 @@ export default class Paella {
             
             const preview = resolveResourcePath(this, this.videoManifest?.metadata?.preview);
             this._previewContainer = new PreviewContainer(this, this._containerElement, preview);
+        }
+
+        // Load default dictionaries
+        for (const lang in defaultDictionaries) {
+            const dict = defaultDictionaries[lang];
+            addDictionary(lang, dict);
         }
     }
 
