@@ -94,7 +94,9 @@ export default class TripleVideoLayout extends VideoLayout {
                     onClick: () => { this.switchContent(); },
                     label:"Switch",
                     icon: iconRotate,
-                    layer: 2
+                    layer: 2,
+                    ariaLabel: "Swap the position of the videos",
+                    title: "Swap the position of the videos"
                 }
             ]
         };

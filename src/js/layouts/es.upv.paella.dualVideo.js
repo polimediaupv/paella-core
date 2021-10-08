@@ -188,14 +188,18 @@ export default class DualVideoLayout extends VideoLayout {
                     onClick: () => { this.switchContent(); },
                     label:"Switch",
                     icon: iconRotate,
-                    layer: 2
+                    layer: 2,
+                    ariaLabel: "Swap the position of the videos",
+                    title: "Swap the position of the videos"
                 },
                 {
                     rect: selectedLayout.buttons[1].rect,
                     onClick: () => { this.switchMinimized(); },
                     label:"Minimize",
                     icon: layoutIcons[layout],
-                    layer: 2
+                    layer: 2,
+                    ariaLabel: "Swap between side by side and minimized video",
+                    title: "Swap between side by side and minimized video"
                 }
             ]
         };

@@ -9,6 +9,7 @@ import {
 import StreamProvider from 'paella-core/js/core/StreamProvider';
 import Events, { bindEvent, triggerEvent } from 'paella-core/js/core/Events';
 import { addButtonPlugin } from 'paella-core/js/core/ButtonPlugin';
+import { translate } from 'paella-core/js/core/Localization';
 
 import 'paella-core/styles/VideoContainer.css';
 import 'paella-core/styles/VideoLayout.css';
@@ -211,12 +212,14 @@ export default class VideoContainer extends DomClass {
                 tag: 'button',
                 attributes: {
                     "class": "video-layout-button",
+                    "aria-label": translate(buttonData.ariaLabel),
+                    "title": translate(buttonData.title),
                     style: `
-                    left: ${buttonData.rect.left * wFactor}%;
-                    top: ${buttonData.rect.top * hFactor}%;
-                    width: ${buttonData.rect.width * wFactor}%;
-                    height: ${buttonData.rect.height * hFactor}%;
-                    z-index: ${ buttonData.layer };
+                        left: ${buttonData.rect.left * wFactor}%;
+                        top: ${buttonData.rect.top * hFactor}%;
+                        width: ${buttonData.rect.width * wFactor}%;
+                        height: ${buttonData.rect.height * hFactor}%;
+                        z-index: ${ buttonData.layer };
                     `
                 },
                 parent: this.baseVideoRect,
