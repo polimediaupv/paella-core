@@ -1,6 +1,7 @@
 import Plugin, { getPluginsOfType } from 'paella-core/js/core/Plugin';
 import { createElementWithHtmlText } from 'paella-core/js/core/dom';
 import Events, { triggerEvent } from 'paella-core/js/core/Events';
+import { translate } from 'paella-core/js/core/Localization';
 
 export function getButtonPlugins(player, side = "any", parent = "playbackBar") {
 	return getPluginsOfType(player, "button")
@@ -38,7 +39,7 @@ export async function addButtonPlugin(plugin, buttonAreaElem) {
 		<div class="button-plugin-side-area left-side ${ plugin.className }"></div>
 	`, parent);
 	const button = createElementWithHtmlText(`
-		<button class="button-plugin ${ plugin.className }" tabindex="${ tabIndex }" aria-label="${ ariaLabel }"><i class="button-icon" style="pointer-events: none">${ plugin.icon }</i></button>
+		<button class="button-plugin ${ plugin.className }" tabindex="${ tabIndex }" aria-label="${ ariaLabel }" title="${ translate(plugin.description) }"><i class="button-icon" style="pointer-events: none">${ plugin.icon }</i></button>
 	`, parent);
 	const rightArea = createElementWithHtmlText(`
 		<div class="button-plugin-side-area right-side ${ plugin.className }"></div>
@@ -98,6 +99,14 @@ export default class ButtonPlugin extends Plugin {
 
 	getTabIndex() {
 		return getNextTabIndex(this.player);
+	}
+
+	getDescription() {
+		return "";
+	}
+
+	get description() {
+		return this.config.description || this.getDescription();
 	}
 	
 	get iconElement() {
