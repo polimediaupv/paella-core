@@ -50,10 +50,21 @@ export async function loadPluginsOfType(player,type,onLoad=null,onPreload=null) 
     }
 
     player.__pluginData__.pluginInstances[type]?.forEach(async (plugin) => {
+        
         const enabled = await onPreload(plugin);
         if (enabled) {
+            if (plugin.__uiPlugin) {
+                const dictionaries = await plugin.getDictionaries();
+                if (typeof(dictionaries) === "object") {
+                    for (const lang in dictionaries) {
+                        const dict = dictionaries[lang];
+                        player.addDictionary(lang,dict);
+                    }
+                }
+            }
+            
             if (typeof(onLoad) === "function") {
-                onLoad(plugin);
+                await onLoad(plugin);
             }
             await plugin.load();
         }

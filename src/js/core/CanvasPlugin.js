@@ -10,7 +10,7 @@ export async function loadCanvasPlugins(player) {
 
 export function getCanvasPlugin(player, stream) {
     if (g_enabledCanvasPlugins.length === 0) {
-        throw Error("No canvas plugins loaded. Note that `loasCanvasPlugins()` must to be called before use `getCanvasPlugins()`");
+        throw Error("No canvas plugins loaded. Note that `loadCanvasPlugins()` must to be called before use `getCanvasPlugins()`");
     }
     let plugin = null;
 

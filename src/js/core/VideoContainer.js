@@ -99,6 +99,8 @@ export default class VideoContainer extends DomClass {
 
         this._baseVideoRect.style.display = "none";
 
+        await loadPluginsOfType(this.player, "layout");
+
         await loadVideoPlugins(this.player);
 
         await this.streamProvider.load(streamData);

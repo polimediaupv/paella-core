@@ -12,6 +12,7 @@ import {
 } from 'paella-core/js/core/initFunctions';
 
 import Plugin, { importPlugins, getPluginsOfType, loadPluginsOfType } from 'paella-core/js/core/Plugin';
+import UserInterfacePlugin from 'paella-core/js/core/UserInterfacePlugin';
 import ButtonPlugin from 'paella-core/js/core/ButtonPlugin';
 import PopUpButtonPlugin from 'paella-core/js/core/PopUpButtonPlugin';
 import MenuButtonPlugin from 'paella-core/js/core/MenuButtonPlugin';
@@ -71,6 +72,7 @@ export {
     importPlugins,
     getPluginsOfType,
     loadPluginsOfType,
+    UserInterfacePlugin,
     ButtonPlugin,
     PopUpButtonPlugin,
     MenuButtonPlugin,

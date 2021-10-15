@@ -18,7 +18,13 @@ export function defaultGetLanguageFunction() {
 }
 
 export function defaultAddDictionaryFunction(lang,dict) {
-    g_dictionaries[lang] = dict;
+
+    g_dictionaries[lang] = g_dictionaries[lang] || {};
+    
+    for (const key in dict) {
+        const translation = dict[key];
+        g_dictionaries[lang][key] = translation;
+    }
 }
 
 let g_translateFunc = defaultTranslateFunction;

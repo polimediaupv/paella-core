@@ -24,7 +24,13 @@ const initParams = {
 	setLanguageFunction: lang => g_currentLanguage = lang,
 	getLanguageFunction: () => g_currentLanguage,
 	translateFunction: (word) => g_dictionaries[g_currentLanguage] && g_dictionaries[g_currentLanguage][word] || word,
-	addDictionaryFunction: (lang, dict) => g_dictionaries[lang] = dict,
+	addDictionaryFunction: (lang, dict) => {
+		g_dictionaries[lang] = g_dictionaries[lang] || {};
+		for (const key in dict) {
+			const translation = dict[key];
+			g_dictionaries[lang][key] = translation;
+		}
+	},
 
 	loadDictionaries: (player) => {
 		setLanguage('es');

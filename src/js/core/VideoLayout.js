@@ -1,5 +1,6 @@
 
-import Plugin, { getPluginsOfType } from "./Plugin";
+import { getPluginsOfType } from "./Plugin";
+import UserInterfacePlugin from "./UserInterfacePlugin";
 
 
 export function getValidLayouts(player, streamData) {
@@ -63,7 +64,7 @@ export function getLayoutStructure(player, streamData, contentId) {
     return null;
 }
 
-export default class VideoLayout extends Plugin {
+export default class VideoLayout extends UserInterfacePlugin {
     
     get type() { return "layout"; }
 

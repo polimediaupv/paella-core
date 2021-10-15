@@ -1,4 +1,4 @@
-import Plugin, { getPluginsOfType } from 'paella-core/js/core/Plugin';
+import UserInterfacePlugin, { getPluginsOfType } from 'paella-core/js/core/UserInterfacePlugin';
 import { createElementWithHtmlText } from 'paella-core/js/core/dom';
 import Events, { triggerEvent } from 'paella-core/js/core/Events';
 import { translate } from 'paella-core/js/core/Localization';
@@ -33,13 +33,14 @@ export function getCurrentTabIndex(player) {
 export async function addButtonPlugin(plugin, buttonAreaElem) {
 	const parent = createElementWithHtmlText('<div class="button-plugin-container"></div>', buttonAreaElem);
 	const tabIndex = plugin.tabIndex;
-	const ariaLabel = plugin.ariaLabel;
+	const ariaLabel = translate(plugin.ariaLabel);
+	const description = translate(plugin.description);
 
 	const leftArea = createElementWithHtmlText(`
 		<div class="button-plugin-side-area left-side ${ plugin.className }"></div>
 	`, parent);
 	const button = createElementWithHtmlText(`
-		<button class="button-plugin ${ plugin.className }" tabindex="${ tabIndex }" aria-label="${ ariaLabel }" title="${ translate(plugin.description) }"><i class="button-icon" style="pointer-events: none">${ plugin.icon }</i></button>
+		<button class="button-plugin ${ plugin.className }" tabindex="${ tabIndex }" aria-label="${ ariaLabel }" title="${ description }"><i class="button-icon" style="pointer-events: none">${ plugin.icon }</i></button>
 	`, parent);
 	const rightArea = createElementWithHtmlText(`
 		<div class="button-plugin-side-area right-side ${ plugin.className }"></div>
@@ -75,7 +76,7 @@ export async function addButtonPlugin(plugin, buttonAreaElem) {
 	});
 }
 
-export default class ButtonPlugin extends Plugin {
+export default class ButtonPlugin extends UserInterfacePlugin {
 	get type() { return "button" }
 	
 	// _container, _leftArea, _rightArea, _button and _titleContainer are loaded in PlaybackBar
