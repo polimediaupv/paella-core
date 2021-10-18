@@ -183,9 +183,11 @@ As for the loading order of plugin types, it depends on the implementation. For 
 
 ## Predefinied plugin types
 
-### Playback bar plugins
+### User interface bar plugins
 
-These are plugins that allow you to add functionality to the playback bar.
+These are plugins that allow you to add functionality through user interaction.
+
+[UserInterfacePlugin](user_interface_plugin.md): All plugins that add user interaction descend from the base class UserInterfacePlugin.
 
 **[ButtonPlugin](button_plugin.md):** They implement a simple button that performs an action when the user presses it.
 
@@ -205,7 +207,7 @@ These are plugins that allow you to extend the video formats supported by Paella
 
 ### Video layout plugins
 
-These are plugins that specify the arrangement of videos in the display area. By means of video layouts we enable the playback of one or several streams simultaneously. [VideoLayout](video_layout.md)
+These are plugins that specify the arrangement of videos in the display area. By means of video layouts we enable the playback of one or several streams simultaneously. [VideoLayout](video_layout.md). VideoLayout plugins inherits from [UserInterfacePlugin](user_interface_plugin.md), because a video layout can include buttons to interact with the user.
 
 ### Data plugins
 
