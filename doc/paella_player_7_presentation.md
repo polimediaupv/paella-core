@@ -81,7 +81,6 @@ The current version of Paella Player 7 is a pre-release that we are going to pub
 
 - 360° video
 - Chroma key
-- Accesibility options
 - Unload player API and automatic unload: if you have a page with more than one player, you can set Paella Player to download automatically when these conditions occur:
   - The player has exited the page scroll with a gap greater than a certain number of pixels.
   - There is another player that remains visible within the screen and it is fully loaded.
