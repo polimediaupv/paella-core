@@ -71,6 +71,12 @@ export async function loadPluginsOfType(player,type,onLoad=null,onPreload=null) 
     })
 }
 
+export async function unloadPluginsOfType(player,type) {
+    player.__pluginData__.pluginInstances[type]?.forEach(async plugin => {
+        await plugin.unload();
+    })
+}
+
 export default class Plugin extends PlayerResource {
     constructor(player,config,name) {
         super(player);
@@ -93,6 +99,10 @@ export default class Plugin extends PlayerResource {
     }
 
     async load() {
+
+    }
+
+    async unload() {
 
     }
 }

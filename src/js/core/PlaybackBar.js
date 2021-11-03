@@ -1,7 +1,7 @@
 import { DomClass, createElementWithHtmlText } from 'paella-core/js/core/dom';
 
 import ProgressIndicator from 'paella-core/js/core/ProgressIndicator';
-import { loadPluginsOfType } from 'paella-core/js/core/Plugin';
+import { loadPluginsOfType, unloadPluginsOfType } from 'paella-core/js/core/Plugin';
 import { addButtonPlugin } from 'paella-core/js/core/ButtonPlugin';
 
 import 'paella-core/styles/PlaybackBar.css';
@@ -46,6 +46,12 @@ export default class PlaybackBar extends DomClass {
 	async unload() {
 		// TODO: Implement this
 		console.warn("PlaybackBar.unload(): not implemented");
+
+		// Remove elements from parent
+		this.removeFromParent();
+
+		// Unload plugins
+		unloadPluginsOfType(this.player, "button");
 	}
 	
 	hideUserInterface() {
