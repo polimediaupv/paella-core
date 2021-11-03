@@ -144,6 +144,11 @@ export default class VideoContainer extends DomClass {
         this._ready = true;
     }
 
+    async unload() {
+        // TODO: unload video
+        console.warn("VideoContainer.unload(): not implemented"); 
+    }
+
     // Return true if the layout this.layoutId is compatible with the current stream data.
     async updateLayout() {
         let status = true;

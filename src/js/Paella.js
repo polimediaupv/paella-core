@@ -6,7 +6,7 @@ import {
     defaultGetManifestFileUrlFunction,
     defaultLoadVideoManifestFunction
 } from 'paella-core/js/core/initFunctions';
-import { resolveResourcePath, setupAutoHideUiTimer } from 'paella-core/js/core/utils';
+import { resolveResourcePath, setupAutoHideUiTimer, clearAutoHideTimer } from 'paella-core/js/core/utils';
 import { createElement } from 'paella-core/js/core/dom';
 import { registerPlugins } from 'paella-core/js/core/Plugin';
 import VideoContainer from 'paella-core/js/core/VideoContainer';
@@ -330,6 +330,23 @@ export default class Paella {
     async load() {
         await this.loadManifest();
         await this.loadPlayer();
+    }
+
+    async unload() {
+        this._ready = false;
+
+        await this._videoContainer.unload();
+        this._videoContainer = null;
+
+        await this._playbackBar.unload();
+        this._playbackBar = null;
+
+        this._captionsCanvas.unload();
+        this._captionsCanvas = null;
+
+        clearAutoHideTimer(this);
+
+        triggerEvent(this, Events.PLAYER_UNLOADED);
     }
 
     async resize() {

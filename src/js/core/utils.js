@@ -89,6 +89,11 @@ export function setupAutoHideUiTimer(player, hideUiTimePropertyName = "hideUiTim
     });
 }
 
+export function clearAutoHideTimer(player) {
+    console.warn("utils::clearAutoHideTimer(): not implemented");
+    // TODO: Implement this
+}
+
 export function secondsToTime(timestamp) {
     const hours = Math.floor(timestamp / 60 / 60);
     const minutes = Math.floor(timestamp / 60) - hours * 60;

@@ -42,6 +42,11 @@ export default class PlaybackBar extends DomClass {
 		});
 		
 	}
+
+	async unload() {
+		// TODO: Implement this
+		console.warn("PlaybackBar.unload(): not implemented");
+	}
 	
 	hideUserInterface() {
 		this.player.log.debug("Hide playback bar user interface");

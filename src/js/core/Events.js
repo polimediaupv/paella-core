@@ -15,7 +15,8 @@ export default {
 	HIDE_POPUP: "paella:hidePopUp",
 	MANIFEST_LOADED: "paella:manifestLoaded",
 	STREAM_LOADED: "paella:streamLoaded",
-	PLAYER_LOADED: "paella:playerLoaded"
+	PLAYER_LOADED: "paella:playerLoaded",
+	PLAYER_UNLOADED: "paella:playerUnloaded"
 };
 
 export function bindEvent(player, event, callback) {
