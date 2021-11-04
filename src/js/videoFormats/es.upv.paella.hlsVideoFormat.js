@@ -107,7 +107,7 @@ const loadHls = (player, streamData, video, config, cors) => {
     return [hls, new Promise((resolve,reject) => {
         hls.on(Hls.Events.LEVEL_SWITCHED, (evt, data) => {
             // TODO: Trigger quality changed event
-            this.player.log.debug(`HLS: quality level switched to ${data.level}`)
+            player.log.debug(`HLS: quality level switched to ${data.level}`)
         });
 
         hls.on(Hls.Events.ERROR, (event,data) => {
@@ -130,6 +130,10 @@ const loadHls = (player, streamData, video, config, cors) => {
                     hls.destroy();
                     reject(Error("hlsVideoFormat: Fatal error. Can not recover"));
                 }
+            }
+            else {
+                player.log.warn('HLS: error');
+                player.log.warn(data);
             }
         });
 
