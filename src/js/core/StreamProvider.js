@@ -1,6 +1,6 @@
 import PlayerResource from 'paella-core/js/core/PlayerResource';
 import { getVideoPlugin } from 'paella-core/js/core/VideoPlugin';
-import { loadCanvasPlugins, getCanvasPlugin } from 'paella-core/js/core/CanvasPlugin';
+import { loadCanvasPlugins, getCanvasPlugin, unloadCanvasPlugins } from 'paella-core/js/core/CanvasPlugin';
 import Events, { triggerEvent, triggerIfReady } from 'paella-core/js/core/Events';
 
 export default class SteramProvider extends PlayerResource {
@@ -85,6 +85,10 @@ export default class SteramProvider extends PlayerResource {
 			})
 			this._players.push(s.player);
 		}
+	}
+
+	async unload() {
+		await unloadCanvasPlugins(this.player);
 	}
 	
 	get players() {

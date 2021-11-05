@@ -8,6 +8,10 @@ export async function loadCanvasPlugins(player) {
     });
 }
 
+export async function unloadCanvasPlugins(player) {
+    g_enabledCanvasPlugins.slice(0);
+}
+
 export function getCanvasPlugin(player, stream) {
     if (g_enabledCanvasPlugins.length === 0) {
         throw Error("No canvas plugins loaded. Note that `loadCanvasPlugins()` must to be called before use `getCanvasPlugins()`");

@@ -51,7 +51,7 @@ export default class PlaybackBar extends DomClass {
 		this.removeFromParent();
 
 		// Unload plugins
-		unloadPluginsOfType(this.player, "button");
+		await unloadPluginsOfType(this.player, "button");
 	}
 	
 	hideUserInterface() {

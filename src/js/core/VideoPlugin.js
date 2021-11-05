@@ -1,7 +1,7 @@
 
 
 import { DomClass } from './dom';
-import Plugin, { getPluginsOfType, loadPluginsOfType } from './Plugin';
+import Plugin, { getPluginsOfType, loadPluginsOfType, unloadPluginsOfType } from './Plugin';
 
 
 export default class VideoPlugin extends Plugin {
@@ -24,6 +24,10 @@ export async function loadVideoPlugins(player) {
     await loadPluginsOfType(player, "video", (plugin) => {
         g_enabledVideoPlugins.push(plugin);
     });
+}
+
+export async function unloadVideoPlugins(player) {
+    g_enabledVideoPlugins.slice(0);
 }
 
 export function getVideoPlugins(player) {

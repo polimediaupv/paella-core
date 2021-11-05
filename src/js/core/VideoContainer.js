@@ -13,8 +13,8 @@ import { translate } from 'paella-core/js/core/Localization';
 
 import 'paella-core/styles/VideoContainer.css';
 import 'paella-core/styles/VideoLayout.css';
-import { loadPluginsOfType } from './Plugin';
-import { loadVideoPlugins } from './VideoPlugin';
+import { loadPluginsOfType, unloadPluginsOfType } from './Plugin';
+import { loadVideoPlugins, unloadVideoPlugins } from './VideoPlugin';
 
 export async function getContainerBaseSize(player) {
     // TODO: In the future, this function can be modified to support different
@@ -147,6 +147,16 @@ export default class VideoContainer extends DomClass {
     async unload() {
         // TODO: unload video
         console.warn("VideoContainer.unload(): not implemented"); 
+
+        this.removeFromParent();
+
+        // Button plugins are unloaded in PlaybackBar
+
+        await unloadPluginsOfType(this.player, "layout");
+
+        await unloadVideoPlugins(this.player);
+
+        await this.streamProvider.unload();
     }
 
     // Return true if the layout this.layoutId is compatible with the current stream data.
