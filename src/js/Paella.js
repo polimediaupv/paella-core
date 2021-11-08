@@ -40,6 +40,11 @@ import Log, { LOG_LEVEL } from "paella-core/js/core/Log";
 
 import defaultDictionaries from "./default-dictionaries.js";
 
+function buildPreview() {
+    const preview = resolveResourcePath(this, this.videoManifest?.metadata?.preview);
+    this._previewContainer = new PreviewContainer(this, this._containerElement, preview);
+}
+
 export default class Paella {
 
     constructor(containerElement, initParams = {}) {
@@ -249,6 +254,9 @@ export default class Paella {
     }
     
     async loadManifest() {
+        if (this._manifestLoaded) return;
+        this._manifestLoaded = true;
+
         this.log.debug("Loading paella player");
         this._config = await this.initParams.loadConfig(this.configUrl,this);
 
@@ -289,9 +297,7 @@ export default class Paella {
             await this.loadPlayer();
         }
         else {
-            
-            const preview = resolveResourcePath(this, this.videoManifest?.metadata?.preview);
-            this._previewContainer = new PreviewContainer(this, this._containerElement, preview);
+            buildPreview.apply(this);
         }
 
         // Load default dictionaries
@@ -347,6 +353,11 @@ export default class Paella {
         clearAutoHideTimer(this);
 
         triggerEvent(this, Events.PLAYER_UNLOADED);
+
+        // Build the preview container again
+        if (this.videoManifest?.metadata?.preview) {
+            buildPreview.apply(this);
+        }
     }
 
     async resize() {
