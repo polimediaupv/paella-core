@@ -14,6 +14,7 @@ import PreviewContainer from 'paella-core/js/core/PreviewContainer';
 import PlaybackBar from 'paella-core/js/core/PlaybackBar';
 import Events, { bindEvent, triggerEvent } from 'paella-core/js/core/Events';
 import TimeLinePopUp from 'paella-core/js/core/TimeLinePopUp';
+import PopUp from 'paella-core/js/core/PopUp';
 import Data from 'paella-core/js/core/Data';
 import CaptionCanvas from 'paella-core/js/captions/CaptionsCanvas';
 import { loadLogEventPlugins } from "paella-core/js/core/EventLogPlugin";
@@ -353,6 +354,10 @@ export default class Paella {
         clearAutoHideTimer(this);
 
         triggerEvent(this, Events.PLAYER_UNLOADED);
+
+        PopUp.Unload();
+
+        TimeLinePopUp.Unload(this);
 
         // Build the preview container again
         if (this.videoManifest?.metadata?.preview) {

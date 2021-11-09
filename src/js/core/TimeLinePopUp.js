@@ -29,6 +29,18 @@ export default class TimeLinePopUp extends DomClass {
         }
     }
 
+    static Unload(player) {
+        console.warn("TimeLinePopUp.Unload(): not implemented");
+        if (player.__timeLinePopUp.current) {
+            player.__timeLinePopUp.current.removeFromParent();
+        }
+        player.__timeLinePopUp.popUps.forEach(p => {
+            p.removeFromParent();
+        });
+        player.__timeLinePopUp.popUps.slice(0);
+        delete player.__timeLinePopUp;
+    }
+
     constructor(player, contextObject = null) {
         setupPlayerInstance(player);
 

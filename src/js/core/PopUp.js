@@ -64,6 +64,14 @@ export default class PopUp extends DomClass {
 			}
 		});
 	}
+
+	static Unload() {
+		console.warn("PopUp.Unload(): not implemented");
+		g_popUps.forEach(p => {
+			p.removeFromParent();
+		});
+		g_popUps.slice(0);
+	}
 	
 	constructor(player, parent, anchorElement = null, contextObject = null, modal = true) {
 		const attributes = {
