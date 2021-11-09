@@ -38,6 +38,10 @@ export function registerPlugins(player) {
     }
 }
 
+export function unregisterPlugins(player) {
+    delete player.__pluginData__;
+}
+
 export function getPluginsOfType(player,type) {
     return player.__pluginData__?.pluginInstances[type];
 }

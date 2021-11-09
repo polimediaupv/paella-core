@@ -13,6 +13,10 @@ export async function loadLogEventPlugins(player) {
     });
 }
 
+export async function unloadLogEventPlugins(player) {
+    console.warn("unloadLogEventPlugins: not implemented");
+}
+
 export default class EventLogPlugin extends Plugin {
     get type() { return "eventLog"; }
 

@@ -8,7 +8,7 @@ import {
 } from 'paella-core/js/core/initFunctions';
 import { resolveResourcePath, setupAutoHideUiTimer, clearAutoHideTimer } from 'paella-core/js/core/utils';
 import { createElement } from 'paella-core/js/core/dom';
-import { registerPlugins } from 'paella-core/js/core/Plugin';
+import { registerPlugins, unregisterPlugins } from 'paella-core/js/core/Plugin';
 import VideoContainer from 'paella-core/js/core/VideoContainer';
 import PreviewContainer from 'paella-core/js/core/PreviewContainer';
 import PlaybackBar from 'paella-core/js/core/PlaybackBar';
@@ -17,8 +17,8 @@ import TimeLinePopUp from 'paella-core/js/core/TimeLinePopUp';
 import PopUp from 'paella-core/js/core/PopUp';
 import Data from 'paella-core/js/core/Data';
 import CaptionCanvas from 'paella-core/js/captions/CaptionsCanvas';
-import { loadLogEventPlugins } from "paella-core/js/core/EventLogPlugin";
-import { loadKeyShortcutPlugins } from "paella-core/js/core/KeyShortcutPlugin";
+import { loadLogEventPlugins, unloadLogEventPlugins } from "paella-core/js/core/EventLogPlugin";
+import { loadKeyShortcutPlugins, unloadKeyShortcutPlugins } from "paella-core/js/core/KeyShortcutPlugin";
 
 import {
     defaultTranslateFunction,
@@ -342,6 +342,25 @@ export default class Paella {
     async unload() {
         this._ready = false;
 
+        await this.unloadPlayer();        
+        await this.unloadManifest();
+    }
+
+    async unloadManifest() {
+        this.log.debug("Unloading paella player");
+    
+        // EventLogPlugin plugins are loaded first, so that all lifecycle events can be captured.
+        await unloadLogEventPlugins(this);
+
+        // KeyShortcutPlugins are loaded before UI load to allow the video load using shortcuts
+        await unloadKeyShortcutPlugins(this);
+
+        await unregisterPlugins(this);
+
+        this._manifestLoaded = false;
+    }
+
+    async unloadPlayer() {
         await this._videoContainer.unload();
         this._videoContainer = null;
 
@@ -358,11 +377,6 @@ export default class Paella {
         PopUp.Unload();
 
         TimeLinePopUp.Unload(this);
-
-        // Build the preview container again
-        if (this.videoManifest?.metadata?.preview) {
-            buildPreview.apply(this);
-        }
     }
 
     async resize() {

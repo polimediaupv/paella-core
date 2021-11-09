@@ -29,6 +29,10 @@ export async function loadKeyShortcutPlugins(player) {
     }
 }
 
+export async function unloadKeyShortcutPlugins(player) {
+    console.warn("unloadKeyShortcutPlugins: not implemented");
+}
+
 export const KeyCodes = {
     "Digit1": "Digit1",
     "Digit2": "Digit2",
