@@ -88,6 +88,7 @@ export default class SteramProvider extends PlayerResource {
 	}
 
 	async unload() {
+		this.stopStreamSync();
 		await unloadCanvasPlugins(this.player);
 	}
 	

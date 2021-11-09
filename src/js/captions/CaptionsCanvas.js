@@ -41,9 +41,7 @@ export default class CaptionCanvas extends DomClass {
         loadCaptionsPlugins(this.player);
     }
 
-    unload() {
-        // TODO: Implement this
-        console.warn("CaptionsCanvas.unload(): not implemented");
+    unload() {        
     }
 
     addCaptions(captions) {

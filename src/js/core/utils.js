@@ -90,8 +90,10 @@ export function setupAutoHideUiTimer(player, hideUiTimePropertyName = "hideUiTim
 }
 
 export function clearAutoHideTimer(player) {
-    console.warn("utils::clearAutoHideTimer(): not implemented");
-    // TODO: Implement this
+    if (player.__hideTimer__) {
+        clearTimeout(player.__hideTimer__);
+        delete player.__hideTimer__;
+    }
 }
 
 export function secondsToTime(timestamp) {

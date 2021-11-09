@@ -145,9 +145,6 @@ export default class VideoContainer extends DomClass {
     }
 
     async unload() {
-        // TODO: unload video
-        console.warn("VideoContainer.unload(): not implemented"); 
-
         this.removeFromParent();
 
         // Button plugins are unloaded in PlaybackBar
@@ -259,19 +256,23 @@ export default class VideoContainer extends DomClass {
     }
     
     hideUserInterface() {
-        this.player.log.debug("Hide video container user interface");
-        const hideFunc = button => {
-            button._prevDisplay = button.style.display;
-            button.style.display = "none";
+        if (this._layoutButtons && this._buttonPlugins) {
+            this.player.log.debug("Hide video container user interface");
+            const hideFunc = button => {
+                button._prevDisplay = button.style.display;
+                button.style.display = "none";
+            }
+            this._layoutButtons.forEach(hideFunc);
+            this._buttonPlugins.forEach(hideFunc);
         }
-        this._layoutButtons.forEach(hideFunc);
-        this._buttonPlugins.forEach(hideFunc);
     }
     
     showUserInterface() {
-        const showFunc = button => button.style.display = button._prevDisplay || "block";
-        this._layoutButtons.forEach(showFunc);
-        this._buttonPlugins.forEach(showFunc);
+        if (this._layoutButtons && this._buttonPlugins) {
+            const showFunc = button => button.style.display = button._prevDisplay || "block";
+            this._layoutButtons.forEach(showFunc);
+            this._buttonPlugins.forEach(showFunc);
+        }
     }
 
     get ready() {

@@ -44,9 +44,6 @@ export default class PlaybackBar extends DomClass {
 	}
 
 	async unload() {
-		// TODO: Implement this
-		console.warn("PlaybackBar.unload(): not implemented");
-
 		// Remove elements from parent
 		this.removeFromParent();
 
