@@ -66,7 +66,6 @@ export default class PopUp extends DomClass {
 	}
 
 	static Unload() {
-		console.warn("PopUp.Unload(): not implemented");
 		g_popUps.forEach(p => {
 			p.removeFromParent();
 		});

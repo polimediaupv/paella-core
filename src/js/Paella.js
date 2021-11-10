@@ -41,6 +41,18 @@ import Log, { LOG_LEVEL } from "paella-core/js/core/Log";
 
 import defaultDictionaries from "./default-dictionaries.js";
 
+export const PlayerState = {
+    UNLOADED: 0,
+    MANIFEST: 1,
+    LOADED: 2
+};
+
+export const PlayerStateNames = [
+    'UNLOADED',
+    'MANIFEST',
+    'LOADED'
+];
+
 function buildPreview() {
     const preview = resolveResourcePath(this, this.videoManifest?.metadata?.preview);
     this._previewContainer = new PreviewContainer(this, this._containerElement, preview);
@@ -122,8 +134,7 @@ export default class Paella {
             triggerEvent(this, Events.FULLSCREEN_CHANGED, { status: this.isFullscreen });
         });
 
-        // This flag is set to true after trigger the Events.PLAYER_LOADED event
-        this._ready = false;
+        this._playerState = PlayerState.UNLOADED; 
     }
 
     get log() {
@@ -131,7 +142,11 @@ export default class Paella {
     }
 
     get ready() {
-        return this._ready;
+        return this._playerState === PlayerState.LOADED;
+    }
+
+    get state() {
+        return this._playerState;
     }
 
     get Events() {
@@ -255,6 +270,9 @@ export default class Paella {
     }
     
     async loadManifest() {
+        if (this._playerState !== PlayerState.UNLOADED) {
+            throw new Error(`loadManifest(): Invalid current player state: ${ PlayerStateNames[this._playerState]}`);
+        }
         if (this._manifestLoaded) return;
         this._manifestLoaded = true;
 
@@ -306,9 +324,14 @@ export default class Paella {
             const dict = defaultDictionaries[lang];
             addDictionary(lang, dict);
         }
+
+        this._playerState = PlayerState.MANIFEST;
     }
 
     async loadPlayer() {
+        if (this._playerState !== PlayerState.MANIFEST) {
+            throw new Error(`loadPlayer(): Invalid current player state: ${ PlayerStateNames[this._playerState]}`);
+        }
         this._videoContainer = new VideoContainer(this, this._containerElement);
         
         await this.videoContainer.load(this.videoManifest?.streams);
@@ -331,7 +354,7 @@ export default class Paella {
 
         triggerEvent(this, Events.PLAYER_LOADED);
 
-        this._ready = true;
+        this._playerState = PlayerState.LOADED;
     }
 
     async load() {
@@ -345,7 +368,10 @@ export default class Paella {
     }
     
     async unloadManifest() {
-        this._ready = false;
+        if (this._playerState !== PlayerState.MANIFEST) {
+            throw new Error(`unloadManifest(): Invalid current player state: ${ PlayerStateNames[this._playerState]}`);
+        }
+        this._playerState = PlayerState.UNLOADED;
 
         this.log.debug("Unloading paella player");
     
@@ -358,10 +384,15 @@ export default class Paella {
         await unregisterPlugins(this);
 
         this._manifestLoaded = false;
+        this._previewContainer?.removeFromParent();
     }
 
     async unloadPlayer() {
-        this._ready = false;
+        if (this._playerState !== PlayerState.LOADED) {
+            throw new Error(`unloadManifest(): Invalid current player state: ${ PlayerStateNames[this._playerState]}`);
+        }
+        this._playerState = PlayerState.MANIFEST;
+
         await this._videoContainer.unload();
         this._videoContainer = null;
 
@@ -378,6 +409,10 @@ export default class Paella {
         PopUp.Unload();
 
         TimeLinePopUp.Unload(this);
+
+        if (this.videoManifest?.metadata?.preview) {
+            buildPreview.apply(this);
+        }
     }
 
     async resize() {
