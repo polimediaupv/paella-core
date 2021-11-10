@@ -340,13 +340,13 @@ export default class Paella {
     }
 
     async unload() {
-        this._ready = false;
-
         await this.unloadPlayer();        
         await this.unloadManifest();
     }
-
+    
     async unloadManifest() {
+        this._ready = false;
+
         this.log.debug("Unloading paella player");
     
         // EventLogPlugin plugins are loaded first, so that all lifecycle events can be captured.
@@ -361,6 +361,7 @@ export default class Paella {
     }
 
     async unloadPlayer() {
+        this._ready = false;
         await this._videoContainer.unload();
         this._videoContainer = null;
 
