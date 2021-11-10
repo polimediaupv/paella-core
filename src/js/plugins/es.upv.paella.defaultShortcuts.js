@@ -1,6 +1,6 @@
 
 import KeyShortcutPlugin, { KeyCodes } from "paella-core/js/core/KeyShortcutPlugin";
-
+import PopUp from "paella-core/js/core/PopUp";
 
 export default class DefaultKeyShortcutsPlugin extends KeyShortcutPlugin {
 
@@ -32,6 +32,10 @@ export default class DefaultKeyShortcutsPlugin extends KeyShortcutPlugin {
         const volume = await this.player.videoContainer.streamProvider.volume();
         const newVolume = Math.min(Math.max(0, volume + percent * 0.01), 1);
         await this.player.videoContainer.streamProvider.setVolume(newVolume);
+    }
+
+    closePopUp() {
+        PopUp.HideAllPopUps(false);
     }
 
     async getKeys() {
@@ -83,6 +87,13 @@ export default class DefaultKeyShortcutsPlugin extends KeyShortcutPlugin {
                 description: "Volume down 10%",
                 action: async (event) => {
                     this.incrementVolume(-10);
+                }
+            },
+            {
+                keyCode: KeyCodes.Escape,
+                description: "Close Pop Up",
+                action: async (event) => {
+                    this.closePopUp();
                 }
             }
         ]
