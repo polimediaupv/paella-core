@@ -358,11 +358,17 @@ export default class Paella {
     }
 
     async load() {
+        if (this._playerState !== PlayerState.UNLOADED) {
+            throw new Error(`load(): Invalid current player state: ${ PlayerStateNames[this._playerState]}`);
+        }
         await this.loadManifest();
         await this.loadPlayer();
     }
 
     async unload() {
+        if (this._playerState !== PlayerState.LOADED) {
+            throw new Error(`load(): Invalid current player state: ${ PlayerStateNames[this._playerState]}`);
+        }
         await this.unloadPlayer();        
         await this.unloadManifest();
     }
@@ -413,6 +419,14 @@ export default class Paella {
         if (this.videoManifest?.metadata?.preview) {
             buildPreview.apply(this);
         }
+    }
+
+    async reload(onUnloadFn = null) {
+        await this.unload();
+        if (typeof(onUnloadFn) === "function") {
+            await onunloadFn();
+        }
+        await this.load();
     }
 
     async resize() {

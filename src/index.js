@@ -1,6 +1,6 @@
 import 'paella-core/styles/base.css';
 
-import Paella from 'paella-core/js/Paella';
+import Paella, { PlayerState, PlayerStateNames } from 'paella-core/js/Paella';
 import PopUp from 'paella-core/js/core/PopUp';
 import * as utils from 'paella-core/js/core/utils';
 import {
@@ -59,6 +59,8 @@ import Log, {
 
 export {
     Paella,
+    PlayerState,
+    PlayerStateNames,
     PopUp,
     utils,
     defaultLoadConfigFunction,

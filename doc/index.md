@@ -22,7 +22,7 @@
 
 [Initialization](initialization.md): initialize paella and customize the default parameters and settings.
 
-[Deinitialization](unload.md): total or partial unloading of Paella Player.
+[Player life cycle](life_cycle.md): change Paella Player state (UNLOADED, MANIFEST, LOADED).
 
 [Log](log.md): write messages to the console using the logging API
 
