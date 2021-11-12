@@ -48,7 +48,7 @@ console.log(PlayerStateNames[player.state]);    // Unloaded
 await player.reload();
 ```
 
-If you are using Paella Player in a SPA application (see [paelle player react](paella_react.md) or [paella player svelte](paella_svelte.md) for more information), you can use the `reload()` function to unload the player, do some action and reload it again. You can specify the action as a parameter using a function that can be asynchronous if you need it:
+If you are using Paella Player in a SPA application, you can use the `reload()` function to unload the player, do some action and reload it again. You can specify the action as a parameter using a function that can be asynchronous if you need it:
 
 ```javascript
 await player.reload(() => {
@@ -57,6 +57,10 @@ await player.reload(() => {
   localtion.hash = 'id=other-video-id';
 })
 ```
+
+Note: see [paelle player react](paella_react.md) or [paella player svelte](paella_svelte.md) for more information about using Paella Player in SPA applications.
+
+In addition, the `reload()` function can be used while Paella Player is in any loading state. If state is `UNLOADED`, the `reload()` function works in the same way as `load()`. In other cases, the player will be partialy or fully unloaded, depending on the state.
 
 ## Life cycle exceptions
 
