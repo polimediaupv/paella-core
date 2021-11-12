@@ -422,9 +422,19 @@ export default class Paella {
     }
 
     async reload(onUnloadFn = null) {
-        await this.unload();
+        switch (this.state) {
+        case PlayerState.UNLOADED:
+            break;
+        case PlayerState.MANIFEST:
+            await this.unloadManifest();
+            break;
+        case PlayerState.LOADED:
+            await this.unload();
+            break;
+        }
+        
         if (typeof(onUnloadFn) === "function") {
-            await onunloadFn();
+            await onUnloadFn();
         }
         await this.load();
     }

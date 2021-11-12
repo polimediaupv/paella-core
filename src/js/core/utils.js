@@ -21,6 +21,12 @@ export function getUrlParameter(name) {
     return urlParams.has(name) ? urlParams.get(name) : null;
 }
 
+export function getHashParameter(name) {
+    const search = window.location.hash.replace('#','?');
+    const urlParams = new URLSearchParams(search);
+    return urlParams.has(name) ? urlParams.get(name) : null;
+}
+
 export function joinPath(parts, sep){
     const separator = sep || '/';
     parts = parts.map((part, index)=>{

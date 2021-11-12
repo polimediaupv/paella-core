@@ -1,4 +1,4 @@
-import { getUrlParameter, joinPath } from '../core/utils';
+import { getUrlParameter, getHashParameter, joinPath } from '../core/utils';
 
 export async function defaultLoadConfigFunction(configUrl,player) {
     player.log.debug("Using default configuration loading function.");
@@ -8,7 +8,7 @@ export async function defaultLoadConfigFunction(configUrl,player) {
 
 export async function defaultGetVideoIdFunction(config,player) {
     player.log.debug("Using default getVideoId function");
-    return getUrlParameter("id");
+    return getHashParameter("id") || getUrlParameter("id");
 }
 
 export async function defaultGetManifestUrlFunction(repoUrl,videoId,config,player) {
