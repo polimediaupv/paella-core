@@ -358,19 +358,31 @@ export default class Paella {
     }
 
     async load() {
-        if (this._playerState !== PlayerState.UNLOADED) {
-            throw new Error(`load(): Invalid current player state: ${ PlayerStateNames[this._playerState]}`);
+        switch (this.state) {
+        case PlayerState.UNLOADED:
+            await this.loadManifest();
+            await this.loadPlayer();
+            break;
+        case PlayerState.MANIFEST:
+            await this.loadPlayer();
+            break;
+        case PlayerState.LOADED:
+            break;
         }
-        await this.loadManifest();
-        await this.loadPlayer();
     }
 
     async unload() {
-        if (this._playerState !== PlayerState.LOADED) {
-            throw new Error(`load(): Invalid current player state: ${ PlayerStateNames[this._playerState]}`);
+        switch (this.state) {
+        case PlayerState.UNLOADED:
+            break;
+        case PlayerState.MANIFEST:
+            await this.unloadManifest();
+            break;
+        case PlayerState.LOADED:
+            await this.unloadPlayer();        
+            await this.unloadManifest();
+            break;
         }
-        await this.unloadPlayer();        
-        await this.unloadManifest();
     }
     
     async unloadManifest() {

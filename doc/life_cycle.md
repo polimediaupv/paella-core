@@ -64,7 +64,7 @@ In addition, the `reload()` function can be used while Paella Player is in any l
 
 ## Life cycle exceptions
 
-There are certain functions that can only be called in a specific state:
+There are certain functions that can only be called in a specific state. Other functions modify their behavior depending on the player state:
 
 <table>
   <tr>
@@ -73,11 +73,15 @@ There are certain functions that can only be called in a specific state:
   </tr>
   <tr>
     <td>`load()`</td>
-    <td>`PlayerState.UNLOADED`</td> 
+    <td>Any</td> 
   </tr>
   <tr>
     <td>`unload()`</td>
-    <td>`PlayerState.LOADED`</td> 
+    <td>Any</td> 
+  </tr>
+  <tr>
+    <td>`reload()`</td>
+    <td>Any</td> 
   </tr>
   <tr>
     <td>`loadManifest()`</td>

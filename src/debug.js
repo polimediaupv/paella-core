@@ -57,6 +57,11 @@ const initParams = {
 
 let paella = new Paella('player-container', initParams);
 
+window.onhashchange = async (event) => {
+	await paella.unload();
+	await paella.loadManifest();
+}
+
 bindEvent(paella, Events.BUTTON_PRESS, (params) => {
 	paella.log.debug(params);
 });
