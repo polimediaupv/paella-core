@@ -144,14 +144,16 @@ const loadHls = (player, streamData, video, config, cors) => {
 
             hls.currentLevel = hls.levels.length>=initialQualityLevel ? initialQualityLevel : -1;
             setTimeout(() => hls.currentLevel = -1, 1000);
-
-            resolve();
         });
 
         const rand = Math.floor(Math.random() * 100000000000);
         const url = hlsStream.src + (/\?/.test(url) ? `&cache=${rand}` : `?cache=${rand}`);
         hls.loadSource(url);
         hls.attachMedia(video);
+
+        video.addEventListener("canplay", () => {
+            resolve();
+        });
     })];
 }
 
@@ -195,6 +197,7 @@ export class HlsVideo extends Mp4Video {
             const [hls, promise] = loadHls(this.player, streamData, this.video, this._config, this._cors);
             this._hls = hls;
             await promise;
+            this.video.pause();
 
             this._autoQuality = new VideoQualityItem({
                 label: "auto",

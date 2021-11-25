@@ -60,14 +60,16 @@ const loadHls = (player, streamData, video, config, cors) => {
 
             hls.currentLevel = hls.levels.length>=initialQualityLevel ? initialQualityLevel : -1;
             setTimeout(() => hls.currentLevel = -1, 1000);
-
-            resolve();
         });
 
         const rand = Math.floor(Math.random() * 100000000000);
         const url = hlsStream.src + (/\?/.test(url) ? `&cache=${rand}` : `?cache=${rand}`);
         hls.loadSource(url);
         hls.attachMedia(video);
+
+        video.addEventListener("canplay", () => {
+            resolve();
+        });
     })];
 }
 
