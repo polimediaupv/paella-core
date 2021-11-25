@@ -309,6 +309,13 @@ export default class Paella {
         // Load data plugins
         this._data = new Data(this);
 
+        // Load default dictionaries
+        for (const lang in defaultDictionaries) {
+            const dict = defaultDictionaries[lang];
+            addDictionary(lang, dict);
+        }
+
+        this._playerState = PlayerState.MANIFEST;
         triggerEvent(this, Events.MANIFEST_LOADED);
 
         // The video preview is required to use the lazy load
@@ -318,14 +325,6 @@ export default class Paella {
         else {
             buildPreview.apply(this);
         }
-
-        // Load default dictionaries
-        for (const lang in defaultDictionaries) {
-            const dict = defaultDictionaries[lang];
-            addDictionary(lang, dict);
-        }
-
-        this._playerState = PlayerState.MANIFEST;
     }
 
     async loadPlayer() {
