@@ -58,10 +58,14 @@ function buildPreview() {
     this._previewContainer = new PreviewContainer(this, this._containerElement, preview);
 }
 
+import packageData from "../../package.json";
+
 export default class Paella {
 
     constructor(containerElement, initParams = {}) {
         this._log = new Log(this);
+
+        this._packageData = packageData;
 
         // The default log level before loading the configuration is
         // VERBOSE, to ensure that all previous messages are displayed
@@ -135,6 +139,10 @@ export default class Paella {
         });
 
         this._playerState = PlayerState.UNLOADED; 
+    }
+
+    get version() {
+        return this._packageData.version;
     }
 
     get log() {
