@@ -76,6 +76,7 @@ const loadHls = (player, streamData, video, config, cors) => {
 export class HlsLiveVideo extends HlsVideo {
     async loadStreamData(streamData) {
         if (hlsSupport === HlsSupport.NATIVE) {
+            streamData.sources.mp4 = streamData.sources.hls;
             return super.loadStreamData(streamData);
         }
         else {

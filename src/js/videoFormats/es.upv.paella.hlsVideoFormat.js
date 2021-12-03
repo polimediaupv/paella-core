@@ -189,6 +189,7 @@ export class HlsVideo extends Mp4Video {
 
     async loadStreamData(streamData) {
         if (hlsSupport === HlsSupport.NATIVE) {
+            streamData.sources.mp4 = streamData.sources.hlsLive;
             return super.loadStreamData(streamData);
         }
         else {
