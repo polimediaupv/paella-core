@@ -461,6 +461,24 @@ export default class Paella {
     async resize() {
         this.videoContainer?.updateLayout();
         this.playbackBar?.onResize();
+
+        if (this.videoContainer) {    
+            const getSize = () => {
+                return {
+                    w: this.videoContainer.element.offsetWidth,
+                    h: this.videoContainer.element.offsetHeight
+                }
+            };
+            triggerEvent(this, Events.RESIZE, { size: getSize() });
+
+            if (this._resizeEndTimer) {
+                clearTimeout(this._resizeEndTimer);
+            }
+
+            this._resizeEndTimer = setTimeout(() => {
+                triggerEvent(this, Events.RESIZE_END, { size: getSize() });
+            }, 1000);
+        }
     }
     
     async hideUserInterface() {
