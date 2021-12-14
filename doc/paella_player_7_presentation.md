@@ -81,10 +81,9 @@ The current version of Paella Player 7 is a pre-release that we are going to pub
 
 - 360° video
 - Chroma key
-- Player unloading API and automatic unload: if you have a page with more than one player, you can set Paella Player to unload automatically when these conditions occur:
+- Unload player automatically when:
   - The player has exited the page scroll with a gap greater than a certain number of pixels.
   - There is another player that remains visible within the screen and it is fully loaded.
   - The video manifest contains a preview image.
   - All the players are included in the page as `<div>` elements. This feature will not work if you embed players using `<iframe>` tags.
-- Player unloading in SPA applications: the above feature also allows the developer to unload an instance of the player when Paella Player is used in SPA applications (React, Angular, Svelte, etc.).
 
