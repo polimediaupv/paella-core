@@ -12,7 +12,7 @@ import { registerPlugins, unregisterPlugins } from 'paella-core/js/core/Plugin';
 import VideoContainer from 'paella-core/js/core/VideoContainer';
 import PreviewContainer from 'paella-core/js/core/PreviewContainer';
 import PlaybackBar from 'paella-core/js/core/PlaybackBar';
-import Events, { bindEvent, triggerEvent } from 'paella-core/js/core/Events';
+import Events, { bindEvent, triggerEvent, unregisterEvents } from 'paella-core/js/core/Events';
 import TimeLinePopUp from 'paella-core/js/core/TimeLinePopUp';
 import PopUp from 'paella-core/js/core/PopUp';
 import Data from 'paella-core/js/core/Data';
@@ -438,6 +438,8 @@ export default class Paella {
         if (this.videoManifest?.metadata?.preview) {
             buildPreview.apply(this);
         }
+
+        unregisterEvents(this);
     }
 
     async reload(onUnloadFn = null) {

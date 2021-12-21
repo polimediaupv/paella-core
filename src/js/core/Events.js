@@ -37,3 +37,7 @@ export function triggerIfReady(player, event, params = {}) {
 		triggerEvent(player, event, params);
 	}
 }
+
+export function unregisterEvents(player) {
+	player.__eventListeners__ = null;
+}
