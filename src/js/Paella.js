@@ -145,6 +145,10 @@ export default class Paella {
         return this._packageData.version;
     }
 
+    get pluginModules() {
+        return this.__pluginModules;
+    }
+
     get log() {
         return this._log;
     }

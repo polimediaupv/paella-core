@@ -18,6 +18,8 @@ export function importPlugins(player,context) {
             const name = pluginInstance.moduleName;
             const version = pluginInstance.moduleVersion;
             player.log.debug(`Plugin module imported: '${ name }': v${ version }`);
+            player.__pluginModules = player.__pluginModules || [];
+            player.__pluginModules.push(pluginInstance);
         }
     });
 }

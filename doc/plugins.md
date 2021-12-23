@@ -357,3 +357,46 @@ export default class MyCustomMenuPlugin extends CustomMenuPlugin {
 }
 ```
 
+## Define plugin modules
+
+A plugin module is a special type of object used to add annotations in the form of metadata to a set of plugins. For example, it can be used to name and version a set of plugins defined in a folder.
+
+To define a plugin module, we must define a file that exports the plugin module, inside the plugin folder we want to annotate:
+
+```other
+plugins-dir
+ |- es.upv.paella.plugin1.js
+ |- es.upv.paella.plugin2.js
+ |- es.upv.paella.plugin3.js
+ |- es.upv.paella.plugin4.js
+ |- ...
+ |- MyPluginModule.js
+```
+
+**MyPluginModule.js**
+
+```javascript
+import PluginModule from "../core/PluginModule";
+
+export default class MyPluginModule extends PluginModule {
+    get moduleName() {
+        return "my plugin module";
+    }
+
+    get moduleVersion() {
+        return "1.0.0";
+    }
+}
+```
+
+Plugin modules can later be used to obtain version information through the `pluginModules` API of the player's main object:
+
+```javascript
+const player = new PaellaPlayer('player-container', initParams);
+
+...
+player.pluginModules.forEach(m => {
+  console.log(`${ m.moduleName }: v${ m.moduleVersion }`);
+});
+```
+
