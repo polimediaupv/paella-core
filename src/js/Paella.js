@@ -287,7 +287,11 @@ export default class Paella {
         this.log.debug("Loading paella player");
         this._config = await this.initParams.loadConfig(this.configUrl,this);
 
-        const logLevel = this._config.logLevel || "INFO";
+        const urlSearch = new URLSearchParams(window.location.search);
+        const urlParamLogLevel = urlSearch.get("logLevel");
+        const logLevel = (Array.from(Object.keys(LOG_LEVEL)).indexOf(urlParamLogLevel) !== -1) ?
+            urlParamLogLevel :
+            this._config.logLevel || "INFO";
         this._log.setLevel(logLevel);
 
         // Load localization dictionaries
