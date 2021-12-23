@@ -74,3 +74,10 @@ playerInstance.log.setLevel(0); // DISABLED
 playerInstance.log.setLevel("INFO");
 ```
 
+It is also possible to set the verbosity level by adding the `logLevel` parameter in the URL. As a value it is possible to set any of the elements of the `LOG_LEVEL` object:
+
+`https://my-paella.com/?id=video_id&logLevel=VERBOSE`
+
+
+
+
