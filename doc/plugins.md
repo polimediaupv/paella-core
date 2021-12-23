@@ -400,3 +400,17 @@ player.pluginModules.forEach(m => {
 });
 ```
 
+**Very important note**
+
+A module definition class can also contain other properties and functions that you want to export for use, but it must NEVER contain an attribute with the name `type`:
+
+```javascript
+export default class MyPluginModule extends PluginModule {
+  // NEVER DO THAT: a module definition must never contain an attribute with the name `type`.
+  get type() {
+    return "A type";
+  }
+}
+```
+
+This attribute is used internally to distinguish a plugin from a module definition. This is done because after using Babel to transpile the code to ES5, the class names are lost, and therefore it is not possible to use the `instanceof` comparison method with transpiled code.

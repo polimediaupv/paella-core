@@ -8,13 +8,24 @@ export function importPlugins(player,context) {
         const module = context(key);
         const PluginClass = module.default;
         const pluginInstance = new PluginClass(player, config, key.substring(2,key.length - 3));
-        if (pluginInstance instanceof Plugin) {
+
+        // A note about not using `instanceof` in this section of code
+        // You cannot use `pluginInstance instanceof Plugin` because Babel changes the names of the classes when transpiling,
+        // and then this code will stop working when using from the distribution version of paella-core outside this library.
+        // This code is not 100% safe if you don't follow the plugin implementation rules,
+        // but if the documentation is followed correctly it should work without problems:
+        // - Plugins are defined in separate folders.
+        // - The folders contain only plugins or module definitions.
+        // - In plugins, the `type` attribute of a plugin always has to return a type.
+        // - In module definitions, the `moduleName` attribute always has to return something. 
+        // - A module definition must never contain an attribute with the name `type`.
+        if (pluginInstance.type) {
             const type = pluginInstance.type;
             player.__pluginData__.pluginClasses[key] = PluginClass;
             player.__pluginData__.pluginInstances[type] = player.__pluginData__.pluginInstances[type] || [];
             player.__pluginData__.pluginInstances[type].push(pluginInstance);
         }
-        else if (pluginInstance instanceof PluginModule) {
+        else if (pluginInstance.moduleName) {
             const name = pluginInstance.moduleName;
             const version = pluginInstance.moduleVersion;
             player.log.debug(`Plugin module imported: '${ name }': v${ version }`);
