@@ -1,5 +1,6 @@
 import PlayerResource from './PlayerResource';
 import pluginRequireContext from '../../../plugin_directories';
+import PluginModule from './PluginModule';
 
 export function importPlugins(player,context) {
     const config = player.config;
@@ -7,10 +8,17 @@ export function importPlugins(player,context) {
         const module = context(key);
         const PluginClass = module.default;
         const pluginInstance = new PluginClass(player, config, key.substring(2,key.length - 3));
-        const type = pluginInstance.type;
-        player.__pluginData__.pluginClasses[key] = PluginClass;
-        player.__pluginData__.pluginInstances[type] = player.__pluginData__.pluginInstances[type] || [];
-        player.__pluginData__.pluginInstances[type].push(pluginInstance);
+        if (pluginInstance instanceof Plugin) {
+            const type = pluginInstance.type;
+            player.__pluginData__.pluginClasses[key] = PluginClass;
+            player.__pluginData__.pluginInstances[type] = player.__pluginData__.pluginInstances[type] || [];
+            player.__pluginData__.pluginInstances[type].push(pluginInstance);
+        }
+        else if (pluginInstance instanceof PluginModule) {
+            const name = pluginInstance.moduleName;
+            const version = pluginInstance.moduleVersion;
+            player.log.debug(`Plugin module imported: '${ name }': v${ version }`);
+        }
     });
 }
 

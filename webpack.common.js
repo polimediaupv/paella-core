@@ -50,6 +50,10 @@ module.exports = {
 			svgRules
 		]
 	},
+	context: __dirname,
+	node: {
+		__filename: true
+	},
 	plugins: plugins,
 	resolve: {
 		alias: {
