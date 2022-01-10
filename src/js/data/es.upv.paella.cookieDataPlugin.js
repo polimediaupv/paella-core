@@ -24,8 +24,14 @@ export default class CookieDataPlugin extends DataPlugin {
 
     async write(context, keyParams, data) {
         const key = this.serializeKey(context, keyParams);
-        if (typeof(data) === "object") {
-            data = JSON.stringify(data);
+        if (data && typeof(data) === "object") {
+            try {
+                data = JSON.stringify(data);
+            }
+            catch (e) {
+                this.player.log.warn(`CookieDataPlugin.write: ${key}: invalid data object.`);
+                data = "";
+            }
         }
         data = escape(data);
         setCookie(key, data);
