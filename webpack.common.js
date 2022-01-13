@@ -61,5 +61,10 @@ module.exports = {
 			"paella-core/styles": path.resolve(__dirname, "src/css"),
 			"paella-core/icons": path.resolve(__dirname, "src/icons")
 		}
+	},
+	performance: {
+		hints: false,
+		maxEntrypointSize: 1048576,
+		maxAssetSize: 1048576
 	}
 }
