@@ -150,3 +150,21 @@ export default class MyButtonPlugin extends ButtonPlugin {
 }
 ```
 
+## Accesibility
+
+To set up the `aria-label` attribute, you can use the `ariaLlabel` property in the button plugin configuration. In addition, the `description` property in the plugin configuration, will be used as `title` attribute in the button.
+
+```json
+{
+  "plugins": {
+    ...
+    "es.upv.paella.myButtonPlugin": {
+      "enabled": true,
+      "description": "My button description",
+      "ariaLabel": "My button accesibility string"
+    }
+  }
+}
+```
+
+The texts of both attributes are translated using the [paella player dictionary system](localization.md).
