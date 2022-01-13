@@ -168,3 +168,15 @@ To set up the `aria-label` attribute, you can use the `ariaLlabel` property in t
 ```
 
 The texts of both attributes are translated using the [paella player dictionary system](localization.md).
+
+In addition to using the configuration file, it is possible to define the `aria-label` text by implementing the `getAriaLabel()` function, which must return a text string. Note that the text you define in the configuration takes precedence over the text returned by `getAriaLabel()`. This function can be used to return a predefined text, which can be optionally customized by configuring the plugin.
+
+```javascript
+export default class MyButtonPlugin extends ButtonPlugin {
+  ...
+  getAriaLabel() {
+    return "My button predefined accesibility string";
+  }
+  ...
+}
+```
