@@ -140,8 +140,10 @@ export default class SteramProvider extends PlayerResource {
 	startStreamSync() {
 		this._timeSync = true;
 		const setupSyncTimer = async () => {
-			// TODO: sync
-			// TODO: Event.ENDED
+			if (!this._players.length) {
+				this.player.log.warn("Player not yet loaded. Waiting for video sync.");
+				return;
+			}
 			
 			this.player.log.debug("players:");
 			this.player.log.debug(this._players[0]);
