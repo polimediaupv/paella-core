@@ -13,7 +13,7 @@ config.output = {
 config.devtool = "source-map";
 config.devServer = {
 	port: 8000,
-	disableHostCheck: true,
+	allowedHosts: 'all',
 	headers: {
 		"Access-Control-Allow-Origin": "*",
 		"Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",

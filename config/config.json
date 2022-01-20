@@ -81,7 +81,8 @@
             "order": 1,
             "container": "playbackBar",
             "side": "left",
-            "description": "Play and pause button"
+            "description": "Play and pause button",
+            "ariaLabel": "Play and pause button"
         },
 
         "es.upv.paella.testFoldableButton": {
