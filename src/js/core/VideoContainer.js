@@ -357,5 +357,36 @@ export default class VideoContainer extends DomClass {
         });
         return result;
     }
+
+    getVideoRect(target = null) {
+        let element = this.element;
+        if (typeof(target) === "string") {
+            element = this.streamProvider.streams[target]?.canvas.element;
+        }
+        
+        return {
+            x: element?.offsetLeft, 
+            y: element?.offsetTop, 
+            width: element?.offsetWidth, 
+            height: element?.offsetHeight,            
+            element
+        };
+    }
+
+    appendChild(element, rect = null, zIndex = 1) {
+        if (rect) {
+            element.style.position = "absolute";
+            element.style.left = `${ p.x }px`;
+            element.style.top = `${ p.y }px`;
+            element.style.width = `${ p.width }px`;
+            element.style.height = `${ p.height }px`;
+            element.style.zIndex = zIndex;
+        }
+        this.baseVideoRect.appendChild(element);
+    }
+
+    removeChild(element, rect = null, zIndex = 1) {
+        this.baseVideoRect.removeChild(element);
+    }
 }
 
