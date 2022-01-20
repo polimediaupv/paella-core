@@ -119,3 +119,5 @@ player.bindEvent(player.Events.TRIMMING_CHANGED, (eventData) => {
 **`RESIZE`:** fired during window resizing. The event will be fired several times while the user is resizing.
 
 **`RESIZE_END`:** is fired when the user has resized the window. The event is generated one second after the user finishes resizing the browser window.
+
+**`LAYOUT_CHANGED`:** is fired when the user changes the video layout.

@@ -80,6 +80,9 @@ bindEvent(paella, Events.MANIFEST_LOADED, () => {
 	paella.log.debug("Video manifest loaded");
 });
 
+bindEvent(paella, Events.LAYOUT_CHANGED, () => {
+	paella.log.debug("Layout changed");
+});
 
 paella.loadManifest()
 	.then(() => paella.log.debug(`${paella.translate("Rice")} ${paella.translate("Chicken")}`))

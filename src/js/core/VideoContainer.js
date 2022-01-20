@@ -252,6 +252,8 @@ export default class VideoContainer extends DomClass {
             this._layoutButtons.push(button);
         });
         
+        triggerEvent(this.player, Events.LAYOUT_CHANGED);
+
         return status;
     }
     
@@ -359,7 +361,7 @@ export default class VideoContainer extends DomClass {
     }
 
     getVideoRect(target = null) {
-        let element = this.element;
+        let element = this.baseVideoRect;
         if (typeof(target) === "string") {
             element = this.streamProvider.streams[target]?.canvas.element;
         }
@@ -375,17 +377,23 @@ export default class VideoContainer extends DomClass {
 
     appendChild(element, rect = null, zIndex = 1) {
         if (rect) {
+            const { width, height } = this.getVideoRect();
+            rect.x = rect.x * 100 / width;
+            rect.width = rect.width * 100 / width;
+            rect.y = rect.y * 100 / height;
+            rect.height = rect.height * 100 / height;
             element.style.position = "absolute";
-            element.style.left = `${ p.x }px`;
-            element.style.top = `${ p.y }px`;
-            element.style.width = `${ p.width }px`;
-            element.style.height = `${ p.height }px`;
-            element.style.zIndex = zIndex;
+            element.style.left = `${ rect.x }%`;
+            element.style.top = `${ rect.y }%`;
+            element.style.width = `${ rect.width }%`;
+            element.style.height = `${ rect.height }%`;
+            if (zIndex!==null) element.style.zIndex = zIndex;
         }
         this.baseVideoRect.appendChild(element);
+        return element;
     }
 
-    removeChild(element, rect = null, zIndex = 1) {
+    removeChild(element) {
         this.baseVideoRect.removeChild(element);
     }
 }

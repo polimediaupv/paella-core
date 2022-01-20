@@ -233,3 +233,35 @@ To get the actual current time values while keeping trimming enabled, we can use
 
 TRIMMING_CHANGED event
 
+## Adding DOM elements to video container
+
+The VideoContainer objects implements some functions to add element based in the current layout video positions:
+
+`videoContainer.appendChild(element, rect = null, zIndex = 1)`: Add an HTML element to the video container DOM node. This function will add the element to the same node that contains the independent video players.
+
+- The `rect` parameter is an object with the size and position of the element to be added, in pixels, relative to the video container element. If this parameter is set, the `element` style will be set in accordance with the specified rectangle settings (`{ x, y, width, height }`).
+- The `zIndex` parameter will be set to the element style. If the zIndex is set to null, the element will remain behind the layout elements.
+- If the `rect` parameter is null, the `zIndex` parameter will be ignored.
+- The `rect` coordinates, in pixels, will be transformed to `%`, so that the element remains in the same position when resizing.
+- This function returns the element added (the same element passed in `element` parameter)
+
+`videoContainer.removeChild(element)`: Removes an element from the video container.
+
+`videoContainer.getVideoRect(target=null)`: Returns the video rectangle of an element of the video container:
+
+- if `target` is null, this call will return the size of the video container itself.
+- `target` can also be a string specifying the `content` attribute of the independent video stream that we want to get.
+
+Note that when the user changes the layout of the video, all elements added with this API will remain unchanged. If you are implementing a plugin that must support a layout switch, you need to listen to the `Event.LAYOUT_CHANGED` event to perform the actions you need to do in case of this event.
+
+### Example: add a translucent red rectangle over the "presenter" video
+
+You can test the following code in the JavaScript debug console:
+
+```js
+var p = __paella_instances__[0].videoContainer.getVideoRect("presenter");
+var e = __paella_instances__[0].videoContainer.appendChild(document.createElement('div'), p);
+e.style.backgroundColor = 'rgba(255,0,0,0.4)';
+```
+
+Note: remember that you never may use __paella_instances__ for production code. the above example has only been exposed so that you can test the API in a simple way.
