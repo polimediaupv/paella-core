@@ -51,12 +51,6 @@ export function registerPlugins(player) {
     player.initParams.customPluginContext.forEach(ctx => importPlugins(player, ctx));
 
     player.log.debug("Plugins have been registered:")
-
-    // Sort the plugins
-    //for (const type in player.__pluginData__.pluginInstances) {
-    //    player.__pluginData__.pluginInstances[type].sort((a,b) => a.order - b.order);
-    //    player.__pluginData__.pluginInstances[type].forEach(p => player.log.debug(`type: ${type}, name: ${p.name}`));
-    //}
 }
 
 export function unregisterPlugins(player) {
@@ -68,18 +62,9 @@ export function getPluginsOfType(player,type) {
 }
 
 export async function loadPluginsOfType(player,type,onLoad=null,onPreload=null) {
-    // Sort the plugins
-    //for (const type in player.__pluginData__.pluginInstances) {
-        console.log("Sorting plugins of type " + type);
-        console.log(player.__pluginData__.pluginInstances[type]);
-        player.__pluginData__.pluginInstances[type].sort((a,b) => {
-            console.log(`a:${ a.order } - b:${ b.order }`);
-            return a.order - b.order
-        });
-        player.__pluginData__.pluginInstances[type].forEach(p => player.log.debug(`type: ${type}, name: ${p.name}`));
-        console.log(player.__pluginData__.pluginInstances[type]);
-    //}
-
+    // Sort plugins
+    player.__pluginData__.pluginInstances[type].sort((a,b) => a.order - b.order);
+    player.__pluginData__.pluginInstances[type].forEach(p => player.log.debug(`type: ${type}, name: ${p.name}`));
 
     if (typeof(onPreload) !== "function") {
         onPreload = async function(plugin) {
