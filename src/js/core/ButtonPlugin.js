@@ -33,6 +33,7 @@ export function getCurrentTabIndex(player) {
 
 export async function addButtonPlugin(plugin, buttonAreaElem) {
 	const parent = createElementWithHtmlText('<div class="button-plugin-container"></div>', buttonAreaElem);
+	parent.plugin = plugin;
 	const tabIndex = plugin.tabIndex;
 	const ariaLabel = translate(plugin.ariaLabel);
 	const description = translate(plugin.description);

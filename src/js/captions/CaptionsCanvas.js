@@ -37,8 +37,8 @@ export default class CaptionCanvas extends DomClass {
         bindEvent(this.player, Events.SEEK, timeChanged);
     }
 
-    load() {
-        loadCaptionsPlugins(this.player);
+    async load() {
+        await loadCaptionsPlugins(this.player);
     }
 
     unload() {        

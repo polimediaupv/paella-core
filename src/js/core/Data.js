@@ -25,7 +25,7 @@ export default class Data extends PlayerResource {
 
         this._dataPlugins = {}
 
-        loadPluginsOfType(this.player, "data", (plugin) => {
+        loadPluginsOfType(this.player, "data", async (plugin) => {
             plugin.context?.forEach(ctx => {
                 this._dataPlugins[ctx] = this._dataPlugins[ctx] || [];
                 this._dataPlugins[ctx].push(plugin);

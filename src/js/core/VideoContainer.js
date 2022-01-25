@@ -123,13 +123,13 @@ export default class VideoContainer extends DomClass {
 
         // Load videoContainer plugins
         this.player.log.debug("Loading videoContainer button plugins");
-        loadPluginsOfType(this.player,"button",(plugin) => {
+        await loadPluginsOfType(this.player,"button",async (plugin) => {
             this.player.log.debug(` Button plugin: ${ plugin.name }`);
             if (plugin.side === "left") {
-                addButtonPlugin(plugin, leftSideButtons);
+                await addButtonPlugin(plugin, leftSideButtons);
             }
             else if (plugin.side === "right") {
-                addButtonPlugin(plugin, rightSideButtons);
+                await addButtonPlugin(plugin, rightSideButtons);
             }
         }, async plugin => {
             if (plugin.parentContainer === "videoContainer") {

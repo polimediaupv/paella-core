@@ -24,13 +24,13 @@ export default class PlaybackBar extends DomClass {
 		this._frameList = this.player.videoManifest;
 		
 		this.player.log.debug("Loading button plugins");
-		loadPluginsOfType(this.player,"button",(plugin) => {
+		await loadPluginsOfType(this.player,"button",async (plugin) => {
 			this.player.log.debug(` Button plugin: ${ plugin.name }`);
 			if (plugin.side === "left") {
-				addButtonPlugin(plugin, this.buttonPluginsLeft);
+				await addButtonPlugin(plugin, this.buttonPluginsLeft);
 			}
 			else if (plugin.side === "right") {
-				addButtonPlugin(plugin, this.buttonPluginsRight);
+				await addButtonPlugin(plugin, this.buttonPluginsRight);
 			}
 		}, async plugin => {
 			if (plugin.parentContainer === "playbackBar") {
@@ -40,7 +40,6 @@ export default class PlaybackBar extends DomClass {
 				return false;
 			}
 		});
-		
 	}
 
 	async unload() {

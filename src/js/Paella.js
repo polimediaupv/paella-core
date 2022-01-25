@@ -344,14 +344,14 @@ export default class Paella {
     }
 
     async loadPlayer() {
+        this._captionsCanvas = new CaptionCanvas(this, this._containerElement);
+
         if (this._playerState !== PlayerState.MANIFEST) {
             throw new Error(`loadPlayer(): Invalid current player state: ${ PlayerStateNames[this._playerState]}`);
         }
         this._videoContainer = new VideoContainer(this, this._containerElement);
         
         await this.videoContainer.load(this.videoManifest?.streams);
-
-        this._captionsCanvas = new CaptionCanvas(this, this._containerElement);
 
         triggerEvent(this, Events.STREAM_LOADED);
         

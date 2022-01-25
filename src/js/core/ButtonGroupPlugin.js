@@ -23,7 +23,7 @@ export default class ButtonGroupPlugin extends PopUpButtonPlugin {
         this._firstItem = null;
         if (!this._initialized) {
             this.player.log.debug(`Load button plugins into "${this.groupName}" container`);
-            loadPluginsOfType(this.player,"button",(plugin) => {
+            await loadPluginsOfType(this.player,"button",async (plugin) => {
                 this.player.log.debug(` Button plugin: ${ plugin.name }`);
                 const pluginWrapper = createElementWithHtmlText('<div class="button-plugin-wrapper"></div>', content);
 
@@ -33,7 +33,7 @@ export default class ButtonGroupPlugin extends PopUpButtonPlugin {
                     plugin.parentPopUp = this._popUp;
                 }
 
-                addButtonPlugin(plugin, pluginWrapper);
+                await addButtonPlugin(plugin, pluginWrapper);
                 const descriptionText = createElementWithHtmlText(`<a class="button-description">${ translate(plugin.description) }</a>`, pluginWrapper);
                 descriptionText.addEventListener("click", (evt) => {
                     plugin.action();

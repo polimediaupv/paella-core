@@ -109,7 +109,14 @@
         "es.upv.paella.testPopUp2Button": {
             "enabled": true,
             "side": "right",
-            "order": 3
+            "order": 2
+        },
+
+        "es.upv.paella.testButtonGroupPlugin": {
+            "enabled": true,
+            "groupName": "testButtonGroup",
+            "order": 3,
+            "side": "right"
         },
 
         "es.upv.paella.videoCanvas": {
@@ -142,12 +149,6 @@
 
         "es.upv.paella.defaultShortcuts": {
             "enabled": true
-        },
-
-        "es.upv.paella.testButtonGroupPlugin": {
-            "enabled": true,
-            "groupName": "testButtonGroup",
-            "side": "right"
         }
     }
 }
