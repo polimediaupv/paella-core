@@ -74,3 +74,6 @@ Taking this into account:
 Some helpful resources:
 
 - [Default Chunklist configuration from stream server leads to problems to high latency users when playing double videos](https://github.com/polimediaupv/paella-core/issues/18)
+- [Searching in HLS streams via Firefox in Paella 7.x hangs](https://github.com/polimediaupv/paella-core/issues/13)
+
+
