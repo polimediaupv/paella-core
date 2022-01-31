@@ -19,7 +19,8 @@ export default {
 	PLAYER_UNLOADED: "paella:playerUnloaded",
 	RESIZE: "paella:resize",
 	RESIZE_END: "paella:resizeEnd",
-	LAYOUT_CHANGED: "paella:layoutChanged"
+	LAYOUT_CHANGED: "paella:layoutChanged",
+	PLAYBACK_RATE_CHANGED: "paella:playbackRateChanged"
 };
 
 export function bindEvent(player, event, callback) {

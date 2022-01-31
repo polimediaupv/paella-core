@@ -331,7 +331,9 @@ export default class VideoContainer extends DomClass {
     }
 
     async setPlaybackRate(r) {
-        return await this.streamProvider.setPlaybackRate(r);
+        const result = await this.streamProvider.setPlaybackRate(r);
+        triggerEvent(this.player, Events.PLAYBACK_RATE_CHANGED, { newPlaybackRate: r })
+        return result;
     }
 
     get isTrimEnabled() {
