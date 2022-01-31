@@ -31,7 +31,7 @@ export default class DefaultKeyShortcutsPlugin extends KeyShortcutPlugin {
     async incrementVolume(percent) {
         const volume = await this.player.videoContainer.streamProvider.volume();
         const newVolume = Math.min(Math.max(0, volume + percent * 0.01), 1);
-        await this.player.videoContainer.streamProvider.setVolume(newVolume);
+        await this.player.videoContainer.setVolume(newVolume);
     }
 
     closePopUp() {

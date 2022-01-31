@@ -84,6 +84,10 @@ bindEvent(paella, Events.LAYOUT_CHANGED, () => {
 	paella.log.debug("Layout changed");
 });
 
+bindEvent(paella, Events.VOLUME_CHANGED, () => {
+	paella.log.debug("Volume changed");
+})
+
 paella.loadManifest()
 	.then(() => paella.log.debug(`${paella.translate("Rice")} ${paella.translate("Chicken")}`))
 	.catch(e => paella.log.error(e));
