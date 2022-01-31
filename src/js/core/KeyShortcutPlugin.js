@@ -15,6 +15,12 @@ export async function loadKeyShortcutPlugins(player) {
 
     player.log.debug(g_shortcuts);
     window.onkeyup = async (event) => {
+        const validFocus = () => document.activeElement && document.activeElement !== document.body && !/video/i.test(document.activeElement.tagName);
+
+        // Exclude the action key when there are something focused
+        if (event.code === "Space" && validFocus()) {
+            return;
+        }
         const shortcut = g_shortcuts[event.code];
         if (shortcut) {
             await shortcut.forEach(async s => {
