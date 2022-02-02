@@ -23,7 +23,12 @@ export default class VideoContainerButtonPlugin extends MenuButtonPlugin {
 			{ id: 1, title: "Option 2" },
 			{ id: 2, title: "Option 3" },
 			{ id: 3, title: "Option 4" },
-			{ id: 4, title: "Option 5" }
+			{ id: 4, title: "Option 5" },
+            { id: 0, title: "Option 6" },
+			{ id: 1, title: "Option 7" },
+			{ id: 2, title: "Option 8" },
+			{ id: 3, title: "Option 9" },
+			{ id: 4, title: "Option 10" }
 		];
 		return items;
 	}

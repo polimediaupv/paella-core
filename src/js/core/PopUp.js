@@ -21,25 +21,32 @@ function placePopUp(player, anchorElement, contentElement) {
 
 		
 		// Decide where to attach the popup depending on the anchor position
+		contentElement.style.overflow = "auto";
 		if (viewportCenterX>centerX && viewportCenterY<=centerY) {
 			// bottom left
+			const b = viewportHeight - (bottom - height);
 			contentElement.style.left = `${ left }px`;
-			contentElement.style.bottom = `${ viewportHeight - (bottom - height) }px`;
+			contentElement.style.bottom = `${ b }px`;
+			contentElement.style.maxHeight = `calc(100vh - ${ b }px - 10px)`;
 		}
 		else if (viewportCenterX>centerX && viewportCenterY>centerY) {
 			// top left quadrant
 			contentElement.style.left = `${ left }px`;
 			contentElement.style.top = `${ top + height }px`;
+			contentElement.style.maxHeight = `calc(100vh - ${ top + height }px - 10px)`;
 		}
 		else if (viewportCenterX<=centerX && viewportCenterY>centerY) {
 			// top right quadrant
 			contentElement.style.right = `${ viewportWidth - right }px`;
 			contentElement.style.top = `${ top + height }px`;
+			contentElement.style.maxHeight = `calc(100vh - ${ top + height }px - 10px)`;
 		}
 		else if (viewportCenterX<=centerX && viewportCenterY<=centerY) {
 			// bottom right quadrant
+			const b = viewportHeight - (bottom - height);
 			contentElement.style.right = `${ viewportWidth - right }px`;
-			contentElement.style.bottom = `${ viewportHeight - (bottom - height) }px`;
+			contentElement.style.bottom = `${ b }px`;
+			contentElement.style.maxHeight = `calc(100vh - ${ b }px - 10px)`;
 		}
 	}
 }
