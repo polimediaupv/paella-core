@@ -31,7 +31,7 @@ export default class DefaultKeyShortcutsPlugin extends KeyShortcutPlugin {
     async incrementVolume(percent) {
         const volume = await this.player.videoContainer.streamProvider.volume();
         const newVolume = Math.min(Math.max(0, volume + percent * 0.01), 1);
-        await this.player.videoContainer.streamProvider.setVolume(newVolume);
+        await this.player.videoContainer.setVolume(newVolume);
     }
 
     closePopUp() {
@@ -70,6 +70,17 @@ export default class DefaultKeyShortcutsPlugin extends KeyShortcutPlugin {
         await this.player.videoContainer.setPlaybackRate(selected);
     }
 
+    async toggleVolume() {
+        const vol = await this.player.videoContainer.volume();
+        if (vol>0) {
+            this._lastVolume = vol;
+            await this.player.videoContainer.setVolume(0);
+        }
+        else {
+            await this.player.videoContainer.setVolume(this._lastVolume || 1);
+        }
+    }
+
     async load() {
         this._validPlaybackRates = this.config.validPlaybackRates || [0.75, 1, 1.5, 2];
         this._validPlaybackRates.sort((a,b) => a-b);
@@ -77,6 +88,13 @@ export default class DefaultKeyShortcutsPlugin extends KeyShortcutPlugin {
 
     async getKeys() {
         return [
+            {
+                keyCode: KeyCodes.KeyM,
+                description: "Toggle audio mute",
+                action: async () => {
+                    await this.toggleVolume();
+                }
+            },
             {
                 keyCode: KeyCodes.KeyK,
                 description: "Toggle play/pause",
