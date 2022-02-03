@@ -4,19 +4,14 @@ export async function loadCaptionsPlugins(player) {
     const enabledCaptionsPlugins = [];
     await loadPluginsOfType(player, "captions", async (plugin) => {
         enabledCaptionsPlugins.push(plugin);
-        const captions = await plugin.getCaptions();
-        const captionsCanvas = player.captionsCanvas;
-        for (const i in captions) {
-            const cap = captions[i];
-            captionsCanvas.addCaptions(cap);
-        }
     });
 
-    enabledCaptionsPlugins.forEach(async plugin => {
+    for (let i in enabledCaptionsPlugins) {
+        const plugin = enabledCaptionsPlugins[i];
         const captions = await plugin.getCaptions();
         const captionsCanvas = player.captionsCanvas;
         captions.forEach(c => captionsCanvas.addCaptions(c));
-    });
+    }
 }
 
 export default class CaptionsPlugin extends Plugin {

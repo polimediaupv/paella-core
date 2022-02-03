@@ -30,6 +30,7 @@ export default class CaptionCanvas extends DomClass {
                     this._captionsContainer.innerHTML += c;
                     this._captionsContainer.innerHTML += '<br/>';
                 });
+                cue ? this._captionsContainer.style.display = null : this._captionsContainer.style.display = 'none';
             }
         };
 
