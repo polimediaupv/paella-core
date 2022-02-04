@@ -3,10 +3,23 @@ import MenuButtonPlugin from 'paella-core/js/core/MenuButtonPlugin';
 
 import screenIcon from 'paella-core/icons/screen.svg';
 
+const wait = async (fn,t) => {
+    return new Promise(r => {
+        setTimeout(() => {
+            fn();
+            r();
+        }, t);
+    });
+}
+
 export default class VideoContainerButtonPlugin extends MenuButtonPlugin {
     async load() {
         this.icon = screenIcon;
         this.title = "tx";
+
+        this.hide();
+
+        wait(() => this.show(), 1000);
     }
 
     get titleSize() {

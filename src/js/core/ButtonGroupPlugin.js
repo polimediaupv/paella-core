@@ -67,5 +67,32 @@ export default class ButtonGroupPlugin extends PopUpButtonPlugin {
                 this._firstItem.focus();
             }
         }, 50);
+
+        this.buttons.forEach(btn => {
+            if (btn.style.display === 'none') {
+                this.hideButtonContainer(btn);
+            }
+            else {
+                this.showButtonContainer(btn);
+            }
+        });
 	}
+
+    get buttons() {
+        return Array.from(this.popUp.element.getElementsByClassName('button-plugin'));
+    }
+
+    hideButtonContainer(btn) {
+        const container = btn.parentNode?.parentNode;
+        if (container) {
+            container.style.display = "none";
+        }
+    }
+
+    showButtonContainer(btn) {
+        const container = btn.parentNode?.parentNode;
+        if (container) {
+            container.style.display = null;
+        }
+    }
 }
