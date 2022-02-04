@@ -4,6 +4,27 @@ import PopUp from "paella-core/js/core/PopUp";
 
 export default class DefaultKeyShortcutsPlugin extends KeyShortcutPlugin {
 
+    toggleCaptions() {
+        if (this.player?.captionsCanvas?.captions?.length > 0) {
+            if (this.player.captionsCanvas.isVisible) {
+                this.player.captionsCanvas.disableCaptions();
+            }
+            else {
+                let langIndex = null;
+                navigator.languages.some((l) => {
+                    return this.player.captionsCanvas.captions.some((cap, idx) => {
+                        if (l == cap.language) {
+                            langIndex = idx;
+                            return true;
+                        }
+                        return false;
+                    });
+                });
+                this.player.captionsCanvas.enableCaptions({ index: (langIndex || 0) });
+            }
+        }
+    }
+
     async togglePlayPause() {
         const isPaused = await this.player.paused();
         if (isPaused) {
@@ -128,6 +149,13 @@ export default class DefaultKeyShortcutsPlugin extends KeyShortcutPlugin {
                 description: "Toggle fullscreen",
                 action: async () => {
                     await this.toggleFullscreen();
+                }
+            },
+            {
+                keyCode: KeyCodes.KeyC,
+                description: "Toggle Captions",
+                action: async () => {
+                    this.toggleCaptions();
                 }
             },
             {
