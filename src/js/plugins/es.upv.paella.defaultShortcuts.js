@@ -132,7 +132,7 @@ export default class DefaultKeyShortcutsPlugin extends KeyShortcutPlugin {
             },
             {
                 keyCode: KeyCodes.KeyL,
-                description: "Rewind 30 seconds",
+                description: "Forward 30 seconds",
                 action: async () => {
                     await this.seek(30);
                 }

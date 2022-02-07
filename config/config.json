@@ -151,6 +151,11 @@
         "es.upv.paella.defaultShortcuts": {
             "enabled": true,
             "validPlaybackRates": [0.75, 2, 1, 1.5]
+        },
+
+        "es.upv.paella.defaultShortcutsHelpButton": {
+            "enabled": true,
+            "side": "right"
         }
     }
 }
