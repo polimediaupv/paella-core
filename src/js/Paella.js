@@ -189,6 +189,35 @@ export default class Paella {
         return getShortcuts(this);
     }
 
+    getPlugin(name, type = null) {
+        if (type) {
+            const plugins = this.__pluginData__.pluginInstances[type];
+            if (plugins) {
+                return plugins.find(p => {
+                    if (p.name === name) {
+                        return p;
+                    }
+                });
+            }
+        }
+        else {
+            const result = {};
+            for (const t in this.__pluginData__.pluginInstances) {
+                const instances = this.__pluginData__.pluginInstances[t];
+                const p = instances.find(p => {
+                    if (p.name === name) {
+                        return p;
+                    }
+                });
+                if (p) {
+                    result[t] = result[t] || []
+                    result[t].push(p);
+                }
+            }
+            return result;
+        }
+    }
+
     get hideUiTime() {
         return this._hideUiTime;
     }

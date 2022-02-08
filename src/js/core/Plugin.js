@@ -1,6 +1,5 @@
 import PlayerResource from './PlayerResource';
 import pluginRequireContext from '../../../plugin_directories';
-import PluginModule from './PluginModule';
 
 export function importPlugins(player,context) {
     const config = player.config;
