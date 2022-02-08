@@ -10,6 +10,13 @@ const getShortcutHash = (sc) => {
     return hash;
 }
 
+const addKeyModifiersObject = sc => {
+    sc.keyModifiers = sc.keyModifiers || {};
+    sc.keyModifiers.altKey = sc.keyModifiers.altKey || false;
+    sc.keyModifiers.shiftKey = sc.keyModifiers.shiftKey || false;
+    sc.keyModifiers.ctrlKey = sc.keyModifiers.ctrlKey || false;
+}
+
 export const getShortcuts = (player) => {
     const enabledShortcuts = [];
     for (const keyCode in player.__shortcuts__) {
@@ -50,6 +57,7 @@ export async function loadKeyShortcutPlugins(player) {
             if (shortcuts.length > 0) {
                 shortcuts.forEach(shortcut => {
                     const hash = getShortcutHash(shortcut);
+                    addKeyModifiersObject(shortcut);
                     if (!hashes[hash]) {
                         hashes[hash] = shortcut;
                     }
