@@ -12,7 +12,23 @@ const getShortcutHash = (sc) => {
     return hash;
 }
 
+export const getShortcuts = (player) => {
+
+}
+
 export async function loadKeyShortcutPlugins(player) {
+    player.__shortcuts__ = player.__shortcuts__ || {};
+
+    // If the page contains more than one paella player, the first one to register will be the one that will handle the keyboard shortcuts
+    if (!window.__paella_shortcuts_player__) {
+        window.__paella_shortcuts_player__ = player;
+    }
+    else {
+        player.log.warn("Warning: more than one paella player instance with enabled shortcut plugins.");
+        player.log.warn("Check your code to ensure that only one instance of paella player registers keyboard shortcut plugins.");
+        return;
+    }
+
     await loadPluginsOfType(player, "keyshortcut", async (plugin) => {
         const shortcuts = await plugin.getKeys();
         shortcuts.forEach(shortcut => {
@@ -44,8 +60,7 @@ export async function loadKeyShortcutPlugins(player) {
         }
     });
 
-    player.log.debug(g_shortcuts);
-    window.onkeyup = async (event) => {
+    player.__paella_key_event_listener__ = async (event) => {
         const validFocus = () => document.activeElement && document.activeElement !== document.body && !/video/i.test(document.activeElement.tagName);
 
         // Exclude the action key when there are something focused
@@ -68,10 +83,17 @@ export async function loadKeyShortcutPlugins(player) {
             });
         }
     }
+
+    window.addEventListener("keyup", player.__paella_key_event_listener__);
 }
 
 export async function unloadKeyShortcutPlugins(player) {
-    console.warn("unloadKeyShortcutPlugins: not implemented");
+    delete player.__shortcuts__;
+    if (player == window.__paella_shortcuts_player__) {
+        window.removeEventListener("keyup",player.__paella_key_event_listener__);
+        delete window.__paella_key_event_listener__;
+        delete window.__paella_shortcuts_player__;
+    }
 }
 
 export const KeyCodes = {
