@@ -179,6 +179,27 @@ Within each plugin type, the loading order is defined by the `order` attribute i
 
 As for the loading order of plugin types, it depends on the implementation. For example, plugins of type `button`, which add buttons to the interface, will be loaded when Paella Player loads the playbar, plugins of type `video` will be loaded when Paella Player has to determine the type of video stream it has to process, and so on.
 
+## Plugin query API
+
+It is possible to access the instance of a plugin that has been loaded through the `paellaInstance.getPlugin()` function:
+
+**`paellaInstance.getPlugin(name,type=null)`**: Returns the plugin with the identifier `name`, of type `type`. If the `type` parameter is left to `null`, it returns an object with all instances matching `name`, indexed by plugin type. This is because it is possible for two plugins to have the same identifier, as long as they are of different types.
+
+```js
+paellaInstance.getPlugin("es.upv.paella.mp4VideoFormat","video")
+> {
+  name: "es.upv.paella.mp4VideoFormat"
+  ...
+}
+
+paellaInstance.getPlugin("es.upv.paella.mp4VideoFormat")
+> {
+  video: {
+    name: "es.upv.paella.mp4VideoFormat"
+    ...
+  }
+}
+```
 
 
 ## Predefinied plugin types

@@ -210,8 +210,7 @@ export default class Paella {
                     }
                 });
                 if (p) {
-                    result[t] = result[t] || []
-                    result[t].push(p);
+                    result[t] = p;
                 }
             }
             return result;
