@@ -3,6 +3,15 @@ import { loadPluginsOfType } from './Plugin';
 
 const g_shortcuts = {};
 
+const getModifierStatus = sc => {
+    return `alt:${sc.keyModifiers?.altKey || false}, ctrl:${sc.keyModifiers?.ctrlKey || false}, shift:${sc.keyModifiers?.shiftKey || false}`
+}
+
+const getShortcutHash = (sc) => {
+    const hash = `${sc.keyCode}_${getModifierStatus(sc)}`;
+    return hash;
+}
+
 export async function loadKeyShortcutPlugins(player) {
     await loadPluginsOfType(player, "keyshortcut", async (plugin) => {
         const shortcuts = await plugin.getKeys();
@@ -11,6 +20,28 @@ export async function loadKeyShortcutPlugins(player) {
             shortcut.plugin = plugin;
             g_shortcuts[shortcut.keyCode].push(shortcut);
         });
+
+        for (const keyCode in g_shortcuts) {
+            const shortcuts = g_shortcuts[keyCode];
+            const hashes = {};
+            if (shortcuts.length > 0) {
+                shortcuts.forEach(shortcut => {
+                    const hash = getShortcutHash(shortcut);
+                    if (!hashes[hash]) {
+                        hashes[hash] = shortcut;
+                    }
+                    else {
+                        player.log.warn(`Collision detected in shortcut for key code ${ keyCode }`);
+                        const enabledShortcut = hashes[hash];
+                        player.log.warn('Enabled shortcut:');
+                        player.log.warn(`plugin: ${enabledShortcut.plugin.name}, keyCode: ${enabledShortcut.keyCode}, modifiers: ${getModifierStatus(enabledShortcut)}, description: ${enabledShortcut.description}`);
+                        player.log.warn('Collision shortcut (disabled):');
+                        player.log.warn(`plugin: ${shortcut.plugin.name}, keyCode: ${shortcut.keyCode}, modifiers: ${getModifierStatus(shortcut)}, description: ${shortcut.description}`);
+                        shortcut.disabled = true;
+                    }
+                })
+            }
+        }
     });
 
     player.log.debug(g_shortcuts);
@@ -27,8 +58,12 @@ export async function loadKeyShortcutPlugins(player) {
                 const altStatus = !s.keyModifiers?.altKey || (s.keyModifiers?.altKey && event.altKey);
                 const ctrlStatus = !s.keyModifiers?.ctrlKey || (s.keyModifiers?.ctrlKey && event.ctrlKey);
                 const shiftStatus = !s.keyModifiers?.shiftKey || (s.keyModifiers?.shiftKey && event.shiftKey);
-                if (altStatus && ctrlStatus && shiftStatus) {
+                if (altStatus && ctrlStatus && shiftStatus && !s.disabled) {
                     await s.action(event);
+                }
+                else if (altStatus && ctrlStatus && shiftStatus && s.disabled) {
+                    player.log.warn("Shortcut not triggered due to collision:");
+                    player.log.warn(`plugin: ${s.plugin.name}, keyCode: ${s.keyCode}, modifiers: ${getModifierStatus(s)}, description: ${s.description}`);
                 }
             });
         }

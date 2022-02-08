@@ -150,7 +150,13 @@
 
         "es.upv.paella.defaultShortcuts": {
             "enabled": true,
-            "validPlaybackRates": [0.75, 2, 1, 1.5]
+            "validPlaybackRates": [0.75, 2, 1, 1.5],
+            "order": 1
+        },
+
+        "es.upv.paella.collisionTestShortucts": {
+            "enabled": true,
+            "order": 2
         }
     }
 }

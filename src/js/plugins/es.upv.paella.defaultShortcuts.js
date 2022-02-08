@@ -112,6 +112,9 @@ export default class DefaultKeyShortcutsPlugin extends KeyShortcutPlugin {
             {
                 keyCode: KeyCodes.KeyM,
                 description: "Toggle audio mute",
+                keyModifiers: {
+                    ctrlKey: false
+                },
                 action: async () => {
                     await this.toggleVolume();
                 }
