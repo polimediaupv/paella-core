@@ -18,7 +18,7 @@ import PopUp from 'paella-core/js/core/PopUp';
 import Data from 'paella-core/js/core/Data';
 import CaptionCanvas from 'paella-core/js/captions/CaptionsCanvas';
 import { loadLogEventPlugins, unloadLogEventPlugins } from "paella-core/js/core/EventLogPlugin";
-import { loadKeyShortcutPlugins, unloadKeyShortcutPlugins } from "paella-core/js/core/KeyShortcutPlugin";
+import { loadKeyShortcutPlugins, unloadKeyShortcutPlugins, getShortcuts } from "paella-core/js/core/KeyShortcutPlugin";
 
 import {
     defaultTranslateFunction,
@@ -183,6 +183,10 @@ export default class Paella {
 
     bindEvent(eventName, fn) {
         bindEvent(this, eventName, data => fn(data));
+    }
+
+    getShortcuts() {
+        return getShortcuts(this);
     }
 
     get hideUiTime() {

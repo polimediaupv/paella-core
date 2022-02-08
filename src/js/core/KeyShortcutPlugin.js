@@ -1,8 +1,6 @@
 import Plugin from 'paella-core/js/core/Plugin';
 import { loadPluginsOfType } from './Plugin';
 
-const g_shortcuts = {};
-
 const getModifierStatus = sc => {
     return `alt:${sc.keyModifiers?.altKey || false}, ctrl:${sc.keyModifiers?.ctrlKey || false}, shift:${sc.keyModifiers?.shiftKey || false}`
 }
@@ -13,7 +11,16 @@ const getShortcutHash = (sc) => {
 }
 
 export const getShortcuts = (player) => {
-
+    const enabledShortcuts = [];
+    for (const keyCode in player.__shortcuts__) {
+        const shortcut = player.__shortcuts__[keyCode];
+        shortcut.forEach(sc => {
+            if (!sc.disabled) {
+                enabledShortcuts.push(sc);
+            }
+        });
+    }
+    return enabledShortcuts;
 }
 
 export async function loadKeyShortcutPlugins(player) {
@@ -32,13 +39,13 @@ export async function loadKeyShortcutPlugins(player) {
     await loadPluginsOfType(player, "keyshortcut", async (plugin) => {
         const shortcuts = await plugin.getKeys();
         shortcuts.forEach(shortcut => {
-            g_shortcuts[shortcut.keyCode] = g_shortcuts[shortcut.keyCode] || [];
+            player.__shortcuts__[shortcut.keyCode] = player.__shortcuts__[shortcut.keyCode] || [];
             shortcut.plugin = plugin;
-            g_shortcuts[shortcut.keyCode].push(shortcut);
+            player.__shortcuts__[shortcut.keyCode].push(shortcut);
         });
 
-        for (const keyCode in g_shortcuts) {
-            const shortcuts = g_shortcuts[keyCode];
+        for (const keyCode in player.__shortcuts__) {
+            const shortcuts = player.__shortcuts__[keyCode];
             const hashes = {};
             if (shortcuts.length > 0) {
                 shortcuts.forEach(shortcut => {
@@ -67,7 +74,7 @@ export async function loadKeyShortcutPlugins(player) {
         if (event.code === "Space" && validFocus()) {
             return;
         }
-        const shortcut = g_shortcuts[event.code];
+        const shortcut = player.__shortcuts__[event.code];
         if (shortcut) {
             await shortcut.forEach(async s => {
                 const altStatus = !s.keyModifiers?.altKey || (s.keyModifiers?.altKey && event.altKey);

@@ -40,7 +40,7 @@ import { HlsVideo, getHlsSupport, defaultHlsConfig, HlsSupport } from './js/vide
 import { Mp4Video } from './js/videoFormats/es.upv.paella.mp4VideoFormat';
 import { ImageVideo } from './js/videoFormats/es.upv.paella.imageVideoFormat';
 
-import KeyShortcutPlugin, { KeyCodes } from './js/core/KeyShortcutPlugin';
+import KeyShortcutPlugin, { KeyCodes, getShortcuts } from './js/core/KeyShortcutPlugin';
 
 import {
     defaultTranslateFunction,
@@ -114,6 +114,7 @@ export {
 
     KeyShortcutPlugin,
     KeyCodes,
+    getShortcuts,
 
     defaultTranslateFunction,
     defaultSetLanguageFunction,
