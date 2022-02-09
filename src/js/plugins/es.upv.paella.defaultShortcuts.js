@@ -135,7 +135,7 @@ export default class DefaultKeyShortcutsPlugin extends KeyShortcutPlugin {
             },
             {
                 keyCode: KeyCodes.KeyL,
-                description: "Rewind 30 seconds",
+                description: "Forward 30 seconds",
                 action: async () => {
                     await this.seek(30);
                 }
@@ -221,6 +221,7 @@ export default class DefaultKeyShortcutsPlugin extends KeyShortcutPlugin {
                 "Toggle play/pause": "Activar la reproducción/pausa",
                 "Toggle Captions": "Alternar subtítulos",
                 "Rewind 30 seconds": "Rebobinar 30 segundos",
+                "Forward 30 seconds": "Avanzar 30 segundos",
                 "Volume up 10%": "Aumenta el volumen un 10%.",
                 "Volume down 10%": "Reduce el volumen un 10%.",
                 "Close Pop Up": "Cerrar Pop Up",
