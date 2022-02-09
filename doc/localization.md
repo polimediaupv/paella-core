@@ -109,3 +109,5 @@ For more information, see the documentation for the plugin types descended from 
 - [PopUpButtonPlugin](popup_button_plugin.md)
 - [VideoLayout](video_layout.md)
 
+In addition to this, the keyboard shortcut plugins also include the `getDictionaries()` function, to allow the keyboard shortcuts description to be translated.
+

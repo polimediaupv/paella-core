@@ -51,6 +51,12 @@ export async function loadKeyShortcutPlugins(player) {
             player.__shortcuts__[shortcut.keyCode].push(shortcut);
         });
 
+        const dicts = await plugin.getDictionaries();
+        for (const key in dicts) {
+            const dict = dicts[key];
+            player.addDictionary(key, dict);
+        }
+
         for (const keyCode in player.__shortcuts__) {
             const shortcuts = player.__shortcuts__[keyCode];
             const hashes = {};
@@ -199,5 +205,9 @@ export default class KeyShortcutPlugin extends Plugin {
     async getKeys() {
 
         return [];
+    }
+
+    async getDictionaries() {
+        return {}
     }
 }
