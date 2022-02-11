@@ -195,7 +195,7 @@ export default class VideoContainer extends DomClass {
             const videoData = this.streamProvider.streams[video.content];
             const { stream, player, canvas } = videoData;
             const res = await player.getDimensions();
-            const videoAspectRatio = res.w / res.h;  // TODO: Get video aspect ratio
+            const videoAspectRatio = res.w / res.h;
             let difference = Number.MAX_VALUE;
             let resultRect = null;
             

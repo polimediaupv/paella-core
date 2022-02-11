@@ -1,0 +1,22 @@
+
+.video-canvas .button-area {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    pointer-events: none;
+    text-align: center;
+}
+
+
+.video-canvas .button-area button {
+    pointer-events: all;
+}
+
+.video-canvas .button-area button.align-left {
+    float: left;
+}
+
+.video-canvas .button-area button.align-right {
+    float: right;
+}

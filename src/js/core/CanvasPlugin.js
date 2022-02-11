@@ -1,5 +1,8 @@
 import Plugin, { getPluginsOfType, loadPluginsOfType } from 'paella-core/js/core/Plugin';
 import { DomClass } from 'paella-core/js/core/dom';
+import { createElement, createElementWithHtmlText } from './dom';
+
+import "../../css/VideoCanvas.css";
 
 const g_enabledCanvasPlugins = [];
 export async function loadCanvasPlugins(player) {
@@ -31,8 +34,25 @@ export function getCanvasPlugin(player, stream) {
 export class Canvas extends DomClass {
     constructor(tag, player, parent) {
         super(player, { tag, parent });
+        this.element.className = "video-canvas";
 
         this._userArea = null;
+
+        this._buttonsArea = createElementWithHtmlText(`
+        <div class="button-area">
+        </div>
+        `, this.element);
+
+        // TODO: Test code, remove
+        const btn1 = createElementWithHtmlText(`
+        <button  class="align-left">test L</button>
+        `, this._buttonsArea);
+        const btn2 = createElementWithHtmlText(`
+        <button  class="align-center">test C</button>
+        `, this._buttonsArea);
+        const btn3 = createElementWithHtmlText(`
+        <button class="align-right">test R</button>
+        `, this._buttonsArea);
     }
 
     async loadCanvas(player) {
@@ -46,6 +66,10 @@ export class Canvas extends DomClass {
             this.element.appendChild(this._userArea);
         }
         return this._userArea;
+    }
+
+    get buttonsArea() {
+        return this._buttonsArea;
     }
 }
 
