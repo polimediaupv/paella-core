@@ -155,7 +155,7 @@
         },
 
         "es.upv.paella.collisionTestShortucts": {
-            "enabled": true,
+            "enabled": false,
             "order": 2
         }
     }
