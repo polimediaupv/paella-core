@@ -74,8 +74,9 @@ const addButton = function({
     return btn;
 }
 
-export const addVideoCanvasButton = (plugin, canvas, video) => {
-    const buttons = plugin.getVideoCanvasButtons(video.content, video, canvas);
+export const addVideoCanvasButton = (layoutStructure, canvas, video) => {
+    const plugin = layoutStructure.plugin;
+    const buttons = plugin.getVideoCanvasButtons(layoutStructure, video.content, video, canvas);
     buttons.forEach(btnData => {
         addButton.apply(canvas, [btnData]);
     })

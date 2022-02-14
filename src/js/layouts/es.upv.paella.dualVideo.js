@@ -17,6 +17,7 @@ let layout = 0;
 const layouts = [
     // First layout: side by side
     {
+        id: "side-by-side",
         videos: [
             {
                 content:null,
@@ -55,6 +56,7 @@ const layouts = [
 
     // Second layout: PIP left
     {
+        id: "pip-left",
         videos:[
             {
                 content:null,
@@ -93,6 +95,7 @@ const layouts = [
 
     // Third layout: PIP right
     {
+        id: "pip-right",
         videos: [
             {
                 content:null,
@@ -170,24 +173,45 @@ export default class DualVideoLayout extends VideoLayout {
         this.player.videoContainer.updateLayout();
     }
 
-    getVideoCanvasButtons(content, video, videoCanvas) {
+    getVideoCanvasButtons(layoutStructure, content, video, videoCanvas) {
+        console.log(layoutStructure);
         console.log("Get video canvas buttons: " + content);
-        return [
-            {
-                icon: iconRotate,
-                position: CanvasButtonPosition.LEFT,
-                click: evt => {
-                    console.log(video.content);
+        if (layoutStructure.id === "side-by-side") {
+            // Buttons: swap videos and minimize
+            return [
+                // Swap
+                {
+                    icon: iconRotate,
+                    position: CanvasButtonPosition.LEFT,
+                    click: evt => {
+                        this.switchContent();
+                    }
+                },
+
+                // Minimize
+                {
+                    icon: iconMinimize,
+                    position: CanvasButtonPosition.LEFT,
+                    click: evt => {
+                        console.log("Minimize " + content);
+                    }
                 }
-            },
-            {
-                icon: iconMinimize,
-                position: CanvasButtonPosition.RIGHT,
-                click: evt => {
-                    console.log(video);
-                }
-            }
-        ]
+            ]
+        }
+        else {
+            const result = [
+                // Switch content
+            ]
+
+            // if content is minimized
+            //   layoutStructure.id === "pip-left"
+            //      move right
+            //   layoutStructure.id === "pip-right"
+            //      move left
+            // else
+            //   minimize (return to side-by-side)
+        }
+        
     }
 
     getLayoutStructure(streamData, contentId) {
@@ -199,6 +223,7 @@ export default class DualVideoLayout extends VideoLayout {
         const selectedLayout = currentLayout(this._currentContent);
 
         const result = {
+            id: selectedLayout.id,
             player: this.player,
             name:{es:"Dos streams con posición dinámica"},
             hidden:false,

@@ -201,7 +201,7 @@ export default class VideoContainer extends DomClass {
             let resultRect = null;
 
             canvas.buttonsArea.innerHTML = "";
-            addVideoCanvasButton(layoutStructure.plugin, canvas, video);
+            addVideoCanvasButton(layoutStructure, canvas, video);
             
             video.rect.forEach((videoRect) => {
                 const aspectRatioData = /^(\d+.?\d*)\/(\d+.?\d*)$/.exec(videoRect.aspectRatio);
