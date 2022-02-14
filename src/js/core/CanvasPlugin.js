@@ -31,6 +31,56 @@ export function getCanvasPlugin(player, stream) {
     return plugin;
 }
 
+export const CanvasButtonPosition = {
+    LEFT: 'left',
+    CENTER: 'center',
+    RIGHT: 'right'
+};
+
+const addButton = function({
+    icon,
+    tabIndex,
+    ariaLabel,
+    title,
+    className,
+    position = CanvasButtonPosition.CENTER,
+    click
+}) {
+    if (!icon) {
+        throw new Error("Error in video layout definition. getVideoCanvasButtons(): missing 'icon' attribute.");
+    }
+    if (!click) {
+        throw new Error("Error in video layout definition. getVideoCanvasButtons(): missing 'click' function.");
+    }
+    let attributes = `class="align-${position}${ className ? " " + className : ""}"`;
+    if (ariaLabel) {
+        attributes += ` aria-label="${ariaLabel}"`;
+    }
+    if (title) {
+        attributes += ` title="${title}"`;
+    }
+    if (tabIndex !== undefined) {
+        attributes += ` tabindex="${tabIndex}"`;
+    }
+    const btn = createElementWithHtmlText(`
+        <button ${attributes}><i class="button-icon" style="pointer-events: none">${ icon }</i></button>
+    `);
+    this.buttonsArea.appendChild(btn);
+    btn.addEventListener('click', (evt) => {
+        click(evt);
+        evt.stopPropagation();
+        return false;
+    });
+    return btn;
+}
+
+export const addVideoCanvasButton = (plugin, canvas, video) => {
+    const buttons = plugin.getVideoCanvasButtons(video.content, video, canvas);
+    buttons.forEach(btnData => {
+        addButton.apply(canvas, [btnData]);
+    })
+}
+
 export class Canvas extends DomClass {
     constructor(tag, player, parent) {
         super(player, { tag, parent });

@@ -13,6 +13,10 @@
     pointer-events: all;
 }
 
+.video-canvas .button-area button {
+    width: 30px;
+}
+
 .video-canvas .button-area button.align-left {
     float: left;
 }

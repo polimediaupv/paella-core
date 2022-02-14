@@ -1,5 +1,6 @@
 import VideoLayout from 'paella-core/js/core/VideoLayout';
 
+import { CanvasButtonPosition } from '../core/CanvasPlugin';
 
 import iconRotate from 'paella-core/icons/icon_rotate.svg';
 import iconMinimize from 'paella-core/icons/minimize.svg';
@@ -167,6 +168,26 @@ export default class DualVideoLayout extends VideoLayout {
     switchMinimized() {
         nextLayout(this._currentContent);
         this.player.videoContainer.updateLayout();
+    }
+
+    getVideoCanvasButtons(content, video, videoCanvas) {
+        console.log("Get video canvas buttons: " + content);
+        return [
+            {
+                icon: iconRotate,
+                position: CanvasButtonPosition.LEFT,
+                click: evt => {
+                    console.log(video.content);
+                }
+            },
+            {
+                icon: iconMinimize,
+                position: CanvasButtonPosition.RIGHT,
+                click: evt => {
+                    console.log(video);
+                }
+            }
+        ]
     }
 
     getLayoutStructure(streamData, contentId) {

@@ -15,6 +15,7 @@ import 'paella-core/styles/VideoContainer.css';
 import 'paella-core/styles/VideoLayout.css';
 import { loadPluginsOfType, unloadPluginsOfType } from './Plugin';
 import { loadVideoPlugins, unloadVideoPlugins } from './VideoPlugin';
+import { addVideoCanvasButton } from './CanvasPlugin';
 
 export async function getContainerBaseSize(player) {
     // TODO: In the future, this function can be modified to support different
@@ -198,6 +199,9 @@ export default class VideoContainer extends DomClass {
             const videoAspectRatio = res.w / res.h;
             let difference = Number.MAX_VALUE;
             let resultRect = null;
+
+            canvas.buttonsArea.innerHTML = "";
+            addVideoCanvasButton(layoutStructure.plugin, canvas, video);
             
             video.rect.forEach((videoRect) => {
                 const aspectRatioData = /^(\d+.?\d*)\/(\d+.?\d*)$/.exec(videoRect.aspectRatio);
