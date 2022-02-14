@@ -121,6 +121,14 @@ export class Canvas extends DomClass {
     get buttonsArea() {
         return this._buttonsArea;
     }
+
+    showButtons() {
+        this.buttonsArea.style.display = null;
+    }
+
+    hideButtons() {
+        this.buttonsArea.style.display = "none";
+    }
 }
 
 export default class CanvasPlugin extends Plugin {

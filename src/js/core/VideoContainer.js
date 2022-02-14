@@ -270,6 +270,10 @@ export default class VideoContainer extends DomClass {
             }
             this._layoutButtons.forEach(hideFunc);
             this._buttonPlugins.forEach(hideFunc);
+            for (const content in this.streamProvider.streams) {
+                const stream = this.streamProvider.streams[content];
+                stream.canvas.hideButtons();
+            }
         }
     }
     
@@ -278,6 +282,10 @@ export default class VideoContainer extends DomClass {
             const showFunc = button => button.style.display = button._prevDisplay || "block";
             this._layoutButtons.forEach(showFunc);
             this._buttonPlugins.forEach(showFunc);
+            for (const content in this.streamProvider.streams) {
+                const stream = this.streamProvider.streams[content];
+                stream.canvas.showButtons();
+            }
         }
     }
 
