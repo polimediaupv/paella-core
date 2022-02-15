@@ -11,10 +11,16 @@
 
 .video-canvas .button-area button {
     pointer-events: all;
+    margin: 2px;
 }
 
 .video-canvas .button-area button {
     width: 30px;
+    opacity: 0.8;
+}
+
+.video-canvas .button-area button:hover {
+    opacity: 1;
 }
 
 .video-canvas .button-area button.align-left {
@@ -23,4 +29,8 @@
 
 .video-canvas .button-area button.align-right {
     float: right;
+}
+
+.video-canvas .button-area {
+    padding: 5px;
 }
