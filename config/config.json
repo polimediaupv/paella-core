@@ -116,8 +116,8 @@
             "enabled": true,
             "groupName": "testButtonGroup",
             "order": 3,
-            "side": "left",
-            "parentContainer": "videoContainer"
+            "side": "right",
+            "_parentContainer": "videoContainer"
         },
 
         "es.upv.paella.videoCanvas": {

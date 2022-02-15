@@ -133,4 +133,18 @@ export default class VideoLayout extends UserInterfacePlugin {
     getLayoutStructure(/* streamData, contentId */) {
         return {};
     }
+
+    // Add buttons to videos
+    // [
+    //      icon    (required)
+    //      click   (required)
+    //      tabIndex
+    //      ariaLabel
+    //      title
+    //      className
+    //      position (CanvasButtonPosition.LEFT, CanvasButtonPosition.CENTER, CanvasButtonPosition.RIGHT)
+    //]
+    getVideoCanvasButtons(content, video, videoCanvas) {
+        return []
+    }
 }

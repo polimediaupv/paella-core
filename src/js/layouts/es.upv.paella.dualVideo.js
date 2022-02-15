@@ -1,10 +1,15 @@
 import VideoLayout from 'paella-core/js/core/VideoLayout';
 
+import { CanvasButtonPosition } from '../core/CanvasPlugin';
 
 import iconRotate from 'paella-core/icons/icon_rotate.svg';
 import iconMinimize from 'paella-core/icons/minimize.svg';
 import iconMinimize2 from 'paella-core/icons/minimize-2.svg';
+import iconMinimize3 from 'paella-core/icons/minimize-3.svg';
 import iconDualVideo from 'paella-core/icons/dual-video.svg';
+import iconSideBySide from 'paella-core/icons/icon_side_by_side.svg';
+import iconSwitchSide from 'paella-core/icons/icon_switch_side.svg';
+import iconMaximize from 'paella-core/icons/maximize.svg';
 
 const layoutIcons = [
     iconMinimize,
@@ -13,9 +18,13 @@ const layoutIcons = [
 ];
 
 let layout = 0;
+/**
+ * in pip mode, the minimized video is de second one
+ */
 const layouts = [
     // First layout: side by side
     {
+        id: "side-by-side",
         videos: [
             {
                 content:null,
@@ -42,18 +51,12 @@ const layouts = [
                 layer:"1"
             }
         ],
-        buttons: [
-            {
-                rect: { left: 682, top: 565, width: 45, height: 45 }
-            },
-            {
-                rect: { left: 682, top: 515, width: 45, height: 45 }
-            }
-        ]
+        buttons: []
     },
 
     // Second layout: PIP left
     {
+        id: "pip-left",
         videos:[
             {
                 content:null,
@@ -80,18 +83,12 @@ const layouts = [
                 layer:2
             }
         ],
-        buttons: [
-            {
-                rect: { left: 388, top: 465, width: 45, height: 45 }
-            },
-            {
-                rect: { left: 388, top: 415, width: 45, height: 45 }
-            }
-        ]
+        buttons: []
     },
 
     // Third layout: PIP right
     {
+        id: "pip-right",
         videos: [
             {
                 content:null,
@@ -118,19 +115,17 @@ const layouts = [
                 layer:2
             }
         ],
-        buttons: [
-            {
-                rect: { left: 848, top: 465, width: 45, height: 45 }
-            },
-            {
-                rect: { left: 848, top: 415, width: 45, height: 45 }
-            }
-        ]
+        buttons: []
     }
 ];
 
 function nextLayout(validContent) {
     layout = (layout + 1) % layouts.length;
+    return currentLayout(validContent);
+}
+
+function setLayout(validContent, index) {
+    layout = index < layouts.length ? index : layout;
     return currentLayout(validContent);
 }
 
@@ -169,6 +164,103 @@ export default class DualVideoLayout extends VideoLayout {
         this.player.videoContainer.updateLayout();
     }
 
+    minimizeVideo(content) {
+        let switchLayout = true;
+        if (content === this._currentContent[0]) {
+            const v0 = this._currentContent[0];
+            const v1 = this._currentContent[1];
+            this._currentContent[0] = v1;
+            this._currentContent[1] = v0;
+            switchLayout = false;
+        }
+        if (layout === 1 && switchLayout) {
+            setLayout(this._currentContent, 2);
+        }
+        else {
+            setLayout(this._currentContent, 1);
+        }
+        this.player.videoContainer.updateLayout();
+    }
+
+    setSideBySide() {
+        setLayout(this._currentContent, 0);
+        this.player.videoContainer.updateLayout();
+    }
+
+    get minimizedContent() {
+        // See layout structure
+        if (layout === 0) {
+            return "";
+        }
+        else {
+            return this._currentContent[1];
+        }
+    }
+
+    getVideoCanvasButtons(layoutStructure, content, video, videoCanvas) {
+        if (layoutStructure.id === "side-by-side") {
+            // Buttons: swap videos and minimize
+            return [
+                // Swap
+                {
+                    icon: iconRotate,
+                    position: CanvasButtonPosition.LEFT,
+                    click: () => {
+                        this.switchContent();
+                    }
+                },
+
+                // Minimize
+                {
+                    icon: iconMinimize3,
+                    position: CanvasButtonPosition.LEFT,
+                    click: () => {
+                        this.minimizeVideo(content);
+                    }
+                }
+            ]
+        }
+        else {
+            const result = [];
+
+            if (content === this.minimizedContent) {
+                result.push({
+                    icon: iconMaximize,
+                    position: CanvasButtonPosition.LEFT,
+                    click: () => {
+                        this.switchContent();
+                    }
+                });
+
+                result.push({
+                    icon: iconSwitchSide,
+                    position: CanvasButtonPosition.LEFT,
+                    click: () => {
+                        this.minimizeVideo(content);
+                    }
+                });
+            }
+            else {
+                result.push({
+                    icon: iconMinimize3,
+                    position: CanvasButtonPosition.LEFT,
+                    click: () => {
+                        this.switchContent();
+                    }
+                });
+
+                result.push({
+                    icon: iconSideBySide,
+                    position: CanvasButtonPosition.LEFT,
+                    click: evt => {
+                        this.setSideBySide();
+                    }
+                })
+            }
+            return result;
+        }
+    }
+
     getLayoutStructure(streamData, contentId) {
         if (!this._currentContent || this._currentContentId!==contentId) {
             const {content} = this.validContent.find(content => content.id === contentId);
@@ -178,30 +270,12 @@ export default class DualVideoLayout extends VideoLayout {
         const selectedLayout = currentLayout(this._currentContent);
 
         const result = {
+            id: selectedLayout.id,
             player: this.player,
             name:{es:"Dos streams con posición dinámica"},
             hidden:false,
             videos: selectedLayout.videos,
-            buttons: [
-                {
-                    rect: selectedLayout.buttons[0].rect,
-                    onClick: () => { this.switchContent(); },
-                    label:"Switch",
-                    icon: iconRotate,
-                    layer: 2,
-                    ariaLabel: "Swap the position of the videos",
-                    title: "Swap the position of the videos"
-                },
-                {
-                    rect: selectedLayout.buttons[1].rect,
-                    onClick: () => { this.switchMinimized(); },
-                    label:"Minimize",
-                    icon: layoutIcons[layout],
-                    layer: 2,
-                    ariaLabel: "Swap between side by side and minimized video",
-                    title: "Swap between side by side and minimized video"
-                }
-            ]
+            buttons: []
         };
         
         return result;

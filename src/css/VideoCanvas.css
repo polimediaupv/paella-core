@@ -1,0 +1,36 @@
+
+.video-canvas .button-area {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    pointer-events: none;
+    text-align: center;
+}
+
+
+.video-canvas .button-area button {
+    pointer-events: all;
+    margin: 2px;
+}
+
+.video-canvas .button-area button {
+    width: 30px;
+    opacity: 0.8;
+}
+
+.video-canvas .button-area button:hover {
+    opacity: 1;
+}
+
+.video-canvas .button-area button.align-left {
+    float: left;
+}
+
+.video-canvas .button-area button.align-right {
+    float: right;
+}
+
+.video-canvas .button-area {
+    padding: 5px;
+}
