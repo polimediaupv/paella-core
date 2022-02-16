@@ -6,6 +6,7 @@
     right: 0px;
     pointer-events: none;
     text-align: center;
+    z-index: 1;
 }
 
 
