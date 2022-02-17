@@ -205,6 +205,8 @@ export default class DualVideoLayout extends VideoLayout {
                 {
                     icon: iconRotate,
                     position: CanvasButtonPosition.LEFT,
+                    title: this.player.translate('Swap position of the videos'),
+                    ariaLabel: this.player.translate('Swap position of the videos'),
                     click: () => {
                         this.switchContent();
                     }
@@ -214,6 +216,8 @@ export default class DualVideoLayout extends VideoLayout {
                 {
                     icon: iconMinimize3,
                     position: CanvasButtonPosition.LEFT,
+                    title: this.player.translate('Minimize video'),
+                    ariaLabel: this.player.translate('Minimize video'),
                     click: () => {
                         this.minimizeVideo(content);
                     }
@@ -227,6 +231,8 @@ export default class DualVideoLayout extends VideoLayout {
                 result.push({
                     icon: iconMaximize,
                     position: CanvasButtonPosition.LEFT,
+                    title: this.player.translate('Maximize video'),
+                    ariaLabel: this.player.translate('Maximize video'),
                     click: () => {
                         this.switchContent();
                     }
@@ -235,6 +241,8 @@ export default class DualVideoLayout extends VideoLayout {
                 result.push({
                     icon: iconSwitchSide,
                     position: CanvasButtonPosition.LEFT,
+                    title: this.player.translate('Place the video on the other side of the screen'),
+                    ariaLabel: this.player.translate('Place the video on the other side of the screen'),
                     click: () => {
                         this.minimizeVideo(content);
                     }
@@ -244,6 +252,8 @@ export default class DualVideoLayout extends VideoLayout {
                 result.push({
                     icon: iconMinimize3,
                     position: CanvasButtonPosition.LEFT,
+                    title: this.player.translate('Minimize video'),
+                    ariaLabel: this.player.translate('Minimize video'),
                     click: () => {
                         this.switchContent();
                     }
@@ -252,7 +262,9 @@ export default class DualVideoLayout extends VideoLayout {
                 result.push({
                     icon: iconSideBySide,
                     position: CanvasButtonPosition.LEFT,
-                    click: evt => {
+                    title: this.player.translate('Put the videos side by side'),
+                    ariaLabel: this.player.translate('Put the videos side by side'),
+                    click: () => {
                         this.setSideBySide();
                     }
                 })

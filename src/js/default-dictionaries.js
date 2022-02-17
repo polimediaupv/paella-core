@@ -75,8 +75,15 @@ const defaultDictionaries = {
         "Escape": "Escape",
         "PrintScreen": "PrintScreen",
         "ScrollLock": "ScrollLock",
-        "Pause": "Pausa"
+        "Pause": "Pausa",
+        "Put the videos side by side": "Colocar los vídeos uno junto al otro",
+        "Minimize video": "Minimizar vídeo",
+        "Place the video on the other side of the screen": "Colocar el vídeo al otro lado de la pantalla",
+        "Maximize video": "Maximizar vídeo",
+        "Swap position of the videos": "Intercambiar posición de los vídeos"
     }
 }
+
+defaultDictionaries["es-ES"] = defaultDictionaries["es"];
 
 export default defaultDictionaries;
