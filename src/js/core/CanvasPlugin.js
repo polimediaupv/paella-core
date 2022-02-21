@@ -93,17 +93,6 @@ export class Canvas extends DomClass {
         <div class="button-area">
         </div>
         `, this.element);
-
-        // TODO: Test code, remove
-        const btn1 = createElementWithHtmlText(`
-        <button  class="align-left">test L</button>
-        `, this._buttonsArea);
-        const btn2 = createElementWithHtmlText(`
-        <button  class="align-center">test C</button>
-        `, this._buttonsArea);
-        const btn3 = createElementWithHtmlText(`
-        <button class="align-right">test R</button>
-        `, this._buttonsArea);
     }
 
     async loadCanvas(player) {

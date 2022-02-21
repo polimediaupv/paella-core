@@ -1,7 +1,8 @@
-import { Mp4Video, supportsVideoType } from "./es.upv.paella.mp4VideoFormat";
+import { Mp4Video } from "./es.upv.paella.mp4VideoFormat";
 import VideoPlugin from 'paella-core/js/core/VideoPlugin';
 import VideoQualityItem from 'paella-core/js/core/VideoQualityItem';
 import AudioTrackData from "paella-core/js/core/AudioTrackData";
+import Events, { triggerEvent } from "../core/Events";
 
 import Hls from "hls.js";
 
@@ -101,13 +102,18 @@ const loadHls = (player, streamData, video, config, cors) => {
     const hls = new Hls(config);
     const hlsStream =   streamData?.sources?.hls?.length>0 &&
                         streamData.sources.hls[0];
-    const isLiveStream = hlsStream.isLiveStream;
     const initialQualityLevel = config.initialQualityLevel !== undefined ? config.initialQualityLevel : 1;
 
     return [hls, new Promise((resolve,reject) => {
+        let autoQualitySet = false;
+
         hls.on(Hls.Events.LEVEL_SWITCHED, (evt, data) => {
-            // TODO: Trigger quality changed event
-            player.log.debug(`HLS: quality level switched to ${data.level}`)
+            player.log.debug(`HLS: quality level switched to ${data.level}`);
+            if (!autoQualitySet) {
+                hls.currentLevel = -1;
+                autoQualitySet = true;
+            }
+            triggerEvent(player, Events.VIDEO_QUALITY_CHANGED, {});
         });
 
         hls.on(Hls.Events.ERROR, (event,data) => {
@@ -143,7 +149,6 @@ const loadHls = (player, streamData, video, config, cors) => {
             }
 
             hls.currentLevel = hls.levels.length>=initialQualityLevel ? initialQualityLevel : -1;
-            setTimeout(() => hls.currentLevel = -1, 1000);
         });
 
         const rand = Math.floor(Math.random() * 100000000000);
