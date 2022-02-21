@@ -123,3 +123,6 @@ player.bindEvent(player.Events.TRIMMING_CHANGED, (eventData) => {
 **`LAYOUT_CHANGED`:** is fired when the user changes the video layout.
 
 **`PLAYBACK_RATE_CHANGED`**: is fired when the user changes the playback rate. It receives as parameter the new playback rate: `{ newPlaybackRate }`
+
+**`VIDEO_QUALITY_CHANGED`**: is fired when the video quality is changed.
+ 

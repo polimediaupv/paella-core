@@ -53,6 +53,7 @@ get validContent() {
 }
 ```
 
+
 ### Checking if the layout is compatible with the video
 
 Get the valid stream data combination, according to the plugin configuration.
@@ -172,5 +173,73 @@ getLayoutStructure(streamData) {
         onApply: function() { }
     }
     return structure;
+}
+```
+
+### User interaction
+
+Video layouts can add user interaction elements. For example, the integrated layout plugin for two videos allows you to change the arrangement of the two videos to display them side by side or in picture-in-picture mode. These changes are made via buttons added by the layout.
+
+There are two ways to add buttons to a video layout:
+
+1. Through the `buttons` attribute of the layout structure. It is possible to add buttons at specific positions in the layout. The same rules are used to define the position and size of the buttons as for the videos: they are coordinates relative to the base size of the video area, which are automatically translated into percentages, so that the position and size are the same when resizing the video area.
+2. Through the `getVideoCanvasButtons` function of the layout plugin. It allows to add buttons at the top of each video corresponding to a stream. The buttons can be added aligned to the left, to the right or to the center. The `getVideoCanvasButtons` function is called once for each video, and must return the buttons corresponding to each video. To identify the video, the function receives as parameter, among others, the content corresponding to the `content` attribute of the video stream in the manifest.
+
+Example 1: extracted from the `es.upv.paella.tripleVideo` layout plugin:
+
+```js
+getLayoutStructure(streamData, contentId) {
+  ...
+  const result = {
+    ...
+    buttons: [
+      {
+        rect: selectedLayout.buttons[0].rect,
+        onClick: () => { this.switchContent(); },
+        label:"Switch",
+        icon: iconRotate,
+        layer: 2,
+        ariaLabel: "Swap the position of the videos",
+        title: "Swap the position of the videos"
+      }
+    ]
+  };
+
+  return result;
+}
+```
+
+Example 2: extracted from the `es.upv.paella.dualVideo` layout plugin:
+
+```js
+getVideoCanvasButtons(layoutStructure, content, video, videoCanvas) {
+  if (layoutStructure.id === "side-by-side") {
+    return [
+      // Swap
+      {
+        icon: iconRotate,
+        position: CanvasButtonPosition.LEFT,
+        title: this.player.translate('Swap position of the videos'),
+        ariaLabel: this.player.translate('Swap position of the videos'),
+        click: () => {
+            this.switchContent();
+        }
+      },
+
+      // Minimize
+      {
+        icon: iconMinimize3,
+        position: CanvasButtonPosition.LEFT,
+        title: this.player.translate('Minimize video'),
+        ariaLabel: this.player.translate('Minimize video'),
+        click: () => {
+            this.minimizeVideo(content);
+        }
+      }
+    ]
+  }
+  else {
+    ...
+  }
 }
 ```
