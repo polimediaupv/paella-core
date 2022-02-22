@@ -38,13 +38,13 @@ The configuration callbacks cannot be specified, but in practice the only callba
       "sources": {
         "hls": [
           {
-						"src": "https://url.to/your/playlist.m3u8",
-						"mimetype": "video/mp4",
-						"res": {
-							"w": "1920",
-							"h": "1080"
-						}
-					}
+	    "src": "https://url.to/your/playlist.m3u8",
+	    "mimetype": "video/mp4",
+	    "res": {
+	      "w": "1920",
+	      "h": "1080"
+	    }
+          }
         ]
       },
       "content": "presenter",
