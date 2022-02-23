@@ -167,4 +167,9 @@ export class Video extends DomClass {
         return false;
     }
 
+    async enable() {
+    }
+
+    async disable() {
+    }
 }

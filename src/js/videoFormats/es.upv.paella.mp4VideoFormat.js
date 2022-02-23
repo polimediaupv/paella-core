@@ -28,66 +28,126 @@ export class Mp4Video extends Video {
         if (!isMainAudio) {
             this.element.muted = true;
         }
+
+        this._enabled = true;
     }
 
     async play() { 
-        await this.waitForLoaded();
-        return this.video.play();
+        if (this._enabled) {
+            await this.waitForLoaded();
+            return this.video.play();
+        }
+        else {
+            this._disabledProperties.paused = false;
+        }
     }
     
     async pause() {
-        await this.waitForLoaded();
-        return this.video.pause();
+        if (this._enabled) {
+            await this.waitForLoaded();
+            return this.video.pause();
+        }
+        else {
+            this._disabledProperties.paused = true;
+        }
     }
 
     async duration() {
-        await this.waitForLoaded();
-        return this.video.duration;
+        if (this._enabled) {
+            await this.waitForLoaded();
+            return this.video.duration;
+        }
+        else {
+            return this._disabledProperties.duration;
+        }
     }
 
     get currentTimeSync() {
-        return this.ready ? this.video.currentTime : -1;
+        if (this._enabled) {
+            return this.ready ? this.video.currentTime : -1;
+        }
+        else {
+            return this.ready ? this._disabledProperties.currentTime : -1;
+        }
     }
     
     async currentTime() {
-        await this.waitForLoaded();
-        return this.currentTimeSync;
+        if (this._enabled) {
+            await this.waitForLoaded();
+            return this.currentTimeSync;
+        }
+        else {
+            return this._disabledProperties.currentTime;
+        }
     }
 
     async setCurrentTime(t) {
-        await this.waitForLoaded();
-        return this.video.currentTime = t;
+        if (this._enabled) {
+            await this.waitForLoaded();
+            return this.video.currentTime = t;
+        }
+        else {
+            this._disabledProperties.currentTime = t;
+            return t;
+        }
     }
 
     async volume() {
-        await this.waitForLoaded();
-        return this.video.volume;
+        if (this._enabled) {
+            await this.waitForLoaded();
+            return this.video.volume;
+        }
+        else {
+            return this._disabledProperties.volume;
+        }
     }
 
     async setVolume(v) {
-        await this.waitForLoaded();
-        if (v === 0) {
-            this.video.setAttribute("muted", true);
+        if (this._enabled) {
+            await this.waitForLoaded();
+            if (v === 0) {
+                this.video.setAttribute("muted", true);
+            }
+            else {
+                this.video.removeAttribute("muted");
+            }
+            return this.video.volume = v;
         }
         else {
-            this.video.removeAttribute("muted");
+            this._disabledProperties.volume = v;
+            return v;
         }
-        return this.video.volume = v;
     }
 
     async paused() {
-        await this.waitForLoaded();
-        return this.video.paused;
+        if (this._enabled) {
+            await this.waitForLoaded();
+            return this.video.paused;
+        }
+        else {
+            return this._disabledProperties.paused;
+        }
     }
 
     async playbackRate() {
-        await this.waitForLoaded();
-        return await this.video.playbackRate;
+        if (this._enabled) {
+            await this.waitForLoaded();
+            return await this.video.playbackRate;
+        }
+        else {
+            return this._disabledProperties.playbackRate;
+        }
     }
 
     async setPlaybackRate(pr) {
-        await this.waitForLoaded();
-        return this.video.playbackRate = pr;
+        if (this._enabled) {
+            await this.waitForLoaded();
+            return this.video.playbackRate = pr;
+        }
+        else {
+            this._disabledProperties.playbackRate = pr;
+            return pr;
+        }
     }
 
     async getQualities() {
@@ -103,8 +163,24 @@ export class Mp4Video extends Video {
     }
 
     async getDimensions() {
-        await this.waitForLoaded();
-        return { w: this.video.videoWidth, h: this.video.videoHeight };
+        if (this._enabled) {
+            await this.waitForLoaded();
+            return { w: this.video.videoWidth, h: this.video.videoHeight };
+        }
+        else {
+            return { w: this._disabledProperties.videoWidth, h: this._disabledProperties.videoHeight };
+        }
+    }
+
+    saveDisabledProperties(video) {
+        this._disabledProperties = {
+            duration: video.duration,
+            volume: video.volume,
+            videoWidth: video.videoWidth,
+            videoHeight: video.videoHeight,
+            playbackRate: video.playbackRate,
+            paused: video.paused
+        }
     }
 
     // This function is called when the player loads, and it should
@@ -128,11 +204,34 @@ export class Mp4Video extends Video {
             if (typeof(this._videoEndedCallback) == "function") {
                 this._videoEndedCallback();
             }
-        })
+        });
 
         await this.waitForLoaded();
+
+        this.saveDisabledProperties(this.video);
+
         
         this.player.log.debug(`es.upv.paella.mp4VideoFormat (${ this.streamData.content }): video loaded and ready.`);
+    }
+
+    async enable() {
+        this.player.log.debug("video.enable()");
+        // TODO: Enable video
+        // this._enabled = false;
+        //this.saveDisabledProperties(this.video);
+        // this._enabled = false;
+        // TODO: configure timeout to update current time
+    }
+
+    async disable() {
+        if (this.isMainAudio) {
+            this.player.log.debug("video.disable() - the video is not disabled because it is the main audio source.");
+        }
+        else {
+            this.player.log.debug("video.disable()");
+            // TODO: Disable video
+            // this._enabled = false;
+        }
     }
 
     waitForLoaded() {

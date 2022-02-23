@@ -165,12 +165,27 @@ export default class VideoContainer extends DomClass {
         
         // Current layout: if not selected, or the selected layout is not compatible, load de default layout
         if (!this._layoutId || this._validContentIds.indexOf(this._layoutId) === -1) {
-            // TODO: check if the default layout can be applied to the stream data
             this._layoutId = this._validContentIds[0];
             status = false;
         }
 
         const layoutStructure = getLayoutStructure(this.player, this.streamProvider.streamData, this._layoutId);
+
+        for (const content in this.streamProvider.streams) {
+            const isPresent = layoutStructure?.videos?.find(video => video.content === content) != null;
+            const video = this.streamProvider.streams[content];
+            if (video.isEnabled === undefined) {
+                video.isEnabled = true;
+            }
+            
+            if (isPresent && !video.isEnabled) {
+                await video.player.enable();
+            }
+            else if (!isPresent && video.isEnabled) {
+                await video.player.disable();
+            }
+            video.isEnabled = isPresent;
+        }
 
         // Hide all video players
         for (const key in this.streamProvider.streams) {
@@ -192,7 +207,7 @@ export default class VideoContainer extends DomClass {
         this.baseVideoRect.style.width = containerCurrentSize.w + "px";
         this.baseVideoRect.style.height = containerCurrentSize.h + "px";
 
-        layoutStructure?.videos?.forEach(async video => {
+        await layoutStructure?.videos?.forEach(async video => {
             const videoData = this.streamProvider.streams[video.content];
             const { stream, player, canvas } = videoData;
             const res = await player.getDimensions();
@@ -220,7 +235,6 @@ export default class VideoContainer extends DomClass {
             canvas.element.style.width = `${ resultRect.width * wFactor }%`;
             canvas.element.style.height = `${ resultRect.height * hFactor }%`;
             canvas.element.style.zIndex = video.layer;
-            
         });
         
         const prevButtons = this.baseVideoRect.getElementsByClassName('video-layout-button');
