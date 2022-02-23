@@ -29,11 +29,11 @@ export class Mp4Video extends Video {
             this.element.muted = true;
         }
 
-        this._enabled = true;
+        this._videoEnabled = true;
     }
 
     async play() { 
-        if (this._enabled) {
+        if (this._videoEnabled) {
             await this.waitForLoaded();
             return this.video.play();
         }
@@ -43,7 +43,7 @@ export class Mp4Video extends Video {
     }
     
     async pause() {
-        if (this._enabled) {
+        if (this._videoEnabled) {
             await this.waitForLoaded();
             return this.video.pause();
         }
@@ -53,7 +53,7 @@ export class Mp4Video extends Video {
     }
 
     async duration() {
-        if (this._enabled) {
+        if (this._videoEnabled) {
             await this.waitForLoaded();
             return this.video.duration;
         }
@@ -63,7 +63,7 @@ export class Mp4Video extends Video {
     }
 
     get currentTimeSync() {
-        if (this._enabled) {
+        if (this._videoEnabled) {
             return this.ready ? this.video.currentTime : -1;
         }
         else {
@@ -72,7 +72,7 @@ export class Mp4Video extends Video {
     }
     
     async currentTime() {
-        if (this._enabled) {
+        if (this._videoEnabled) {
             await this.waitForLoaded();
             return this.currentTimeSync;
         }
@@ -82,7 +82,7 @@ export class Mp4Video extends Video {
     }
 
     async setCurrentTime(t) {
-        if (this._enabled) {
+        if (this._videoEnabled) {
             await this.waitForLoaded();
             return this.video.currentTime = t;
         }
@@ -93,7 +93,7 @@ export class Mp4Video extends Video {
     }
 
     async volume() {
-        if (this._enabled) {
+        if (this._videoEnabled) {
             await this.waitForLoaded();
             return this.video.volume;
         }
@@ -103,7 +103,7 @@ export class Mp4Video extends Video {
     }
 
     async setVolume(v) {
-        if (this._enabled) {
+        if (this._videoEnabled) {
             await this.waitForLoaded();
             if (v === 0) {
                 this.video.setAttribute("muted", true);
@@ -120,7 +120,7 @@ export class Mp4Video extends Video {
     }
 
     async paused() {
-        if (this._enabled) {
+        if (this._videoEnabled) {
             await this.waitForLoaded();
             return this.video.paused;
         }
@@ -130,7 +130,7 @@ export class Mp4Video extends Video {
     }
 
     async playbackRate() {
-        if (this._enabled) {
+        if (this._videoEnabled) {
             await this.waitForLoaded();
             return await this.video.playbackRate;
         }
@@ -140,7 +140,7 @@ export class Mp4Video extends Video {
     }
 
     async setPlaybackRate(pr) {
-        if (this._enabled) {
+        if (this._videoEnabled) {
             await this.waitForLoaded();
             return this.video.playbackRate = pr;
         }
@@ -163,7 +163,7 @@ export class Mp4Video extends Video {
     }
 
     async getDimensions() {
-        if (this._enabled) {
+        if (this._videoEnabled) {
             await this.waitForLoaded();
             return { w: this.video.videoWidth, h: this.video.videoHeight };
         }
@@ -179,13 +179,15 @@ export class Mp4Video extends Video {
             videoWidth: video.videoWidth,
             videoHeight: video.videoHeight,
             playbackRate: video.playbackRate,
-            paused: video.paused
+            paused: video.paused,
+            currentTime: video.currentTime
         }
     }
 
     // This function is called when the player loads, and it should
     // make everything ready for video playback to begin.
-    async loadStreamData(streamData) {
+    async loadStreamData(streamData = null) {
+        this._streamData = this._streamData || streamData;
         this.player.log.debug("es.upv.paella.mp4VideoFormat: loadStreamData");
 
         this._sources = null;
@@ -200,27 +202,45 @@ export class Mp4Video extends Video {
         }
         
         this.video.src = resolveResourcePath(this.player, this._currentSource.src);
-        this.video.addEventListener("ended", () => {
+        this._endedCallback = this._endedCallback || (() => {
             if (typeof(this._videoEndedCallback) == "function") {
                 this._videoEndedCallback();
             }
         });
+        this.video.addEventListener("ended", this._endedCallback);
 
         await this.waitForLoaded();
 
-        this.saveDisabledProperties(this.video);
-
-        
         this.player.log.debug(`es.upv.paella.mp4VideoFormat (${ this.streamData.content }): video loaded and ready.`);
+    }
+
+    async clearStreamData() {
+        // TODO: Disable video source
+        this.video.src = "";
+        this.video.removeEventListener("ended", this._endedCallback);
+        this._ready = false;
     }
 
     async enable() {
         this.player.log.debug("video.enable()");
-        // TODO: Enable video
-        // this._enabled = false;
-        //this.saveDisabledProperties(this.video);
-        // this._enabled = false;
-        // TODO: configure timeout to update current time
+
+        if (this._timeUpdateTimer) {
+            clearTimeout(this._timeUpdateTimer);
+            this._timeUpdateTimer = null;
+        }
+
+        this._videoEnabled = true;
+
+        await this.loadStreamData(this._streamData);
+
+        // Restore video settings
+        this.video.currentTime = this._disabledProperties.currentTime;
+        if (this._disabledProperties.paused) {
+            this.video.pause();
+        }
+        else {
+            this.video.play();
+        }
     }
 
     async disable() {
@@ -229,8 +249,21 @@ export class Mp4Video extends Video {
         }
         else {
             this.player.log.debug("video.disable()");
-            // TODO: Disable video
-            // this._enabled = false;
+
+            this.saveDisabledProperties(this.video);
+
+            const startTimeupdate = () => {
+                this._timeUpdateTimer = setTimeout(() => {
+                    if (!this._disabledProperties.paused) {
+                        this._disabledProperties.currentTime += 0.25;
+                    }
+                    startTimeupdate();
+                }, 250);
+            }
+            startTimeupdate();
+    
+            this._videoEnabled = false;
+            await this.clearStreamData();
         }
     }
 
