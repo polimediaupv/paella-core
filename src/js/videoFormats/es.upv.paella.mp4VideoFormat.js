@@ -67,7 +67,7 @@ export class Mp4Video extends Video {
             return this.ready ? this.video.currentTime : -1;
         }
         else {
-            return this.ready ? this._disabledProperties.currentTime : -1;
+            return this._disabledProperties.currentTime;
         }
     }
     
