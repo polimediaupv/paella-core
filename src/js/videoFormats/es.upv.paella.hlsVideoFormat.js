@@ -16,7 +16,7 @@ export const defaultHlsConfig = {
     initialQualityLevel: 1,
     maxBufferLength: 30,
     maxMaxBufferLength: 600,
-    maxBufferSize: 60*1000*1000,
+    maxBufferSize: 600*1000*1000,
     maxBufferHole: 0.5,
     lowBufferWatchdogPeriod: 0.5,
     highBufferWatchdogPeriod: 3,
@@ -139,7 +139,7 @@ const loadHls = (player, streamData, video, config, cors) => {
             }
             else {
                 player.log.warn('HLS: error');
-                player.log.warn(data);
+                player.log.warn(data.details);
             }
         });
 
@@ -362,6 +362,7 @@ export class HlsVideo extends Mp4Video {
     async clearStreamData() {
         // See loadHls function
         this.video.removeEventListener("canplay", this._hls._videoEventListener);
+        this.video.src = "";
         this._hls.destroy();
         this._ready = false;
     }
