@@ -215,7 +215,6 @@ export class Mp4Video extends Video {
     }
 
     async clearStreamData() {
-        // TODO: Disable video source
         this.video.src = "";
         this.video.removeEventListener("ended", this._endedCallback);
         this._ready = false;

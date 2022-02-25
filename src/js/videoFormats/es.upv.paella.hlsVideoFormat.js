@@ -156,9 +156,10 @@ const loadHls = (player, streamData, video, config, cors) => {
         hls.loadSource(url);
         hls.attachMedia(video);
 
-        video.addEventListener("canplay", () => {
+        hls._videoEventListener = () => {
             resolve();
-        });
+        };
+        video.addEventListener("canplay", hls._videoEventListener);
     })];
 }
 
@@ -242,38 +243,35 @@ export class HlsVideo extends Mp4Video {
         }
     }
 
-    async getDimensions() {
-        await this.waitForLoaded();
-        const video = this.video;
-        return {
-            w: video.videoWidth,
-            h: video.videoHeight
-        }
-    }
-
     async getQualities() {
         const q = [];
         q.push(this._autoQuality);
 
-        if (hlsSupport === HlsSupport.MEDIA_SOURCE_EXTENSIONS) {
-            this._hls.levels.forEach((level, index) => {
-                q.push(new VideoQualityItem({
-                    index: level.id,
-                    label: `${level.width}x${level.height}`,
-                    shortLabel: `${level.height}p`,
-                    index: index,
-                    width: level.width,
-                    height: level.height
-                }));
-            });
+        if (!this._videoEnabled) {   
+            if (hlsSupport === HlsSupport.MEDIA_SOURCE_EXTENSIONS) {
+                this._hls.levels.forEach((level, index) => {
+                    q.push(new VideoQualityItem({
+                        index: level.id,
+                        label: `${level.width}x${level.height}`,
+                        shortLabel: `${level.height}p`,
+                        index: index,
+                        width: level.width,
+                        height: level.height
+                    }));
+                });
 
-            q.sort((a,b) => a.res.h-b.res.h);
+                q.sort((a,b) => a.res.h-b.res.h);
+            }
         }
 
         return q;
     }
 
     async setQuality(q) {
+        if (!this._videoEnabled) {
+            return;
+        }
+
         if (!(q instanceof VideoQualityItem)) {
             throw Error("Invalid parameter setting video quality. VideoQualityItem object expected.");
         }
@@ -359,6 +357,13 @@ export class HlsVideo extends Mp4Video {
 
     get currentAudioTrack() {
         return this._currentAudioTrack;
+    }
+
+    async clearStreamData() {
+        // See loadHls function
+        this.video.removeEventListener("canplay", this._hls._videoEventListener);
+        this._hls.destroy();
+        this._ready = false;
     }
 }
 

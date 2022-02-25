@@ -71,9 +71,10 @@ const loadHls = (player, streamData, video, config, cors) => {
         hls.loadSource(url);
         hls.attachMedia(video);
 
-        video.addEventListener("canplay", () => {
+        hls._videoEventListener = () => {
             resolve();
-        });
+        };
+        video.addEventListener("canplay", hls._videoEventListener);
     })];
 }
 
