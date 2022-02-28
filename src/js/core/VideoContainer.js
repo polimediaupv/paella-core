@@ -50,7 +50,7 @@ export default class VideoContainer extends DomClass {
 
         this._ready = false;
 
-        this._layoutId = player.config.defaultLayout;
+        this._layoutId = window.localStorage.getItem("videoLayout") || player.config.defaultLayout;
 
         this._players = [];
         
@@ -66,6 +66,7 @@ export default class VideoContainer extends DomClass {
             return false;
         }
         else {
+            window.localStorage.setItem("videoLayout", layoutId);
             this._layoutId = layoutId;
             this.updateLayout();
         }
@@ -165,7 +166,12 @@ export default class VideoContainer extends DomClass {
         
         // Current layout: if not selected, or the selected layout is not compatible, load de default layout
         if (!this._layoutId || this._validContentIds.indexOf(this._layoutId) === -1) {
-            this._layoutId = this._validContentIds[0];
+            this._layoutId = this.player.config.defaultLayout;
+
+            // Check if the default layout is compatible
+            if (this._validContentIds.indexOf(this._layoutId) === -1) {
+                this._layoutId = this._validContentIds[0];
+            }
             status = false;
         }
 
