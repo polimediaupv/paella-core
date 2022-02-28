@@ -105,6 +105,7 @@ export class HlsLiveVideo extends HlsVideo {
             // Initialize current audio track
             const tracks = await this.getAudioTracks();
             this._currentAudioTrack = tracks.find(track => track.selected);
+            this.saveDisabledProperties(this.video);
         }
     }
 }

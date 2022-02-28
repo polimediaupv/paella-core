@@ -212,6 +212,7 @@ export class Mp4Video extends Video {
         await this.waitForLoaded();
 
         this.player.log.debug(`es.upv.paella.mp4VideoFormat (${ this.streamData.content }): video loaded and ready.`);
+        this.saveDisabledProperties(this.video);
     }
 
     async clearStreamData() {
@@ -240,6 +241,8 @@ export class Mp4Video extends Video {
         else {
             this.video.play();
         }
+
+        return this._videoEnabled;
     }
 
     async disable() {
@@ -264,6 +267,8 @@ export class Mp4Video extends Video {
             this._videoEnabled = false;
             await this.clearStreamData();
         }
+
+        return this._videoEnabled;
     }
 
     waitForLoaded() {

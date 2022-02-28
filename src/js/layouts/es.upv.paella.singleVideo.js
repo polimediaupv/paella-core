@@ -1,4 +1,7 @@
+import { CanvasButtonPosition } from '../core/CanvasPlugin';
 import VideoLayout from '../core/VideoLayout';
+
+import sideBySideIcon from "../../icons/icon_side_by_side.svg";
 
 export default class SingleVideoLayout extends VideoLayout {
     get identifier() { return "single-video"; }
@@ -14,9 +17,28 @@ export default class SingleVideoLayout extends VideoLayout {
             .filter(stream => stream.length === 1);
     }
 
+    getVideoCanvasButtons(layoutStructure, content, video, videoCanvas) {
+        if (this._multiStream) {
+            return [
+                {
+                    icon: sideBySideIcon,
+                    position: CanvasButtonPosition.LEFT,
+                    title: this.player.translate("Show second video stream"),
+                    ariaLabel: this.player.translate("Show second video stream"),
+                    click: () => {
+                        this.player.videoContainer.setLayout("presenter-presentation");
+                    }
+                }
+            ]
+        }
+        else {
+            return []
+        }
+    }
+
     getLayoutStructure(streamData, contentId) {
         const validContent = this.validContent.find(content => content.id===contentId);
-        return {
+        const layoutStructure = {
             player: this.player,
             name:{es:"One stream"},
             hidden:false,
@@ -49,5 +71,11 @@ export default class SingleVideoLayout extends VideoLayout {
             buttons: [],
             onApply: function() { }
         }
+
+        if (streamData.length > 1) {
+            this._multiStream = true;
+        }
+
+        return layoutStructure;
     }
 } 

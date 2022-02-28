@@ -10,6 +10,7 @@ import iconDualVideo from 'paella-core/icons/dual-video.svg';
 import iconSideBySide from 'paella-core/icons/icon_side_by_side.svg';
 import iconSwitchSide from 'paella-core/icons/icon_switch_side.svg';
 import iconMaximize from 'paella-core/icons/maximize.svg';
+import iconClose from 'paella-core/icons/close.svg';
 
 const layoutIcons = [
     iconMinimize,
@@ -197,6 +198,12 @@ export default class DualVideoLayout extends VideoLayout {
         }
     }
 
+    closeVideo(content) {
+        const singleStreamContentIds = this.player.videoContainer.validContentIds.filter(cid => cid.indexOf("-") === -1);
+        const contentId = singleStreamContentIds.find(cid => cid != content);
+        this.player.videoContainer.setLayout(contentId);
+    }
+
     getVideoCanvasButtons(layoutStructure, content, video, videoCanvas) {
         if (layoutStructure.id === "side-by-side") {
             // Buttons: swap videos and minimize
@@ -221,6 +228,17 @@ export default class DualVideoLayout extends VideoLayout {
                     click: () => {
                         this.minimizeVideo(content);
                         this.switchContent();
+                    }
+                },
+
+                // Close
+                {
+                    icon: iconClose,
+                    position: CanvasButtonPosition.RIGHT,
+                    title: this.player.translate('Close video'),
+                    ariaLabel: this.player.translate('Close video'),
+                    click: () => {
+                        this.closeVideo(content);
                     }
                 }
             ]
@@ -248,6 +266,16 @@ export default class DualVideoLayout extends VideoLayout {
                         this.minimizeVideo(content);
                     }
                 });
+
+                result.push({
+                    icon: iconClose,
+                    position: CanvasButtonPosition.RIGHT,
+                    title: this.player.translate('Close video'),
+                    ariaLabel: this.player.translate('Close video'),
+                    click: () => {
+                        this.closeVideo(content);
+                    }
+                });
             }
             else {
                 result.push({
@@ -268,7 +296,17 @@ export default class DualVideoLayout extends VideoLayout {
                     click: () => {
                         this.setSideBySide();
                     }
-                })
+                });
+
+                result.push({
+                    icon: iconClose,
+                    position: CanvasButtonPosition.RIGHT,
+                    title: this.player.translate('Close video'),
+                    ariaLabel: this.player.translate('Close video'),
+                    click: () => {
+                        this.closeVideo(content);
+                    }
+                });
             }
             return result;
         }

@@ -146,8 +146,8 @@ export default class SteramProvider extends PlayerResource {
 			}
 			
 			this.player.log.debug("players:");
-			this.player.log.debug(this._players[0]);
-			let currentTime = this._players[0].currentTimeSync;
+			this.player.log.debug(this.mainAudioPlayer);
+			let currentTime = this.mainAudioPlayer.currentTimeSync;
 			
 			// Check trimming
 			if (this.isTrimEnabled) {
@@ -263,7 +263,7 @@ export default class SteramProvider extends PlayerResource {
 	}
 	
 	async currentTime() {
-		const currentTime = (await this.executeAction("currentTime"))[0];
+		const currentTime = await this.mainAudioPlayer.currentTime();
 		if (this.isTrimEnabled) {
 			return currentTime - this.trimStart;
 		}
@@ -273,7 +273,7 @@ export default class SteramProvider extends PlayerResource {
 	}
 	
 	async currentTimeIgnoringTrimming() {
-		const currentTime = (await this.executeAction("currentTime"))[0];
+		const currentTime = await this.mainAudioPlayer.currentTime();
 		return currentTime;
 	}
 	

@@ -185,12 +185,11 @@ export default class VideoContainer extends DomClass {
             }
             
             if (isPresent && !video.isEnabled) {
-                await video.player.enable();
+                video.isEnabled = await video.player.enable();
             }
             else if (!isPresent && video.isEnabled) {
-                await video.player.disable();
+                video.isEnabled = await video.player.disable();
             }
-            video.isEnabled = isPresent;
         }
 
         // Hide all video players

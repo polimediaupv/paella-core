@@ -220,6 +220,7 @@ export class HlsVideo extends Mp4Video {
             // Initialize current audio track
             const tracks = await this.getAudioTracks();
             this._currentAudioTrack = tracks.find(track => track.selected);
+            this.saveDisabledProperties(this.video);
         }
     }
 
