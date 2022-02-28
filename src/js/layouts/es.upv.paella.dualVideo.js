@@ -214,12 +214,13 @@ export default class DualVideoLayout extends VideoLayout {
 
                 // Minimize
                 {
-                    icon: iconMinimize3,
+                    icon: iconMaximize,
                     position: CanvasButtonPosition.LEFT,
-                    title: this.player.translate('Minimize video'),
-                    ariaLabel: this.player.translate('Minimize video'),
+                    title: this.player.translate('Maximize video'),
+                    ariaLabel: this.player.translate('Maximize video'),
                     click: () => {
                         this.minimizeVideo(content);
+                        this.switchContent();
                     }
                 }
             ]
