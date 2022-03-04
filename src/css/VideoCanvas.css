@@ -13,15 +13,19 @@
 .video-canvas .button-area button {
     pointer-events: all;
     margin: 2px;
-}
-
-.video-canvas .button-area button {
     width: 40px;
     opacity: 0.8;
+    background-color: black;
+    border: none;
+    border-radius: 5px;
 }
 
-.video-canvas .button-area button svg {
-    filter: contrast(300%);
+.video-canvas .button-area button:hover {
+    background-color: red;
+}
+
+.video-canvas .button-area button svg path,rect {
+    fill:white;
 }
 
 .video-canvas .button-area button:hover {
