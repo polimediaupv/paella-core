@@ -246,7 +246,7 @@ The following files are the icons required by the video layout configuration:
 
 Manifest files are the files used by Paella Player to load the data of a video. The location of these files and their name is specified, among other places, in the configuration file. According to the configuration we have created, these files are located in the `manifest` directory, and have the name `data.json`. Between this directory and the manifest file, another directory is placed with the name of the video identifier.
 
-Por ejemplo, si nuestro vídeo de ejemplo va a tener el identificador `test-video`, el fichero `data.json` se ubicaría en `manifest/test-video/data.json`:
+For example, if our example video is to have the identifier `test-video`, the `data.json` file would be located in `manifest/test-video/data.json`:
 
 `manifest/test-video/data.json`
 
@@ -370,7 +370,7 @@ If you try to test your player, you will see that nothing has changed. This is b
 
 `config.json`
 
-```json 
+```json
 {
 	...
 	"plugins": {
