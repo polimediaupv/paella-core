@@ -1,73 +1,34 @@
 # Predefined plugins
 
-TODO: Work in progress
+## src/js/data
 
-## src/js/plugins
+Data plugins. You can check the documentation on [data plugins here](data_plugins.md).
 
-### es.upv.paella.defaultShortcuts.js
-
-Defines the default keyboard shortcuts of the video player:
-
-#### K and/or space key
-
-Pauses or replays the player.
-
-#### F key
-
-Switches between entering or exiting full screen mode.
-
-#### Arrow left key
-
-Rewinds the video 30 seconds in time.
-
-#### Arrow right key
-
-Fowards the video 30 seconds in time.
-
-#### Arrow up key
-
-Raises the video volume by 10%.
-
-#### Arrow down key
-
-Lowers the video volume by 10%.
-
-### es.upv.paella.testEventLogPlugin.js
-
-### es.upv.paella.testVideoContainerButton.js
-
-### es.upv.paella.playPauseButton.js
-
-### es.upv.paella.testFoldableButton.js
-
-### es.upv.paella.vttManifestCaptionsPlugin.js
-
-### es.upv.paella.testButtonGroupPlugin.js
-
-### es.upv.paella.testPopUp2Button.js
-
-### es.upv.paella.testCaptionsPlugin.js
-
-### es.upv.paella.testPopUpButton.js
-
-
+- `es.upv.paella.cookieDataPlugin.js`: A [data plugin](data_plugin.md) to store and load data from cookies.
 
 ## src/js/layouts
 
-### es.upv.paella.dualVideo.js
+Layout plugins. You can check the documentation about [video layout plugins in this document](video_layout.md).
 
-### es.upv.paella.singleVideo.js
+- `es.upv.paella.singleVideo.js`: Layout for videos with one or more streams.
+- `es.upv.paella.dualVideo.js`: Layout for videos with two or more streams.
+- `es.upv.paella.tripleVideo.js`: Layout for videos with three or more streams.
 
-### es.upv.paella.tripleVideo.js
+## src/js/videoFormats
+
+Plugins to implement support for new video formats. Check the documentation about [video format plugins in this document](video_plugin.md).
+
+- `es.upv.paella.hlsVideoFormat.js`: Support for m3u8 streams. Check the documentation about HLS video [in this document](hls-video-plugin.md).
+- `es.upv.paella.hlsLiveVideoFormat.js`: This plugin extends the `hlsVideoFormat.js` plugin, and it is used to support special settings on live stream videos.
+- `es.upv.paella.imageVideoFormat.js`: Support for virtual video composed by a list of images. You can check the documentation about this special video type in [this document](image-video-plugin.md)
+- `es.upv.paella.mp4VideoFormat.js`: Support for progressive download video. Check the documentation about this format [here](mp4-video-plugin.md) 
 
 
+## src/js/plugins
 
-# src/js/videoFormats
+Other plugins
 
-### es.upv.paella.hlsLiveVideoFormat.js
+- `es.upv.paella.defaultShortcuts.js`: Defines the default keyboard shortcuts of the video player
+- `es.upv.paella.playPauseButton.js`: Play and pause button.
+- `es.upv.paella.vttManifestCaptionsPlugin.js`: Allows to load subtitles in `VTT` format statically defined in the [video manifest](video_manifest.md) file.
 
-### es.upv.paella.hlsVideoFormat.js
-
-### es.upv.paella.imageVideoFormat.js
-
-### es.upv.paella.mp4VideoFormat.js
