@@ -1,10 +1,12 @@
-# Paella Player 7 documentation
+# `paella-core` documentation
 
 ## About Paella Player 7
 
 [Presentation](paella_player_7_presentation.md)
 
+## Paella Player 6.x and earlier versions
 
+[Documentation at github](https://github.com/polimediaupv/paella/tree/develop/doc)
 
 ## Getting started
 
