@@ -65,4 +65,4 @@ Video plugin formats available in [paella core](https://github.com/polimediaupv/
 
 [Utilities](utils.md): common-use utility package.
 
-[Predefined plugins](predefined_plugins.md): Lista de plugins incluidos en `paella-core`
+[Predefined plugins](predefined_plugins.md): List of plugins included in `paella-core`
