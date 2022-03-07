@@ -1,4 +1,4 @@
-# `paella-core` documentation
+# paella-core documentation
 
 ## About Paella Player 7
 
