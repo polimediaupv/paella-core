@@ -18,7 +18,6 @@
 
 [Embedding Paella Player in a Svelte application](paella_svelte.md)
 
-[paella-core plugins](paella-core-plugins.md): list of plugins that paella-core includes as standard.
 
 ## Reference
 
@@ -37,6 +36,8 @@
 [Captions](captions.md): APIs to load captions and subtitles.
 
 [Plugins](plugins.md): introduction to the plugin system in Paella Player 7
+
+[paella-core plugins](paella-core-plugins.md): list of plugins that paella-core includes as standard.
 
 [Video layout](video_layout.md): how to implement plugins to distribute the position of the video streams in the player container area.
 
@@ -60,6 +61,8 @@ Video plugin formats available in [paella core](https://github.com/polimediaupv/
 [Captions plugins](captions_plugins.md): allows to load different formats of captions.
 
 [Event plugins](event_log_plugin.md): capture events to trigger actions using a plugin.
+
+[Keyboard Shortcut plugins](key_shortucts.md): add shortcuts to handle player actions.
 
 [Localization](localization.md): translate text strings, add dictionaries and set up your preferred localization library in Paella Player.
 

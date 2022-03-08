@@ -69,7 +69,29 @@ Video layout for dual stream videos.
 }
 ```
 
+### `es.upv.paella.tripleVideo`:
 
+Video layout for triple stream videos
+
+```json
+ "es.upv.paella.tripleVideo": {
+    "enabled": true,
+    "validContent": [
+      {
+        "id": "presenter-presenter-2-presentation", 
+        "content": ["presenter","presenter-2","presentation"], 
+        "icon": "present-mode-4.svg", 
+        "title": "Presenter and presentation"
+      },
+      {
+        "id": "presenter-2-presenter-3-presentation",
+        "content": ["presenter-2","presenter-3","presentation"],
+        "icon": "present-mode-4.svg", 
+        "title": "Presenter and presentation"
+      }
+    ]
+  },
+```
 
 ## Video formats
 
