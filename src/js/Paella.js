@@ -7,7 +7,7 @@ import {
     defaultLoadVideoManifestFunction
 } from 'paella-core/js/core/initFunctions';
 import { resolveResourcePath, setupAutoHideUiTimer, clearAutoHideTimer } from 'paella-core/js/core/utils';
-import { createElement } from 'paella-core/js/core/dom';
+import Loader from "./core/Loader";
 import { registerPlugins, unregisterPlugins } from 'paella-core/js/core/Plugin';
 import VideoContainer from 'paella-core/js/core/VideoContainer';
 import PreviewContainer from 'paella-core/js/core/PreviewContainer';
@@ -381,15 +381,17 @@ export default class Paella {
         if (this._playerState !== PlayerState.MANIFEST) {
             throw new Error(`loadPlayer(): Invalid current player state: ${ PlayerStateNames[this._playerState]}`);
         }
+
+        this._previewContainer?.removeFromParent();
+
+        this._loader = new Loader(this);
         this._videoContainer = new VideoContainer(this, this._containerElement);
-        
+
         await this.videoContainer.load(this.videoManifest?.streams);
 
         triggerEvent(this, Events.STREAM_LOADED);
         
         this._playbackBar = new PlaybackBar(this, this.containerElement);
-
-        this._previewContainer?.removeFromParent();
         
         await this._playbackBar.load();
         
@@ -402,6 +404,9 @@ export default class Paella {
         triggerEvent(this, Events.PLAYER_LOADED);
 
         this._playerState = PlayerState.LOADED;
+
+        this._loader.removeFromParent();
+        this._loader = null;
     }
 
     async load() {

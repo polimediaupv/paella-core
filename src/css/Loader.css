@@ -1,0 +1,39 @@
+
+div.loader-container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 1000;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+div.loader-container i {
+    width: 350px;
+    height: 350px;
+    display: block;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 500px) {
+    div.loader-container i {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+@media (max-width: 800px) {
+    div.loader-container i {
+        width: 200px;
+        height: 200px;
+    }
+}
+
