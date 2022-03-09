@@ -1,6 +1,6 @@
 # Paella Player 7
 
-Paella Player 7 represents the most important change we have made since its first version was released in 2013. Paella Player 7 ha sido completamente reescrito para corregir una serie de problemas
+Paella Player 7 represents the most important change we have made since its first version was released in 2013. 
 
 Paella 7 has been completely rewritten, aiming several issues:
 
