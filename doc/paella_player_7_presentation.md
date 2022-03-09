@@ -5,12 +5,15 @@ Paella Player 7 represents the most important change we have made since its firs
 Paella 7 has been completely rewritten, aiming several issues:
 
 - Allow easier integration in other platforms by leaving out the singleton design pattern.
-- Easier stlyling and accessibility support.
+- Easier styling and accessibility support.
 - Reduce the number of dependences.
+- Improve stability
 - Allow easier long-term maintenance of the project.
-- Solve the technical debt of 10 years of development.
+- Solve the technical debt of 10 years of development & improve stability.
 
-The video manifest format will remain unchanged, but there are some features that have been consistently problematic and will no longer be supported. However, the biggest change has to do with the player implementation, which we have designed from scratch for the first time. For this reason, any code developed for Paella Player 6.x and earlier versions is not going to be compatible with Paella Player 7. 
+Backwards compatibility is maintained at config level, since the video manifest format remain unchanged. However, at functionality level, some features that have been consistently problematic will no longer be supported. 
+
+Player implementation has been rewritten from scratch. For this reason, any code developed for Paella Player 6.x and earlier versions will not be compatible with Paella Player 7. 
 
 We will maintain support for version 6.5 for bug fixes, although no new features will be included.
 
