@@ -24,7 +24,11 @@
     background-color: red;
 }
 
-.video-canvas .button-area button svg path,rect {
+.video-canvas .button-area button svg path {
+    fill:white;
+}
+
+.video-canvas .button-area button svg rect {
     fill:white;
 }
 
