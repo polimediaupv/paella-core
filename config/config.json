@@ -66,7 +66,13 @@
             "enabled": true,
             "order": 0,
             "hlsConfig": {
-                "maxBufferLength": 40
+                "enableWorker": true,
+                "maxBufferLength": 1,
+                "liveBackBufferLength": 0,
+                "liveSyncDuration": 0,
+                "liveMaxLatencyDuration": 5,
+                "liveDurationInfinity": true,
+                "highBufferWatchdogPeriod": 1
             },
             "corsConfig": {
                 "withCredentials": false,

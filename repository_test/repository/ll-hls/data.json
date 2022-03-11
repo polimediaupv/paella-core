@@ -1,0 +1,29 @@
+{
+	"metadata": {
+		"duration": 228,
+        "title": "HLS live",
+		"preview": "https://repository.paellaplayer.upv.es/hls-multiaudio/preview.jpg",
+		"related": []
+	},
+	"streams": [
+		{
+			"sources": {
+				"hlsLive": [
+					{
+						"src": "https://test.streaming.upv.es/test-llhls/PRUEBAS/playlist_sfm4s.m3u8",
+						"mimetype": "video/mp4",
+                        "res": {
+							"w": "1920",
+							"h": "1080"
+						}
+					}
+				]
+			},
+			"preview": "",
+			"content":"presenter",
+			"role": "mainAudio"
+		}
+	],
+	"frameList": [
+	]
+}

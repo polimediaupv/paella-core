@@ -62,8 +62,6 @@ const loadHls = (player, streamData, video, config, cors) => {
             if (!config.autoStartLoad) {
                 hls.autoStartLoad();
             }
-
-            hls.currentLevel = hls.levels.length>=initialQualityLevel ? initialQualityLevel : -1;
         });
 
         const rand = Math.floor(Math.random() * 100000000000);

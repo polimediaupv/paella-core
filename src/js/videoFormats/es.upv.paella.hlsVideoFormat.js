@@ -23,8 +23,6 @@ export const defaultHlsConfig = {
     nudgeOffset: 0.1,
     nudgeMaxRetry : 3,
     maxFragLookUpTolerance: 0.2,
-    liveSyncDurationCount: 3,
-    liveMaxLatencyDurationCount: 10,
     enableWorker: true,
     enableSoftwareAES: true,
     manifestLoadingTimeOut: 10000,
