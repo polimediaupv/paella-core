@@ -1,6 +1,6 @@
 # HLS Live video plugin
 
-It is implemented from [hls video plugin](hls-video-plugin.js). The difference is that this plugin responds to streams labeled `hlsLive` from [video manifest](video_manifest.md).
+It is implemented from [hls video plugin](hls-video-plugin.js). The difference is that this plugin responds to streams labeled `hlsLive` from [video manifest](video_manifest.md). In addition, the hls live plugin does not support setting the initial video quality, as this setting usually gives problems with low latency videos.
 
 ## Video Manifest
 
