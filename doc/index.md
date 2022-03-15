@@ -55,7 +55,7 @@ Video plugin formats available in [paella core](https://github.com/polimediaupv/
 - [Image video plugin](image-video-plugin.md)
 - [MP4 video plugin](mp4-video-plugin.md)
 - [hls video plugin](hls-video-plugin.md)
-- [hls live video plugin](hls-live-video-plugin.md)
+- [hls live (and low latency) video plugin](hls-live-video-plugin.md)
 
 [Data plugins](data_plugins.md): provides an interface to implement communication with the backend through the use of plugins
 
