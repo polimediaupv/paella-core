@@ -79,6 +79,15 @@ Separating the m3u8 video streams from the live m3u8 streams allows to have diff
 }
 ```
 
+## HLS low latency
+
+Paella supports HLS Low Latency by using the `hls.js` libraray. You only need to configure your streaming server to support it. See hls.js low latency [support project](https://github.com/video-dev/hls.js/projects/7).
+
+You can check your stream in the [hls.js demo page](https://hls-js.netlify.app/demo/). If the streams works in this demo, it will work on paella.
+
+If you use [wowza streaming server](https://www.wowza.com/), you can follow this [guide](wowza-configure-hls-low-latency.md) to configure HLS Low latency.
+
+
 ## More information and FAQ
 
 See the document about the [hls video plugin](hls-video-plugin.md) for more information.
