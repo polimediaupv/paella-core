@@ -70,3 +70,10 @@ Video plugin formats available in [paella core](https://github.com/polimediaupv/
 [Utilities](utils.md): common-use utility package.
 
 [Predefined plugins](predefined_plugins.md): List of plugins included in `paella-core`
+
+## Plugin repositories
+
+- [Paella basic plugins](https://github.com/polimediaupv/paella-basic-plugins): collection of basic plugins for paella-core.
+- [Paella slide plugins](https://github.com/polimediaupv/paella-slide-plugins): A set of plugins to handle slides for paella-core.
+- [Paella zoom plugin](https://github.com/polimediaupv/paella-zoom-plugin): A [canvas plugin](canvas_plugin.md) to zoom videos for paella-core.
+- [Paella user tracking plugins](https://github.com/polimediaupv/paella-user-tracking): It contains basic plugins for capturing user events, such as button or key presses, and other video events
