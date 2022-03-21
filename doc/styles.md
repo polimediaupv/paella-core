@@ -44,3 +44,13 @@ head.insertAdjacentHTML(
     '<link rel="stylesheet" href="custom-colors.css" />' 
 );
 ```
+
+It is important to do the loading of stylesheets at runtime, as this is the only way to ensure that the styles we add have higher priority over the predefined ones in paella-core and plugins. There is a function in the paella-core utilities that allows you to load stylesheets from JavaScript code asynchronously:
+
+```js
+import { utils } from 'paella-core';
+
+...
+
+await utils.loadStyle('custom-paella-styles.css');
+```
