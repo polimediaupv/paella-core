@@ -1,4 +1,5 @@
 
+import { resolve } from 'core-js/fn/promise';
 import Events, { bindEvent } from 'paella-core/js/core/Events';
 import PopUp from 'paella-core/js/core/PopUp';
 
@@ -144,4 +145,15 @@ export function getCookie(cname) {
       }
     }
     return "";
+}
+
+export function loadStyle(url) {
+    return new Promise(resolve => {
+        const link = document.createElement('link');
+        link.setAttribute('rel','stylesheet');
+        link.setAttribute('href',url);
+        link.onload = () => resolve();
+        const head = document.getElementsByTagName('head')[0];
+        head.appendChild(link);
+    });
 }
