@@ -1,5 +1,4 @@
 
-import { resolve } from 'core-js/fn/promise';
 import Events, { bindEvent } from 'paella-core/js/core/Events';
 import PopUp from 'paella-core/js/core/PopUp';
 
