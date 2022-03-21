@@ -22,11 +22,11 @@
 }
 
 .button-group button:hover {
-	background-color: red;
+	background-color: var(--secondary-bg-color-hover);
 }
 
 .button-group button:active {
-	background-color: rgba(0, 0, 0, 0.8);
+	background-color: var(--main-bg-color);
 }
 
 .button-group button i {
@@ -73,7 +73,7 @@
 
 
 .button-group button i svg {
-	fill: white;
+	fill: var(--main-fg-color);
 }
 
 .button-group .button-plugin-wrapper .button-description {
@@ -84,11 +84,11 @@
 	line-height: 40px;
 	padding-right: 20px;
 	box-sizing: border-box;
-	color: lightgray;
+	color: var(--main-fg-color);
 	user-select: none;
 }
 
 .button-group .button-plugin-wrapper .button-description:hover {
-    color: white;
-	text-shadow:0px 0px 2px white;
+    color: var(--main-fg-color);
+	text-shadow:0px 0px 2px var(--main-fg-color);
 }

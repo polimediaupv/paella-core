@@ -12,9 +12,9 @@
 .captions-canvas .captions-container {
     width: 80%;
     min-height: 30px;
-    background-color: rgba(0,0,0,0.78);
+    background-color: var(--main-bg-color);
     border-radius: 5px;
-    color: white;
+    color: var(--main-fg-color);
     position: absolute;
     bottom: 55px;
     left: 10%;

@@ -15,21 +15,21 @@
     margin: 2px;
     width: 40px;
     opacity: 0.8;
-    background-color: black;
+    background-color: var(--main-bg-color);
     border: none;
     border-radius: 5px;
 }
 
 .video-canvas .button-area button:hover {
-    background-color: red;
+    background-color: var(--highlight-bg-color-hover);
 }
 
 .video-canvas .button-area button svg path {
-    fill:white;
+    fill: var(--main-fg-color);
 }
 
 .video-canvas .button-area button svg rect {
-    fill:white;
+    fill: var(--main-fg-color);
 }
 
 .video-canvas .button-area button:hover {

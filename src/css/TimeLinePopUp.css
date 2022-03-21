@@ -1,6 +1,6 @@
 .timeline-popup-content {
     display: block;
-    background-color: rgba(50,50,50,0.78);
+    background-color: var(--main-bg-color);
     padding-top: 10px;
     padding-bottom: 10px;
     position: absolute;
@@ -8,7 +8,7 @@
     left: 2px;
     right: 2px;
     bottom: 52px;
-    color: white;
-    border-top: 1px solid rgba(125,125,125,0.4);
+    color: var(--main-fg-color);
+    border-top: 1px solid var(--main-border-color);
     z-index: 100;
 }

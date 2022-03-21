@@ -4,13 +4,13 @@
 	bottom: 0px;
 	left: 0px;
 	right: 0px;
-	background: rgb(32,32,32);
-	background: linear-gradient(0deg, rgba(32,32,32,1) 0%, rgba(32,32,32,0.49531687675070024) 72%, rgba(32,32,32,0.08355217086834732) 100%);
+	background: var(--secondary-bg-color);
+	background: var(--main-bg-gradient);
 	z-index: 100;
 }
 
 .playback-bar:hover {
-	background: rgb(32,32,32,0.8);
+	background: var(--secondary-bg-color-hover);
 }
 
 .progress-indicator {
@@ -22,7 +22,7 @@
 	position: absolute;
 	left: 0px;
 	top: 0px;
-	color: white;
+	color: var(--main-fg-color);
 	font-size: 10px;
 	line-height: 11px;
 	padding-left: 11px;
@@ -56,11 +56,11 @@
 }
 
 .playback-bar .button-plugins button:hover {
-	background-color: red;
+	background-color: var(--highlight-bg-color-hover);
 }
 
 .playback-bar .button-plugins button:active {
-	background-color: rgba(0, 0, 0, 0.8);
+	background-color: var(--secondary-bg-color-hover);
 }
 
 .playback-bar .button-plugins button i {
@@ -106,12 +106,12 @@
 
 
 .playback-bar .button-plugins button i svg {
-	fill: white;
+	fill: var(--main-fg-color);
 }
 
 .playback-bar .button-plugin-side-area {
 	display: inline;
-	color: white;
+	color: var(--main-fg-color);
 	height: 40px;
 	line-height: 40px;
 }
@@ -138,24 +138,25 @@
 	top: 0px;
 	width: 100%;
 	height: 100%;
-	background-color: rgba(0,0,0,0.5);
+	background-color: var(--secondary-bg-color-hover);
 }
 
 .progress-indicator-container .progress-indicator-content {
 	height: 100%;
-	background-color: rgba(255,0,0,0.8);
+	background-color: var(--highlight-bg-color-hover);
+	opacity: 0.8;
 	pointer-events: none;
 }
 
 .playback-bar:hover .progress-indicator-container .progress-indicator-content {
-	background-color: rgba(255,0,0,1);
+	background-color: var(--highlight-bg-color-hover);
 }
 
 .frame-thumbnail {
-	background-color: rgba(20, 20, 20, 0.8);
+	background-color: var(--secondary-bg-color-hover);
 	min-width: 100px;
 	min-height: 100px;
-	box-shadow: 0px 0px 5px 0px rgba(20,20,20,0.8);
+	box-shadow: 0px 0px 5px 0px var(--main-bg-color);
 	z-index: 10000;
 	pointer-events: none;
 }
@@ -191,7 +192,7 @@
 	line-height: 12px;
 	display: block;
 	height: 12px;
-	color: white;
+	color: var(--main-fg-color);
 	text-align: center;
 	margin: 0;
 	padding: 1;

@@ -13,17 +13,17 @@ ul.menu-button-content li.menu-button-item button {
 	background: none;
 	border: none;
 	width: 100%;
-	color: white;
+	color: var(--main-fg-color);
 	display: flex;
 	justify-content: space-around;
 }
 
 ul.menu-button-content li.menu-button-item button:hover {
-	background-color: #A00;
+	background-color: var(--secondary-bg-color);
 }
 
 ul.menu-button-content li.menu-button-item button.selected {
-	background-color: red;
+	background-color: var(--secondary-bg-color-hover);
 }
 
 ul.menu-button-content li.menu-button-item button i.menu-icon {
@@ -31,7 +31,7 @@ ul.menu-button-content li.menu-button-item button i.menu-icon {
 }
 
 ul.menu-button-content li.menu-button-item button i.menu-icon svg {
-	fill: white;
+	fill: var(--main-fg-color);
 	height: 40px;
 }
 
