@@ -1,5 +1,5 @@
 import VideoLayout from 'paella-core/js/core/VideoLayout';
-
+import { getCookie, setCookie } from 'paella-core/js/core/utils';
 import { CanvasButtonPosition } from '../core/CanvasPlugin';
 
 import iconRotate from 'paella-core/icons/icon_rotate.svg';
@@ -141,6 +141,10 @@ export default class DualVideoLayout extends VideoLayout {
     get identifier() { return "dual-video"; }
 
     async load() {
+        let layoutIndex = getCookie('dualVideoLayoutIndex');
+        if (layoutIndex !== "") {
+            layout = Number(layoutIndex);
+        }
         this.player.log.debug("Dual video layout loaded");
     }
 
@@ -317,6 +321,16 @@ export default class DualVideoLayout extends VideoLayout {
             const {content} = this.validContent.find(content => content.id === contentId);
             this._currentContent = content;
             this._currentContentId = contentId;
+
+            const content0 = getCookie('dualVideoLayoutContent0');
+            const content1 = getCookie('dualVideoLayoutContent1');
+            if (content0 !== "" && content1 !== "" && 
+                this._currentContent.indexOf(content0) !== -1 && 
+                this._currentContent.indexOf(content1) !== -1)
+            {
+                this._currentContent[0] = content0;
+                this._currentContent[1] = content1;
+            }
         }
         const selectedLayout = currentLayout(this._currentContent);
 
@@ -328,6 +342,11 @@ export default class DualVideoLayout extends VideoLayout {
             videos: selectedLayout.videos,
             buttons: []
         };
+
+        // Save layout settings
+        setCookie("dualVideoLayoutIndex", layout);
+        setCookie("dualVideoLayoutContent0", this._currentContent[0]);
+        setCookie("dualVideoLayoutContent1", this._currentContent[1]);
         
         return result;
     }
