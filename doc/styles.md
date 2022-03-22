@@ -4,36 +4,7 @@ The paella core styles are designed to make it possible to define, in a simple w
 
 For this purpose, paella core colors are defined by CSS variables. By defining a stylesheet that rewrites these variables, it is possible to quickly change the colors of the player.
 
-```html
-<html>
-<head>
-    ...
-    <script src="paella-core.js"></script>
-    <link rel="stylesheet" href="custom-colors.css">
-</head>
-...
-```
-
-## CSS variables
-
-```css
-:root {
-    --main-fg-color: white;
-    --main-bg-color: rgba(0,0,0,0.8);
-    --main-bg-color-hover: rgb(0,0,0);
-    --secondary-bg-color: rgb(32,32,32);
-    --secondary-bg-color-hover: rgba(32,32,32,0.8);
-    --highlight-bg-color: #A00;
-    --highlight-bg-color-hover: red;
-    --main-bg-gradient: linear-gradient(0deg, rgba(32,32,32,1) 0%, rgba(32,32,32,0.49531687675070024) 72%, rgba(32,32,32,0.08355217086834732) 100%);
-    --main-border-color: rgba(125,125,125,0.4);
-    --video-container-background-color: #e4e4e4;
-    --base-video-rect-background-color: #8a8a8a;
-}
-
-```
-
-## Skining
+## Load styles
 
 It is possible to define skins for paella core easily by adding style sheets at the end of the header.
 
@@ -53,4 +24,23 @@ import { utils } from 'paella-core';
 ...
 
 await utils.loadStyle('custom-paella-styles.css');
+```
+
+## CSS variables
+
+```css
+:root {
+    --main-fg-color: white;
+    --main-bg-color: rgba(0,0,0,0.8);
+    --main-bg-color-hover: rgb(0,0,0);
+    --secondary-bg-color: rgb(32,32,32);
+    --secondary-bg-color-hover: rgba(32,32,32,0.8);
+    --highlight-bg-color: #A00;
+    --highlight-bg-color-hover: red;
+    --main-bg-gradient: linear-gradient(0deg, rgba(32,32,32,1) 0%, rgba(32,32,32,0.49531687675070024) 72%, rgba(32,32,32,0.08355217086834732) 100%);
+    --main-border-color: rgba(125,125,125,0.4);
+    --video-container-background-color: #e4e4e4;
+    --base-video-rect-background-color: #8a8a8a;
+}
+
 ```
