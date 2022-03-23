@@ -107,3 +107,34 @@ If any of these functions are used in an unsuitable state, Paella Player will th
 
 It is important to note that when the player is downloaded, the registered event handlers will be deleted if we do not indicate otherwise. See all the information about [event handlers in this document](events.md).
 
+## Transitional states
+
+The change from one state to another in the lifecycle is usually not instantaneous. For example, depending on the bandwidth of the connection, moving from the `MANIFEST` state to the `LOADED` state may take a few seconds. There are four extra states that are generated during these transitions:
+
+<table>
+  <tr>
+    <th>Source state</th>
+    <th>Destination state</th>
+    <th>Transitional state</th> 
+  </tr>
+  <tr>
+    <td>`PlayerState.UNLOADED`</td>
+    <td>`PlayerState.MANIFEST`</td>
+    <td>`PlayerState.LOADING_MANIFEST`</td>
+  </tr>
+  <tr>
+    <td>`PlayerState.MANIFEST`</td>
+    <td>`PlayerState.LOADED`</td>
+    <td>`PlayerState.LOADING_PLAYER`</td>
+  </tr>
+    <tr>
+    <td>`PlayerState.LOADED`</td>
+    <td>`PlayerState.MANIFEST`</td>
+    <td>`PlayerState.UNLOADING_PLAYER`</td>
+  </tr>
+    <tr>
+    <td>`PlayerState.MANIFEST`</td>
+    <td>`PlayerState.UNLOADED`</td>
+    <td>`PlayerState.UNLOADING_MANIFEST`</td>
+  </tr>
+</table>
