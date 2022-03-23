@@ -101,3 +101,8 @@ In the player configuration is where we define the priority level of each data p
 }
 ```
 
+## Event log plugins and life cycle
+
+Event handlers that are registered in an event plugin are automatically deleted if the player is unloaded. This is desirable because if after downloading the player another reload occurs, the plugins will be reloaded again, and therefore the event handlers registered in an event plugin will be re-registered again.
+
+More information on this topic can be found in the [documentation about event handlers](events.md).

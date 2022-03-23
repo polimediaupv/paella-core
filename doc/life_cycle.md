@@ -102,3 +102,8 @@ There are certain functions that can only be called in a specific state. Other f
 </table>
 
 If any of these functions are used in an unsuitable state, Paella Player will throw an exception.
+
+## Life cycle and events
+
+It is important to note that when the player is downloaded, the registered event handlers will be deleted if we do not indicate otherwise. See all the information about [event handlers in this document](events.md).
+

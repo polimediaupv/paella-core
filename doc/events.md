@@ -10,7 +10,7 @@ import { Events, bindEvent } from 'paella-core';
 ...
 
 // `player` contains our Paella Player instance
-bindEvent(player, Events.PLAY, () => console.log("The video is playing"));
+bindEvent(player, Events.PLAY, () => console.log("The video is playing"), false);
 ```
 
 You can also create your own events. The event type identifier is any text string, however you should use some kind of prefix to avoid collisions with other event names. The paella player core events all follow the `paella:*` pattern, and are all published in the `Events` object, which exports the `paella-core` package, as shown in the code above.
@@ -39,10 +39,8 @@ import { bindEvent } from 'paella-core';
 bindEvent(playerInstance, MyEvents.TRIGGER_ACTION, (params) => {
   console.log("Trigger action");
   console.log(params);
-});
+}, false);
 ```
-
-
 
 ## Using events from Paella Player instance
 
@@ -53,10 +51,44 @@ var player = __player_instances__[0];
 player.bindEvent(player.Events.TRIMMING_CHANGED, (eventData) => {
   console.log("The video trimming has changed");
   console.log(eventData);
-});
+}, false);
 ```
 
 **Note:** Please note that the preferred API for triggering events is the ES6 module API. The paella.bindEvent() function is only recommended for debugging tasks from the web browser development tools console.
+
+
+## Events and player life cycle
+
+In certain types of applications, especially on SPA websites, it is possible that the paella player instance may be loaded and unloaded several times. For example, if we want to load a different video without having to reload the page, we will have to make use of the lifecycle functions to unload the player and then reload it again. See more info about [paella player life cicle in this document](life_cycle.md).
+
+In the case of player reloading, two cases may occur, as far as events are concerned:
+
+- The registered event must be removed when the player is reloaded: if the code in which we are registering the event is going to be automatically re-executed when the player is reloaded, then that event has to be cleared when the player is unloaded. Otherwise, the event will re-register again each time the reload occurs. For example, if the event is registered in the `load()` method of a plugin, since that code will be executed again when the player is reloaded.
+- The registered event must persist when the player is reloaded: if the code where the event is registered is not going to be called automatically at the time of reloading, we want it to be maintained after reloading the player. For example, in the following code snippet we register an event in the code that builds the player instance. This code will only execute once, so we will want the event to hold if the player is reloaded.
+
+```js
+let paella = new Paella('player-container', initParams);
+
+paella.bindEvent(
+  Events.PLAYER_LOADED,
+  () => player.log.debug("====== Player loaded ======="),
+  false   // The event must not be deleted when reloading the player.
+);
+
+await paella.loadManifest();
+```
+
+The last parameter in `player.bindEvent` and `bindEvent` functions indicates if the event must be removed on player unload. The default value is `true`, because it is usually more advisable to interact with paella core APIs from plugins, and in this case events should always be cleared if a reload occurs.
+
+```js
+import { bindEvent } from 'paella-core';
+...
+bindEvent(playerInstance, eventName, callback, unloadOnReload = true);
+```
+
+```js
+playerInstance.bindEvent(eventName, callback, unloadOnReload = true);
+```
 
 ## Predefined events
 
