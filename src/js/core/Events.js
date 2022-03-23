@@ -24,17 +24,20 @@ export default {
 	VIDEO_QUALITY_CHANGED: "paella:videoQualityChanged"
 };
 
-export function bindEvent(player, event, callback) {
+export function bindEvent(player, event, callback, unregisterOnUnload = true) {
 	player.__eventListeners__ = player.__eventListeners__ || {};
 	player.__eventListeners__[event] = player.__eventListeners__[event] || [];
-	player.__eventListeners__[event].push(callback);
+	player.__eventListeners__[event].push({
+		callback,
+		unregisterOnUnload
+	});
 	return callback;
 }
 
 export function triggerEvent(player, event, params = {}) {
 	player.__eventListeners__ &&
 	player.__eventListeners__[event] &&
-	player.__eventListeners__[event].forEach(cb => cb(params));
+	player.__eventListeners__[event].forEach(cbData => cbData.callback(params));
 }
 
 export function triggerIfReady(player, event, params = {}) {
@@ -44,5 +47,12 @@ export function triggerIfReady(player, event, params = {}) {
 }
 
 export function unregisterEvents(player) {
-	player.__eventListeners__ = null;
+	if (!player.__eventListeners__) {
+		return;
+	}
+
+	for (const event in player.__eventListeners__) {
+		player.__eventListeners__[event] = player.__eventListeners__[event].filter(cbData => cbData.unregisterOnUnload == false);
+		console.log(player.__eventListeners__[event]);
+	}
 }

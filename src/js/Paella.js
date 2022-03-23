@@ -182,8 +182,8 @@ export default class Paella {
         addDictionary(lang,dict);
     }
 
-    bindEvent(eventName, fn) {
-        bindEvent(this, eventName, data => fn(data));
+    bindEvent(eventName, fn, unregisterOnUnload = true) {
+        bindEvent(this, eventName, data => fn(data), unregisterOnUnload);
     }
 
     getShortcuts() {

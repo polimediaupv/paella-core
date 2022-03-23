@@ -66,30 +66,34 @@ window.onload = async () => {
 	
 	bindEvent(paella, Events.BUTTON_PRESS, (params) => {
 		paella.log.debug(params);
-	});
+	}, false);
 	
 	bindEvent(paella, Events.SHOW_POPUP, (params) => {
 		paella.log.debug("Show popup");
 		paella.log.debug(params);
-	});
+	}, false);
 	
 	bindEvent(paella, Events.HIDE_POPUP, (params) => {
 		paella.log.debug("Hide popup");
 		paella.log.debug(params);
-	});
+	}, false);
 	
 	bindEvent(paella, Events.MANIFEST_LOADED, () => {
 		paella.log.debug("Video manifest loaded");
-	});
+	}, false);
 	
 	bindEvent(paella, Events.LAYOUT_CHANGED, () => {
 		paella.log.debug("Layout changed");
-	});
+	}, false);
 	
 	bindEvent(paella, Events.VOLUME_CHANGED, () => {
 		paella.log.debug("Volume changed");
-	})
+	}, false);
 	
+	bindEvent(paella, Events.PLAYER_LOADED, () => {
+		paella.log.debug("============================== Player loaded =================================");
+	}, false);
+
 	paella.loadManifest()
 		.then(() => paella.log.debug(`${paella.translate("Rice")} ${paella.translate("Chicken")}`))
 		.catch(e => paella.log.error(e));
