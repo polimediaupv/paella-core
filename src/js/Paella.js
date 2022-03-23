@@ -44,14 +44,22 @@ import defaultDictionaries from "./default-dictionaries.js";
 
 export const PlayerState = {
     UNLOADED: 0,
-    MANIFEST: 1,
-    LOADED: 2
+    LOADING_MANIFEST: 1,
+    MANIFEST: 2,
+    LOADING_PLAYER: 3,
+    LOADED: 4,
+    UNLOADING_MANIFEST: 5,
+    UNLOADING_PLAYER: 6
 };
 
 export const PlayerStateNames = [
     'UNLOADED',
+    'LOADING_MANIFEST',
     'MANIFEST',
-    'LOADED'
+    'LOADING_PLAYER',
+    'LOADED',
+    'UNLOADING_MANIFEST',
+    'UNLOADING_PLAYER'
 ];
 
 function buildPreview() {
@@ -319,6 +327,7 @@ export default class Paella {
             throw new Error(`loadManifest(): Invalid current player state: ${ PlayerStateNames[this._playerState]}`);
         }
         if (this._manifestLoaded) return;
+        this._playerState = PlayerState.LOADING_MANIFEST;
         this._manifestLoaded = true;
 
         this.log.debug("Loading paella player");
@@ -383,9 +392,12 @@ export default class Paella {
             throw new Error(`loadPlayer(): Invalid current player state: ${ PlayerStateNames[this._playerState]}`);
         }
 
+        this._playerState = PlayerState.LOADING_PLAYER;
+
         this._previewContainer?.removeFromParent();
 
         this._loader = new Loader(this);
+        
         this._videoContainer = new VideoContainer(this, this._containerElement);
 
         await this.videoContainer.load(this.videoManifest?.streams);
@@ -402,9 +414,10 @@ export default class Paella {
         
         this._captionsCanvas.load();
 
+        this._playerState = PlayerState.LOADED;
+
         triggerEvent(this, Events.PLAYER_LOADED);
 
-        this._playerState = PlayerState.LOADED;
 
         this._loader.removeFromParent();
         this._loader = null;
@@ -421,6 +434,8 @@ export default class Paella {
             break;
         case PlayerState.LOADED:
             break;
+        default:
+            throw new Error(`Could not load player: state transition in progress: ${PlayerStateNames[this.state]}`);
         }
     }
 
@@ -435,6 +450,8 @@ export default class Paella {
             await this.unloadPlayer();        
             await this.unloadManifest();
             break;
+        default:
+            throw new Error(`Could not unload player: state transition in progress: ${PlayerStateNames[this.state]}`);
         }
     }
     
@@ -442,50 +459,52 @@ export default class Paella {
         if (this._playerState !== PlayerState.MANIFEST) {
             throw new Error(`unloadManifest(): Invalid current player state: ${ PlayerStateNames[this._playerState]}`);
         }
-        this._playerState = PlayerState.UNLOADED;
-
+        this._playerState = PlayerState.UNLOADING_MANIFEST;
+        
         this.log.debug("Unloading paella player");
-    
+        
         // EventLogPlugin plugins are loaded first, so that all lifecycle events can be captured.
         await unloadLogEventPlugins(this);
-
+        
         // KeyShortcutPlugins are loaded before UI load to allow the video load using shortcuts
         await unloadKeyShortcutPlugins(this);
-
+        
         await unregisterPlugins(this);
-
+        
         this._manifestLoaded = false;
         this._previewContainer?.removeFromParent();
+        this._playerState = PlayerState.UNLOADED;
     }
 
     async unloadPlayer() {
         if (this._playerState !== PlayerState.LOADED) {
             throw new Error(`unloadManifest(): Invalid current player state: ${ PlayerStateNames[this._playerState]}`);
         }
-        this._playerState = PlayerState.MANIFEST;
-
+        this._playerState = PlayerState.UNLOADING_PLAYER;
+        
         await this._videoContainer.unload();
         this._videoContainer = null;
-
+        
         await this._playbackBar.unload();
         this._playbackBar = null;
-
+        
         this._captionsCanvas.unload();
         this._captionsCanvas = null;
-
+        
         clearAutoHideTimer(this);
-
+        
         triggerEvent(this, Events.PLAYER_UNLOADED);
-
+        
         PopUp.Unload();
-
+        
         TimeLinePopUp.Unload(this);
-
+        
         if (this.videoManifest?.metadata?.preview) {
             buildPreview.apply(this);
         }
-
+        
         unregisterEvents(this);
+        this._playerState = PlayerState.MANIFEST;
     }
 
     async reload(onUnloadFn = null) {
