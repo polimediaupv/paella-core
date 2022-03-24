@@ -396,6 +396,7 @@ export default class Paella {
         }
         catch (err) {
             this._playerState = PlayerState.ERROR;
+            console.log(err);
             this._errorContainer = new ErrorContainer(this, err.message);
             throw err;
         }
