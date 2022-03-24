@@ -8,6 +8,7 @@ import {
 } from 'paella-core/js/core/initFunctions';
 import { resolveResourcePath, setupAutoHideUiTimer, clearAutoHideTimer } from 'paella-core/js/core/utils';
 import Loader from "./core/Loader";
+import ErrorContainer from "./core/ErrorContainer";
 import { registerPlugins, unregisterPlugins } from 'paella-core/js/core/Plugin';
 import VideoContainer from 'paella-core/js/core/VideoContainer';
 import PreviewContainer from 'paella-core/js/core/PreviewContainer';
@@ -49,7 +50,8 @@ export const PlayerState = {
     LOADING_PLAYER: 3,
     LOADED: 4,
     UNLOADING_MANIFEST: 5,
-    UNLOADING_PLAYER: 6
+    UNLOADING_PLAYER: 6,
+    ERROR: 7
 };
 
 export const PlayerStateNames = [
@@ -59,7 +61,8 @@ export const PlayerStateNames = [
     'LOADING_PLAYER',
     'LOADED',
     'UNLOADING_MANIFEST',
-    'UNLOADING_PLAYER'
+    'UNLOADING_PLAYER',
+    'ERROR'
 ];
 
 function buildPreview() {
@@ -168,6 +171,10 @@ export default class Paella {
 
     get state() {
         return this._playerState;
+    }
+
+    get stateText() {
+        return PlayerStateNames[this.state];
     }
 
     get Events() {
@@ -327,100 +334,120 @@ export default class Paella {
             throw new Error(`loadManifest(): Invalid current player state: ${ PlayerStateNames[this._playerState]}`);
         }
         if (this._manifestLoaded) return;
-        this._playerState = PlayerState.LOADING_MANIFEST;
-        this._manifestLoaded = true;
 
-        this.log.debug("Loading paella player");
-        this._config = await this.initParams.loadConfig(this.configUrl,this);
+        try {
 
-        const urlSearch = new URLSearchParams(window.location.search);
-        const urlParamLogLevel = urlSearch.get("logLevel");
-        const logLevel = (Array.from(Object.keys(LOG_LEVEL)).indexOf(urlParamLogLevel) !== -1) ?
-            urlParamLogLevel :
-            this._config.logLevel || "INFO";
-        this._log.setLevel(logLevel);
-
-        // Load localization dictionaries
-        await this._initParams.loadDictionaries(this);
-
-        registerPlugins(this);
-
-        // EventLogPlugin plugins are loaded first, so that all lifecycle events can be captured.
-        await loadLogEventPlugins(this);
-
-        // KeyShortcutPlugins are loaded before UI load to allow the video load using shortcuts
-        await loadKeyShortcutPlugins(this);
-
-        this._videoId = await this.initParams.getVideoId(this._config, this);
-
-        this._manifestUrl = await this.initParams.getManifestUrl(this.repositoryUrl,this.videoId,this._config,this);
-        
-        this._manifestFileUrl = await this.initParams.getManifestFileUrl(this._manifestUrl, this.manifestFileName,this._config,this);
-
-        this.log.debug(`Loading video with identifier '${this.videoId}' from URL '${this.manifestFileUrl}'`);
-
-        this._videoManifest = await this.initParams.loadVideoManifest(this.manifestFileUrl,this._config,this);
-
-        this.log.debug("Video manifest loaded:");
-        this.log.debug(this.videoManifest);
-
-        // Load data plugins
-        this._data = new Data(this);
-
-        // Load default dictionaries
-        for (const lang in defaultDictionaries) {
-            const dict = defaultDictionaries[lang];
-            addDictionary(lang, dict);
+            this._playerState = PlayerState.LOADING_MANIFEST;
+            this._manifestLoaded = true;
+    
+            this.log.debug("Loading paella player");
+            this._config = await this.initParams.loadConfig(this.configUrl,this);
+    
+            const urlSearch = new URLSearchParams(window.location.search);
+            const urlParamLogLevel = urlSearch.get("logLevel");
+            const logLevel = (Array.from(Object.keys(LOG_LEVEL)).indexOf(urlParamLogLevel) !== -1) ?
+                urlParamLogLevel :
+                this._config.logLevel || "INFO";
+            this._log.setLevel(logLevel);
+    
+            // Load localization dictionaries
+            await this._initParams.loadDictionaries(this);
+    
+            registerPlugins(this);
+    
+            // EventLogPlugin plugins are loaded first, so that all lifecycle events can be captured.
+            await loadLogEventPlugins(this);
+    
+            // KeyShortcutPlugins are loaded before UI load to allow the video load using shortcuts
+            await loadKeyShortcutPlugins(this);
+    
+            this._videoId = await this.initParams.getVideoId(this._config, this);
+    
+            this._manifestUrl = await this.initParams.getManifestUrl(this.repositoryUrl,this.videoId,this._config,this);
+            
+            this._manifestFileUrl = await this.initParams.getManifestFileUrl(this._manifestUrl, this.manifestFileName,this._config,this);
+    
+            this.log.debug(`Loading video with identifier '${this.videoId}' from URL '${this.manifestFileUrl}'`);
+    
+            this._videoManifest = await this.initParams.loadVideoManifest(this.manifestFileUrl,this._config,this);
+    
+            this.log.debug("Video manifest loaded:");
+            this.log.debug(this.videoManifest);
+    
+            // Load data plugins
+            this._data = new Data(this);
+    
+            // Load default dictionaries
+            for (const lang in defaultDictionaries) {
+                const dict = defaultDictionaries[lang];
+                addDictionary(lang, dict);
+            }
+    
+            this._playerState = PlayerState.MANIFEST;
+            triggerEvent(this, Events.MANIFEST_LOADED);
+    
+            // The video preview is required to use the lazy load
+            if (!this.videoManifest?.metadata?.preview) {
+                await this.loadPlayer();
+            }
+            else {
+                buildPreview.apply(this);
+            }
         }
-
-        this._playerState = PlayerState.MANIFEST;
-        triggerEvent(this, Events.MANIFEST_LOADED);
-
-        // The video preview is required to use the lazy load
-        if (!this.videoManifest?.metadata?.preview) {
-            await this.loadPlayer();
-        }
-        else {
-            buildPreview.apply(this);
+        catch (err) {
+            this._playerState = PlayerState.ERROR;
+            this._errorContainer = new ErrorContainer(this, err.message);
+            throw err;
         }
     }
 
     async loadPlayer() {
-        this._captionsCanvas = new CaptionCanvas(this, this._containerElement);
+        try {
+            this._captionsCanvas = new CaptionCanvas(this, this._containerElement);
 
-        if (this._playerState !== PlayerState.MANIFEST) {
-            throw new Error(`loadPlayer(): Invalid current player state: ${ PlayerStateNames[this._playerState]}`);
+            if (this._playerState !== PlayerState.MANIFEST) {
+                throw new Error(`loadPlayer(): Invalid current player state: ${ PlayerStateNames[this._playerState]}`);
+            }
+    
+            this._playerState = PlayerState.LOADING_PLAYER;
+    
+            this._previewContainer?.removeFromParent();
+    
+            this._loader = new Loader(this);
+            
+            this._videoContainer = new VideoContainer(this, this._containerElement);
+    
+            await this.videoContainer.load(this.videoManifest?.streams);
+    
+            triggerEvent(this, Events.STREAM_LOADED);
+            
+            this._playbackBar = new PlaybackBar(this, this.containerElement);
+            
+            await this._playbackBar.load();
+            
+            // UI hide timer
+            this._hideUiTime = 5000;
+            setupAutoHideUiTimer(this);
+            
+            this._captionsCanvas.load();
+    
+            this._playerState = PlayerState.LOADED;
+    
+            triggerEvent(this, Events.PLAYER_LOADED);
+    
+    
+            this._loader.removeFromParent();
+            this._loader = null;
         }
-
-        this._playerState = PlayerState.LOADING_PLAYER;
-
-        this._previewContainer?.removeFromParent();
-
-        this._loader = new Loader(this);
-        
-        this._videoContainer = new VideoContainer(this, this._containerElement);
-
-        await this.videoContainer.load(this.videoManifest?.streams);
-
-        triggerEvent(this, Events.STREAM_LOADED);
-        
-        this._playbackBar = new PlaybackBar(this, this.containerElement);
-        
-        await this._playbackBar.load();
-        
-        // UI hide timer
-        this._hideUiTime = 5000;
-        setupAutoHideUiTimer(this);
-        
-        this._captionsCanvas.load();
-
-        this._playerState = PlayerState.LOADED;
-
-        triggerEvent(this, Events.PLAYER_LOADED);
-
-
-        this._loader.removeFromParent();
-        this._loader = null;
+        catch (err) {
+            this._playerState = PlayerState.ERROR;
+            if (this._loader) {
+                this._loader.removeFromParent();
+                this._loader = null;
+            }
+            this._errorContainer = new ErrorContainer(this, err.message);
+            throw err;
+        }
     }
 
     async load() {
@@ -447,6 +474,7 @@ export default class Paella {
             await this.unloadManifest();
             break;
         case PlayerState.LOADED:
+        case PlayerState.ERROR:
             await this.unloadPlayer();        
             await this.unloadManifest();
             break;
@@ -456,8 +484,12 @@ export default class Paella {
     }
     
     async unloadManifest() {
-        if (this._playerState !== PlayerState.MANIFEST) {
+        if (this._playerState !== PlayerState.MANIFEST && this._playerState !== PlayerState.ERROR) {
             throw new Error(`unloadManifest(): Invalid current player state: ${ PlayerStateNames[this._playerState]}`);
+        }
+        if (this._errorContainer) {
+            this._errorContainer.removeFromParent();
+            this._errorContainer = null;
         }
         this._playerState = PlayerState.UNLOADING_MANIFEST;
         
@@ -477,18 +509,22 @@ export default class Paella {
     }
 
     async unloadPlayer() {
-        if (this._playerState !== PlayerState.LOADED) {
+        if (this._playerState !== PlayerState.LOADED && this._playerState !== PlayerState.ERROR) {
             throw new Error(`unloadManifest(): Invalid current player state: ${ PlayerStateNames[this._playerState]}`);
+        }
+        if (this._errorContainer) {
+            this._errorContainer.removeFromParent();
+            this._errorContainer = null;
         }
         this._playerState = PlayerState.UNLOADING_PLAYER;
         
-        await this._videoContainer.unload();
+        await this._videoContainer?.unload();
         this._videoContainer = null;
         
-        await this._playbackBar.unload();
+        await this._playbackBar?.unload();
         this._playbackBar = null;
         
-        this._captionsCanvas.unload();
+        this._captionsCanvas?.unload();
         this._captionsCanvas = null;
         
         clearAutoHideTimer(this);

@@ -138,3 +138,11 @@ The change from one state to another in the lifecycle is usually not instantaneo
     <td>`PlayerState.UNLOADING_MANIFEST`</td>
   </tr>
 </table>
+
+## Error state
+
+If an error occurs while loading a video, the player will remain in an 'ERROR' state. This state is only used to indicate that an error has occurred. Otherwise, the internal state of the player remains the same as in the `UNLOADED` state.
+
+From the `ERROR` state it is possible to restart the loading of a video. If the error in the video upload has been solved (for example, if we change the video identifier to be uploaded), the upload can be performed correctly.
+
+It is important to note that, once an error has occurred, the `unload()` function must first be called to reload the player.

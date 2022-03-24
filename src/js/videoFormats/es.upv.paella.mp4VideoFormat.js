@@ -278,13 +278,18 @@ export class Mp4Video extends Video {
             }
             else {
                 const startWaitTimer = () => {
-                    if (this.video.readyState >= 2) {
+                    this._waitTimer && clearTimeout(this._waitTimer);
+                    this._waitTimer = null;
+                    if (this.video.error) {
+                        reject(new Error(`Error loading video: ${this.video.src}. Code: ${this.video.error.code}: ${this.video.error.message}`));
+                    }
+                    else if (this.video.readyState >= 2) {
                         this.video.pause(); // Pause the video because it is loaded in autoplay mode
                         this._ready = true;
                         resolve();
                     }
                     else {
-                        setTimeout(() => startWaitTimer(), 100);
+                        this._waitTimer = setTimeout(() => startWaitTimer(), 100);
                     }
                 }
 
