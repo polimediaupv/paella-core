@@ -10,7 +10,8 @@ function placePopUp(player, anchorElement, contentElement) {
 		const { top, left, right, bottom, width, height } = anchorElement.getBoundingClientRect();
 		const centerX = left + width / 2;
 		const centerY = top + height / 2;
-		
+		const scroll =  + document.body.scrollTop;
+
 		// TODO: use the viewContainer element
 		const viewportWidth = window.innerWidth;
 		const viewportHeight = window.innerHeight;
@@ -22,30 +23,31 @@ function placePopUp(player, anchorElement, contentElement) {
 		
 		// Decide where to attach the popup depending on the anchor position
 		contentElement.style.overflow = "auto";
+		contentElement.style.display = "table";
 		if (viewportCenterX>centerX && viewportCenterY<=centerY) {
 			// bottom left
 			const b = viewportHeight - (bottom - height);
 			contentElement.style.left = `${ left }px`;
-			contentElement.style.bottom = `${ b }px`;
+			contentElement.style.bottom = `${ b - scroll }px`;
 			contentElement.style.maxHeight = `calc(100vh - ${ b }px - 10px)`;
 		}
 		else if (viewportCenterX>centerX && viewportCenterY>centerY) {
 			// top left quadrant
 			contentElement.style.left = `${ left }px`;
-			contentElement.style.top = `${ top + height }px`;
+			contentElement.style.top = `${ top + height + scroll }px`;
 			contentElement.style.maxHeight = `calc(100vh - ${ top + height }px - 10px)`;
 		}
 		else if (viewportCenterX<=centerX && viewportCenterY>centerY) {
 			// top right quadrant
 			contentElement.style.right = `${ viewportWidth - right }px`;
-			contentElement.style.top = `${ top + height }px`;
+			contentElement.style.top = `${ top + height + scroll }px`;
 			contentElement.style.maxHeight = `calc(100vh - ${ top + height }px - 10px)`;
 		}
 		else if (viewportCenterX<=centerX && viewportCenterY<=centerY) {
 			// bottom right quadrant
 			const b = viewportHeight - (bottom - height);
 			contentElement.style.right = `${ viewportWidth - right }px`;
-			contentElement.style.bottom = `${ b }px`;
+			contentElement.style.bottom = `${ b - scroll }px`;
 			contentElement.style.maxHeight = `calc(100vh - ${ b }px - 10px)`;
 		}
 	}
