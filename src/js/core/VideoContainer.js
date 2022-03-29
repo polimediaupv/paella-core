@@ -29,8 +29,7 @@ export default class VideoContainer extends DomClass {
         const baseVideoRectClass = "base-video-rect";
 
         const attributes = {
-            "class": "video-container",
-            "style": "position: relative;"
+            "class": "video-container"
         };
         const children = `
             <div class="${ baseVideoRectClass }">

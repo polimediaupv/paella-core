@@ -9,6 +9,9 @@ const g_style = `
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%); 
 `
 const g_imgStyle = `
     width: 100%;
