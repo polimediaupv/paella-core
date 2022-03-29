@@ -1,6 +1,6 @@
 .popup-container {
 	z-index: 1000;
-	position: absolute;
+	position: fixed;
 	top: 0px;
 	left: 0px;
 	height: 100vh;
