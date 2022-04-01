@@ -18,6 +18,8 @@
 
 [Embedding Paella Player in a Svelte application](paella_svelte.md)
 
+[Create a plugin module from scratch](plugin_module_tutorial.md): a step-by-step tutorial on how to create a plugin module for `paella-core`.
+
 
 ## Reference
 

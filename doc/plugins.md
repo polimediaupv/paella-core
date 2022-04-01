@@ -435,3 +435,9 @@ export default class MyPluginModule extends PluginModule {
 ```
 
 This attribute is used internally to distinguish a plugin from a module definition. This is done because after using Babel to transpile the code to ES5, the class names are lost, and therefore it is not possible to use the `instanceof` comparison method with transpiled code.
+
+## Next steps: plugin module tutorial
+
+The following document descibes how to create a standalone plugin module from scratch. You can use the resulting code as a template to create your own repository to place your plugins in, and distribute them through [npm](https://www.npmjs.com).
+
+* [Create a plugin module from scratch](plugin_module_tutorial.md)
