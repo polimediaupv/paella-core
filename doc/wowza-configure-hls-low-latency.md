@@ -10,8 +10,11 @@ Two unrelated HLS extensions with a "Low Latency" name and corresponding acronym
 
 We are going to configure Wowza to use CMAF packetizer
 
-Please read:
+Worth reading:
 - [Wowza. What is CMAF](https://www.wowza.com/blog/what-is-cmaf)
+- [Wowza. Low-Latency CMAF for Live Streaming at Scale](https://www.wowza.com/blog/low-latency-cmaf-chunked-transfer-encoding#chunked-encoding)
+    + [Chunked-Encoded CMAF Files](https://www.wowza.com/blog/low-latency-cmaf-chunked-transfer-encoding#chunked-encoding)
+    + [Chunked Transfer Encoding](https://www.wowza.com/blog/low-latency-cmaf-chunked-transfer-encoding#chunked-transfer-encoding)
 - [Wowza. What is Low-Latency HLS and How Does It Relate to CMAF](https://www.wowza.com/blog/apple-low-latency-hls)
 - [Apple. Enabling Low-Latency HTTP Live Streaming (HLS)](https://developer.apple.com/documentation/http_live_streaming/enabling_low-latency_http_live_streaming_hls)
 
@@ -59,27 +62,67 @@ Then, we need to to modify the Application.xml file, located in `[install-dir]/c
     </LiveStreamPacketizer>
     ```
 3. The `HTTPStreamers` property to `cupertinostreaming`
-
+4. Configure the `cmafLLChunkDurationTargetAudio`, `cmafLLChunkDurationTargetVideo`, `cmafSegmentDurationTarget` properties. These are the parameters that we have modified and give us good results according to our tests.
+    ```
+        <Properties>
+            <Property>
+                    <Name>cmafLLChunkDurationTargetAudio</Name>
+                    <Value>2000</Value>
+                    <Type>Integer</Type>
+            </Property>
+            <Property>
+                    <Name>cmafLLChunkDurationTargetVideo</Name>
+                    <Value>2000</Value>
+                    <Type>Integer</Type>
+            </Property>
+            <Property>
+                    <Name>cmafSegmentDurationTarget</Name>
+                    <Value>6000</Value>
+                    <Type>Integer</Type>
+            </Property>
+        </Properties>
+    ```
 Here you can view the changes done to the `Application.xml` file:
 
 ```diff
 @@ -32,7 +32,7 @@
                         <StorageDir>${com.wowza.wms.context.VHostConfigHome}/content</StorageDir>
                         <KeyDir>${com.wowza.wms.context.VHostConfigHome}/keys</KeyDir>
-                        <!-- LiveStreamPacketizers (separate with commas): cupertinostreamingpacketizer, smoothstreamingpacketizer, sanjosestreamingpacketizer, mpegdashstreamingpacketizer, cupertinostreamingrepeater, smoothstreamingrepeater, sanjosestreamingrepeater, mpegdashstreamingrepeater, dvrstreamingpacketizer, dvrstreamingrepeater -->
+                        <!-- LiveStreamPacketizers (separate with commas): cupertinostreamingpacketizer,
+                        smoothstreamingpacketizer, sanjosestreamingpacketizer, mpegdashstreamingpacketizer,
+                        cupertinostreamingrepeater, smoothstreamingrepeater, sanjosestreamingrepeater,
+                        mpegdashstreamingrepeater, dvrstreamingpacketizer, dvrstreamingrepeater -->
 -                       <LiveStreamPacketizers>cupertinostreamingpacketizer</LiveStreamPacketizers>
 +                       <LiveStreamPacketizers>cmafstreamingpacketizer</LiveStreamPacketizers>
-                        <!-- Properties defined here will override any properties defined in conf/Streams.xml for any streams types loaded by this application -->
+                        <!-- Properties defined here will override any properties defined in conf/Streams.xml
+                        for any streams types loaded by this application -->
                         <Properties>
                         </Properties>
 @@ -159,6 +159,11 @@
                 <LiveStreamPacketizer>
-                        <!-- Properties defined here will override any properties defined in conf/LiveStreamPacketizers.xml for any LiveStreamPacketizers loaded by this applications -->
+                        <!-- Properties defined here will override any properties defined in 
+                        conf/LiveStreamPacketizers.xml for any LiveStreamPacketizers loaded by
+                        this applications -->
                         <Properties>
 +                               <Property>
 +                                       <Name>cmafLLEnableLowLatency</Name>
 +                                       <Value>true</Value>
 +                                       <Type>Boolean</Type>
++                               </Property>
++                               <Property>
++                                       <Name>cmafLLChunkDurationTargetAudio</Name>
++                                       <Value>2000</Value>
++                                       <Type>Integer</Type>
++                               </Property>
++                               <Property>
++                                       <Name>cmafLLChunkDurationTargetVideo</Name>
++                                       <Value>2000</Value>
++                                       <Type>Integer</Type>
++                               </Property>
++                               <Property>
++                                       <Name>cmafSegmentDurationTarget</Name>
++                                       <Value>6000</Value>
++                                       <Type>Integer</Type>
 +                               </Property>
                         </Properties>
                 </LiveStreamPacketizer>
@@ -98,7 +141,7 @@ Now, you have to enable `http2`. yopu need to modify the `[install-dir]/conf/VHo
 
 Now we have LL-HLS enabled. 
 
-It is important to note that, Wowza Streaming Engine can produce HLS live streams by using either of two packetizers: the "Cupertino" packetizer, cupertinostreamingpacketizer, or the CMAF packetizer, cmafstreamingpacketizer.
+It is important to note that, Wowza Streaming Engine can produce HLS live streams by using either of two packetizers: the "Cupertino" packetizer, `cupertinostreamingpacketizer`, or the CMAF packetizer, `cmafstreamingpacketizer`.
 
 If you enable both, please read this guide:
 - [Manage CMAF playback from Wowza Streaming Engine](https://www.wowza.com/docs/manage-cmaf-playback-from-wowza-streaming-engine)
@@ -136,7 +179,7 @@ Please read the [wowza guide](https://www.wowza.com/docs/deliver-apple-low-laten
 # Transcoding and Adaptive bitrate considerations for LL-HLS
 **Warning**:
 ```
-We did not tested it.
+We did not test it.
 ```
 
 To bypass encoding streams with Transcoder, source streams should meet the following encoding recommendations. Otherwise, transcoding is recommended.
@@ -147,3 +190,38 @@ You can create adaptive bitrate (ABR) live streams using CMAF, the open, extensi
 - [Create adaptive bitrate CMAF streams](https://www.wowza.com/docs/create-adaptive-bitrate-cmaf-streams-using-wowza-streaming-engine#set-up-adaptive-bitrate-cmaf-streaming)
 - [Stream adaptive bitrate content with Wowza Streaming Engine](https://www.wowza.com/docs/stream-adaptive-bitrate-content-with-wowza-streaming-engine)
 
+
+# Low Latency HLS - Edge
+One big advantage of LL HLS is that it can benefit of scaling the broadcast as a normal HLS application.
+
+Please notice that `cmafSegmentDurationTarget` should be set to the same value on edge and origin. See [CMAF properties reference](https://www.wowza.com/docs/configure-cmaf-packetization-in-wowza-streaming-engine#cmaf-live-packetization-property-reference1).
+
+
+# Using external CDN
+Following same configuration as a LL HLS Wowza origin indicated at [Deliver Low-Latency HLS live streams using Wowza Streaming Engine](https://www.wowza.com/docs/deliver-apple-low-latency-hls-live-streams-using-wowza-streaming-engine), but using an [Live HTTP Origin instead](https://www.wowza.com/docs/how-to-configure-a-wowza-server-as-an-http-caching-origin).
+
+
+# Paella configuration
+We have defined this configuration for the Low Latency to work well when we have Origin and Edges.
+These are the ones that have given us the best results.
+```
+    "es.upv.paella.hlsLiveVideoFormat": {
+        "enabled": true,
+        "order": 0,
+        "hlsConfig": {
+            "enableWorker": true,
+            "lowLatencyMode": true,
+            "maxBufferLength": 10,
+            "liveSyncDuration": 3,
+            "liveMaxLatencyDuration": 6,
+            "liveDurationInfinity": true,
+            "highBufferWatchdogPeriod": 1
+        },
+        "corsConfig": {
+            "withCredentials": false,
+            "requestHeaders": {
+                "Access-Control-Allow-Credentials": true
+            }
+        }
+    },
+```
