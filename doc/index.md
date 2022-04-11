@@ -43,6 +43,8 @@
 
 [Video layout](video_layout.md): how to implement plugins to distribute the position of the video streams in the player container area.
 
+[Pop Up API](pop_up_api.md): how to show pop up windows.
+
 Add buttons to the playback bar:
 
 - [Button plugins](button_plugin.md): simple click button to execute an action.
