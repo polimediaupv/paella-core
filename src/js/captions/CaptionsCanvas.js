@@ -54,6 +54,10 @@ export default class CaptionCanvas extends DomClass {
         return this._captions;
     }
 
+    get currentCaptions() {
+        return this._currentCaptions;
+    }
+
     getCaptions({ label, index, lang }) {
         if (label === undefined && index === undefined && lang === undefined) {
             throw Error("Could not find captions: you must specify the label, the index or the language");

@@ -76,6 +76,10 @@ captionsCanvas.disableCaptions();
 captionsCanvas.getCaption({
   label: "Spanish"	// You calso can search by language or index
 });
+
+if (captionsCanvas.currentCaptions !== null) {
+  console.log("Current captions: " + captionsCanvas.currentCaptions.language);
+}
 ```
 
 When the `addCaptions` method is used, the `Events.CAPTIONS_CHANGED` event is fired. We can capture this event from plugins to, for example, generate a subtitle selection menu.
