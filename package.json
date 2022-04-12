@@ -1,6 +1,6 @@
 {
   "name": "paella-core",
-  "version": "1.0.40",
+  "version": "1.0.41",
   "description": "Multistream HTML video player",
   "main": "src/index.js",
   "module": "dist/paella-core.js",
