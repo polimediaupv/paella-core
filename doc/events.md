@@ -157,4 +157,8 @@ playerInstance.bindEvent(eventName, callback, unloadOnReload = true);
 **`PLAYBACK_RATE_CHANGED`**: is fired when the user changes the playback rate. It receives as parameter the new playback rate: `{ newPlaybackRate }`
 
 **`VIDEO_QUALITY_CHANGED`**: is fired when the video quality is changed.
+
+**`HIDE_UI`**: during video playback, the user interface is hidden after a certain period of time. This event is triggered at the moment when the user interface is hidden.
+
+**`SHOW_UI`**: when the user interface is hidden during playback, it is shown again in response to any user action (click, mouse movement, key press, etc.). This event is triggered when the UI is visible again.
  

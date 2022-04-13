@@ -21,7 +21,9 @@ export default {
 	RESIZE_END: "paella:resizeEnd",
 	LAYOUT_CHANGED: "paella:layoutChanged",
 	PLAYBACK_RATE_CHANGED: "paella:playbackRateChanged",
-	VIDEO_QUALITY_CHANGED: "paella:videoQualityChanged"
+	VIDEO_QUALITY_CHANGED: "paella:videoQualityChanged",
+	HIDE_UI: "paella:hideUI",
+	SHOW_UI: "paella:showUI"
 };
 
 export function bindEvent(player, event, callback, unregisterOnUnload = true) {

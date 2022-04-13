@@ -94,6 +94,14 @@ window.onload = async () => {
 		paella.log.debug("============================== Player loaded =================================");
 	}, false);
 
+	bindEvent(paella, Events.HIDE_UI, () => {
+		paella.log.debug("Hide user interface");
+	}, false);
+
+	bindEvent(paella, Events.SHOW_UI, () => {
+		paella.log.debug("Show user interface");
+	}, false);
+
 	paella.loadManifest()
 		.then(() => paella.log.debug(`${paella.translate("Rice")} ${paella.translate("Chicken")}`))
 		.catch(e => paella.log.error(e));

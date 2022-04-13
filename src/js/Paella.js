@@ -587,9 +587,11 @@ export default class Paella {
     
     async hideUserInterface() {
         if (!(await this.videoContainer?.paused())) {
+            this._uiHidden = true;
             this.videoContainer?.hideUserInterface();
             this.playbackBar?.hideUserInterface();
             TimeLinePopUp.HideUserInterface(this);
+            triggerEvent(this, Events.HIDE_UI);
         }
     }
     
@@ -597,6 +599,8 @@ export default class Paella {
         this.videoContainer?.showUserInterface();
         this.playbackBar?.showUserInterface();
         TimeLinePopUp.ShowUserInterface(this);
+        this._uiHidden && triggerEvent(this, Events.SHOW_UI);
+        this._uiHidden = false;
     }
 
     // Playback functions
