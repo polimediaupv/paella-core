@@ -65,7 +65,7 @@ Video plugin formats available in [paella core](https://github.com/polimediaupv/
 
 [Captions plugins](captions_plugins.md): allows to load different formats of captions.
 
-[Event plugins](event_log_plugin.md): capture events to trigger actions using a plugin.
+[Event plugins](event_log_plugins.md): capture events to trigger actions using a plugin.
 
 [Keyboard Shortcut plugins](key_shortucts.md): add shortcuts to handle player actions.
 
