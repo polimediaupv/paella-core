@@ -13,7 +13,6 @@ export const defaultHlsConfig = {
     debug: false,
     defaultAudioCodec: undefined,
     initialLiveManifestSize: 1,
-    initialQualityLevel: 1,
     maxBufferLength: 6,
     maxMaxBufferLength: 6,
     maxBufferSize: 600*1000*1000,
@@ -100,7 +99,6 @@ const loadHls = (player, streamData, video, config, cors) => {
     const hls = new Hls(config);
     const hlsStream =   streamData?.sources?.hls?.length>0 &&
                         streamData.sources.hls[0];
-    const initialQualityLevel = config.initialQualityLevel !== undefined ? config.initialQualityLevel : 1;
 
     return [hls, new Promise((resolve,reject) => {
         let autoQualitySet = false;
@@ -145,8 +143,6 @@ const loadHls = (player, streamData, video, config, cors) => {
             if (!config.autoStartLoad) {
                 hls.autoStartLoad();
             }
-
-            hls.currentLevel = hls.levels.length>=initialQualityLevel ? initialQualityLevel : -1;
         });
 
         const rand = Math.floor(Math.random() * 100000000000);
