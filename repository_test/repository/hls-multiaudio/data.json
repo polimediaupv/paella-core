@@ -23,7 +23,7 @@
 			"sources": {
 				"hls": [
 					{
-						"src": "https://repository.paellaplayer.upv.es/hls-multiaudio/presenter.m3u8",
+						"src": "https://streaming.videoapuntes.upv.es/videoapuntes-engage/smil:engage-player_hls-multiaoudio.smil/playlist.m3u8",
 						"mimetype": "video/mp4"
 					}
 				]
