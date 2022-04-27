@@ -9,18 +9,41 @@
     pointer-events: none;
 }
 
-.captions-canvas .captions-container {
+.captions-canvas .text-container {
     width: 80%;
-    min-height: 30px;
     background-color: var(--main-bg-color);
     border-radius: 5px;
     color: var(--main-fg-color);
     position: absolute;
-    bottom: 55px;
+    bottom: 5px;
     left: 10%;
     right: 10%;
     box-sizing: border-box;
     padding: 10px;
-    font-size: 11px;
+    font-size: 15px;
     text-align: center;
+}
+
+.captions-canvas.visible-ui .text-container {
+    bottom: 55px;
+}
+
+.captions-canvas.size-s .text-container {
+    font-size: 18px;
+}
+
+.captions-canvas.size-m .text-container {
+    font-size: 20px;
+}
+
+.captions-canvas.size-l .text-container {
+    font-size: 24px;
+}
+
+.captions-canvas.size-xl .text-container {
+    font-size: 30px;
+}
+
+.captions-canvas.size-xxl .text-container {
+    font-size: 34px;
 }

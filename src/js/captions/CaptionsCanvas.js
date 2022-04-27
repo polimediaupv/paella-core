@@ -5,16 +5,30 @@ import Events, { bindEvent, triggerEvent } from 'paella-core/js/core/Events';
 
 import 'paella-core/styles/CaptionCanvas.css';
 
+const containerSizeClasses = [
+    { maxWidth: 400, className: 'size-s' },
+    { maxWidth: 600, className: 'size-m' },
+    { maxWidth: 900, className: 'size-l' },
+    { maxWidth: 1100, className: 'size-xl' },
+    { className: 'size-xxl' }
+];
+const getContainerSizeClass = (size) => {
+    return containerSizeClasses
+        .find(item => item.maxWidth && item.maxWidth>=size || item.maxWidth === undefined).className
+}
+
 export default class CaptionCanvas extends DomClass {
     constructor(player,parent) {
         const attributes = {
-            "class": "captions-canvas"
+            "class": "captions-canvas visible-ui"
         };
         super(player, { tag: 'div', attributes, parent });
 
         this._captionsContainer = createElementWithHtmlText(`
-            <div class="captions-container"></div>`, this.element);
-
+            <div class="text-container">
+            </div>
+        `, this.element);
+        
         this._captions = [];
 
         this.hide();
@@ -31,11 +45,15 @@ export default class CaptionCanvas extends DomClass {
                     this._captionsContainer.innerHTML += '<br/>';
                 });
                 cue ? this._captionsContainer.style.display = null : this._captionsContainer.style.display = 'none';
+                this.resize();
             }
         };
 
         bindEvent(this.player, Events.TIMEUPDATE, timeChanged);
         bindEvent(this.player, Events.SEEK, timeChanged);
+        bindEvent(this.player, Events.RESIZE, () => this.resize());
+        bindEvent(this.player, Events.SHOW_UI, () => this.element.classList.add('visible-ui'));
+        bindEvent(this.player, Events.HIDE_UI, () => this.element.classList.remove('visible-ui'));
     }
 
     async load() {
@@ -43,6 +61,12 @@ export default class CaptionCanvas extends DomClass {
     }
 
     unload() {        
+    }
+
+    resize() {
+        const sizeClass = getContainerSizeClass(this._captionsContainer.clientWidth);
+        containerSizeClasses.forEach(c => this.element.classList.remove(c.className));
+        this.element.classList.add(sizeClass);
     }
 
     addCaptions(captions) {
