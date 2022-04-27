@@ -57,7 +57,7 @@ export default class ProgressIndicator extends DomClass {
 		const children = `
 		<canvas class="progress-canvas canvas-layer-0"></canvas>
 		<div class="progress-indicator-container">
-			<div class="progress-indicator-content"></div>
+			<div style="width: 0px;" class="progress-indicator-content"></div>
 		</div>
 		<canvas class="progress-canvas canvas-layer-1"></canvas>
 		<div class="progress-indicator-timer">00:00</div>
