@@ -37,6 +37,8 @@
 
 [Captions](captions.md): APIs to load captions and subtitles.
 
+[Multiple audio tracks](multiaudio.md): Explains how to access the APIs supporting videos with multiple audio tracks.
+
 [Plugins](plugins.md): introduction to the plugin system in Paella Player 7
 
 [paella-core plugins](paella-core-plugins.md): list of plugins that paella-core includes as standard.

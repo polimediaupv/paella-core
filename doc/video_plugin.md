@@ -71,7 +71,7 @@ Some remarks about `Video` class:
 
 - `getQualities()`: returns an array of `VideoQualityItem` objects, or an empty array if the video format does not support multi quality.
 - To set a quality level, you must pass a `VideoQualityItem` from the above array to the `setQuality(q)` function.
-- `getAudioTracks()` returns an array of `AudioTrackData` objects, or null if the video format does not support multi quality.
+- `getAudioTracks()` returns an array of `AudioTrackData` objects, or null if the video format does not support multi quality. More information on videos with multiple audio tracks can be found in [this document](multiaudio.md).
 - To set an audio track, you must pass an `AudioTrackData` item of the above array to the `setCurrentAudioTrack(t)` function.
 - `get currentAudioTrack()` returns the `AudioTrackData` object for the current audio track.
 

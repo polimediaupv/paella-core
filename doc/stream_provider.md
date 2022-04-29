@@ -120,7 +120,7 @@ It is important to note that for the quality change mechanism to work predictabl
 
 ## Multi audio functions
 
-The multiple audio control functions allow you to change the audio track of the main audio stream, provided that the [video plug-in](video_plugin.md) supports it. All multi audio functions work with instances of objects of the `AudioTrackData` class.
+The multiple audio control functions allow you to change the audio track of the main audio stream, provided that the [video plug-in](video_plugin.md) supports it. All multi audio functions work with instances of objects of the `AudioTrackData` class. More information on videos with multiple audio tracks can be found in [this document](multiaudio.md).
 
 `async supportsMultiaudio()`: returns true if the main audio source supports multiple audio tracks.
 
@@ -129,6 +129,7 @@ The multiple audio control functions allow you to change the audio track of the 
 `async setCurrentAudioTrack(audioTrackData)`: sets the current active audio track.
 
 `get currentAudioTrack()`: returns the current active audio track.
+
 
 
 

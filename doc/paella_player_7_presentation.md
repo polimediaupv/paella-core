@@ -81,7 +81,7 @@ All features that have been lost since version 6 have been removed after careful
 These features will be deprecated in `paella-core`:
 
 - Multiple quality videos in progressive download format (mp4, ogv, webm, etc. files). Only the highest resolution stream in the manifest file (by default, data.json) will be loaded.
-- Multiple audio tracks using the "audioTag" attribute (this feature is marked as deprecated since version 6.4). `paella-core` includes new APIs to allow the use of multiple audio tracks, using technologies that natively support this feature (e.g. HLS video streams).
+- Multiple audio tracks using the "audioTag" attribute (this feature is marked as deprecated since version 6.4). `paella-core` includes new APIs to allow the use of multiple audio tracks, using technologies that natively support this feature (e.g. HLS video streams). More information on videos with multiple audio tracks can be found in [this document](multiaudio.md).
 - User authorization and authentication. Because `paella-core` is now a library, it does not make sense to include the authorization and authentication tools within it. It makes more sense for the video player itself to decide the most appropriate method of implementing these functions. To this end, the new `paella-core` APIs provide multiple points where it is possible to insert the authorization and authentication features (see document [initialization](initialization.md)).
 
 
