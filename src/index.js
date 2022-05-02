@@ -17,7 +17,7 @@ import ButtonPlugin from 'paella-core/js/core/ButtonPlugin';
 import PopUpButtonPlugin from 'paella-core/js/core/PopUpButtonPlugin';
 import MenuButtonPlugin from 'paella-core/js/core/MenuButtonPlugin';
 import VideoLayout from 'paella-core/js/core/VideoLayout';
-import VideoPlugin from 'paella-core/js/core/VideoPlugin';
+import VideoPlugin, { Video } from 'paella-core/js/core/VideoPlugin';
 import Events, { bindEvent, triggerEvent } from 'paella-core/js/core/Events';
 import PlayerResource from 'paella-core/js/core/PlayerResource';
 import CanvasPlugin, { CanvasButtonPosition, Canvas } from 'paella-core/js/core/CanvasPlugin';
@@ -82,6 +82,7 @@ export {
     MenuButtonPlugin,
     VideoLayout,
     VideoPlugin,
+    Video,
     Canvas,
     CanvasButtonPosition,
     CanvasPlugin,
