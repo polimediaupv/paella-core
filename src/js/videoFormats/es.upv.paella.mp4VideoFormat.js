@@ -193,7 +193,10 @@ export class Mp4Video extends Video {
         this._sources = null;
         this._currentQuality = 0;
 
-        this._sources = streamData.sources.mp4;        
+        this._sources = streamData.sources.mp4;
+        this._sources.sort((a,b) => {
+            return Number(a.res.w) - Number(b.res.w);
+        });
         this._currentQuality = this._sources.length - 1;
         this._currentSource = this._sources[this._currentQuality];
 
