@@ -150,6 +150,19 @@ export default class MyButtonPlugin extends ButtonPlugin {
 }
 ```
 
+## Configuration
+
+The `parentContainer` property, in its default implementation, gets its value from the plugin configuration, inside the `config.json` file. This property can take several values, two of which are predefined, while the rest are arbitrary:
+
+- `playbackBar`: The button will be placed on the playback bar. This is the default value, if any other is specified.
+- `videoContainer`: The button shall be placed inside the [video container](video_container.md). In the vertical axis, the buttons are placed at the top of the container. 
+- Any other value: The button will be placed inside a container that match that name. These containers can be created using plugins of type [button group](button_group_plugin.md).
+
+As with `parentContainer`, the `side` property also takes its value from the plugin configuration. This property affects the side on the horizontal axis that the button is placed, and only affects in case `parentContainer` is the playbar or the video container. In this case, this property has only two possible values:
+
+- `left`: The button will be placed on the left side of the playback bar or the video container.
+- `right`: The button will be placed on the right side of the playback bar or the video container.
+
 ## Accesibility
 
 To set up the `aria-label` attribute, you can use the `ariaLlabel` property in the button plugin configuration. In addition, the `description` property in the plugin configuration, will be used as `title` attribute in the button.

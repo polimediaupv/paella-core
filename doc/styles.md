@@ -44,3 +44,8 @@ await utils.loadStyle('custom-paella-styles.css');
 }
 
 ```
+
+## Modify default styles
+
+You can override the default `paella-core` styles by using the function described in the *Load styles* section `utils.loadStyle()`. Otherwise, to modify more complex aspects of the styles, proceed as you would with any website: use the browser's development tools to find out which styles you need to redefine.
+

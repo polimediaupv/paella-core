@@ -77,6 +77,8 @@ Video plugin formats available in [paella core](https://github.com/polimediaupv/
 
 [Predefined plugins](predefined_plugins.md): List of plugins included in `paella-core`
 
+[Customization](customization.md): modification and customisation of different elements of the user interface and player design.
+
 [Styles](styles.md): define custom colors and skins.
 
 ## Plugin repositories
