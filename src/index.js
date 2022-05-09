@@ -34,13 +34,8 @@ import WebVTTParser, { parseWebVTT } from './js/captions/WebVTTParser';
 import CaptionsPlugin from 'paella-core/js/captions/CaptionsPlugin';
 import Captions from 'paella-core/js/captions/Captions';
 
-// Export the built in video format plugins
-
-import { HlsVideo, getHlsSupport, defaultHlsConfig, HlsSupport } from './js/videoFormats/es.upv.paella.hlsVideoFormat';
-import { Mp4Video } from './js/videoFormats/es.upv.paella.mp4VideoFormat';
-import { ImageVideo } from './js/videoFormats/es.upv.paella.imageVideoFormat';
-
 import KeyShortcutPlugin, { KeyCodes, getShortcuts } from './js/core/KeyShortcutPlugin';
+
 
 import {
     defaultTranslateFunction,
@@ -57,6 +52,26 @@ import Log, {
     log,
     LOG_LEVEL
 } from "paella-core/js/core/Log";
+
+/******* Export the built-in plugin classes *******/
+// video formats
+import { HlsVideo, getHlsSupport, defaultHlsConfig, HlsSupport } from './js/videoFormats/es.upv.paella.hlsVideoFormat';
+import { Mp4Video } from './js/videoFormats/es.upv.paella.mp4VideoFormat';
+import { ImageVideo } from './js/videoFormats/es.upv.paella.imageVideoFormat';
+
+// Buttons
+import PlayPauseButtonPlugin from './js/plugins/es.upv.paella.playPauseButton';
+
+// Shortcuts
+import DefaultKeyShortcutsPlugin from './js/plugins/es.upv.paella.defaultShortcuts';
+
+// Video layouts
+import SingleVideoLayoutPlugin from './js/layouts/es.upv.paella.singleVideo';
+import DualVideoLayoutPlugin from './js/layouts/es.upv.paella.dualVideo';
+import TripleVideoLayoutPlugin from './js/layouts/es.upv.paella.tripleVideo';
+
+// Captions
+import VttManifestCaptionsPlugin from './js/plugins/es.upv.paella.vttManifestCaptionsPlugin';
 
 export {
     Paella,
@@ -129,6 +144,16 @@ export {
 
     Log,
     log,
-    LOG_LEVEL
+    LOG_LEVEL,
+
+    DefaultKeyShortcutsPlugin,
+
+    PlayPauseButtonPlugin,
+
+    VttManifestCaptionsPlugin,
+
+    SingleVideoLayoutPlugin,
+    DualVideoLayoutPlugin,
+    TripleVideoLayoutPlugin
 }
 
