@@ -47,6 +47,10 @@ Remember that you must to define a new property at the `config.json` file that m
 
 **es.upv.paella.vttManifestCaptionsPlugin:** exported as `VttManifestCaptionsPlugin`
 
+### Video Canvas
+
+**es.upv.paella.videoCanvas:** exported as `VideoCanvasPlugin`. This plugin also exports the `VideoCanvas` class, that implements the `Canvas` class created with the `VideoCanvasPlugin` factory method. See [video canvas plugin](canvas_plugin.md) documentation to get more information about the Canvas API. 
+
 ## Other library plugins
 
 You can consult the list of plugins exported by other libraries in the `README.md` file of each repository:

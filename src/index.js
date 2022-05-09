@@ -73,6 +73,10 @@ import TripleVideoLayoutPlugin from './js/layouts/es.upv.paella.tripleVideo';
 // Captions
 import VttManifestCaptionsPlugin from './js/plugins/es.upv.paella.vttManifestCaptionsPlugin';
 
+
+// Video canvas
+import VideoCanvasPlugin, { VideoCanvas } from './js/canvas/es.upv.paella.videoCanvas';
+
 export {
     Paella,
     PlayerState,
@@ -154,6 +158,9 @@ export {
 
     SingleVideoLayoutPlugin,
     DualVideoLayoutPlugin,
-    TripleVideoLayoutPlugin
+    TripleVideoLayoutPlugin,
+
+    VideoCanvasPlugin,
+    VideoCanvas
 }
 
