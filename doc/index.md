@@ -71,6 +71,8 @@ Video plugin formats available in [paella core](https://github.com/polimediaupv/
 
 [Keyboard Shortcut plugins](key_shortucts.md): add shortcuts to handle player actions.
 
+[Exported plugin classes](exported_plugins.md): in this document you can check the list of the built-in plugin classes exported by `paella-core`. You can extend these plugins in your player to extend their default features.
+
 [Localization](localization.md): translate text strings, add dictionaries and set up your preferred localization library in Paella Player.
 
 [Utilities](utils.md): common-use utility package.

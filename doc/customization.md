@@ -58,3 +58,5 @@ export default class MyVolumePlugin extends VolumePlugin {
 }
 ```
 
+You can read more about plugin customization in [this document](exported_plugins.md).
+
