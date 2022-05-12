@@ -21,6 +21,8 @@ The `PopUp` constructor supports two mandatory parameters, and three extra param
 
 **`hide()`:** oculta el pop up. Al ocultar un pop up, se lanza el evento `Event.HIDE_POPUP`, que incluye los parámetros `popUp` y `contextObject`.
 
+**`destroy()`:** destroys the pop up. If the pop up is no longer to be used, it is necessary to call this function to remove the pop up elements from the DOM tree.
+
 
 ## Attributes
 

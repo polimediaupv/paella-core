@@ -191,4 +191,12 @@ export default class PopUp extends DomClass {
 		}
 		
 	}
+
+	destroy() {
+		const index = g_popUps.indexOf(this);
+		if (index !== -1) {
+			g_popUps.splice(index,1);
+			this.removeFromParent();
+		}
+	}
 }
