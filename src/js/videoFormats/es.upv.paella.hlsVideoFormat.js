@@ -242,21 +242,19 @@ export class HlsVideo extends Mp4Video {
         const q = [];
         q.push(this._autoQuality);
 
-        if (!this._videoEnabled) {   
-            if (hlsSupport === HlsSupport.MEDIA_SOURCE_EXTENSIONS) {
-                this._hls.levels.forEach((level, index) => {
-                    q.push(new VideoQualityItem({
-                        index: level.id,
-                        label: `${level.width}x${level.height}`,
-                        shortLabel: `${level.height}p`,
-                        index: index,
-                        width: level.width,
-                        height: level.height
-                    }));
-                });
+        if (hlsSupport === HlsSupport.MEDIA_SOURCE_EXTENSIONS) {
+            this._hls.levels.forEach((level, index) => {
+                q.push(new VideoQualityItem({
+                    index: level.id,
+                    label: `${level.width}x${level.height}`,
+                    shortLabel: `${level.height}p`,
+                    index: index,
+                    width: level.width,
+                    height: level.height
+                }));
+            });
 
-                q.sort((a,b) => a.res.h-b.res.h);
-            }
+            q.sort((a,b) => a.res.h-b.res.h);
         }
 
         return q;
