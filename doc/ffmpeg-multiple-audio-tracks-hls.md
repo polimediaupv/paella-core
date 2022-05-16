@@ -1,6 +1,6 @@
 # Using ffmpeg to generate an HLS with multiple audio tracks
 
-As an example we are going to encode a video expample with tree audio tracks.
+As an example we are going to encode a video example with tree audio tracks.
 
 Our example files are:
 

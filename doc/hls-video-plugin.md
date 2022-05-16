@@ -66,6 +66,7 @@ The format identifier is `hls`. The array can contain only one element, if it co
 Paella can play `hls` files with multiple audio tracks. The easiest way to select which audio track to play is via the `es.upv.paella.audioSelector` plugin, within the `paella-basic-plugins` plugin library ([npm](https://www.npmjs.com/package/paella-basic-plugins), [git](https://github.com/polimediaupv/paella-basic-plugins/)).
 
 - [Using ffmpeg to generate an HLS with multiple audio tracks](ffmpeg-multiple-audio-tracks-hls.md)
+- [Using wowza and SMIL files to generate an HLS with multiple audio tracks](wowza-multiple-audio-tracks-smil.md).
 
 ## Troubleshooting
 

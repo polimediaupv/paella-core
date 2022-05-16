@@ -26,3 +26,4 @@ The easiest way to handle multiple audio tracks is via the `es.upv.paella.audioS
 
 - [HLS video plugin](hls-video-plugin.md) for information about multiaudio in HLS.
 - [Using ffmpeg to generate an HLS with multiple audio tracks](ffmpeg-multiple-audio-tracks-hls.md).
+- [Using wowza and SMIL files to generate an HLS with multiple audio tracks](wowza-multiple-audio-tracks-smil.md).
