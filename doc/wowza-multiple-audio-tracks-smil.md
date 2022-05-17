@@ -1,13 +1,13 @@
-# Using wowza and SMIL files to generate an HLS with multiple audio tracks
+# Using Wowza and SMIL files to generate an HLS with multiple audio tracks
 
-In this example we are going to use wowza to stream HLS.
+In this example, we are going to use Wowza to stream HLS.
 
-You can get mode information in wowza documentation:
+You can get mode information in Wowza documentation:
 - [Use alternative audio or video tracks with Apple HLS streams in Wowza Streaming Engine](https://www.wowza.com/docs/how-to-use-alternative-audio-or-video-tracks-with-apple-hls-streams)
 
-If you don't want to use wowza, you can encode to HLS directly with ffmpeg, please read [Using ffmpeg to generate an HLS with multiple audio tracks](ffmpeg-multiple-audio-tracks-hls.md).
+If you don't want to use Wowza, you can encode to HLS directly with ffmpeg. Please read [Using ffmpeg to generate an HLS with multiple audio tracks](ffmpeg-multiple-audio-tracks-hls.md).
 
-As in ffmpeg example, we are going to encode a video example with tree audio tracks.
+As in the ffmpeg example, we will encode a video example with three audio tracks.
 
 Our example files are:
 
@@ -16,15 +16,15 @@ Our example files are:
 - audio.es.mp3 (audio file, language: spanish)
 - audio.de.mp3 (audio file, language: german)
 
-We are going to generate three video tracks with diferent qualities and three audio tracks.
-Finaly we sill write a `smil` file to use with [wowza streaming server](https://www.wowza.com/)
+We will generate three video tracks with different qualities and three audio tracks.
+Finally we will write a `smil` file to use with [wowza streaming server](https://www.wowza.com/)
 
 ## Basic Steps
 
-Okay, let’s see what the fundamental steps to packaging a VOD file.
+Okay, let’s see the fundamental steps to packaging a VOD file.
 
 1. Create the video/audio files (with ffmpeg)
-    1. read an input video and audios from disk.
+    1. read an input video and audio files from the disk.
     2. scale/resize the video to the multiple resolutions required.
     3. transcode each of the scaled videos to the required bitrates
     4. transcode the audio to the required bitrates.
@@ -35,7 +35,7 @@ Now, let’s tackle this step by step, shall we?
 
 ## Create the video/audio files
 
-Okay, Step 1 involve reading a video/audio files from disk, scaling it to multiple resolutions. This can be done in a single command as follows:
+Okay, Step 1 involves reading a video/audio file from a disk and scaling it to multiple resolutions. This can be done in a single command as follows:
 
 ```
 ffmpeg -i video_1080p.mp4 \
@@ -118,11 +118,11 @@ smil file (`engage-player_hls-multiaoudio-1.smil`):
 </smil>
 ```
 
-## Copy the files to your wowza installation
+## Copy the files to your Wowza installation
 
-You will ned to copy those files to your wowza installation in order to play your videos.
+You will need to copy those files to your Wowza installation to play your videos.
 
-This is the folder structure in the example, yours can be diferent.
+This is the folder structure in the example. Yours can be different.
 ```
 \  (wowza root app)
 |- engage-player_hls-multiaoudio-1.smil
