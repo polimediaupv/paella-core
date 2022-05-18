@@ -68,6 +68,17 @@ export default class MyKeyShortcuts extends KeyShortcutPlugin {
 
 In case there is more than one identical key combination registered by one or more plugins (for example, two plugins register the `M` key with the `ctrl` modifier), only the first one registered will be activated. In this case, Paella Player will launch a warning through the debug console to indicate which plugin and key combination has conflicted.
 
+## Prevent shortcut trigger
+
+We may want to prevent keyboard shortcut events from being triggered on certain occasions, for example if the user is going to type text in a text field.
+
+`paella-core` listens to the `onkeyup` event on the `window` object to get the keyboard shortcuts. To prevent keystrokes from being logged, it is necessary to capture this event in the input fields.
+
+```javascript
+const myInputField = document.createElement('textarea');
+myInputField.addEventListener('keyup', evt => evt.stopPropagation());
+```
+
 ## Multiple paella player in the same page
 
 If a web site is being developed that will have more than one active video player, it is the responsibility of the programmer to ensure that only one of them loads keyboard shortcut plugins. Keyboard shortcuts are recorded in the browser window, which is a global resource for the entire page. If there were more than one video player listening for keyboard events, it would be the case that all players on the page would act simultaneously.
