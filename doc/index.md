@@ -25,6 +25,8 @@
 
 [Initialization](initialization.md): initialize paella and customize the default parameters and settings.
 
+[Paella object](paella_object.md): list of APIs of the main object of `paella-core`.
+
 [Player life cycle](life_cycle.md): change Paella Player state (UNLOADED, MANIFEST, LOADED).
 
 [Log](log.md): write messages to the console using the logging API
