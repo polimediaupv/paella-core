@@ -127,8 +127,12 @@ export default class CanvasPlugin extends Plugin {
     get canvasType() { return ""; }
 
     isCompatible(stream) {
-        const canvas = stream?.canvas?.length>0 && stream.canvas[0];
-        return canvas === this.canvasType;
+        if (Array.isArray(stream?.canvas)) {
+            return stream.canvas.indexOf(this.canvasType) !== -1;
+        }
+        else {
+            return stream.canvas === this.canvasType;
+        }
     }
 
     getCanvasInstance(videoContainer) {
