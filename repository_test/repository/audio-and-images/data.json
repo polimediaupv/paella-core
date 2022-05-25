@@ -12,9 +12,9 @@
 					}
 				]
 			},
-			"preview":"",
-			"type":"audio",
-			"audioTag":"es"
+			"content": "presenter",
+			"role": "mainAudio",
+			"canvas": ["audio"]
 		},
 		{
 			"sources": {
@@ -48,8 +48,6 @@
 					}
 				]
 			},
-			"preview": "https://repository.paellaplayer.upv.es/dual-video-audio/preview/presentation_cut.jpg",
-			"type":"video",
 			"content":"presentation"
 		}
 	],
