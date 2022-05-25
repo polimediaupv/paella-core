@@ -136,6 +136,11 @@
             "order": 0
         },
 
+        "es.upv.paella.audioCanvas": {
+            "enabled": true,
+            "order": 1
+        },
+
         "es.upv.paella.cookieDataPlugin": {
             "enabled": true,
             "order": 0,
