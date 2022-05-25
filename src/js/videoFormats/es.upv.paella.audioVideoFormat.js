@@ -62,11 +62,10 @@ export class AudioOnlyVideo extends Video {
 
 export default class AudioVideoPlugin extends VideoPlugin {
     get streamType() {
-        return "audio"; // TODO: Check this in paella 6 manifest
+        return "audio";
     }
 
     isCompatible(streamData) {
-        // TODO: Check this in paella 6 manifest
         return streamData.sources.audio !== null;
     }
 
