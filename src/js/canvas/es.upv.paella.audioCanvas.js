@@ -3,6 +3,7 @@ import CanvasPlugin, { Canvas } from 'paella-core/js/core/CanvasPlugin';
 export class AudioCanvas extends Canvas {
     constructor(player, videoContainer) {
         super('div', player, videoContainer);
+        this.element.classList.add("image-canvas");
     }
 
     async loadCanvas(player) {

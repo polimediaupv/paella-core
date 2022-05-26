@@ -14,57 +14,93 @@ function getAsyncImage(src) {
     });
 }
 
+function asyncLoadAudio(player, audio, src) {
+    return new Promise((resolve, reject) => {
+        audio.oncanplay = () => resolve();
+        audio.onerror = () => reject(new Error(`Error loading audio: ${src}`));
+        audio.src = resolveResourcePath(player, src);
+        resolve();
+    });
+}
+
+
 export class AudioOnlyVideo extends Video {
     constructor(player, parent, isMainAudio) {
         super('audio', player, parent);
 
         this.isMainAudio = isMainAudio;
+        this._ready = false;
     }
 
     get streamType() { return "audio"; }
 
-    async play() {
+    waitForLoaded() {
+        return new Promise(resolve => {
+            const waitReady = () => {
+                if (this._ready) {
+                    resolve();
+                }
+                else {
+                    setTimeout(waitReady, 100);
+                }
+            }
+    
+            waitReady();
+        })
+    }
 
+    async play() {
+        await this.waitForLoaded();
+        this.audio.play();
     }
 
     async pause() {
-
+        await this.waitForLoaded();
+        this.audio.pause();
     }
 
     async duration() {
-
+        await this.waitForLoaded();
+        return this.audio.duration;
     }
 
     get currentTimeSync() {
-
+        return this.audio?.currentTime || 0;
     }
 
     async currentTime() {
-
+        await this.waitForLoaded();
+        return this.audio.currentTime;
     }
 
-    async setCurrentTime() {
-
+    async setCurrentTime(t) {
+        await this.waitForLoaded();
+        this.audio.currentTime = t;
     }
 
     async volume() {
-
+        await this.waitForLoaded();
+        return this.audio.volume;
     }
 
     async setVolume(v) {
-
+        await this.waitForLoaded();
+        this.audio.volume = v;
     }
 
     async paused() {
-
+        await this.waitForLoaded();
+        return this.audio.paused;
     }
 
     async playbackRate() {
-
+        await this.waitForLoaded();
+        return this.audio.playbackRate;
     }
 
     async setPlaybackRate(pr) {
-
+        await this.waitForLoaded();
+        this.audio.playbackRate = pr;
     }
 
     // getQualities(), setQuality(q), get currentQuality(): audio format does not support multiquality
@@ -85,6 +121,7 @@ export class AudioOnlyVideo extends Video {
             throw new Error("Invalid video manifest data: preview image is required");
         }
         this._previewImage = await getAsyncImage(previewSrc);
+        this._previewImage.style.width = '100%';
 
         this._source = streamData.sources.audio && streamData.sources.audio[0];
         if (!this._source) {
@@ -95,8 +132,10 @@ export class AudioOnlyVideo extends Video {
             throw new Error("Audio only video stream must be main audio player. Check the role property at video manifest");
         }
 
-        // TODO: set source
-        this.audio.src = resolveResourcePath(this.player, this._source.src);
+        await asyncLoadAudio(this.player, this.audio, this._source.src);
+        this._ready = true;
+
+        this.parent.appendChild(this._previewImage);
     }
 }
 
