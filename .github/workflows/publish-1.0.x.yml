@@ -10,7 +10,6 @@ on:
 
 jobs:
   build:
-    if: github.event.base_ref == 'refs/heads/v1.0'
     runs-on: ubuntu-latest
     
     strategy:
@@ -19,6 +18,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
@@ -35,7 +35,6 @@ jobs:
           add: 'dist/paella-core.js'
 
   publish-npm:
-    if: github.event.base_ref == 'refs/heads/v1.0'
     needs: build
     runs-on: ubuntu-latest
     steps:
