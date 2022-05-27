@@ -19,10 +19,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name:  Exit if not on 1.0 branch
-        if: endsWith(github.ref, 'v1.0') == false
-        run: exit -1
-
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
