@@ -10,7 +10,6 @@ on:
 
 jobs:
   build:
-    if: github.ref == 'refs/heads/v1.1'
     runs-on: ubuntu-latest
     
     strategy:
@@ -19,6 +18,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      
+      - name:  Exit if not on 1.1 branch
+        if: endsWith(github.ref, 'v1.1') == false
+        run: exit -1
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
@@ -35,7 +39,6 @@ jobs:
           add: 'dist/paella-core.js'
 
   publish-npm:
-    if: github.ref == 'refs/heads/v1.1'
     needs: build
     runs-on: ubuntu-latest
     steps:
