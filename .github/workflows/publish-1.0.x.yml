@@ -1,7 +1,7 @@
 # This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
 # For more information see: https://help.github.com/actions/language-and-framework-guides/publishing-nodejs-packages
 
-name: Publish release
+name: Publish 1.0.x
 
 on:
   create:
@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    if: github.event.base_ref == 'refs/heads/main'
+    if: github.event.base_ref == 'refs/heads/v1.0'
     runs-on: ubuntu-latest
     
     strategy:
@@ -30,12 +30,12 @@ jobs:
         with:
           author_name: polimediaupv
           author_email: polim@upv.es
-          branch: main
+          branch: v1.0
           message: 'Distribution files updated'
           add: 'dist/paella-core.js'
 
   publish-npm:
-    if: github.event.base_ref == 'refs/heads/main'
+    if: github.event.base_ref == 'refs/heads/v1.0'
     needs: build
     runs-on: ubuntu-latest
     steps:
