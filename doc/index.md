@@ -4,6 +4,8 @@
 
 [Presentation](paella_player_7_presentation.md)
 
+[Improvements](improvements.md): Improvements and new plugins added to the different versions of `paella-core` APIs
+
 ## Paella Player 6.x and earlier versions
 
 [Documentation at github](https://github.com/polimediaupv/paella/tree/develop/doc)
@@ -64,6 +66,7 @@ Video plugin formats available in [paella core](https://github.com/polimediaupv/
 - [MP4 video plugin](mp4-video-plugin.md)
 - [hls video plugin](hls-video-plugin.md)
 - [hls live (and low latency) video plugin](hls-live-video-plugin.md)
+- [audio only video plugin](audio-video-plugin.md). You should also check the documentation about the [audio canvas](audio_canvas_plugin.md)
 
 [Data plugins](data_plugins.md): provides an interface to implement communication with the backend through the use of plugins
 
