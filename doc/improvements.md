@@ -1,6 +1,6 @@
 # paella-core versions
 
-## 1.1
+## paella-core 1.1.x
 
 ### Improvements
 
