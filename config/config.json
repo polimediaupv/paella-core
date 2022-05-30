@@ -81,6 +81,9 @@
                 }
             }
         },
+        "es.upv.paella.audioVideoFormat": {
+            "enabled": true
+        },
         
         "es.upv.paella.playPauseButton": {
             "enabled": true,
@@ -134,6 +137,11 @@
         "es.upv.paella.testVideoCanvas": {
             "enabled": false,
             "order": 0
+        },
+
+        "es.upv.paella.audioCanvas": {
+            "enabled": true,
+            "order": 1
         },
 
         "es.upv.paella.cookieDataPlugin": {

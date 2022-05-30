@@ -150,7 +150,7 @@ export default class ImageVideoPlugin extends VideoPlugin {
 		return streamData.sources.image != null;
 	}
 	
-	async getVideoInstance(playerContainer) {
-		return new ImageVideo(this.player, playerContainer);
+	async getVideoInstance(playerContainer, isMainAudio) {
+		return new ImageVideo(this.player, playerContainer, this.config, isMainAudio);
 	}
 }

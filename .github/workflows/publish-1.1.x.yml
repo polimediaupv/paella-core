@@ -1,12 +1,12 @@
 # This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
 # For more information see: https://help.github.com/actions/language-and-framework-guides/publishing-nodejs-packages
 
-name: Publish release
+name: Publish 1.1.x
 
 on:
   create:
     tags:
-      - '*'
+      - '1.1.*'
 
 jobs:
   build:
@@ -18,6 +18,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
@@ -29,7 +30,7 @@ jobs:
         with:
           author_name: polimediaupv
           author_email: polim@upv.es
-          branch: main
+          branch: v1.1
           message: 'Distribution files updated'
           add: 'dist/paella-core.js'
 

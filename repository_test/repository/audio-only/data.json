@@ -13,43 +13,9 @@
 					}
 				]
 			},
-			"content": "presenter",
-			"role": "mainAudio",
-			"canvas": ["audio"]
-		},
-		{
-			"sources": {
-				"image": [
-					{
-						"mimetype": "image/jpeg",
-						"frames": [
-							{
-								"time": 854,
-								"src": "https://repository.paellaplayer.upv.es/dual-video-audio/slides/3d90109c-9608-44c1-8660-fce3f216d716/presentation_cut.jpg"
-							},
-							{
-								"time": 751,
-								"src": "https://repository.paellaplayer.upv.es/dual-video-audio/slides/598bd2ba-4fef-4886-884e-0ab82176f13d/presentation_cut.jpg"
-							},
-							{
-								"time": 0,
-								"src": "https://repository.paellaplayer.upv.es/dual-video-audio/slides/7dc22bee-14f3-442c-8f0d-30d8b68c8604/presentation_cut.jpg"
-							},
-							{
-								"time": 363,
-								"src": "https://repository.paellaplayer.upv.es/dual-video-audio/slides/d3194d9b-8f65-403b-a639-9de4311a283b/presentation_cut.jpg"
-							}
-						],
-						"count": 4,
-						"duration": 909,
-						"res": {
-							"w": 1280,
-							"h": 720
-						}
-					}
-				]
-			},
-			"content":"presentation"
+			"role":"mainAudio",
+			"content":"presenter",
+            "canvas":["audio"]
 		}
 	],
 	"frameList": [
