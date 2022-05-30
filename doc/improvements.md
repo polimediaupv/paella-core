@@ -4,6 +4,6 @@
 
 ### Improvements
 
-- es.upv.paella.audioVideoFormat plugin added
-- es.upv.paella.audioCanvas plugin added
+- [es.upv.paella.audioVideoFormat](audio-video-plugin.md) plugin added
+- [es.upv.paella.audioCanvas](audio_canvas_plugin.md) plugin added
 
