@@ -82,6 +82,8 @@ Video plugin formats available in [paella core](https://github.com/polimediaupv/
 
 [Utilities](utils.md): common-use utility package.
 
+[DOM Utilities](dom_utilities.md): utilities to create DOM elements that can be displayed in the browser.
+
 [Predefined plugins](predefined_plugins.md): List of plugins included in `paella-core`
 
 [Customization](customization.md): modification and customisation of different elements of the user interface and player design.
