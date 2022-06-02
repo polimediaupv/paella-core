@@ -2,7 +2,24 @@
 
 The video image plugin is intended to emulate a video by means of a series of images associated to a time instant. Its most optimal use is the playback of videos generated from a slideshow.
 
+## Configuration
 
+To recognise image videos, you need to activate the plugin in the settings.
+
+```json
+{
+    "plugins": {
+        ...
+        "es.upv.paella.imageVideoFormat": {
+            "enabled": true,
+			"order": 2
+        },
+        ...
+    }
+}
+```
+
+If there is more than one stream type in a stream within the video manifest that is compatible with the current configuration, the plugin whose value in the `order` attribute is lower will be used. For more information, see the [video format plugins](video_plugins.md) documentation.
 
 ## Video manifest format
 

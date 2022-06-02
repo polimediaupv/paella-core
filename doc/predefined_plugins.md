@@ -18,10 +18,10 @@ Layout plugins. You can check the documentation about [video layout plugins in t
 
 Plugins to implement support for new video formats. Check the documentation about [video format plugins in this document](video_plugin.md).
 
-- `es.upv.paella.hlsVideoFormat.js`: Support for m3u8 streams. Check the documentation about HLS video [in this document](hls-video-plugin.md).
+- `es.upv.paella.hlsVideoFormat.js`: Support for m3u8 streams. Check the documentation about HLS video [in this document](hls_video_plugin.md).
 - `es.upv.paella.hlsLiveVideoFormat.js`: This plugin extends the `hlsVideoFormat.js` plugin, and it is used to support special settings on live stream videos.
-- `es.upv.paella.imageVideoFormat.js`: Support for virtual video composed by a list of images. You can check the documentation about this special video type in [this document](image-video-plugin.md)
-- `es.upv.paella.mp4VideoFormat.js`: Support for progressive download video. Check the documentation about this format [here](mp4-video-plugin.md) 
+- `es.upv.paella.imageVideoFormat.js`: Support for virtual video composed by a list of images. You can check the documentation about this special video type in [this document](image_video_plugin.md)
+- `es.upv.paella.mp4VideoFormat.js`: Support for progressive download video. Check the documentation about this format [here](mp4_video_plugin.md) 
 
 
 ## src/js/plugins

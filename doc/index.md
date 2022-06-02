@@ -45,7 +45,7 @@
 
 [Plugins](plugins.md): introduction to the plugin system in Paella Player 7
 
-[paella-core plugins](paella-core-plugins.md): list of plugins that paella-core includes as standard.
+[paella-core plugins](paella_core_plugins.md): list of plugins that paella-core includes as standard.
 
 [Video layout](video_layout.md): how to implement plugins to distribute the position of the video streams in the player container area.
 
@@ -62,11 +62,11 @@ Add buttons to the playback bar:
 
 Video plugin formats available in [paella core](https://github.com/polimediaupv/paella-core):
 
-- [Image video plugin](image-video-plugin.md)
-- [MP4 video plugin](mp4-video-plugin.md)
-- [hls video plugin](hls-video-plugin.md)
-- [hls live (and low latency) video plugin](hls-live-video-plugin.md)
-- [audio only video plugin](audio-video-plugin.md). You should also check the documentation about the [audio canvas](audio_canvas_plugin.md)
+- [Image video plugin](image_video_plugin.md)
+- [MP4 video plugin](mp4_video_plugin.md)
+- [hls video plugin](hls_video_plugin.md)
+- [hls live (and low latency) video plugin](hls_live_video_plugin.md)
+- [audio only video plugin](audio_video_plugin.md). You should also check the documentation about the [audio canvas](audio_canvas_plugin.md)
 
 [Data plugins](data_plugins.md): provides an interface to implement communication with the backend through the use of plugins
 

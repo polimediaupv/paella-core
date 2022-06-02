@@ -6,6 +6,25 @@ To use this plugin you need to have the [audio canvas plugin](audio_canvas_plugi
 
 supported formats are those that the browser can play natively.
 
+## Configuration
+
+To recognise audio-only videos, you need to activate the plugin in the settings.
+
+```json
+{
+    "plugins": {
+        ...
+        "es.upv.paella.audioVideoFormat": {
+            "enabled": true,
+            "order": 3
+        },
+        ...
+    }
+}
+```
+
+If there is more than one stream type in a stream within the video manifest that is compatible with the current configuration, the plugin whose value in the `order` attribute is lower will be used. For more information, see the [video format plugins](video_plugins.md) documentation.
+
 ## Video manifest format
 
 ```json

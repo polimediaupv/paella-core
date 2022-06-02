@@ -65,8 +65,8 @@ The format identifier is `hls`. The array can contain only one element, if it co
 
 Paella can play `hls` files with multiple audio tracks. The easiest way to select which audio track to play is via the `es.upv.paella.audioSelector` plugin, within the `paella-basic-plugins` plugin library ([npm](https://www.npmjs.com/package/paella-basic-plugins), [git](https://github.com/polimediaupv/paella-basic-plugins/)).
 
-- [Using ffmpeg to generate an HLS with multiple audio tracks](ffmpeg-multiple-audio-tracks-hls.md)
-- [Using wowza and SMIL files to generate an HLS with multiple audio tracks](wowza-multiple-audio-tracks-smil.md).
+- [Using ffmpeg to generate an HLS with multiple audio tracks](ffmpeg_multiple_audio_tracks_hls.md)
+- [Using wowza and SMIL files to generate an HLS with multiple audio tracks](wowza_multiple_audio_tracks_smil.md).
 
 ## Troubleshooting
 
@@ -76,7 +76,7 @@ Taking this into account:
 
 * If you have problems in iOS browsers: it doesn't matter in which browser you have problems, since due to App Store policies all browsers use the system's rendering engine and video codecs. So in practice all browsers work the same. In this case, your problem is in the video codec or streaming server configuration. Nothing can be changed change in Paella Player to solve this kind of issues, because HLS is managed by the brower itself.
 * If you have problems in other browsers: check the [hls.js documentation](https://github.com/video-dev/hls.js) to see what features of HLS are supported. Also check the HLS specifications and recommendations for video encoding. Note that not all browsers support all codecs. Some problems may be fixed changing the hls.js configuration.
-* Please note that, although it is theoretically possible to view live video streams using the `hlsVideoFormat` plugin, it is very likely to have problems in some browsers. If you have problems with live streams, or especially low latency streams, be sure to use the `hlsLiveVideoFormat` plugin by replacing the `hls` tag with `hlsLive` in the video manifest (see the documentation of [hls live video plugin here](hls-live-video-plugin.md)).
+* Please note that, although it is theoretically possible to view live video streams using the `hlsVideoFormat` plugin, it is very likely to have problems in some browsers. If you have problems with live streams, or especially low latency streams, be sure to use the `hlsLiveVideoFormat` plugin by replacing the `hls` tag with `hlsLive` in the video manifest (see the documentation of [hls live video plugin here](hls_live_video_plugin.md)).
 
 Some helpful resources:
 

@@ -4,7 +4,7 @@ This document details `paella-core` support for video playback with multiple aud
 
 ## Compatibility
 
-`paella-core` supports multiple audio tracks through the [`StreamProvider`](stream_provider.md) APIs. However, the underlying video technology being used to play the stream must also support multiple audio tracks. For example, the audio track APIs for `.mp4` files are supported by some browsers, but not all, and for that reason the [`mp4` video plugin](mp4-video-plugin.md) does not support multiple audio tracks: the player behaviour would not be the same in all browsers. However, the `hls` video format does allow the use of video streams with multiple audio tracks, so the [hls-video-plugin.md](hls-video-plugin.md) does implement this feature.
+`paella-core` supports multiple audio tracks through the [`StreamProvider`](stream_provider.md) APIs. However, the underlying video technology being used to play the stream must also support multiple audio tracks. For example, the audio track APIs for `.mp4` files are supported by some browsers, but not all, and for that reason the [`mp4` video plugin](mp4_video_plugin.md) does not support multiple audio tracks: the player behaviour would not be the same in all browsers. However, the `hls` video format does allow the use of video streams with multiple audio tracks, so the [hls_video_plugin.md](hls_video_plugin.md) does implement this feature.
 
 ## Integration with multi track audio
 
@@ -24,6 +24,6 @@ The easiest way to handle multiple audio tracks is via the `es.upv.paella.audioS
 
 ## Additional information
 
-- [HLS video plugin](hls-video-plugin.md) for information about multiaudio in HLS.
-- [Using ffmpeg to generate an HLS with multiple audio tracks](ffmpeg-multiple-audio-tracks-hls.md).
-- [Using wowza and SMIL files to generate an HLS with multiple audio tracks](wowza-multiple-audio-tracks-smil.md).
+- [HLS video plugin](hls_video_plugin.md) for information about multiaudio in HLS.
+- [Using ffmpeg to generate an HLS with multiple audio tracks](ffmpeg_multiple_audio_tracks_hls.md).
+- [Using wowza and SMIL files to generate an HLS with multiple audio tracks](wowza_multiple_audio_tracks_smil.md).

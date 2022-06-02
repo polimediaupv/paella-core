@@ -5,7 +5,7 @@ In this example, we are going to use Wowza to stream HLS.
 You can get mode information in Wowza documentation:
 - [Use alternative audio or video tracks with Apple HLS streams in Wowza Streaming Engine](https://www.wowza.com/docs/how-to-use-alternative-audio-or-video-tracks-with-apple-hls-streams)
 
-If you don't want to use Wowza, you can encode to HLS directly with ffmpeg. Please read [Using ffmpeg to generate an HLS with multiple audio tracks](ffmpeg-multiple-audio-tracks-hls.md).
+If you don't want to use Wowza, you can encode to HLS directly with ffmpeg. Please read [Using ffmpeg to generate an HLS with multiple audio tracks](ffmpeg_multiple_audio_tracks_hls.md).
 
 As in the ffmpeg example, we will encode a video example with three audio tracks.
 
