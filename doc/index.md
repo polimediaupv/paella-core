@@ -72,6 +72,8 @@ Video plugin formats available in [paella core](https://github.com/polimediaupv/
 
 [Captions plugins](captions_plugins.md): allows to load different formats of captions.
 
+[Canvas plugins](canvas_plugin.md): used to provide a viewing area for videos. This type of plugin is closely related to video format plugins, as each video format is designed to work together with one or more different canvas.
+
 [Event plugins](event_log_plugins.md): capture events to trigger actions using a plugin.
 
 [Keyboard Shortcut plugins](key_shortucts.md): add shortcuts to handle player actions.

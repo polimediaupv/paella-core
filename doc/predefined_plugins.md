@@ -22,7 +22,14 @@ Plugins to implement support for new video formats. Check the documentation abou
 - `es.upv.paella.hlsLiveVideoFormat.js`: This plugin extends the `hlsVideoFormat.js` plugin, and it is used to support special settings on live stream videos.
 - `es.upv.paella.imageVideoFormat.js`: Support for virtual video composed by a list of images. You can check the documentation about this special video type in [this document](image_video_plugin.md)
 - `es.upv.paella.mp4VideoFormat.js`: Support for progressive download video. Check the documentation about this format [here](mp4_video_plugin.md) 
+- `es.upv.paella.audioVideoFormat.js`: Support for audio-only streams. To use this plugin it's important to enable the `es.upv.paella.audioCanvas` plugin. You can get more information about audio-only format in [this document](audio_video_plugin.md).
 
+## src/js/canvas
+
+Plugins that implement [canvas](canvas_plugin.md) to display video formats.
+
+- `es.upv.paella.videoCanvas.js`: Canvas to display HTML-compliant video formats, i.e. those that use the `<video>` element to display multimedia content. [video canvas plugin documentation](video_canvas_plugin.md).
+- `es.upv.paella.audioCanvas.js`: Canvas to display audio-only streams. This canvas fills the space of the video with an image. The source of the image will depend on the video format used. [audio canvas plugin documentation](audio_canvas_plugin.md).
 
 ## src/js/plugins
 
