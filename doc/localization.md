@@ -6,19 +6,10 @@ Paella Player includes very basic APIs for translating strings from dictionaries
 
 ## Localization API
 
-You can access the localization API through the player object or you can import the localization API
+Localization APIs include functions to set the language, get the current language, translate phrases and add dictionaries.
 
-**Using player object:** 
+Example: set and get language, translate:
 
-```javascript
-player.setLanguage('es');
-console.log(`Current language: ${ player.getLanguage() }`);
-console.log(player.translate("Hello"));
-```
-
-
-
-**Importing localization API:**
 
 ```javascript
 import { setLanguage, getLanguage, translate } from 'paella-core';
@@ -27,10 +18,6 @@ setLanguage('es');
 console.log(`Current language: ${ getLanguage() }`);
 console.log(translate('Hello'));
 ```
-
-
-
-## Loading dictionaries
 
 To add new dictionaries, you can use the `addDictionary` API function:
 
@@ -70,6 +57,14 @@ The `paella-core` instance includes an API for accessing localization functions,
 **`getLanguage()`**
 
 **`addDictionary(lang,dict)`**
+
+Example: 
+
+```javascript
+player.setLanguage('es');
+console.log(`Current language: ${ player.getLanguage() }`);
+console.log(player.translate("Hello"));
+```
 
 
 ## Using custom localization library
