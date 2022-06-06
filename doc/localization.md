@@ -59,6 +59,17 @@ const initParams = {
 
 For more information about Paella Player initialization, check [this document](initialization.md).
 
+## Paella instance API
+
+The `paella-core` instance includes an API for accessing localization functions, which can be used alternatively, without the need to import the API functions from the library.
+
+**`translate(word)`**
+
+**`setLanguage(lang)`**
+
+**`getLanguage()`**
+
+**`addDictionary(lang,dict)`**
 
 
 ## Using custom localization library
