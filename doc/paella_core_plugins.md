@@ -101,7 +101,7 @@ They enable playback of different video formats. More information about video fo
 
 ### `es.upv.paella.imageVideoFormat`:
 
-Allows to use a list of images as a video stream. You can see the video manifest and plugin configuration in [this document](image-video-plugin.md).
+Allows to use a list of images as a video stream. You can see the video manifest and plugin configuration in [this document](image_video_plugin.md).
 
 ```json
 "es.upv.paella.imageVideoFormat": {
@@ -114,7 +114,7 @@ Allows to use a list of images as a video stream. You can see the video manifest
 
 ### `es.upv.paella.mp4VideoFormat`:
 
-Basic plugin to playback standard mp4 streams. You can see the video manifest and detailed plugin configuration in [this document](mp4-video-plugin.md).
+Basic plugin to playback standard mp4 streams. You can see the video manifest and detailed plugin configuration in [this document](mp4_video_plugin.md).
 
 ```json
 "es.upv.paella.mp4VideoFormat": {

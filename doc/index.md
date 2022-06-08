@@ -4,6 +4,8 @@
 
 [Presentation](paella_player_7_presentation.md)
 
+[Improvements](improvements.md): Improvements and new plugins added to the different versions of `paella-core` APIs
+
 ## Paella Player 6.x and earlier versions
 
 [Documentation at github](https://github.com/polimediaupv/paella/tree/develop/doc)
@@ -43,7 +45,7 @@
 
 [Plugins](plugins.md): introduction to the plugin system in Paella Player 7
 
-[paella-core plugins](paella-core-plugins.md): list of plugins that paella-core includes as standard.
+[paella-core plugins](paella_core_plugins.md): list of plugins that paella-core includes as standard.
 
 [Video layout](video_layout.md): how to implement plugins to distribute the position of the video streams in the player container area.
 
@@ -60,14 +62,17 @@ Add buttons to the playback bar:
 
 Video plugin formats available in [paella core](https://github.com/polimediaupv/paella-core):
 
-- [Image video plugin](image-video-plugin.md)
-- [MP4 video plugin](mp4-video-plugin.md)
-- [hls video plugin](hls-video-plugin.md)
-- [hls live (and low latency) video plugin](hls-live-video-plugin.md)
+- [Image video plugin](image_video_plugin.md)
+- [MP4 video plugin](mp4_video_plugin.md)
+- [hls video plugin](hls_video_plugin.md)
+- [hls live (and low latency) video plugin](hls_live_video_plugin.md)
+- [audio only video plugin](audio_video_plugin.md). You should also check the documentation about the [audio canvas](audio_canvas_plugin.md)
 
 [Data plugins](data_plugins.md): provides an interface to implement communication with the backend through the use of plugins
 
 [Captions plugins](captions_plugins.md): allows to load different formats of captions.
+
+[Canvas plugins](canvas_plugin.md): used to provide a viewing area for videos. This type of plugin is closely related to video format plugins, as each video format is designed to work together with one or more different canvas.
 
 [Event plugins](event_log_plugins.md): capture events to trigger actions using a plugin.
 
@@ -78,6 +83,8 @@ Video plugin formats available in [paella core](https://github.com/polimediaupv/
 [Localization](localization.md): translate text strings, add dictionaries and set up your preferred localization library in Paella Player.
 
 [Utilities](utils.md): common-use utility package.
+
+[DOM Utilities](dom_utilities.md): utilities to create DOM elements that can be displayed in the browser.
 
 [Predefined plugins](predefined_plugins.md): List of plugins included in `paella-core`
 

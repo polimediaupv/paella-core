@@ -14,6 +14,7 @@ The configuration callbacks cannot be specified, but in practice the only callba
 "es.upv.paella.hlsVideoFormat": {
   "enabled": true,
   "order": 0,
+  "audioTrackLabel": "name",
   "hlsConfig": {
     "maxBufferLength": 40
   },
@@ -25,8 +26,6 @@ The configuration callbacks cannot be specified, but in practice the only callba
   }
 }
 ```
-
-
 
 ## Video Manifest
 
@@ -65,8 +64,61 @@ The format identifier is `hls`. The array can contain only one element, if it co
 
 Paella can play `hls` files with multiple audio tracks. The easiest way to select which audio track to play is via the `es.upv.paella.audioSelector` plugin, within the `paella-basic-plugins` plugin library ([npm](https://www.npmjs.com/package/paella-basic-plugins), [git](https://github.com/polimediaupv/paella-basic-plugins/)).
 
-- [Using ffmpeg to generate an HLS with multiple audio tracks](ffmpeg-multiple-audio-tracks-hls.md)
-- [Using wowza and SMIL files to generate an HLS with multiple audio tracks](wowza-multiple-audio-tracks-smil.md).
+- [Using ffmpeg to generate an HLS with multiple audio tracks](ffmpeg_multiple_audio_tracks_hls.md)
+- [Using wowza and SMIL files to generate an HLS with multiple audio tracks](wowza_multiple_audio_tracks_smil.md).
+
+### About `audioTrackLabel` setting
+
+The `paella-core` APIs allow selecting the active audio track, as well as displaying information about that track to the user. Tags are included within the m3u8 playlist for this purpose:
+
+```m3u8
+...
+#EXT-X-MEDIA:TYPE=AUDIO,GROUP-ID="aac",LANGUAGE="es",NAME="Spanish",DEFAULT=YES,AUTOSELECT=YES,URI="chunklist_w777901138_b105768_ao_sles_t64U3BhbmlzaA==.m3u8?cache=96104139164"
+#EXT-X-MEDIA:TYPE=AUDIO,GROUP-ID="aac",LANGUAGE="en",NAME="English",DEFAULT=NO,AUTOSELECT=YES,URI="chunklist_w777901138_b105768_ao_slen_t64RW5nbGlzaA==.m3u8?cache=96104139164"
+```
+
+By default, the data with which the audio track is identified is `"NAME"`. However, it is possible to configure which data we want to use to obtain the language label. It is possible to choose between the following labels:
+
+- `name`: corresponds to the `"NAME"` field in the `m3u8` file.
+- `lang`: corresponds to the `"LANGUAGE"` field in the `m3u8` file.
+- `groupId`: corresponds to the `"GROUP-ID"` field in the `m3u8` file.
+
+To customise this tag we can use the plugin configuration, or the [video manifest](video_manifest.md). The video manifest configuration value will take precedence over the plugin configuration, if both are present.
+
+**Video manifest:**
+
+```json
+{
+  ...
+  "streams": [
+    {
+      "sources": {
+        "hls": [
+          {
+            "src": "https://mywowzaserver.com/video/playlist.m3u8",
+            "mimetype": "video/mp4",
+            "audioLabel": "name" <<== customize audioLabel
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
+**Plugin configuration:**
+
+```json
+"es.upv.paella.hlsVideoFormat": {
+  "enabled": true,
+  "audioTrackLabel": "name",
+  ...
+}
+```
+
+If you have generated an m3u8 playlist following the instructions in the previous section ([Using ffmpeg to generate an HLS with multiple audio tracks](ffmpeg_multiple_audio_tracks_hls.md)), you may have encountered the problem that FFMPEG ignores the track names specified on the command line. It is possible to edit the playlist file afterwards to modify the track names, but you can also use the `audioTrackLabel` property to get the track names from another field, such as the language.
+
+
 
 ## Troubleshooting
 
@@ -76,7 +128,7 @@ Taking this into account:
 
 * If you have problems in iOS browsers: it doesn't matter in which browser you have problems, since due to App Store policies all browsers use the system's rendering engine and video codecs. So in practice all browsers work the same. In this case, your problem is in the video codec or streaming server configuration. Nothing can be changed change in Paella Player to solve this kind of issues, because HLS is managed by the brower itself.
 * If you have problems in other browsers: check the [hls.js documentation](https://github.com/video-dev/hls.js) to see what features of HLS are supported. Also check the HLS specifications and recommendations for video encoding. Note that not all browsers support all codecs. Some problems may be fixed changing the hls.js configuration.
-* Please note that, although it is theoretically possible to view live video streams using the `hlsVideoFormat` plugin, it is very likely to have problems in some browsers. If you have problems with live streams, or especially low latency streams, be sure to use the `hlsLiveVideoFormat` plugin by replacing the `hls` tag with `hlsLive` in the video manifest (see the documentation of [hls live video plugin here](hls-live-video-plugin.md)).
+* Please note that, although it is theoretically possible to view live video streams using the `hlsVideoFormat` plugin, it is very likely to have problems in some browsers. If you have problems with live streams, or especially low latency streams, be sure to use the `hlsLiveVideoFormat` plugin by replacing the `hls` tag with `hlsLive` in the video manifest (see the documentation of [hls live video plugin here](hls_live_video_plugin.md)).
 
 Some helpful resources:
 

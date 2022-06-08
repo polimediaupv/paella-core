@@ -24,7 +24,8 @@
 				"hls": [
 					{
 						"src": "https://streaming.videoapuntes.upv.es/videoapuntes-engage/smil:engage-player_hls-multiaoudio.smil/playlist.m3u8",
-						"mimetype": "video/mp4"
+						"mimetype": "video/mp4",
+						"audioLabel": "name"
 					}
 				]
 			},

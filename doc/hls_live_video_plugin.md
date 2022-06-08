@@ -1,6 +1,6 @@
 # HLS Live video plugin
 
-It is implemented from [hls video plugin](hls-video-plugin.md). The difference is that this plugin responds to streams labeled `hlsLive` from [video manifest](video_manifest.md). In addition, the hls live plugin does not support setting the initial video quality, as this setting usually gives problems with low latency videos.
+It is implemented from [hls video plugin](hls_video_plugin.md). The difference is that this plugin responds to streams labeled `hlsLive` from [video manifest](video_manifest.md). In addition, the hls live plugin does not support setting the initial video quality, as this setting usually gives problems with low latency videos.
 
 ## Video Manifest
 
@@ -85,9 +85,9 @@ Paella supports HLS Low Latency by using the `hls.js` libraray. You only need to
 
 You can check your stream in the [hls.js demo page](https://hls-js.netlify.app/demo/). If the streams works in this demo, it will work on paella.
 
-If you use [wowza streaming server](https://www.wowza.com/), you can follow this [guide](wowza-configure-hls-low-latency.md) to configure HLS Low latency.
+If you use [wowza streaming server](https://www.wowza.com/), you can follow this [guide](wowza_configure_hls_low_latency.md) to configure HLS Low latency.
 
 
 ## More information and FAQ
 
-See the document about the [hls video plugin](hls-video-plugin.md) for more information.
+See the document about the [hls video plugin](hls_video_plugin.md) for more information.

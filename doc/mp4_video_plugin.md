@@ -4,6 +4,26 @@ It allows to play video in mp4 format obtained by progressive download. This for
 
 As of Paella Player 7, this video format does not support multi audio and multi quality, due to browser compatibility issues. To work with multiple qualities and multiple audios, you can use the `hls` format, by means of the plugin [paella-hls-video-plugin](https://githjub.com/polimediaupv/paella-hls-video-plugin).
 
+## Configuration
+
+To recognise mp4 videos, you need to activate the plugin in the settings.
+
+```json
+{
+    "plugins": {
+        ...
+        "es.upv.paella.mp4VideoFormat": {
+            "enabled": true,
+            "order": 1
+        },
+        ...
+    }
+}
+```
+
+If there is more than one stream type in a stream within the video manifest that is compatible with the current configuration, the plugin whose value in the `order` attribute is lower will be used. For more information, see the [video format plugins](video_plugins.md) documentation.
+
+
 ## Video manifest format
 
 ```json

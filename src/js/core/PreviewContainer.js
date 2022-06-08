@@ -48,7 +48,7 @@ export default class PreviewContainer extends DomClass {
         super(player, {attributes, parent: parentElement});
 
         this._img = createElementWithHtmlText(`
-        <div>
+        <div style="${g_imgStyle}">
             <img style="${g_imgStyle}" src="${backgroundImage}" alt=""/>
             <div style="${ g_iconContainerStyle }">
                 <i class="preview-play-icon" style="${ g_iconStyle }">${ PlayIcon }</i>

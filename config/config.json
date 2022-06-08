@@ -52,6 +52,7 @@
         "es.upv.paella.hlsVideoFormat": {
             "enabled": true,
             "order": 0,
+            "audioTrackLabel": "name",
             "hlsConfig": {
                 "maxBufferLength": 40
             },
