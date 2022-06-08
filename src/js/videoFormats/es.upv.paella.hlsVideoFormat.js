@@ -197,6 +197,8 @@ export class HlsVideo extends Mp4Video {
         else {
             this.player.log.debug("Loading HLS stream");
 
+            const hlsStream = streamData?.sources?.hls?.length && streamData.sources.hls[0];
+            this._config.audioTrackLabel = hlsStream?.audioLabel || this._config.audioTrackLabel;
             const [hls, promise] = loadHls(this.player, streamData, this.video, this._config, this._cors);
             this._hls = hls;
             await promise;
