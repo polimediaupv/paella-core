@@ -161,7 +161,9 @@ export class HlsVideo extends Mp4Video {
     constructor(player, parent, config, isMainAudio) {
         super(player, parent, isMainAudio);
         
-        this._config = {}
+        this._config = {
+            audioTrackLabel: config.audioTrackLabel || 'name'
+        }
         for (const key in defaultHlsConfig) {
             this._config[key] = defaultHlsConfig[key];
         }
@@ -299,11 +301,13 @@ export class HlsVideo extends Mp4Video {
     async getAudioTracks() {
         await this.waitForLoaded();
 
+        const audioTrackLabel = this._config.audioTrackLabel || 'name';
+
         if (hlsSupport === HlsSupport.MEDIA_SOURCE_EXTENSIONS) {
             const result = this._hls.audioTracks.map(track => {
                 return new AudioTrackData({
                     id: track.id,
-                    name: track.name,
+                    name: track[audioTrackLabel],
                     language: track.lang,
                     selected: this._hls.audioTrack === track.id
                 });
