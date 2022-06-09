@@ -23,7 +23,11 @@ ul.menu-button-content li.menu-button-item button:hover {
 }
 
 ul.menu-button-content li.menu-button-item button.selected {
-	background-color: var(--secondary-bg-color-hover);
+	background-color: var(--highlight-bg-color);
+}
+
+ul.menu-button-content li.menu-button-item button.selected:hover {
+	background-color: var(--highlight-bg-color-hover);
 }
 
 ul.menu-button-content li.menu-button-item button i.menu-icon {

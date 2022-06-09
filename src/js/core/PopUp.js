@@ -24,6 +24,10 @@ function placePopUp(player, anchorElement, contentElement) {
 		// Decide where to attach the popup depending on the anchor position
 		contentElement.style.overflow = "auto";
 		contentElement.style.display = "table";
+		contentElement.style.left = "";
+		contentElement.style.right = "";
+		contentElement.style.bottom = "";
+		contentElement.style.top = "";
 		if (viewportCenterX>centerX && viewportCenterY<=centerY) {
 			// bottom left
 			const b = viewportHeight - (bottom - height);
