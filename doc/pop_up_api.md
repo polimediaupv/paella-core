@@ -23,6 +23,14 @@ The `PopUp` constructor supports two mandatory parameters, and three extra param
 
 **`destroy()`:** destroys the pop up. If the pop up is no longer to be used, it is necessary to call this function to remove the pop up elements from the DOM tree.
 
+**`static GetPopUps()`:** returns a list of all popups that have been created. These popups can be hidden or visible. A popup will only be removed from the popup list after it is destroyed by the `destroy()` method.
+
+**`static IsSomePopUpVisible()`:** returns `true` if any popup is visible.
+
+**`static GetPopUp(id)`:** gets the instance of a popup from its identifier.
+
+**`static HideAllPopUps(onlyModal = true)`:** Hides all visible popups. If `onlyModal` is true, only those that are modal are hidden.
+
 
 ## Attributes
 

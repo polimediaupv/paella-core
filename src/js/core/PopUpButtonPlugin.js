@@ -40,7 +40,10 @@ export default class PopUpButtonPlugin extends ButtonPlugin {
 	}
 	
 	hidePopUp() {
-		if (this._popUp) {
+		if (this.config.closeParentPopUp) {
+			PopUp.HideAllPopUps(false);
+		}
+		else if (this._popUp) {
 			this._popUp.hide();
 		}
 	}
