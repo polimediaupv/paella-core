@@ -106,7 +106,8 @@
             "side": "left",
             "_parentContainer": "videoContainer",
             "parentContainer": "testButtonGroup",
-            "description": "Test menu plugin"
+            "description": "Test menu plugin",
+            "closeOnSelect": false
         },
 
         "es.upv.paella.testPopUpButton": {

@@ -1,14 +1,27 @@
 
 import PopUpButtonPlugin from 'paella-core/js/core/PopUpButtonPlugin';
 import { createElementWithHtmlText } from 'paella-core/js/core/dom';
+import PopUp from 'paella-core/js/core/PopUp';
 
 import 'paella-core/styles/MenuButton.css';
 
 export default class MenuButtonPlugin extends PopUpButtonPlugin {
 	
+	get closeOnSelect() {
+		if (this.config.closeOnSelect === undefined) {
+			if (this.buttonType !== "check") {
+				this.config.closeOnSelect = true;
+			}
+			else {
+				this.config.closeOnSelect = false;
+			}
+		}
+		return this.config.closeOnSelect;
+	}
+
 	async getContent() {
 		const content = createElementWithHtmlText(`<ul class="menu-button-content"></ul>`);
-		
+
 		const menuItems = await this.getMenu();
 		this._menuItems = menuItems;
 		let radioItemChecked = false;
@@ -77,7 +90,7 @@ export default class MenuButtonPlugin extends PopUpButtonPlugin {
 				this.itemSelected(evt.target._itemData, this._menuItems);
 				evt.stopPropagation();
 				
-				if (this.buttonType !== "check") {
+				if (this.closeOnSelect) {
 					this.closeMenu();
 				}
 			});
@@ -130,7 +143,12 @@ export default class MenuButtonPlugin extends PopUpButtonPlugin {
 	}
 	
 	closeMenu() {
-		this._popUp.hide();
+		if (this.config.closeParentPopUp) {
+			PopUp.HideAllPopUps(false);
+		}
+		else {
+			this._popUp.hide();
+		}
 	}
 
 	async showPopUp() {

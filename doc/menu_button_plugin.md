@@ -87,7 +87,27 @@ buttonType() {
 }
 ```
 
+## Auto close pop up
 
+By selecting a menu item, it is possible to configure the behaviour of the pop-up to stay open or close. This behaviour can be set in the plugin configuration.
+
+The default behaviour depends on the type of the menu button plugin.
+
+- If the button type is `radio` button: the pop up will not be closed.
+- If the button type is `check` or `button`: the pop up will be closed.
+
+In addition to this, in case the button is in a pop up (see documentation on [ButtonGroupPlugin](button_group_plugin.md)), it is also possible to configure whether we want the parent container to close or remain open.
+
+These default behaviours can be modified using the `closeOnSelect` and `closeParentPopUp` properties.`:
+
+```json
+{
+  "es.upv.paella.myMenuButtonPlugin": {
+    "enabled": true,
+    "closeOnSelect": true
+  }
+}
+```
 
 
 
