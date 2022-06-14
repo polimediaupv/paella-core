@@ -17,7 +17,7 @@ function getAsyncImage(src) {
 function asyncLoadAudio(player, audio, src) {
     return new Promise((resolve, reject) => {
         audio.oncanplay = () => resolve();
-        audio.onerror = () => reject(new Error(`Error loading audio: ${src}`));
+        audio.onerror = () => reject(new Error(player.translate("Error loading audio: $1", [src])));
         audio.src = resolveResourcePath(player, src);
         resolve();
     });

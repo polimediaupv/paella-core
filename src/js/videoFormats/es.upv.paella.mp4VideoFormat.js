@@ -284,7 +284,7 @@ export class Mp4Video extends Video {
                     this._waitTimer && clearTimeout(this._waitTimer);
                     this._waitTimer = null;
                     if (this.video.error) {
-                        reject(new Error(`Error loading video: ${this.video.src}. Code: ${this.video.error.code}: ${this.video.error.message}`));
+                        reject(new Error(this.player.translate("Error loading video: $1. Code: $2 $3", [this.video.src, this.video.error, this.video.error.message])));
                     }
                     else if (this.video.readyState >= 2) {
                         this.video.pause(); // Pause the video because it is loaded in autoplay mode

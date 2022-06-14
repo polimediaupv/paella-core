@@ -50,7 +50,7 @@ For more information about Paella Player initialization, check [this document](i
 
 The `paella-core` instance includes an API for accessing localization functions, which can be used alternatively, without the need to import the API functions from the library.
 
-**`translate(word)`**
+**`translate(word,keys)`**
 
 **`setLanguage(lang)`**
 
@@ -66,6 +66,32 @@ console.log(`Current language: ${ player.getLanguage() }`);
 console.log(player.translate("Hello"));
 ```
 
+## Variables
+
+You can translate sentences containing variables:
+
+```js
+player.addDictionary({ "es",
+  {
+    "The lead developer is $1, and the CEO is $2": "El desarrollador principal es $1, y el CEO es $2"
+  }
+});
+...
+player.translate("The lead developer is $1, and the CEO is $2", ["John","Mary"]);
+```
+
+It is important to note that the system does not modify the variables or the sentences to take into account gender, cardinality, etc.
+
+```js
+player.addDictionary({ "es",
+  {
+    "there are $1 kittens in the basket": "Hay $1 gatitos en la cesta"
+  }
+});
+...
+player.translate("there are $1 kittens in the basket", ["1"]);
+// Hay 1 gatitos en la cesta
+```
 
 ## Using custom localization library
 
