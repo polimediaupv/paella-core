@@ -181,8 +181,8 @@ export default class Paella {
         return Events;
     }
 
-    translate(word) {
-        return translate(word);
+    translate(word, keys = null) {
+        return translate(word, keys);
     }
 
     setLanguage(lang) {
@@ -331,7 +331,7 @@ export default class Paella {
     
     async loadManifest() {
         if (this._playerState !== PlayerState.UNLOADED) {
-            throw new Error(`loadManifest(): Invalid current player state: ${ PlayerStateNames[this._playerState]}`);
+            throw new Error(this.translate("loadManifest(): Invalid current player state: $1", [PlayerStateNames[this._playerState]]));
         }
         if (this._manifestLoaded) return;
 
@@ -407,7 +407,7 @@ export default class Paella {
             this._captionsCanvas = new CaptionCanvas(this, this._containerElement);
 
             if (this._playerState !== PlayerState.MANIFEST) {
-                throw new Error(`loadPlayer(): Invalid current player state: ${ PlayerStateNames[this._playerState]}`);
+                throw new Error(this.translate("loadPlayer(): Invalid current player state: $1", [PlayerStateNames[this._playerState]]));
             }
     
             this._playerState = PlayerState.LOADING_PLAYER;
@@ -463,7 +463,7 @@ export default class Paella {
         case PlayerState.LOADED:
             break;
         default:
-            throw new Error(`Could not load player: state transition in progress: ${PlayerStateNames[this.state]}`);
+            throw new Error(this.translate("Could not load player: state transition in progress: $1", [PlayerStateNames[this.state]]));
         }
     }
 
@@ -480,13 +480,13 @@ export default class Paella {
             await this.unloadManifest();
             break;
         default:
-            throw new Error(`Could not unload player: state transition in progress: ${PlayerStateNames[this.state]}`);
+            throw new Error(this.translate("Could not unload player: state transition in progress: $1", [PlayerStateNames[this.state]]));
         }
     }
     
     async unloadManifest() {
         if (this._playerState !== PlayerState.MANIFEST && this._playerState !== PlayerState.ERROR) {
-            throw new Error(`unloadManifest(): Invalid current player state: ${ PlayerStateNames[this._playerState]}`);
+            throw new Error(this.translate("unloadManifest(): Invalid current player state: $1", [PlayerStateNames[this._playerState]]));
         }
         if (this._errorContainer) {
             this._errorContainer.removeFromParent();
@@ -511,7 +511,7 @@ export default class Paella {
 
     async unloadPlayer() {
         if (this._playerState !== PlayerState.LOADED && this._playerState !== PlayerState.ERROR) {
-            throw new Error(`unloadManifest(): Invalid current player state: ${ PlayerStateNames[this._playerState]}`);
+            throw new Error(this.translate("unloadManifest(): Invalid current player state: $1", [PlayerStateNames[this._playerState]]));
         }
         if (this._errorContainer) {
             this._errorContainer.removeFromParent();

@@ -28,6 +28,6 @@ export async function defaultLoadVideoManifestFunction(videoManifestUrl,config,p
         return await response.json();
     }
     else {
-        throw new Error(`Error loading video manifest: ${response.status} ${response.statusText}`);
+        throw new Error(player.translate("Error loading video manifest: $1 $2", [response.status, response.statusText]));
     }
 }

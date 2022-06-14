@@ -80,7 +80,13 @@ const defaultDictionaries = {
         "Minimize video": "Minimizar vídeo",
         "Place the video on the other side of the screen": "Colocar el vídeo al otro lado de la pantalla",
         "Maximize video": "Maximizar vídeo",
-        "Swap position of the videos": "Intercambiar posición de los vídeos"
+        "Swap position of the videos": "Intercambiar posición de los vídeos",
+        "loadManifest(): Invalid current player state: $1": "loadManifest(): Estado actual del reproductor no válido: $1",
+        "loadPlayer(): Invalid current player state: $1": "loadPlayer(): Estado actual del reproductor no válido: $1",
+        "Could not load player: state transition in progress: $1": "No se puede cargar el reproductor: transición de estado en progreso: $1",
+        "Could not unload player: state transition in progress: $1": "No se puede descargar el reproductor: transición de estado en progreso $1",
+        "unloadManifest(): Invalid current player state: $1": "unloadManifest(): Estado actual del reprodutor no válido: $1",
+        "Error loading video manifest: $1 $2": "Error cargando la información del vídeo: $1 $2"
     }
 }
 

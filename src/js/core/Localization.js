@@ -35,8 +35,19 @@ let g_getLanguageFunc = defaultGetLanguageFunction;
 
 let g_defaultAddDictionary = defaultAddDictionaryFunction;
 
-export function translate(word) {
-    return g_translateFunc(word);
+export function translate(word, keys = null) {
+    const translated = g_translateFunc(word);
+    if (Array.isArray(keys)) {
+        let result = translated;
+        keys.forEach((key,index) => {
+            const temp = `$${index + 1}`;
+            result = result.replace(temp,key);
+        });
+        return result;
+    }
+    else {
+        return translated;
+    }
 }
 
 export function setLanguage(lang) {
