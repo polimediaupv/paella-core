@@ -10,7 +10,7 @@ function placePopUp(player, anchorElement, contentElement) {
 		const { top, left, right, bottom, width, height } = anchorElement.getBoundingClientRect();
 		const centerX = left + width / 2;
 		const centerY = top + height / 2;
-		const scroll =  + document.body.scrollTop;
+		const scroll =  document.body.scrollTop;
 
 		// TODO: use the viewContainer element
 		const viewportWidth = window.innerWidth;
@@ -32,7 +32,7 @@ function placePopUp(player, anchorElement, contentElement) {
 			// bottom left
 			const b = viewportHeight - (bottom - height);
 			contentElement.style.left = `${ left }px`;
-			contentElement.style.bottom = `${ b - scroll }px`;
+			contentElement.style.bottom = `${ b }px`;
 			contentElement.style.maxHeight = `calc(100vh - ${ b }px - 10px)`;
 		}
 		else if (viewportCenterX>centerX && viewportCenterY>centerY) {
@@ -51,7 +51,7 @@ function placePopUp(player, anchorElement, contentElement) {
 			// bottom right quadrant
 			const b = viewportHeight - (bottom - height);
 			contentElement.style.right = `${ viewportWidth - right }px`;
-			contentElement.style.bottom = `${ b - scroll }px`;
+			contentElement.style.bottom = `${ b }px`;
 			contentElement.style.maxHeight = `calc(100vh - ${ b }px - 10px)`;
 		}
 	}
