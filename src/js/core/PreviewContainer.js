@@ -37,7 +37,7 @@ const g_iconStyle = `
     opacity: 0.6;
 `;
 
-import PlayIcon from 'paella-core/icons/play_icon_fullscreen.svg';
+import PlayIcon from '../../icons/play_icon_fullscreen.svg';
 
 export default class PreviewContainer extends DomClass {
     constructor(player, parentElement,backgroundImage) {

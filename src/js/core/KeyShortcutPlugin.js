@@ -1,4 +1,4 @@
-import Plugin from 'paella-core/js/core/Plugin';
+import Plugin from '../core/Plugin';
 import { loadPluginsOfType } from './Plugin';
 
 const getModifierStatus = sc => {

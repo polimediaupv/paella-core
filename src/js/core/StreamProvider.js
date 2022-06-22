@@ -1,7 +1,7 @@
-import PlayerResource from 'paella-core/js/core/PlayerResource';
-import { getVideoPlugin } from 'paella-core/js/core/VideoPlugin';
-import { loadCanvasPlugins, getCanvasPlugin, unloadCanvasPlugins } from 'paella-core/js/core/CanvasPlugin';
-import Events, { triggerEvent, triggerIfReady } from 'paella-core/js/core/Events';
+import PlayerResource from '../core/PlayerResource';
+import { getVideoPlugin } from '../core/VideoPlugin';
+import { loadCanvasPlugins, getCanvasPlugin, unloadCanvasPlugins } from '../core/CanvasPlugin';
+import Events, { triggerEvent, triggerIfReady } from '../core/Events';
 
 export default class SteramProvider extends PlayerResource {
 	constructor(player, videoContainer) {

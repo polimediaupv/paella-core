@@ -1,4 +1,4 @@
-import Plugin, { loadPluginsOfType } from 'paella-core/js/core/Plugin';
+import Plugin, { loadPluginsOfType } from '../core/Plugin';
 
 export async function loadCaptionsPlugins(player) {
     const enabledCaptionsPlugins = [];

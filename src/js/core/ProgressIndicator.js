@@ -1,6 +1,6 @@
-import { DomClass, createElementWithHtmlText } from 'paella-core/js/core/dom';
-import Events, { bindEvent } from 'paella-core/js/core/Events';
-import { resolveResourcePath, secondsToTime } from 'paella-core/js/core/utils';
+import { DomClass, createElementWithHtmlText } from '../core/dom';
+import Events, { bindEvent } from '../core/Events';
+import { resolveResourcePath, secondsToTime } from '../core/utils';
 
 export function getCurrentFrame(sortedFrameList,time) {
 	if (!sortedFrameList || sortedFrameList.length === 0) {

@@ -1,5 +1,5 @@
-import Plugin, { getPluginsOfType, loadPluginsOfType } from 'paella-core/js/core/Plugin';
-import { DomClass } from 'paella-core/js/core/dom';
+import Plugin, { getPluginsOfType, loadPluginsOfType } from '../core/Plugin';
+import { DomClass } from '../core/dom';
 import { createElement, createElementWithHtmlText } from './dom';
 
 import "../../css/VideoCanvas.css";

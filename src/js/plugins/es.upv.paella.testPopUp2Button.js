@@ -1,7 +1,7 @@
-import PopUpButtonPlugin from 'paella-core/js/core/PopUpButtonPlugin';
-import { createElementWithHtmlText } from 'paella-core/js/core/dom';
+import PopUpButtonPlugin from '../core/PopUpButtonPlugin';
+import { createElementWithHtmlText } from '../core/dom';
 
-import screenIcon from 'paella-core/icons/screen.svg';
+import screenIcon from '../../icons/screen.svg';
 
 export default class TestPopUpButton2Plugin extends PopUpButtonPlugin {
 

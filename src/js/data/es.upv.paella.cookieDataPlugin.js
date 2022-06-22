@@ -1,6 +1,6 @@
-import { DataPlugin } from 'paella-core/js/core/Data';
+import { DataPlugin } from '../core/Data';
 
-import { setCookie, getCookie } from 'paella-core/js/core/utils';
+import { setCookie, getCookie } from '../core/utils';
 
 export default class CookieDataPlugin extends DataPlugin {
     serializeKey(context,params) {

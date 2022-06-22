@@ -1,18 +1,18 @@
-import Paella from 'paella-core/js/Paella';
-import Events, { bindEvent } from 'paella-core/js/core/Events';
-import { defaultLoadVideoManifestFunction } from 'paella-core/js/core/initFunctions';
+import Paella from './js/Paella';
+import Events, { bindEvent } from './js/core/Events';
+import { defaultLoadVideoManifestFunction } from './js/core/initFunctions';
 
 import './debug.css';
 
 // Objects to store the custom localization dictionaries
-import g_dictionaries from 'paella-core/js/default-dictionaries.js';
+import g_dictionaries from './js/default-dictionaries.js';
 let g_currentLanguage = navigator.language.substring(0,2);
 
 // Localization API
 import {
 	setLanguage,
 	addDictionary
-} from 'paella-core/js/core/Localization';
+} from './js/core/Localization';
 
 const initParams = {
 	loadVideoManifest: async function(videoManifestUrl,config,player) {

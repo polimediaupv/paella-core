@@ -1,10 +1,10 @@
-import PopUpButtonPlugin from 'paella-core/js/core/PopUpButtonPlugin';
-import { createElementWithHtmlText } from 'paella-core/js/core/dom';
-import { loadPluginsOfType } from 'paella-core/js/core/Plugin';
-import { addButtonPlugin } from 'paella-core/js/core/ButtonPlugin';
-import { translate } from 'paella-core/js/core/Localization';
+import PopUpButtonPlugin from '../core/PopUpButtonPlugin';
+import { createElementWithHtmlText } from '../core/dom';
+import { loadPluginsOfType } from '../core/Plugin';
+import { addButtonPlugin } from '../core/ButtonPlugin';
+import { translate } from '../core/Localization';
 
-import 'paella-core/styles/ButtonGroup.css'; 
+import '../../css/ButtonGroup.css'; 
 
 export default class ButtonGroupPlugin extends PopUpButtonPlugin {
 

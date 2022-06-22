@@ -1,7 +1,7 @@
-import MenuButtonPlugin from 'paella-core/js/core/MenuButtonPlugin';
+import MenuButtonPlugin from '../core/MenuButtonPlugin';
 
 
-import screenIcon from 'paella-core/icons/screen.svg';
+import screenIcon from '../../icons/screen.svg';
 
 const wait = async (fn,t) => {
     return new Promise(r => {

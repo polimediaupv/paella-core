@@ -1,6 +1,6 @@
-import ButtonGroupPlugin from 'paella-core/js/core/ButtonGroupPlugin';
+import ButtonGroupPlugin from '../core/ButtonGroupPlugin';
 
-import ScreenIcon from 'paella-core/icons/screen.svg';
+import ScreenIcon from '../../icons/screen.svg';
 
 export default class TestButtonGroupPlugin extends ButtonGroupPlugin {
     async load() {

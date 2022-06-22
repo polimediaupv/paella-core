@@ -1,6 +1,6 @@
 
-import Events, { bindEvent } from 'paella-core/js/core/Events';
-import PopUp from 'paella-core/js/core/PopUp';
+import Events, { bindEvent } from '../core/Events';
+import PopUp from '../core/PopUp';
 
 export function loadSvgIcon(url) {
     return new Promise((resolve,reject) => {

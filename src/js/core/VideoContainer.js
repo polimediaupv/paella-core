@@ -1,18 +1,18 @@
 
-import { DomClass, createElementWithHtmlText,createElement } from 'paella-core/js/core/dom';
+import { DomClass, createElementWithHtmlText,createElement } from '../core/dom';
 import { 
     getValidLayouts, 
     getValidContentIds, 
     getLayoutStructure, 
     getLayoutWithId,
-    getValidContentSettings } from 'paella-core/js/core/VideoLayout';
-import StreamProvider from 'paella-core/js/core/StreamProvider';
-import Events, { bindEvent, triggerEvent } from 'paella-core/js/core/Events';
-import { addButtonPlugin } from 'paella-core/js/core/ButtonPlugin';
-import { translate } from 'paella-core/js/core/Localization';
+    getValidContentSettings } from '../core/VideoLayout';
+import StreamProvider from '../core/StreamProvider';
+import Events, { bindEvent, triggerEvent } from '../core/Events';
+import { addButtonPlugin } from '../core/ButtonPlugin';
+import { translate } from '../core/Localization';
 
-import 'paella-core/styles/VideoContainer.css';
-import 'paella-core/styles/VideoLayout.css';
+import '../../css/VideoContainer.css';
+import '../../css//VideoLayout.css';
 import { loadPluginsOfType, unloadPluginsOfType } from './Plugin';
 import { loadVideoPlugins, unloadVideoPlugins } from './VideoPlugin';
 import { addVideoCanvasButton } from './CanvasPlugin';

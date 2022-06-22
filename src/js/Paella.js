@@ -5,21 +5,21 @@ import {
     defaultGetManifestUrlFunction,
     defaultGetManifestFileUrlFunction,
     defaultLoadVideoManifestFunction
-} from 'paella-core/js/core/initFunctions';
-import { resolveResourcePath, setupAutoHideUiTimer, clearAutoHideTimer } from 'paella-core/js/core/utils';
+} from './core/initFunctions';
+import { resolveResourcePath, setupAutoHideUiTimer, clearAutoHideTimer } from './core/utils';
 import Loader from "./core/Loader";
 import ErrorContainer from "./core/ErrorContainer";
-import { registerPlugins, unregisterPlugins } from 'paella-core/js/core/Plugin';
-import VideoContainer from 'paella-core/js/core/VideoContainer';
-import PreviewContainer from 'paella-core/js/core/PreviewContainer';
-import PlaybackBar from 'paella-core/js/core/PlaybackBar';
-import Events, { bindEvent, triggerEvent, unregisterEvents } from 'paella-core/js/core/Events';
-import TimeLinePopUp from 'paella-core/js/core/TimeLinePopUp';
-import PopUp from 'paella-core/js/core/PopUp';
-import Data from 'paella-core/js/core/Data';
-import CaptionCanvas from 'paella-core/js/captions/CaptionsCanvas';
-import { loadLogEventPlugins, unloadLogEventPlugins } from "paella-core/js/core/EventLogPlugin";
-import { loadKeyShortcutPlugins, unloadKeyShortcutPlugins, getShortcuts } from "paella-core/js/core/KeyShortcutPlugin";
+import { registerPlugins, unregisterPlugins } from './core/Plugin';
+import VideoContainer from './core/VideoContainer';
+import PreviewContainer from './core/PreviewContainer';
+import PlaybackBar from './core/PlaybackBar';
+import Events, { bindEvent, triggerEvent, unregisterEvents } from './core/Events';
+import TimeLinePopUp from './core/TimeLinePopUp';
+import PopUp from './core/PopUp';
+import Data from './core/Data';
+import CaptionCanvas from './captions/CaptionsCanvas';
+import { loadLogEventPlugins, unloadLogEventPlugins } from "./core/EventLogPlugin";
+import { loadKeyShortcutPlugins, unloadKeyShortcutPlugins, getShortcuts } from "./core/KeyShortcutPlugin";
 
 import {
     defaultTranslateFunction,
@@ -33,13 +33,13 @@ import {
     translate,
     setLanguage,
     getLanguage
-} from "paella-core/js/core/Localization";
+} from "./core/Localization";
 
-import 'paella-core/styles/colors.css';
-import 'paella-core/styles/base.css';
+import '../css/colors.css';
+import '../css/base.css';
 import { defaultGetLanguageFunction } from "./core/Localization";
 
-import Log, { LOG_LEVEL } from "paella-core/js/core/Log";
+import Log, { LOG_LEVEL } from "./core/Log";
 
 import defaultDictionaries from "./default-dictionaries.js";
 

@@ -1,4 +1,4 @@
-import CaptionsPlugin from 'paella-core/js/captions/CaptionsPlugin';
+import CaptionsPlugin from '../captions/CaptionsPlugin';
 
 export default class TestCaptionsPlugin extends CaptionsPlugin {
 

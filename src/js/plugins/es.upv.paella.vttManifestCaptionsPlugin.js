@@ -1,8 +1,8 @@
 
-import CaptionsPlugin from 'paella-core/js/captions/CaptionsPlugin';
-import WebVTTParser from 'paella-core/js/captions/WebVTTParser';
+import CaptionsPlugin from '../captions/CaptionsPlugin';
+import WebVTTParser from '../captions/WebVTTParser';
 
-import { resolveResourcePath } from 'paella-core/js/core/utils';
+import { resolveResourcePath } from '../core/utils';
 
 export default class VttManifestCaptionsPlugin extends CaptionsPlugin {
     async isEnabled() {

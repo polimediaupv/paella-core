@@ -1,16 +1,16 @@
-import VideoLayout from 'paella-core/js/core/VideoLayout';
-import { getCookie, setCookie } from 'paella-core/js/core/utils';
+import VideoLayout from '../core/VideoLayout';
+import { getCookie, setCookie } from '../core/utils';
 import { CanvasButtonPosition } from '../core/CanvasPlugin';
 
-import iconRotate from 'paella-core/icons/icon_rotate.svg';
-import iconMinimize from 'paella-core/icons/minimize.svg';
-import iconMinimize2 from 'paella-core/icons/minimize-2.svg';
-import iconMinimize3 from 'paella-core/icons/minimize-3.svg';
-import iconDualVideo from 'paella-core/icons/dual-video.svg';
-import iconSideBySide from 'paella-core/icons/icon_side_by_side.svg';
-import iconSwitchSide from 'paella-core/icons/icon_switch_side.svg';
-import iconMaximize from 'paella-core/icons/maximize.svg';
-import iconClose from 'paella-core/icons/close.svg';
+import iconRotate from '../../icons/icon_rotate.svg';
+import iconMinimize from '../../icons/minimize.svg';
+import iconMinimize2 from '../../icons/minimize-2.svg';
+import iconMinimize3 from '../../icons/minimize-3.svg';
+import iconDualVideo from '../../icons/dual-video.svg';
+import iconSideBySide from '../../icons/icon_side_by_side.svg';
+import iconSwitchSide from '../../icons/icon_switch_side.svg';
+import iconMaximize from '../../icons/maximize.svg';
+import iconClose from '../../icons/close.svg';
 
 const layoutIcons = [
     iconMinimize,

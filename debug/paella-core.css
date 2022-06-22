@@ -1,0 +1,625 @@
+/* src/css/PopUp.css */
+.popup-container {
+  z-index: 1000;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  height: 100vh;
+  width: 100vw;
+}
+.popup-container.no-modal {
+  pointer-events: none;
+}
+.popup-content {
+  position: absolute;
+  background-color: var(--main-bg-color);
+  color: var(--main-fg-color);
+  box-shadow: 0px 0px 4px 0px var(--main-bg-color);
+  border-radius: 3px;
+  padding: 5px 5px 5px 5px;
+}
+.popup-container.no-modal .popup-content {
+  pointer-events: all;
+}
+
+/* src/css/Loader.css */
+div.loader-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 1000;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+div.loader-container i {
+  width: 350px;
+  height: 350px;
+  display: block;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@media (max-width: 500px) {
+  div.loader-container i {
+    width: 100px;
+    height: 100px;
+  }
+}
+@media (max-width: 800px) {
+  div.loader-container i {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+/* src/css/Error.css */
+div.error-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 1000;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0px;
+  bottom: 0px;
+}
+div.error-container div {
+  text-align: center;
+}
+div.error-container i {
+  width: 350px;
+  height: 350px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media (max-width: 500px) {
+  div.error-container i {
+    width: 100px;
+    height: 100px;
+  }
+}
+@media (max-width: 800px) {
+  div.error-container i {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+/* src/css/TimeLinePopUp.css */
+.timeline-popup-content {
+  display: block;
+  background-color: var(--main-bg-color);
+  padding-top: 10px;
+  padding-bottom: 10px;
+  position: absolute;
+  border-radius: 4px;
+  left: 2px;
+  right: 2px;
+  bottom: 52px;
+  color: var(--main-fg-color);
+  border-top: 1px solid var(--main-border-color);
+  z-index: 100;
+}
+
+/* src/css/ButtonGroup.css */
+.button-group {
+}
+.button-group .button-plugin-container {
+  display: inline;
+}
+.button-group .button-plugin-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+}
+.button-group .button-plugin-container button {
+  width: 40px;
+  height: 40px;
+  display: block;
+  background: none;
+  border: none;
+  float: left;
+}
+.button-group button:hover {
+  background-color: var(--secondary-bg-color-hover);
+}
+.button-group button:active {
+  background-color: var(--main-bg-color);
+}
+.button-group button i {
+  background-size: 50% 50%;
+  width: 20px;
+  height: 20px;
+  display: block;
+  background-repeat: no-repeat;
+  background-position: 3px 7px;
+  margin-left: 5px;
+}
+.button-group .button-plugin-container button {
+  padding: 2px 6px 3px 6px;
+}
+.video-container .button-plugin-container button {
+  padding: 2px 6px 3px 6px;
+}
+.button-group span.button-title {
+  display: block;
+}
+.button-group span.button-title.button-title-small {
+  margin-top: -16px;
+  font-size: 8px;
+}
+.button-group span.button-title.button-title-medium {
+  margin-top: -17px;
+  font-size: 10px;
+}
+.button-group span.button-title.button-title-large {
+  margin-top: -19px;
+  font-size: 12px;
+}
+.button-group span.button-title:empty {
+  margin-top: 0 !important;
+}
+.button-group button i svg {
+  fill: var(--main-fg-color);
+}
+.button-group .button-plugin-wrapper .button-description {
+  font-family: sans-serif;
+  margin-left: 4px;
+  cursor: pointer;
+  height: 40px;
+  line-height: 40px;
+  padding-right: 20px;
+  box-sizing: border-box;
+  color: var(--main-fg-color);
+  user-select: none;
+}
+.button-group .button-plugin-wrapper .button-description:hover {
+  color: var(--main-fg-color);
+  text-shadow: 0px 0px 2px var(--main-fg-color);
+}
+
+/* src/css/MenuButton.css */
+ul.menu-button-content {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+ul.menu-button-content li.menu-button-item {
+  min-width: 40px;
+}
+ul.menu-button-content li.menu-button-item button {
+  background: none;
+  border: none;
+  width: 100%;
+  color: var(--main-fg-color);
+  display: flex;
+  justify-content: space-around;
+}
+ul.menu-button-content li.menu-button-item button:hover {
+  background-color: var(--secondary-bg-color);
+}
+ul.menu-button-content li.menu-button-item button.selected {
+  background-color: var(--highlight-bg-color);
+}
+ul.menu-button-content li.menu-button-item button.selected:hover {
+  background-color: var(--highlight-bg-color-hover);
+}
+ul.menu-button-content li.menu-button-item button i.menu-icon {
+  pointer-events: none;
+}
+ul.menu-button-content li.menu-button-item button i.menu-icon svg {
+  fill: var(--main-fg-color);
+  height: 40px;
+}
+ul.menu-button-content li.menu-button-item button span.menu-title {
+  height: 40px;
+  line-height: 40px;
+  padding-left: 4px;
+  padding-right: 4px;
+  pointer-events: none;
+}
+
+/* src/css/VideoCanvas.css */
+.video-canvas .button-area {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  pointer-events: none;
+  text-align: center;
+  z-index: 1;
+}
+.video-canvas .button-area button {
+  pointer-events: all;
+  margin: 2px;
+  width: 40px;
+  opacity: 0.8;
+  background-color: var(--main-bg-color);
+  border: none;
+  border-radius: 5px;
+}
+.video-canvas .button-area button:hover {
+  background-color: var(--highlight-bg-color-hover);
+}
+.video-canvas .button-area button svg path {
+  fill: var(--main-fg-color);
+}
+.video-canvas .button-area button svg rect {
+  fill: var(--main-fg-color);
+}
+.video-canvas .button-area button:hover {
+  opacity: 1;
+}
+.video-canvas .button-area button.align-left {
+  float: left;
+}
+.video-canvas .button-area button.align-right {
+  float: right;
+}
+.video-canvas .button-area {
+  padding: 5px;
+}
+@media (max-width: 600px) {
+  .video-canvas .button-area button {
+    width: 30px;
+  }
+}
+@media (min-width: 1200px) {
+  .video-canvas .button-area button {
+    width: 50px;
+  }
+}
+
+/* src/css/VideoContainer.css */
+.video-container {
+  background-color: var(--video-container-background-color);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.base-video-rect {
+  background-color: var(--base-video-rect-background-color);
+  position: relative;
+}
+.video-container .button-plugins {
+  position: absolute;
+  top: 10px;
+  height: 40px;
+  z-index: 100;
+}
+.video-container .button-plugins.left-side {
+  left: 10px;
+}
+.video-container .button-plugins.right-side {
+  right: 10px;
+}
+.video-container .user-area {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  pointer-events: none;
+}
+.video-container .button-plugins .button-plugin-container {
+  display: inline;
+}
+.video-container .button-plugins .button-plugin-container button {
+  width: 40px;
+  height: 40px;
+  display: block;
+  background-color: var(--main-bg-color);
+  border-radius: 6px;
+  border: none;
+  float: left;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+.video-container .button-plugins button:hover {
+  background-color: var(--highlight-bg-color-hover);
+}
+.video-container .button-plugins button:active {
+  background-color: var(--main-bg-color-hover);
+}
+.video-container .button-plugins button i {
+  background-size: 50% 50%;
+  width: 20px;
+  height: 20px;
+  display: block;
+  background-repeat: no-repeat;
+  background-position: 3px 7px;
+  margin-left: 5px;
+}
+.video-container .button-plugins button i svg {
+  fill: var(--main-fg-color);
+}
+.video-container .button-plugin-side-area {
+  display: inline;
+  color: var(--main-fg-color);
+  height: 40px;
+  line-height: 40px;
+}
+
+/* src/css/VideoLayout.css */
+.video-layout-button {
+  border: none;
+  border-radius: 10%;
+  box-shadow: 1px 1px 5px 0px var(rgba(0,0,0,0.8));
+  background-size: 100% 100%;
+  display: block;
+  position: absolute;
+  background-color: var(--main-bg-color-hover);
+  border: none;
+  border-radius: 5px;
+  padding: 0.5%;
+}
+.video-layout-button:hover {
+  background-color: var(--highlight-bg-color);
+}
+.video-layout-button:active {
+  background-color: var(--highlight-bg-color-hover);
+}
+.video-player {
+  box-shadow: 2px 2px 4px 0px rgba(90, 90, 90, 0.8);
+}
+
+/* src/css/PlaybackBar.css */
+.playback-bar {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  background: var(--secondary-bg-color);
+  background: var(--main-bg-gradient);
+  z-index: 100;
+}
+.playback-bar:hover {
+  background: var(--secondary-bg-color-hover);
+}
+.progress-indicator {
+  width: 100%;
+  height: 10px;
+}
+.progress-indicator-timer {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  color: var(--main-fg-color);
+  font-size: 10px;
+  line-height: 11px;
+  padding-left: 11px;
+  pointer-events: none;
+}
+.playback-bar .button-plugins {
+  height: 40px;
+}
+.playback-bar .button-plugins.left-side {
+  float: left;
+}
+.playback-bar .button-plugins.right-side {
+  float: right;
+}
+.playback-bar .button-plugins .button-plugin-container {
+  display: inline;
+}
+.playback-bar .button-plugins .button-plugin-container button {
+  width: 40px;
+  height: 40px;
+  display: block;
+  background: none;
+  border: none;
+  float: left;
+}
+.playback-bar .button-plugins button:hover {
+  background-color: var(--highlight-bg-color-hover);
+}
+.playback-bar .button-plugins button:active {
+  background-color: var(--secondary-bg-color-hover);
+}
+.playback-bar .button-plugins button i {
+  background-size: 50% 50%;
+  width: 20px;
+  height: 20px;
+  display: block;
+  background-repeat: no-repeat;
+  background-position: 3px 7px;
+  margin-left: 5px;
+}
+.playback-bar .button-plugins .button-plugin-container button {
+  padding: 2px 6px 3px 6px;
+}
+.video-container .button-plugins .button-plugin-container button {
+  padding: 2px 6px 3px 6px;
+}
+.button-plugins span.button-title {
+  display: block;
+}
+.button-plugins span.button-title.button-title-small {
+  margin-top: -16px;
+  font-size: 8px;
+}
+.button-plugins span.button-title.button-title-medium {
+  margin-top: -17px;
+  font-size: 10px;
+}
+.button-plugins span.button-title.button-title-large {
+  margin-top: -19px;
+  font-size: 12px;
+}
+.button-plugins span.button-title:empty {
+  margin-top: 0 !important;
+}
+.playback-bar .button-plugins button i svg {
+  fill: var(--main-fg-color);
+}
+.playback-bar .button-plugin-side-area {
+  display: inline;
+  color: var(--main-fg-color);
+  height: 40px;
+  line-height: 40px;
+}
+.progress-indicator {
+  position: relative;
+}
+.progress-indicator canvas {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  pointer-events: none;
+  opacity: 0.5;
+}
+.playback-bar:hover .progress-indicator canvas {
+  opacity: 1;
+}
+.progress-indicator .progress-indicator-container {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: var(--secondary-bg-color-hover);
+}
+.progress-indicator-container .progress-indicator-content {
+  height: 100%;
+  background-color: var(--highlight-bg-color-hover);
+  opacity: 0.8;
+  pointer-events: none;
+}
+.playback-bar:hover .progress-indicator-container .progress-indicator-content {
+  background-color: var(--highlight-bg-color-hover);
+}
+.frame-thumbnail {
+  background-color: var(--secondary-bg-color-hover);
+  min-width: 100px;
+  min-height: 100px;
+  box-shadow: 0px 0px 5px 0px var(--main-bg-color);
+  z-index: 10000;
+  pointer-events: none;
+}
+.frame-thumbnail .thumbnail-image {
+  pointer-events: none;
+}
+@media (max-width: 500px) {
+  .frame-thumbnail .thumbnail-image {
+    width: 130px;
+    pointer-events: none;
+  }
+}
+@media (max-width: 750px) {
+  .frame-thumbnail .thumbnail-image {
+    width: 230px;
+    pointer-events: none;
+  }
+}
+@media (min-width: 750px) {
+  .frame-thumbnail .thumbnail-image {
+    width: 330px;
+    pointer-events: none;
+  }
+}
+.frame-thumbnail .thumbnail-time {
+  pointer-events: none;
+  font-size: 12px;
+  line-height: 12px;
+  display: block;
+  height: 12px;
+  color: var(--main-fg-color);
+  text-align: center;
+  margin: 0;
+  padding: 1;
+}
+
+/* src/css/CaptionCanvas.css */
+.captions-canvas {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 50;
+  pointer-events: none;
+}
+.captions-canvas .text-container {
+  width: 80%;
+  background-color: var(--main-bg-color);
+  border-radius: 5px;
+  color: var(--main-fg-color);
+  position: absolute;
+  bottom: 5px;
+  left: 10%;
+  right: 10%;
+  box-sizing: border-box;
+  padding: 10px;
+  font-size: 15px;
+  text-align: center;
+}
+.captions-canvas.visible-ui .text-container {
+  bottom: 55px;
+}
+.captions-canvas.size-s .text-container {
+  font-size: 18px;
+}
+.captions-canvas.size-m .text-container {
+  font-size: 20px;
+}
+.captions-canvas.size-l .text-container {
+  font-size: 24px;
+}
+.captions-canvas.size-xl .text-container {
+  font-size: 30px;
+}
+.captions-canvas.size-xxl .text-container {
+  font-size: 34px;
+}
+
+/* src/css/colors.css */
+:root {
+  --main-fg-color: white;
+  --main-bg-color: rgba(0,0,0,0.8);
+  --main-bg-color-hover: rgb(0,0,0);
+  --secondary-bg-color: rgb(32,32,32);
+  --secondary-bg-color-hover: rgba(32,32,32,0.8);
+  --highlight-bg-color: #A00;
+  --highlight-bg-color-hover: red;
+  --main-bg-gradient: linear-gradient(0deg, rgba(32,32,32,1) 0%, rgba(32,32,32,0.49531687675070024) 72%, rgba(32,32,32,0.08355217086834732) 100%);
+  --main-border-color: rgba(125,125,125,0.4);
+  --video-container-background-color: #e4e4e4;
+  --base-video-rect-background-color: #8a8a8a;
+}
+
+/* src/css/base.css */
+.player-container {
+  position: relative;
+  overflow: hidden;
+}
+svg {
+  pointer-events: none;
+}
+
+/* src/debug.css */
+.player-container {
+  width: 90vw;
+  height: 90vh;
+  left: 5vw;
+  top: 5vh;
+  font-family:
+    helvetica,
+    arial,
+    sans-serif;
+}
+/*# sourceMappingURL=paella-core.css.map */

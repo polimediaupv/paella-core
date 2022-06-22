@@ -1,6 +1,5 @@
-import VideoPlugin, { Video } from 'paella-core/js/core/VideoPlugin';
-import { resolveResourcePath } from 'paella-core/js/core/utils';
-import VideoQualityItem from 'paella-core/js/core/VideoQualityItem';
+import VideoPlugin, { Video } from '../core/VideoPlugin';
+import VideoQualityItem from '../core/VideoQualityItem';
 
 function updateFrame(t) {
 	let frame = this._currentSource.frames[0];

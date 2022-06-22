@@ -1,7 +1,7 @@
-import ButtonPlugin from 'paella-core/js/core/ButtonPlugin';
-import PopUp from 'paella-core/js/core/PopUp';
-import { createElementWithHtmlText } from 'paella-core/js/core/dom';
-import TimeLinePopUp from 'paella-core/js/core/TimeLinePopUp';
+import ButtonPlugin from '../core/ButtonPlugin';
+import PopUp from '../core/PopUp';
+import { createElementWithHtmlText } from '../core/dom';
+import TimeLinePopUp from '../core/TimeLinePopUp';
 
 export default class PopUpButtonPlugin extends ButtonPlugin {
 	constructor() {

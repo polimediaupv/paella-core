@@ -1,7 +1,7 @@
 import { Mp4Video } from "./es.upv.paella.mp4VideoFormat";
-import VideoPlugin from 'paella-core/js/core/VideoPlugin';
-import VideoQualityItem from 'paella-core/js/core/VideoQualityItem';
-import AudioTrackData from "paella-core/js/core/AudioTrackData";
+import VideoPlugin from '../core/VideoPlugin';
+import VideoQualityItem from '../core/VideoQualityItem';
+import AudioTrackData from '../core/AudioTrackData';
 import Events, { triggerEvent } from "../core/Events";
 
 import Hls from "hls.js";
@@ -249,10 +249,9 @@ export class HlsVideo extends Mp4Video {
         if (hlsSupport === HlsSupport.MEDIA_SOURCE_EXTENSIONS) {
             this._hls.levels.forEach((level, index) => {
                 q.push(new VideoQualityItem({
-                    index: level.id,
+                    index,
                     label: `${level.width}x${level.height}`,
                     shortLabel: `${level.height}p`,
-                    index: index,
                     width: level.width,
                     height: level.height
                 }));

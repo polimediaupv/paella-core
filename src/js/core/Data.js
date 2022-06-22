@@ -1,5 +1,5 @@
-import Plugin, { loadPluginsOfType } from 'paella-core/js/core/Plugin';
-import PlayerResource from 'paella-core/js/core/PlayerResource';
+import Plugin, { loadPluginsOfType } from '../core/Plugin';
+import PlayerResource from '../core/PlayerResource';
 
 export class DataPlugin extends Plugin {
     get type() { return "data"; }
