@@ -6,7 +6,7 @@
   "module": "dist/paella-core.js",
   "scripts": {
     "build": "webpack --mode production",
-    "dev": "webpack serve --mode development --config webpack.debug.js --host 0.0.0.0",
+    "dev": "node esbuild.debug.js",
     "captions": "webpack serve --mode development --config webpack.captions.js"
   },
   "repository": {
@@ -31,6 +31,8 @@
     "babel-loader": "^8.2.2",
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.6.0",
+    "esbuild": "^0.14.47",
+    "esbuild-plugin-import-glob": "^0.1.1",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
     "source-map-loader": "^4.0.0",
