@@ -1,6 +1,7 @@
 import { DomClass, createElementWithHtmlText } from 'paella-core/js/core/dom';
 import Events, { bindEvent } from 'paella-core/js/core/Events';
 import { resolveResourcePath, secondsToTime } from 'paella-core/js/core/utils';
+import { loadPluginsOfType, unloadPluginsOfType } from './Plugin';
 
 export function getCurrentFrame(sortedFrameList,time) {
 	if (!sortedFrameList || sortedFrameList.length === 0) {
@@ -156,6 +157,22 @@ export default class ProgressIndicator extends DomClass {
 		});
 	}
 	
+	async loadPlugins() {
+		let minHeight = 0;
+		let minHeightHover = 0;
+		await loadPluginsOfType(this.player, "progressIndicator", async plugin => {
+			this.player.log.debug(` Progress indicator plugin: ${ plugin.name }`);
+			// TODO: Get minimum height for hover and normal states
+			// TODO: add plugin
+		}, async plugin => {
+			return await plugin.isEnabled();
+		});
+	}
+
+	async unloadPlugins() {
+		await unloadPluginsOfType(this.player, "progressIndicator");
+	}
+
 	get playbackBar() {
 		return this.element.parentElement;
 	}

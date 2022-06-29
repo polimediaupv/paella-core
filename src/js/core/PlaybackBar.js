@@ -40,6 +40,8 @@ export default class PlaybackBar extends DomClass {
 				return false;
 			}
 		});
+
+		await this._progressIndicator.loadPlugins();
 	}
 
 	async unload() {
@@ -50,6 +52,8 @@ export default class PlaybackBar extends DomClass {
 		await unloadPluginsOfType(this.player, "button");
 		this._buttonPluginsLeft.innerHTML = ""
 		this._buttonPluginsRight.innerHTML = "";
+
+		await this._progressIndicator.unloadPlugins();
 	}
 	
 	hideUserInterface() {
