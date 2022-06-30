@@ -93,141 +93,6 @@ div.error-container i {
   }
 }
 
-/* src/css/TimeLinePopUp.css */
-.timeline-popup-content {
-  display: block;
-  background-color: var(--main-bg-color);
-  padding-top: 10px;
-  padding-bottom: 10px;
-  position: absolute;
-  border-radius: 4px;
-  left: 2px;
-  right: 2px;
-  bottom: 52px;
-  color: var(--main-fg-color);
-  border-top: 1px solid var(--main-border-color);
-  z-index: 100;
-}
-
-/* src/css/ButtonGroup.css */
-.button-group {
-}
-.button-group .button-plugin-container {
-  display: inline;
-}
-.button-group .button-plugin-wrapper {
-  display: flex;
-  flex-direction: row;
-  align-content: center;
-  align-items: center;
-}
-.button-group .button-plugin-container button {
-  width: 40px;
-  height: 40px;
-  display: block;
-  background: none;
-  border: none;
-  float: left;
-}
-.button-group button:hover {
-  background-color: var(--secondary-bg-color-hover);
-}
-.button-group button:active {
-  background-color: var(--main-bg-color);
-}
-.button-group button i {
-  background-size: 50% 50%;
-  width: 20px;
-  height: 20px;
-  display: block;
-  background-repeat: no-repeat;
-  background-position: 3px 7px;
-  margin-left: 5px;
-}
-.button-group .button-plugin-container button {
-  padding: 2px 6px 3px 6px;
-}
-.video-container .button-plugin-container button {
-  padding: 2px 6px 3px 6px;
-}
-.button-group span.button-title {
-  display: block;
-}
-.button-group span.button-title.button-title-small {
-  margin-top: -16px;
-  font-size: 8px;
-}
-.button-group span.button-title.button-title-medium {
-  margin-top: -17px;
-  font-size: 10px;
-}
-.button-group span.button-title.button-title-large {
-  margin-top: -19px;
-  font-size: 12px;
-}
-.button-group span.button-title:empty {
-  margin-top: 0 !important;
-}
-.button-group button i svg {
-  fill: var(--main-fg-color);
-}
-.button-group .button-plugin-wrapper .button-description {
-  font-family: sans-serif;
-  margin-left: 4px;
-  cursor: pointer;
-  height: 40px;
-  line-height: 40px;
-  padding-right: 20px;
-  box-sizing: border-box;
-  color: var(--main-fg-color);
-  user-select: none;
-}
-.button-group .button-plugin-wrapper .button-description:hover {
-  color: var(--main-fg-color);
-  text-shadow: 0px 0px 2px var(--main-fg-color);
-}
-
-/* src/css/MenuButton.css */
-ul.menu-button-content {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-ul.menu-button-content li.menu-button-item {
-  min-width: 40px;
-}
-ul.menu-button-content li.menu-button-item button {
-  background: none;
-  border: none;
-  width: 100%;
-  color: var(--main-fg-color);
-  display: flex;
-  justify-content: space-around;
-}
-ul.menu-button-content li.menu-button-item button:hover {
-  background-color: var(--secondary-bg-color);
-}
-ul.menu-button-content li.menu-button-item button.selected {
-  background-color: var(--highlight-bg-color);
-}
-ul.menu-button-content li.menu-button-item button.selected:hover {
-  background-color: var(--highlight-bg-color-hover);
-}
-ul.menu-button-content li.menu-button-item button i.menu-icon {
-  pointer-events: none;
-}
-ul.menu-button-content li.menu-button-item button i.menu-icon svg {
-  fill: var(--main-fg-color);
-  height: 40px;
-}
-ul.menu-button-content li.menu-button-item button span.menu-title {
-  height: 40px;
-  line-height: 40px;
-  padding-left: 4px;
-  padding-right: 4px;
-  pointer-events: none;
-}
-
 /* src/css/VideoCanvas.css */
 .video-canvas .button-area {
   position: absolute;
@@ -541,6 +406,22 @@ ul.menu-button-content li.menu-button-item button span.menu-title {
   text-align: center;
   margin: 0;
   padding: 1;
+}
+
+/* src/css/TimeLinePopUp.css */
+.timeline-popup-content {
+  display: block;
+  background-color: var(--main-bg-color);
+  padding-top: 10px;
+  padding-bottom: 10px;
+  position: absolute;
+  border-radius: 4px;
+  left: 2px;
+  right: 2px;
+  bottom: 52px;
+  color: var(--main-fg-color);
+  border-top: 1px solid var(--main-border-color);
+  z-index: 100;
 }
 
 /* src/css/CaptionCanvas.css */

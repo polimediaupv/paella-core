@@ -10,7 +10,7 @@ require('esbuild').build({
         ".svg": "text"
     },
     plugins: [
-        EsbuildPluginImportGlob()
+        //EsbuildPluginImportGlob()
     ],
     outfile: 'debug/paella-core.js'
 }).catch(err => console.error(err));

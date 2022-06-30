@@ -1,6 +1,36 @@
 import PlayerResource from './PlayerResource';
 import pluginRequireContext from '../../../plugin_directories';
 
+export default class Plugin extends PlayerResource {
+    constructor(player,config,name) {
+        super(player);
+        this._name = name;
+        this._config = config.plugins[this.name];
+    }
+
+    get config() { return this._config; }
+
+    get type() { return "none"; }
+
+    get order() { return this._config?.order || 0; }
+    
+    get description() { return this._config?.description || ""; }
+
+    get name() { return this._name; }
+
+    async isEnabled() {
+        return this.config?.enabled;
+    }
+
+    async load() {
+
+    }
+
+    async unload() {
+
+    }
+}
+
 export function importPlugins(player,context) {
     const config = player.config;
     context.keys().forEach(key => {
@@ -99,32 +129,5 @@ export async function unloadPluginsOfType(player,type) {
     })
 }
 
-export default class Plugin extends PlayerResource {
-    constructor(player,config,name) {
-        super(player);
-        this._name = name;
-        this._config = config.plugins[this.name];
-    }
 
-    get config() { return this._config; }
 
-    get type() { return "none"; }
-
-    get order() { return this._config?.order || 0; }
-    
-    get description() { return this._config?.description || ""; }
-
-    get name() { return this._name; }
-
-    async isEnabled() {
-        return this.config?.enabled;
-    }
-
-    async load() {
-
-    }
-
-    async unload() {
-
-    }
-}

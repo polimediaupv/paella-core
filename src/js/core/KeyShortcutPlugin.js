@@ -1,5 +1,4 @@
-import Plugin from '../core/Plugin';
-import { loadPluginsOfType } from './Plugin';
+import Plugin, { loadPluginsOfType } from './Plugin';
 
 const getModifierStatus = sc => {
     return `alt:${sc.keyModifiers?.altKey || false}, ctrl:${sc.keyModifiers?.ctrlKey || false}, shift:${sc.keyModifiers?.shiftKey || false}`

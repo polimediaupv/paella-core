@@ -1,4 +1,6 @@
 import "regenerator-runtime/runtime";
+import Plugin from "./core/Plugin";
+
 import {
     defaultLoadConfigFunction,
     defaultGetVideoIdFunction,
@@ -42,6 +44,8 @@ import { defaultGetLanguageFunction } from "./core/Localization";
 import Log, { LOG_LEVEL } from "./core/Log";
 
 import defaultDictionaries from "./default-dictionaries.js";
+
+console.log(Plugin);
 
 export const PlayerState = {
     UNLOADED: 0,

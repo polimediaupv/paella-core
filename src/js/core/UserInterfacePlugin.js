@@ -1,6 +1,6 @@
 import Plugin from './Plugin';
 
-export default class UserInterfacePlugin extends Plugin {
+class UserInterfacePlugin extends Plugin {
     constructor(player,config,name) {
         super(player,config,name);
         this.__uiPlugin = true;
@@ -10,3 +10,5 @@ export default class UserInterfacePlugin extends Plugin {
         return null;
     }
 }
+
+export default UserInterfacePlugin;
