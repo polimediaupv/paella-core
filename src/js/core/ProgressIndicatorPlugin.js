@@ -14,7 +14,15 @@ export default class ProgressIndicatorPlugin extends Plugin {
         return 0;
     }
 
-    draw(context, width, height) {
+    drawForeground(context, width, height) {
 
+    }
+
+    drawBackground(context, width, height) {
+        
+    }
+
+    requestUpdate() {
+        this.player.playbackBar.progressIndicator.requestUpdateCanvas();
     }
 }

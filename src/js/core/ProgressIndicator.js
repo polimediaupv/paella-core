@@ -50,6 +50,28 @@ function updateFrameThumbnail(offsetX,time) {
 	}
 }
 
+function updateCanvas() {
+	const backgroundContext = this._canvasContext[0];
+	const foregroundContext = this._canvasContext[1];
+	const width = this._canvas[0].clientWidth;
+	const height = this._canvas[0].clientHeight;
+	this._canvasPlugins.forEach(plugin => {
+		plugin.drawForeground(foregroundContext, width, height);
+		plugin.drawBackground(backgroundContext, width, height);
+	})
+	this._updateCanvas = false;
+}
+
+function updateHeight() {
+	// TODO: Update bar height with this._minHeight, this._minHeightHover and this._isHover
+	console.log("Update height");
+	// Update fg canvas height
+	// Update bg canvas height
+	console.log("Is hover: " + this._isHover);
+	updateCanvas.apply(this);
+	this.requestUpdateCanvas();
+}
+
 export default class ProgressIndicator extends DomClass {
 	constructor(player, parent) {
 		const attributes = {
@@ -73,10 +95,8 @@ export default class ProgressIndicator extends DomClass {
 		this._frameThumbnail.style.display = "none";
 		this._frameThumbnail.style.position = "absolute";
 			
-		this._canvas = [
-			this.element.getElementsByClassName("progress-canvas")[0],
-			this.element.getElementsByClassName("progress-canvas")[1]
-		];
+		this._canvas = [0,1].map(i => this.element.getElementsByClassName("progress-canvas")[i]);
+		this._canvasContext = this._canvas.map(canvas => canvas.getContext("2d"));
 		this._progressContainer = this.element.getElementsByClassName("progress-indicator-container")[0];
 		this._progressIndicator = this.element.getElementsByClassName("progress-indicator-content")[0];
 		this._progressTimer = this.element.getElementsByClassName("progress-indicator-timer")[0];
@@ -126,6 +146,11 @@ export default class ProgressIndicator extends DomClass {
 			const newTime = await positionToTime(evt.offsetX);
 			await updateProgressIndicator(newTime);
 		});
+
+		this.progressContainer.addEventListener("mouseover", evt => {
+			this._isHover = true;
+			updateHeight.apply(this);
+		});
 		
 		this.progressContainer._progressIndicator = this;
 		this.progressContainer.addEventListener("mousemove", async (evt) => {
@@ -154,22 +179,46 @@ export default class ProgressIndicator extends DomClass {
 				drag = false;
 			}
 			this.frameThumbnail.style.display = "none";
+			this._isHover = false;
+			updateHeight.apply(this);
 		});
+
+		const updateCanvassProcess = () => {
+			this._updateCanvasTimer = setTimeout(() => {
+				if (this._updateCanvas) {
+					updateCanvas.apply(this);
+				}
+				updateCanvassProcess();
+			}, 250);
+		}
+		this._updateCanvas = true;
+		updateCanvassProcess();
+	}
+
+	requestUpdateCanvas() {
+		this._updateCanvas = true;
 	}
 	
 	async loadPlugins() {
 		let minHeight = 0;
 		let minHeightHover = 0;
+		this._canvasPlugins = [];
 		await loadPluginsOfType(this.player, "progressIndicator", async plugin => {
 			this.player.log.debug(` Progress indicator plugin: ${ plugin.name }`);
-			// TODO: Get minimum height for hover and normal states
-			// TODO: add plugin
+			minHeight = minHeight < plugin.minHeight ? plugin.minHeight : minHeight;
+			minHeightHover = minHeightHover < plugin.minHeightHover ? plugin.minHeightHover : minHeightHover;
+			this._canvasPlugins.push(plugin);
 		}, async plugin => {
 			return await plugin.isEnabled();
 		});
+
+		this._minHeight = minHeight;
+		this._minHeightHover = minHeightHover;
+		updateHeight.apply(this);
 	}
 
 	async unloadPlugins() {
+		this._canvasPlugins = [];
 		await unloadPluginsOfType(this.player, "progressIndicator");
 	}
 
@@ -214,6 +263,7 @@ export default class ProgressIndicator extends DomClass {
 			c.width = size.w;
 			c.height = size.h;
 		});
+		this.requestUpdateCanvas();
 	}
 }
 

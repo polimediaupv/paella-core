@@ -173,6 +173,10 @@
         "es.upv.paella.collisionTestShortucts": {
             "enabled": false,
             "order": 2
+        },
+
+        "es.upv.paella.testProgressIndicatorPlugin": {
+            "enabled": true
         }
     }
 }
