@@ -14,12 +14,12 @@ export default class ProgressIndicatorPlugin extends Plugin {
         return 0;
     }
 
-    drawForeground(context, width, height) {
+    drawForeground(context, width, height, isHover) {
 
     }
 
-    drawBackground(context, width, height) {
-        
+    drawBackground(context, width, height, isHover) {
+
     }
 
     requestUpdate() {

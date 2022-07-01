@@ -56,18 +56,16 @@ function updateCanvas() {
 	const width = this._canvas[0].clientWidth;
 	const height = this._canvas[0].clientHeight;
 	this._canvasPlugins.forEach(plugin => {
-		plugin.drawForeground(foregroundContext, width, height);
-		plugin.drawBackground(backgroundContext, width, height);
+		plugin.drawForeground(foregroundContext, width, height, this._isHover);
+		plugin.drawBackground(backgroundContext, width, height, this._isHover);
 	})
 	this._updateCanvas = false;
 }
 
 function updateHeight() {
-	// TODO: Update bar height with this._minHeight, this._minHeightHover and this._isHover
-	console.log("Update height");
-	// Update fg canvas height
-	// Update bg canvas height
-	console.log("Is hover: " + this._isHover);
+	const height = this._isHover ? this._minHeightHover : this._minHeight
+	this.element.style.minHeight = `${ height }px`;
+	this._canvas.forEach(canvas => canvas.height = this.element.clientHeight);
 	updateCanvas.apply(this);
 	this.requestUpdateCanvas();
 }
@@ -95,6 +93,8 @@ export default class ProgressIndicator extends DomClass {
 		this._frameThumbnail.style.display = "none";
 		this._frameThumbnail.style.position = "absolute";
 			
+		this._isHover = false;
+
 		this._canvas = [0,1].map(i => this.element.getElementsByClassName("progress-canvas")[i]);
 		this._canvasContext = this._canvas.map(canvas => canvas.getContext("2d"));
 		this._progressContainer = this.element.getElementsByClassName("progress-indicator-container")[0];
@@ -186,7 +186,7 @@ export default class ProgressIndicator extends DomClass {
 		const updateCanvassProcess = () => {
 			this._updateCanvasTimer = setTimeout(() => {
 				if (this._updateCanvas) {
-					updateCanvas.apply(this);
+					updateHeight.apply(this);
 				}
 				updateCanvassProcess();
 			}, 250);
