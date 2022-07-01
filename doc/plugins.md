@@ -219,6 +219,9 @@ These are plugins that allow you to add functionality through user interaction.
 **[ButtonGroupPlugin](button_group_plugin.md):** Allows to group several button plugins inside a pop up.
 
 
+### Progress indicator plugins
+
+They allow content to be drawn on the playback bar using the 2D canvas API. [ProgressIndicatorPlugin](progress_indicator_plugin.md).
 
 ### Video format plugins
 
