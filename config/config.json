@@ -7,6 +7,10 @@
     "defaultAudioStream": "presenter",
 
     "logLevel": "INFO",
+
+    "progressIndicator": {
+        "showTotal": true
+    },
     
     "plugins": {
         "es.upv.paella.testPlugin": {

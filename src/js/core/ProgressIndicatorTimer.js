@@ -10,10 +10,17 @@ export default class ProgressIndicatorTimer extends DomClass {
         super(player, { attributes, parent });
 
         this.element.innerHTML = "0:00/00:00";
+        const showTotal = player.config.progressIndicator?.showTotal;
 
         const updateTime = async (time) => {
             const formattedTime = secondsToTime(time);
-            this.element.innerHTML = formattedTime;
+            if (showTotal === false) {
+                this.element.innerHTML = `${formattedTime}`;
+            }
+            else {
+                const totalTime = secondsToTime(await player.videoContainer.duration());
+                this.element.innerHTML = `${formattedTime}/${totalTime}`;
+            }
         }
 
         player.bindEvent(Events.TIMEUPDATE, async ({ currentTime }) => await updateTime(currentTime));
