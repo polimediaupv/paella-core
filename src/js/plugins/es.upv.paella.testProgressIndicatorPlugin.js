@@ -14,7 +14,7 @@ export default class TestProgressIndicatorPlugin extends ProgressIndicatorPlugin
         context.fillStyle = "rgba(230, 230, 230)";
         context.font = `12px Arial`;
         context.textAlign = "left";
-        context.fillText("foreground text", 2, 10);
+        context.fillText("foreground text", 100, 10);
     }
 
     drawBackground(context, width, height, isHover) {

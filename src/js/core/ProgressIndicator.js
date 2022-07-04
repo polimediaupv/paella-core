@@ -2,6 +2,7 @@ import { DomClass, createElementWithHtmlText } from 'paella-core/js/core/dom';
 import Events, { bindEvent } from 'paella-core/js/core/Events';
 import { resolveResourcePath, secondsToTime } from 'paella-core/js/core/utils';
 import { loadPluginsOfType, unloadPluginsOfType } from './Plugin';
+import ProgressIndicatorTimer from './ProgressIndicatorTimer';
 
 export function getCurrentFrame(sortedFrameList,time) {
 	if (!sortedFrameList || sortedFrameList.length === 0) {
@@ -81,9 +82,10 @@ export default class ProgressIndicator extends DomClass {
 			<div style="width: 0px;" class="progress-indicator-content"></div>
 		</div>
 		<canvas class="progress-canvas canvas-layer-1"></canvas>
-		<div class="progress-indicator-timer">00:00</div>
 		`;
 		super(player, { attributes, children, parent });
+
+		this._progressIndicatorTimer = new ProgressIndicatorTimer(player, this.element);
 		
 		this._frameThumbnail = createElementWithHtmlText(`
 			<div class="frame-thumbnail">
@@ -99,7 +101,6 @@ export default class ProgressIndicator extends DomClass {
 		this._canvasContext = this._canvas.map(canvas => canvas.getContext("2d"));
 		this._progressContainer = this.element.getElementsByClassName("progress-indicator-container")[0];
 		this._progressIndicator = this.element.getElementsByClassName("progress-indicator-content")[0];
-		this._progressTimer = this.element.getElementsByClassName("progress-indicator-timer")[0];
 		
 		this._frameList = player.videoManifest?.frameList;
 		this._frameList?.sort((a,b) => a.time-b.time);
@@ -122,23 +123,17 @@ export default class ProgressIndicator extends DomClass {
 		bindEvent(this.player, Events.TIMEUPDATE, async ({ currentTime }) => {
 			if (!drag) {
 				await updateProgressIndicator(currentTime);
-				const formattedTime = secondsToTime(currentTime);
-				this.progressTimer.innerHTML = formattedTime;
 			}
 		});
 		
 		bindEvent(this.player, Events.SEEK, async ({ prevTime, newTime }) => {
 			if (!drag) {
 				await updateProgressIndicator(newTime);
-				const formattedTime = secondsToTime(newTime);
-				this.progressTimer.innerHTML = formattedTime;
 			}
 		});
 		
 		bindEvent(this.player, Events.STOP, async () => {
 			await updateProgressIndicator(0);
-			const formattedTime = secondsToTime(0);
-			this.progressTimer.innerHTML = formattedTime;
 		})
 		
 		this.progressContainer.addEventListener("mousedown", async (evt) => {
@@ -167,8 +162,6 @@ export default class ProgressIndicator extends DomClass {
 			const newTime = await positionToTime(evt.offsetX);
 			await updateProgressIndicator(newTime);
 			await player.videoContainer.setCurrentTime(newTime);
-			const formattedTime = secondsToTime(newTime);
-			this.progressTimer.innerHTML = formattedTime;
 			drag = false;
 		});
 		
@@ -239,7 +232,7 @@ export default class ProgressIndicator extends DomClass {
 	}
 	
 	get progressTimer() {
-		return this._progressTimer;
+		return this._progressIndicatorTimer.element;
 	}
 	
 	get progressContainer() {
