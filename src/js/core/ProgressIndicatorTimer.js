@@ -15,7 +15,7 @@ export default class ProgressIndicatorTimer extends DomClass {
         const updateTime = async (time) => {
             const formattedTime = secondsToTime(time);
             if (showTotal === false) {
-                this.element.innerHTML = `${formattedTime}`;
+                this.element.innerHTML = formattedTime;
             }
             else {
                 const totalTime = secondsToTime(await player.videoContainer.duration());
