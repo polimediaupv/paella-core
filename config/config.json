@@ -9,7 +9,10 @@
     "logLevel": "INFO",
 
     "progressIndicator": {
-        "showTotal": true
+        "showTotal": true,
+        "parentContainer": "progressIndicator",
+        "side": "left",
+        "visible": true
     },
     
     "plugins": {

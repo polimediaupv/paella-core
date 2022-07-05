@@ -72,7 +72,8 @@ function updateHeight() {
 }
 
 export default class ProgressIndicator extends DomClass {
-	constructor(player, parent) {
+	constructor(player, playbackBar) {
+		const parent = playbackBar.element;
 		const attributes = {
 			"class": "progress-indicator"
 		};

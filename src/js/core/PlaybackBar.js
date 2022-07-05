@@ -13,7 +13,7 @@ export default class PlaybackBar extends DomClass {
 		};
 		super(player, { attributes, parent });
 		
-		this._progressIndicator = new ProgressIndicator(player, this.element);
+		this._progressIndicator = new ProgressIndicator(player, this);
 		this._buttonPluginsLeft = createElementWithHtmlText(
 			`<div class="button-plugins left-side"></div>`, this.element);
 		this._buttonPluginsRight = createElementWithHtmlText(
