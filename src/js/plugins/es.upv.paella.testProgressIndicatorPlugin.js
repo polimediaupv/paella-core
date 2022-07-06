@@ -3,7 +3,7 @@ import ProgressIndicatorPlugin from "../core/ProgressIndicatorPlugin";
 
 export default class TestProgressIndicatorPlugin extends ProgressIndicatorPlugin {
     get minHeight() {
-        return 0;
+        return 20;
     }
 
     get minHeightHover() {
@@ -14,14 +14,14 @@ export default class TestProgressIndicatorPlugin extends ProgressIndicatorPlugin
         context.fillStyle = "rgba(230, 230, 230)";
         context.font = `12px Arial`;
         context.textAlign = "left";
-        context.fillText("foreground text", 100, 10);
+        context.fillText("foreground text", 100, height / 2 + 5);
     }
 
     drawBackground(context, width, height, isHover) {
         context.fillStyle = "rgba(230, 230, 230)";
         context.font = `12px Arial`;
         context.textAlign = "right";
-        context.fillText("background text", width - 2, 10);
+        context.fillText("background text", width - 2, height / 2 + 5);
     }
 }
 
