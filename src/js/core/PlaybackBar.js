@@ -13,11 +13,24 @@ export default class PlaybackBar extends DomClass {
 		};
 		super(player, { attributes, parent });
 		
-		this._progressIndicator = new ProgressIndicator(player, this);
 		this._buttonPluginsLeft = createElementWithHtmlText(
-			`<div class="button-plugins left-side"></div>`, this.element);
+			`<div class="button-plugins left-side"></div>`);
+		this._timerContainer = createElementWithHtmlText(
+			`<div class="timer-container"></div>`);
 		this._buttonPluginsRight = createElementWithHtmlText(
-			`<div class="button-plugins right-side"></div>`, this.element);
+			`<div class="button-plugins right-side"></div>`);
+		this._progressIndicator = new ProgressIndicator(player, this);
+
+		const timerSide = player.config.progressIndicator?.side || "left";
+		this.element.appendChild(this._buttonPluginsLeft);
+		if (timerSide === "left") {
+			this.element.appendChild(this._timerContainer);
+			this.element.appendChild(this._buttonPluginsRight);
+		}
+		else {
+			this.element.appendChild(this._buttonPluginsRight);
+			this.element.appendChild(this._timerContainer);
+		}
 	}
 	
 	async load() {		
@@ -71,6 +84,10 @@ export default class PlaybackBar extends DomClass {
 	
 	get buttonPluginsLeft() {
 		return this._buttonPluginsLeft;
+	}
+
+	get timerContainer() {
+		return this._timerContainer;
 	}
 	
 	get progressIndicator() {

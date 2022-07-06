@@ -39,6 +39,8 @@
 
 [The Stream Provider](stream_provider.md): is responsible for managing the synchronization of the different video streams, and handling the soft trimming.
 
+[Playback bar customization](progress_indicator_text.md): explains the configuration options of the current time text of the video.
+
 [Captions](captions.md): APIs to load captions and subtitles.
 
 [Multiple audio tracks](multiaudio.md): Explains how to access the APIs supporting videos with multiple audio tracks.

@@ -116,6 +116,19 @@
 	line-height: 40px;
 }
 
+.playback-bar .timer-container {
+	height: 40px;
+	line-height: 40px;
+}
+
+.playback-bar .timer-container.left-side {
+	float: left;
+}
+
+.playback-bar .timer-container.right-side {
+	float: right;
+}
+
 .progress-indicator {
 	position: relative;
 }
@@ -162,6 +175,14 @@
 
 .frame-thumbnail .thumbnail-image {
 	pointer-events: none;
+}
+
+.timer-container .progress-indicator-timer {
+	position: static;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 @media (max-width: 500px) {

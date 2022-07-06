@@ -10,7 +10,7 @@
 
     "progressIndicator": {
         "showTotal": true,
-        "parentContainer": "progressIndicator",
+        "parentContainer": "buttonArea",
         "side": "left",
         "visible": true
     },

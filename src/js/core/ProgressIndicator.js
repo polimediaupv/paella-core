@@ -71,6 +71,22 @@ function updateHeight() {
 	this.requestUpdateCanvas();
 }
 
+function getTimerParentContainer(config, playbackBar) {
+	const parentContainer = config.progressIndicator?.parentContainer || "progressIndicator";
+	const side = config.progressIndicator?.side || "left";
+	if (parentContainer === "progressIndicator") {
+		return this.element;
+	}
+	else if (parentContainer === "buttonArea") {
+		const timerContainer = playbackBar.timerContainer;
+		timerContainer.classList.add( `${ side }-side`);
+		return timerContainer;
+	}
+	else {
+		throw new Error(`Error in player configuration: invalid progress indicator parent container: ${ parentContainer }. Valid values are 'progressIndicator' or 'buttonArea'`)
+	}
+}
+
 export default class ProgressIndicator extends DomClass {
 	constructor(player, playbackBar) {
 		const parent = playbackBar.element;
@@ -86,7 +102,10 @@ export default class ProgressIndicator extends DomClass {
 		`;
 		super(player, { attributes, children, parent });
 
-		this._progressIndicatorTimer = new ProgressIndicatorTimer(player, this.element);
+		console.log(player.config);
+		const parentContainer = getTimerParentContainer.apply(this, [player.config, playbackBar]);
+		
+		this._progressIndicatorTimer = new ProgressIndicatorTimer(player, parentContainer);
 		
 		this._frameThumbnail = createElementWithHtmlText(`
 			<div class="frame-thumbnail">
