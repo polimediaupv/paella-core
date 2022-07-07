@@ -26,5 +26,11 @@ export default class ProgressIndicatorTimer extends DomClass {
         player.bindEvent(Events.TIMEUPDATE, async ({ currentTime }) => await updateTime(currentTime));
         player.bindEvent(Events.SEEK, async ({newTime}) => await updateTime(newTime));
         player.bindEvent(Events.STOP, async () => await updateTime(0));
+
+        const container = player.config.progressIndicator?.parentContainer;
+        const side = player.config.progressIndicator?.side || "left";
+        if (container === "progressIndicator") {
+            this.element.classList.add(`${side}-side`);
+        }
     }
 }

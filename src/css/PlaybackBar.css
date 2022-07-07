@@ -20,13 +20,24 @@
 
 .progress-indicator-timer {
 	position: absolute;
-	left: 0px;
 	top: 0px;
 	color: var(--main-fg-color);
 	font-size: 10px;
 	line-height: 11px;
 	padding-left: 11px;
 	pointer-events: none;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.progress-indicator-timer.left-side {
+	left: 0px;
+}
+
+.progress-indicator-timer.right-side {
+	right: 0px;
 }
 
 .playback-bar .button-plugins {
@@ -184,6 +195,7 @@
 	justify-content: center;
 	align-items: center;
 }
+
 
 @media (max-width: 500px) {
 	.frame-thumbnail .thumbnail-image {
