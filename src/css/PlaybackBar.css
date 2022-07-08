@@ -130,14 +130,17 @@
 .playback-bar .timer-container {
 	height: 40px;
 	line-height: 40px;
+	display: none;
 }
 
 .playback-bar .timer-container.left-side {
 	float: left;
+	display: block;
 }
 
 .playback-bar .timer-container.right-side {
 	float: right;
+	display: block;
 }
 
 .progress-indicator {

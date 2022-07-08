@@ -9,7 +9,7 @@ export default class ProgressIndicatorTimer extends DomClass {
         }
         super(player, { attributes, parent });
 
-        this.element.innerHTML = "0:00/00:00";
+        this.element.innerHTML = "0:00 / 00:00";
         const showTotal = player.config.progressIndicator?.showTotal;
 
         const updateTime = async (time) => {
@@ -19,7 +19,7 @@ export default class ProgressIndicatorTimer extends DomClass {
             }
             else {
                 const totalTime = secondsToTime(await player.videoContainer.duration());
-                this.element.innerHTML = `${formattedTime}/${totalTime}`;
+                this.element.innerHTML = `${formattedTime} / ${totalTime}`;
             }
         }
 
