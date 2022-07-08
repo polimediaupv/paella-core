@@ -14,6 +14,8 @@ import {
 	addDictionary
 } from 'paella-core/js/core/Localization';
 
+import testIcon from './icons/play_icon_fullscreen.svg';
+
 const initParams = {
 	loadVideoManifest: async function(videoManifestUrl,config,player) {
 		player.log.debug(config);
@@ -105,6 +107,9 @@ window.onload = async () => {
 	}, false);
 
 	paella.loadManifest()
-		.then(() => paella.log.debug(`${paella.translate("Rice")} ${paella.translate("Chicken")}`))
+		.then(() => {
+			paella.addCustomPluginIcon("es.upv.paella.playPauseButton","play",testIcon);
+			paella.log.debug(`${paella.translate("Rice")} ${paella.translate("Chicken")}`
+		)})
 		.catch(e => paella.log.error(e));
 };

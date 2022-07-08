@@ -150,7 +150,9 @@ export default class Paella {
             triggerEvent(this, Events.FULLSCREEN_CHANGED, { status: this.isFullscreen });
         });
 
-        this._playerState = PlayerState.UNLOADED; 
+        this._playerState = PlayerState.UNLOADED;
+
+        this._customPluginIcons = {};
     }
 
     get version() {
@@ -647,5 +649,13 @@ export default class Paella {
     
     get isFullscreen() {
         return document.fullscreenElement === this.containerElement;
+    }
+
+    addCustomPluginIcon(pluginName, iconName, svgData) {
+        this._customPluginIcons[`${pluginName}-${iconName}`] = svgData;
+    }
+
+    getCustomPluginIcon(pluginName, iconName) {
+        return this._customPluginIcons[`${pluginName}-${iconName}`];
     }
 }

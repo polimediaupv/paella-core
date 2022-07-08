@@ -1,11 +1,13 @@
 import ButtonPlugin from 'paella-core/js/core/ButtonPlugin';
 import Events, { bindEvent } from 'paella-core/js/core/Events';
 
-import playIcon from 'paella-core/icons/play.svg';
-import pauseIcon from 'paella-core/icons/pause.svg';
+import defaultPlayIcon from 'paella-core/icons/play.svg';
+import defaultPauseIcon from 'paella-core/icons/pause.svg';
 
 export default class PlayButtonPlugin extends ButtonPlugin {
 	async load() {
+		const playIcon = this.player.getCustomPluginIcon(this.name,"play") || defaultPlayIcon;
+		const pauseIcon = this.player.getCustomPluginIcon(this.name,"pause") || defaultPauseIcon;
 		this.icon = playIcon;
 		bindEvent(this.player, Events.PLAY, () => {
 			this.icon = pauseIcon;
