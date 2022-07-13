@@ -65,7 +65,9 @@ const loadHls = (player, streamData, video, config, cors) => {
         });
 
         const rand = Math.floor(Math.random() * 100000000000);
-        const url = hlsStream.src + (/\?/.test(url) ? `&cache=${rand}` : `?cache=${rand}`);
+        const url = hlsStream.src + (config.disableCache ? 
+            (/\?/.test(hlsStream.src) ? `&cache=${rand}` : `?cache=${rand}`)
+            : "");
         hls.loadSource(url);
         hls.attachMedia(video);
 
