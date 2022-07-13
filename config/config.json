@@ -60,6 +60,7 @@
             "enabled": true,
             "order": 0,
             "audioTrackLabel": "name",
+            "disableCache": true,
             "hlsConfig": {
                 "maxBufferLength": 40
             },
@@ -73,6 +74,7 @@
         "es.upv.paella.hlsLiveVideoFormat": {
             "enabled": true,
             "order": 0,
+            "disableCache": true,
             "hlsConfig": {
                 "enableWorker": true,
                 "maxBufferLength": 1,
