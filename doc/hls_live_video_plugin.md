@@ -42,6 +42,7 @@ Separating the m3u8 video streams from the live m3u8 streams allows to have diff
     "es.upv.paella.hlsVideoFormat": {
         "enabled": true,
         "order": 0,
+        "disableCache": true,
         "hlsConfig": {
             
    >>> Set here the configuration for standard HLS video
