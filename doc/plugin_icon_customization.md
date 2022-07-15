@@ -24,6 +24,8 @@ export default class PlayButtonPlugin extends ButtonPlugin {
 
 If the icon has not been customized, the `getCustomPluginIcon` function will return `null`, and therefore the icon defined by the plugin will be assigned, and otherwise the custom plugin will be used.
 
+Because support for icon customization depends on each plugin implementing it via the above APIs, each third-party plugin library must detail whether the plugins it exports are supported, and document the corresponding names of each icon. The plugin libraries maintained by the Universidad Politécnica de Valencia detail this information in the `README.md` ficehro of each github repository.
+
 ## `Paella.addCustomPluginIcon(pluginName,iconName,svgData)`
 
 On the code side of the video player, the programmer can set the custom icons using this function, which receives the plugin identifier, the icon name and the icon text in SVG format as a parameter. Remember that, as stated in the documentation on button type icons, plugin icons can only be set in SVG format, so this function can only receive icons in SVG text format.
