@@ -146,7 +146,7 @@ const loadHls = (player, streamData, video, config, cors) => {
         });
 
         const rand = Math.floor(Math.random() * 100000000000);
-        const url = hlsStream.src + (config.disableCache ? 
+        const url = hlsStream.src + (config.enableCache ? 
             (/\?/.test(hlsStream.src) ? `&cache=${rand}` : `?cache=${rand}`)
             : "");
         hls.loadSource(url);
@@ -165,7 +165,7 @@ export class HlsVideo extends Mp4Video {
         
         this._config = {
             audioTrackLabel: config.audioTrackLabel || 'name',
-            disableCache: config.disableCache || false
+            enableCache: config.enableCache || false
         }
         for (const key in defaultHlsConfig) {
             this._config[key] = defaultHlsConfig[key];
