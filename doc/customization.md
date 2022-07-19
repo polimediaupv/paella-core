@@ -58,5 +58,7 @@ export default class MyVolumePlugin extends VolumePlugin {
 }
 ```
 
+There are specific APIs to customize plugin icons, but in order for them to work it is essential that the plugin implements this possibility. For more information, see the [plugin icon customization](plugin_icon_customization.md) documentation.
+
 You can read more about plugin customization in [this document](exported_plugins.md).
 

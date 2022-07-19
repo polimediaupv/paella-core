@@ -80,6 +80,8 @@ Video plugin formats available in [paella core](https://github.com/polimediaupv/
 
 [Keyboard Shortcut plugins](key_shortucts.md): add shortcuts to handle player actions.
 
+[Progress Indicator plugins](progress_indicator_plugin.md): customization of the playback bar.
+
 [Exported plugin classes](exported_plugins.md): in this document you can check the list of the built-in plugin classes exported by `paella-core`. You can extend these plugins in your player to extend their default features.
 
 [Localization](localization.md): translate text strings, add dictionaries and set up your preferred localization library in Paella Player.
@@ -92,7 +94,11 @@ Video plugin formats available in [paella core](https://github.com/polimediaupv/
 
 [Customization](customization.md): modification and customisation of different elements of the user interface and player design.
 
+[Button plugin icon customization](plugin_icon_customization.md): Icon customization API for plugins. Allows you to modify the icons of a plugin defined in a plugin library, provided that the plugin supports it.
+
 [Styles](styles.md): define custom colors and skins.
+
+[Progress indicator text](progress_indicator_text.md): see here the options for customizing the text indicating the current time instant of the video.
 
 ## Plugin repositories
 
