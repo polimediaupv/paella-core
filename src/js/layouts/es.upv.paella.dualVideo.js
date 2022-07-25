@@ -7,6 +7,7 @@ import defaultIconMinimize from 'paella-core/icons/minimize-3.svg';
 import defaultIconSwitchSide from 'paella-core/icons/icon_switch_side.svg';
 import defaultIconMaximize from 'paella-core/icons/maximize.svg';
 import defaultIconClose from 'paella-core/icons/close.svg';
+import defaultIconSideBySide from 'paella-core/icons/icon_side_by_side.svg';
 
 let layout = 0;
 /**
