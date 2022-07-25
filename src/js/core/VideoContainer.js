@@ -240,10 +240,10 @@ export default class VideoContainer extends DomClass {
     
                 canvas.element.style.display = "block";
                 canvas.element.style.position = "absolute";
-                canvas.element.style.left = `${ resultRect.left * wFactor }%`;
-                canvas.element.style.top = `${ resultRect.top * hFactor }%`;
-                canvas.element.style.width = `${ resultRect.width * wFactor }%`;
-                canvas.element.style.height = `${ resultRect.height * hFactor }%`;
+                canvas.element.style.left = `${ resultRect?.left * wFactor }%`;
+                canvas.element.style.top = `${ resultRect?.top * hFactor }%`;
+                canvas.element.style.width = `${ resultRect?.width * wFactor }%`;
+                canvas.element.style.height = `${ resultRect?.height * hFactor }%`;
                 canvas.element.style.zIndex = video.layer;
             }
         }
