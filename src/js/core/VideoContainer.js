@@ -227,11 +227,6 @@ export default class VideoContainer extends DomClass {
                     const aspectRatioData = /^(\d+.?\d*)\/(\d+.?\d*)$/.exec(videoRect.aspectRatio);
                     const rectAspectRatio = aspectRatioData ? Number(aspectRatioData[1]) / Number(aspectRatioData[2]) : 1;
                     const d = Math.abs(videoAspectRatio - rectAspectRatio);
-                    if (isNaN(d)) {
-                        console.log("NaN");
-                        console.log(rectAspectRatio);
-                        console.log(videoAspectRatio);
-                    }
                     if (d < difference) {
                         resultRect = videoRect;
                         difference = d;
