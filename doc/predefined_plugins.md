@@ -11,7 +11,15 @@ Data plugins. You can check the documentation on [data plugins here](data_plugin
 Layout plugins. You can check the documentation about [video layout plugins in this document](video_layout.md).
 
 - `es.upv.paella.singleVideo.js`: Layout for videos with one or more streams.
-- `es.upv.paella.dualVideo.js`: Layout for videos with two or more streams.
+- `es.upv.paella.dualVideo.js`: Layout for videos with two or more streams. This plugin contains icons that can be configured:
+    * plugin identifier: `es.upv.paella.dualVideo`
+    * icon names:
+        + `iconRotate`: exchange the left video with the right video, in side-by-side mode
+        + `iconMaximize`: maximize video thumbnail.
+        + `iconClose`: close a video.
+        + `iconSwitchSide`: switch the picture-in-picture video side.
+        + `iconMinimize`: minimize a video.
+        + `iconSideBySide`: set the video in side-by-side mode.
 - `es.upv.paella.tripleVideo.js`: Layout for videos with three or more streams.
 
 ## src/js/videoFormats

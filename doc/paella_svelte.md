@@ -140,7 +140,33 @@ Create the `config.json` and `data.json` in the `public` directory:
 }
 ```
 
+## Extra: load SVG icons
 
+The icon customization APIs require SVG images to be used, as a text string ([define custom plugin icons](plugin_icon_customization.md)). It is possible to load icons in SVG format with Rollup using the `rollup-plugin-svg-import` plguin.
+
+**rollupu.config.js:**
+
+```js
+import svg from 'rollup-plugin-svg-import'
+
+export default {
+	...
+	plugins: [
+		svg: {
+			// Queremos que los iconos estén en formato texto SVG, by default
+			// this plugin converts the icon in a DOM tree.
+			stringify: true 
+		},
+		...
+	]
+}
+```
+
+```js
+import myCustomIcon from './myCustomIcon.svg'
+...
+player.addCustomPluginIcon("es.upv.paella.aCustomizableButtonPlugin","iconName",myCustomIcon);
+```
 
 ## That's all!
 

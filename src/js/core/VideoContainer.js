@@ -211,35 +211,42 @@ export default class VideoContainer extends DomClass {
         this.baseVideoRect.style.width = containerCurrentSize.w + "px";
         this.baseVideoRect.style.height = containerCurrentSize.h + "px";
 
-        await layoutStructure?.videos?.forEach(async video => {
-            const videoData = this.streamProvider.streams[video.content];
-            const { stream, player, canvas } = videoData;
-            const res = await player.getDimensions();
-            const videoAspectRatio = res.w / res.h;
-            let difference = Number.MAX_VALUE;
-            let resultRect = null;
-
-            canvas.buttonsArea.innerHTML = "";
-            addVideoCanvasButton(layoutStructure, canvas, video);
-            
-            video.rect.forEach((videoRect) => {
-                const aspectRatioData = /^(\d+.?\d*)\/(\d+.?\d*)$/.exec(videoRect.aspectRatio);
-                const rectAspectRatio = aspectRatioData ? Number(aspectRatioData[1]) / Number(aspectRatioData[2]) : 1;
-                const d = Math.abs(videoAspectRatio - rectAspectRatio);
-                if (d < difference) {
-                    resultRect = videoRect;
-                    difference = d;
-                }
-            });
-
-            canvas.element.style.display = "block";
-            canvas.element.style.position = "absolute";
-            canvas.element.style.left = `${ resultRect.left * wFactor }%`;
-            canvas.element.style.top = `${ resultRect.top * hFactor }%`;
-            canvas.element.style.width = `${ resultRect.width * wFactor }%`;
-            canvas.element.style.height = `${ resultRect.height * hFactor }%`;
-            canvas.element.style.zIndex = video.layer;
-        });
+        if (layoutStructure?.videos?.length) {
+            for (const video of layoutStructure.videos) {
+                const videoData = this.streamProvider.streams[video.content];
+                const { stream, player, canvas } = videoData;
+                const res = await player.getDimensions();
+                const videoAspectRatio = res.w / res.h;
+                let difference = Number.MAX_VALUE;
+                let resultRect = null;
+    
+                canvas.buttonsArea.innerHTML = "";
+                addVideoCanvasButton(layoutStructure, canvas, video);
+                
+                video.rect.forEach((videoRect) => {
+                    const aspectRatioData = /^(\d+.?\d*)\/(\d+.?\d*)$/.exec(videoRect.aspectRatio);
+                    const rectAspectRatio = aspectRatioData ? Number(aspectRatioData[1]) / Number(aspectRatioData[2]) : 1;
+                    const d = Math.abs(videoAspectRatio - rectAspectRatio);
+                    if (isNaN(d)) {
+                        console.log("NaN");
+                        console.log(rectAspectRatio);
+                        console.log(videoAspectRatio);
+                    }
+                    if (d < difference) {
+                        resultRect = videoRect;
+                        difference = d;
+                    }
+                });
+    
+                canvas.element.style.display = "block";
+                canvas.element.style.position = "absolute";
+                canvas.element.style.left = `${ resultRect?.left * wFactor }%`;
+                canvas.element.style.top = `${ resultRect?.top * hFactor }%`;
+                canvas.element.style.width = `${ resultRect?.width * wFactor }%`;
+                canvas.element.style.height = `${ resultRect?.height * hFactor }%`;
+                canvas.element.style.zIndex = video.layer;
+            }
+        }
         
         const prevButtons = this.baseVideoRect.getElementsByClassName('video-layout-button');
         Array.from(prevButtons).forEach(btn => this.baseVideoRect.removeChild(btn));

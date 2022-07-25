@@ -2,21 +2,12 @@ import VideoLayout from 'paella-core/js/core/VideoLayout';
 import { getCookie, setCookie } from 'paella-core/js/core/utils';
 import { CanvasButtonPosition } from '../core/CanvasPlugin';
 
-import iconRotate from 'paella-core/icons/icon_rotate.svg';
-import iconMinimize from 'paella-core/icons/minimize.svg';
-import iconMinimize2 from 'paella-core/icons/minimize-2.svg';
-import iconMinimize3 from 'paella-core/icons/minimize-3.svg';
-import iconDualVideo from 'paella-core/icons/dual-video.svg';
-import iconSideBySide from 'paella-core/icons/icon_side_by_side.svg';
-import iconSwitchSide from 'paella-core/icons/icon_switch_side.svg';
-import iconMaximize from 'paella-core/icons/maximize.svg';
-import iconClose from 'paella-core/icons/close.svg';
-
-const layoutIcons = [
-    iconMinimize,
-    iconMinimize2,
-    iconDualVideo
-];
+import defaultIconRotate from 'paella-core/icons/icon_rotate.svg';
+import defaultIconMinimize from 'paella-core/icons/minimize-3.svg';
+import defaultIconSwitchSide from 'paella-core/icons/icon_switch_side.svg';
+import defaultIconMaximize from 'paella-core/icons/maximize.svg';
+import defaultIconClose from 'paella-core/icons/close.svg';
+import defaultIconSideBySide from 'paella-core/icons/icon_side_by_side.svg';
 
 let layout = 0;
 /**
@@ -214,7 +205,7 @@ export default class DualVideoLayout extends VideoLayout {
             return [
                 // Swap
                 {
-                    icon: iconRotate,
+                    icon: this.player.getCustomPluginIcon(this.name,"iconRotate") || defaultIconRotate,
                     position: CanvasButtonPosition.LEFT,
                     title: this.player.translate('Swap position of the videos'),
                     ariaLabel: this.player.translate('Swap position of the videos'),
@@ -225,7 +216,7 @@ export default class DualVideoLayout extends VideoLayout {
 
                 // Minimize
                 {
-                    icon: iconMaximize,
+                    icon: this.player.getCustomPluginIcon(this.name,"iconMaximize") || defaultIconMaximize,
                     position: CanvasButtonPosition.LEFT,
                     title: this.player.translate('Maximize video'),
                     ariaLabel: this.player.translate('Maximize video'),
@@ -237,7 +228,7 @@ export default class DualVideoLayout extends VideoLayout {
 
                 // Close
                 {
-                    icon: iconClose,
+                    icon: this.player.getCustomPluginIcon(this.name,"iconClose") || defaultIconClose,
                     position: CanvasButtonPosition.RIGHT,
                     title: this.player.translate('Close video'),
                     ariaLabel: this.player.translate('Close video'),
@@ -252,7 +243,7 @@ export default class DualVideoLayout extends VideoLayout {
 
             if (content === this.minimizedContent) {
                 result.push({
-                    icon: iconMaximize,
+                    icon: this.player.getCustomPluginIcon(this.name,"iconMaximize") || defaultIconMaximize,
                     position: CanvasButtonPosition.LEFT,
                     title: this.player.translate('Maximize video'),
                     ariaLabel: this.player.translate('Maximize video'),
@@ -262,7 +253,7 @@ export default class DualVideoLayout extends VideoLayout {
                 });
 
                 result.push({
-                    icon: iconSwitchSide,
+                    icon: this.player.getCustomPluginIcon(this.name,"iconSwitchSide") || defaultIconSwitchSide,
                     position: CanvasButtonPosition.LEFT,
                     title: this.player.translate('Place the video on the other side of the screen'),
                     ariaLabel: this.player.translate('Place the video on the other side of the screen'),
@@ -272,7 +263,7 @@ export default class DualVideoLayout extends VideoLayout {
                 });
 
                 result.push({
-                    icon: iconClose,
+                    icon: this.player.getCustomPluginIcon(this.name,"iconClose") || defaultIconClose,
                     position: CanvasButtonPosition.RIGHT,
                     title: this.player.translate('Close video'),
                     ariaLabel: this.player.translate('Close video'),
@@ -283,7 +274,7 @@ export default class DualVideoLayout extends VideoLayout {
             }
             else {
                 result.push({
-                    icon: iconMinimize3,
+                    icon: this.player.getCustomPluginIcon(this.name,"iconMinimize") || defaultIconMinimize,
                     position: CanvasButtonPosition.LEFT,
                     title: this.player.translate('Minimize video'),
                     ariaLabel: this.player.translate('Minimize video'),
@@ -293,7 +284,7 @@ export default class DualVideoLayout extends VideoLayout {
                 });
 
                 result.push({
-                    icon: iconSideBySide,
+                    icon: this.player.getCustomPluginIcon(this.name,"iconSideBySide") || defaultIconSideBySide,
                     position: CanvasButtonPosition.LEFT,
                     title: this.player.translate('Put the videos side by side'),
                     ariaLabel: this.player.translate('Put the videos side by side'),
@@ -303,7 +294,7 @@ export default class DualVideoLayout extends VideoLayout {
                 });
 
                 result.push({
-                    icon: iconClose,
+                    icon: this.player.getCustomPluginIcon(this.name,"iconClose") || defaultIconClose,
                     position: CanvasButtonPosition.RIGHT,
                     title: this.player.translate('Close video'),
                     ariaLabel: this.player.translate('Close video'),
