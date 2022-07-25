@@ -148,6 +148,20 @@ export default class SteramProvider extends PlayerResource {
 			this.player.log.debug("players:");
 			this.player.log.debug(this.mainAudioPlayer);
 			let currentTime = this.mainAudioPlayer.currentTimeSync;
+			const maxSync = 0.2;
+
+			if (this.players.length>1) {
+				for (let i = 0; i<this.players.length; ++i) {
+					const secPlayer = this.players[i];
+					if (secPlayer !== this.mainAudioPlayer) {
+						const playerTime = secPlayer.currentTimeSync;
+						if (Math.abs(currentTime - playerTime) > maxSync) {
+							this.player.log.debug("Video synchronization triggered");
+							secPlayer.setCurrentTime(currentTime);
+						}
+					}
+				}
+			}
 			
 			// Check trimming
 			if (this.isTrimEnabled) {
