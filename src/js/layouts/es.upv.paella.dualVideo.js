@@ -8,12 +8,6 @@ import defaultIconSwitchSide from 'paella-core/icons/icon_switch_side.svg';
 import defaultIconMaximize from 'paella-core/icons/maximize.svg';
 import defaultIconClose from 'paella-core/icons/close.svg';
 
-const layoutIcons = [
-    iconMinimize,
-    iconMinimize2,
-    iconDualVideo
-];
-
 let layout = 0;
 /**
  * in pip mode, the minimized video is de second one
