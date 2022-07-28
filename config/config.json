@@ -12,7 +12,8 @@
         "showTotal": true,
         "parentContainer": "progressIndicator",
         "side": "left",
-        "visible": true
+        "visible": true,
+        "showHandler": true
     },
     
     "plugins": {

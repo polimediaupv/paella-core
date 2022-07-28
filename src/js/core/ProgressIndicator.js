@@ -93,10 +93,12 @@ export default class ProgressIndicator extends DomClass {
 		const attributes = {
 			"class": "progress-indicator"
 		};
+		const handler = player.config.progressIndicator?.showHandler ? '<i class="progress-indicator-handler" style="pointer-events: none"></i>' : "";
 		const children = `
 		<canvas class="progress-canvas canvas-layer-0"></canvas>
 		<div class="progress-indicator-container">
 			<div style="width: 0px;" class="progress-indicator-content"></div>
+			${ handler }
 		</div>
 		<canvas class="progress-canvas canvas-layer-1"></canvas>
 		`;
@@ -121,6 +123,8 @@ export default class ProgressIndicator extends DomClass {
 		this._canvasContext = this._canvas.map(canvas => canvas.getContext("2d"));
 		this._progressContainer = this.element.getElementsByClassName("progress-indicator-container")[0];
 		this._progressIndicator = this.element.getElementsByClassName("progress-indicator-content")[0];
+		this._handler = this.element.getElementsByClassName("progress-indicator-handler")[0];
+
 		
 		this._frameList = player.videoManifest?.frameList;
 		this._frameList?.sort((a,b) => a.time-b.time);
@@ -129,9 +133,32 @@ export default class ProgressIndicator extends DomClass {
 	
 		let drag = false;
 		const updateProgressIndicator = async (currentTime) => {
+			const containerWidth = this.progressContainer.clientWidth;
+			const handlerWidth = this.handler.clientWidth;
 			const duration = await player.videoContainer.duration();
 			const newWidth = currentTime * 100 / duration;
 			this.progressIndicator.style.width = `${ newWidth }%`;
+			if (this.handler) {
+				const leftPosition = newWidth / 100 * containerWidth;
+				this.handler.style.left = `${ leftPosition - handlerWidth / 2 }px`;
+
+
+				// const rightPosition = containerWidth - leftPosition;
+// 
+				// 
+				// if (handlerWidth > leftPosition) {
+				// 	this.handler.style.left = "0%";
+				// 	this.handler.style.right = "";
+				// }
+				// else if (handlerWidth > rightPosition) {
+				// 	this.handler.style.right = "0%";
+				// 	this.handler.style.left = "";
+				// }
+				// else {
+				// 	
+				// 	this.handler.style.right = "";
+				// }
+			}
 		}
 		
 		const positionToTime = async (pos) => {
@@ -196,16 +223,16 @@ export default class ProgressIndicator extends DomClass {
 			updateHeight.apply(this);
 		});
 
-		const updateCanvassProcess = () => {
+		const updateCanvasProcess = () => {
 			this._updateCanvasTimer = setTimeout(() => {
 				if (this._updateCanvas) {
 					updateHeight.apply(this);
 				}
-				updateCanvassProcess();
+				updateCanvasProcess();
 			}, 250);
 		}
 		this._updateCanvas = true;
-		updateCanvassProcess();
+		updateCanvasProcess();
 	}
 
 	requestUpdateCanvas() {
@@ -249,6 +276,10 @@ export default class ProgressIndicator extends DomClass {
 	
 	get progressIndicator() {
 		return this._progressIndicator;
+	}
+	
+	get handler() {
+		return this._handler;
 	}
 	
 	get progressTimer() {
