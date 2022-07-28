@@ -99,6 +99,7 @@ export default class ProgressIndicator extends DomClass {
 		<div class="progress-indicator-container">
 			<div style="width: 0px;" class="progress-indicator-content"></div>
 			${ handler }
+			<div class="progress-indicator-remaining"></div>
 		</div>
 		<canvas class="progress-canvas canvas-layer-1"></canvas>
 		`;
@@ -124,8 +125,14 @@ export default class ProgressIndicator extends DomClass {
 		this._progressContainer = this.element.getElementsByClassName("progress-indicator-container")[0];
 		this._progressIndicator = this.element.getElementsByClassName("progress-indicator-content")[0];
 		this._handler = this.element.getElementsByClassName("progress-indicator-handler")[0];
+		this._remainingContainer = this.element.getElementsByClassName("progress-indicator-remaining")[0];
+		if (this.handler && player.config.progressIndicator?.hideHandlerOnMouseOut) {
+			this.handler.style.display = "none";
+		}
+		if (!player.config.progressIndicator?.showRemainingProgress) {
+			this._remainingContainer.style.display = "none";
+		}
 
-		
 		this._frameList = player.videoManifest?.frameList;
 		this._frameList?.sort((a,b) => a.time-b.time);
 		
@@ -141,23 +148,6 @@ export default class ProgressIndicator extends DomClass {
 			if (this.handler) {
 				const leftPosition = newWidth / 100 * containerWidth;
 				this.handler.style.left = `${ leftPosition - handlerWidth / 2 }px`;
-
-
-				// const rightPosition = containerWidth - leftPosition;
-// 
-				// 
-				// if (handlerWidth > leftPosition) {
-				// 	this.handler.style.left = "0%";
-				// 	this.handler.style.right = "";
-				// }
-				// else if (handlerWidth > rightPosition) {
-				// 	this.handler.style.right = "0%";
-				// 	this.handler.style.left = "";
-				// }
-				// else {
-				// 	
-				// 	this.handler.style.right = "";
-				// }
 			}
 		}
 		
@@ -192,6 +182,9 @@ export default class ProgressIndicator extends DomClass {
 		this.progressContainer.addEventListener("mouseover", evt => {
 			this._isHover = true;
 			updateHeight.apply(this);
+			if (this.handler && player.config.progressIndicator?.hideHandlerOnMouseOut) {
+				this.handler.style.display = "";
+			}
 		});
 		
 		this.progressContainer._progressIndicator = this;
@@ -221,6 +214,10 @@ export default class ProgressIndicator extends DomClass {
 			this.frameThumbnail.style.display = "none";
 			this._isHover = false;
 			updateHeight.apply(this);
+
+			if (this.handler && player.config.progressIndicator?.hideHandlerOnMouseOut) {
+				this.handler.style.display = "none";
+			}
 		});
 
 		const updateCanvasProcess = () => {

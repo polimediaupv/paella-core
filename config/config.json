@@ -13,7 +13,9 @@
         "parentContainer": "progressIndicator",
         "side": "left",
         "visible": true,
-        "showHandler": true
+        "showHandler": true,
+        "hideHandlerOnMouseOut": true,
+        "showRemainingProgress": true
     },
     
     "plugins": {

@@ -21,7 +21,7 @@
 
 .progress-indicator-timer {
 	position: absolute;
-	top: 0px;
+	top:1px;
 	color: var(--main-fg-color);
 	font-size: 10px;
 	line-height: 11px;
@@ -172,7 +172,7 @@
 }
 
 .progress-indicator-container .progress-indicator-content {
-	height: 8px;
+	height: 10px;
 	background-color: var(--highlight-bg-color-hover);
 	opacity: 0.8;
 	pointer-events: none;
@@ -180,6 +180,16 @@
 
 .playback-bar:hover .progress-indicator-container .progress-indicator-content {
 	background-color: var(--highlight-bg-color-hover);
+}
+
+.progress-indicator-remaining {
+	display: block;
+	width: 100%;
+	background-color: rgb(139, 139, 139);
+	height: 10px;
+	position: absolute;
+	z-index: -1;
+	opacity: 0.4;
 }
 
 .progress-indicator-handler {
