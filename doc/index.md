@@ -39,7 +39,7 @@
 
 [The Stream Provider](stream_provider.md): is responsible for managing the synchronization of the different video streams, and handling the soft trimming.
 
-[Playback bar customization](progress_indicator_text.md): explains the configuration options of the current time text of the video.
+[Playback bar customization](progress_indicator_customization.md): explains the configuration options of the current time text of the video and other elements of the progress indicator.
 
 [Captions](captions.md): APIs to load captions and subtitles.
 
@@ -98,7 +98,7 @@ Video plugin formats available in [paella core](https://github.com/polimediaupv/
 
 [Styles](styles.md): define custom colors and skins.
 
-[Progress indicator text](progress_indicator_text.md): see here the options for customizing the text indicating the current time instant of the video.
+[Progress indicator customization](progress_indicator_customization.md): see here the options for customizing the text indicating the current time instant of the video and other optional elements of the progress indicator bar..
 
 ## Plugin repositories
 

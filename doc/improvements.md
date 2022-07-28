@@ -11,4 +11,4 @@
 
 - [Plugin icon customization API](plugin_icon_customization.md) added.
 - [Progress indicator plugin](progress_indicator_plugin.md) added.
-- Improvements in progress indicator time configuration. For more information, see [this document](progress_indicator_text.md).
+- Improvements in progress indicator time configuration. For more information, see [this document](progress_indicator_customization.md).
