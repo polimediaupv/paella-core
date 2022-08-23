@@ -60,6 +60,14 @@ export default class SteramProvider extends PlayerResource {
 			}
 		})
 		
+		if (!(mainAudioContent in this._streams)) {
+			const streams = Object.values(this._streams);
+			if (streams.length) {
+				streams[0].isMainAudio = true;
+				mainAudioContent = streams[0].stream.content;
+			}
+		}
+
 		let videoEndedEventTimer = null;
 		for (const content in this._streams) {
 			const s = this._streams[content];
