@@ -22,6 +22,8 @@
 
 [Create a plugin module from scratch](plugin_module_tutorial.md): a step-by-step tutorial on how to create a plugin module for `paella-core`.
 
+[paellaplayer.upv.es website sources](https://github.com/polimediaupv/paellaplayer.upv.es/tree/paella-7-site): the paella player website. This is a real production example of a SPA application using Svelte and `paella-core` libraries.
+
 
 ## Reference
 
