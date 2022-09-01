@@ -28,6 +28,7 @@ import AudioTrackData from 'paella-core/js/core/AudioTrackData';
 import EventLogPlugin from 'paella-core/js/core/EventLogPlugin';
 import ButtonGroupPlugin from 'paella-core/js/core/ButtonGroupPlugin';
 import PluginModule from './js/core/PluginModule';
+import { checkManifestIntegrity } from './js/core/StreamProvider';
 
 import { DomClass, createElementWithHtmlText, createElement } from 'paella-core/js/core/dom';
 
@@ -111,6 +112,8 @@ export {
     AudioTrackData,
     EventLogPlugin,
     ButtonGroupPlugin,
+
+    checkManifestIntegrity,
     
     Events,
     bindEvent,

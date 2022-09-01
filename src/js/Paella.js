@@ -20,6 +20,7 @@ import Data from 'paella-core/js/core/Data';
 import CaptionCanvas from 'paella-core/js/captions/CaptionsCanvas';
 import { loadLogEventPlugins, unloadLogEventPlugins } from "paella-core/js/core/EventLogPlugin";
 import { loadKeyShortcutPlugins, unloadKeyShortcutPlugins, getShortcuts } from "paella-core/js/core/KeyShortcutPlugin";
+import { checkManifestIntegrity } from "paella-core/js/core/StreamProvider";
 
 import {
     defaultTranslateFunction,
@@ -372,6 +373,8 @@ export default class Paella {
             this.log.debug(`Loading video with identifier '${this.videoId}' from URL '${this.manifestFileUrl}'`);
     
             this._videoManifest = await this.initParams.loadVideoManifest(this.manifestFileUrl,this._config,this);
+
+            checkManifestIntegrity(this._videoManifest);
     
             this.log.debug("Video manifest loaded:");
             this.log.debug(this.videoManifest);

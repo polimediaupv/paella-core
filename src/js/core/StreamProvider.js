@@ -3,6 +3,22 @@ import { getVideoPlugin } from 'paella-core/js/core/VideoPlugin';
 import { loadCanvasPlugins, getCanvasPlugin, unloadCanvasPlugins } from 'paella-core/js/core/CanvasPlugin';
 import Events, { triggerEvent, triggerIfReady } from 'paella-core/js/core/Events';
 
+
+export function checkManifestIntegrity(manifest) {
+	const check = (field, error) => {
+		if (!field) {
+			throw new Error(`Invalid video manifest: ${error}`);
+		}
+	}
+
+	check(manifest.metadata, "missing 'metadata' object.");
+	check(manifest.streams, "missing 'streams' object.");
+	check(manifest.streams.length>0, "the 'streams' array is empty.");
+	check(manifest.metadata?.duration>0, "'metadata.duration' must be higher than zero.");
+	check(manifest.metadata?.title, "the 'metadata.title' field is required.");
+	check(manifest.metadata?.preview, "the 'metadata.preview' field is required.");
+}
+
 export default class SteramProvider extends PlayerResource {
 	constructor(player, videoContainer) {
 		super(player, videoContainer);
