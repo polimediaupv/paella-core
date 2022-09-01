@@ -27,6 +27,9 @@ export default class SteramProvider extends PlayerResource {
 		this._streams = {};
 		
 		let mainAudioContent = this.player.config.defaultAudioStream || "presenter";
+		if (this._streamData.length === 1) {
+			mainAudioContent = this._streamData[0].content;
+		}
 		streamData.some(s => {
 			if (s.role === "mainAudio") {
 				mainAudioContent = s.content;
@@ -84,6 +87,11 @@ export default class SteramProvider extends PlayerResource {
 				}
 			})
 			this._players.push(s.player);
+		}
+
+		if (this.mainAudioPlayer === null) {
+			console.error("The video stream containing the audio track could not be identified. The `role` attribute must be specified in the main video stream, or the `defaultAudioStream` attribute must be set correctly in the player configuration.");
+			throw new Error("The video stream containing the audio track could not be identified.");
 		}
 	}
 

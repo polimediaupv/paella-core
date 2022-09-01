@@ -102,6 +102,19 @@ This is the content identification tag for the stream. Each stream must necessar
 
 Indicates the role that the stream plays in composing videos. For Paella Player version 7, the only role used is `mainAudio`, which identifies the stream as the main audio source. All other video sources will try to load without audio, but there are some browsers where it is not possible to mute the volume. For this reason, it is highly recommended that video streams that do not have the `mainAudio` role be encoded without audio tracks.
 
+If the video manifest contains more than one video stream, it is mandatory to mark the stream containing the audio. There are two ways to do it this:
+
+- Specifying the `role: "mainAudio"` in the video manifest file, as described above.
+- By defining which stream type contains the default main audio stream, in the configuration file. Streams whose `content` attribute matches the `defaultAudioStream` attribute of the configuration, will be marked by default as `mainAudio`.:
+
+```config.json
+{
+  // The default `mainAudio` stream will be the streams with `content=presenter`
+  "defaultAudioStream": "presenter",
+  ...
+}
+```
+
 
 
 ## Frame List
