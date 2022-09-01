@@ -57,13 +57,11 @@ const initParams = {
 The default initialization functions are located at `src/core/initFunctions`.
 
 ```javascript
-import { initFunctions } from 'paella-core';
-
-const { defaultLoadConfigFunction,
+import { defaultLoadConfigFunction,
         defaultGetVideoIdFunction,
         defaultGetManifestUrlFunction,
         defaultGetManifestFileUrlFunction,
-        defaultLoadVideoManifestFunction } = initFunctions;
+        defaultLoadVideoManifestFunction } from 'paella-core';
 
 ```
 
