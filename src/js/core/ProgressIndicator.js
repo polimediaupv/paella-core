@@ -141,7 +141,7 @@ export default class ProgressIndicator extends DomClass {
 		let drag = false;
 		const updateProgressIndicator = async (currentTime) => {
 			const containerWidth = this.progressContainer.clientWidth;
-			const handlerWidth = this.handler.clientWidth;
+			const handlerWidth = this.handler?.clientWidth || 0;
 			const duration = await player.videoContainer.duration();
 			const newWidth = currentTime * 100 / duration;
 			this.progressIndicator.style.width = `${ newWidth }%`;
