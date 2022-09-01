@@ -8,14 +8,14 @@ Adds compatibility to playback [HLS m3u8 streams](https://developer.apple.com/st
 
 To tune up the configuration of the player, you may check the [hls.js configuration options](https://github.com/video-dev/hls.js/blob/master/docs/API.md#fine-tuning). You can set these options using the plugin configuration in `config.json` file, with the `hlsConfig` attribute.
 
-The configuration callbacks cannot be specified, but in practice the only callback we may need to configure is `xhrSetup`, in case we want to modify the options in the Ajax request to get the stream chunks. To solve this, the `corsConfig` attribute allows to modify these parameters. If `corsConfig.withCredentials` is `true`, then the headers defined in `requestHeaders` will be added. The `disableCache` parameter allows to prevent the browser to use cache in the main `m3u8` playlist file. This mechanism works by adding a `cache=random_number` parameter to the URL of the `m3u8` file request.
+The configuration callbacks cannot be specified, but in practice the only callback we may need to configure is `xhrSetup`, in case we want to modify the options in the Ajax request to get the stream chunks. To solve this, the `corsConfig` attribute allows to modify these parameters. If `corsConfig.withCredentials` is `true`, then the headers defined in `requestHeaders` will be added. The `enableCache` parameter allows to prevent the browser to use cache in the main `m3u8` playlist file. This mechanism works by adding a `cache=random_number` parameter to the URL of the `m3u8` file request.
 
 ```json
 "es.upv.paella.hlsVideoFormat": {
   "enabled": true,
   "order": 0,
   "audioTrackLabel": "name",
-  "disableCache": true,
+  "enableCache": true,
   "hlsConfig": {
     "maxBufferLength": 40
   },
@@ -130,7 +130,7 @@ Taking this into account:
 * If you have problems in iOS browsers: it doesn't matter in which browser you have problems, since due to App Store policies all browsers use the system's rendering engine and video codecs. So in practice all browsers work the same. In this case, your problem is in the video codec or streaming server configuration. Nothing can be changed change in Paella Player to solve this kind of issues, because HLS is managed by the brower itself.
 * If you have problems in other browsers: check the [hls.js documentation](https://github.com/video-dev/hls.js) to see what features of HLS are supported. Also check the HLS specifications and recommendations for video encoding. Note that not all browsers support all codecs. Some problems may be fixed changing the hls.js configuration.
 * Please note that, although it is theoretically possible to view live video streams using the `hlsVideoFormat` plugin, it is very likely to have problems in some browsers. If you have problems with live streams, or especially low latency streams, be sure to use the `hlsLiveVideoFormat` plugin by replacing the `hls` tag with `hlsLive` in the video manifest (see the documentation of [hls live video plugin here](hls_live_video_plugin.md)).
-* If you have problems playing videos using authentication, disable the `disableCache` parameter in the configuration. This mechanism prevents the browser from using the cache with `m3u8` files, and does so by adding a random parameter in the URL of the playlist file. This can cause problems with some streaming servers when getting authenticated videos.
+* If you have problems playing videos using authentication, disable the `enableCache` parameter in the configuration. This mechanism prevents the browser from using the cache with `m3u8` files, and does so by adding a random parameter in the URL of the playlist file. This can cause problems with some streaming servers when getting authenticated videos.
 
 Some helpful resources:
 
