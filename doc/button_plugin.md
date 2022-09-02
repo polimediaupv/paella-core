@@ -193,3 +193,98 @@ export default class MyButtonPlugin extends ButtonPlugin {
   ...
 }
 ```
+
+## Style customization
+
+The structure of the button plugins in the playbar is as follows:
+
+```html
+<div class="button-plugin-container">
+  <div class="button-plugin-side-area left-side">
+  </div>
+  <button class="button-plugin ">
+    <i class="button-icon" style="pointer-events: none">
+      <svg><!-- svg icon--></svg>
+    </i>
+    <span class="button-title button-title-medium">
+      <!-- icon text -->
+    </span>
+  </button>
+  <div class="button-plugin-side-area right-side">
+  </div>
+</div>
+```
+
+Of these elements, there are two parts that can be used by the plugin to add elements to the left or right of the button. For example, the volume plugin in the `paella-basic-plugins` library uses the right area to add the volume control on the mouse hover.
+
+The button itself consists of the main container, which is the `<button class="button-plugin">` element, the icon, which is the `<i class="button-icon">` element and contains an SVG icon that loads the plugin within its code, and the `<span class="button-title">` element.
+
+As button plugins can be used elsewhere in the player, the following selectors are used to style the button, icon and text:
+
+- `.playback-bar .button-plugins .button-plugin-container button`: button on the playback bar.
+- `.playback-bar .button-plugins button i`: icon on playback bar button.
+- `.button-plugins span.button-title`: text on playback bar button.
+
+In this way, we restrict the changes to those buttons that are in the playback bar. If we want to modify the buttons in the video container, then we use the following selectors:
+
+- `.video-container .button-plugins .button-plugin-container button`: button on video container.
+- `.video-container .button-plugins .button-plugin-container button`: icon on video container button.
+- `.button-plugins span.button-title`: text on video container button.
+
+Finally, button plugins can also be placed in a popup container (see documentation on button group plugins). These buttons are referenced with the following queries:
+
+- `.button-group .button-plugin-container button`: button on a button group pop up.
+- `.button-group button i`: icon on a pop up button.
+- `.button-group span.button-title`: text on a pop up button.
+
+Changes to the button's appearance will generally be made to the `button.button-plugin` element.
+
+Remember that to load custom styles you must use [the `loadStyle` function](styles.md).
+
+Examples:
+
+**Button plugins without a fixed width on playback bar:**
+
+```css
+/* Set the icon with to auto */
+.playback-bar .button-plugins .button-plugin-container button {
+  width: auto;
+}
+
+/* Set the icon margin to zero */
+.playback-bar .button-plugins button i {
+  margin-left: 0px;
+}
+```
+
+**Set the button text sizes:**
+
+There are three possible text sizes for button titles. The use of one or another size depends on the plugin's definition, as the plugin knows best which size best suits the use. We can modify the predefined sizes of these three types with the following rules:
+
+```css
+/* Playback bar and video container */
+.button-plugins span.button-title.button-title-small {
+    font-size: 10px;
+}
+  
+.button-plugins span.button-title.button-title-medium {
+    font-size: 14px;
+}
+  
+.button-plugins span.button-title.button-title-large {
+    font-size: 16px;
+}
+
+/* Button group */
+.button-group span.button-title.button-title-small {
+  font-size: 8px;
+}
+
+.button-group span.button-title.button-title-medium {
+  font-size: 10px;
+}
+
+.button-group span.button-title.button-title-large {
+  font-size: 12px;
+}
+```
