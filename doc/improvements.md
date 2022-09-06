@@ -17,3 +17,8 @@
 
 - [Improvements in progress indicator](progress_indicator_customization.md): Now it is possible to show a handler button to seek the video timeline.
 - The `enableCache` parameter in [hls plugin configuration](hls_video_plugin.md) has been renamed to `disableCache`.
+
+## paella-core 1.4.x
+
+- [Improvements in video container customization](video_container.md): It is now possible to place the video container on top of the playback bar, so that the playback bar does not hide the video at the bottom.
+
