@@ -59,4 +59,18 @@ myPopUp.setContent(content);
 myPopUp.show();
 ```
 
+## Customization
+
+The customisation of pop up styles is done through CSS, taking into account that for colour changes it is advisable to use the CSS variables explained in [this document](styles.md).
+
+Changes to the popup window container are made in the `.popup-content` class. The position of the window is dynamic, is set by JavaScript code and cannot be changed by CSS, but most of the other properties can be changed.
+
+```css
+/* Example: increment padding and add a border radius */
+.popup-content {
+    padding: 15px 15px 15px 15px;
+    border-radius: 15px;
+}
+```
+
 

@@ -62,3 +62,12 @@ There are specific APIs to customize plugin icons, but in order for them to work
 
 You can read more about plugin customization in [this document](exported_plugins.md).
 
+
+## Other style customization
+
+Information on changing the styles of various elements of the player can be found in the following documents:
+
+- [Pop Ups](pop_up_api.md)
+- [Buttons](button_plugin.md)
+- [Progress bar](progress_indicator_customization.md)
+- [Menu button plugins](menu_button_plugin.md)

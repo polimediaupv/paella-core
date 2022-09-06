@@ -110,4 +110,32 @@ These default behaviours can be modified using the `closeOnSelect` and `closePar
 ```
 
 
+## Customization
+
+The elements of a menu are placed inside a pop up, therefore the configuration part of the styles corresponding to the pop up are configured in the elements of the pop up itself. You can consult the configuration information [in this document](pop_up_api.md).
+
+Within the pop up, the menu items are placed in a structure like the following:
+
+```html
+<ul class="menu-button-content">
+  <li class="menu-button-item">...</li>
+  <li class="menu-button-item">...</li>
+  <li class="menu-button-item">...</li>
+  ...
+</ul>
+```
+
+To modify the styles of the elements we can use the `ul.menu-button-content li.menu-button-item` class selector. It is important to use the complete selector, which includes `<ul>`, the list element `<li>` and its classes.
+
+**Example: add a line between the menu elements**
+
+```css
+ul.menu-button-content li.menu-button-item {
+  border-bottom: 1px solid #767676;
+}
+
+ul.menu-button-content li.menu-button-item:last-of-type {
+  border-bottom: none;
+}
+```
 
