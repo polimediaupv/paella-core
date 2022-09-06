@@ -11,6 +11,13 @@
 	transform: translateY(-50%);
 }
 
+
+.video-container.over-playback-bar {
+	height: calc(100% - 59px);
+	top: 0px;
+	transform: none;
+}
+
 .base-video-rect {
     background-color: var(--base-video-rect-background-color);
     position: relative;

@@ -17,6 +17,10 @@
         "hideHandlerOnMouseOut": true,
         "showRemainingProgress": true
     },
+
+    "videoContainer": {
+        "overPlaybackBar": true
+    },
     
     "plugins": {
         "es.upv.paella.testPlugin": {

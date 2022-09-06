@@ -31,6 +31,11 @@ export default class VideoContainer extends DomClass {
         const attributes = {
             "class": "video-container"
         };
+
+        if (player.config.videoContainer?.overPlaybackBar) {
+            attributes.class += " over-playback-bar"
+        }
+
         const children = `
             <div class="${ baseVideoRectClass }">
             </div>
@@ -199,7 +204,7 @@ export default class VideoContainer extends DomClass {
 
         // Conversion factors for video rect
         const baseSize = await getContainerBaseSize(this.player);
-        const playerSize = this.player.containerSize;
+        const playerSize = this.elementSize;
         const wFactor = 100 / baseSize.w;
         const hFactor = 100 / baseSize.h;
         const playerRatio = playerSize.w / playerSize.h;
@@ -307,6 +312,10 @@ export default class VideoContainer extends DomClass {
                 stream.canvas.showButtons();
             }
         }
+    }
+
+    get elementSize() {
+        return { w: this.element.offsetWidth, h: this.element.offsetHeight };
     }
 
     get ready() {

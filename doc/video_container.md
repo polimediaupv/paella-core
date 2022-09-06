@@ -265,3 +265,63 @@ e.style.backgroundColor = 'rgba(255,0,0,0.4)';
 ```
 
 Note: remember that you never may use __paella_instances__ for production code. the above example has only been exposed so that you can test the API in a simple way.
+
+## Customization
+
+The video container can be customised through the player configuration in two ways:
+
+- It can be displayed in a layer below the playback bar, so that the playback bar is drawn over the video. During playback, after a few seconds of mouse inactivity, the playback bar is hidden and the entire video container is visible. This option is more recommended for environments where the player has more limited space, as the playback bar does not take up space.
+- It can be displayed on the same layer as the playback bar, on top of it. This way, the playbar does not hide the video. This option is more suitable if there are no space limitations on the screen, as the video is not hidden by the playbar.
+
+**config.json:**
+
+```json
+{
+  "videoContainer": {
+    "overPlaybackBar": true
+  },
+  ...
+}
+```
+
+This system works by adding or removing a CSS class to the video container:
+
+**Video container under playback bar:**
+
+```html
+<div class="video-container">
+  ...
+```
+
+**Video container over the playback bar:**
+
+```html
+<div class="video-container over-playback-bar">
+```
+
+The default CSS styles of `paella-core` use these classes to define the size and position of the video container:
+
+```css
+.video-container {
+  background-color: var(--video-container-background-color);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+
+.video-container.over-playback-bar {
+	height: calc(100% - 59px);
+	top: 0px;
+	transform: none;
+}
+```
+
+Of course, it is possible [to modify the CSS styles](styles.md) of the video container, but keep in mind that if the video container is placed above the playbar, the size of the container is related to the size of the playbar. If we modify the size of the playbar, we will also have to modify the styles for the video container.
+
+
