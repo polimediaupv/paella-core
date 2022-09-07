@@ -163,6 +163,21 @@ As with `parentContainer`, the `side` property also takes its value from the plu
 - `left`: The button will be placed on the left side of the playback bar or the video container.
 - `right`: The button will be placed on the right side of the playback bar or the video container.
 
+It is possible to add non-interactive buttons. Although strictly speaking a non-interactive button is not a button, this allows you to create plugins that are active but not usable. For example, if we want to emphasise that the player supports subtitles, but the current video does not include them, we can add a non-interactive button.
+
+Non-interactive buttons have mouse events, keyboard events and tab stop disabled, and include the `non-interactive` class, as explained below in the section on modifying styles.
+
+To disable the button interaction, you must to return `false` in the property `interactive`. This property is only read at plugin load time, after calling its `isEnabled` function, and before calling its `load` function. Therefore, a button cannot change from interactive to non-interactive during the player's lifecycle:
+
+```js
+export default class MyButtonPlugin extends ButtonPlugin {
+  ...
+  get interactive() {
+    false;
+  }
+}
+```
+
 ## Accesibility
 
 To set up the `aria-label` attribute, you can use the `ariaLlabel` property in the button plugin configuration. In addition, the `description` property in the plugin configuration, will be used as `title` attribute in the button.
@@ -287,4 +302,19 @@ There are three possible text sizes for button titles. The use of one or another
 .button-group span.button-title.button-title-large {
   font-size: 12px;
 }
+```
+
+**Non-interactive buttons:** for this type of button, the `non-interactive` class is added to the button element, and the button element becomes a `<span>` instead of a `<button>`. As a non-interactive element that will no longer respond to mouse events, the side bins are also not added.
+
+```html
+<div class="button-plugin-container">
+  <span class="button-plugin non-interactive">
+    <i class="button-icon" style="pointer-events: none">
+      <svg><!-- svg icon--></svg>
+    </i>
+    <span class="button-title button-title-medium">
+      <!-- icon text -->
+    </span>
+  </span>
+</div>
 ```

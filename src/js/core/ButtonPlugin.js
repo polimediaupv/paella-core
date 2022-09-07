@@ -38,44 +38,61 @@ export async function addButtonPlugin(plugin, buttonAreaElem) {
 	const ariaLabel = translate(plugin.ariaLabel);
 	const description = translate(plugin.description);
 
-	const leftArea = createElementWithHtmlText(`
-		<div class="button-plugin-side-area left-side ${ plugin.className }"></div>
-	`, parent);
-	const button = createElementWithHtmlText(`
-		<button class="button-plugin ${ plugin.className }" tabindex="${ tabIndex }" aria-label="${ ariaLabel }" title="${ description }"><i class="button-icon" style="pointer-events: none">${ plugin.icon }</i></button>
-	`, parent);
-	const rightArea = createElementWithHtmlText(`
-		<div class="button-plugin-side-area right-side ${ plugin.className }"></div>
-	`, parent);
-	const titleContainer = createElementWithHtmlText(`
-		<span class="button-title button-title-${ plugin.titleSize }">${ plugin.title || "&nbsp;" }</span>
-	`, button);
-	plugin._leftArea = leftArea;
-	plugin._rightArea = rightArea;
-	plugin._button = button;
-	plugin._container = parent;
-	plugin._titleContainer = titleContainer;
-	button._pluginData = plugin;
-	leftArea._pluginData = plugin;
-	rightArea._pluginData = plugin;
-	parent._pluginData = plugin;
+	if (plugin.interactive) {
+		const leftArea = createElementWithHtmlText(`
+			<div class="button-plugin-side-area left-side ${ plugin.className }"></div>
+		`, parent);
+		const button = createElementWithHtmlText(`
+			<button class="button-plugin ${ plugin.className }" tabindex="${ tabIndex }" aria-label="${ ariaLabel }" title="${ description }"><i class="button-icon" style="pointer-events: none">${ plugin.icon }</i></button>
+		`, parent);
+		const rightArea = createElementWithHtmlText(`
+			<div class="button-plugin-side-area right-side ${ plugin.className }"></div>
+		`, parent);
+		const titleContainer = createElementWithHtmlText(`
+			<span class="button-title button-title-${ plugin.titleSize }">${ plugin.title || "&nbsp;" }</span>
+		`, button);
+		plugin._leftArea = leftArea;
+		plugin._rightArea = rightArea;
+		plugin._button = button;
+		plugin._container = parent;
+		plugin._titleContainer = titleContainer;
+		button._pluginData = plugin;
+		leftArea._pluginData = plugin;
+		rightArea._pluginData = plugin;
+		parent._pluginData = plugin;
 
-	// Event listeners
-	parent.addEventListener("mouseenter", (evt) => {
-		parent._pluginData.mouseOver(parent, evt);
-	});
-	parent.addEventListener("mouseleave", (evt) => {
-		parent._pluginData.mouseOut(parent, evt);
-	});
-
-	button.addEventListener("click", (evt) => {
-		const plugin = button._pluginData;
-		triggerEvent(plugin.player, Events.BUTTON_PRESS, {
-			plugin: plugin
+		// Event listeners
+		parent.addEventListener("mouseenter", (evt) => {
+			parent._pluginData.mouseOver(parent, evt);
 		});
-		plugin.action(evt);
-		evt.stopPropagation();
-	});
+		parent.addEventListener("mouseleave", (evt) => {
+			parent._pluginData.mouseOut(parent, evt);
+		});
+	
+		button.addEventListener("click", (evt) => {
+			const plugin = button._pluginData;
+			triggerEvent(plugin.player, Events.BUTTON_PRESS, {
+				plugin: plugin
+			});
+			plugin.action(evt);
+			evt.stopPropagation();
+		});
+	}
+	else {
+		const button = createElementWithHtmlText(`
+			<span class="button-plugin ${ plugin.className } non-interactive" title="${ description }"><i class="button-icon" style="pointer-events: none">${ plugin.icon }</i></button>
+		`, parent);
+		const titleContainer = createElementWithHtmlText(`
+			<span class="button-title button-title-${ plugin.titleSize }">${ plugin.title || "&nbsp;" }</span>
+		`, button);
+		plugin._leftArea = null;
+		plugin._rightArea = null;
+		plugin._button = button;
+		plugin._container = parent;
+		plugin._titleContainer = titleContainer;
+		button._pluginData = plugin;
+		parent._pluginData = plugin;
+	}
 }
 
 export default class ButtonPlugin extends UserInterfacePlugin {
@@ -87,6 +104,7 @@ export default class ButtonPlugin extends UserInterfacePlugin {
 	get rightArea() { return this._rightArea; }
 	get button() { return this._button; }
 	get titleContainer() { return this._titleContainer; }
+	get interactive() { return true; }
 
 	get ariaLabel() {
 		return this.config.ariaLabel || this.getAriaLabel();

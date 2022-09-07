@@ -21,4 +21,5 @@
 ## paella-core 1.4.x
 
 - [Improvements in video container customization](video_container.md): It is now possible to place the video container on top of the playback bar, so that the playback bar does not hide the video at the bottom.
+- [No interactive button plugins added](button_plugin.md): It is now possible to create non-interactive buttons, which allow you to display disabled player options, or visual elements such as logos.
 
