@@ -6,7 +6,7 @@ import UserInterfacePlugin from "./UserInterfacePlugin";
 export function getValidLayouts(player, streamData) {
     // Find the valid layouts that matches the streamData content
     const result = getPluginsOfType(player, "layout")
-        .filter(layout => layout.config && layout.canApply(streamData));
+        .filter(layout => layout.config && layout.config.enabled && layout.canApply(streamData));
     return result;
 }
 
