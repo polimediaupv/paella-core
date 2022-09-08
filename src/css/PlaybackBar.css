@@ -58,14 +58,16 @@
 	display: inline;
 }
 
+/* Button plugins */
 .playback-bar .button-plugins .button-plugin-container button {
 	width: 40px;
 	height: 40px;
-	display: block;
 	background: none;
-	/*outline: none;*/
 	border: none;
 	float: left;
+	align-items: center;
+	align-items: center;
+    justify-content: center;
 }
 
 .playback-bar .button-plugins button:hover {
@@ -83,8 +85,51 @@
 	display: block;
 	background-repeat: no-repeat;
 	background-position: 3px 7px;
-	margin-left: 5px;
+	margin-left: auto;
+	margin-right: auto;
 }
+
+/* non-interactive buttons **/
+.playback-bar .button-plugins .button-plugin-container div.non-interactive {
+	width: 40px;
+	height: 40px;
+	background: none;
+	border: none;
+	float: left;
+	box-sizing: border-box;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+	pointer-events: none;
+}
+
+.playback-bar .button-plugins div.non-interactive i {
+	background-size: 50% 50%;
+	width: 20px;
+	height: 20px;
+	display: block;
+	background-repeat: no-repeat;
+	background-position: 3px 7px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.playback-bar .button-plugins div.non-interactive span {
+	display: block;
+	text-align: center;
+}
+
+.playback-bar .button-plugins .button-plugin-container div.non-interactive {
+	padding: 2px 6px 3px 6px;
+}
+.video-container .button-plugins .button-plugin-container div.non-interactive {
+	padding: 2px 6px 3px 6px;
+}
+
+.playback-bar .button-plugins div.non-interactive i svg {
+	fill: var(--main-fg-color);
+}
+
 
 /* Fix default iPad button padding */
 .playback-bar .button-plugins .button-plugin-container button {

@@ -193,6 +193,10 @@
 
         "es.upv.paella.testProgressIndicatorPlugin": {
             "enabled": true
+        },
+
+        "es.upv.paella.nonInteractiveButtonTest": {
+            "enabled": true
         }
     }
 }

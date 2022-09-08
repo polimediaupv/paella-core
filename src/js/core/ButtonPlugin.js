@@ -43,14 +43,18 @@ export async function addButtonPlugin(plugin, buttonAreaElem) {
 			<div class="button-plugin-side-area left-side ${ plugin.className }"></div>
 		`, parent);
 		const button = createElementWithHtmlText(`
-			<button class="button-plugin ${ plugin.className }" tabindex="${ tabIndex }" aria-label="${ ariaLabel }" title="${ description }"><i class="button-icon" style="pointer-events: none">${ plugin.icon }</i></button>
+			<button class="button-plugin ${ plugin.className }" tabindex="${ tabIndex }" aria-label="${ ariaLabel }" title="${ description }">
+				<div class="interactive-button-content">
+					<i class="button-icon" style="pointer-events: none">${ plugin.icon }</i>
+					<span class="button-title button-title-${ plugin.titleSize }">${ plugin.title || "&nbsp;" }</span>
+				</div>
+			</button>
 		`, parent);
 		const rightArea = createElementWithHtmlText(`
 			<div class="button-plugin-side-area right-side ${ plugin.className }"></div>
 		`, parent);
-		const titleContainer = createElementWithHtmlText(`
-			<span class="button-title button-title-${ plugin.titleSize }">${ plugin.title || "&nbsp;" }</span>
-		`, button);
+		const titleContainer = button.getElementsByClassName('button-title')[0];
+		
 		plugin._leftArea = leftArea;
 		plugin._rightArea = rightArea;
 		plugin._button = button;
@@ -80,11 +84,15 @@ export async function addButtonPlugin(plugin, buttonAreaElem) {
 	}
 	else {
 		const button = createElementWithHtmlText(`
-			<span class="button-plugin ${ plugin.className } non-interactive" title="${ description }"><i class="button-icon" style="pointer-events: none">${ plugin.icon }</i></button>
+			<div class="button-plugin ${ plugin.className } non-interactive" title="${ description }">
+				<div class="non-interactive-button-content">
+					<i class="button-icon" style="pointer-events: none">${ plugin.icon }</i>
+					<span class="button-title button-title-${ plugin.titleSize }">${ plugin.title || "&nbsp;" }</span>
+				</div>
+			</div>
 		`, parent);
-		const titleContainer = createElementWithHtmlText(`
-			<span class="button-title button-title-${ plugin.titleSize }">${ plugin.title || "&nbsp;" }</span>
-		`, button);
+		const titleContainer = button.getElementsByClassName('button-title')[0];
+
 		plugin._leftArea = null;
 		plugin._rightArea = null;
 		plugin._button = button;
