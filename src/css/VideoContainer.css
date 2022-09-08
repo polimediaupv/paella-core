@@ -13,7 +13,7 @@
 
 
 .video-container.over-playback-bar {
-	height: calc(100% - 59px);
+	height: calc(100% - (var(--playback-bar-height) + 10px));
 	top: 0px;
 	transform: none;
 }

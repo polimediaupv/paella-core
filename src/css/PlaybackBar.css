@@ -43,7 +43,7 @@
 }
 
 .playback-bar .button-plugins {
-	height: 40px;
+	height: var(--button-fixed-height);
 }
 
 .playback-bar .button-plugins.left-side {
@@ -96,7 +96,7 @@
 
 .playback-bar .button-plugins button i {
 	background-size: 50% 50%;
-	width: 20px;
+	width: var(--button-icon-size);
 	display: block;
 	background-repeat: no-repeat;
 	background-position: 3px 7px;
@@ -130,7 +130,7 @@
 
 .playback-bar .button-plugins div.non-interactive i {
 	background-size: 50% 50%;
-	width: 20px;
+	width: var(--button-icon-size);
 	display: block;
 	background-repeat: no-repeat;
 	background-position: 3px 7px;

@@ -2,4 +2,6 @@
 :root {
 	--button-fixed-width: 40px;
 	--button-fixed-height: 40px;
+    --playback-bar-height: var(--button-fixed-height) + 10px;
+    --button-icon-size: calc(var(--button-fixed-width) / 2);
 }

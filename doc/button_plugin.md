@@ -235,6 +235,35 @@ export default class MyButtonPlugin extends ButtonPlugin {
 
 ## Style customization
 
+### Button size
+
+The simplest adjustment that can be made to the button styles is to set their size. The button size can be customized using the CSS variables `--button-fixed-width` and `--button-fixed-height`:
+
+```css
+:root {
+  --button-fixed-width: 40px;
+  --button-fixed-height: 40px;
+}
+```
+
+The size of buttons has an impact on other CSS variables, such as `--playback-bar-height`.
+
+In addition to the size of the buttons, it is also possible to set the size of the button icons using the `--button-icon-size` variable. Note that the icon size should be smaller than the button size. In the default configuration, this size is half the width of the button.
+
+```css
+:root {
+  --button-icon-size: calc(var(--button-fixed-width) * 0.15);
+}
+```
+
+### Advanced button configuration
+
+NOTE: The button structure is quite complex and affects several parts of the player. If advanced CSS settings are modified, it is highly recommended to test that they work correctly for all possible button shapes:
+
+- Interactive/non-interactive button
+- Fixed width/dynamic width button
+- Playback bar/video container/button group
+
 The structure of the button plugins in the playbar is as follows:
 
 ```html
@@ -331,12 +360,4 @@ There are three possible text sizes for button titles. The use of one or another
 </div>
 ```
 
-**Button size:** the button size can be customized using the CSS variables `--button-fixed-width` and `--button-fixed-height`:
-
-```css
-:root {
-  --button-fixed-width: 40px;
-  --button-fixed-height: 40px;
-}
-```
 

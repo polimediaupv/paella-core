@@ -197,13 +197,13 @@
 
         "es.upv.paella.nonInteractiveButtonTest": {
             "enabled": true,
-            "parentContainer": "videoContainer",
+            "parentContainer_": "videoContainer",
             "order": 6
         },
 
         "es.upv.paella.dynamicWidthButton": {
             "enabled": true,
-            "parentContainer": "videoContainer",
+            "parentContainer_": "videoContainer",
             "order": 5
         }
     }
