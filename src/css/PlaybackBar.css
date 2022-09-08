@@ -58,16 +58,25 @@
 	display: inline;
 }
 
-/* Button plugins */
 .playback-bar .button-plugins .button-plugin-container button {
-	width: 40px;
-	height: 40px;
+	height: var(--button-fixed-height);
 	background: none;
 	border: none;
 	float: left;
 	align-items: center;
 	align-items: center;
     justify-content: center;
+}
+
+.playback-bar .button-plugins .button-plugin-container button.dynamic-width div.interactive-button-content {
+	display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+}
+
+.playback-bar .button-plugins .button-plugin-container button.fixed-width {
+	width: var(--button-fixed-width);
 }
 
 .playback-bar .button-plugins button:hover {
@@ -78,10 +87,16 @@
 	background-color: var(--secondary-bg-color-hover);
 }
 
+.playback-bar .button-plugins button.dynamic-width span {
+	margin-top: 0px;
+	color: var(--main-fg-color);
+	padding-left: 3px;
+	padding-right: 3px;
+}
+
 .playback-bar .button-plugins button i {
 	background-size: 50% 50%;
 	width: 20px;
-	height: 20px;
 	display: block;
 	background-repeat: no-repeat;
 	background-position: 3px 7px;
@@ -91,8 +106,7 @@
 
 /* non-interactive buttons **/
 .playback-bar .button-plugins .button-plugin-container div.non-interactive {
-	width: 40px;
-	height: 40px;
+	height: var(--button-fixed-height);
 	background: none;
 	border: none;
 	float: left;
@@ -103,10 +117,20 @@
 	pointer-events: none;
 }
 
+.playback-bar .button-plugins .button-plugin-container div.dynamic-width div.non-interactive-button-content {
+	display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+}
+
+.playback-bar .button-plugins .button-plugin-container div.non-interactive.fixed-width {
+	width: var(--button-fixed-width);
+}
+
 .playback-bar .button-plugins div.non-interactive i {
 	background-size: 50% 50%;
 	width: 20px;
-	height: 20px;
 	display: block;
 	background-repeat: no-repeat;
 	background-position: 3px 7px;
@@ -117,6 +141,19 @@
 .playback-bar .button-plugins div.non-interactive span {
 	display: block;
 	text-align: center;
+}
+
+.playback-bar .button-plugins div.no-icon span {
+	line-height: var(--button-fixed-height);
+    margin-top: 0px;
+	color: var(--main-fg-color);
+}
+
+.playback-bar .button-plugins div.dynamic-width span {
+	margin-top: 0px;
+	color: var(--main-fg-color);
+	padding-left: 3px;
+	padding-right: 3px;
 }
 
 .playback-bar .button-plugins .button-plugin-container div.non-interactive {
@@ -133,10 +170,10 @@
 
 /* Fix default iPad button padding */
 .playback-bar .button-plugins .button-plugin-container button {
-	padding: 2px 6px 3px 6px;
+	padding: 0px 6px 0px 6px;
 }
 .video-container .button-plugins .button-plugin-container button {
-	padding: 2px 6px 3px 6px;
+	padding: 0px 6px 0px 6px;
 }
 
 .button-plugins span.button-title {
@@ -144,17 +181,17 @@
 }
 
 .button-plugins span.button-title.button-title-small {
-	margin-top: -16px;
+	margin-top: -13px;
     font-size: 8px;
 }
 
 .button-plugins span.button-title.button-title-medium {
-	margin-top: -17px;
+	margin-top: -14px;
     font-size: 10px;
 }
 
 .button-plugins span.button-title.button-title-large {
-	margin-top: -19px;
+	margin-top: -16px;
     font-size: 12px;
 }
 

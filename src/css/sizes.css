@@ -1,0 +1,5 @@
+/* Button plugins */
+:root {
+	--button-fixed-width: 40px;
+	--button-fixed-height: 40px;
+}

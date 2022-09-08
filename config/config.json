@@ -114,7 +114,7 @@
         "es.upv.paella.testFoldableButton": {
             "enabled": "true",
             "side": "left",
-            "order": 2
+            "order": 10
         },
 
         "es.upv.paella.testVideoContainerButton": {
@@ -196,7 +196,15 @@
         },
 
         "es.upv.paella.nonInteractiveButtonTest": {
-            "enabled": true
+            "enabled": true,
+            "parentContainer": "videoContainer",
+            "order": 6
+        },
+
+        "es.upv.paella.dynamicWidthButton": {
+            "enabled": true,
+            "parentContainer": "videoContainer",
+            "order": 5
         }
     }
 }

@@ -37,6 +37,7 @@ import {
 } from "paella-core/js/core/Localization";
 
 import 'paella-core/styles/colors.css';
+import 'paella-core/styles/sizes.css';
 import 'paella-core/styles/base.css';
 import { defaultGetLanguageFunction } from "./core/Localization";
 

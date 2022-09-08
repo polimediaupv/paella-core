@@ -11,4 +11,8 @@ export default class NonInteractiveButton extends ButtonPlugin {
     get interactive() {
         return false;
     }
+
+    get dynamicWidth() {
+        return false;
+    }
 }

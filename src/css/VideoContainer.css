@@ -52,8 +52,7 @@
 }
 
 .video-container .button-plugins .button-plugin-container button {
-	width: 40px;
-	height: 40px;
+	height: var(--button-fixed-height);
 	display: block;
 	background-color: var(--main-bg-color);
     border-radius: 6px;
@@ -61,6 +60,24 @@
 	float: left;
 	margin-left: 2px;
     margin-right: 2px;
+}
+
+.video-container .button-plugins .button-plugin-container button.fixed-width {
+	width: var(--button-fixed-width);
+}
+
+.video-container .button-plugins .button-plugin-container button.dynamic-width div.interactive-button-content {
+	display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+}
+
+.video-container .button-plugins button.dynamic-width span {
+	margin-top: 0px;
+	color: var(--main-fg-color);
+	padding-left: 3px;
+	padding-right: 3px;
 }
 
 .video-container .button-plugins button:hover {
@@ -74,7 +91,6 @@
 .video-container .button-plugins button i {
 	background-size: 50% 50%;
 	width: 20px;
-	height: 20px;
 	display: block;
 	background-repeat: no-repeat;
 	background-position: 3px 7px;
@@ -83,6 +99,72 @@
 
 .video-container .button-plugins button i svg {
 	fill: var(--main-fg-color);
+}
+
+
+
+/* non-interactive buttons */
+.video-container .button-plugins .button-plugin-container div.non-interactive {
+	height: var(--button-fixed-height);
+	background-color: transparent;
+    border-radius: 6px;
+	border: none;
+	float: left;
+	box-sizing: border-box;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+	pointer-events: none;
+}
+
+.video-container .button-plugins .button-plugin-container div.dynamic-width div.non-interactive-button-content {
+	display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+}
+
+.video-container .button-plugins .button-plugin-container div.non-interactive.fixed-width {
+	width: var(--button-fixed-width);
+}
+
+.video-container .button-plugins div i {
+	background-size: 50% 50%;
+	width: 20px;
+	display: block;
+	background-repeat: no-repeat;
+	background-position: 3px 7px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.video-container .button-plugins div i svg {
+	fill: var(--main-fg-color);
+}
+
+.video-container .button-plugins .button-plugin-container div.dynamic-width div.non-interactive-button-content {
+	display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+}
+
+.video-container .button-plugins div.non-interactive span {
+	display: block;
+	text-align: center;
+}
+
+.video-container .button-plugins div.no-icon span {
+	line-height: var(--button-fixed-height);
+    margin-top: 0px;
+	color: var(--main-fg-color);
+}
+
+.video-container .button-plugins div.dynamic-width span {
+	margin-top: 0px;
+	color: var(--main-fg-color);
+	padding-left: 3px;
+	padding-right: 3px;
 }
 
 .video-container .button-plugin-side-area {

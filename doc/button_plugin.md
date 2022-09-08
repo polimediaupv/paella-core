@@ -163,6 +163,8 @@ As with `parentContainer`, the `side` property also takes its value from the plu
 - `left`: The button will be placed on the left side of the playback bar or the video container.
 - `right`: The button will be placed on the right side of the playback bar or the video container.
 
+## Non-interactive buttons
+
 It is possible to add non-interactive buttons. Although strictly speaking a non-interactive button is not a button, this allows you to create plugins that are active but not usable. For example, if we want to emphasise that the player supports subtitles, but the current video does not include them, we can add a non-interactive button.
 
 Non-interactive buttons have mouse events, keyboard events and tab stop disabled, and include the `non-interactive` class, as explained below in the section on modifying styles.
@@ -173,7 +175,29 @@ To disable the button interaction, you must to return `false` in the property `i
 export default class MyButtonPlugin extends ButtonPlugin {
   ...
   get interactive() {
-    false;
+    return false;
+  }
+}
+```
+
+## Variable width buttons
+
+By default, buttons have a fixed size that can be configured by CSS, as shown below. But sometimes you may want to add buttons with a variable width, for example, if you want to display text.
+
+If you specify text and an icon, variable-width buttons place the button to the left of the text rather than over the icon.
+
+To specify that you want variable width, you must return the `dynamicWidth` property. As with the `interactive` property, this is read before the plugin is loaded and after the `isEnabled` function is called, so this property remains the same throughout its life cycle.
+
+```js
+export default class MyButtonPlugin extends ButtonPlugin {
+  ...
+  async load() {
+    this.icon = testIcon;
+    this.title = "Dynamic width button";
+  }
+
+  get dynamicWidth() {
+    return true;
   }
 }
 ```
@@ -218,12 +242,14 @@ The structure of the button plugins in the playbar is as follows:
   <div class="button-plugin-side-area left-side">
   </div>
   <button class="button-plugin ">
-    <i class="button-icon" style="pointer-events: none">
-      <svg><!-- svg icon--></svg>
-    </i>
-    <span class="button-title button-title-medium">
-      <!-- icon text -->
-    </span>
+    <div class="interactive-button-content">
+      <i class="button-icon" style="pointer-events: none">
+        <svg><!-- svg icon--></svg>
+      </i>
+      <span class="button-title button-title-medium">
+        <!-- icon text -->
+      </span>
+    </div>
   </button>
   <div class="button-plugin-side-area right-side">
   </div>
@@ -255,22 +281,6 @@ Finally, button plugins can also be placed in a popup container (see documentati
 Changes to the button's appearance will generally be made to the `button.button-plugin` element.
 
 Remember that to load custom styles you must use [the `loadStyle` function](styles.md).
-
-Examples:
-
-**Button plugins without a fixed width on playback bar:**
-
-```css
-/* Set the icon with to auto */
-.playback-bar .button-plugins .button-plugin-container button {
-  width: auto;
-}
-
-/* Set the icon margin to zero */
-.playback-bar .button-plugins button i {
-  margin-left: 0px;
-}
-```
 
 **Set the button text sizes:**
 
@@ -309,12 +319,24 @@ There are three possible text sizes for button titles. The use of one or another
 ```html
 <div class="button-plugin-container">
   <span class="button-plugin non-interactive">
-    <i class="button-icon" style="pointer-events: none">
-      <svg><!-- svg icon--></svg>
-    </i>
-    <span class="button-title button-title-medium">
-      <!-- icon text -->
-    </span>
+    <div class="non-interactive-button-content">
+      <i class="button-icon" style="pointer-events: none">
+        <svg><!-- svg icon--></svg>
+      </i>
+      <span class="button-title button-title-medium">
+        <!-- icon text -->
+      </span>
+    </div>
   </span>
 </div>
 ```
+
+**Button size:** the button size can be customized using the CSS variables `--button-fixed-width` and `--button-fixed-height`:
+
+```css
+:root {
+  --button-fixed-width: 40px;
+  --button-fixed-height: 40px;
+}
+```
+

@@ -37,15 +37,16 @@ export async function addButtonPlugin(plugin, buttonAreaElem) {
 	const tabIndex = plugin.tabIndex;
 	const ariaLabel = translate(plugin.ariaLabel);
 	const description = translate(plugin.description);
+	const fixedSizeClass = plugin.dynamicWidth ? 'dynamic-width' : 'fixed-width';
 
 	if (plugin.interactive) {
 		const leftArea = createElementWithHtmlText(`
 			<div class="button-plugin-side-area left-side ${ plugin.className }"></div>
 		`, parent);
 		const button = createElementWithHtmlText(`
-			<button class="button-plugin ${ plugin.className }" tabindex="${ tabIndex }" aria-label="${ ariaLabel }" title="${ description }">
+			<button class="button-plugin ${ plugin.className } ${ fixedSizeClass } no-icon" tabindex="${ tabIndex }" aria-label="${ ariaLabel }" title="${ description }">
 				<div class="interactive-button-content">
-					<i class="button-icon" style="pointer-events: none">${ plugin.icon }</i>
+					<i class="button-icon" style="pointer-events: none; display: none">${ plugin.icon }</i>
 					<span class="button-title button-title-${ plugin.titleSize }">${ plugin.title || "&nbsp;" }</span>
 				</div>
 			</button>
@@ -54,7 +55,7 @@ export async function addButtonPlugin(plugin, buttonAreaElem) {
 			<div class="button-plugin-side-area right-side ${ plugin.className }"></div>
 		`, parent);
 		const titleContainer = button.getElementsByClassName('button-title')[0];
-		
+
 		plugin._leftArea = leftArea;
 		plugin._rightArea = rightArea;
 		plugin._button = button;
@@ -84,9 +85,9 @@ export async function addButtonPlugin(plugin, buttonAreaElem) {
 	}
 	else {
 		const button = createElementWithHtmlText(`
-			<div class="button-plugin ${ plugin.className } non-interactive" title="${ description }">
+			<div class="button-plugin ${ plugin.className } non-interactive ${ fixedSizeClass } no-icon" title="${ description }">
 				<div class="non-interactive-button-content">
-					<i class="button-icon" style="pointer-events: none">${ plugin.icon }</i>
+					<i class="button-icon" style="pointer-events: none; display: none;">${ plugin.icon }</i>
 					<span class="button-title button-title-${ plugin.titleSize }">${ plugin.title || "&nbsp;" }</span>
 				</div>
 			</div>
@@ -113,6 +114,7 @@ export default class ButtonPlugin extends UserInterfacePlugin {
 	get button() { return this._button; }
 	get titleContainer() { return this._titleContainer; }
 	get interactive() { return true; }
+	get dynamicWidth() { return false; }
 
 	get ariaLabel() {
 		return this.config.ariaLabel || this.getAriaLabel();
@@ -143,12 +145,24 @@ export default class ButtonPlugin extends UserInterfacePlugin {
 	}
 	
 	get icon() {
+		if (!this._icon) {
+			this._icon = "";
+		}
 		return this._icon;
 	}
 	
 	set icon(icon) {
 		this._icon = icon;
-		this.iconElement.innerHTML = icon;
+		if (icon) {
+			this.iconElement.innerHTML = icon;
+			this.iconElement.style.display = "";
+			this.button.classList.remove("no-icon");
+		}
+		else {
+			this.iconElement.innerHTML = "";
+			this.iconElement.style.display = "none";
+			this.button.classList.add("no-icon");
+		}
 	}
 
 	get title() {
