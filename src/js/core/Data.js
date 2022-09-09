@@ -40,8 +40,22 @@ export default class Data extends PlayerResource {
         if (!plugin) {
             plugin = this._dataPlugins["default"] &&
                      this._dataPlugins["default"].length > 0 &&
-                     this._dataPlugins["default"] &&
                      this._dataPlugins["default"][0];
+        }
+        if (!plugin) {
+            throw Error(`No data plugin found for context '${context}'`);
+        }
+        return plugin;
+    }
+
+    getDataPlugins(context) {
+        let plugin =  this._dataPlugins[context] &&
+                      this._dataPlugins[context].length > 0 &&
+                      this._dataPlugins[context];
+        if (!plugin) {
+            plugin = this._dataPlugins["default"] &&
+                     this._dataPlugins["default"].length > 0 &&
+                     this._dataPlugins["default"];
         }
         if (!plugin) {
             throw Error(`No data plugin found for context '${context}'`);
@@ -56,15 +70,33 @@ export default class Data extends PlayerResource {
     }
 
     async write(context, key, data) {
-        const p = this.getDataPlugin(context);
-        const result = await p.write(context, key, data);
-        return result;
+        const p = this.getDataPlugins(context);
+        if (p.length>1) {
+            let result = null;
+            for (let i = 0; i<p.length; ++i) {
+                result = await p[i].write(context, key, data);
+            }
+            return result;
+        }
+        else {
+            const result = await p.write(context, key, data);
+            return result;
+        }
     }
 
     async remove(context, key) {
-        const p = this.getDataPlugin(context);
-        const result = await p.remove(context, key);
-        return result;
+        const p = this.getDataPlugins(context);
+        if (p.length>1) {
+            let result = null;
+            for (let i = 0; i<p.length; ++i) {
+                result = await p[i].remove(context, key);
+            }
+            return result;
+        }
+        else {
+            const result = await p.remove(context, key);
+            return result;
+        }
     }
 }
 
