@@ -71,16 +71,19 @@ export default class Data extends PlayerResource {
 
     async write(context, key, data) {
         const p = this.getDataPlugins(context);
-        if (p.length>1) {
+        if (Array.isArray(p)) {
             let result = null;
             for (let i = 0; i<p.length; ++i) {
                 result = await p[i].write(context, key, data);
             }
             return result;
         }
-        else {
+        else if (p) {
             const result = await p.write(context, key, data);
             return result;
+        }
+        else {
+            paella.log.warn(`No such data plugin found for context '${context}'`);
         }
     }
 
