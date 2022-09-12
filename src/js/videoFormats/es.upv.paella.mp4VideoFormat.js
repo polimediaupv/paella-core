@@ -229,6 +229,8 @@ export class Mp4Video extends Video {
     }
 
     async enable() {
+        this._videoEnabled = true;
+        /*
         this.player.log.debug("video.enable()");
 
         if (this._timeUpdateTimer) {
@@ -243,13 +245,14 @@ export class Mp4Video extends Video {
         // Restore video settings
         this.video.currentTime = this._disabledProperties.currentTime;
         if (this._disabledProperties.paused) {
-            this.video.pause();
+            await this.video.pause();
         }
         else {
-            this.video.play();
+            await this.video.play();
         }
 
         return this._videoEnabled;
+        */
     }
 
     async disable() {
@@ -257,6 +260,8 @@ export class Mp4Video extends Video {
             this.player.log.debug("video.disable() - the video is not disabled because it is the main audio source.");
         }
         else {
+            this._videoEnabled = false;
+            /*
             this.player.log.debug("video.disable()");
 
             this.saveDisabledProperties(this.video);
@@ -273,6 +278,7 @@ export class Mp4Video extends Video {
     
             this._videoEnabled = false;
             await this.clearStreamData();
+            */
         }
 
         return this._videoEnabled;

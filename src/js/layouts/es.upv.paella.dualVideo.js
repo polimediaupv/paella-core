@@ -316,7 +316,7 @@ export default class DualVideoLayout extends VideoLayout {
                     title: this.player.translate('Close video'),
                     ariaLabel: this.player.translate('Close video'),
                     click: async () => {
-                        await this.closeaVideo(content);
+                        await this.closeVideo(content);
                     }
                 });
             }
