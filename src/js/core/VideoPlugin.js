@@ -167,9 +167,15 @@ export class Video extends DomClass {
         return false;
     }
 
+    get isEnabled() {
+        return this._enabled;
+    }
+
     async enable() {
+        this._enabled = true;
     }
 
     async disable() {
+        this._enabled = false;
     }
 }

@@ -62,6 +62,12 @@ export class MyVideoPlayer extends Video {
     // This function is called when the player loads, and it should
     // make everything ready for video playback to begin.
     async loadStreamData(streamData) { ... }
+
+    get isEnabled() { ... }
+
+    async enable() { ... }
+
+    async disable() { ... }
 }
 
 ...
@@ -116,3 +122,13 @@ To determine the loading order of the video plugins, the `order` attribute of th
     }
 }
 ```
+
+## The enable/disable video API
+
+If we have more than one video stream in the video manifest, it is possible for the user to select a [layout](video_layout.md) of only one video. In this case, one of the two videos would be hidden. The enable/disable API is used to allow a video plugin to disable the downloading of data from a video when it is to be hidden, and enable it again when it is to be shown again.
+
+This API is composed of two functions and one attribute:
+
+- `isEnabled (read)`: it must return true or false depending on the current video status. This value must return the internal video status, that is handled by the other two functions of the API:
+- `async enable()`: `paella-core` calls this plugin function when the video needs to be enabled. If we implement this API, we are responsible for returning a valid state in the `isEnabled` attribute.
+- `async disable()`: `paella-core` calls this plugin function when the video needs to be disabled. If we implement this API, we are responsible for returning a valid state in the `isEnabled` attribute. Note that if the stream is the main audio, we may not want to disable it, as (depending on the underlying technology) we are likely to lose the audio as well. For example, if the stream is an `mp4` video, we can`t disable the video without also losing the audio.

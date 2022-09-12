@@ -195,15 +195,11 @@ export default class VideoContainer extends DomClass {
             const isPresent = layoutStructure?.videos?.find(video => video.content === content) != null;
             const video = this.streamProvider.streams[content];
             
-            if (video.isEnabled === undefined) {
-                video.isEnabled = true;
+            if (isPresent && !video.player.isEnabled) {
+                await video.player.enable();
             }
-
-            if (isPresent && !video.isEnabled) {
-                video.isEnabled = await video.player.enable();
-            }
-            else if (!isPresent && video.isEnabled) {
-                video.isEnabled = await video.player.disable();
+            else if (!isPresent && video.player.isEnabled) {
+                await video.player.disable();
             }
         }
 
@@ -291,7 +287,7 @@ export default class VideoContainer extends DomClass {
             });
             this._layoutButtons.push(button);
         });
-        
+
         this._updateInProgress = false;
         return status;
     }

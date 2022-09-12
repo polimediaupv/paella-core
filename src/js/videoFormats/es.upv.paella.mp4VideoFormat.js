@@ -224,6 +224,10 @@ export class Mp4Video extends Video {
         this._ready = false;
     }
 
+    get isEnabled() {
+        return this._videoEnabled;
+    }
+
     async enable() {
         this.player.log.debug("video.enable()");
 
