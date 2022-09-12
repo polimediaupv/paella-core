@@ -115,7 +115,7 @@ playerInstance.bindEvent(eventName, callback, unloadOnReload = true);
 
 **`TIMEUPDATE`:** It is triggered during the video playback, every certain time, typically every 250 ms. The event is also sent when changes occur in the timeline, while the video is paused, for example, when the time instant is manually changed using the function [`videoContainer.setCurrentTime()`](video_container.md) Receives as parameter:
 
-- `currentTime`: the new time instant.
+- `currentTime`: the new time instant. This value takes into account whether video trimming is activated.
 
 **`TRIMMING_CHANGED`:** Triggered when the function [`videoContainer.setTrimming()`](video_container.md) is called. It receives as parameters the new soft trimming data:
 
