@@ -71,8 +71,12 @@ export default class VideoContainer extends DomClass {
         }
         else {
             window.localStorage.setItem("videoLayout", layoutId);
+            const prevLayout = this._layoutId;
             this._layoutId = layoutId;
-            this.updateLayout();
+            await this.updateLayout();
+            if (prevLayout !== layoutId) {
+                triggerEvent(this.player, Events.LAYOUT_CHANGED, { prevLayout, layoutId });
+            }
         }
     }
     
@@ -164,6 +168,12 @@ export default class VideoContainer extends DomClass {
 
     // Return true if the layout this.layoutId is compatible with the current stream data.
     async updateLayout() {
+        if (this._updateInProgress) {
+            this.player.log.warn("Recursive update layout detected");
+            return false;
+        }
+        this._updateInProgress = true;
+
         let status = true;
         
         this._layoutButtons = [];
@@ -184,10 +194,11 @@ export default class VideoContainer extends DomClass {
         for (const content in this.streamProvider.streams) {
             const isPresent = layoutStructure?.videos?.find(video => video.content === content) != null;
             const video = this.streamProvider.streams[content];
+            
             if (video.isEnabled === undefined) {
                 video.isEnabled = true;
             }
-            
+
             if (isPresent && !video.isEnabled) {
                 video.isEnabled = await video.player.enable();
             }
@@ -270,19 +281,18 @@ export default class VideoContainer extends DomClass {
             });
             button.layout = layoutStructure;
             button.buttonAction = buttonData.onClick;
-            button.addEventListener("click", (evt) => {
+            button.addEventListener("click", async (evt) => {
                 triggerEvent(this.player, Events.BUTTON_PRESS, {
                     plugin: layoutStructure.plugin,
                     layoutStructure: layoutStructure
                 });
-                evt.target.buttonAction.apply(evt.target.layout);
+                await evt.target.buttonAction.apply(evt.target.layout);
                 evt.stopPropagation();
             });
             this._layoutButtons.push(button);
         });
         
-        triggerEvent(this.player, Events.LAYOUT_CHANGED);
-
+        this._updateInProgress = false;
         return status;
     }
     

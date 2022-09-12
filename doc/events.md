@@ -152,7 +152,10 @@ playerInstance.bindEvent(eventName, callback, unloadOnReload = true);
 
 **`RESIZE_END`:** is fired when the user has resized the window. The event is generated one second after the user finishes resizing the browser window.
 
-**`LAYOUT_CHANGED`:** is fired when the user changes the video layout.
+**`LAYOUT_CHANGED`:** is fired when the user changes the video layout. It receives two parameters:
+
+- `layoutId`: The identifier of the new layout.
+- `prevLayout`: The identifier of the previous layout.
 
 **`PLAYBACK_RATE_CHANGED`**: is fired when the user changes the playback rate. It receives as parameter the new playback rate: `{ newPlaybackRate }`
 

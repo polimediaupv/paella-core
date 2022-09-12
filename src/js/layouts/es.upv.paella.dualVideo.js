@@ -209,8 +209,8 @@ export default class DualVideoLayout extends VideoLayout {
                     position: CanvasButtonPosition.LEFT,
                     title: this.player.translate('Swap position of the videos'),
                     ariaLabel: this.player.translate('Swap position of the videos'),
-                    click: () => {
-                        this.switchContent();
+                    click: async () => {
+                        await this.switchContent();
                     }
                 },
 
@@ -220,9 +220,9 @@ export default class DualVideoLayout extends VideoLayout {
                     position: CanvasButtonPosition.LEFT,
                     title: this.player.translate('Maximize video'),
                     ariaLabel: this.player.translate('Maximize video'),
-                    click: () => {
-                        this.minimizeVideo(content);
-                        this.switchContent();
+                    click: async () => {
+                        await this.minimizeVideo(content);
+                        await this.switchContent();
                     }
                 },
 
@@ -232,8 +232,8 @@ export default class DualVideoLayout extends VideoLayout {
                     position: CanvasButtonPosition.RIGHT,
                     title: this.player.translate('Close video'),
                     ariaLabel: this.player.translate('Close video'),
-                    click: () => {
-                        this.closeVideo(content);
+                    click: async () => {
+                        await this.closeVideo(content);
                     }
                 }
             ]
@@ -247,8 +247,8 @@ export default class DualVideoLayout extends VideoLayout {
                     position: CanvasButtonPosition.LEFT,
                     title: this.player.translate('Maximize video'),
                     ariaLabel: this.player.translate('Maximize video'),
-                    click: () => {
-                        this.switchContent();
+                    click: async () => {
+                        await this.switchContent();
                     }
                 });
 
@@ -257,8 +257,8 @@ export default class DualVideoLayout extends VideoLayout {
                     position: CanvasButtonPosition.LEFT,
                     title: this.player.translate('Place the video on the other side of the screen'),
                     ariaLabel: this.player.translate('Place the video on the other side of the screen'),
-                    click: () => {
-                        this.minimizeVideo(content);
+                    click: async () => {
+                        await this.minimizeVideo(content);
                     }
                 });
 
@@ -267,8 +267,8 @@ export default class DualVideoLayout extends VideoLayout {
                     position: CanvasButtonPosition.RIGHT,
                     title: this.player.translate('Close video'),
                     ariaLabel: this.player.translate('Close video'),
-                    click: () => {
-                        this.closeVideo(content);
+                    click: async () => {
+                        await this.closeVideo(content);
                     }
                 });
             }
@@ -278,8 +278,8 @@ export default class DualVideoLayout extends VideoLayout {
                     position: CanvasButtonPosition.LEFT,
                     title: this.player.translate('Minimize video'),
                     ariaLabel: this.player.translate('Minimize video'),
-                    click: () => {
-                        this.switchContent();
+                    click: async () => {
+                        await this.switchContent();
                     }
                 });
 
@@ -288,8 +288,8 @@ export default class DualVideoLayout extends VideoLayout {
                     position: CanvasButtonPosition.LEFT,
                     title: this.player.translate('Put the videos side by side'),
                     ariaLabel: this.player.translate('Put the videos side by side'),
-                    click: () => {
-                        this.setSideBySide();
+                    click: async () => {
+                        await this.setSideBySide();
                     }
                 });
 
@@ -298,8 +298,8 @@ export default class DualVideoLayout extends VideoLayout {
                     position: CanvasButtonPosition.RIGHT,
                     title: this.player.translate('Close video'),
                     ariaLabel: this.player.translate('Close video'),
-                    click: () => {
-                        this.closeVideo(content);
+                    click: async () => {
+                        await this.closeaVideo(content);
                     }
                 });
             }
