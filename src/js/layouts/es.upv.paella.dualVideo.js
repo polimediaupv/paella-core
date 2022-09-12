@@ -155,12 +155,12 @@ export default class DualVideoLayout extends VideoLayout {
         this.player.videoContainer.updateLayout();
     }
     
-    switchMinimized() {
+    async switchMinimized() {
         nextLayout(this._currentContent);
-        this.player.videoContainer.updateLayout();
+        await this.player.videoContainer.updateLayout();
     }
 
-    minimizeVideo(content) {
+    async minimizeVideo(content) {
         let switchLayout = true;
         if (content === this._currentContent[0]) {
             const v0 = this._currentContent[0];
@@ -175,12 +175,30 @@ export default class DualVideoLayout extends VideoLayout {
         else {
             setLayout(this._currentContent, 1);
         }
-        this.player.videoContainer.updateLayout();
+        await this.player.videoContainer.updateLayout();
     }
 
-    setSideBySide() {
+    async maximizeVideo(content) {
+        let switchLayout = true;
+        if (content === this._currentContent[1]) {
+            const v0 = this._currentContent[0];
+            const v1 = this._currentContent[1];
+            this._currentContent[0] = v1;
+            this._currentContent[1] = v0;
+            switchLayout = false;
+        }
+        if (layout === 1 && switchLayout) {
+            setLayout(this._currentContent, 2);
+        }
+        else {
+            setLayout(this._currentContent, 1);
+        }
+        await this.player.videoContainer.updateLayout();
+    }
+
+    async setSideBySide() {
         setLayout(this._currentContent, 0);
-        this.player.videoContainer.updateLayout();
+        await this.player.videoContainer.updateLayout();
     }
 
     get minimizedContent() {
@@ -193,10 +211,10 @@ export default class DualVideoLayout extends VideoLayout {
         }
     }
 
-    closeVideo(content) {
+    async closeVideo(content) {
         const singleStreamContentIds = this.player.videoContainer.validContentIds.filter(cid => cid.indexOf("-") === -1);
         const contentId = singleStreamContentIds.find(cid => cid != content);
-        this.player.videoContainer.setLayout(contentId);
+        await this.player.videoContainer.setLayout(contentId);
     }
 
     getVideoCanvasButtons(layoutStructure, content, video, videoCanvas) {
@@ -221,8 +239,7 @@ export default class DualVideoLayout extends VideoLayout {
                     title: this.player.translate('Maximize video'),
                     ariaLabel: this.player.translate('Maximize video'),
                     click: async () => {
-                        await this.minimizeVideo(content);
-                        await this.switchContent();
+                        await this.maximizeVideo(content);
                     }
                 },
 
