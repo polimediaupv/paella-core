@@ -1,7 +1,8 @@
 {
 	"metadata": {
-		"duration": 0,
-		"title": ""
+		"duration":1000,
+		"title": "WebVTT captions",
+		"preview": "https://repository.paellaplayer.upv.es/pm-be0c7738-039d-9445-8237-8b85f37cd303/slides/thumb_0.jpg"
 	},
 	"streams": [
 		{

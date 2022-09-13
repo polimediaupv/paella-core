@@ -127,6 +127,13 @@ playerInstance.bindEvent(eventName, callback, unloadOnReload = true);
 
 - `captions`: the array with all available captions, including the one just added, which will be the last element of that array.
 
+**`CAPTIONS_ENABLED`:** Triggered when the user enable a captions track. It receives as parameter:
+
+- `label`: the label of the captions track. Using this label, you can get the rest of the captions data through the [captions API](captions.md).
+- `language`: the language of the captions track. Using the language, you can get the rest of the captions data through the [captions API](captions.md).
+
+**`CAPTIONS_DISABLED`:** Triggered when the user disable a captions track.
+
 **`BUTTON_PRESS`:** It is launched when the user presses a button of type [ButtonPlugin](button_plugin.md) or a button of a [video layout](video_layout.md). It receives as parameter:
 
 - `plugin`: the instance of the plugin that triggered the event.

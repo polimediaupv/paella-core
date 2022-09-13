@@ -103,11 +103,21 @@ export default class CaptionCanvas extends DomClass {
     }
 
     enableCaptions(searchOptions) {
-        this._currentCaptions = this.getCaptions(searchOptions);
+        const requestedCaptions = this.getCaptions(searchOptions);
+        if (requestedCaptions !== this._currentCaptions) {
+            this._currentCaptions = requestedCaptions;
+            if (this.currentCaptions) {
+                const { language, label } = this.currentCaptions;
+                triggerEvent(this.player, Events.CAPTIONS_ENABLED, { language, label })
+            }
+        }
         this.show();
     }
 
     disableCaptions() {
+        if (this.currentCaptions) {
+            triggerEvent(this.player, Events.CAPTIONS_DISABLED);
+        }
         this._currentCaptions = null;
         this.hide();
     }

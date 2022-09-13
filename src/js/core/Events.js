@@ -10,6 +10,8 @@ export default {
 	TIMEUPDATE: "paella:timeupdate",
 	TRIMMING_CHANGED: "paella:trimmingChanged",
 	CAPTIONS_CHANGED: "paella:captionsChanged",
+	CAPTIONS_ENABLED: "paella:captionsEnabled",
+	CAPTIONS_DISABLED: "paella:captionsDisabled",
 	BUTTON_PRESS: "paella:buttonPress",
 	SHOW_POPUP: "paella:showPopUp",
 	HIDE_POPUP: "paella:hidePopUp",

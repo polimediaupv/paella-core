@@ -29,5 +29,6 @@
 ## paella-core 1.5
 
 - The volume and playback rate values are now saved, to be restored when the player is next loaded. This function can be activated or deactivated in the configuration.
+- `CAPTIONS_ENABLED` and `CAPTIONS_DISABLED` events added. Triggered when the user enable or disable a captions track.
 
 
