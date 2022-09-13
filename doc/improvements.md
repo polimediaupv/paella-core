@@ -26,4 +26,8 @@
 - [Improvements in playback bar and buttons customization](button_plugin.md): New CSS variables added `--button-fixed-width`, `--button-fixed-height`, `--playback-bar-height` and `--button-icon-size`.
 - [New DataPlugin API](data_plugins.md): Now more than one data plugin can receive `write` and `remove` operations simultaneously. Read operations are still received only by the highest priority data plugin for that context.
 
+## paella-core 1.5
+
+- The volume and playback rate values are now saved, to be restored when the player is next loaded. This function can be activated or deactivated in the configuration.
+
 

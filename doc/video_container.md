@@ -266,6 +266,28 @@ e.style.backgroundColor = 'rgba(255,0,0,0.4)';
 
 Note: remember that you never may use __paella_instances__ for production code. the above example has only been exposed so that you can test the API in a simple way.
 
+## Restore settings
+
+It is possible to make the video container remember certain user parameters so that they can be restored in a later session. These values are not restored unless specified in the `paella-core` configuration:
+
+- playback rate: store the las video playback rate selected by the user.
+- volume: store the last volume level selected by the user.
+
+```json
+{
+  ...
+  "videoContainer": {
+    ...
+    "restorePlaybackRate": true,
+    "restoreVolume": true
+  }
+}
+```
+
+Note that these values are always saved. The configuration only affects whether the values are restored. To store the configuration, the browser's `localStorage` is used. The values that are stored are as follows:
+
+- `playbackRate`: a number representing the playback rate, tipically between 0,2 and 2.
+- `volume`: a number between 0 and 1, representing the volume (0%-100%).
 ## Customization
 
 The video container can be customised through the player configuration in two ways:

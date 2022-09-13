@@ -155,10 +155,10 @@ export default class VideoContainer extends DomClass {
         // Restore volume and playback rate
         const storedVolume = window.localStorage.getItem("volume");
         const playbackRate = window.localStorage.getItem("playbackRate");
-        if (storedVolume !== null) {
+        if (this.player.config.videoContainer?.restoreVolume && storedVolume !== null) {
             await this.streamProvider.setVolume(storedVolume);
         }
-        if (playbackRate !== null) {
+        if (this.player.config.videoContainer?.restorePlaybackRate && playbackRate !== null) {
             await this.streamProvider.setPlaybackRate(playbackRate);
         }
 
