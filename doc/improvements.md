@@ -28,7 +28,7 @@
 
 ## paella-core 1.5
 
-- The volume and playback rate values are now saved, to be restored when the player is next loaded. This function can be activated or deactivated in the configuration.
+- The volume and playback rate values are now saved, to be restored when the player is next loaded. This function can be activated or deactivated in the configuration. By default, these features are disabled. Check [the VideoContainer documentation](video_container.md) to know more about this feature.
 - `CAPTIONS_ENABLED` and `CAPTIONS_DISABLED` events added. Triggered when the user enable or disable a captions track.
 
 
