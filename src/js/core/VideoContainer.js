@@ -151,6 +151,17 @@ export default class VideoContainer extends DomClass {
         });
         
         this._baseVideoRect.style.display = "";
+
+        // Restore volume and playback rate
+        const storedVolume = window.localStorage.getItem("volume");
+        const playbackRate = window.localStorage.getItem("playbackRate");
+        if (storedVolume !== null) {
+            await this.streamProvider.setVolume(storedVolume);
+        }
+        if (playbackRate !== null) {
+            await this.streamProvider.setPlaybackRate(playbackRate);
+        }
+
         this._ready = true;
     }
 
@@ -366,6 +377,7 @@ export default class VideoContainer extends DomClass {
     async setVolume(v) {
         const result = await this.streamProvider.setVolume(v);
         triggerEvent(this.player, Events.VOLUME_CHANGED, { volume: v });
+        window.localStorage.setItem("volume",v);
         return result;
     }
     
@@ -379,7 +391,8 @@ export default class VideoContainer extends DomClass {
 
     async setPlaybackRate(r) {
         const result = await this.streamProvider.setPlaybackRate(r);
-        triggerEvent(this.player, Events.PLAYBACK_RATE_CHANGED, { newPlaybackRate: r })
+        triggerEvent(this.player, Events.PLAYBACK_RATE_CHANGED, { newPlaybackRate: r });
+        window.localStorage.setItem("playbackRate",r);
         return result;
     }
 
