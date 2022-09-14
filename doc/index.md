@@ -102,6 +102,8 @@ Video plugin formats available in [paella core](https://github.com/polimediaupv/
 
 [Progress indicator customization](progress_indicator_customization.md): see here the options for customizing the text indicating the current time instant of the video and other optional elements of the progress indicator bar..
 
+[Customize loader](loader.md): how to create your own loader.
+
 ## Plugin repositories
 
 - [Paella basic plugins](https://github.com/polimediaupv/paella-basic-plugins): collection of basic plugins for paella-core.

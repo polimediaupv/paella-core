@@ -11,8 +11,13 @@ export default class Loader extends DomClass {
         super(player, { parent: player.containerElement });
 
         this.element.className = "loader-container";
-        
-        const icon = createElementWithHtmlText(`
-        <i>${ProgressIndicatorIcon}</i>`, this.element);
+    }
+
+    async create() {
+        createElementWithHtmlText(`<i>${ProgressIndicatorIcon}</i>`, this.element);
+    }
+
+    get debug() {
+        return false;
     }
 }

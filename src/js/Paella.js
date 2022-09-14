@@ -113,6 +113,7 @@ export default class Paella {
         this._initParams.getLanguageFunction = this._initParams.getLanguageFunction || defaultGetLanguageFunction;
         this._initParams.setLanguageFunction = this._initParams.setLanguageFunction || defaultSetLanguageFunction;
         this._initParams.addDictionaryFunction = this._initParams.addDictionaryFunction || defaultAddDictionaryFunction;
+        this._initParams.Loader = this._initParams.customLoader || Loader;
 
         this._initParams.loadDictionaries = this._initParams.loadDictionaries || async function(player) {
             addDictionary("en", {
@@ -421,7 +422,8 @@ export default class Paella {
     
             this._previewContainer?.removeFromParent();
     
-            this._loader = new Loader(this);
+            this._loader = new this.initParams.Loader(this);
+            await this._loader.create();
             
             this._videoContainer = new VideoContainer(this, this._containerElement);
     
@@ -432,6 +434,10 @@ export default class Paella {
             this._playbackBar = new PlaybackBar(this, this.containerElement);
             
             await this._playbackBar.load();
+
+            //if (this._loader.debug) {
+            //    return;
+            //}
             
             // UI hide timer
             this._hideUiTime = 5000;
@@ -443,9 +449,12 @@ export default class Paella {
     
             triggerEvent(this, Events.PLAYER_LOADED);
     
-    
-            this._loader.removeFromParent();
-            this._loader = null;
+            
+            if (!this._loader.debug) {
+                this._loader.removeFromParent();
+                this._loader = null;
+            }
+                
         }
         catch (err) {
             this._playerState = PlayerState.ERROR;

@@ -15,8 +15,24 @@ import {
 } from 'paella-core/js/core/Localization';
 
 import testIcon from './icons/play_icon_fullscreen.svg';
+import { createElementWithHtmlText } from './js/core/dom';
+import Loader from './js/core/Loader';
+
+class CustomLoader extends Loader {
+	async create() {
+		createElementWithHtmlText(`
+			<h1 style="">Loading...</h1>
+		`, this.element);
+	}
+
+	get debug() {
+		return false;
+	}
+}
 
 const initParams = {
+	customLoader: CustomLoader,
+
 	loadVideoManifest: async function(videoManifestUrl,config,player) {
 		player.log.debug(config);
 		return await defaultLoadVideoManifestFunction(videoManifestUrl, config, player);

@@ -48,7 +48,9 @@ const initParams = {
     getManifestFileUrl: [default_manifest_file_url_function],   // get the full manifest file url
     loadVideoManifest: [default_load_video_manifest_function],   // get the manifest file content
   
-  	customPluginContext: []	// an array of require.context() function call results
+  	customPluginContext: [],	// an array of require.context() function call results
+
+    customLoader: [Loader]  // a custom loader class
 } 
 ```
 
@@ -123,7 +125,7 @@ export async function defaultLoadVideoManifestFunction(videoManifestUrl,config,p
 
 
 
-## Plugin context
+## 2.2. Plugin context
 
 Paella Player can load plugins that are located in several directories. This loading is done during initialization. Using the `customPluginContext` attribute, which is an array formed by the result of a special Webpack function: `require.context()`. 
 
@@ -139,3 +141,6 @@ const initParams = {
 }
 ```
 
+## 2.3. Loader
+
+You can customize the default loader using the `customLoader` attribute. To do it, you must to create a custom `Loader` class, and specify it in this attribute. See how to do it in [this document](loader.md).
