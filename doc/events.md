@@ -109,6 +109,10 @@ playerInstance.bindEvent(eventName, callback, unloadOnReload = true);
 
 - `status (true | false)`: the status to change to.
 
+**`ENTER_FULLSCREEN`:** It is triggered when the player is set to fullscreen mode.
+
+**`EXIT_FULLSCREEN`:** It is triggered when the player exists from fullscreen mode.
+
 **`VOLUME_CHANGED`:** Triggered when calling the method [`videoContainer.setVolume()`](video_container.md). It receives as parameter:
 
 - `volume [0..1]`: The volume that has been set.

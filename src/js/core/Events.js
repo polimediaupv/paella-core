@@ -6,6 +6,8 @@ export default {
 	ENDED: "paella:ended",
 	SEEK: "paella:seek",
 	FULLSCREEN_CHANGED: "paella:fullscreenchanged",
+	ENTER_FULLSCREEN: "paella:enterfullscreen",
+	EXIT_FULLSCREEN: "paella:exitfullscreen",
 	VOLUME_CHANGED: "paella:volumeChanged",
 	TIMEUPDATE: "paella:timeupdate",
 	TRIMMING_CHANGED: "paella:trimmingChanged",

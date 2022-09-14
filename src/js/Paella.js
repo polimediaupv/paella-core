@@ -150,6 +150,7 @@ export default class Paella {
         
         this.containerElement.addEventListener("fullscreenchange", () => {
             triggerEvent(this, Events.FULLSCREEN_CHANGED, { status: this.isFullscreen });
+            this.isFullscreen ? triggerEvent(this, Events.ENTER_FULLSCREEN) : triggerEvent(this, Events.EXIT_FULLSCREEN);
         });
 
         this._playerState = PlayerState.UNLOADED;
