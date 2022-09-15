@@ -11,7 +11,7 @@ export const LOG_LEVEL = {
 let g_globalLogLevel = LOG_LEVEL.INFO;
 
 export const setLogLevel = (l,player = null) => {
-    const level = typeof(l) === "string" ? LOG_LEVEL[l] : l;
+    const level = typeof(l) === "string" ? LOG_LEVEL[l.toUpperCase()] : l;
 
     if (level<LOG_LEVEL.DISABLED || level>LOG_LEVEL.VERBOSE) {
         throw Error(`setLogLevel: invalid log level ${ level }`);

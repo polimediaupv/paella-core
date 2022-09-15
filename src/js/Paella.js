@@ -350,8 +350,12 @@ export default class Paella {
             this._config = await this.initParams.loadConfig(this.configUrl,this);
     
             const urlSearch = new URLSearchParams(window.location.search);
-            const urlParamLogLevel = urlSearch.get("logLevel");
-            const logLevel = (Array.from(Object.keys(LOG_LEVEL)).indexOf(urlParamLogLevel) !== -1) ?
+            const caseInsensitiveParams = new URLSearchParams();
+            for (const [name, value] of urlSearch) {
+                caseInsensitiveParams.append(name.toLowerCase(), value);
+            }
+            const urlParamLogLevel = caseInsensitiveParams.get("loglevel");
+            const logLevel = (Array.from(Object.keys(LOG_LEVEL)).indexOf(urlParamLogLevel.toUpperCase()) !== -1) ?
                 urlParamLogLevel :
                 this._config.logLevel || "INFO";
             this._log.setLevel(logLevel);
@@ -434,10 +438,6 @@ export default class Paella {
             this._playbackBar = new PlaybackBar(this, this.containerElement);
             
             await this._playbackBar.load();
-
-            //if (this._loader.debug) {
-            //    return;
-            //}
             
             // UI hide timer
             this._hideUiTime = 5000;
@@ -492,7 +492,7 @@ export default class Paella {
             break;
         case PlayerState.LOADED:
         case PlayerState.ERROR:
-            await this.unloadPlayer();        
+            await this.unloadPlayer();
             await this.unloadManifest();
             break;
         default:
