@@ -79,5 +79,13 @@ It is also possible to set the verbosity level by adding the `logLevel` paramete
 `https://my-paella.com/?id=video_id&logLevel=VERBOSE`
 
 
+From version 1.5.1 onwards, the `logLevel` parameter is case insensitive, so you can also use:
+
+- `https://my-paella.com/?id=video_id&logLevel=Verbose`
+- `https://my-paella.com/?id=video_id&loglevel=Verbose`
+- `https://my-paella.com/?id=video_id&LOGLEVEL=VERBOSE`
+- `https://my-paella.com/?id=video_id&loglevel=verbose`
+
+
 
 
