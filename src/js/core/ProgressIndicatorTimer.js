@@ -9,8 +9,12 @@ export default class ProgressIndicatorTimer extends DomClass {
         }
         super(player, { attributes, parent });
 
-        this.element.innerHTML = "0:00 / 00:00";
         const showTotal = player.config.progressIndicator?.showTotal;
+        this.element.innerHTML = "0:00" + showTotal ? "00:00":"";
+        
+        if (player.config.progressIndicator?.visible === false) {
+            this.hide();
+        }
 
         const updateTime = async (time) => {
             const formattedTime = secondsToTime(time);
