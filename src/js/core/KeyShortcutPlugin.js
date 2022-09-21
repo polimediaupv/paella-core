@@ -84,6 +84,12 @@ export async function loadKeyShortcutPlugins(player) {
     player.__paella_key_event_listener__ = async (event) => {
         const validFocus = () => document.activeElement && document.activeElement !== document.body && !/video/i.test(document.activeElement.tagName);
 
+        // Do not process the key if focus is outside paella-core container, but
+        // catch key events if the focus is on body
+        if (!player.containerElement.contains(document.activeElement) && document.activeElement !== document.body) {
+            return;
+        }
+
         // Exclude the action key when there are something focused
         if (event.code === "Space" && validFocus()) {
             return;
