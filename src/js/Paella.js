@@ -355,7 +355,7 @@ export default class Paella {
                 caseInsensitiveParams.append(name.toLowerCase(), value);
             }
             const urlParamLogLevel = caseInsensitiveParams.get("loglevel");
-            const logLevel = (Array.from(Object.keys(LOG_LEVEL)).indexOf(urlParamLogLevel.toUpperCase()) !== -1) ?
+            const logLevel = (urlParamLogLevel && Array.from(Object.keys(LOG_LEVEL)).indexOf(urlParamLogLevel.toUpperCase()) !== -1) ?
                 urlParamLogLevel :
                 this._config.logLevel || "INFO";
             this._log.setLevel(logLevel);
