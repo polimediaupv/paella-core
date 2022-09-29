@@ -19,9 +19,7 @@
     },
 
     "videoContainer": {
-        "overPlaybackBar": true,
-        "restorePlaybackRate": true,
-        "restoreVolume": true
+        "overPlaybackBar": true
     },
     
     "plugins": {
@@ -125,14 +123,16 @@
             "_parentContainer": "videoContainer",
             "parentContainer": "testButtonGroup",
             "description": "Test menu plugin",
-            "closeOnSelect": false
+            "closeOnSelect": false,
+            "menuTitle": "Test Video Container Button"
         },
 
         "es.upv.paella.testPopUpButton": {
             "enabled": true,
             "side": "right",
             "parentContainer": "testButtonGroup",
-            "description": "Test popup button"
+            "description": "Test popup button",
+            "menuTitle": "Test Pop Up"
         },
 
         "es.upv.paella.testPopUp2Button": {
@@ -146,7 +146,8 @@
             "groupName": "testButtonGroup",
             "order": 3,
             "side": "right",
-            "_parentContainer": "videoContainer"
+            "_parentContainer": "videoContainer",
+            "menuTitle": "Options"
         },
 
         "es.upv.paella.videoCanvas": {

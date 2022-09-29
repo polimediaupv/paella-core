@@ -66,7 +66,42 @@ When a menu item is selected, it will remain open. To close it, the `closeMenu()
 
 ```
 
+## Menu title
 
+You can add a title to the menu options using the `menuTitle` configuration attribute, within the plugin configuration options:
+
+```json
+{
+  "plugins": {
+    "myMenuPlugin": {
+      "enabled": true,
+      "menuTitle": "My custom title"
+    }
+  }
+}
+```
+
+This title is obtained from the read-only property `menuTitle`, which is defined in the `MenuButtonPlugin` base class, and gets its value from the configuration. If we want to define a title that cannot be modified by the configuration, it is enough to also define this property in the implementation of our plugin:
+
+```js
+export default class MyMenuPlugin extends MenuButtonPlugin {
+  ...
+  get menuTitle() {
+    return "My custom title";
+  }
+}
+```
+
+We could also use the same technique to define a default title in case a title has not been defined in the configuration:
+
+```js
+export default class MyMenuPlugin extends MenuButtonPlugin {
+  ...
+  get menuTitle() {
+    return this.config.menuTitle || "My default title";
+  }
+}
+```
 
 ## Menu type
 
@@ -139,3 +174,14 @@ ul.menu-button-content li.menu-button-item:last-of-type {
 }
 ```
 
+To modify the menu title options just change the properties of the elements with the `.menu-button-title` class:
+
+```css
+.menu-button-title {
+	list-style: none;
+    font-family: sans-serif;
+    text-align: center;
+    padding: 5px;
+    border-bottom: 1px solid #938e8e;
+}
+```

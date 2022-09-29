@@ -5,6 +5,14 @@ ul.menu-button-content {
 	padding: 0;
 }
 
+.menu-button-title {
+	list-style: none;
+    font-family: sans-serif;
+    text-align: center;
+    padding: 5px;
+    border-bottom: 1px solid #938e8e;
+}
+
 ul.menu-button-content li.menu-button-item {
 	min-width:40px;
 }

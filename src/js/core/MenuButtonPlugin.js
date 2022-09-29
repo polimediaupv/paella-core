@@ -22,10 +22,14 @@ export default class MenuButtonPlugin extends PopUpButtonPlugin {
 	async getContent() {
 		const content = createElementWithHtmlText(`<ul class="menu-button-content"></ul>`);
 
+		const title = this.menuTitle;
 		const menuItems = await this.getMenu();
 		this._menuItems = menuItems;
 		let radioItemChecked = false;
 		let firstItem = null;
+		if (title !== null) {
+			createElementWithHtmlText(`<li class="menu-button-title">${this.player.translate(title)}</li>`, content)
+		}
 		menuItems.forEach(item => {
 			const itemElem = createElementWithHtmlText(`<li class="menu-button-item"></li>`, content);
 			let className = "";
@@ -108,6 +112,10 @@ export default class MenuButtonPlugin extends PopUpButtonPlugin {
 		}, 50);
 
 		return content;
+	}
+
+	get menuTitle() {
+		return this.config.menuTitle || null;
 	}
 	
 	async getMenu() {

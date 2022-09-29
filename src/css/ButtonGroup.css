@@ -1,6 +1,13 @@
 .button-group {
 }
 
+.button-group-title {
+    font-family: sans-serif;
+    text-align: center;
+    padding: 5px;
+    border-bottom: 1px solid #938e8e;
+}
+
 .button-group .button-plugin-container {
     display: inline;
 }
