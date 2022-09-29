@@ -33,3 +33,7 @@
 - `ENTER_FULLSCREEN` and `EXIT_FULLSCREEN` events added.
 - [Loader customization](loader.md): now you can create your own loader.
 
+## paella-core 1.6
+
+- [Menu Button Plugin title](menu_button_plugin.md): you can add a title to the menu button plugins.
+- [Button Group Plugin title](button_group_plugin.md): you can add a title to the button group plugins.
