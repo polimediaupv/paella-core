@@ -71,3 +71,4 @@ Information on changing the styles of various elements of the player can be foun
 - [Buttons](button_plugin.md)
 - [Progress bar](progress_indicator_customization.md)
 - [Menu button plugins](menu_button_plugin.md)
+- [Video Container](video_container.md): Customization of background color and position of the video container relative to the playback bar
