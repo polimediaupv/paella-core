@@ -105,9 +105,19 @@ The progress indicator can be modified using the `.progress-indicator`, `.progre
 }
 ```
 
-To define the vertical height its important to bear in mind that the height can be modified by [progress indicator plugins](progress_indicator_plugin.md). If a progress indicator plugin does set a special height, it will always take precedence over what is defined by CSS styles. To avoid this problem, instead of defining the height of the progress bar, we will define the height of the visible elements, which are the elapsed time indicator and the remaining time indicator. So, to define the height of the progress indicator, you must to use the `height` property of the `.progress-indicator-container .progress-indicator-content` and `.progress-indicator-container .progress-indicator-remaining`.
+You can also change the height of the progress indicator container through the above class:
+
+```css
+.progress-indicator {
+    height: 14px;
+}
+```
+
+
+To define the above vertical height (`.progress-indicator` container) its important to bear in mind that the height can be modified by [progress indicator plugins](progress_indicator_plugin.md). If a progress indicator plugin does set a special height, it will always take precedence over what is defined by CSS styles. To avoid this problem, instead of defining the height of the progress bar, we will define the height of the visible elements, which are the elapsed time indicator and the remaining time indicator. So, to define the height of the progress indicator, you must to use the `height` property of the `.progress-indicator-container .progress-indicator-content` and `.progress-indicator-container .progress-indicator-remaining`.
 
 It is important that the class selector indicates the parent of the element: `.progress-indicator-container`. Another option is to use the `!important` property for the height, although it is more advisable to use the full selector.
+
 
 ```css
 :root {
