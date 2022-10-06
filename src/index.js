@@ -80,6 +80,9 @@ import VttManifestCaptionsPlugin from './js/plugins/es.upv.paella.vttManifestCap
 // Video canvas
 import VideoCanvasPlugin, { VideoCanvas } from './js/canvas/es.upv.paella.videoCanvas';
 
+// Canvas button
+import CanvasButtonPlugin from './js/core/CanvasButtonPlugin';
+
 export {
     Paella,
     PlayerState,
@@ -168,6 +171,8 @@ export {
     TripleVideoLayoutPlugin,
 
     VideoCanvasPlugin,
-    VideoCanvas
+    VideoCanvas,
+
+    CanvasButtonPlugin
 }
 
