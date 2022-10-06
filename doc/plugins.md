@@ -218,6 +218,8 @@ These are plugins that allow you to add functionality through user interaction.
 
 **[ButtonGroupPlugin](button_group_plugin.md):** Allows to group several button plugins inside a pop up.
 
+**[CanvasButtonPlugin](canvas_button_plugin.md):** Allows to add buttons in the [video canvas](video_canvas_plugin.md).
+
 
 ### Progress indicator plugins
 
