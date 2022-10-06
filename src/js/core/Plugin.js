@@ -57,7 +57,7 @@ export function unregisterPlugins(player) {
 }
 
 export function getPluginsOfType(player,type) {
-    return player.__pluginData__?.pluginInstances[type];
+    return player.__pluginData__?.pluginInstances[type] || [];
 }
 
 export async function loadPluginsOfType(player,type,onLoad=null,onPreload=null) {

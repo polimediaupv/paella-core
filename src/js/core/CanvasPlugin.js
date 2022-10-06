@@ -1,6 +1,7 @@
 import Plugin, { getPluginsOfType, loadPluginsOfType } from 'paella-core/js/core/Plugin';
 import { DomClass } from 'paella-core/js/core/dom';
 import { createElement, createElementWithHtmlText } from './dom';
+import { getCanvasButtons } from './CanvasButtonPlugin';
 
 import "../../css/VideoCanvas.css";
 
@@ -74,12 +75,15 @@ const addButton = function({
     return btn;
 }
 
-export const addVideoCanvasButton = (layoutStructure, canvas, video) => {
+export const addVideoCanvasButton = async (player, layoutStructure, canvas, video) => {
     const plugin = layoutStructure.plugin;
-    const buttons = plugin.getVideoCanvasButtons(layoutStructure, video.content, video, canvas);
+    const externalButtons = await getCanvasButtons(player, video);
+    const buttons = [...externalButtons,
+        ...plugin.getVideoCanvasButtons(layoutStructure, video.content, video, canvas)];
     buttons.forEach(btnData => {
         addButton.apply(canvas, [btnData]);
-    })
+    });
+    
 }
 
 export class Canvas extends DomClass {

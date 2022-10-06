@@ -208,6 +208,14 @@
             "enabled": true,
             "parentContainer_": "videoContainer",
             "order": 5
+        },
+
+        "es.upv.paella.canvasButtonPluginTest": {
+            "enabled": true,
+            "content": ["presenter", "presentation"],
+            "side": "right",
+            "description": "Test canvas button",
+            "ariaLabel": "Test canvas button"
         }
     }
 }
