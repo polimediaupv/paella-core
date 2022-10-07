@@ -13,7 +13,7 @@ import {
 
 import Plugin, { importPlugins, getPluginsOfType, loadPluginsOfType } from 'paella-core/js/core/Plugin';
 import UserInterfacePlugin from 'paella-core/js/core/UserInterfacePlugin';
-import ButtonPlugin from 'paella-core/js/core/ButtonPlugin';
+import ButtonPlugin, { getNextTabIndex, getCurrentTabIndex } from 'paella-core/js/core/ButtonPlugin';
 import PopUpButtonPlugin from 'paella-core/js/core/PopUpButtonPlugin';
 import MenuButtonPlugin from 'paella-core/js/core/MenuButtonPlugin';
 import VideoLayout from 'paella-core/js/core/VideoLayout';
@@ -117,6 +117,9 @@ export {
     AudioTrackData,
     EventLogPlugin,
     ButtonGroupPlugin,
+
+    getNextTabIndex,
+    getCurrentTabIndex,
 
     checkManifestIntegrity,
     

@@ -37,3 +37,7 @@
 
 - [Menu Button Plugin title](menu_button_plugin.md): you can add a title to the menu button plugins.
 - [Button Group Plugin title](button_group_plugin.md): you can add a title to the button group plugins.
+
+## paella-core 1.7
+
+- New plugin type: [Canvas Button Plugin](canvas_button_plugin.md): you can now put buttons in the video canvas area.
