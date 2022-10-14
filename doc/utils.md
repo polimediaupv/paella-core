@@ -79,7 +79,13 @@ console.log(utils.getCookie("myCookie"));	// myCookieValue
 
 // Optional: cookie expiration
 utils.setCookie("validForOneDay","I'll expire tomorrow", 1);
+
+// Conditional write: set a cookie only if the user allows to handle
+// a cookie type, in this case, 'analytics' cookies.
+utils.setCookieIfAllowed(myPlayer, "analytics", "userId", analyticsUserId, 365);
 ```
+
+Check documentation about [cookie consent APIs](cookie_consent.md) to get more information about `setCookieIfAllowed()` function.
 
 **Load syles:** loading stylesheets to be used as Paella Core skins. Style sheets loaded with this API will always have priority over those defined in Paella Core and its plugins.
 

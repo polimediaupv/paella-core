@@ -106,6 +106,8 @@ Video plugin formats available in [paella core](https://github.com/polimediaupv/
 
 [Customize loader](loader.md): how to create your own loader.
 
+[Cookie consent API](cookie_consent.md): integrate `paella-core` with your website cookie user consent.
+
 ## Plugin repositories
 
 - [Paella basic plugins](https://github.com/polimediaupv/paella-basic-plugins): collection of basic plugins for paella-core.

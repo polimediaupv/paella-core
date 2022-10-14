@@ -171,7 +171,7 @@ import { utils } from 'paella-core';
 
 ...
 
-setCookieIfAllowed(myPlayer, 'analytical', 'analyticsUserId',userId);
+utils.setCookieIfAllowed(myPlayer, 'analytical', 'analyticsUserId',userId);
 ```
 
 For more information, see the `paella-core` utility package document.
