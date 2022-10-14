@@ -47,6 +47,8 @@ const initParams = {
     getManifestUrl: [default_manifest_url_function],    // get the video manifest url
     getManifestFileUrl: [default_manifest_file_url_function],   // get the full manifest file url
     loadVideoManifest: [default_load_video_manifest_function],   // get the manifest file content
+    getCookieConsentFunction: [default_get_cookie_consent_function],    // get cookie consent preferences function
+    getCookieDescriptionFunction: [default_get_cookie_description_function],    // get cookie description function
   
   	customPluginContext: [],	// an array of require.context() function call results
 
@@ -123,7 +125,23 @@ export async function defaultLoadVideoManifestFunction(videoManifestUrl,config,p
 }
 ```
 
+default cookie consent function
 
+```javascript
+export const defaultGetCookieConsentCallback = (type) => {
+    return false;
+}
+```
+
+default get cookie description function 
+
+```javascript
+export const defaultGetCookieDescriptionCallback = (cookieObject) => {
+    return cookieObject.description;
+}
+```
+
+Note: you can learn more about the cookie consent functions [in this document](cookie_consent.md).
 
 ## 2.2. Plugin context
 
