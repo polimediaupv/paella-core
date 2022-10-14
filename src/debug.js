@@ -71,6 +71,22 @@ const initParams = {
 			'World': 'Mundo',
 			'Test popup button': 'Botón desplegable de prueba'
 		});
+	},
+
+	getCookieConsentFunction: (type) => {
+		switch (type) {
+		case "necessary":
+		case "preferences":
+			return true;
+		case "analytical":
+		case "marketing":
+		default:
+			return false;
+		}
+	},
+
+	getCookieDescriptionFunction: (cookieObject) => {
+		return cookieObject.description;
 	}
 
 };

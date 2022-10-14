@@ -10,6 +10,10 @@ import {
     defaultGetManifestFileUrlFunction,
     defaultLoadVideoManifestFunction
 } from 'paella-core/js/core/initFunctions';
+import {
+    defaultGetCookieConsentCallback,
+    defaultGetCookieDescriptionCallback
+} from './js/core/CookieConsent';
 
 import Plugin, { importPlugins, getPluginsOfType, loadPluginsOfType } from 'paella-core/js/core/Plugin';
 import UserInterfacePlugin from 'paella-core/js/core/UserInterfacePlugin';
@@ -94,6 +98,8 @@ export {
     defaultGetManifestUrlFunction,
     defaultGetManifestFileUrlFunction,
     defaultLoadVideoManifestFunction,
+    defaultGetCookieConsentCallback,
+    defaultGetCookieDescriptionCallback,
     PlayerResource,
     Loader,
     

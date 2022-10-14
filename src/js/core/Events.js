@@ -27,7 +27,8 @@ export default {
 	PLAYBACK_RATE_CHANGED: "paella:playbackRateChanged",
 	VIDEO_QUALITY_CHANGED: "paella:videoQualityChanged",
 	HIDE_UI: "paella:hideUI",
-	SHOW_UI: "paella:showUI"
+	SHOW_UI: "paella:showUI",
+	COOKIE_CONSENT_CHANGED: "paella:cookieConsentChanged"
 };
 
 export function bindEvent(player, event, callback, unregisterOnUnload = true) {

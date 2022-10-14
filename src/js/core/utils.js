@@ -130,6 +130,12 @@ export function setCookie(cname, cvalue, exdays = 365) {
     document.cookie = `${ cname }=${ cvalue };${ expires};path=/`; 
 }
 
+export function setCookieIfAllowed(player, type, cname, cvalue, exdays = 365) {
+    if (player.cookieConsent.getConsentForType(type)) {
+        setCookie(cname, cvalue, exdays);
+    }
+}
+
 export function getCookie(cname) {
     let name = cname + "=";
     let decodedCookie = decodeURIComponent(document.cookie);

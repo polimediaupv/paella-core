@@ -21,6 +21,10 @@ import CaptionCanvas from 'paella-core/js/captions/CaptionsCanvas';
 import { loadLogEventPlugins, unloadLogEventPlugins } from "paella-core/js/core/EventLogPlugin";
 import { loadKeyShortcutPlugins, unloadKeyShortcutPlugins, getShortcuts } from "paella-core/js/core/KeyShortcutPlugin";
 import { checkManifestIntegrity } from "paella-core/js/core/StreamProvider";
+import CookieConsent, {
+    defaultGetCookieConsentCallback,
+    defaultGetCookieDescriptionCallback
+} from "./core/CookieConsent";
 
 import {
     defaultTranslateFunction,
@@ -114,6 +118,9 @@ export default class Paella {
         this._initParams.setLanguageFunction = this._initParams.setLanguageFunction || defaultSetLanguageFunction;
         this._initParams.addDictionaryFunction = this._initParams.addDictionaryFunction || defaultAddDictionaryFunction;
         this._initParams.Loader = this._initParams.customLoader || Loader;
+        this._initParams.getCookieConsentFunction = this._initParams.getCookieConsentFunction || defaultGetCookieConsentCallback;
+        this._initParams.getCookieDescriptionFunction = this._initParams.getCookieDescriptionFunction || defaultGetCookieDescriptionCallback;
+        
 
         this._initParams.loadDictionaries = this._initParams.loadDictionaries || async function(player) {
             addDictionary("en", {
@@ -253,6 +260,8 @@ export default class Paella {
 
     get initParams() { return this._initParams; }
 
+    get cookieConsent() { return this._cookieConsent; }
+
     // Status flags getters
     // The configuration is loaded
     get configLoaded() {
@@ -348,6 +357,11 @@ export default class Paella {
     
             this.log.debug("Loading paella player");
             this._config = await this.initParams.loadConfig(this.configUrl,this);
+
+            this._cookieConsent = new CookieConsent(this, {
+                getConsent: this._initParams.getCookieConsentFunction, 
+                getDescription: this._initParams.getCookieDescriptionFunction
+            });
     
             const urlSearch = new URLSearchParams(window.location.search);
             const caseInsensitiveParams = new URLSearchParams();
