@@ -7,6 +7,24 @@
 </head>
 <body>
     <div id="player-container"></div>
+    <div>
+        <span>Cokie consent test:</span>
+        <input type="checkbox" id="preferences" name="preferences"><label for="preferences">Preferences</label>
+        <input type="checkbox" id="analytics" name="analytics"><label for="analytics">Analytics</label>
+        <input type="checkbox" id="marketing" name="marketing"><label for="marketing">Marketing</label>
+        <button id="saveCookiesButton">Save</button>
+        <span id="currentCookieConsent"></span>
+    </div>
+    <div>
+        <input type="text" id="testSaveCookieData">
+        <select id="saveCookieType">
+            <option value="preferences">Preferences</option>
+            <option value="analytics">Analytics</option>
+            <option value="marketing">Marketing</option>
+        </select>
+        <button id="saveCookieButton">Save Cookie</button>
+        <span id="currentCookieValue"></span>
+    </div>
 </body>
 
 </html>

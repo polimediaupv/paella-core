@@ -1,7 +1,7 @@
 import Paella from 'paella-core/js/Paella';
 import Events, { bindEvent } from 'paella-core/js/core/Events';
 import { defaultLoadVideoManifestFunction } from 'paella-core/js/core/initFunctions';
-
+import { setCookie, getCookie, setCookieIfAllowed } from 'paella-core/js/core/utils';
 import './debug.css';
 
 // Objects to store the custom localization dictionaries
@@ -27,6 +27,22 @@ class CustomLoader extends Loader {
 
 	get debug() {
 		return false;
+	}
+}
+
+// A simple mechanism to save and read cookie preferences
+const saveCookieConsent = (preferences, analytics, marketing) => {
+	setCookie('cookieConsent', JSON.stringify({
+		preferences, analytics, marketing
+	}));
+}
+
+const getCookieConsentData = () => {
+	try {
+		return JSON.parse(getCookie('cookieConsent'));
+	}
+	catch(e) {
+		return { preferences: false, analytics: false, marketing: false };
 	}
 }
 
@@ -74,15 +90,9 @@ const initParams = {
 	},
 
 	getCookieConsentFunction: (type) => {
-		switch (type) {
-		case "necessary":
-		case "preferences":
-			return true;
-		case "analytical":
-		case "marketing":
-		default:
-			return false;
-		}
+		const cookieConsentData = getCookieConsentData();
+		const result = cookieConsentData[type] || false;
+		return result;
 	},
 
 	getCookieDescriptionFunction: (cookieObject) => {
@@ -92,8 +102,48 @@ const initParams = {
 };
 
 window.onload = async () => {
-
 	let paella = new Paella('player-container', initParams);
+
+	const saveCookies = () => {
+		const val = (item) => document.getElementById(item).checked;
+		
+		const preferences = val('preferences');
+		const analytics = val('analytics');
+		const marketing = val('marketing');
+		saveCookieConsent(preferences,analytics,marketing);
+		setCookie('testSaveCookie','');
+		document.getElementById('currentCookieConsent').innerHTML = `preferences: ${preferences}, analytics: ${analytics}, marketing: ${marketing}`;
+		document.getElementById('currentCookieValue').innerHTML = `'testSaveCookie': ''`;
+		paella.cookieConsent.updateConsentData();
+	}
+
+	const consentData = getCookieConsentData();
+	document.getElementById('currentCookieConsent').innerHTML = 
+		`preferences: ${consentData.preferences}, analytics: ${consentData.analytics}, marketing: ${consentData.marketing}`;
+
+	(() => {
+		const setVal = (item, value) => document.getElementById(item).checked = value;
+		const cookieType = () => document.getElementById('saveCookieType').value;
+		const cookieTextField = () => document.getElementById('testSaveCookieData');
+		const cookieConsent = getCookieConsentData();
+		setVal('preferences', cookieConsent.preferences);
+		setVal('analytics', cookieConsent.analytics);
+		setVal('marketing', cookieConsent.marketing);
+
+		const updateCookie = () => {
+			const value = getCookie('testSaveCookie');
+			document.getElementById('currentCookieValue').innerHTML = `'testSaveCookie': '${ value }'`;
+		}
+	
+		document.getElementById('saveCookiesButton').addEventListener('click', () => {
+			saveCookies();
+		});
+
+		document.getElementById('saveCookieButton').addEventListener('click', () => {
+			setCookieIfAllowed(paella, cookieType(), 'testSaveCookie', cookieTextField().value);
+			updateCookie();
+		});
+	})();
 	
 	window.onhashchange = async (event) => {
 		await paella.unload();
