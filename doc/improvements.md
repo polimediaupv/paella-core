@@ -41,3 +41,8 @@
 ## paella-core 1.7
 
 - New plugin type: [Canvas Button Plugin](canvas_button_plugin.md): you can now put buttons in the video canvas area.
+
+## paella-core 1.8
+
+- [New cookie consent API implemented](cookie_consent.md), to provide a mediator between website and paella-core plugins.
+
