@@ -105,7 +105,6 @@ export default class ProgressIndicator extends DomClass {
 		`;
 		super(player, { attributes, children, parent });
 
-		console.log(player.config);
 		const parentContainer = getTimerParentContainer.apply(this, [player.config, playbackBar]);
 		
 		this._progressIndicatorTimer = new ProgressIndicatorTimer(player, parentContainer);
