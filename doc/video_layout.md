@@ -29,6 +29,39 @@ export default class MyVideoLayout extends VideoLayout {
 
 The icons used to identify each layout content must be in `svg` format, and placed in the same directory as the `config.json` configuration file.
 
+IMPORTANT: the identifiers of the `validContent` elements must be unique among all layout plugins. If you activate two different layouts that accept the same content, you must differentiate the identifiers between the two plugins:
+
+```json
+{
+    "plugins": {
+        ...
+        "es.upv.paella.dualVideo": {
+                   "enabled": true,
+                   "validContent": [
+                       {
+                            "id": "presenter-presentation", 
+                            "content": ["presenter","presentation"], 
+                            "icon": "present-mode-3.svg", 
+                            "title": "Presenter and presentation"
+                        }
+                   ]
+               },
+               "es.upv.paella.dualVideoSideBySide": {
+                   "enabled": true,
+                   "cookieType": "functionality",
+                   "validContent": [
+                       {
+                            "id": "presenter-presentation-sbs", 
+                            "content": ["presentation","presenter"], 
+                            "icon": "present-mode-3.svg", 
+                            "title": "Presenter and presentation side by side"
+                        }
+                   ]
+               },
+    }
+}
+```
+
 ## Layout properties and functions
 
 ### Identifier
