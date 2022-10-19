@@ -61,6 +61,11 @@
         },
         "es.upv.paella.singleVideo": {
             "enabled": true,
+            "dualVideoContentIds": [
+                "presenter-presentation",
+                "presenter-2-presentation",
+                "presenter-presenter-2"
+            ],
             "validContent": [
                 { "id": "presenter", "content": ["presenter"], "icon": "present-mode-2.svg", "title": "Presenter" },
                 { "id": "presentation", "content": ["presentation"], "icon": "present-mode-1.svg", "title": "Presentation" },

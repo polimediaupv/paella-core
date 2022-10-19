@@ -8,6 +8,11 @@ export default class SingleVideoLayout extends VideoLayout {
 
     async load() {
         this.player.log.debug("Single video layout loaded");
+        this.dualVideoContentIds = this.config.dualVideoContentIds || [
+            "presenter-presentation",
+            "presenter-2-presentation",
+            "presenter-presenter-2"
+        ];
     }
 
     getValidStreams(streamData) {
@@ -26,7 +31,13 @@ export default class SingleVideoLayout extends VideoLayout {
                     title: this.player.translate("Show second video stream"),
                     ariaLabel: this.player.translate("Show second video stream"),
                     click: () => {
-                        this.player.videoContainer.setLayout("presenter-presentation");
+                        const availableContentIds = this.player.videoContainer.validContentIds;
+                        const dualVideoContentId = this.dualVideoContentIds.find(id => {
+                            return availableContentIds.indexOf(id) !== -1;
+                        });
+                        if (dualVideoContentId) {
+                            this.player.videoContainer.setLayout(dualVideoContentId);
+                        }
                     }
                 }
             ]

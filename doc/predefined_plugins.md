@@ -11,7 +11,7 @@ Data plugins. You can check the documentation on [data plugins here](data_plugin
 Layout plugins. You can check the documentation about [video layout plugins in this document](video_layout.md).
 
 - `es.upv.paella.singleVideo.js`: Layout for videos with one or more streams.
-- `es.upv.paella.dualVideo.js`: Layout for videos with two or more streams. This plugin contains icons that can be configured:
+- `es.upv.paella.dualVideo.js`: Layout for videos with two or more streams. This layout contains buttons that allow you to switch to the layout of a single video. This plugin contains icons that can be configured:
     * plugin identifier: `es.upv.paella.dualVideo`
     * icon names:
         + `iconRotate`: exchange the left video with the right video, in side-by-side mode
@@ -21,6 +21,117 @@ Layout plugins. You can check the documentation about [video layout plugins in t
         + `iconMinimize`: minimize a video.
         + `iconSideBySide`: set the video in side-by-side mode.
 - `es.upv.paella.tripleVideo.js`: Layout for videos with three or more streams.
+
+### About singleVideo layout configuration
+
+This layout contains a button that allows you to switch to a dual video layout, which is activated when the video manifest contains two or more streams. It is important to define which layout we want to use to switch back to a two-stream configuration so that the plugin will be able to find it.
+
+At this point, you should consult the [documentation on video layouts](video_layout.md), but in short, each applicable layout is identified through a valid unique content identifier. This information is defined in the plugin configuration:
+
+**config.json**:
+
+```json
+{
+    "plugins": {
+        "es.upv.paella.singleVideo": {
+            ...
+            "validContent": [
+                {
+                    "id": "presenter-layout",
+                    "content": ["presenter"], 
+                    ...
+                }, 
+                {
+                    "id": "presentation-layout",
+                    "content": ["presentation"]
+                }
+            ]
+        },
+        "es.upv.paella.dualVideo": {
+            ...
+            "validContent": [
+                {
+                    "id": "presenter-presentation-layout", 
+                    "content": ["presenter","presentation"]
+                    ...
+                }
+            ]
+        },
+        "es.upv.paella.tripleVideo": {
+            ...
+            "validContent": [
+                {
+                    "id": "presenter-presenter-2-presentation-layout",
+                    "content": ["presenter","presenter-2","presentation"]
+                    ...
+                }
+            ]
+        },
+    }
+}
+```
+
+In the example above, we have the three layout plugins that are included in `paella-core`. With this configuration, we would have four available contents, which are the elements of the `validContent` arrays of each plugin:
+
+- `presenter-layout`: show the stream with `presenter` content, through the `en.upv.paella.singleVideo` plugin. This means that the stream of the video manifest whose `content` tag corresponds to `presenter` will be displayed.
+- `presentation-layout`: show the stream with `presentation` content, through the `en.upv.paella.singleVideo` plugin. This means that the stream of the video manifest whose `content` tag corresponds to `presentation` will be displayed.
+- `presenter-presentation-layout`: shows the `presentation` and `presenter` streams, through the `en.upv.paella.dualVideo` plugin. This means that the streams of the video manifest whose `content` attribute matches `presentation` and `presenter` will be displayed.
+- `presenter-presenter-2-presentation-layout`: shows the `presenter`, `presentation` and `presenter-2` streams through the `en.upv.paella.tripleVideo` plugin.
+
+To properly configure the singleVideo plugin, we have to specify the list of valid content identifiers that we want to use when the user wants to switch to the dual video layout. This is done using the `dualVideoContentIds` attribute, which is an array in which we place a list of content identifiers of the dual video layout. The layout to be used will be the first one available from the `dualVideoContentIds` list.
+
+For example: in the following configuration two different dual stream plugins are included (the `dualVidieoSideBySide` layout is available in the `paella-layout-plugins` package). In the configuration of the single stream layout we are specifying that we want `presenter-presentation-sbs` to be used, but if this layout is not available, we want to use `presenter-presentation`:
+
+```json
+{
+    "plugins": {
+        ...
+        "es.upv.paella.singleVideo": {
+            "enabled": true,
+            "dualVideoContentIds": [
+                "presenter-presentation-sbs",
+                "presenter-presentation"
+            ],
+            "validContent": [
+                {
+                    "id": "presenter", 
+                    "content": ["presenter"], 
+                    "icon": "present-mode-2.svg", 
+                    "title": "Presenter"
+                },
+                {
+                    "id": "presentation", 
+                    "content": ["presentation"], 
+                    "icon": "present-mode-1.svg", 
+                    "title": "Presentation" 
+                }
+            ]
+        },
+        "es.upv.paella.dualVideo": {
+            "enabled": true,
+            "validContent": [
+                {
+                    "id": "presenter-presentation", 
+                    "content": ["presenter","presentation"], 
+                    "icon": "present-mode-3.svg", 
+                    "title": "Presenter and presentation"
+                }
+            ]
+        },
+        "es.upv.paella.dualVideoSideBySide": {
+            "enabled": true,
+            "validContent": [
+                {
+                    "id": "presenter-presentation-sbs", 
+                    "content": ["presenter","presentation"], 
+                    "icon": "present-mode-3.svg", 
+                    "title": "Presenter and presentation"
+                }
+            ]
+        }
+    }
+}
+```
 
 ## src/js/videoFormats
 
