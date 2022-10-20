@@ -195,7 +195,21 @@ export class HlsVideo extends Mp4Video {
     async loadStreamData(streamData) {
         if (hlsSupport === HlsSupport.NATIVE) {
             streamData.sources.mp4 = streamData.sources.hls;
-            return super.loadStreamData(streamData);
+            const result = await super.loadStreamData(streamData);
+            const tracks = await this.getAudioTracks();
+            this._currentAudioTrack = tracks.find(track => track.selected);
+            this._autoQuality = new VideoQualityItem({
+                label: "auto",
+                shortLabel: "auto",
+                index: -1,
+                width: 1,
+                height: 1,
+                isAuto: true
+            });
+            // Initialize current quality
+            this._currentQuality = this._autoQuality;
+            this.saveDisabledProperties(this.video);
+            return result;
         }
         else {
             this.player.log.debug("Loading HLS stream");
