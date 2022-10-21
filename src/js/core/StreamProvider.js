@@ -367,7 +367,7 @@ export default class SteramProvider extends PlayerResource {
 				}
 			}
 		}
-		return player;
+		return player || this.mainAudioPlayer;
 	}
 
 	async getCurrentQuality() {
