@@ -1,0 +1,33 @@
+{
+    "metadata": {
+        "duration": 228,
+        "title": "HLS multiaudio",
+		"preview": "https://repository.paellaplayer.upv.es/hls-multiaudio/preview.jpg"
+    },
+    "streams": [
+        {
+            "sources": {
+              "mp4": [
+                {
+                  "src": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                  "mimetype": "video/mp4"
+                }
+              ]
+            },
+            "content": "presentation",
+            "role": null
+          },
+        {
+            "sources": {
+              "hls": [
+                {
+                  "src": "https://streaming.uibk.ac.at/public/_definst_/mp4:c102/c102267/Streaming-UIBK.mp4/playlist.m3u8",
+                  "mimetype": "video/mp4"
+                }
+              ]
+            },
+            "content": "presenter",
+            "role": "mainAudio"
+          }
+    ]
+  }

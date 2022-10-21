@@ -248,6 +248,13 @@
             "side": "right",
             "description": "Test canvas button",
             "ariaLabel": "Test canvas button"
+        },
+
+
+        "es.upv.paella.qualitySelector": {
+            "enabled": true,
+            "side": "right",
+            "parentContainer": "videoContainer"
         }
     }
 }

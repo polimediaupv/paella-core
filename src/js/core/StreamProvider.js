@@ -360,7 +360,7 @@ export default class SteramProvider extends PlayerResource {
 		if (Object.keys(this.streams).length>0) {
 			for (const content in this.streams) {
 				const stream = this.streams[content];
-				const q = await stream.player.getQualities();
+				const q = (await stream.player.getQualities()) || [];
 				if (!player && q.length > referenceQualities.length) {
 					referenceQualities = q;
 					player = stream.player;
@@ -396,7 +396,7 @@ export default class SteramProvider extends PlayerResource {
 			const qualityFactor = index / total;
 			for (const content in this.streams) {
 				const stream = this.streams[content];
-				const streamQualities = await stream.player.getQualities();
+				const streamQualities = (await stream.player.getQualities()) || [];
 				this.player.log.debug(streamQualities);
 				if (streamQualities.length>1) {
 					const qualityIndex = Math.round(streamQualities.length * qualityFactor);
