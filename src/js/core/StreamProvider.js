@@ -356,12 +356,12 @@ export default class SteramProvider extends PlayerResource {
 
 	async getQualityReferencePlayer() {
 		let player = null;
-		let referenceQualities = null;
+		let referenceQualities = [];
 		if (Object.keys(this.streams).length>0) {
 			for (const content in this.streams) {
 				const stream = this.streams[content];
 				const q = await stream.player.getQualities();
-				if (!player || referenceQualities && q.length > referenceQualities.length) {
+				if (!player && q.length > referenceQualities.length) {
 					referenceQualities = q;
 					player = stream.player;
 				}
