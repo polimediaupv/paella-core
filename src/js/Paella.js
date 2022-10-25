@@ -665,13 +665,16 @@ export default class Paella {
     }
     
     async enterFullscreen() {
+        let result = null;
         if (this.containerElement.requestFullscreen) {
-            return this.containerElement.requestFullscreen();
+            result = this.containerElement.requestFullscreen();
         }
         else if (this.containerElement.webkitRequestFullScreen) {
             this.log.debug("Safari enter fullscreen");
-            return this.containerElement.webkitRequestFullScreen();
+            result = this.containerElement.webkitRequestFullScreen();
         }
+        setTimeout(() => this.resize(), 500);
+        return result;
     } 
 
     async exitFullscreen() {
