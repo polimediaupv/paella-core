@@ -659,13 +659,18 @@ export default class Paella {
         await this.videoContainer?.stop();
     }
     
-    async isFullScreenSupported() {
-        return this.containerElement.requestFullscreen !== null;
+    isFullScreenSupported() {
+        return this.containerElement.requestFullscreen ||
+            this.containerElement.webkitRequestFullScreen;
     }
     
     async enterFullscreen() {
         if (this.containerElement.requestFullscreen) {
             return this.containerElement.requestFullscreen();
+        }
+        else if (this.containerElement.webkitRequestFullScreen) {
+            this.log.debug("Safari enter fullscreen");
+            return this.containerElement.webkitRequestFullScreen();
         }
     } 
 
@@ -673,10 +678,15 @@ export default class Paella {
         if (document.exitFullscreen && this.isFullscreen) {
             return document.exitFullscreen();
         }
+        else if (document.webkitCancelFullScreen && this.isFullscreen) {
+            this.log.debug("Safari exit fullscreen");
+            return document.webkitCancelFullScreen();
+        }
     }
     
     get isFullscreen() {
-        return document.fullscreenElement === this.containerElement;
+        return  document.fullscreenElement === this.containerElement ||
+                document.webkitFullscreenElement === this.containerElement;
     }
 
     addCustomPluginIcon(pluginName, iconName, svgData) {

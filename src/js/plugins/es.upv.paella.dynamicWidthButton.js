@@ -11,4 +11,13 @@ export default class DynamicWidthButtonTest extends ButtonPlugin {
     get dynamicWidth() {
         return true;
     }
+
+    async action() {
+        if (!this.player.isFullscreen) {
+            await this.player.enterFullscreen();
+        }
+        else {
+            await this.player.exitFullscreen();
+        }
+    }
 }
