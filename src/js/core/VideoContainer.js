@@ -23,6 +23,113 @@ export async function getContainerBaseSize(player) {
     return { w: 1280, h: 720 }
 }
 
+async function updateLayoutStatic() {
+    const layoutStructure = getLayoutStructure(this.player, this.streamProvider.streamData, this._layoutId);
+
+    for (const content in this.streamProvider.streams) {
+        const isPresent = layoutStructure?.videos?.find(video => video.content === content) != null;
+        const video = this.streamProvider.streams[content];
+        
+        if (isPresent && !video.player.isEnabled) {
+            await video.player.enable();
+        }
+        else if (!isPresent && video.player.isEnabled) {
+            await video.player.disable();
+        }
+    }
+
+    // Hide all video players
+    for (const key in this.streamProvider.streams) {
+        const videoData = this.streamProvider.streams[key];
+        videoData.canvas.element.style.display = "none";
+    }
+
+    // Conversion factors for video rect
+    const baseSize = await getContainerBaseSize(this.player);
+    const playerSize = this.elementSize;
+    const wFactor = 100 / baseSize.w;
+    const hFactor = 100 / baseSize.h;
+    const playerRatio = playerSize.w / playerSize.h;
+    const baseRatio = baseSize.w / baseSize.h; 
+    const containerCurrentSize = playerRatio>baseRatio ?
+        { w: playerSize.h * baseRatio, h: playerSize.h } :
+        { w: playerSize.w, h: playerSize.w / baseRatio };
+
+    this.baseVideoRect.style.width = containerCurrentSize.w + "px";
+    this.baseVideoRect.style.height = containerCurrentSize.h + "px";
+
+    if (layoutStructure?.videos?.length) {
+        for (const video of layoutStructure.videos) {
+            const videoData = this.streamProvider.streams[video.content];
+            const { stream, player, canvas } = videoData;
+            const res = await player.getDimensions();
+            const videoAspectRatio = res.w / res.h;
+            let difference = Number.MAX_VALUE;
+            let resultRect = null;
+
+            canvas.buttonsArea.innerHTML = "";
+            await addVideoCanvasButton(this.player, layoutStructure, canvas, video);
+            
+            video.rect.forEach((videoRect) => {
+                const aspectRatioData = /^(\d+.?\d*)\/(\d+.?\d*)$/.exec(videoRect.aspectRatio);
+                const rectAspectRatio = aspectRatioData ? Number(aspectRatioData[1]) / Number(aspectRatioData[2]) : 1;
+                const d = Math.abs(videoAspectRatio - rectAspectRatio);
+                if (d < difference) {
+                    resultRect = videoRect;
+                    difference = d;
+                }
+            });
+
+            canvas.element.style.display = "block";
+            canvas.element.style.position = "absolute";
+            canvas.element.style.left = `${ resultRect?.left * wFactor }%`;
+            canvas.element.style.top = `${ resultRect?.top * hFactor }%`;
+            canvas.element.style.width = `${ resultRect?.width * wFactor }%`;
+            canvas.element.style.height = `${ resultRect?.height * hFactor }%`;
+            canvas.element.style.zIndex = video.layer;
+        }
+    }
+    
+    const prevButtons = this.baseVideoRect.getElementsByClassName('video-layout-button');
+    Array.from(prevButtons).forEach(btn => this.baseVideoRect.removeChild(btn));
+    layoutStructure?.buttons?.forEach(buttonData => {
+        const button = createElement({
+            tag: 'button',
+            attributes: {
+                "class": "video-layout-button",
+                "aria-label": translate(buttonData.ariaLabel),
+                "title": translate(buttonData.title),
+                style: `
+                    left: ${buttonData.rect.left * wFactor}%;
+                    top: ${buttonData.rect.top * hFactor}%;
+                    width: ${buttonData.rect.width * wFactor}%;
+                    height: ${buttonData.rect.height * hFactor}%;
+                    z-index: ${ buttonData.layer };
+                `
+            },
+            parent: this.baseVideoRect,
+            children: buttonData.icon
+        });
+        button.layout = layoutStructure;
+        button.buttonAction = buttonData.onClick;
+        button.addEventListener("click", async (evt) => {
+            triggerEvent(this.player, Events.BUTTON_PRESS, {
+                plugin: layoutStructure.plugin,
+                layoutStructure: layoutStructure
+            });
+            await evt.target.buttonAction.apply(evt.target.layout);
+            evt.stopPropagation();
+        });
+        this._layoutButtons.push(button);
+    });
+
+    return true;
+}
+
+async function updateLayoutDynamic() {
+
+}
+
 export default class VideoContainer extends DomClass {
 
     constructor(player, parent) {
@@ -200,104 +307,14 @@ export default class VideoContainer extends DomClass {
             status = false;
         }
 
-        const layoutStructure = getLayoutStructure(this.player, this.streamProvider.streamData, this._layoutId);
-
-        for (const content in this.streamProvider.streams) {
-            const isPresent = layoutStructure?.videos?.find(video => video.content === content) != null;
-            const video = this.streamProvider.streams[content];
-            
-            if (isPresent && !video.player.isEnabled) {
-                await video.player.enable();
-            }
-            else if (!isPresent && video.player.isEnabled) {
-                await video.player.disable();
-            }
+        // Check if layout is dynamic or static
+        const layoutType = "static";
+        if (layoutType === "static") {
+            status = updateLayoutStatic.apply(this);
         }
+        else if (layoutType === "dynamic") {
 
-        // Hide all video players
-        for (const key in this.streamProvider.streams) {
-            const videoData = this.streamProvider.streams[key];
-            videoData.canvas.element.style.display = "none";
         }
-
-        // Conversion factors for video rect
-        const baseSize = await getContainerBaseSize(this.player);
-        const playerSize = this.elementSize;
-        const wFactor = 100 / baseSize.w;
-        const hFactor = 100 / baseSize.h;
-        const playerRatio = playerSize.w / playerSize.h;
-        const baseRatio = baseSize.w / baseSize.h; 
-        const containerCurrentSize = playerRatio>baseRatio ?
-            { w: playerSize.h * baseRatio, h: playerSize.h } :
-            { w: playerSize.w, h: playerSize.w / baseRatio };
-
-        this.baseVideoRect.style.width = containerCurrentSize.w + "px";
-        this.baseVideoRect.style.height = containerCurrentSize.h + "px";
-
-        if (layoutStructure?.videos?.length) {
-            for (const video of layoutStructure.videos) {
-                const videoData = this.streamProvider.streams[video.content];
-                const { stream, player, canvas } = videoData;
-                const res = await player.getDimensions();
-                const videoAspectRatio = res.w / res.h;
-                let difference = Number.MAX_VALUE;
-                let resultRect = null;
-    
-                canvas.buttonsArea.innerHTML = "";
-                await addVideoCanvasButton(this.player, layoutStructure, canvas, video);
-                
-                video.rect.forEach((videoRect) => {
-                    const aspectRatioData = /^(\d+.?\d*)\/(\d+.?\d*)$/.exec(videoRect.aspectRatio);
-                    const rectAspectRatio = aspectRatioData ? Number(aspectRatioData[1]) / Number(aspectRatioData[2]) : 1;
-                    const d = Math.abs(videoAspectRatio - rectAspectRatio);
-                    if (d < difference) {
-                        resultRect = videoRect;
-                        difference = d;
-                    }
-                });
-    
-                canvas.element.style.display = "block";
-                canvas.element.style.position = "absolute";
-                canvas.element.style.left = `${ resultRect?.left * wFactor }%`;
-                canvas.element.style.top = `${ resultRect?.top * hFactor }%`;
-                canvas.element.style.width = `${ resultRect?.width * wFactor }%`;
-                canvas.element.style.height = `${ resultRect?.height * hFactor }%`;
-                canvas.element.style.zIndex = video.layer;
-            }
-        }
-        
-        const prevButtons = this.baseVideoRect.getElementsByClassName('video-layout-button');
-        Array.from(prevButtons).forEach(btn => this.baseVideoRect.removeChild(btn));
-        layoutStructure?.buttons?.forEach(buttonData => {
-            const button = createElement({
-                tag: 'button',
-                attributes: {
-                    "class": "video-layout-button",
-                    "aria-label": translate(buttonData.ariaLabel),
-                    "title": translate(buttonData.title),
-                    style: `
-                        left: ${buttonData.rect.left * wFactor}%;
-                        top: ${buttonData.rect.top * hFactor}%;
-                        width: ${buttonData.rect.width * wFactor}%;
-                        height: ${buttonData.rect.height * hFactor}%;
-                        z-index: ${ buttonData.layer };
-                    `
-                },
-                parent: this.baseVideoRect,
-                children: buttonData.icon
-            });
-            button.layout = layoutStructure;
-            button.buttonAction = buttonData.onClick;
-            button.addEventListener("click", async (evt) => {
-                triggerEvent(this.player, Events.BUTTON_PRESS, {
-                    plugin: layoutStructure.plugin,
-                    layoutStructure: layoutStructure
-                });
-                await evt.target.buttonAction.apply(evt.target.layout);
-                evt.stopPropagation();
-            });
-            this._layoutButtons.push(button);
-        });
 
         this._updateInProgress = false;
         return status;

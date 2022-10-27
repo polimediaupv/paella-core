@@ -68,6 +68,10 @@ export default class VideoLayout extends UserInterfacePlugin {
     
     get type() { return "layout"; }
 
+    get layoutType() {
+        return "static";    // or "dynamic"
+    }
+
     // Return the layout identifier, for example, presenter-presentation
     get identifier() { return "default"; }
 
