@@ -96,6 +96,8 @@ const loadHls = (player, streamData, video, config, cors) => {
         }
     }
 
+    config.autoStartLoad = true;
+
     const hls = new Hls(config);
     const hlsStream =   streamData?.sources?.hls?.length>0 &&
                         streamData.sources.hls[0];
@@ -139,10 +141,25 @@ const loadHls = (player, streamData, video, config, cors) => {
             }
         });
 
+        hls.on(Hls.Events.LEVEL_SWITCHING, () => {
+            player.log.debug("HLS media attached");
+        });
+
+        hls.on(Hls.Events.MEDIA_ATTACHED, () => {
+            player.log.debug("HLS media attached");
+        });
+
+        hls.on(Hls.Events.MEDIA_DETACHING, () => {
+            player.log.debug("HLS media detaching");
+        });
+
+        hls.on(Hls.Events.MEDIA_DETACHED, () => {
+            player.log.debug("HLS media detached");
+        });
+
         hls.on(Hls.Events.MANIFEST_PARSED, () => {
-            if (!config.autoStartLoad) {
-                hls.autoStartLoad();
-            }
+            player.log.debug("HLS manifest parsed");
+            hls.startLoad(-1);
         });
 
         const rand = Math.floor(Math.random() * 100000000000);
@@ -152,10 +169,21 @@ const loadHls = (player, streamData, video, config, cors) => {
         hls.loadSource(url);
         hls.attachMedia(video);
 
+        let ready = false;
         hls._videoEventListener = () => {
+            ready = true;
             resolve();
         };
         video.addEventListener("canplay", hls._videoEventListener);
+
+        // There are some kind of bug in HLS.js that causes that some
+        // streams are not loaded until calling video.play()
+        // This is a workaround for this problem
+        setTimeout(() => {
+            if (!ready) {
+                video.play();
+            }
+        }, 1000);
     })];
 }
 

@@ -1,0 +1,39 @@
+{
+    "metadata": {
+        "duration": 492.017891,
+        "title": "Generalities",
+        "presenter": "Ignacio Despujol Zabala",
+        "catalog": "polimedia_valencia",
+        "language": "en",
+        "preview": "https://media.upv.es/resources/imported/polimedia/b13e2430-5450-11ed-b9e4-9d8f9d91fec2/slides/frame.0.jpg"
+    },
+    "streams": [
+        {
+            "sources": {
+                "hls": [
+                    {
+                        "src": "https://media.upv.es/resources/imported/polimedia/b13e2430-5450-11ed-b9e4-9d8f9d91fec2/polimedia/polimedia-hls-presenter-480p.m3u8",
+                        "mimetype": "video/mp4"
+                    }
+                ]
+            },
+            "content": "presenter"
+        }
+    ],
+    "frameList": [
+        {
+            "mimetype": "image/jpg",
+            "url": "https://media.upv.es/resources/imported/polimedia/b13e2430-5450-11ed-b9e4-9d8f9d91fec2/slides/frame.0.jpg",
+            "id": "frame_0",
+            "thumb": "https://media.upv.es/resources/imported/polimedia/b13e2430-5450-11ed-b9e4-9d8f9d91fec2/slides/thumb.0.jpg",
+            "time": 0
+        },
+        {
+            "mimetype": "image/jpg",
+            "url": "https://media.upv.es/resources/imported/polimedia/b13e2430-5450-11ed-b9e4-9d8f9d91fec2/slides/frame.28.jpg",
+            "id": "frame_28",
+            "thumb": "https://media.upv.es/resources/imported/polimedia/b13e2430-5450-11ed-b9e4-9d8f9d91fec2/slides/thumb.28.jpg",
+            "time": 28
+        }
+    ]
+}
