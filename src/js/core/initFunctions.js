@@ -6,9 +6,9 @@ export async function defaultLoadConfigFunction(configUrl,player) {
     return response.json();
 }
 
-export async function defaultGetVideoIdFunction(config,player) {
+export async function defaultGetVideoIdFunction(config, player) {
     player.log.debug("Using default getVideoId function");
-    return getHashParameter("id") || getUrlParameter("id");
+    return getHashParameter("id") || getUrlParameter("id") || config.fallbackId;
 }
 
 export async function defaultGetManifestUrlFunction(repoUrl,videoId,config,player) {

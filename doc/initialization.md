@@ -86,9 +86,16 @@ import { utils } from 'paella-core';
 const { getUrlParameter } = utils;
 
 
-export async function defaultGetVideoIdFunction(config,player) {
+/**
+ * Get video identifier from URL or configuration.
+ * The identifier is selected from the first provider in the following order:
+ * - URL hash parameter: #id=xy
+ * - URL search parameter: ?id=xy
+ * - Configuration option `fallbackId`
+ */
+export async function defaultGetVideoIdFunction(config, player) {
     player.log.debug("Using default getVideoId function");
-    return getUrlParameter("id");
+    return getHashParameter("id") || getUrlParameter("id") || config.fallbackId;
 }
 ```
 
