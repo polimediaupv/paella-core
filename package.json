@@ -20,7 +20,7 @@
     "hls"
   ],
   "author": "Fernando Serrano Carpena <ferserc1@gmail.com>",
-  "license": "SEE LICENSE IN license.txt",
+  "license": "ECL-2.0",
   "bugs": {
     "url": "https://github.com/polimediaupv/paella-core/issues"
   },
