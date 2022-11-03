@@ -386,6 +386,9 @@ export default class Paella {
             await loadKeyShortcutPlugins(this);
     
             this._videoId = await this.initParams.getVideoId(this._config, this);
+            if (this.videoId === null) {
+                throw new Error('No video identifier specified');
+            }
     
             this._manifestUrl = await this.initParams.getManifestUrl(this.repositoryUrl,this.videoId,this._config,this);
             
