@@ -27,5 +27,5 @@ You can also debug the Paella Player core features with the included minimal pla
 % npm run dev
 ```
 
-You can get more information about Paella and its development in the [documentation](https://paellaplayer.upv.es/docs/).
+You can get more information about Paella and its development in the [documentation](https://paellaplayer.upv.es/#/doc/index.md).
 
