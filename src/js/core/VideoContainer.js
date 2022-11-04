@@ -4,6 +4,7 @@ import {
     getValidLayouts, 
     getValidContentIds, 
     getLayoutStructure, 
+    getLayoutWithContentId,
     getLayoutWithId,
     getValidContentSettings } from 'paella-core/js/core/VideoLayout';
 import StreamProvider from 'paella-core/js/core/StreamProvider';
@@ -15,7 +16,7 @@ import 'paella-core/styles/VideoContainer.css';
 import 'paella-core/styles/VideoLayout.css';
 import { loadPluginsOfType, unloadPluginsOfType } from './Plugin';
 import { loadVideoPlugins, unloadVideoPlugins } from './VideoPlugin';
-import { addVideoCanvasButton } from './CanvasPlugin';
+import { addVideoCanvasButton, CanvasButtonPosition } from './CanvasPlugin';
 
 export async function getContainerBaseSize(player) {
     // TODO: In the future, this function can be modified to support different
@@ -23,9 +24,7 @@ export async function getContainerBaseSize(player) {
     return { w: 1280, h: 720 }
 }
 
-async function updateLayoutStatic() {
-    const layoutStructure = getLayoutStructure(this.player, this.streamProvider.streamData, this._layoutId);
-
+async function enableVideos(layoutStructure) {
     for (const content in this.streamProvider.streams) {
         const isPresent = layoutStructure?.videos?.find(video => video.content === content) != null;
         const video = this.streamProvider.streams[content];
@@ -37,12 +36,22 @@ async function updateLayoutStatic() {
             await video.player.disable();
         }
     }
+}
 
+function hideAllVideoPlayers() {
     // Hide all video players
     for (const key in this.streamProvider.streams) {
         const videoData = this.streamProvider.streams[key];
         videoData.canvas.element.style.display = "none";
     }
+}
+
+async function updateLayoutStatic() {
+    const layoutStructure = getLayoutStructure(this.player, this.streamProvider.streamData, this._layoutId);
+
+    await enableVideos.apply(this, [ layoutStructure ]);
+
+    hideAllVideoPlayers.apply(this);
 
     // Conversion factors for video rect
     const baseSize = await getContainerBaseSize(this.player);
@@ -57,6 +66,8 @@ async function updateLayoutStatic() {
 
     this.baseVideoRect.style.width = containerCurrentSize.w + "px";
     this.baseVideoRect.style.height = containerCurrentSize.h + "px";
+    this.baseVideoRect.classList.remove("dynamic");
+
 
     if (layoutStructure?.videos?.length) {
         for (const video of layoutStructure.videos) {
@@ -127,7 +138,40 @@ async function updateLayoutStatic() {
 }
 
 async function updateLayoutDynamic() {
+    const layoutStructure = getLayoutStructure(this.player, this.streamProvider.streamData, this._layoutId);
 
+    await enableVideos.apply(this, [ layoutStructure ]);
+
+    hideAllVideoPlayers.apply(this);
+
+    this.baseVideoRect.style.width = "";
+    this.baseVideoRect.style.height = "";
+    this.baseVideoRect.style.display = "flex";
+    this.baseVideoRect.classList.add("dynamic");
+
+    if (this.element.clientWidth < this.element.clientHeight) {
+        this.baseVideoRect.classList.add("portrait");
+        this.baseVideoRect.classList.remove("landscape");
+    }
+    else {
+        this.baseVideoRect.classList.remove("portrait");
+        this.baseVideoRect.classList.add("landscape");
+    }
+
+    if (layoutStructure?.videos?.length) {
+        for (const video of layoutStructure.videos) {
+            const videoData = this.streamProvider.streams[video.content];
+            const { stream, player, canvas } = videoData;
+
+            canvas.buttonsArea.innerHTML = "";
+            await addVideoCanvasButton(this.player, layoutStructure, canvas, video);
+
+            canvas.element.style = {};
+            canvas.element.style.display = "block";
+        }
+    }
+
+    return true;
 }
 
 export default class VideoContainer extends DomClass {
@@ -307,13 +351,12 @@ export default class VideoContainer extends DomClass {
             status = false;
         }
 
-        // Check if layout is dynamic or static
-        const layoutType = "static";
-        if (layoutType === "static") {
+        const layoutPlugin = getLayoutWithContentId(this.player, this.streamProvider.streamData, this._layoutId);
+        if (layoutPlugin.layoutType === "static") {
             status = updateLayoutStatic.apply(this);
         }
-        else if (layoutType === "dynamic") {
-
+        else if (layoutPlugin.layoutType === "dynamic") {
+            status = updateLayoutDynamic.apply(this);
         }
 
         this._updateInProgress = false;

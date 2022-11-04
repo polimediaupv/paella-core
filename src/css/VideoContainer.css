@@ -23,6 +23,23 @@
     position: relative;
 }
 
+.base-video-rect.dynamic {
+	display: flex;
+	background-color: transparent;
+	gap: 5px;
+	padding: 5px;
+}
+
+.base-video-rect.dynamic.portrait {
+	flex-wrap: wrap;
+	align-items: center;
+    justify-content: center;
+}
+
+.base-video-rect.dynamic.landscape {
+	flex-wrap: nowrap;
+}
+
 .video-container .button-plugins {
     position: absolute;
     top: 10px;
