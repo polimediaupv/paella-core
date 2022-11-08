@@ -20,11 +20,13 @@ export default class DualVideoDynamicLayout extends VideoLayout {
             videos: [
                 {
                     content: "presenter",
-                    visible: true
+                    visible: true,
+                    size: 50
                 },
                 {
                     content: "presentation",
-                    visible: true
+                    visible: true,
+                    size: 50
                 }
             ]
         }

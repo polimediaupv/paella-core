@@ -37,7 +37,7 @@
 }
 
 .base-video-rect.dynamic.landscape {
-	flex-wrap: nowrap;
+	align-items: center;
 }
 
 .video-container .button-plugins {

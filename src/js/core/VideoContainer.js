@@ -149,25 +149,46 @@ async function updateLayoutDynamic() {
     this.baseVideoRect.style.display = "flex";
     this.baseVideoRect.classList.add("dynamic");
 
-    if (this.element.clientWidth < this.element.clientHeight) {
-        this.baseVideoRect.classList.add("portrait");
-        this.baseVideoRect.classList.remove("landscape");
-    }
-    else {
+    const width = this.element.clientWidth;
+    const height = this.element.clientHeight;
+    const isLandscape = width > height;
+    if (isLandscape) {
         this.baseVideoRect.classList.remove("portrait");
         this.baseVideoRect.classList.add("landscape");
+    }
+    else {
+        this.baseVideoRect.classList.add("portrait");
+        this.baseVideoRect.classList.remove("landscape");
     }
 
     if (layoutStructure?.videos?.length) {
         for (const video of layoutStructure.videos) {
             const videoData = this.streamProvider.streams[video.content];
             const { stream, player, canvas } = videoData;
+            const res = await player.getDimensions();
+            const videoAspectRatio = res.w / res.h;
+            const maxWidth = width;
+            const maxHeight = height;
+            const baseSize = (isLandscape ? maxWidth : maxHeight) * video.size / 100;
+            let videoWidth = isLandscape ? baseSize : baseSize * videoAspectRatio;
+            let videoHeight = isLandscape ? baseSize / videoAspectRatio : baseSize;
+            if (videoWidth>maxWidth) {
+                videoWidth = maxWidth;
+                videoHeight = videoHeight / videoAspectRatio;
+            }
+            if (videoHeight>maxHeight) {
+                videoHeight = maxHeight;
+                videoWidth = videoHeight * videoAspectRatio;
+            }
+            
 
             canvas.buttonsArea.innerHTML = "";
             await addVideoCanvasButton(this.player, layoutStructure, canvas, video);
 
             canvas.element.style = {};
             canvas.element.style.display = "block";
+            canvas.element.style.width = `${videoWidth}px`;
+            canvas.element.style.height = `${videoHeight}px`;
         }
     }
 
