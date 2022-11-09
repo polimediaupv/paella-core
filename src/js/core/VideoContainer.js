@@ -164,7 +164,7 @@ async function updateLayoutDynamic() {
     if (layoutStructure?.videos?.length) {
         for (const video of layoutStructure.videos) {
             const videoData = this.streamProvider.streams[video.content];
-            const { stream, player, canvas } = videoData;
+            const { player, canvas } = videoData;
             const res = await player.getDimensions();
             const videoAspectRatio = res.w / res.h;
             const maxWidth = width;
@@ -174,7 +174,7 @@ async function updateLayoutDynamic() {
             let videoHeight = isLandscape ? baseSize / videoAspectRatio : baseSize;
             if (videoWidth>maxWidth) {
                 videoWidth = maxWidth;
-                videoHeight = videoHeight / videoAspectRatio;
+                videoHeight = videoWidth / videoAspectRatio;
             }
             if (videoHeight>maxHeight) {
                 videoHeight = maxHeight;
@@ -189,6 +189,8 @@ async function updateLayoutDynamic() {
             canvas.element.style.display = "block";
             canvas.element.style.width = `${videoWidth}px`;
             canvas.element.style.height = `${videoHeight}px`;
+            canvas.element.style.overflow = "hidden";
+            canvas.element.style.position = "relative";
         }
     }
 
