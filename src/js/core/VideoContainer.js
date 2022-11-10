@@ -162,6 +162,8 @@ async function updateLayoutDynamic() {
     }
 
     if (layoutStructure?.videos?.length) {
+        let i = 0;
+        const canvasElements = [];
         for (const video of layoutStructure.videos) {
             const videoData = this.streamProvider.streams[video.content];
             const { player, canvas } = videoData;
@@ -191,7 +193,10 @@ async function updateLayoutDynamic() {
             canvas.element.style.height = `${videoHeight}px`;
             canvas.element.style.overflow = "hidden";
             canvas.element.style.position = "relative";
+            canvas.element.sortIndex = i++;
+            canvasElements.push(canvas.element);
         }
+        canvasElements.forEach(e => this.baseVideoRect.appendChild(e));
     }
 
     return true;

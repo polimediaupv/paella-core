@@ -83,7 +83,7 @@
         "es.upv.paella.dualVideoDynamic": {
             "enabled": true,
             "validContent": [
-                { "id": "presenter-presentation-dynamic", "content": ["presenter","presentation"], "icon": "present-mode-3.svg", "title": "Presenter and presentation" },
+                { "id": "presenter-presentation-dynamic", "content": ["presentation","presenter"], "icon": "present-mode-3.svg", "title": "Presenter and presentation" },
                 { "id": "presenter-2-presentation-dynamic", "content": ["presenter-2","presentation"], "icon": "present-mode-3.svg", "title": "Presenter and presentation" },
                 { "id": "presenter-presenter-2-dynamic", "content": ["presenter","presenter-2"], "icon": "present-mode-3.svg", "title": "Presenter and presentation" }
             ]
