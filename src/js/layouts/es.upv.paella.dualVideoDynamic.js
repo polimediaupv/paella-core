@@ -65,8 +65,12 @@ export default class DualVideoDynamicLayout extends VideoLayout {
             click: async () => {
                 const ct1 = this._currentContent[0].id;
                 const ct2 = this._currentContent[1].id;
+                const ct1Size = this._currentContent[0].size;
+                const ct2Size = this._currentContent[1].size;
                 this._currentContent[0].id = ct2;
+                this._currentContent[0].size = ct2Size;
                 this._currentContent[1].id = ct1;
+                this._currentContent[1].size = ct1Size;
                 await this.player.videoContainer.updateLayout();
             }
         });

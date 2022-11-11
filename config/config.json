@@ -62,6 +62,9 @@
         "es.upv.paella.singleVideo": {
             "enabled": true,
             "dualVideoContentIds": [
+                "presenter-presentation-dynamic",
+                "presenter-2-presentation-dynamic",
+                "presenter-presenter-2-dynamic",
                 "presenter-presentation",
                 "presenter-2-presentation",
                 "presenter-presenter-2"
