@@ -8,6 +8,8 @@
 
 [About paella-core versioning](versioning.md): A detailed explanation of how the paella-core versioning system works and the other plugin libraries maintained by the Universidad Politécnica de Valencia.
 
+[Roadmap](roadmap.md): Future implementations planned for `paella-core`.
+
 ## Paella Player 6.x and earlier versions
 
 [Documentation at github](https://github.com/polimediaupv/paella/tree/develop/doc)
