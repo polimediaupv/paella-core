@@ -46,3 +46,6 @@
 
 - [New cookie consent API implemented](cookie_consent.md), to provide a mediator between website and paella-core plugins.
 
+## paella-core 1.9
+
+- [Dynamic sized video layouts](video_layout.md): a series of APIs have been implemented to define dynamic video layout sizes. The layout size is dynamically adjusted according to the size available in the video container, in order to optimize the space occupied by the streams.
