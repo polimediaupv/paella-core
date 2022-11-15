@@ -62,7 +62,28 @@ IMPORTANT: the identifiers of the `validContent` elements must be unique among a
 }
 ```
 
+## Types of video layout
+
+There are two types of video layouts: statically sized and dynamically sized.
+
+### Static layouts
+
+Static layouts allow defining the positions and sizes of the sub-streams by static positions according to the template base size. The base size of the video template corresponds to a 16:9 aspect ratio video, and the positions and sizes of the sub-streams are defined in relation to a container of size 1280x720px. When the layout is loaded, these sizes are automatically converted to percentage measurements, so that the window can be resized without affecting the proportions.
+### Dynamic layouts
+
+Dynamically sized layouts define the size of the sub-streams by a percentage of container occupancy. Depending on the size of the video container, the sub-streams will be placed horizontally or vertically. The total occupancy percentage of all streams must not exceed 100%.
 ## Layout properties and functions
+
+### Layout type
+
+Returns whether the layout is dynamically or statically sized (`static` or `dynamic`)
+
+```js
+get layoutType() { 
+    return "static";    // or "dynamic"
+}
+```
+
 
 ### Identifier
 
@@ -171,7 +192,20 @@ The exact content of the `getValidStreams` function result depends on the layout
 
 ### Layout structure
 
+The fields that can be contained in the layout structure differ depending on whether the layout is of static or dynamic size.
+
+The `videos` section is an array that contains the properties of each video stream within the layout. The `content` attribute corresponds to the `content` attribute of the [video manifest](video_manifest.md), and is used to identify the content that can be contained within that stream. The `visible` attribute indicates whether that video is visible or not.
+
+In static layouts the `rect` array is returned inside each `videos` element, which indicates a size and position for each aspect ratio. The aspect ratio will be calculated from the size of the video stream, and the closest size and position will be used. In this type of layout it is also possible to return the `buttons` attribute, which is used to define buttons in static positions within the layout, but this parameter is deprecated and should not be used.
+
+In dynamically sized layouts, instead of specifying the `rect` attribute, the `size` attribute is defined, which defines the percentage of the video container to be used by that stream.
+
+
+**Static size layout structure:**
+
 ```javascript
+get layoutType() { return "static"; }
+
 getLayoutStructure(streamData) {
     const structure = {
         name:{es:"One stream"},
@@ -202,7 +236,35 @@ getLayoutStructure(streamData) {
         ],
         background:{content:"slide_professor_paella.jpg",zIndex:5,rect:{left:0,top:0,width:1280,height:720},visible:true,layer:0},
         logos:[{content:"paella_logo.png",zIndex:5,rect:{top:10,left:10,width:49,height:42}}],
-        buttons: [],
+        onApply: function() { }
+    }
+    return structure;
+}
+```
+
+**Dynamic size layout structure:**
+
+```javascript
+get layoutType() { return "dynamic"; }
+
+getLayoutStructure(streamData) {
+    const structure = {
+        name:{es:"One stream"},
+        hidden:false,
+        videos: [
+            {
+                content:validContent[0],
+                size: 50
+                visible:true
+            },
+            {
+                content:validContent[1],
+                size: 50,
+                visible: true
+            }
+        ],
+        background:{content:"slide_professor_paella.jpg",zIndex:5,rect:{left:0,top:0,width:1280,height:720},visible:true,layer:0},
+        logos:[{content:"paella_logo.png",zIndex:5,rect:{top:10,left:10,width:49,height:42}}],
         onApply: function() { }
     }
     return structure;
@@ -215,7 +277,7 @@ Video layouts can add user interaction elements. For example, the integrated lay
 
 There are two ways to add buttons to a video layout:
 
-1. Through the `buttons` attribute of the layout structure. It is possible to add buttons at specific positions in the layout. The same rules are used to define the position and size of the buttons as for the videos: they are coordinates relative to the base size of the video area, which are automatically translated into percentages, so that the position and size are the same when resizing the video area.
+1. (deprecated) Through the `buttons` attribute of the layout structure. It is possible to add buttons at specific positions in the layout. The same rules are used to define the position and size of the buttons as for the videos: they are coordinates relative to the base size of the video area, which are automatically translated into percentages, so that the position and size are the same when resizing the video area. This method is only available for static size layouts.
 2. Through the `getVideoCanvasButtons` function of the layout plugin. It allows to add buttons at the top of each video corresponding to a stream. The buttons can be added aligned to the left, to the right or to the center. The `getVideoCanvasButtons` function is called once for each video, and must return the buttons corresponding to each video. To identify the video, the function receives as parameter, among others, the content corresponding to the `content` attribute of the video stream in the manifest.
 
 Example 1: extracted from the `es.upv.paella.tripleVideo` layout plugin:
