@@ -31,9 +31,9 @@ class CustomLoader extends Loader {
 }
 
 // A simple mechanism to save and read cookie preferences
-const saveCookieConsent = (preferences, analytics, marketing) => {
+const saveCookieConsent = (preferences, analytical, marketing) => {
 	setCookie('cookieConsent', JSON.stringify({
-		preferences, analytics, marketing
+		preferences, analytical, marketing
 	}));
 }
 
@@ -108,18 +108,18 @@ window.onload = async () => {
 		const val = (item) => document.getElementById(item).checked;
 		
 		const preferences = val('preferences');
-		const analytics = val('analytics');
+		const analytical = val('analytical');
 		const marketing = val('marketing');
-		saveCookieConsent(preferences,analytics,marketing);
+		saveCookieConsent(preferences,analytical,marketing);
 		setCookie('testSaveCookie','');
-		document.getElementById('currentCookieConsent').innerHTML = `preferences: ${preferences}, analytics: ${analytics}, marketing: ${marketing}`;
+		document.getElementById('currentCookieConsent').innerHTML = `preferences: ${preferences}, analytical: ${analytical}, marketing: ${marketing}`;
 		document.getElementById('currentCookieValue').innerHTML = `'testSaveCookie': ''`;
 		paella.cookieConsent.updateConsentData();
 	}
 
 	const consentData = getCookieConsentData();
 	document.getElementById('currentCookieConsent').innerHTML = 
-		`preferences: ${consentData.preferences}, analytics: ${consentData.analytics}, marketing: ${consentData.marketing}`;
+		`preferences: ${consentData.preferences}, analytical: ${consentData.analytical}, marketing: ${consentData.marketing}`;
 
 	(() => {
 		const setVal = (item, value) => document.getElementById(item).checked = value;
@@ -127,7 +127,7 @@ window.onload = async () => {
 		const cookieTextField = () => document.getElementById('testSaveCookieData');
 		const cookieConsent = getCookieConsentData();
 		setVal('preferences', cookieConsent.preferences);
-		setVal('analytics', cookieConsent.analytics);
+		setVal('analytical', cookieConsent.analytical);
 		setVal('marketing', cookieConsent.marketing);
 
 		const updateCookie = () => {
