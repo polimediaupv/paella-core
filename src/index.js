@@ -75,6 +75,7 @@ import DefaultKeyShortcutsPlugin from './js/plugins/es.upv.paella.defaultShortcu
 // Video layouts
 import SingleVideoLayoutPlugin from './js/layouts/es.upv.paella.singleVideo';
 import DualVideoLayoutPlugin from './js/layouts/es.upv.paella.dualVideo';
+import DualVideoDynamicLayoutPlugin from './js/layouts/es.upv.paella.dualVideoDynamic';
 import TripleVideoLayoutPlugin from './js/layouts/es.upv.paella.tripleVideo';
 
 // Captions
@@ -177,6 +178,7 @@ export {
 
     SingleVideoLayoutPlugin,
     DualVideoLayoutPlugin,
+    DualVideoDynamicLayoutPlugin,
     TripleVideoLayoutPlugin,
 
     VideoCanvasPlugin,
