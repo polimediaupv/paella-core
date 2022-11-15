@@ -37,6 +37,8 @@ Remember that you must to define a new property at the `config.json` file that m
 
 **es.upv.paella.dualVideo:** exported as `DualVideoLayoutPlugin`
 
+**es.upv.paella.dualVideoDynamic:** exported as `DualVideoDynamicLayoutPlugin`
+
 **es.upv.paella.tripleVideo:** exported as `TripleVideoLayoutPlugin`
 
 ### Shortcuts
