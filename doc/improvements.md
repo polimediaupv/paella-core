@@ -49,3 +49,7 @@
 ## paella-core 1.9
 
 - [Dynamic sized video layouts](video_layout.md): a series of APIs have been implemented to define dynamic video layout sizes. The layout size is dynamically adjusted according to the size available in the video container, in order to optimize the space occupied by the streams.
+
+## paella-core 1.10
+
+- [Playback bar improvements](playback_bar.md): new API to disable or enable the playback bar user interface.
