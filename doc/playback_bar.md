@@ -20,7 +20,7 @@ player.loadManifest()
 
 The playback bar object only contains a public accessible API that allows you to enable or disable it:
 
-**`playbackBar.enable` (read/write):** Enables or disables the playback bar. Disabling the playback bar causes it to be hidden in the user interface, but internally it will continue to function: the status of the timeline will be updated and the plugins it contains will remain active.
+**`playbackBar.enable` (read/write, `paella-core >= 1.10.x`):** Enables or disables the playback bar. Disabling the playback bar causes it to be hidden in the user interface, but internally it will continue to function: the status of the timeline will be updated and the plugins it contains will remain active.
 
 The following code snippet shows how to configure the player to disable the playback bar. Note that the last parameter of `bindEvent` is set to `false`, because we don't want the player to unregister this event if the player is unloaded with the `async player.unload()` API. For more information on the `bindEvent` function, see the documentation on [events](events.md).
 
