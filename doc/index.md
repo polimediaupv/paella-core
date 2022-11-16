@@ -43,6 +43,8 @@
 
 [The video container](video_container.md): is the element that displays the different videos within its area, and manages the layout of these videos through plugins.
 
+[The playback bar](playback_bar.md): is the object that manages the player's playback bar, which is located at the bottom of the video container.
+
 [The Stream Provider](stream_provider.md): is responsible for managing the synchronization of the different video streams, and handling the soft trimming.
 
 [Playback bar customization](progress_indicator_customization.md): explains the configuration options of the current time text of the video and other elements of the progress indicator.

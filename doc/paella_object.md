@@ -114,7 +114,7 @@ __paella_instances__[0].pluginModules.forEach(module => {
 
 **`videoContainer`** (read): Returns the [video container](video_container.md) object.
 
-**`playbackBar`** (read): returns the playback bar object. This object is responsible for handling the loading of button plugins found in the playback bar. It also updates of the playback status bar and slide thumbnails. The APIs of this object are private and should not be used, as they may vary within a single version of `paella-core`. The playback bar functions can be modified via [plugins](plugins.md), and its appearance via [CSS style modifications](styles.md).
+**`playbackBar`** (read): returns the [playback bar](playback_bar.md) object. This object is responsible for handling the loading of button plugins found in the playback bar. It also updates of the playback status bar and slide thumbnails. The APIs of this object are private and should not be used, as they may vary within a single version of `paella-core`. The playback bar functions can be modified via [plugins](plugins.md), and its appearance via [CSS style modifications](styles.md).
 
 **`captionsCanvas`** (read): Returns the [caption canvas object](captions.md). This object is used to get information about the available captions, and enable/disable the captions of the video.
 
