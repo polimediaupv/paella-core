@@ -8,6 +8,6 @@ export default class CanvasButtonPluginTest extends CanvasButtonPlugin {
     }
 
     async action() {
-        alert("Test canvas button");
+        this.player.playbackBar.enabled = !this.player.playbackBar.enabled;
     }
 }
