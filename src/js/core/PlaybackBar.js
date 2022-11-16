@@ -31,6 +31,22 @@ export default class PlaybackBar extends DomClass {
 			this.element.appendChild(this._buttonPluginsRight);
 			this.element.appendChild(this._timerContainer);
 		}
+
+		this._enabled = true;
+	}
+
+	get enabled() {
+		return this._enabled;
+	}
+
+	set enabled(e) {
+		this._enabled = e;
+		if (!this._enabled) {
+			this.hide();
+		}
+		else {
+			this.showUserInterface();
+		}
 	}
 	
 	async load() {		
@@ -75,7 +91,9 @@ export default class PlaybackBar extends DomClass {
 	}
 	
 	showUserInterface() {
-		this.show();
+		if (this._enabled) {
+			this.show();
+		}
 	}
 	
 	get buttonPluginsRight() {
