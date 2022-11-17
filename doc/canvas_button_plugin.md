@@ -1,4 +1,4 @@
-# Canvas Button Plugin
+# Canvas Button Plugin (paella-core >= 1.7)
 
 Allows you to add buttons in the video canvas area (see [Video Canvas Plugin documentation](video_canvas_plugin.md)).
 

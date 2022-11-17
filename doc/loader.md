@@ -1,4 +1,4 @@
-## Loader
+## Loader (paella-core >= 1.5)
 
 The default paella player loader [can be customized using the `initParams` object](initialization.md).
 

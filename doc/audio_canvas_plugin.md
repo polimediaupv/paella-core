@@ -1,4 +1,4 @@
-# Audio canvas plugin
+# Audio canvas plugin (paella-core >= 1.1)
 
 It is used to play streams containing audio only. This canvas is designed to work together with the [audio-only stream plugin](audio_video_plugin.md).
 

@@ -1,4 +1,4 @@
-# Audio video plugin
+# Audio video plugin (paella-core >= 1.1)
 
 Allows playback of audio-only streams. To fill the video area in the player's playback view, the preview image defined in the [video manifest's](video_manifest.md) metadata is used. The preview image is a mandatory element of the video manifest, so if it is not defined, the plugin will generate an exception.
 

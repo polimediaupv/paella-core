@@ -1,4 +1,4 @@
-# Plugin icon customization
+# Plugin icon customization (paella-core >= 1.2)
 
 As a general rule, it is not possible to customize the icons of third-party library plugins, as it is the plugin's responsibility to set its icon. However, if we want our plugin to support icon customization, we can use the following features that are available as of `paella-core` v1.2
 

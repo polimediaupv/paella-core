@@ -76,7 +76,7 @@ Video plugin formats available in [paella core](https://github.com/polimediaupv/
 - [MP4 video plugin](mp4_video_plugin.md)
 - [hls video plugin](hls_video_plugin.md)
 - [hls live (and low latency) video plugin](hls_live_video_plugin.md)
-- [audio only video plugin](audio_video_plugin.md). You should also check the documentation about the [audio canvas](audio_canvas_plugin.md)
+- [audio only video plugin (paella-core >= 1.1)](audio_video_plugin.md). You should also check the documentation about the [audio canvas](audio_canvas_plugin.md)
 
 [Data plugins](data_plugins.md): provides an interface to implement communication with the backend through the use of plugins
 
@@ -84,13 +84,15 @@ Video plugin formats available in [paella core](https://github.com/polimediaupv/
 
 [Canvas plugins](canvas_plugin.md): used to provide a viewing area for videos. This type of plugin is closely related to video format plugins, as each video format is designed to work together with one or more different canvas.
 
-[Canvas button plugins](canvas_button_plugin.md): used to add buttons to the video canvas.
+[Canvas audio plugins (paella-core >= 1.1)](audio_canvas_plugin.md): used to provide a viewing area for audio streams.
+
+[Canvas button plugins (paella-core >= 1.7)](canvas_button_plugin.md): used to add buttons to the video canvas.
 
 [Event plugins](event_log_plugins.md): capture events to trigger actions using a plugin.
 
 [Keyboard Shortcut plugins](key_shortucts.md): add shortcuts to handle player actions.
 
-[Progress Indicator plugins](progress_indicator_plugin.md): customization of the playback bar.
+[Progress Indicator plugins (paella-core >=1.2)](progress_indicator_plugin.md): customization of the playback bar.
 
 [Exported plugin classes](exported_plugins.md): in this document you can check the list of the built-in plugin classes exported by `paella-core`. You can extend these plugins in your player to extend their default features.
 
@@ -104,15 +106,15 @@ Video plugin formats available in [paella core](https://github.com/polimediaupv/
 
 [Customization](customization.md): modification and customisation of different elements of the user interface and player design.
 
-[Button plugin icon customization](plugin_icon_customization.md): Icon customization API for plugins. Allows you to modify the icons of a plugin defined in a plugin library, provided that the plugin supports it.
+[Button plugin icon customization (paella-core >= 1.2)](plugin_icon_customization.md): Icon customization API for plugins. Allows you to modify the icons of a plugin defined in a plugin library, provided that the plugin supports it.
 
 [Styles](styles.md): define custom colors and skins.
 
 [Progress indicator customization](progress_indicator_customization.md): see here the options for customizing the text indicating the current time instant of the video and other optional elements of the progress indicator bar..
 
-[Customize loader](loader.md): how to create your own loader.
+[Customize loader (paella-core >= 1.5)](loader.md): how to create your own loader.
 
-[Cookie consent API](cookie_consent.md): integrate `paella-core` with your website cookie user consent.
+[Cookie consent API (paella-core >= 1.8)](cookie_consent.md): integrate `paella-core` with your website cookie user consent.
 
 ## Plugin repositories
 

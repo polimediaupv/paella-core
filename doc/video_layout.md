@@ -64,7 +64,7 @@ IMPORTANT: the identifiers of the `validContent` elements must be unique among a
 
 ## Types of video layout
 
-There are two types of video layouts: statically sized and dynamically sized.
+From paella-core version 1.9 onwards, there are two types of video layouts: statically sized and dynamically sized.
 
 ### Static layouts
 
@@ -79,6 +79,7 @@ Dynamically sized layouts define the size of the sub-streams by a percentage of 
 Returns whether the layout is dynamically or statically sized (`static` or `dynamic`)
 
 ```js
+// paella-core >= 1.9
 get layoutType() { 
     return "static";    // or "dynamic"
 }

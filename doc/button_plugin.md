@@ -94,7 +94,7 @@ async mouseOver(target) {
 
 ## Button icon
 
-To specify the icon it is necessary to use icons in vector SVG format. This is a prerequisite, since CSS styles are used to specify the color of the icons. To do the loading, using the webpack configuration defined in the [paella player tutorial](tutorial.md), the icon will be automatically embedded in the code.
+To specify the icon it is necessary to use icons in vector SVG format. This is a prerequisite, since CSS styles are used to specify the color of the icons. To do the loading, using the webpack configuration defined in the [paella player tutorial](tutorial.md), the icon will be automatically embedded in the code. In versions previous to paella-core 1.4, it's mandatory to set an icon.
 
 The button can be set at any time, using the `set icon()` property. For example, we can use the `async load()` method, but we can also change it at another time:
 
@@ -163,7 +163,7 @@ As with `parentContainer`, the `side` property also takes its value from the plu
 - `left`: The button will be placed on the left side of the playback bar or the video container.
 - `right`: The button will be placed on the right side of the playback bar or the video container.
 
-## Non-interactive buttons
+## Non-interactive buttons (paella-core >= 1.4)
 
 It is possible to add non-interactive buttons. Although strictly speaking a non-interactive button is not a button, this allows you to create plugins that are active but not usable. For example, if we want to emphasise that the player supports subtitles, but the current video does not include them, we can add a non-interactive button.
 
@@ -180,7 +180,7 @@ export default class MyButtonPlugin extends ButtonPlugin {
 }
 ```
 
-## Variable width buttons
+## Variable width buttons (paella-core 1.4)
 
 By default, buttons have a fixed size that can be configured by CSS, as shown below. But sometimes you may want to add buttons with a variable width, for example, if you want to display text.
 
@@ -236,6 +236,8 @@ export default class MyButtonPlugin extends ButtonPlugin {
 ## Style customization
 
 ### Button size
+
+From paella-core 1.4, there are four CSS variables that you can use to set the button size: `--button-fixed-width`, `--button-fixed-height`, `--playback-bar-height` and `--button-icon-size`.
 
 The simplest adjustment that can be made to the button styles is to set their size. The button size can be customized using the CSS variables `--button-fixed-width` and `--button-fixed-height`:
 

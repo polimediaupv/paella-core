@@ -20,7 +20,7 @@ The progress indicator text is used to show the current time of the video. It ca
 **`side` (`left`|`right`):** Indicates whether we want to display the text aligned to the left or to the right of the container.
 **`visible` (`true`|`false`):** It allows to hide the text.
 
-## Appearance of the progress indicator
+## Appearance of the progress indicator (paella-core >= 1.2)
 
 The styles of the progress indicator can be set via CSS (see the [documentation about customization](customization.md)). However, the progress indicator has several elements that can be shown or hidden through the player settings.
 

@@ -15,7 +15,7 @@ In the plugin configuration a container name is specified using the `groupName` 
 }
 ```
 
-The `menuTitle` attribute is obtained from the `menuTitle` property of the plugin. If we want to define a title that cannot be modified in the configuration, it is enough to redefine this attribute in the plugin definition itself:
+The `menuTitle` attribute is obtained from the `menuTitle` property of the plugin. If we want to define a title that cannot be modified in the configuration, it is enough to redefine this attribute in the plugin definition itself. This API is available from paella-core 1.6:
 
 ```js
 export default class MyMenuPlugin extends MenuButtonPlugin {

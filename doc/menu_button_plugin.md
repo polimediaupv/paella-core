@@ -25,7 +25,7 @@ export default class MyMenuButtonPlugin extends MenuButtonPlugin {
 Each menu item returned in the `async getMenu()` method can contain the following elements:
 
 - **id (required):** This is a unique identifier of the menu item that cannot be repeated in any of the other items. The data type is indifferent.
-- **title:** is the text that will be displayed in the button and in the accessibility options.
+- **title (paella-core >= 1.6):** is the text that will be displayed in the button and in the accessibility options.
 - **icon:** the icon of the menu item, which must be a vector image in SVG format.
 
 To load the SVG icons, besides using Webpack, it is possible to use a Paella Player utility that loads the icon and makes it ready to be added as a DOM element:

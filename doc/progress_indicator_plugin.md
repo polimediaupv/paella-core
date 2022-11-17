@@ -1,4 +1,4 @@
-# Progress indicator plugin
+# Progress indicator plugin (paella-core >= 1.2)
 
 They allow content to be drawn on the playback bar. For this purpose, two canvases are used, which are accessed by all plugins in a shared way. One canvas is located below the video progress indicator, while the other is located above it. These canvases are called background canvas and foreground canvas respectively.
 

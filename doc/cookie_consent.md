@@ -1,4 +1,4 @@
-# Cookie consent utilities
+# Cookie consent utilities (paella-core >= 1.8)
 
 Sometimes there is a need to implement plugins that must comply with the European regulation on browser cookie consent. This consent must be integrated with the website to provide an interface where the user can accept or deny the use of cookies in different areas.
 
