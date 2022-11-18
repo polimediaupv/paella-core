@@ -8,7 +8,8 @@ const initParams = {
 window.onload = async () => {
     const paella = new Paella('player-container', initParams);
 
-    paella.loadManifest()
-        .then(() => console.log("Done"))
-        .catch(e => paella.log.error(e));
+    await paella.loadUrl([
+        'https://repository.paellaplayer.upv.es/belmar-multiresolution/media/720-presenter.mp4',
+        'https://repository.paellaplayer.upv.es/belmar-multiresolution/media/720-presentation.mp4'
+    ]);
 }

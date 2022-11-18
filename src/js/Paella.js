@@ -6,7 +6,15 @@ import {
     defaultGetManifestFileUrlFunction,
     defaultLoadVideoManifestFunction
 } from 'paella-core/js/core/initFunctions';
-import { resolveResourcePath, setupAutoHideUiTimer, clearAutoHideTimer } from 'paella-core/js/core/utils';
+import { 
+    resolveResourcePath,
+    setupAutoHideUiTimer,
+    clearAutoHideTimer,
+    getUrlFileName,
+    removeExtension,
+    removeFileName,
+    getFileExtension
+} from 'paella-core/js/core/utils';
 import Loader from "./core/Loader";
 import ErrorContainer from "./core/ErrorContainer";
 import { registerPlugins, unregisterPlugins } from 'paella-core/js/core/Plugin';
@@ -78,6 +86,69 @@ function buildPreview() {
 
 import packageData from "../../package.json";
 
+// Used in the first step of loadManifest and loadUrl
+async function preLoadPlayer() {
+    this._playerState = PlayerState.LOADING_MANIFEST;
+    this._manifestLoaded = true;
+
+    this.log.debug("Loading paella player");
+    this._config = await this.initParams.loadConfig(this.configUrl,this);
+
+    this._cookieConsent = new CookieConsent(this, {
+        getConsent: this._initParams.getCookieConsentFunction, 
+        getDescription: this._initParams.getCookieDescriptionFunction
+    });
+
+    const urlSearch = new URLSearchParams(window.location.search);
+    const caseInsensitiveParams = new URLSearchParams();
+    for (const [name, value] of urlSearch) {
+        caseInsensitiveParams.append(name.toLowerCase(), value);
+    }
+    const urlParamLogLevel = caseInsensitiveParams.get("loglevel");
+    const logLevel = (urlParamLogLevel && Array.from(Object.keys(LOG_LEVEL)).indexOf(urlParamLogLevel.toUpperCase()) !== -1) ?
+        urlParamLogLevel :
+        this._config.logLevel || "INFO";
+    this._log.setLevel(logLevel);
+
+    // Load localization dictionaries
+    await this._initParams.loadDictionaries(this);
+
+    registerPlugins(this);
+
+    // EventLogPlugin plugins are loaded first, so that all lifecycle events can be captured.
+    await loadLogEventPlugins(this);
+
+    // KeyShortcutPlugins are loaded before UI load to allow the video load using shortcuts
+    await loadKeyShortcutPlugins(this);
+}
+
+// Used in the last step of loadManifest and loadUrl
+async function postLoadPlayer() {
+    this.log.debug("Video manifest loaded:");
+    this.log.debug(this.videoManifest);
+
+    // Load data plugins
+    this._data = new Data(this);
+
+    // Load default dictionaries
+    for (const lang in defaultDictionaries) {
+        const dict = defaultDictionaries[lang];
+        addDictionary(lang, dict);
+    }
+
+    this._playerState = PlayerState.MANIFEST;
+    triggerEvent(this, Events.MANIFEST_LOADED);
+
+    // The video preview is required to use the lazy load
+    if (!this.videoManifest?.metadata?.preview) {
+        await this.loadPlayer();
+    }
+    else {
+        buildPreview.apply(this);
+    }
+
+    checkManifestIntegrity(this._videoManifest);
+}
 export default class Paella {
 
     constructor(containerElement, initParams = {}) {
@@ -343,7 +414,97 @@ export default class Paella {
     get data() {
         return this._data;
     }
-    
+
+    async loadUrl(url, { title, duration, preview } = {}) {
+        if (this._playerState !== PlayerState.UNLOADED) {
+            throw new Error(this.translate("loadUrl(): Invalid current player state: $1", [PlayerStateNames[this._playerState]]));
+        }
+        if (this._manifestLoaded) {
+            throw new Error(this.translate("loadUrl(): Invalid current player state: $1", [PlayerStateNames[this._playerState]]));
+        }
+        if (!url) {
+            throw new Error(this.translate("loadUrl(): No URL specified."));
+        }
+
+        if (!Array.isArray(url)) {
+            url = [url];
+        }
+
+        if (!duration) {
+            duration = 1;
+            this.log.warn("Paella.loadUrl(): no duration specified. There may be problems with some plugins.");
+        }
+        if (!preview) {
+            this.log.warn("Paella.loadUrl(): no preview image specified. Using default preview image.");
+        }
+        if (!title) {
+            title = getUrlFileName(url[0]);
+            this.log.warn("Paella.loadUrl(): no title specified. Using URL file name as video name.");
+        }
+
+        try {
+            await preLoadPlayer.apply(this);
+
+            this._videoId = removeExtension(getUrlFileName(url[0]));
+            
+            this._manifestUrl = removeFileName(url[0]);
+            this._manifestFileUrl = url[0];
+
+            this.log.debug(`Loading video with identifier '${this.videoId}' from URL '${this.manifestFileUrl}'`);
+
+            // TODO: Get this array from the configuration file.
+            const validContents = ['presenter','presentation'];
+
+            this._videoManifest = {
+                metadata: {
+                    duration,
+                    title,
+                    preview
+                },
+
+                streams: url.map((u,i) => {
+                    const e = getFileExtension(u);
+                    switch (e) {
+                    case 'mp4':
+                    case 'm4v':
+                        return {
+                            sources: {
+                                mp4: [
+                                    {
+                                        src: u,
+                                        mimetype: 'video/mp4'
+                                    }
+                                ]
+                            },
+                            content: validContents[i],
+                            role: i === 0 ? 'mainAudio' : null
+                        }
+                    case 'm3u8':
+                        return {
+                            sources: {
+                                hls: [
+                                    {
+                                        src: u,
+                                        mimetype: "video/mp4"
+                                    }
+                                ]
+                            },
+                            content: validContents[i],
+                            role: i === 0 ? 'mainAudio' : null
+                        }
+                    }
+                })
+            };
+
+            console.log(this._videoManifest);
+
+            await postLoadPlayer.apply(this);
+        }
+        catch (err) {
+
+        }
+    }
+
     async loadManifest() {
         if (this._playerState !== PlayerState.UNLOADED) {
             throw new Error(this.translate("loadManifest(): Invalid current player state: $1", [PlayerStateNames[this._playerState]]));
@@ -351,39 +512,7 @@ export default class Paella {
         if (this._manifestLoaded) return;
 
         try {
-
-            this._playerState = PlayerState.LOADING_MANIFEST;
-            this._manifestLoaded = true;
-    
-            this.log.debug("Loading paella player");
-            this._config = await this.initParams.loadConfig(this.configUrl,this);
-
-            this._cookieConsent = new CookieConsent(this, {
-                getConsent: this._initParams.getCookieConsentFunction, 
-                getDescription: this._initParams.getCookieDescriptionFunction
-            });
-    
-            const urlSearch = new URLSearchParams(window.location.search);
-            const caseInsensitiveParams = new URLSearchParams();
-            for (const [name, value] of urlSearch) {
-                caseInsensitiveParams.append(name.toLowerCase(), value);
-            }
-            const urlParamLogLevel = caseInsensitiveParams.get("loglevel");
-            const logLevel = (urlParamLogLevel && Array.from(Object.keys(LOG_LEVEL)).indexOf(urlParamLogLevel.toUpperCase()) !== -1) ?
-                urlParamLogLevel :
-                this._config.logLevel || "INFO";
-            this._log.setLevel(logLevel);
-    
-            // Load localization dictionaries
-            await this._initParams.loadDictionaries(this);
-    
-            registerPlugins(this);
-    
-            // EventLogPlugin plugins are loaded first, so that all lifecycle events can be captured.
-            await loadLogEventPlugins(this);
-    
-            // KeyShortcutPlugins are loaded before UI load to allow the video load using shortcuts
-            await loadKeyShortcutPlugins(this);
+            await preLoadPlayer.apply(this);
     
             this._videoId = await this.initParams.getVideoId(this._config, this);
             if (this.videoId === null) {
@@ -397,31 +526,8 @@ export default class Paella {
             this.log.debug(`Loading video with identifier '${this.videoId}' from URL '${this.manifestFileUrl}'`);
     
             this._videoManifest = await this.initParams.loadVideoManifest(this.manifestFileUrl,this._config,this);
-
-            checkManifestIntegrity(this._videoManifest);
     
-            this.log.debug("Video manifest loaded:");
-            this.log.debug(this.videoManifest);
-    
-            // Load data plugins
-            this._data = new Data(this);
-    
-            // Load default dictionaries
-            for (const lang in defaultDictionaries) {
-                const dict = defaultDictionaries[lang];
-                addDictionary(lang, dict);
-            }
-    
-            this._playerState = PlayerState.MANIFEST;
-            triggerEvent(this, Events.MANIFEST_LOADED);
-    
-            // The video preview is required to use the lazy load
-            if (!this.videoManifest?.metadata?.preview) {
-                await this.loadPlayer();
-            }
-            else {
-                buildPreview.apply(this);
-            }
+            await postLoadPlayer.apply(this);
         }
         catch (err) {
             this._playerState = PlayerState.ERROR;
