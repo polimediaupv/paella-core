@@ -46,6 +46,10 @@ export function isAbsoluteUrl(src) {
     return new RegExp('^([a-z]+://|//)', 'i').test(src) || /^\//.test(src);
 }
 
+export function getUrlFileName(url) {
+    return new URL(url).pathname.split('/').pop();
+}
+
 // Returns the absolute path of a video manifest resource file.
 // If the path is absolute, it returns it unchanged.
 export function resolveResourcePath(player,src) {

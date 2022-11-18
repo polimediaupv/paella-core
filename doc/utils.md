@@ -48,7 +48,11 @@ else {
 }
 ```
 
+**Get a file name from an URL (paella-core >= 1.11):**
 
+```javascript
+utils.getUrlFileName('https://www.mysite.com/some/file.mp4'); // file.mp4
+```
 
 **Get a resource URL relative the video manifest file:**
 
