@@ -10,7 +10,8 @@
     "captions": "webpack serve --mode development --config webpack.captions.js",
     "eslint": "eslint .",
     "test": "jest --env=jsdom",
-    "test:coverage": "jest --env=jsdom --coverage"
+    "test:coverage": "jest --env=jsdom --coverage",
+    "nomanifest": "webpack serve --mode development --config webpack.nomanifest.js"
   },
   "repository": {
     "type": "git",
