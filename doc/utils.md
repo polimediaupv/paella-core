@@ -54,6 +54,12 @@ else {
 utils.getUrlFileName('https://www.mysite.com/some/file.mp4'); // file.mp4
 ```
 
+**Remove a file or URL extension (paella-core > 1.11):**
+
+```javascript
+utils.removeExtension('my.file-name.mp4') // my.file-name
+```
+
 **Get a resource URL relative the video manifest file:**
 
 ```javascript
