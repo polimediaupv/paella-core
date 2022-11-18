@@ -31,6 +31,8 @@ module.exports = {
     },
     rules: {
         // enable additional rules
+        'no-empty': 'off',
+        indent: 'off',
         // semi: ['error', 'always'],
         // Indent with 4 spaces
         // indent: ['error', 4, { MemberExpression: 0 }],
@@ -41,6 +43,9 @@ module.exports = {
         //     asyncArrow: 'always'
         // }],
         // 'brace-style': ['error', 'stroustrup', { allowSingleLine: true }],
-        'no-unused-vars': 'off'
+        'no-unused-vars': 'off',
+        'getter-return': 'warn',
+        'no-extra-semi': 'warn'
+
     }
 };
