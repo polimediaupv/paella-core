@@ -47,11 +47,31 @@ export function isAbsoluteUrl(src) {
 }
 
 export function getUrlFileName(url) {
-    return new URL(url).pathname.split('/').pop();
+    try {
+        return new URL(url).pathname.split('/').pop();
+    }
+    catch (e) {
+        return url.split('/').pop();
+    }
 }
 
 export function removeExtension(url) {
     return url.split('.').reduce((ac,v,i,a) => i<a.length-1 ? (ac !== "" ? `${ac}.${v}` : v) : ac, "");
+}
+
+export function removeFileName(url) {
+    const remove = (path) => {
+        const result = path.split('/').reduce((ac,v,i,a) => i<a.length-1 ? (ac !== "" ? `${ac}/${v}` : v) : ac, "");
+        return (path[0] === '/' ? `/${result}` : result) + '/';
+    }
+
+    try {
+        const u = new URL(url);
+        return u.origin + remove(u.pathname);
+    }
+    catch (e) {
+        return remove(url);
+    }
 }
 
 // Returns the absolute path of a video manifest resource file.

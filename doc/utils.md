@@ -60,6 +60,13 @@ utils.getUrlFileName('https://www.mysite.com/some/file.mp4'); // file.mp4
 utils.removeExtension('my.file-name.mp4') // my.file-name
 ```
 
+**Remove the file name from an URL or path (paella-core >= 1.11):**
+
+```javascript
+utils.removeFileName('file/path/filename.txt'); // file/path/
+utils.removeFileName('http://www.myserver.com/file/path/filename.txt');  // http://www.myserver.com/file/path/
+```
+
 **Get a resource URL relative the video manifest file:**
 
 ```javascript
