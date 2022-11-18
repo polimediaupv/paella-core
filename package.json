@@ -8,7 +8,8 @@
     "build": "webpack --mode production",
     "dev": "webpack serve --mode development --config webpack.debug.js --host 0.0.0.0",
     "captions": "webpack serve --mode development --config webpack.captions.js",
-    "eslint": "eslint ."
+    "eslint": "eslint .",
+    "test": "jest --env=jsdom"
   },
   "repository": {
     "type": "git",
@@ -28,13 +29,17 @@
   "homepage": "https://github.com/polimediaupv/paella-core#readme",
   "devDependencies": {
     "@babel/core": "^7.12.10",
+    "@babel/plugin-transform-modules-commonjs": "^7.19.6",
     "@babel/preset-env": "^7.12.11",
     "babel-loader": "^9.0.0",
+    "babel-plugin-transform-require-context": "^0.1.1",
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.6.0",
     "eslint": "^8.27.0",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
+    "jest": "^29.3.1",
+    "jest-environment-jsdom": "^29.3.1",
     "source-map-loader": "^4.0.0",
     "standard": "^17.0.0",
     "style-loader": "^3.3.1",
@@ -46,5 +51,15 @@
   "dependencies": {
     "core-js": "^3.8.2",
     "hls.js": "^1.0.4"
+  },
+  "exports": {
+    "./": "./src/",
+    "./styles": "./src/css"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(css|less|sass|scss)$": "<rootDir>/__mocks__/styleMock.js",
+      "\\.(gif|ttf|eot|svg)$": "<rootDir>/__mocks__/fileMock.js"
+    }
   }
 }
