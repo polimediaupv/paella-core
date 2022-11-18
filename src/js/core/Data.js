@@ -83,7 +83,7 @@ export default class Data extends PlayerResource {
             return result;
         }
         else {
-            paella.log.warn(`No such data plugin found for context '${context}'`);
+            this.player.log.warn(`No such data plugin found for context '${context}'`);
         }
     }
 

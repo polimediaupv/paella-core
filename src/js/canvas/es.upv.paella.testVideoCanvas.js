@@ -33,7 +33,7 @@ export default class TestVideoCanvasPlugin extends CanvasPlugin {
             return true;
         }
 
-        return super.isCompatible(stresm);
+        return super.isCompatible(stream);
     }
 
     getCanvasInstance(videoContainer) {
