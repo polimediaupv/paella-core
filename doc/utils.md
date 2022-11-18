@@ -67,6 +67,12 @@ utils.removeFileName('file/path/filename.txt'); // file/path/
 utils.removeFileName('http://www.myserver.com/file/path/filename.txt');  // http://www.myserver.com/file/path/
 ```
 
+**Get a extension from a URL or path (paella-core >= 1.11):**
+
+```javascript
+utils.getFileExtension('http//myserver.com/file.html')  // html
+```
+
 **Get a resource URL relative the video manifest file:**
 
 ```javascript
