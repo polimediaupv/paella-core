@@ -16,7 +16,7 @@ export default class VttManifestCaptionsPlugin extends CaptionsPlugin {
         const result = [];
         const p = [];
         this.player.videoManifest.captions.forEach(captions => {
-            p.push(new Promise(resolve => {
+            p.push(new Promise((resolve, reject) => {
                 if (/vtt/i.test(captions.format)) {
                     const fileUrl = resolveResourcePath(this.player, captions.url);
                     fetch(fileUrl)

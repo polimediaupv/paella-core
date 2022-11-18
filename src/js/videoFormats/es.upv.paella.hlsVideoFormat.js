@@ -294,10 +294,9 @@ export class HlsVideo extends Mp4Video {
         if (hlsSupport === HlsSupport.MEDIA_SOURCE_EXTENSIONS) {
             this._hls.levels.forEach((level, index) => {
                 q.push(new VideoQualityItem({
-                    index: level.id,
+                    index: index, // TODO: should be level.id??
                     label: `${level.width}x${level.height}`,
                     shortLabel: `${level.height}p`,
-                    index: index,
                     width: level.width,
                     height: level.height
                 }));
