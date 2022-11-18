@@ -74,6 +74,11 @@ export function removeFileName(url) {
     }
 }
 
+export function getFileExtension(url) {
+    const file = getUrlFileName(url);
+    return file.split('.').pop();
+}
+
 // Returns the absolute path of a video manifest resource file.
 // If the path is absolute, it returns it unchanged.
 export function resolveResourcePath(player,src) {
