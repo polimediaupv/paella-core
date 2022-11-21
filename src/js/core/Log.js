@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 
 export const LOG_LEVEL = {
     DISABLED: 0,
@@ -50,7 +51,7 @@ export const printMessage = ({
             console.error(`${ context } - Error: ${msg}`);
             break;
         case LOG_LEVEL.WARN:
-            console.warn(`${ context }  - Warning: ${msg}`);
+            console.warn(`${ context } - Warning: ${msg}`);
             break;
         case LOG_LEVEL.INFO:
             console.log(`${ context } - Info: ${msg}`);
@@ -140,7 +141,7 @@ export default class Log {
     }
 
     currentLevel() {
-        log.currentLevel(this._player);
+        return log.currentLevel(this._player);
     }
 
     error(msg, context = null) {
