@@ -44,6 +44,7 @@ module.exports = {
         // }],
         // 'brace-style': ['error', 'stroustrup', { allowSingleLine: true }],
         'no-unused-vars': 'off',
+        'no-console': 'warn',
         'getter-return': 'warn',
         'no-extra-semi': 'warn'
 

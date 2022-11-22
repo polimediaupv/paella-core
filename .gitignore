@@ -1,3 +1,6 @@
 node_modules
 repository_test/repository/local-mp4
 dist/paella-core.js.LICENSE.txt
+
+.DS_Store
+coverage

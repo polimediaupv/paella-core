@@ -1,0 +1,10 @@
+// jsconfig.json
+{
+    "compilerOptions": {
+      "baseUrl": ".",
+      "paths": {
+        "paella-core/styles/*": ["src/css/*"],
+        "paella-core/*": ["src/*"],
+      }
+    }
+}
