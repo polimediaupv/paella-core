@@ -29,6 +29,19 @@ export function getValidContentIds(player, streamData) {
     return result;
 }
 
+// Return the available content ids from configuration for the provided number of streams
+export function getAvailableContentIds(player, numberOfStreams) {
+    const result = [];
+    getPluginsOfType(player, "layout")
+        .filter(layout => {
+            if (layout.config?.enabled) {
+                return layout.config.validContent.every(cntItem => cntItem.content.length === numberOfStreams);
+            }
+        })
+        .forEach(layout => layout.config.validContent.forEach(c => result.push(c.content)));
+    return result;
+}
+
 export function getLayoutWithContentId(player, streamData, contentId) {
     const layouts = getValidLayouts(player, streamData);
     let result = null;
