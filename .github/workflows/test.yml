@@ -22,7 +22,7 @@ jobs:
       run: npm run eslint
 
     - name: Run tests
-      run: npm run tests
+      run: npm run test
 
     - name: Build Paella
       run: npm run build
