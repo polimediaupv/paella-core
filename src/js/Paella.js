@@ -495,8 +495,6 @@ export default class Paella {
                 })
             };
 
-            console.log(this._videoManifest);
-
             await postLoadPlayer.apply(this);
         }
         catch (err) {
