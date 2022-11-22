@@ -21,5 +21,8 @@ jobs:
     - name: Check eslint
       run: npm run eslint
 
+    - name: Run tests
+      run: npm run tests
+
     - name: Build Paella
       run: npm run build
