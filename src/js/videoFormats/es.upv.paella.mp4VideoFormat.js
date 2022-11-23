@@ -325,4 +325,17 @@ export default class Mp4VideoPlugin extends VideoPlugin {
     async getVideoInstance(playerContainer, isMainAudio) {
         return new Mp4Video(this.player, playerContainer, isMainAudio);
     }
+    
+    getCompatibleFileExtensions() {
+        return ["m4v","mp4"];
+    }
+
+    getManifestData(fileUrls) {
+        return {
+            mp4: fileUrls.map(url => ({
+                src: url,
+                mimetype: 'video/mp4'
+            }))
+        };
+    }
 }

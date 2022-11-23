@@ -424,4 +424,17 @@ export default class HlsVideoPlugin extends VideoPlugin {
     async getVideoInstance(playerContainer, isMainAudio) {
         return new HlsVideo(this.player, playerContainer, this.config, isMainAudio);
     }
+
+    getCompatibleFileExtensions() {
+        return ["m3u8"];
+    }
+
+    getManifestData(fileUrls) {
+        return {
+            hls: fileUrls.map(url => ({
+                src: url,
+                mimetype: 'video/mp4'
+            }))
+        };
+    }
 }

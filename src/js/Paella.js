@@ -18,7 +18,9 @@ import {
 import Loader from "./core/Loader";
 import ErrorContainer from "./core/ErrorContainer";
 import { registerPlugins, unregisterPlugins } from 'paella-core/js/core/Plugin';
-import VideoContainer from 'paella-core/js/core/VideoContainer';
+import VideoContainer, {
+    getSourceWithUrl
+} from 'paella-core/js/core/VideoContainer';
 import PreviewContainer from 'paella-core/js/core/PreviewContainer';
 import PlaybackBar from 'paella-core/js/core/PlaybackBar';
 import Events, { bindEvent, triggerEvent, unregisterEvents } from 'paella-core/js/core/Events';
@@ -121,6 +123,12 @@ async function preLoadPlayer() {
 
     // KeyShortcutPlugins are loaded before UI load to allow the video load using shortcuts
     await loadKeyShortcutPlugins(this);
+
+    // Create video container.
+    this._videoContainer = new VideoContainer(this, this._containerElement);
+
+    // This function will load the video plugins
+    await this.videoContainer.create();
 }
 
 // Used in the last step of loadManifest and loadUrl
@@ -462,36 +470,12 @@ export default class Paella {
                 },
 
                 streams: url.map((u,i) => {
-                    const e = getFileExtension(u);
-                    switch (e) {
-                    case 'mp4':
-                    case 'm4v':
-                        return {
-                            sources: {
-                                mp4: [
-                                    {
-                                        src: u,
-                                        mimetype: 'video/mp4'
-                                    }
-                                ]
-                            },
-                            content: validContents[i],
-                            role: i === 0 ? 'mainAudio' : null
-                        }
-                    case 'm3u8':
-                        return {
-                            sources: {
-                                hls: [
-                                    {
-                                        src: u,
-                                        mimetype: "video/mp4"
-                                    }
-                                ]
-                            },
-                            content: validContents[i],
-                            role: i === 0 ? 'mainAudio' : null
-                        }
-                    }
+                    const sources = getSourceWithUrl(this, u);
+                    return {
+                        sources,
+                        content: validContents[i],
+                        role: i === 0 ? 'mainAudio' : null
+                    };
                 })
             };
 
@@ -548,8 +532,6 @@ export default class Paella {
     
             this._loader = new this.initParams.Loader(this);
             await this._loader.create();
-            
-            this._videoContainer = new VideoContainer(this, this._containerElement);
     
             await this.videoContainer.load(this.videoManifest?.streams);
     

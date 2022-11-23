@@ -151,5 +151,17 @@ export default class AudioVideoPlugin extends VideoPlugin {
     async getVideoInstance(playerContainer, isMainAudio) {
         return new AudioOnlyVideo(this.player, playerContainer, isMainAudio);
     }
+
+    getCompatibleFileExtensions() {
+        return ["m4a","mp3"];
+    }
+
+    getManifestData(fileUrls) {
+        return {
+            audio: fileUrls.map(url => ({
+                src: url
+            }))
+        };
+    }
 }
 

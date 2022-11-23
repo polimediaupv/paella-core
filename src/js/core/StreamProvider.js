@@ -1,7 +1,7 @@
 import PlayerResource from 'paella-core/js/core/PlayerResource';
 import { getVideoPlugin } from 'paella-core/js/core/VideoPlugin';
 import { loadCanvasPlugins, getCanvasPlugin, unloadCanvasPlugins } from 'paella-core/js/core/CanvasPlugin';
-import Events, { triggerEvent, triggerIfReady } from 'paella-core/js/core/Events';
+import Events, { triggerIfReady } from 'paella-core/js/core/Events';
 
 
 export function checkManifestIntegrity(manifest) {
