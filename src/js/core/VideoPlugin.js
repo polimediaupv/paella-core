@@ -2,8 +2,7 @@
 
 import { DomClass } from './dom';
 import Plugin, { getPluginsOfType, loadPluginsOfType, unloadPluginsOfType } from './Plugin';
-
-
+import { getFileExtension } from './utils';
 export default class VideoPlugin extends Plugin {
     get type() { return "video"; }
 
@@ -15,6 +14,14 @@ export default class VideoPlugin extends Plugin {
 
     async getVideoInstance(/*playerContainer, isMainAudio*/) {
         return null;
+    }
+
+    getCompatibleFileExtensions() {
+        return [];
+    }
+
+    getManifestData(fileUrls) {
+
     }
 }
 
@@ -37,12 +44,20 @@ export function getVideoPlugins(player) {
     return g_enabledVideoPlugins;
 }
 
+export function getVideoPluginWithFileUrl(player, url) {
+    const ext = getFileExtension(url);
+    const videoPlugins = getVideoPlugins(player)
+    return videoPlugins.find(p => {
+            return p.getCompatibleFileExtensions().indexOf(ext) !== -1;
+        });
+}
+
 export function getVideoPlugin(player, streamData) {
     const videoPlugins = getVideoPlugins(player);
     let plugin = null;
     
     videoPlugins.some(p => {
-        if (p.isCompatible(streamData)) { // TODO: Implement this condition
+        if (p.isCompatible(streamData)) {
             plugin = p;
             return true;
         }

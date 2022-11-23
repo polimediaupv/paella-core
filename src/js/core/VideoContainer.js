@@ -5,18 +5,25 @@ import {
     getValidContentIds, 
     getLayoutStructure, 
     getLayoutWithContentId,
-    getLayoutWithId,
     getValidContentSettings } from 'paella-core/js/core/VideoLayout';
 import StreamProvider from 'paella-core/js/core/StreamProvider';
-import Events, { bindEvent, triggerEvent } from 'paella-core/js/core/Events';
+import Events, { triggerEvent } from 'paella-core/js/core/Events';
 import { addButtonPlugin } from 'paella-core/js/core/ButtonPlugin';
 import { translate } from 'paella-core/js/core/Localization';
 
 import 'paella-core/styles/VideoContainer.css';
 import 'paella-core/styles/VideoLayout.css';
 import { loadPluginsOfType, unloadPluginsOfType } from './Plugin';
-import { loadVideoPlugins, unloadVideoPlugins } from './VideoPlugin';
+import { loadVideoPlugins, unloadVideoPlugins, getVideoPluginWithFileUrl } from './VideoPlugin';
 import { addVideoCanvasButton, CanvasButtonPosition } from './CanvasPlugin';
+
+export function getSourceWithUrl(player,url) {
+    if (!Array.isArray[url]) {
+        url = [url];
+    }
+    const plugin = getVideoPluginWithFileUrl(player, url);
+    return plugin.getManifestData(url);
+}
 
 export async function getContainerBaseSize(player) {
     // TODO: In the future, this function can be modified to support different
@@ -282,15 +289,17 @@ export default class VideoContainer extends DomClass {
     get streamProvider() {
         return this._streamProvider;
     }
-
-    async load(streamData) {
-        this._streamData = streamData;
-
+    
+    async create() {
         this._baseVideoRect.style.display = "none";
 
         await loadPluginsOfType(this.player, "layout");
 
         await loadVideoPlugins(this.player);
+    }
+
+    async load(streamData) {
+        this._streamData = streamData;
 
         await this.streamProvider.load(streamData);
         
