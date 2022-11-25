@@ -98,6 +98,8 @@ __paella_instances__[0].pluginModules.forEach(module => {
 
 **`config`** (read): Returns the configuration file object.
 
+**`defaultPreview`** (read) (paella-core >= 1.11): Returns the default preview image that is configured (more information in the [document on initialization](initialization.md)).
+
 **`videoId`** (read): Returns the current video identifier.
 
 **`repositoryUrl`** (read): Base URL where the video repository is located, for example "repository/"
@@ -166,7 +168,7 @@ See documentation about [`paella-core` life cycle for more information about the
 
 **`async reload(onUnloadFn = null)`**
 
-### The Load URL API
+### The Load URL API (paella-core >= 1.11)
 
 The `loadUrl(url, options = {})` function allows to generate a video manifest automatically from the input parameters. The generated manifest will depend on the file extension of the URLs, so the URLs used must include a compatible video file name. The video manifest will be generated using the active video format plugins. For more information, see the [documentation on video format plugins](video_plugin.md).
 
