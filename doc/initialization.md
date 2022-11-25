@@ -169,11 +169,11 @@ The preview image metadata is required in the ([video manifest](video_manifest.m
 
 It is possible to define a preview image in two places:
 
-- The configuration file: using the `defaultPreviewImage` attribute.
+- The configuration file: using the `defaultVideoPreview` attribute.
 
 ```json
 {
-    "defaultPreviewImage": "http://myserver.com/default_image.jpg",
+    "defaultVideoPreview": "http://myserver.com/default_image.jpg",
     ...
 }
 ```
@@ -182,7 +182,7 @@ It is possible to define a preview image in two places:
 
 ```js
 const initParams = {
-    defaultPreviewImage: 'http://myserver.com/default_image.jpg',
+    defaultVideoPreview: 'http://myserver.com/default_image.jpg',
     ...
 };
 

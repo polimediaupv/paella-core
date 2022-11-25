@@ -6,6 +6,8 @@
     
     "defaultAudioStream": "presenter",
 
+    "defaultVideoPreview": "/config/default_preview.jpg",
+
     "logLevel": "INFO",
 
     "progressIndicator": {
