@@ -152,7 +152,7 @@ See [the documentation about localization](localization.md) to get more informat
 
 See documentation about [`paella-core` life cycle for more information about the following APIs](life_cycle.md):
 
-**`async loadManifest()`**
+**`async loadManifest()`/`async loadUrl(url)`**
 
 **`async loadPlayer()`**
 
@@ -165,6 +165,19 @@ See documentation about [`paella-core` life cycle for more information about the
 **`async unloadPlayer()`**
 
 **`async reload(onUnloadFn = null)`**
+
+### The Load URL API
+
+The `loadUrl(url, options = {})` function allows to generate a video manifest automatically from the input parameters. The generated manifest will depend on the file extension of the URLs, so the URLs used must include a compatible video file name. The video manifest will be generated using the active video format plugins. For more information, see the [documentation on video format plugins](video_plugin.md).
+
+This function, at the lifecycle level, works the same as `loadManifest()`, with the difference that instead of loading a video manifest, it generates it internally. The rest of the lifecycle functions will be used as if we had called `loadManifest()`.
+
+**`url (string,[string])`:** The first parameter is an URL or an array of URLs is passed in case we want to load a multi stream video. The first URL must correspond with the video that contains the audio track.
+**`options (object)`:** Contains the data from the metadata section. If nothing is specified, it will be automatically generated from the streams, but note that the duration field will not be a valid value, and this may cause problems with some plugins. To omit the `preview` metadata it is important to set a default preview image, or else the function will generate an exception.
+
+- `title`
+- `duration`
+- `preview`
 
 ### User interface functions
 

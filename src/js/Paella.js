@@ -97,6 +97,8 @@ async function preLoadPlayer() {
     this.log.debug("Loading paella player");
     this._config = await this.initParams.loadConfig(this.configUrl,this);
 
+    this._defaultVideoPreview = this._config.defaultVideoPreview || this._initParams.defaultVideoPreview || null;
+
     this._cookieConsent = new CookieConsent(this, {
         getConsent: this._initParams.getCookieConsentFunction, 
         getDescription: this._initParams.getCookieDescriptionFunction
@@ -222,6 +224,7 @@ export default class Paella {
         setAddDictionaryFunction(this._initParams.addDictionaryFunction);
 
         this._config = null;
+        this._defaultVideoPreview = null;
         this._videoId = null;
         this._manifestUrl = null;
         this._manifestFileUrl = null;
@@ -375,6 +378,10 @@ export default class Paella {
         return this._config;
     }
 
+    get defaultVideoPreview() {
+        return this._defaultVideoPreview;
+    }
+
     get videoId() {
         return this._videoId;
     }
@@ -443,9 +450,6 @@ export default class Paella {
             duration = 1;
             this.log.warn("Paella.loadUrl(): no duration specified. There may be problems with some plugins.");
         }
-        if (!preview) {
-            this.log.warn("Paella.loadUrl(): no preview image specified. Using default preview image.");
-        }
         if (!title) {
             title = getUrlFileName(url[0]);
             this.log.warn("Paella.loadUrl(): no title specified. Using URL file name as video name.");
@@ -453,6 +457,14 @@ export default class Paella {
 
         try {
             await preLoadPlayer.apply(this);
+
+            if (!preview && this.defaultVideoPreview !== "") {
+                preview = this.defaultVideoPreview;
+                this.log.warn("Paella.loadUrl(): no preview image specified. Using default preview image.");
+            }
+            else if (!preview) {
+                throw new Error("Paella.loadUrl(): no preview image specified and no default preview image configured.");
+            }
 
             this._videoId = removeExtension(getUrlFileName(url[0]));
             
@@ -482,7 +494,10 @@ export default class Paella {
             await postLoadPlayer.apply(this);
         }
         catch (err) {
-
+            this._playerState = PlayerState.ERROR;
+            console.error(err);
+            this._errorContainer = new ErrorContainer(this, this.translate(err.message));
+            throw err;
         }
     }
 

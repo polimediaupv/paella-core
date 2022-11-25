@@ -162,3 +162,38 @@ const initParams = {
 ## 2.3. Loader
 
 You can customize the default loader using the `customLoader` attribute. To do it, you must to create a custom `Loader` class, and specify it in this attribute. See how to do it in [this document](loader.md).
+
+## 2.4. Default preview image (paella-core >= 1.11)
+
+The preview image metadata is required in the ([video manifest](video_manifest.md)). However, it is possible to define a default image, in case the video manifest does not contain a defined one. If a preview image is defined, then an exception will not be thrown in case the `preview` metadata is not included in the manifest, but simply a warning log will be displayed in the console.
+
+It is possible to define a preview image in two places:
+
+- The configuration file: using the `defaultPreviewImage` attribute.
+
+```json
+{
+    "defaultPreviewImage": "http://myserver.com/default_image.jpg",
+    ...
+}
+```
+
+- The `initParams` object.
+
+```js
+const initParams = {
+    defaultPreviewImage: 'http://myserver.com/default_image.jpg',
+    ...
+};
+
+const player = new Paella('player-container', initParams);
+...
+```
+
+If the image is defined in both places, then the value defined in the configuration file has higher priority.
+
+The URL of the image works differently if it is absolute or relative:
+
+- If the URL is relative, the image will be searched for in the manifest video folder. For example, if the video manifest is `http://myserver.com/myvideo/data.json`, and the preview image is `images/default_preview.jpg`, the final URL will be `http://myserver.com/myvideo/images/default_preview.jpg`.
+- If the URL is absolute or is relative to the site root, then that URL will be used without change.
+

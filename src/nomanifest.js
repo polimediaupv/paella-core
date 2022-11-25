@@ -2,7 +2,7 @@ import Paella from 'paella-core/js/Paella';
 import "./debug.css";
 
 const initParams = {
-
+    defaultVideoPreview: "/config/default_preview.jpg"
 }
 
 window.onload = async () => {

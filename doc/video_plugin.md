@@ -132,3 +132,64 @@ This API is composed of two functions and one attribute:
 - `isEnabled (read)`: it must return true or false depending on the current video status. This value must return the internal video status, that is handled by the other two functions of the API:
 - `async enable()`: `paella-core` calls this plugin function when the video needs to be enabled. If we implement this API, we are responsible for returning a valid state in the `isEnabled` attribute.
 - `async disable()`: `paella-core` calls this plugin function when the video needs to be disabled. If we implement this API, we are responsible for returning a valid state in the `isEnabled` attribute. Note that if the stream is the main audio, we may not want to disable it, as (depending on the underlying technology) we are likely to lose the audio as well. For example, if the stream is an `mp4` video, we can`t disable the video without also losing the audio.
+
+
+## Load URL API (paella-core >= 1.11)
+
+URL upload API allow you to upload videos without the need to set a manifest, directly through the URLs of the video files.
+
+```js
+await myPlayer.loadUrl([
+    "presenter.mp4",
+    "presentation.mp4"
+]);
+```
+
+For more information, see the `loadUrl()` function of the [`Paella` class](paella_object.md).
+
+Through this method, `paella-core` will be in charge of generating a valid manifest from the URLs. To generate the video manifest it is necessary that the video plugins include some extra information, since it is the video plugins that are in charge of generating the piece of the video manifest corresponding to the streams.
+
+These functions are implemented in the video plugin optionally, but it is obviously mandatory to implement them if we want to provide URL upload support for a new video format.
+
+Suppose we are developing a plugin for HTML5 video, supporting ogv and webm formats:
+
+```js
+...
+
+export default class HTML5VideoPlugin extends VideoPlugin {
+    get streamType() {
+        return "html5Video";
+    }
+
+    async isCompatible() {
+        return isChromiumOrMozilla();
+    }
+
+    async getVideoInstance(playerContainer, isMainAudio) {
+        new HTML5VideoPlayer(this.player, playerContainer, isMainAudio);
+    }
+}
+```
+
+To support the loading of this type of URLs we would have to implement the following functions:
+
+- **`getCompatibleFileExtensions()`:** Returns the list of file extensions supported by the plugin in the stream information.
+- **`getManifestData(fileUrls)`:** Devuelve el trozo de manifest correspondiente con el contenido de la propiedad `streams`.
+
+```js
+export default class HTML5VideoPlayer extends VideoPlugin {
+    ...
+    getCompatibleFileExtensions() {
+        return ["mp4","m4v","ogg","ogv","webm"];
+    }
+
+    getManifestData(fileUrls) {
+        return {
+            html5Video: fileUrls.map(url => ({
+                src: url,
+                mimetype: getMimetype(url)
+            }))
+        }
+    }
+}
+```
