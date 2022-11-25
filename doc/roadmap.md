@@ -2,7 +2,6 @@
 
 These are some of the functions we are working on implementing in the near future. 
 
-- New APIs to load videos from a supported video URL (mp4, m3u8, etc).
 - HTML5 video format: allows you to load videos of different formats depending on the browser support (mp4, ogv, webm, etc).
 - Adding unit tests for `paella-core` public APIs.
 - npm command `create-paella-app`: allows to create a basic npm project from several templates (vanillajs, React, Svelte, etc.).
