@@ -60,6 +60,6 @@ export function unregisterEvents(player) {
 
 	for (const event in player.__eventListeners__) {
 		player.__eventListeners__[event] = player.__eventListeners__[event].filter(cbData => cbData.unregisterOnUnload == false);
-		console.log(player.__eventListeners__[event]);
+		player.log.debug("Unregister event: " + player.__eventListeners__[event]);
 	}
 }
