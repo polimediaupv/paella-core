@@ -147,7 +147,7 @@ export default class MenuButtonPlugin extends PopUpButtonPlugin {
 	}
 	
 	itemSelected(itemData,menuItems) {
-		console.warn(`MenuButtonPlugin (${ this.name }): itemSelected() function not implemented.`);
+		this.player.log.warn(`MenuButtonPlugin (${ this.name }): itemSelected() function not implemented.`);
 	}
 	
 	closeMenu() {

@@ -43,12 +43,12 @@ const loadHls = (player, streamData, video, config, cors) => {
                         reject(Error("hlsVideoFormatPlugin: unrecoverable error in HLS player. The video is not available"));
                     }
                     else {
-                        console.warn("hlsVideoFormatPlugin: Fatal network error. Try to recover");
+                        player.log.warn("hlsVideoFormatPlugin: Fatal network error. Try to recover");
                         hls.startLoad();
                     }
                     break;
                 case Hls.ErrorTypes.MEDIA_ERROR:
-                    console.warn("hlsVideoFormatPlugin: Fatal media error encountered. Try to recover");
+                    player.log.warn("hlsVideoFormatPlugin: Fatal media error encountered. Try to recover");
                     hls.recoverMediaError()
                     break;
                 default:

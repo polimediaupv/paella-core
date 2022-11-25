@@ -160,6 +160,7 @@ export class Mp4Video extends Video {
 
     get currentQuality() {
         // TODO: implement this
+        return 0;
     }
 
     async getDimensions() {

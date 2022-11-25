@@ -106,7 +106,7 @@ export default class SteramProvider extends PlayerResource {
 		}
 
 		if (this.mainAudioPlayer === null) {
-			console.error("The video stream containing the audio track could not be identified. The `role` attribute must be specified in the main video stream, or the `defaultAudioStream` attribute must be set correctly in the player configuration.");
+			this.player.log.error("The video stream containing the audio track could not be identified. The `role` attribute must be specified in the main video stream, or the `defaultAudioStream` attribute must be set correctly in the player configuration.");
 			throw new Error("The video stream containing the audio track could not be identified.");
 		}
 	}
@@ -169,8 +169,6 @@ export default class SteramProvider extends PlayerResource {
 				return;
 			}
 			
-			this.player.log.debug("players:");
-			this.player.log.debug(this.mainAudioPlayer);
 			let currentTime = this.mainAudioPlayer.currentTimeSync;
 			const maxSync = 0.2;
 

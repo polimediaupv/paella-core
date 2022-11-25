@@ -14,7 +14,7 @@ export async function loadLogEventPlugins(player) {
 }
 
 export async function unloadLogEventPlugins(player) {
-    console.warn("unloadLogEventPlugins: not implemented");
+    player.log.warn("unloadLogEventPlugins: not implemented");
 }
 
 export default class EventLogPlugin extends Plugin {
@@ -25,6 +25,6 @@ export default class EventLogPlugin extends Plugin {
     }
 
     async onEvent(event, params) {
-        console.warn(`${this.name}: onEvent() function is not overwritten.`)
+        this.player.log.warn(`${this.name}: onEvent() function is not overwritten.`)
     }
 }

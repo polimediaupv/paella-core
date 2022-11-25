@@ -43,4 +43,4 @@ export default class CookieDataPlugin extends DataPlugin {
         setCookie(key, "");
         this.player.log.debug(`CookieDataPlugin.remove: ${key}`);
     }
-};
+}

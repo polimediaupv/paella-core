@@ -12,7 +12,7 @@ export default class DefaultKeyShortcutsPlugin extends KeyShortcutPlugin {
                     ctrlKey: false
                 },
                 action: async () => {
-                    console.log("Test collision shortcut");
+                    this.player.log.debug("Test collision shortcut");
                 }
             }
         ]

@@ -495,7 +495,7 @@ export default class Paella {
         }
         catch (err) {
             this._playerState = PlayerState.ERROR;
-            console.error(err);
+            this.log.error(err);
             this._errorContainer = new ErrorContainer(this, this.translate(err.message));
             throw err;
         }
@@ -524,14 +524,14 @@ export default class Paella {
             this._videoManifest = await this.initParams.loadVideoManifest(this.manifestFileUrl,this._config,this);
             if (!this._videoManifest.metadata.preview && this.defaultVideoPreview !== "") {
                 this._videoManifest.metadata.preview = this.defaultVideoPreview;
-                console.warn("Paella.loadUrl(): no preview image specified. Using default preview image.");
+                this.log.warn("Paella.loadUrl(): no preview image specified. Using default preview image.");
             }
     
             await postLoadPlayer.apply(this);
         }
         catch (err) {
             this._playerState = PlayerState.ERROR;
-            console.error(err);
+            this.log.error(err);
             this._errorContainer = new ErrorContainer(this, this.translate(err.message));
             throw err;
         }

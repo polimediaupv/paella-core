@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import WebVTTParser from 'paella-core/js/captions/WebVTTParser';
 
 console.log("Captions");

@@ -122,12 +122,12 @@ const loadHls = (player, streamData, video, config, cors) => {
                         reject(Error("hlsVideoFormatPlugin: unrecoverable error in HLS player. The video is not available"));
                     }
                     else {
-                        console.warn("hlsVideoFormatPlugin: Fatal network error. Try to recover");
+                        player.log.warn("hlsVideoFormatPlugin: Fatal network error. Try to recover");
                         hls.startLoad();
                     }
                     break;
                 case Hls.ErrorTypes.MEDIA_ERROR:
-                    console.warn("hlsVideoFormatPlugin: Fatal media error encountered. Try to recover");
+                    player.log.warn("hlsVideoFormatPlugin: Fatal media error encountered. Try to recover");
                     hls.recoverMediaError()
                     break;
                 default:
@@ -322,7 +322,7 @@ export class HlsVideo extends Mp4Video {
             this._hls.currentLevel = q.index;
         }
         else {
-            console.warn("Could not set video quality of HLS stream, because the HLS support of this browser is native.");
+            this.player.log.warn("Could not set video quality of HLS stream, because the HLS support of this browser is native.");
         }
     }
 
