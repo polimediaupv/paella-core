@@ -36,25 +36,4 @@ describe('Events', () => {
         player.ready = true;
         triggerIfReady(player, Events.PLAY, {a:1, b:2});
     });
-
-
-    test('unregisterEvents', () => {
-        const clog = jest.spyOn(console, "log").mockImplementation(() => {});
-        
-        const player = {};
-        unregisterEvents(player);
-        expect(player.__eventListeners__).toBeUndefined();
-
-        const cb = () => {}
-        bindEvent(player, Events.PLAY, cb, true)
-        bindEvent(player, Events.PAUSE, cb, false)
-        
-        unregisterEvents(player);
-        expect(player.__eventListeners__).toEqual({
-            "paella:pause": [{"callback": cb, "unregisterOnUnload": false}],
-            "paella:play": []}
-        );
-
-        clog.mockReset();
-    });
 });
