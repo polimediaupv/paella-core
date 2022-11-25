@@ -1,8 +1,7 @@
 import Events, {
     bindEvent, 
     triggerEvent,
-    triggerIfReady,
-    unregisterEvents } from 'paella-core/js/core/Events';
+    triggerIfReady } from '../../src/js/core/Events';
 
 
 describe('Events', () => {

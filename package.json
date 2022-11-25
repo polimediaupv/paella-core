@@ -1,6 +1,6 @@
 {
   "name": "paella-core",
-  "version": "1.11.0",
+  "version": "1.11.1",
   "description": "Multistream HTML video player",
   "main": "src/index.js",
   "module": "dist/paella-core.js",
@@ -51,9 +51,5 @@
   "dependencies": {
     "core-js": "^3.8.2",
     "hls.js": "^1.0.4"
-  },
-  "exports": {
-    "./": "./src/",
-    "./styles": "./src/css"
   }
 }

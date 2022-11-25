@@ -1,4 +1,4 @@
-import Log, {LOG_LEVEL, printMessage} from 'paella-core/js/core/Log';
+import Log, {LOG_LEVEL, printMessage} from '../../src/js/core/Log';
 
 
 const player = {}
