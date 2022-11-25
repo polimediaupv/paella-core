@@ -54,3 +54,8 @@
 ## paella-core 1.10
 
 - [Playback bar improvements](playback_bar.md): new API to disable or enable the playback bar user interface.
+
+## paella-core 1.11
+
+- loadUrl API implemented: Now you can use the [loadUrl()](paella_object.md) function to load a compatible video file. The video must to be compatible with at least one of the [video format plugins](video_plugin.md) enabled in the player.
+- Default preview image: Now you can set a [default preview image](initialization.md) at the init params or the configuration file. If a default preview image is defined, then it is not mandatory to include the `preview` metadata in the video manifest.
