@@ -33,8 +33,6 @@ module.exports = {
         // enable additional rules
         'no-empty': 'off',
         indent: 'off',
-        'no-empty': 'off',
-        indent: 'off',
         // semi: ['error', 'always'],
         // Indent with 4 spaces
         // indent: ['error', 4, { MemberExpression: 0 }],
