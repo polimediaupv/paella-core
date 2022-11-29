@@ -1,7 +1,9 @@
-import Events, {
+import {
+    Events,
     bindEvent, 
     triggerEvent,
-    triggerIfReady } from '../../src/js/core/Events';
+    triggerIfReady
+} from '../../dist/paella-core';
 
 
 describe('Events', () => {

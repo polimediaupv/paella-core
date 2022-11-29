@@ -23,7 +23,7 @@ import MenuButtonPlugin from 'paella-core/js/core/MenuButtonPlugin';
 import VideoLayout from 'paella-core/js/core/VideoLayout';
 import VideoPlugin, { Video } from 'paella-core/js/core/VideoPlugin';
 import ProgressIndicatorPlugin from 'paella-core/js/core/ProgressIndicatorPlugin';
-import Events, { bindEvent, triggerEvent } from 'paella-core/js/core/Events';
+import Events, { bindEvent, triggerEvent, triggerIfReady } from 'paella-core/js/core/Events';
 import PlayerResource from 'paella-core/js/core/PlayerResource';
 import CanvasPlugin, { CanvasButtonPosition, Canvas } from 'paella-core/js/core/CanvasPlugin';
 import Data, { DataPlugin } from 'paella-core/js/core/Data';
@@ -133,6 +133,7 @@ export {
     Events,
     bindEvent,
     triggerEvent,
+    triggerIfReady,
 
     DomClass,
     createElement,

@@ -1,4 +1,4 @@
-import { DomClass, createElement, createElementWithHtmlText } from '../../src/js/core/dom';
+import { DomClass, createElement, createElementWithHtmlText } from '../../dist/paella-core';
 
 describe('createElement', () => {
     test('default element is a div', () => {
