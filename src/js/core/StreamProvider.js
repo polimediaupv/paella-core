@@ -157,6 +157,45 @@ export default class SteramProvider extends PlayerResource {
 		const currentTime = await this.currentTime()
 		triggerIfReady(this.player, Events.TIMEUPDATE, { currentTime: enabled ? start + currentTime : currentTime });
 	}
+
+	programDateTimeToTimestamp(player){
+		return player._hls.streamController.currentProgramDateTime.getTime();
+
+	}
+
+	synchronizePlayers(currentTime, secPlayer, maxSync) {
+		let syncStatus = false;
+		try {
+			let mainPlayerTimestamp = Math.abs(this.programDateTimeToTimestamp(this.mainAudioPlayer) / 1000);
+			let secPlayerTimestamp = Math.abs(this.programDateTimeToTimestamp(secPlayer) / 1000);
+			if (secPlayerTimestamp - mainPlayerTimestamp > maxSync) {
+				this.player.log.debug("Video Sync triggered for Low Latency: Slowing down");
+				secPlayer.setPlaybackRate(0.50);
+			} else if (mainPlayerTimestamp - secPlayerTimestamp > maxSync) {
+				this.player.log.debug("Video Sync triggered for Low Latency: Speeding up");
+				secPlayer.setPlaybackRate(1.50);
+			} else {
+				secPlayer.setPlaybackRate(1)
+			}
+			syncStatus = true
+		} catch (e) {
+			if (e.name === "TypeError"){
+				syncStatus = false
+			}
+		}
+		if (!syncStatus){
+			const secPlayerTime = secPlayer.currentTimeSync;
+			if (currentTime - secPlayerTime > maxSync){
+				this.player.log.debug("Video Sync triggered for Legacy: Slowing down");
+				secPlayer.setPlaybackRate(1.50);
+			} else if (secPlayerTime - currentTime > maxSync){
+				this.player.log.debug("Video Sync triggered for Legacy: Speeding up");
+				secPlayer.setPlaybackRate(0.50);
+			} else {
+				secPlayer.setPlaybackRate(1);
+			}
+		}
+	}
 	
 	startStreamSync() {
 		this._timeSync = true;
@@ -168,16 +207,11 @@ export default class SteramProvider extends PlayerResource {
 			
 			let currentTime = this.mainAudioPlayer.currentTimeSync;
 			const maxSync = 0.2;
-
 			if (this.players.length>1) {
 				for (let i = 0; i<this.players.length; ++i) {
 					const secPlayer = this.players[i];
-					if (secPlayer !== this.mainAudioPlayer) {
-						const playerTime = secPlayer.currentTimeSync;
-						if (Math.abs(currentTime - playerTime) > maxSync) {
-							this.player.log.debug("Video synchronization triggered");
-							secPlayer.setCurrentTime(currentTime);
-						}
+					if (secPlayer !== this.mainAudioPlayer){
+						this.synchronizePlayers(currentTime, secPlayer, maxSync);
 					}
 				}
 			}
