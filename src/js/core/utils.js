@@ -145,7 +145,7 @@ export function secondsToTime(timestamp) {
 }
 
 export function timeToSeconds(timeString) {
-    const re = /^(?:(\d+):){0,1}(\d+):(\d+)$/;
+    const re = /^(?:(\d+):){0,1}(\d+):(\d+)(\.\d+)?$/;
     const result = re.exec(timeString);
     if (result) {
         const hours = result[1] !== undefined ? Number(result[1]) : 0;
