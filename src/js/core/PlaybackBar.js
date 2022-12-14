@@ -3,7 +3,7 @@ import { DomClass, createElementWithHtmlText } from 'paella-core/js/core/dom';
 import ProgressIndicator from 'paella-core/js/core/ProgressIndicator';
 import { loadPluginsOfType, unloadPluginsOfType } from 'paella-core/js/core/Plugin';
 import { addButtonPlugin } from 'paella-core/js/core/ButtonPlugin';
-
+import { pauseAutoHideUiTimer, resumeAutoHideUiTimer } from './utils';
 import 'paella-core/styles/PlaybackBar.css';
 
 export default class PlaybackBar extends DomClass {
@@ -12,6 +12,9 @@ export default class PlaybackBar extends DomClass {
 			"class": "playback-bar"
 		};
 		super(player, { attributes, parent });
+
+		this.element.addEventListener('mouseenter', () => pauseAutoHideUiTimer(player));
+		this.element.addEventListener('mouseleave', () => resumeAutoHideUiTimer(player));
 		
 		this._buttonPluginsLeft = createElementWithHtmlText(
 			`<div class="button-plugins left-side"></div>`);

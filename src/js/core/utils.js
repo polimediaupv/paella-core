@@ -90,6 +90,14 @@ export function resolveResourcePath(player,src) {
     }
 }
 
+export function pauseAutoHideUiTimer(player) {
+    player.__hideTimerPaused__ = true;
+}
+
+export function resumeAutoHideUiTimer(player) {
+    player.__hideTimerPaused__ = false;
+}
+
 export function setupAutoHideUiTimer(player, hideUiTimePropertyName = "hideUiTime") {
     player.__hideTimer__ = null;
     
@@ -103,6 +111,10 @@ export function setupAutoHideUiTimer(player, hideUiTimePropertyName = "hideUiTim
             const visible = PopUp.IsSomePopUpVisible();
             if (visible) {
                 player.log.debug("UI not hidden because there are visible pop ups");
+                setupTimer();
+            }
+            else if (player.__hideTimerPaused__) {
+                player.log.debug("UI not hidden because the auto hide timer is paused");
                 setupTimer();
             }
             else {
