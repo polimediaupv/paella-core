@@ -367,6 +367,12 @@ export default class VideoContainer extends DomClass {
 
     // Return true if the layout this.layoutId is compatible with the current stream data.
     async updateLayout() {
+        if (!this.streamData) {
+            // The stream data is not loaded. This can happen if the player is in MANIFEST_LOADED state
+            // and the player container is resized
+            return;
+        }
+
         if (this._updateInProgress) {
             this.player.log.warn("Recursive update layout detected");
             return false;
