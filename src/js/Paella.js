@@ -83,8 +83,9 @@ export const PlayerStateNames = [
 ];
 
 function buildPreview() {
-    const preview = resolveResourcePath(this, this.videoManifest?.metadata?.preview);
-    this._previewContainer = new PreviewContainer(this, this._containerElement, preview);
+    const preview = this.videoManifest?.metadata?.preview && resolveResourcePath(this, this.videoManifest?.metadata?.preview);
+    const previewPortrait = this.videoManifest?.metadata?.previewPortrait && resolveResourcePath(this, this.videoManifest?.metadata?.previewPortrait);
+    this._previewContainer = new PreviewContainer(this, this._containerElement, preview, previewPortrait);
 }
 
 import packageData from "../../package.json";

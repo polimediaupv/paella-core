@@ -40,7 +40,7 @@ const g_iconStyle = `
 import PlayIcon from 'paella-core/icons/play_icon_fullscreen.svg';
 
 export default class PreviewContainer extends DomClass {
-    constructor(player, parentElement,backgroundImage) {
+    constructor(player, parentElement,backgroundImage,backgroundImagePortrait) {
         const attributes = {
             "class": "preview-container",
             "style": g_style
@@ -49,7 +49,8 @@ export default class PreviewContainer extends DomClass {
 
         this._img = createElementWithHtmlText(`
         <div style="${g_imgStyle}">
-            <img style="${g_imgStyle}" src="${backgroundImage}" alt=""/>
+            ${ backgroundImage ? `<img style="${g_imgStyle}" src="${backgroundImage}" class="preview-image-landscape" alt=""/>` : "" }
+            ${ backgroundImagePortrait ? `<img style="${g_imgStyle}" src="${backgroundImagePortrait}" class="preview-image-portrait" alt=""/>` : "" }
             <div style="${ g_iconContainerStyle }">
                 <i class="preview-play-icon" style="${ g_iconStyle }">${ PlayIcon }</i>
             </div>
@@ -59,6 +60,29 @@ export default class PreviewContainer extends DomClass {
         this.element.addEventListener("click", (evt) => {
             player.play();
         });
+
+        const mustCheckOrientation = backgroundImage && backgroundImagePortrait;
+        const checkOrientation = () => {
+            if (mustCheckOrientation) {
+                const aspectRatio = this.element.clientWidth / this.element.clientHeight;
+                const landscapeElements = Array.from(this.element.getElementsByClassName('preview-image-landscape'));
+                const portraitElements = Array.from(this.element.getElementsByClassName('preview-image-portrait'));
+                if (aspectRatio>=1) {
+                    landscapeElements.forEach(e => e.style.display = "");
+                    portraitElements.forEach(e => e.style.display = "none");
+                }
+                else {
+                    landscapeElements.forEach(e => e.style.display = "none");
+                    portraitElements.forEach(e => e.style.display = "");
+                }
+            }
+        }
+
+        window.addEventListener("resize", () => {
+            checkOrientation();
+        });
+
+        checkOrientation();
     }
 
     loadBackgroundImage(src) {
