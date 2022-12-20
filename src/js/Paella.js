@@ -98,6 +98,7 @@ async function preLoadPlayer() {
     this._config = await this.initParams.loadConfig(this.configUrl,this);
 
     this._defaultVideoPreview = this._config.defaultVideoPreview || this._initParams.defaultVideoPreview || null;
+    this._defaultVideoPreviewPortrait = this._config.defaultVideoPreviewPortrait || this._initParams.defaultVideoPreviewPortrait || null;
 
     this._cookieConsent = new CookieConsent(this, {
         getConsent: this._initParams.getCookieConsentFunction, 
@@ -225,6 +226,7 @@ export default class Paella {
 
         this._config = null;
         this._defaultVideoPreview = null;
+        this._defaultVideoPreviewPortrait = null;
         this._videoId = null;
         this._manifestUrl = null;
         this._manifestFileUrl = null;
@@ -382,6 +384,10 @@ export default class Paella {
         return this._defaultVideoPreview;
     }
 
+    get defaultVideoPreviewPortrait() {
+        return this._defaultVideoPreviewPortrait;
+    }
+
     get videoId() {
         return this._videoId;
     }
@@ -431,7 +437,7 @@ export default class Paella {
         return this._data;
     }
 
-    async loadUrl(url, { title, duration, preview } = {}) {
+    async loadUrl(url, { title, duration, preview, previewPortrait } = {}) {
         if (this._playerState !== PlayerState.UNLOADED) {
             throw new Error(this.translate("loadUrl(): Invalid current player state: $1", [PlayerStateNames[this._playerState]]));
         }
@@ -458,11 +464,12 @@ export default class Paella {
         try {
             await preLoadPlayer.apply(this);
 
-            if (!preview && this.defaultVideoPreview !== "") {
+            if (!preview && (this.defaultVideoPreview !== "" || this.defaultVideoPreviewPortrait !== "")) {
                 preview = this.defaultVideoPreview;
+                previewPortrait = this.defaultVideoPreviewPortrait;
                 this.log.warn("Paella.loadUrl(): no preview image specified. Using default preview image.");
             }
-            else if (!preview) {
+            else if (!preview || !previewPortrait) {
                 throw new Error("Paella.loadUrl(): no preview image specified and no default preview image configured.");
             }
 
@@ -478,7 +485,8 @@ export default class Paella {
                 metadata: {
                     duration,
                     title,
-                    preview
+                    preview,
+                    previewPortrait
                 },
 
                 streams: url.map((u,i) => {
@@ -522,8 +530,9 @@ export default class Paella {
             this.log.debug(`Loading video with identifier '${this.videoId}' from URL '${this.manifestFileUrl}'`);
     
             this._videoManifest = await this.initParams.loadVideoManifest(this.manifestFileUrl,this._config,this);
-            if (!this._videoManifest.metadata.preview && this.defaultVideoPreview !== "") {
+            if (!this._videoManifest.metadata.preview && (this.defaultVideoPreview !== "" || this.defaultVideoPreviewPortrait !== "")) {
                 this._videoManifest.metadata.preview = this.defaultVideoPreview;
+                this._videoManifest.metadata.previewPortrait = this.defaultVideoPreviewPortrait;
                 this.log.warn("Paella.loadUrl(): no preview image specified. Using default preview image.");
             }
     

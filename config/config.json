@@ -8,7 +8,8 @@
 
     "defaultAudioStream": "presenter",
 
-    "defaultVideoPreview": "/config/default_preview.jpg",
+    "defaultVideoPreview": "/config/default_preview_landscape.jpg",
+    "defaultVideoPreviewPortrait": "/config/default_preview_portrait.jpg",
 
     "logLevel": "INFO",
 
