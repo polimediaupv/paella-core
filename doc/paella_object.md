@@ -180,6 +180,7 @@ This function, at the lifecycle level, works the same as `loadManifest()`, with 
 - `title`
 - `duration`
 - `preview`
+- `previewPortrait`
 
 ### User interface functions
 

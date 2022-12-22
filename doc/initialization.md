@@ -185,6 +185,18 @@ It is possible to define a preview image in two places:
 }
 ```
 
+You can also configure a preview image in portrait mode (paella-core >= 1.12). This preview is usefull when the player uses a [dynamic video layout](video_layout.md), and it is shown in a portrait container, for example, in a smartphone.
+
+```json
+{
+    "defaultVideoPreview": "http://myserver.com/default_image_landscape.jpg",
+    "defaultVideoPreviewPortrait": "http://myserver.com/default_image_portrait.jpg",
+    ...
+}
+```
+
+Setting either of the two preview images (landscape or portrait) will be sufficient to meet the requirement of specifying a preview image, but it is advisable to set both modes.
+
 - The `initParams` object.
 
 ```js

@@ -59,3 +59,8 @@
 
 - loadUrl API implemented: Now you can use the [loadUrl()](paella_object.md) function to load a compatible video file. The video must to be compatible with at least one of the [video format plugins](video_plugin.md) enabled in the player.
 - Default preview image: Now you can set a [default preview image](initialization.md) at the init params or the configuration file. If a default preview image is defined, then it is not mandatory to include the `preview` metadata in the video manifest.
+
+## paella-core 1.12
+
+- Portrait preview image: now you can set a portrait preview image to be used when the player is shown in a portrait container. You can get more information about this feature in [video manifest](video_manifest.md) and [initialization](initialization.md) documents.
+

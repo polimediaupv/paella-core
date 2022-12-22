@@ -28,6 +28,7 @@ The video cataloging data is used to display the title, preview, duration and ot
     "duration": 909.13,
     "title": "Belmar 15 minutes (multiresolution)",
     "preview": "https://repository.paellaplayer.upv.es/belmar-multiresolution/preview.jpg",
+    "previewPortrait": "https://repository.paellaplayer.upv.es/belmar-multiresolution/preview_portrait.jpg",
     "related": [
       {
         "title": "HLS video stream",
@@ -44,7 +45,9 @@ The video cataloging data is used to display the title, preview, duration and ot
 
 **title:** Is the title of the video. The title is not used directly by any `paella-core` element, but it can be used by plugins, so, although it is not a mandatory field, it is highly recommended to include it.
 
-**preview:** It is a preview image that identifies the video. This parameter is mandatory, as the preview image is required for the lazy load mode to work. The URL can be absolute or relative to the manifest URL.
+**preview:** It is a preview image that identifies the video. 
+
+**previewPortrait:** (paella-core >= 1.12) It is a preview image in portrait mode, to be displayed when the player area is taller than wide.
 
 **related:** It is information about related videos. This information is not used from `paella-core`, but can be used by plugins. This is an array with objects containing the access information for each related video. Each element of the array must contain the following fields (they are all mandatory):
 
@@ -53,7 +56,9 @@ The video cataloging data is used to display the title, preview, duration and ot
 - **thumb:** The video thumbnail.
 - **id:** The video identifier.
 
+**NOTE ABOUT PREVIEW IMAGE:** The preview image is a mandatory parameter that must be set properly for the player to work. However, as of version 1.11 it is possible to set a default preview image. If the player has a default preview image configured, it is not mandatory to set this parameter in the video manifest. For more information on the default image configuration, see the [document on player initialization](initialization.md).
 
+It is possible to set only one version of the image in preview, landscape or portrait format, but it is recommended to set both images.
 
 ## Streams
 
