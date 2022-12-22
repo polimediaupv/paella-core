@@ -60,6 +60,8 @@ The video cataloging data is used to display the title, preview, duration and ot
 
 It is possible to set only one version of the image in preview, landscape or portrait format, but it is recommended to set both images.
 
+It may happen that the video manifest has the preview image for only one of the two orientations, and the player has the image configured for the other missing orientation. In this case, the image that best fits the format of the container will have priority. For example, if the video manifest includes the preview image only in landscape mode, the player has the default image set to portrait mode, and the video container is oriented vertically, the image that will be displayed will be the default image of the player.
+
 ## Streams
 
 It is an array that contains the information of the streams that compose the video.

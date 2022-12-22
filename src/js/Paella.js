@@ -83,8 +83,8 @@ export const PlayerStateNames = [
 ];
 
 function buildPreview() {
-    const preview = this.videoManifest?.metadata?.preview && resolveResourcePath(this, this.videoManifest?.metadata?.preview);
-    const previewPortrait = this.videoManifest?.metadata?.previewPortrait && resolveResourcePath(this, this.videoManifest?.metadata?.previewPortrait);
+    const preview = (this.videoManifest?.metadata?.preview && resolveResourcePath(this, this.videoManifest?.metadata?.preview)) || this.defaultVideoPreview;
+    const previewPortrait = (this.videoManifest?.metadata?.previewPortrait && resolveResourcePath(this, this.videoManifest?.metadata?.previewPortrait)) || this.defaultVideoPreviewPortrait;
     this._previewContainer = new PreviewContainer(this, this._containerElement, preview, previewPortrait);
 }
 
