@@ -47,6 +47,7 @@ Apart from the `Plugin` methods, `ButtonPlugin` provides three methods and one p
 - `async mouseOut(target)`: called when the mouse leaves one of the button areas
 - `async action()`: called when the user clicks the button.
 - `get titleSize()`: is used to set the font size of the button title. It can return `small`, `medium` or `large`.
+- `getDescription()`: is used to return the text of the HTML attribute `title`.
 
 
 ## Button elements
@@ -150,6 +151,7 @@ export default class MyButtonPlugin extends ButtonPlugin {
 }
 ```
 
+
 ## Configuration
 
 The `parentContainer` property, in its default implementation, gets its value from the plugin configuration, inside the `config.json` file. This property can take several values, two of which are predefined, while the rest are arbitrary:
@@ -230,6 +232,33 @@ export default class MyButtonPlugin extends ButtonPlugin {
     return "My button predefined accesibility string";
   }
   ...
+}
+```
+
+## Localization
+
+There are a few things to keep in mind regarding location:
+
+- The `ariaLabel` and `description` attributes are translated automatically. Note that these texts are first obtained from the `ariaLabel` and `descriptio` attributes of the plugin configuration, and if this text is not defined in the translation, they will be obtained from the `getAriaLabel()` and `getDescription()` functions. If this texts are defined for these attributes in the configuration, it must be taken into account that the player we implement must also provide translation for these texts so that they can be modified once the player is compiled.
+- If we want to parameterize the translations, then we will have to do the translation manually:
+
+```js
+getAriaLabel() {
+  return this.player.translate("Forward $1 seconds", [30]);
+}
+```
+
+- The `async load()` function is called after `getAriaLabel()` and `getDescription()`. If we need to initialize something we use in these functions, we will have to do it in the `async isEnabled()` function.
+
+```js
+async isEnabled() {
+  const enabled = await super.isEnabled();
+  this.time = this.config.time;
+  return enabled;
+}
+
+getAriaLabel() {
+  return this.player.translate("Forward $1 seconds", this.time);
 }
 ```
 
