@@ -67,6 +67,9 @@ const initParams = {
 			g_dictionaries[lang][key] = translation;
 		}
 	},
+	getDictionariesFunction: () => {
+		return g_dictionaries;
+	},
 
 	loadDictionaries: (player) => {
 		setLanguage('es');

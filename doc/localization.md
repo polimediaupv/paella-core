@@ -58,6 +58,8 @@ The `paella-core` instance includes an API for accessing localization functions,
 
 **`addDictionary(lang,dict)`**
 
+**`getDictionaries()`**
+
 Example: 
 
 ```javascript
@@ -93,6 +95,10 @@ player.translate("there are $1 kittens in the basket", ["1"]);
 // Hay 1 gatitos en la cesta
 ```
 
+## Getting all the available dictionaries
+
+It is possible to obtain all the dictionaries configured in an instance of `paella-core` using the `player.getDictionaries()` function. It is important to call this function when the player is fully loaded, otherwise we will not get the translation strings that may have been added by the plugins.
+
 ## Using custom localization library
 
 You can use the Paella Player initialization object to define custom translation functions through callbacks. In these functions you can make a call to a third party localization library. This is interesting, for example, to integrate Paella Player with the localization library you are using in your web site.
@@ -120,7 +126,8 @@ const initParams = {
   setLanguageFunction: lang => localization._lang = lang,
 	getLanguageFunction: () => localization._lang,
 	translateFunction: (word) => localization.translate(word),
-	addDictionaryFunction: (lang, dict) => localization.addDictionary(lang,dict)
+	addDictionaryFunction: (lang, dict) => localization.addDictionary(lang,dict),
+  getDictionariesFunction: () => localication._dict
 	...
 }
 ```

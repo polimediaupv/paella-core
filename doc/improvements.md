@@ -64,3 +64,7 @@
 
 - Portrait preview image: now you can set a portrait preview image to be used when the player is shown in a portrait container. You can get more information about this feature in [video manifest](video_manifest.md) and [initialization](initialization.md) documents.
 
+## paella-core 1.13
+
+- New API to get all available dictionaries: `player.getDictionaries()`.
+- New translation API customization features: support for `getDictionaries()` function has been added.

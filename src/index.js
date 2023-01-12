@@ -49,10 +49,12 @@ import {
     defaultSetLanguageFunction,
     defaultGetLanguageFunction,
     defaultAddDictionaryFunction,
+    defaultGetDictionariesFunction,
     translate,
     setLanguage,
     getLanguage,
-    addDictionary
+    addDictionary,
+    getDictionaries
 } from "paella-core/js/core/Localization";
 
 import Log, {
@@ -162,10 +164,12 @@ export {
     defaultSetLanguageFunction,
     defaultGetLanguageFunction,
     defaultAddDictionaryFunction,
+    defaultGetDictionariesFunction,
     translate,
     setLanguage,
     getLanguage,
     addDictionary,
+    getDictionaries,
 
     Log,
     log,
