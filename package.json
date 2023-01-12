@@ -50,6 +50,7 @@
   },
   "dependencies": {
     "core-js": "^3.8.2",
-    "hls.js": "^1.0.4"
+    "hls.js": "^1.0.4",
+    "jest-environment-jsdom": "^29.3.1"
   }
 }
