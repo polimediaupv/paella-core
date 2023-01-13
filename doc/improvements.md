@@ -68,3 +68,6 @@
 
 - New API to get all available dictionaries: `player.getDictionaries()`.
 - New translation API customization features: support for `getDictionaries()` function has been added.
+- Improvements in accessibility
+
+
