@@ -100,6 +100,12 @@ export function resumeAutoHideUiTimer(player) {
 
 export function setupAutoHideUiTimer(player, hideUiTimePropertyName = "hideUiTime") {
     player.__hideTimer__ = null;
+
+    const checkFocus = () => {
+        const active = document.activeElement;
+        return  player.playbackBar.element.contains(active) ||
+                player.videoContainer.element.contains(active);
+    }
     
     const setupTimer = async () => {
         if (player.__hideTimer__) {
@@ -115,6 +121,10 @@ export function setupAutoHideUiTimer(player, hideUiTimePropertyName = "hideUiTim
             }
             else if (player.__hideTimerPaused__) {
                 player.log.debug("UI not hidden because the auto hide timer is paused");
+                setupTimer();
+            }
+            else if (checkFocus()) {
+                player.log.debug("UI not hidden because there is a focused element");
                 setupTimer();
             }
             else {
