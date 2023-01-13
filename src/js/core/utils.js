@@ -148,6 +148,14 @@ export function setupAutoHideUiTimer(player, hideUiTimePropertyName = "hideUiTim
     bindEvent(player, Events.ENDED, async () => {
         await player.showUserInterface();
     });
+
+    document.addEventListener('keydown', async() => {
+        setupTimer();
+    });
+
+    //document.addEventListener('focusin', async () => {
+    //    setupTimer();
+    //});
 }
 
 export function clearAutoHideTimer(player) {
