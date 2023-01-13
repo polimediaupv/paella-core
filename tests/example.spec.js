@@ -20,13 +20,13 @@ const checkPlayVideo = async (page) => {
 }
 
 test('Play mp4 video', async ({ page }) => {
-  await page.goto('http://localhost:8000/?id=belmar-multiresolution-remote');
+  await page.goto('/?id=belmar-multiresolution-remote');
 
   await checkPlayVideo(page);
 });
 
 test('Play HLS video', async ({ page }) => {
-  await page.goto('http://localhost:8000/?id=hls-multiquality');
+  await page.goto('/?id=hls-multiquality');
 
   await checkPlayVideo(page);
 });
