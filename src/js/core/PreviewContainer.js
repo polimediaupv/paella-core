@@ -57,6 +57,7 @@ export default class PreviewContainer extends DomClass {
         </div>
         `, this.element);
 
+        this.element.setAttribute('id','playerContainerClickArea');
         this.element.addEventListener("click", (evt) => {
             player.play();
         });

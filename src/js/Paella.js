@@ -447,6 +447,36 @@ export default class Paella {
         return this._data;
     }
 
+    get PlayerState() {
+        return PlayerState;
+    }
+
+    get PlayerStateNames() {
+        return PlayerStateNames;
+    }
+
+    waitState(state) {
+        return new Promise((resolve, reject) => {
+            const checkState = () => {
+                if (this.state === state) {
+                    resolve();
+                }
+                else {
+                    setTimeout(checkState, 50);
+                }
+            }
+            if (typeof(state) === 'string') {
+                state = PlayerState[state];
+            }
+            
+            if (state<0 || state>Object.values(PlayerState).length) {
+                reject(Error(`Invalid player state '${state}'`));
+            }
+    
+            checkState();
+        })
+    }
+
     async loadUrl(url, { title, duration, preview, previewPortrait } = {}) {
         if (this._playerState !== PlayerState.UNLOADED) {
             throw new Error(this.translate("loadUrl(): Invalid current player state: $1", [PlayerStateNames[this._playerState]]));
