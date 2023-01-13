@@ -9,8 +9,6 @@
     "dev": "webpack serve --mode development --config webpack.debug.js --host 0.0.0.0",
     "captions": "webpack serve --mode development --config webpack.captions.js",
     "eslint": "eslint .",
-    "test": "jest --env=jsdom",
-    "test:coverage": "jest --env=jsdom --coverage",
     "nomanifest": "webpack serve --mode development --config webpack.nomanifest.js"
   },
   "repository": {
@@ -40,7 +38,6 @@
     "eslint": "^8.29.0",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
-    "jest": "^29.3.1",
     "source-map-loader": "^4.0.0",
     "style-loader": "^3.3.1",
     "svg-inline-loader": "^0.8.2",
@@ -50,7 +47,6 @@
   },
   "dependencies": {
     "core-js": "^3.8.2",
-    "hls.js": "^1.0.4",
-    "jest-environment-jsdom": "^29.3.1"
+    "hls.js": "^1.0.4"
   }
 }
