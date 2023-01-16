@@ -99,6 +99,7 @@ export default class PlaybackBar extends DomClass {
 	showUserInterface() {
 		if (this._enabled) {
 			this.show();
+			this.onResize();
 		}
 	}
 	
