@@ -143,6 +143,14 @@ export default class ButtonPlugin extends UserInterfacePlugin {
 	get iconElement() {
 		return this.button?.getElementsByClassName("button-icon")[0];
 	}
+
+	get minContainerSize() {
+		return this.config.minContainerSize || this.getMinContainerSize();
+	}
+
+	getMinContainerSize() {
+		return 0;
+	}
 	
 	get icon() {
 		if (!this._icon) {
@@ -215,5 +223,14 @@ export default class ButtonPlugin extends UserInterfacePlugin {
 
 	async action() {
 		this.player.log.warn(`Action not implemented in button plugin ${ this.name }`);	
+	}
+
+	onResize({ width, height }) {
+		if (width < this.minContainerSize) {
+			this.hide();
+		}
+		else {
+			this.show();
+		}
 	}
 }

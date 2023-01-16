@@ -48,6 +48,7 @@ Apart from the `Plugin` methods, `ButtonPlugin` provides three methods and one p
 - `async action()`: called when the user clicks the button.
 - `get titleSize()`: is used to set the font size of the button title. It can return `small`, `medium` or `large`.
 - `getDescription()`: is used to return the text of the HTML attribute `title`.
+- `getMinContainerSize()`: is used to return the minimum container width required to show the plugin in the playback bar. This value is is overridden by the `minContainerSize` attribute of the plugin configuration. 
 
 
 ## Button elements
@@ -164,6 +165,8 @@ As with `parentContainer`, the `side` property also takes its value from the plu
 
 - `left`: The button will be placed on the left side of the playback bar or the video container.
 - `right`: The button will be placed on the right side of the playback bar or the video container.
+
+The `minContainerSize` attribute is used to set a minimum required size of the playback bar to show the button plugin. By default, this value is zero.
 
 ## Non-interactive buttons (paella-core >= 1.4)
 

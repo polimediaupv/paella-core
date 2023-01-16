@@ -70,4 +70,8 @@
 - New translation API customization features: support for `getDictionaries()` function has been added.
 - Improvements in accessibility
 
+## paella-core 1.14
+
+- New [ButtonPlugin](button_plugin.md) attribute: `minContainerSize`. Allows to show a button plugin in playback bar only if the parent container width is greater than the `minContainerSize` attribute.
+
 

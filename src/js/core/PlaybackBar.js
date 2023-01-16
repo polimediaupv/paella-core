@@ -54,10 +54,12 @@ export default class PlaybackBar extends DomClass {
 	
 	async load() {		
 		this._frameList = this.player.videoManifest;
+		this._enabledPlugins = [];
 		
 		this.player.log.debug("Loading button plugins");
 		await loadPluginsOfType(this.player,"button",async (plugin) => {
 			this.player.log.debug(` Button plugin: ${ plugin.name }`);
+			this._enabledPlugins.push(plugin);
 			if (plugin.side === "left") {
 				await addButtonPlugin(plugin, this.buttonPluginsLeft);
 			}
@@ -74,6 +76,7 @@ export default class PlaybackBar extends DomClass {
 		});
 
 		await this._progressIndicator.loadPlugins();
+		this.onResize();
 	}
 
 	async unload() {
@@ -114,8 +117,16 @@ export default class PlaybackBar extends DomClass {
 	get progressIndicator() {
 		return this._progressIndicator;
 	}
+
+	get containerSize() {
+		const width = this.element.clientWidth;
+		const height = this.element.clientHeight;
+		return { width, height } 
+	}
 	
 	onResize() {
+		const { containerSize } = this;
+		this._enabledPlugins.forEach(plugin => plugin.onResize(containerSize));
 		this.progressIndicator.onResize();
 	}
 }

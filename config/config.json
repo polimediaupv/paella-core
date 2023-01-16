@@ -192,7 +192,8 @@
         "es.upv.paella.testPopUp2Button": {
             "enabled": true,
             "side": "right",
-            "order": 2
+            "order": 2,
+            "minContainerSize": 500
         },
 
         "es.upv.paella.testButtonGroupPlugin": {
