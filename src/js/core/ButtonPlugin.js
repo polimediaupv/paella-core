@@ -208,7 +208,8 @@ export default class ButtonPlugin extends UserInterfacePlugin {
 	}
 	
 	show() {
-		if (this._button) {
+		const { width } = this.player.playbackBar.containerSize;
+		if (this._button && (width > this.minContainerSize || this.parentContainer !== "playbackBar")) {
 			this._button.style.display = "block";
 		}
 	}
