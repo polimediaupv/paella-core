@@ -20,7 +20,7 @@ const checkPlayVideo = async (page) => {
 }
 
 test('Play mp4 video', async ({ page }) => {
-  await page.goto('/?id=belmar-multiresolution-remote');
+  await page.goto('/?id=belmar-html');
 
   await checkPlayVideo(page);
 });

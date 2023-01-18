@@ -105,11 +105,15 @@
         },
         "es.upv.paella.imageVideoFormat": {
             "enabled": true,
-            "order": 2
+            "order": 3
+        },
+        "es.upv.paella.htmlVideoFormat": {
+            "enabled": true,
+            "order": 1
         },
         "es.upv.paella.mp4VideoFormat": {
             "enabled": true,
-            "order": 1
+            "order": 2
         },
         "es.upv.paella.hlsVideoFormat": {
             "enabled": true,
