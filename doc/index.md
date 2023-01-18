@@ -74,6 +74,7 @@ Video plugin formats available in [paella core](https://github.com/polimediaupv/
 
 - [Image video plugin](image_video_plugin.md)
 - [MP4 video plugin](mp4_video_plugin.md)
+- [HTML video plugin](html_video_plugin.md) (paella-core >= 1.15.0)
 - [hls video plugin](hls_video_plugin.md)
 - [hls live (and low latency) video plugin](hls_live_video_plugin.md)
 - [audio only video plugin (paella-core >= 1.1)](audio_video_plugin.md). You should also check the documentation about the [audio canvas](audio_canvas_plugin.md)

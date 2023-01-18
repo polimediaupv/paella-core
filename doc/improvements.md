@@ -75,3 +75,7 @@
 - New [ButtonPlugin](button_plugin.md) attribute: `minContainerSize`. Allows to show a button plugin in playback bar only if the parent container width is greater than the `minContainerSize` attribute.
 
 
+## paella-core 1.15
+
+- [HtmlVideoFormat](html_video_plugin.md) added: support HTML multi format videos.
+
