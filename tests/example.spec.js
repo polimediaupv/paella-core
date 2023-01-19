@@ -16,10 +16,15 @@ const checkPlayVideo = async (page) => {
 
   await page.click('#playerContainerClickArea');
   await waitState(page, PlayerState.LOADED);
-
 }
 
 test('Play mp4 video', async ({ page }) => {
+  await page.goto('/?id=belmar-multiresolution-remote');
+
+  await checkPlayVideo(page);
+});
+
+test('Play HTML video', async ({page}) => {
   await page.goto('/?id=belmar-html');
 
   await checkPlayVideo(page);
