@@ -60,7 +60,18 @@ export default class HtmlVideoPlugin extends VideoPlugin {
 
     getManifestData(fileUrls) {
         const getMimeType = (url) => {
-            const ext = getFileExtension(url)
+            switch (getFileExtension(url)) {
+            case 'mp4':
+            case 'm4v':
+                return 'video/mp4';
+            case 'webm':
+                return 'video/webm';
+            case 'ogg':
+            case 'ogv':
+                return 'video/ogg';
+            default:
+                return null;
+            }
         }
         return {
             html: fileUrls.map(url => ({
