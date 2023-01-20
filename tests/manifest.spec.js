@@ -20,7 +20,7 @@ const loadPlayer = async (page) => {
 }
 
 test.describe("Preview image", () => {
-    test('Check preview image error', async ({page}) => {
+    test('Check preview image error: incorrect manifest', async ({page}) => {
         await page.goto('/?id=belmar-nopreview');
 
         await loadPlayer(page);
@@ -29,5 +29,21 @@ test.describe("Preview image", () => {
 
         await waitState(page, PlayerState.ERROR);
         await expect(await getState(page)).toBe(PlayerState.ERROR);
+    });
+
+    test('Check preview image error: correct manifest', async ({page}) => {
+        await page.goto('/?id=belmar-html');
+
+        await loadPlayer(page);
+
+        const PlayerState = await getPlayerState(page);
+
+        await waitState(page, PlayerState.MANIFEST);
+        await expect(await getState(page)).toBe(PlayerState.MANIFEST);
+
+        await page.click('#playerContainerClickArea');
+        await waitState(page, PlayerState.LOADED);
+        await expect(await getState(page)).toBe(PlayerState.LOADED);
     })
 });
+
