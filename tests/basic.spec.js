@@ -34,17 +34,21 @@ const loadUrl = async (page, presenter, presentation = null) => {
   `);
 }
 
-const waitState = async (page, state) => {
+export const getPlayerState = async page => page.evaluate(`${player}.PlayerState`);
+
+export const waitState = async (page, state) => {
   await page.evaluate(`${player}.waitState(${state})`);
 }
 
-const checkPlayVideo = async (page) => {
+export const getState = async (page) => await page.evaluate(`${player}.state`);
+
+export const checkPlayVideo = async (page) => {
   await loadPlayer(page);
 
-  const PlayerState = await page.evaluate(`${player}.PlayerState`);
+  const PlayerState = await getPlayerState(page);
 
   await waitState(page, PlayerState.MANIFEST);
-  const state = await page.evaluate(`${player}.state`);  
+  const state = await getState(page);  
   await expect(state).toBe(PlayerState.MANIFEST);
 
   await page.click('#playerContainerClickArea');
@@ -57,7 +61,7 @@ const checkPlayUrl = async (page, video1, video2 = null) => {
   const PlayerState = await page.evaluate(`${player}.PlayerState`);
 
   await waitState(page, PlayerState.MANIFEST);
-  const state = await page.evaluate(`${player}.state`);  
+  const state = await await getState(page);  
   await expect(state).toBe(PlayerState.MANIFEST);
 
   await page.click('#playerContainerClickArea');
