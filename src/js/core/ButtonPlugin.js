@@ -38,13 +38,15 @@ export async function addButtonPlugin(plugin, buttonAreaElem) {
 	const ariaLabel = translate(plugin.ariaLabel);
 	const description = translate(plugin.description);
 	const fixedSizeClass = plugin.dynamicWidth ? 'dynamic-width' : 'fixed-width';
+	const id = plugin.id ? `id="${plugin.id}" ` : "";
+	const name = plugin.buttonName ? `name="${plugin.buttonName}" ` : "";
 
 	if (plugin.interactive) {
 		const leftArea = createElementWithHtmlText(`
 			<div class="button-plugin-side-area left-side ${ plugin.className }"></div>
 		`, parent);
 		const button = createElementWithHtmlText(`
-			<button class="button-plugin ${ plugin.className } ${ fixedSizeClass } no-icon" tabindex="${ tabIndex }" aria-label="${ ariaLabel }" title="${ description }">
+			<button type="button" ${id}${name}class="button-plugin ${ plugin.className } ${ fixedSizeClass } no-icon" tabindex="${ tabIndex }" aria-label="${ ariaLabel }" title="${ description }">
 				<div class="interactive-button-content">
 					<i class="button-icon" style="pointer-events: none; display: none">${ plugin.icon }</i>
 					<span class="button-title button-title-${ plugin.titleSize }">${ plugin.title || "&nbsp;" }</span>
@@ -85,7 +87,7 @@ export async function addButtonPlugin(plugin, buttonAreaElem) {
 	}
 	else {
 		const button = createElementWithHtmlText(`
-			<div class="button-plugin ${ plugin.className } non-interactive ${ fixedSizeClass } no-icon" title="${ description }">
+			<div ${id}${name} class="button-plugin ${ plugin.className } non-interactive ${ fixedSizeClass } no-icon" title="${ description }">
 				<div class="non-interactive-button-content">
 					<i class="button-icon" style="pointer-events: none; display: none;">${ plugin.icon }</i>
 					<span class="button-title button-title-${ plugin.titleSize }">${ plugin.title || "&nbsp;" }</span>
@@ -115,6 +117,18 @@ export default class ButtonPlugin extends UserInterfacePlugin {
 	get titleContainer() { return this._titleContainer; }
 	get interactive() { return true; }
 	get dynamicWidth() { return false; }
+	
+	getId() {
+		return null;
+	}
+
+	get id() { return this.config.id || this.getId(); }
+
+	getButtonName() {
+		return null;
+	}
+
+	get buttonName() { return this.config.name || this.getButtonName() || this.name; }
 
 	get ariaLabel() {
 		return this.config.ariaLabel || this.getAriaLabel();
