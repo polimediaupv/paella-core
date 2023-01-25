@@ -79,3 +79,7 @@
 
 - [HtmlVideoFormat](html_video_plugin.md) added: support HTML multi format videos.
 
+## paella-core 1.16
+
+- [New ButtonPlugin APIs](button_plugin.md) to set the `name` and `id` attributes to the button.
+- [New video manifest options](video_manifest.md): configure the video trimming in the manifest.

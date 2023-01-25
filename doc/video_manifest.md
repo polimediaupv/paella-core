@@ -12,6 +12,8 @@ It consists of four attributes, two of which, metadata and streams, are mandator
 
 - **captions:** Contains the subtitle information.
 
+- **trimming:** (paella-core>=1.16) Contains the video trimming information.
+
 Once loaded, you can access the videoManifest through the following API:
 
 ```javascript
@@ -187,5 +189,11 @@ Contains subtitle cataloging information. There can be as many subtitles as need
 - **format:** is the format identifier, which will be used to determine the subtitle plugin to be used.
 - **url:** is the absolute URL or relative path to the manifest containing the subtitle file.
 
+## Trimming (paella-core>=1.16)
 
+Allows to define the soft trimming configuration of the video. For more information, see the [videoContainer](video_container.md) documentation. All the attributes are required:
+
+- **start:** trimming start, in seconds.
+- **end:** trimming end, in seconds
+- **enabled:** if this property is `false`, the video will be loaded with the defined `start` and `end` information stored in the video container, but the trimming will be disabled.
 

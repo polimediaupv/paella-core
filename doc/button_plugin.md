@@ -39,16 +39,19 @@ export default class MyButtonPlugin extends ButtonPlugin {
 
 ## Methods that can be overwritten
 
-Apart from the `Plugin` methods, `ButtonPlugin` provides three methods and one property that can be overridden:
+Apart from the `Plugin` methods, `ButtonPlugin` provides other methods and properties that can be overridden:
 
 - `get side()`: returns the end where we want to place the button. The default implementation gets this value from the configuration. This method should be overridden only in case we want the button to be always displayed in the same place, regardless of the configuration.
 - `get parentContainer()`: returns the container where we want to add the button, which can be either `playbackBar` or `videoContainer`. If this function is not overridden, the value is obtained from the plugin configuration, and if it is not specified in the configuration either, it defaults to `playbackBar`.
+- `get titleSize()` (paella-core=>1.4): is used to set the font size of the button title. It can return `small`, `medium` or `large`.
+
 - `async mouseOver(target)`: is called when the mouse enters the button area. See the section on button sections below for more information.
 - `async mouseOut(target)`: called when the mouse leaves one of the button areas
 - `async action()`: called when the user clicks the button.
-- `get titleSize()`: is used to set the font size of the button title. It can return `small`, `medium` or `large`.
 - `getDescription()`: is used to return the text of the HTML attribute `title`.
-- `getMinContainerSize()` (paella-core >= 1.14): is used to return the minimum container width required to show the plugin in the playback bar. This value is is overridden by the `minContainerSize` attribute of the plugin configuration. 
+- `getMinContainerSize()` (paella-core >= 1.14): is used to return the minimum container width required to show the plugin in the playback bar. This value is is overridden by the `minContainerSize` attribute of the plugin configuration.
+- `getId()` (paella-core>=1.16): Allows to set the `id` attribute of the `<button>` element, in case the `id` property is not defined in the plugin configuration. By default returns `null`.
+- `getButtonName()` (paella-core>=1.16): Allows to set the `name` attribute of the `<button>` element, in case the `name` property is not defined in the plugin configuration. By default, returns `null`.
 
 
 ## Button elements
@@ -87,6 +90,10 @@ async mouseOver(target) {
 `get iconElement()`: Returns the icon DOM element, that is a child of the `button` element.
 
 `get titleContainer()`: Returns the DOM container of the button title.
+
+`get id()` (paella-core>=1.16): get the `id` attribute to be set in the `<button>` element. This property returns the value of the `id` property of the plugin configuration, and if it is not defined, it returns the value returned by the `getId()` function. If neither of these cases returns a value, then the `id` attribute will not be added to the `<button>` element.
+
+`get buttonName()` (paella-core>=1.16): get the `name` attribute to be set in the `<button>` element. Not to be confused with the `name` attribute of the [`Plugin`](plugins.md) class. This property returns the value of the `name` property of the plugin configuration, and if it's not defined, it returns the value returned by the `getButtonName()` function. If neither of these cases returns a value, it will return the value of the `name` property, that is: the plugin identifier.
 
 `hide()`: hide the button.
 
