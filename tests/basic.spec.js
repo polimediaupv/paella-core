@@ -42,30 +42,23 @@ export const waitState = async (page, state) => {
 
 export const getState = async (page) => await page.evaluate(`${player}.state`);
 
-export const checkPlayVideo = async (page) => {
-  await loadPlayer(page);
 
+export const playVideo = async (page) => {
   const PlayerState = await getPlayerState(page);
-
   await waitState(page, PlayerState.MANIFEST);
-  const state = await getState(page);  
-  await expect(state).toBe(PlayerState.MANIFEST);
-
   await page.click('#playerContainerClickArea');
   await waitState(page, PlayerState.LOADED);
+  await expect(await getState(page)).toBe(PlayerState.LOADED);
+}
+
+export const checkPlayVideo = async (page) => {
+  await loadPlayer(page);
+  await playVideo(page);
 }
 
 const checkPlayUrl = async (page, video1, video2 = null) => {
   await loadUrl(page, video1, video2);
-
-  const PlayerState = await page.evaluate(`${player}.PlayerState`);
-
-  await waitState(page, PlayerState.MANIFEST);
-  const state = await await getState(page);  
-  await expect(state).toBe(PlayerState.MANIFEST);
-
-  await page.click('#playerContainerClickArea');
-  await waitState(page, PlayerState.LOADED);
+  await playVideo(page);
 }
 
 test.describe("Play videos using manifest file", () => {
