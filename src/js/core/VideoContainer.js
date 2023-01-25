@@ -350,6 +350,10 @@ export default class VideoContainer extends DomClass {
             await this.streamProvider.setPlaybackRate(playbackRate);
         }
 
+        if (this.player.videoManifest.trimming) {
+            await this.player.videoContainer.setTrimming(this.player.videoManifest.trimming);
+        }
+
         this._ready = true;
     }
 
