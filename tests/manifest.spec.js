@@ -31,7 +31,7 @@ test.describe("Preview image", () => {
     test('Check preview image error: incorrect manifest', async ({page}) => {
         await page.goto('/?id=belmar-nopreview');
 
-        await loadPlayer(page);
+        await loadPlayer(page, true);
 
         const PlayerState = await getPlayerState(page);
 
