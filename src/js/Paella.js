@@ -164,6 +164,19 @@ async function postLoadPlayer() {
     }
 
     checkManifestIntegrity(this._videoManifest);
+
+    // Register a keyboard event to enable the playback button, but only if there are only one player in the page
+    if (__paella_instances__.length === 1)
+    {
+        const loadKeypressHandler = async (evt) => {
+            if (/space/i.test(evt.code))
+            {
+                await this.play();
+                window.removeEventListener('keypress', loadKeypressHandler, true);
+            }
+        };
+        window.addEventListener('keypress', loadKeypressHandler, true);
+    }
 }
 export default class Paella {
 
