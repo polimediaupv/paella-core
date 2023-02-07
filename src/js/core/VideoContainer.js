@@ -15,7 +15,7 @@ import 'paella-core/styles/VideoContainer.css';
 import 'paella-core/styles/VideoLayout.css';
 import { loadPluginsOfType, unloadPluginsOfType } from './Plugin';
 import { loadVideoPlugins, unloadVideoPlugins, getVideoPluginWithFileUrl } from './VideoPlugin';
-import { addVideoCanvasButton, CanvasButtonPosition } from './CanvasPlugin';
+import { addVideoCanvasButton, CanvasButtonPosition, setTabIndex } from './CanvasPlugin';
 
 export function getSourceWithUrl(player,url) {
     if (!Array.isArray[url]) {
@@ -77,6 +77,7 @@ async function updateLayoutStatic() {
 
 
     if (layoutStructure?.videos?.length) {
+        const buttonElements = [];
         for (const video of layoutStructure.videos) {
             const videoData = this.streamProvider.streams[video.content];
             const { stream, player, canvas } = videoData;
@@ -86,7 +87,7 @@ async function updateLayoutStatic() {
             let resultRect = null;
 
             canvas.buttonsArea.innerHTML = "";
-            await addVideoCanvasButton(this.player, layoutStructure, canvas, video);
+            buttonElements.push(await addVideoCanvasButton(this.player, layoutStructure, canvas, video));
             
             video.rect.forEach((videoRect) => {
                 const aspectRatioData = /^(\d+.?\d*)\/(\d+.?\d*)$/.exec(videoRect.aspectRatio);
@@ -106,6 +107,10 @@ async function updateLayoutStatic() {
             canvas.element.style.height = `${ resultRect?.height * hFactor }%`;
             canvas.element.style.zIndex = video.layer;
         }
+
+        setTimeout(() => {
+            setTabIndex(this.player, layoutStructure, buttonElements.flat());
+        }, 100);
     }
     
     const prevButtons = this.baseVideoRect.getElementsByClassName('video-layout-button');
@@ -171,6 +176,7 @@ async function updateLayoutDynamic() {
     if (layoutStructure?.videos?.length) {
         let i = 0;
         const canvasElements = [];
+        const buttonElements = [];
         for (const video of layoutStructure.videos) {
             const videoData = this.streamProvider.streams[video.content];
             const { player, canvas } = videoData;
@@ -192,7 +198,7 @@ async function updateLayoutDynamic() {
             
 
             canvas.buttonsArea.innerHTML = "";
-            await addVideoCanvasButton(this.player, layoutStructure, canvas, video);
+            buttonElements.push(await addVideoCanvasButton(this.player, layoutStructure, canvas, video));
 
             canvas.element.style = {};
             canvas.element.style.display = "block";
@@ -204,6 +210,9 @@ async function updateLayoutDynamic() {
             canvasElements.push(canvas.element);
         }
         canvasElements.forEach(e => this.baseVideoRect.appendChild(e));
+        setTimeout(() => {
+            setTabIndex(this.player, layoutStructure, buttonElements.flat());
+        }, 100);
     }
 
     return true;

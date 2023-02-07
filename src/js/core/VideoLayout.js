@@ -85,6 +85,14 @@ export default class VideoLayout extends UserInterfacePlugin {
         return "static";    // or "dynamic"
     }
 
+    getTabIndexStart() {
+        return 10;
+    }
+
+    get tabIndexStart() {
+        return this.config?.tabIndexStart || this.getTabIndexStart();
+    }
+
     // Return the layout identifier, for example, presenter-presentation
     get identifier() { return "default"; }
 

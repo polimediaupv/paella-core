@@ -178,6 +178,7 @@ async function postLoadPlayer() {
         window.addEventListener('keypress', loadKeypressHandler, true);
     }
 }
+
 export default class Paella {
 
     constructor(containerElement, initParams = {}) {

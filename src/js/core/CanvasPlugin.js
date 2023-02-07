@@ -77,13 +77,29 @@ const addButton = function({
 
 export const addVideoCanvasButton = async (player, layoutStructure, canvas, video) => {
     const plugin = layoutStructure.plugin;
+    let tabIndexStart = plugin.tabIndexStart;
     const externalButtons = await getCanvasButtons(player, video);
+    const buttonElements = [];
     const buttons = [...externalButtons,
         ...plugin.getVideoCanvasButtons(layoutStructure, video.content, video, canvas)];
     buttons.forEach(btnData => {
-        addButton.apply(canvas, [btnData]);
+        btnData.tabIndex = tabIndexStart++;
+        const btn = addButton.apply(canvas, [btnData]);
+        buttonElements.push(btn);
     });
     
+    return buttonElements;
+}
+
+export const setTabIndex = (player, layoutStructure, buttons) => {
+    let { tabIndexStart } = layoutStructure.plugin;
+    buttons.sort((b1,b2) => {
+        const b1Left = b1.getBoundingClientRect().left;
+        const b2Left = b2.getBoundingClientRect().left;
+        return b1Left - b2Left;
+    }).forEach(btn => {
+        btn.setAttribute("tabindex",tabIndexStart++);
+    })
 }
 
 export class Canvas extends DomClass {
