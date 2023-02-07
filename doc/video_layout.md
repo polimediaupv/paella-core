@@ -339,3 +339,17 @@ getVideoCanvasButtons(layoutStructure, content, video, videoCanvas) {
   }
 }
 ```
+
+### Accesibility (paella-core >= 1.17)
+
+To configure the tab index attribute of the layout buttons, you can set the `tabIndexStart` attribute in plugin configuration. The tab index attribute of the layout buttons will be set according to the position of the button in the window, from left to right, in increasing order, starting with the value defined in `tabIndexStart`. The default value of this property is 10, and it should be used whenever you have less than 10 buttons in the playback bar.
+
+```json
+{
+    ...
+    "es.upv.paella.myVideoLayout": {
+        ... other layout settings
+        "tabIndexStart": 20
+    }
+}
+```
