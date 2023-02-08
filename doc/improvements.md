@@ -83,3 +83,7 @@
 
 - [New ButtonPlugin APIs](button_plugin.md) to set the `name` and `id` attributes to the button.
 - [New video manifest options](video_manifest.md): configure the video trimming in the manifest.
+
+## paella-core 1.17
+
+- Accesibility improvements in [video layout buttons](video_layout.md).
