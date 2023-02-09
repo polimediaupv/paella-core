@@ -349,6 +349,8 @@ export default class VideoContainer extends DomClass {
         
         this._baseVideoRect.style.display = "";
 
+        // TODO: Use cookie consent API
+        // TODO: Save last known playback time for each video identifier
         // Restore volume and playback rate
         const storedVolume = window.localStorage.getItem("volume");
         const playbackRate = window.localStorage.getItem("playbackRate");

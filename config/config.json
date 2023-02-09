@@ -24,7 +24,9 @@
     },
 
     "videoContainer": {
-        "overPlaybackBar": true
+        "overPlaybackBar": true,
+        "restorePlaybackRate": true,
+        "restoreVolume": true
     },
 
     "cookieConsent": [

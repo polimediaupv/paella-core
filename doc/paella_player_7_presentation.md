@@ -87,11 +87,6 @@ These features will be deprecated in `paella-core`:
 
 ## Work-in-progress features 
 
-Although some features of Paella Player 6 are not included due to missing APIs, some of them will probably be available in the future.
-
-- WebGL video canvas, including:
-  * 360° video
-  * Chroma key
-- Thanks to the new life cycle APIs, it will be possible to unload automatically a player, for example, when a single page contains many players, and the loaded player leaves the visible area of the window through scrolling.
+See the [roadmap documentation page](roadmap.md) for more information.
 
 
