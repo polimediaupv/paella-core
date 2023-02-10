@@ -87,3 +87,7 @@
 ## paella-core 1.17
 
 - Accesibility improvements in [video layout buttons](video_layout.md).
+
+## paella-core 1.18
+
+- It is now possible to recover the last known instant of a video.
