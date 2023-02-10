@@ -364,17 +364,38 @@ export default class VideoContainer extends DomClass {
         if (this.player.config.videoContainer?.restorePlaybackRate && playbackRate !== null) {
             await this.streamProvider.setPlaybackRate(playbackRate);
         }
-        if (this.player.config.videoContainer?.restoreLastTime?.enabled && 
-            lastKnownTime[this.player.videoId])
-        {
-            const time = lastKnownTime[this.player.videoId];
-            // TODO: Implement this
-            const remainingSeconds = this.player.config.videoContainer?.restoreLastTime?.remainingSeconds;
-
-        }
-
+        
         if (this.player.videoManifest.trimming) {
             await this.player.videoContainer.setTrimming(this.player.videoManifest.trimming);
+        }
+
+        if (this.player.config.videoContainer?.restoreLastTime?.enabled)
+        {
+            const saveCurrentTime = async () => {
+                const paused = await this.paused();
+                if (!paused) {
+                    const currentTime = await this.currentTime();
+                    const currentData = getJSONCookie("lastKnownTime") || {}
+                    currentData[this.player.videoId] = currentTime;
+                    setCookieIfAllowed(
+                        this.player, 
+                        this.cookieConsentType, 
+                        "lastKnownTime",
+                        JSON.stringify(currentData));
+                }
+                setTimeout(saveCurrentTime, 1000);
+            }
+
+            if (lastKnownTime[this.player.videoId]) {
+                const time = lastKnownTime[this.player.videoId];
+                const duration = await this.duration();
+                const remainingSeconds = this.player.config.videoContainer?.restoreLastTime?.remainingSeconds;
+                if ((duration - time) > remainingSeconds) {
+                    await this.setCurrentTime(time);
+                }
+            }
+
+            saveCurrentTime();
         }
 
         this._ready = true;

@@ -30,7 +30,7 @@
         "restoreVolume": true,
         "restoreLastTime": {
             "enabled": true,
-            "maxRemainingSeconds": 5
+            "remainingSeconds": 5
         },
 
         "cookieConsentType": "necessary"
