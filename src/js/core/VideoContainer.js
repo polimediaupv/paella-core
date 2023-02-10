@@ -16,6 +16,7 @@ import 'paella-core/styles/VideoLayout.css';
 import { loadPluginsOfType, unloadPluginsOfType } from './Plugin';
 import { loadVideoPlugins, unloadVideoPlugins, getVideoPluginWithFileUrl } from './VideoPlugin';
 import { addVideoCanvasButton, CanvasButtonPosition, setTabIndex } from './CanvasPlugin';
+import { getCookie, getJSONCookie, getNumericCookie, setCookieIfAllowed } from './utils';
 
 export function getSourceWithUrl(player,url) {
     if (!Array.isArray[url]) {
@@ -249,7 +250,7 @@ export default class VideoContainer extends DomClass {
 
         this._ready = false;
 
-        this._layoutId = window.localStorage.getItem("videoLayout") || player.config.defaultLayout;
+        this._layoutId = getCookie("videoLayout") || player.config.defaultLayout;
 
         this._players = [];
         
@@ -265,7 +266,7 @@ export default class VideoContainer extends DomClass {
             return false;
         }
         else {
-            window.localStorage.setItem("videoLayout", layoutId);
+            setCookieIfAllowed(this.player, this.cookieConsentType, "videoLayout", layoutId);
             const prevLayout = this._layoutId;
             this._layoutId = layoutId;
             await this.updateLayout();
@@ -349,16 +350,27 @@ export default class VideoContainer extends DomClass {
         
         this._baseVideoRect.style.display = "";
 
-        // TODO: Use cookie consent API
-        // TODO: Save last known playback time for each video identifier
+        this.cookieConsentType = this.player.config.videoContainer?.cookieConsentType || "necessary";
+
+
         // Restore volume and playback rate
-        const storedVolume = window.localStorage.getItem("volume");
-        const playbackRate = window.localStorage.getItem("playbackRate");
+        const storedVolume = getNumericCookie("volume");
+        const playbackRate = getNumericCookie("playbackRate");
+        const lastKnownTime = getJSONCookie("lastKnownTime") || {};
+
         if (this.player.config.videoContainer?.restoreVolume && storedVolume !== null) {
             await this.streamProvider.setVolume(storedVolume);
         }
         if (this.player.config.videoContainer?.restorePlaybackRate && playbackRate !== null) {
             await this.streamProvider.setPlaybackRate(playbackRate);
+        }
+        if (this.player.config.videoContainer?.restoreLastTime?.enabled && 
+            lastKnownTime[this.player.videoId])
+        {
+            const time = lastKnownTime[this.player.videoId];
+            // TODO: Implement this
+            const remainingSeconds = this.player.config.videoContainer?.restoreLastTime?.remainingSeconds;
+
         }
 
         if (this.player.videoManifest.trimming) {
@@ -495,7 +507,7 @@ export default class VideoContainer extends DomClass {
     async setVolume(v) {
         const result = await this.streamProvider.setVolume(v);
         triggerEvent(this.player, Events.VOLUME_CHANGED, { volume: v });
-        window.localStorage.setItem("volume",v);
+        setCookieIfAllowed(this.player, this.cookieConsentType, "volume", v);
         return result;
     }
     
@@ -510,7 +522,7 @@ export default class VideoContainer extends DomClass {
     async setPlaybackRate(r) {
         const result = await this.streamProvider.setPlaybackRate(r);
         triggerEvent(this.player, Events.PLAYBACK_RATE_CHANGED, { newPlaybackRate: r });
-        window.localStorage.setItem("playbackRate",r);
+        setCookieIfAllowed(this.player, this.cookieConsentType, "playbackRate", r);
         return result;
     }
 

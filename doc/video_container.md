@@ -270,8 +270,9 @@ Note: remember that you never may use __paella_instances__ for production code. 
 
 It is possible to make the video container remember certain user parameters so that they can be restored in a later session. These values are not restored unless specified in the `paella-core` configuration:
 
-- playback rate: store the las video playback rate selected by the user.
-- volume: store the last volume level selected by the user.
+- playback rate (paella-core >= 1.5): store the las video playback rate selected by the user.
+- volume (paella-core >= 1.5): store the last volume level selected by the user.
+- last known time (paella-core >= 1.18): store the last known time for each video identifier. You can set the number of seconds remaining in the video so that the video starts playing from the beginning. For example, if there are 5 seconds left in the video, the next time the video loads it will start from the beginning.
 
 ```json
 {
@@ -279,15 +280,45 @@ It is possible to make the video container remember certain user parameters so t
   "videoContainer": {
     ...
     "restorePlaybackRate": true,
-    "restoreVolume": true
+    "restoreVolume": true,
+    "restoreLastTime": {
+      "enabled": true,
+      "remainingSeconds": 5
+    }
   }
 }
 ```
 
-Note that these values are always saved. The configuration only affects whether the values are restored. To store the configuration, the browser's `localStorage` is used. The values that are stored are as follows:
+Note that these values are always saved. The configuration only affects whether the values are restored. To store the configuration, the [cookie consent API](cookie_consent.md) is used. The values that are stored are as follows:
 
 - `playbackRate`: a number representing the playback rate, tipically between 0,2 and 2.
 - `volume`: a number between 0 and 1, representing the volume (0%-100%).
+- `lastKnownTime`: JSON string containing the video identifier and the time in seconds.
+
+Los ajustes de cookies se guardarán en el tipo de cookie definido por el atributo `cookieConsentType`:
+
+```json
+{
+  ...
+  "videoContainer": {
+    ...
+    "cookieConsentType": "necessary"
+  },
+  "cookieConsent": [
+    {
+      "type": "necessary",
+      "title": "Necessary",
+      "description": "Cookies required for proper operation",
+      "required": true
+    },
+    ...
+  ]
+  ...
+}
+```
+
+
+
 ## Customization
 
 From paella-core 1.4, the video container can be customised through the player configuration in two ways:

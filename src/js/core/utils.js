@@ -215,6 +215,21 @@ export function getCookie(cname) {
     return "";
 }
 
+export function getNumericCookie(cname) {
+    const rawValue = getCookie(cname);
+    const numValue = Number(rawValue);
+    return (rawValue !== "" && !isNaN(numValue)) ? numValue : null;
+}
+
+export function getJSONCookie(cname) {
+    try {
+        return JSON.parse(getCookie(cname));
+    }
+    catch (err) {
+        return null;
+    }
+}
+
 export function loadStyle(url) {
     return new Promise(resolve => {
         const link = document.createElement('link');

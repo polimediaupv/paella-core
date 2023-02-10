@@ -25,8 +25,15 @@
 
     "videoContainer": {
         "overPlaybackBar": true,
+
         "restorePlaybackRate": true,
-        "restoreVolume": true
+        "restoreVolume": true,
+        "restoreLastTime": {
+            "enabled": true,
+            "maxRemainingSeconds": 5
+        },
+
+        "cookieConsentType": "necessary"
     },
 
     "cookieConsent": [
