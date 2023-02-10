@@ -105,7 +105,18 @@ utils.setCookie("validForOneDay","I'll expire tomorrow", 1);
 
 // Conditional write: set a cookie only if the user allows to handle
 // a cookie type, in this case, 'analytics' cookies.
+// paella-core >= 1.8
 utils.setCookieIfAllowed(myPlayer, "analytics", "userId", analyticsUserId, 365);
+
+// Numeric cookie: return a number from a cookie, or null if the cookie
+// does not exists or is not a number
+// paella-core >= 1.18
+utils.getNumericCookie("aNumberValue");
+
+// JSON cookie: return a JSON object from a cookie, or null if the
+// cookie does not exists or is not a JSON object.
+// paella-core >= 1.18
+utils.getJSONCookie("aJSONValue");
 ```
 
 Check documentation about [cookie consent APIs](cookie_consent.md) to get more information about `setCookieIfAllowed()` function.
