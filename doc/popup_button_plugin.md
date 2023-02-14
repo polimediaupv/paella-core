@@ -57,4 +57,31 @@ export default class FrameControlButtonPlugin extends PopUpButtonPlugin {
 
 ```
 
+## Parent pop ups
 
+The `parentContainer` property of the configuration can be used to place the button in another container. For more information, see the documentation of [ButtonPlugin](button_plugin.md) and [ButtonGroupPlugin](button_group_plugin.md). In the case that the button is placed in another pop up (for example, grouping it in a ButtonGroupPlugin), we will have a configuration in which a child pop up can be opened from a button placed in a parent pop up.
+
+The `closeParentPopUp` property determines whether the parent pop up window should be closed when the child pop up is closed. The value of this attribute is obtained from the plugin configuration. The default value is `false`, but you can change the default value overriding the `getCloseParentPopUp()` function:
+
+```js
+class MyPopUpPlugin extends PopUpPlugin {
+  ...
+  getCloseParentPopUp() {
+    return true;  // close parent pop up by default
+  }
+  ...
+}
+```
+
+Note that in this case, the value defined in the configuration file will take preference over the value returned by the `getCloseParentPopUp()` function. If you want to prevent the user from using the configuration to set this property, you can override the `closeParentPopUp` attribute itself.
+
+
+```js
+class MyPopUpPlugin extends PopUpPlugin {
+  ...
+  get closeParentPopUp() {
+    return true;  // close parent pop up and prevent other configuration
+  }
+  ...
+}
+```

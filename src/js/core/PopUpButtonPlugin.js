@@ -14,6 +14,12 @@ export default class PopUpButtonPlugin extends ButtonPlugin {
 
 	get refreshContent() { return this._refreshContent; }
 
+	get closeParentPopUp() { return this.config.closeParentPopUp || this.getCloseParentPopUp(); }
+
+	getCloseParentPopUp() {
+		return false;
+	}
+
 	async action() {
 		await this.showPopUp();
 	}
@@ -40,7 +46,7 @@ export default class PopUpButtonPlugin extends ButtonPlugin {
 	}
 	
 	hidePopUp() {
-		if (this.config.closeParentPopUp) {
+		if (this.closeParentPopUp) {
 			PopUp.HideAllPopUps(false);
 		}
 		else if (this._popUp) {
