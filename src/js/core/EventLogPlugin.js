@@ -14,7 +14,7 @@ export async function loadLogEventPlugins(player) {
 }
 
 export async function unloadLogEventPlugins(player) {
-    player.log.warn("unloadLogEventPlugins: not implemented");
+    
 }
 
 export default class EventLogPlugin extends Plugin {
