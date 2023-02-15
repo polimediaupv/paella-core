@@ -63,6 +63,8 @@ import Log, { LOG_LEVEL } from "paella-core/js/core/Log";
 
 import defaultDictionaries from "./default-dictionaries.js";
 
+import Preferences from "./core/Preferences";
+
 export const PlayerState = {
     UNLOADED: 0,
     LOADING_MANIFEST: 1,
@@ -108,6 +110,8 @@ async function preLoadPlayer() {
         getConsent: this._initParams.getCookieConsentFunction, 
         getDescription: this._initParams.getCookieDescriptionFunction
     });
+
+    this._preferences = new Preferences(this);
 
     const urlSearch = new URLSearchParams(window.location.search);
     const caseInsensitiveParams = new URLSearchParams();
@@ -297,6 +301,10 @@ export default class Paella {
 
     get Events() {
         return Events;
+    }
+
+    get preferences() {
+        return this._preferences;
     }
 
     translate(word, keys = null) {
@@ -706,6 +714,7 @@ export default class Paella {
         
         this._manifestLoaded = false;
         this._previewContainer?.removeFromParent();
+        this._preferences = null;
         this._playerState = PlayerState.UNLOADED;
     }
 

@@ -23,6 +23,18 @@
         "showRemainingProgress": true
     },
 
+    "preferences": {
+        "currentSource": "cookie",
+        "sources": {
+            "cookie": {
+                "consentType": "necessary"
+            },
+            "dataPlugin": {
+                "context": ["preferences"]
+            }
+        }
+    },
+
     "videoContainer": {
         "overPlaybackBar": true,
 
@@ -31,9 +43,7 @@
         "restoreLastTime": {
             "enabled": true,
             "remainingSeconds": 5
-        },
-
-        "cookieConsentType": "necessary"
+        }
     },
 
     "cookieConsent": [
@@ -238,7 +248,7 @@
         "es.upv.paella.cookieDataPlugin": {
             "enabled": true,
             "order": 0,
-            "context": ["default","trimming"]
+            "context": ["default","trimming","preferences"]
         },
 
         "es.upv.paella.testCaptionsPlugin": {
