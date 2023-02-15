@@ -21,7 +21,7 @@ async function load() {
 async function save(data) {
     switch (this.source.name) {
     case "cookie":
-        setCookieIfAllowed(this.player, this.source.consentType, JSON.stringify(data));
+        setCookieIfAllowed(this.player, this.source.consentType, "preferences", JSON.stringify(data));
         break;
     case "dataPlugin":
         break;
