@@ -117,6 +117,8 @@ Video plugin formats available in [paella core](https://github.com/polimediaupv/
 
 [Cookie consent API (paella-core >= 1.8)](cookie_consent.md): integrate `paella-core` with your website cookie user consent.
 
+[Preferences API](preferences.md) (paella >= 1.19): API to manage user preferences using cookies or DataPlugins.
+
 ## Plugin repositories
 
 - [Paella basic plugins](https://github.com/polimediaupv/paella-basic-plugins): collection of basic plugins for paella-core.

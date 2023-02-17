@@ -48,7 +48,7 @@ export default class Preferences extends PlayerResource {
         }
     }
 
-    async set(key, value, global = true) {
+    async set(key, value, global = false) {
         const data = await load.apply(this);
         if (global) {
             data.global[key] = value; 
@@ -60,7 +60,7 @@ export default class Preferences extends PlayerResource {
         await save.apply(this, [data]);
     }
 
-    async get(key, global = true) {
+    async get(key, global = false) {
         const data = await load.apply(this);
         if (global) {
             return data.global[key];

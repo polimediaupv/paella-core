@@ -30,7 +30,7 @@
                 "consentType": "necessary"
             },
             "dataPlugin": {
-                "context": ["preferences"]
+                "context": "preferences"
             }
         }
     },
