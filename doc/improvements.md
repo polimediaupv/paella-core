@@ -91,3 +91,8 @@
 ## paella-core 1.18
 
 - It is now possible to recover the last known instant of a video.
+
+## paella-core 1.19
+
+- New [preferences manager API](preferences.md)
+- The videoContainer now uses the preferences API to store the video settings.

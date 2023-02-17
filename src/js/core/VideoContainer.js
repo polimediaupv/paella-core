@@ -16,7 +16,6 @@ import 'paella-core/styles/VideoLayout.css';
 import { loadPluginsOfType, unloadPluginsOfType } from './Plugin';
 import { loadVideoPlugins, unloadVideoPlugins, getVideoPluginWithFileUrl } from './VideoPlugin';
 import { addVideoCanvasButton, CanvasButtonPosition, setTabIndex } from './CanvasPlugin';
-import { getCookie, getJSONCookie, getNumericCookie, setCookieIfAllowed } from './utils';
 
 export function getSourceWithUrl(player,url) {
     if (!Array.isArray[url]) {
@@ -250,8 +249,6 @@ export default class VideoContainer extends DomClass {
 
         this._ready = false;
 
-        this._layoutId = getCookie("videoLayout") || player.config.defaultLayout;
-
         this._players = [];
         
         this._streamProvider = new StreamProvider(this.player, this.baseVideoRect);
@@ -266,7 +263,8 @@ export default class VideoContainer extends DomClass {
             return false;
         }
         else {
-            setCookieIfAllowed(this.player, this.cookieConsentType, "videoLayout", layoutId);
+            const global = this.player.config.videoContainer?.restoreVideoLayout?.global;
+            this.player.preferences.set('videoLayout', layoutId, { global });
             const prevLayout = this._layoutId;
             this._layoutId = layoutId;
             await this.updateLayout();
@@ -311,6 +309,15 @@ export default class VideoContainer extends DomClass {
     async load(streamData) {
         this._streamData = streamData;
 
+        if (this.player.config.videoContainer?.restoreVideoLayout?.enabled) {
+            const global = this.player.config.videoContainer?.restoreVideoLayout?.global;
+            this._layoutId = await this.player.preferences.get("videoLayout", { global }) || this.player.config.defaultLayout;
+        }
+        else {
+            this._layoutId = player.config.defaultLayout;
+        }
+
+
         await this.streamProvider.load(streamData);
         
         // Find the content identifiers that are compatible with the stream data
@@ -350,18 +357,15 @@ export default class VideoContainer extends DomClass {
         
         this._baseVideoRect.style.display = "";
 
-        this.cookieConsentType = this.player.config.videoContainer?.cookieConsentType || "necessary";
-
-
         // Restore volume and playback rate
-        const storedVolume = getNumericCookie("volume");
-        const playbackRate = getNumericCookie("playbackRate");
-        const lastKnownTime = getJSONCookie("lastKnownTime") || {};
+        const storedVolume = await this.player.preferences.get("volume", { global: true });
+        const playbackRate = await this.player.preferences.get("playbackRate", { global: true });
+        const lastKnownTime = await this.player.preferences.get("lastKnownTime", { global: false });
 
-        if (this.player.config.videoContainer?.restoreVolume && storedVolume !== null) {
+        if (this.player.config.videoContainer?.restoreVolume && storedVolume !== null && storedVolume !== undefined) {
             await this.streamProvider.setVolume(storedVolume);
         }
-        if (this.player.config.videoContainer?.restorePlaybackRate && playbackRate !== null) {
+        if (this.player.config.videoContainer?.restorePlaybackRate && playbackRate !== null && playbackRate !== undefined) {
             await this.streamProvider.setPlaybackRate(playbackRate);
         }
         
@@ -375,19 +379,13 @@ export default class VideoContainer extends DomClass {
                 const paused = await this.paused();
                 if (!paused) {
                     const currentTime = await this.currentTime();
-                    const currentData = getJSONCookie("lastKnownTime") || {}
-                    currentData[this.player.videoId] = currentTime;
-                    setCookieIfAllowed(
-                        this.player, 
-                        this.cookieConsentType, 
-                        "lastKnownTime",
-                        JSON.stringify(currentData));
+                    this.player.preferences.set("lastKnownTime", currentTime, { global: false });
                 }
                 setTimeout(saveCurrentTime, 1000);
             }
 
-            if (lastKnownTime[this.player.videoId]) {
-                const time = lastKnownTime[this.player.videoId];
+            if (lastKnownTime) {
+                const time = await this.player.preferences.get('lastKnownTime', { global: false });
                 const duration = await this.duration();
                 const remainingSeconds = this.player.config.videoContainer?.restoreLastTime?.remainingSeconds;
                 if ((duration - time) > remainingSeconds) {
@@ -528,7 +526,7 @@ export default class VideoContainer extends DomClass {
     async setVolume(v) {
         const result = await this.streamProvider.setVolume(v);
         triggerEvent(this.player, Events.VOLUME_CHANGED, { volume: v });
-        setCookieIfAllowed(this.player, this.cookieConsentType, "volume", v);
+        this.player.preferences.set("volume", v, { global: true });
         return result;
     }
     
@@ -543,7 +541,7 @@ export default class VideoContainer extends DomClass {
     async setPlaybackRate(r) {
         const result = await this.streamProvider.setPlaybackRate(r);
         triggerEvent(this.player, Events.PLAYBACK_RATE_CHANGED, { newPlaybackRate: r });
-        setCookieIfAllowed(this.player, this.cookieConsentType, "playbackRate", r);
+        this.player.preferences.set("playbackRate", r, { global: true });
         return result;
     }
 

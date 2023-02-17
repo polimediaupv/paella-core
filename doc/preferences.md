@@ -35,7 +35,5 @@ This API is used internally in `paella-core` to store some settings, like for ex
 
 You can also use the API through the `player.preferences` object. Preferences can be stored globally or specifically for the current video. If the property is global, it will be available for any video that is loaded, otherwise it will only be stored for that specific video. It is possible to store a global and a specific property with the same key, both will be stored.
 
-- `player.preferences.set(key, value, global = false)`: Stores a value associated with a key.
-- `player.preferences.get(key, global = false)`: Returns a value associated with a key.
-
-
+- `async player.preferences.set(key, value, { global = false } = {})`: Stores a value associated with a key.
+- `async player.preferences.get(key, { global = false } = {})`: Returns a value associated with a key. If the required property is not present, this function will return `undefined`.

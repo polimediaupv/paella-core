@@ -272,6 +272,7 @@ It is possible to make the video container remember certain user parameters so t
 
 - playback rate (paella-core >= 1.5): store the las video playback rate selected by the user.
 - volume (paella-core >= 1.5): store the last volume level selected by the user.
+- video layout (paella-core >= 1.19): store the las video layout set. This setting was stored in previous versions of paella-core, but from 1.19 is configurable. This property can be configured to be saved globally (for all videos) or specific to the current video identifier.
 - last known time (paella-core >= 1.18): store the last known time for each video identifier. You can set the number of seconds remaining in the video so that the video starts playing from the beginning. For example, if there are 5 seconds left in the video, the next time the video loads it will start from the beginning.
 
 ```json
@@ -281,6 +282,10 @@ It is possible to make the video container remember certain user parameters so t
     ...
     "restorePlaybackRate": true,
     "restoreVolume": true,
+    "restoreVideoLayout": {
+      "enabled": true,
+      "global": true
+    },
     "restoreLastTime": {
       "enabled": true,
       "remainingSeconds": 5
@@ -289,34 +294,7 @@ It is possible to make the video container remember certain user parameters so t
 }
 ```
 
-Note that these values are always saved. The configuration only affects whether the values are restored. To store the configuration, the [cookie consent API](cookie_consent.md) is used. The values that are stored are as follows:
-
-- `playbackRate`: a number representing the playback rate, tipically between 0,2 and 2.
-- `volume`: a number between 0 and 1, representing the volume (0%-100%).
-- `lastKnownTime`: JSON string containing the video identifier and the time in seconds.
-
-Los ajustes de cookies se guardarán en el tipo de cookie definido por el atributo `cookieConsentType`:
-
-```json
-{
-  ...
-  "videoContainer": {
-    ...
-    "cookieConsentType": "necessary"
-  },
-  "cookieConsent": [
-    {
-      "type": "necessary",
-      "title": "Necessary",
-      "description": "Cookies required for proper operation",
-      "required": true
-    },
-    ...
-  ]
-  ...
-}
-```
-
+The [preferences API](preferences.md) is used to store these settings. The values of these properties are always saved, but will only be restored if the option is activated in the configuration, except for the last known time instant, which is only saved if the option is active.
 
 
 ## Customization

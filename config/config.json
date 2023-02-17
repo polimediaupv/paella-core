@@ -40,6 +40,10 @@
 
         "restorePlaybackRate": true,
         "restoreVolume": true,
+        "restoreVideoLayout": {
+            "enabled": true,
+            "global": true
+        },
         "restoreLastTime": {
             "enabled": true,
             "remainingSeconds": 5
