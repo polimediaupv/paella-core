@@ -144,7 +144,7 @@
             "order": 0,
             "audioTrackLabel": "name",
             "enableCache": true,
-            "forceNative": true,
+            "forceNative": false,
             "hlsConfig": {
                 "enableWorker": true,
                 "maxBufferLength": 1,
