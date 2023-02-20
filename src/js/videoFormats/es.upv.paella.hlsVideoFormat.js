@@ -69,9 +69,12 @@ export const HlsSupport = {
     NATIVE: 2
 };
 
-export function getHlsSupport() {
+export function getHlsSupport(forceNative = false) {
     const video = document.createElement("video");
-    if (Hls.isSupported()) {
+    if (video.canPlayType('application/vnd.apple.mpegurl') && forceNative) {
+        return HlsSupport.NATIVE;
+    }
+    else if (Hls.isSupported()) {
         return HlsSupport.MEDIA_SOURCE_EXTENSIONS;
     }
     else if (video.canPlayType('application/vnd.apple.mpegurl')) {
@@ -81,8 +84,6 @@ export function getHlsSupport() {
         return HlsSupport.UNSUPPORTED;
     }
 }
-
-const hlsSupport = getHlsSupport();
 
 const loadHls = (player, streamData, video, config, cors) => {
     
@@ -214,14 +215,19 @@ export class HlsVideo extends Mp4Video {
 
         this._ready = false;
         this._autoQuality = true;
+        this._forceNative = config.forceNative || false;
     }
 
     get autoQuality() {
         return this._autoQuality;
     }
 
+    get forceNative() {
+        return this._forceNative;
+    }
+
     async loadStreamData(streamData) {
-        if (hlsSupport === HlsSupport.NATIVE) {
+        if (getHlsSupport(this.forceNative) === HlsSupport.NATIVE) {
             streamData.sources.mp4 = streamData.sources.hls;
             const result = await super.loadStreamData(streamData);
             const tracks = await this.getAudioTracks();
@@ -268,7 +274,7 @@ export class HlsVideo extends Mp4Video {
     }
 
     async waitForLoaded() {
-        if (hlsSupport === HlsSupport.NATIVE) {
+        if (getHlsSupport(this.forceNative) === HlsSupport.NATIVE) {
             return super.waitForLoaded();
         }
         else {
@@ -291,7 +297,7 @@ export class HlsVideo extends Mp4Video {
         const q = [];
         q.push(this._autoQuality);
 
-        if (hlsSupport === HlsSupport.MEDIA_SOURCE_EXTENSIONS) {
+        if (getHlsSupport(this.forceNative) === HlsSupport.MEDIA_SOURCE_EXTENSIONS) {
             this._hls.levels.forEach((level, index) => {
                 q.push(new VideoQualityItem({
                     index: index, // TODO: should be level.id??
@@ -317,7 +323,7 @@ export class HlsVideo extends Mp4Video {
             throw Error("Invalid parameter setting video quality. VideoQualityItem object expected.");
         }
         
-        if (hlsSupport === HlsSupport.MEDIA_SOURCE_EXTENSIONS) {
+        if (this.getHlsSupport(this.forceNative) === HlsSupport.MEDIA_SOURCE_EXTENSIONS) {
             this._currentQuality = q;
             this._hls.currentLevel = q.index;
         }
@@ -332,6 +338,7 @@ export class HlsVideo extends Mp4Video {
 
     async supportsMultiaudio() {
         await this.waitForLoaded();
+        const hlsSupport = getHlsSupport(this.forceNative);
 
         if (hlsSupport === HlsSupport.MEDIA_SOURCE_EXTENSIONS) {
             return this._hls.audioTracks.length > 1;
@@ -348,6 +355,7 @@ export class HlsVideo extends Mp4Video {
         await this.waitForLoaded();
 
         const audioTrackLabel = this._config.audioTrackLabel || 'name';
+        const hlsSupport = getHlsSupport(this.forceNative);
 
         if (hlsSupport === HlsSupport.MEDIA_SOURCE_EXTENSIONS) {
             const result = this._hls.audioTracks.map(track => {
@@ -381,6 +389,7 @@ export class HlsVideo extends Mp4Video {
 
         const tracks = await this.getAudioTracks();
         const selected = tracks.find(track => track.id === newTrack.id);
+        const hlsSupport = getHlsSupport(this.forceNative);
         if (hlsSupport === HlsSupport.MEDIA_SOURCE_EXTENSIONS && selected) {
             this._hls.audioTrack = selected.id;
         }
@@ -418,7 +427,7 @@ export default class HlsVideoPlugin extends VideoPlugin {
 
     isCompatible(streamData) {
         const { hls } = streamData.sources;
-        return hls && hlsSupport;
+        return hls && getHlsSupport();
     }
 
     async getVideoInstance(playerContainer, isMainAudio) {

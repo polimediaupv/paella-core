@@ -10,12 +10,16 @@ To tune up the configuration of the player, you may check the [hls.js configurat
 
 The configuration callbacks cannot be specified, but in practice the only callback we may need to configure is `xhrSetup`, in case we want to modify the options in the Ajax request to get the stream chunks. To solve this, the `corsConfig` attribute allows to modify these parameters. If `corsConfig.withCredentials` is `true`, then the headers defined in `requestHeaders` will be added. The HLS plugin includes a mechanism that prevents the browser to use cache in the main `m3u8` playlist file. This mechanism works by adding a `cache=random_number` parameter to the URL of the `m3u8` file request. You can use the `disableCache` parameter to disable this mechanism.
 
+(paella-core >= 1.20) In iPadOS and macOS, using Safari, if the `forceNative` attribute is set to `true`, this plugin will bypass `hls.js` in favor of the native HLS player provided by the browser. Please note that on iPadOS and iOS, due to limitations imposed by Apple in the app store, all third-party browsers are required to use the `WebKit` framework for web rendering, which in practice makes all third-party browsers on this platform behave the same as Safari. Note that the native HLS plugin in Safari does not support many of the features supported by the HLS version, such as manual selection of playback quality. Apple does not provide any method to do these things natively, so it is recommended to use the `hls.js` player whenever possible.
+
+
 ```json
 "es.upv.paella.hlsVideoFormat": {
   "enabled": true,
   "order": 0,
   "audioTrackLabel": "name",
   "disableCache": false,
+  "forceNative": false,
   "hlsConfig": {
     "maxBufferLength": 40
   },
