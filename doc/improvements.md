@@ -96,3 +96,8 @@
 
 - New [preferences manager API](preferences.md)
 - The videoContainer now uses the preferences API to store the video settings.
+
+## paella-core 1.20
+
+- Now you can force the native HLS player in Safari for macOS and iPadOS browsers.
+
