@@ -314,7 +314,7 @@ export default class VideoContainer extends DomClass {
             this._layoutId = await this.player.preferences.get("videoLayout", { global }) || this.player.config.defaultLayout;
         }
         else {
-            this._layoutId = player.config.defaultLayout;
+            this._layoutId = this.player.config.defaultLayout;
         }
 
 
