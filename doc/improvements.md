@@ -100,4 +100,5 @@
 ## paella-core 1.20
 
 - Now you can force the native HLS player in Safari for macOS and iPadOS browsers.
+- You can setup the `popUpType` attribute of PopUpButtonPlugin in the plugin configuration.
 
