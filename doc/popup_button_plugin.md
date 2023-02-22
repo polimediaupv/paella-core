@@ -34,7 +34,7 @@ export default class MyPupUpPlugin extends PopUpButtonPlugin {
 - "no-modal": The pop up is displayed in the same way as the "modal" one, but you can still interact with the player. To hide a "no-modal" pop up, the user must to click the button again.
 - "timeline": The pop up is displayed above the timeline, and measures the full width of the timeline. The height will depend on the content of the pop up.
 
-(paella-core >= 1.21) You can override this property with the plugin configuration, using the `popUpType` property:
+(paella-core >= 1.20) You can override this property with the plugin configuration, using the `popUpType` property:
 
 ```json
 {
