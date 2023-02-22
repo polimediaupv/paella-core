@@ -86,7 +86,7 @@ export default class DefaultKeyShortcutsPlugin extends KeyShortcutPlugin {
             }
         });
         if (selected === 0) {
-            this._validPlaybackRates[this._validPlaybackRates.length - 1];
+            selected = this._validPlaybackRates[this._validPlaybackRates.length - 1];
         }
         await this.player.videoContainer.setPlaybackRate(selected);
     }
