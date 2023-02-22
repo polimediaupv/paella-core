@@ -3,6 +3,24 @@ import PopUp from 'paella-core/js/core/PopUp';
 import { createElementWithHtmlText } from 'paella-core/js/core/dom';
 import TimeLinePopUp from 'paella-core/js/core/TimeLinePopUp';
 
+function resolvePopUpType() {
+	const types = ["modal","timeline","no-modal"];
+	const warnMsg = () => this.player.log.warn(`Invalid popUpType set in "${this.name}" plugin. Alowed types are "modal", "timeline" and "no-modal"`);
+	if (types.indexOf(this.config.popUpType) !== -1) {
+		return this.config.popUpType;
+	}
+	else if (types.indexOf(this.popUpType) !== -1) {
+		if (this.config.popUpType) {
+			warnMsg();
+		}
+		return this.popUpType;
+	}
+	else {
+		warnMsg();
+		return "modal";
+	}
+}
+
 export default class PopUpButtonPlugin extends ButtonPlugin {
 	constructor() {
 		super(...arguments);
@@ -59,10 +77,11 @@ export default class PopUpButtonPlugin extends ButtonPlugin {
 		
 		if (!this._popUp) {
 			this._popUp = null;
-			if (this.popUpType === "modal" || this.popUpType === "no-modal") {
-				this._popUp = new PopUp(this.player, parentContainer, this.button, this, this.popUpType === "modal");
+			const type = resolvePopUpType.apply(this);
+			if (type === "modal" || type === "no-modal") {
+				this._popUp = new PopUp(this.player, parentContainer, this.button, this, type === "modal");
 			}
-			else if (this.popUpType === "timeline") {
+			else if (type === "timeline") {
 				this._popUp = new TimeLinePopUp(this.player, this);
 			}
 			const content = await this.getContent();

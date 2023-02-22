@@ -232,7 +232,8 @@
             "order": 3,
             "side": "right",
             "_parentContainer": "videoContainer",
-            "menuTitle": "Options"
+            "menuTitle": "Options",
+            "popUpType": "modal"
         },
 
         "es.upv.paella.videoCanvas": {
