@@ -102,3 +102,7 @@
 - Now you can force the native HLS player in Safari for macOS and iPadOS browsers.
 - You can setup the `popUpType` attribute of PopUpButtonPlugin in the plugin configuration.
 
+## paella-core 1.21
+
+- New pop up APIs: `HideTopPopUp()`, `Contains(domElement)`. [PopUp documentation](pop_up_api.md).
+- Improvements in UX: two non-hierarchically related pop-ups are now prevented from opening at the same time.
