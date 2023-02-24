@@ -69,6 +69,12 @@ export default class PopUp extends DomClass {
 	static GetPopUp(id) {
 		return g_popUps.find(p => p.id === id);
 	}
+
+	static Contains(element) {
+		return g_popUps.some(popUp => {
+			return popUp.element.contains(element);
+		})
+	}
 	
 	static HideAllPopUps(onlyModal = true) {
 		g_popUps.forEach(p => {
@@ -76,6 +82,19 @@ export default class PopUp extends DomClass {
 				p.hide();
 			}
 		});
+	}
+
+	static HideTopPopUp() {
+		if (g_popUps.length) {
+			let topPopUp = null;
+			g_popUps.slice().reverse().some(popUp => {
+				if (popUp.isVisible) {
+					topPopUp = popUp;
+				}
+				return topPopUp !== null;
+			})
+			topPopUp.hide();
+		}
 	}
 
 	static Unload() {
@@ -94,6 +113,7 @@ export default class PopUp extends DomClass {
 		<div class="popup-content"></div>
 		`;
 		super(player,{ attributes, children, parent });
+		this._lastFocusElement = document.activeElement;
 		this._modal = modal;
 		this._contextObject = contextObject;
 
@@ -112,6 +132,10 @@ export default class PopUp extends DomClass {
 		}
 
 		this.hide();
+	}
+
+	get lastFocusElement() {
+		return this._lastFocusElement;
 	}
 
 	get isModal() {
@@ -179,6 +203,9 @@ export default class PopUp extends DomClass {
 			});
 		}
 		super.hide();
+		if (this.lastFocusElement) {
+			this.lastFocusElement.focus();		
+		}
 	}
 
 	// Child popUp management

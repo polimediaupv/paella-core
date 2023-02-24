@@ -1,5 +1,6 @@
 import Plugin from 'paella-core/js/core/Plugin';
 import { loadPluginsOfType } from './Plugin';
+import PopUp from './PopUp';
 
 const getModifierStatus = sc => {
     return `alt:${sc.keyModifiers?.altKey || false}, ctrl:${sc.keyModifiers?.ctrlKey || false}, shift:${sc.keyModifiers?.shiftKey || false}`
@@ -86,7 +87,7 @@ export async function loadKeyShortcutPlugins(player) {
 
         // Do not process the key if focus is outside paella-core container, but
         // catch key events if the focus is on body
-        if (!player.containerElement.contains(document.activeElement) && document.activeElement !== document.body) {
+        if (!player.containerElement.contains(document.activeElement) && !PopUp.Contains(document.activeElement) && document.activeElement !== document.body) {
             return;
         }
 
