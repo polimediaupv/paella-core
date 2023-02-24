@@ -31,6 +31,10 @@ The `PopUp` constructor supports two mandatory parameters, and three extra param
 
 **`static HideAllPopUps(onlyModal = true)`:** Hides all visible popups. If `onlyModal` is true, only those that are modal are hidden.
 
+**`static HideTopPopUp()` (paella-core 1.21):** Hides the top level pop up. 
+
+**`static Contains(domElement)` (paella-core 1.21):** Returns `true` if `domElement` is inside any of the visible pop ups. 
+
 
 ## Attributes
 

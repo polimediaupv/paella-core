@@ -56,7 +56,7 @@ export default class DefaultKeyShortcutsPlugin extends KeyShortcutPlugin {
     }
 
     closePopUp() {
-        PopUp.HideAllPopUps(false);
+        PopUp.HideTopPopUp();
     }
 
     async decreaseSpeed() {

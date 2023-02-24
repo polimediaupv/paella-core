@@ -92,8 +92,8 @@ export default class PopUp extends DomClass {
 					topPopUp = popUp;
 				}
 				return topPopUp !== null;
-			})
-			topPopUp.hide();
+			});
+			topPopUp?.hide();
 		}
 	}
 
@@ -102,6 +102,14 @@ export default class PopUp extends DomClass {
 			p.removeFromParent();
 		});
 		g_popUps.slice(0);
+	}
+
+	static HideNonAncestors(popup) {
+		g_popUps.forEach(otherPopUp => {
+			if (!popup.isParent(otherPopUp)) {
+				otherPopUp.hide();
+			}
+		});
 	}
 	
 	constructor(player, parent, anchorElement = null, contextObject = null, modal = true) {
@@ -130,7 +138,7 @@ export default class PopUp extends DomClass {
 		if (anchorElement) {
 			placePopUp(player, anchorElement, this.contentElement);
 		}
-
+		this._parentPopUp = null;
 		this.hide();
 	}
 
@@ -159,7 +167,26 @@ export default class PopUp extends DomClass {
 	get content() {
 		return this._popupContent;
 	}
+
+	get parentPopUp() {
+		return this._parentPopUp;
+	}
 	
+	isParent(otherPopUp) {
+		if (otherPopUp === this) {
+			return true;
+		}
+		else if (this.parentPopUp === null) {
+			return false;
+		}
+		else if (this.parentPopUp === otherPopUp) {
+			return true;
+		}
+		else {
+			return this.parentPopUp.isParent(otherPopUp);
+		}
+	}
+
 	setContent(domElement) {
 		this.contentElement.innerHTML = "";
 		if (typeof(domElement) === "string") {
@@ -183,6 +210,7 @@ export default class PopUp extends DomClass {
 			parentPopUp.addChild(this);
 		}
 		super.show();
+		PopUp.HideNonAncestors(this);
 		triggerEvent(this.player, Events.SHOW_POPUP, {
 			popUp: this,
 			plugin: this.contextObject
