@@ -9,6 +9,10 @@
 	z-index: 100;
 }
 
+.progress-indicator-container {
+	forced-color-adjust: none;
+}
+
 .playback-bar:hover {
 	background: var(--secondary-bg-color-hover);
 }
