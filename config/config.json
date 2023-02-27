@@ -24,7 +24,7 @@
     },
 
     "preferences": {
-        "currentSource": "cookie",
+        "currentSource": "dataPlugin",
         "sources": {
             "cookie": {
                 "consentType": "necessary"

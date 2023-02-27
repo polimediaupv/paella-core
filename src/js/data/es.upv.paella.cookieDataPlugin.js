@@ -14,7 +14,6 @@ export default class CookieDataPlugin extends DataPlugin {
         const key = this.serializeKey(context, keyParams);
         let value = getCookie(key);
         try {
-            value = unescape(value);
             value = JSON.parse(value);
         }
         catch (e) {}
@@ -33,7 +32,6 @@ export default class CookieDataPlugin extends DataPlugin {
                 data = "";
             }
         }
-        data = escape(data);
         setCookie(key, data);
         this.player.log.debug(`CookieDataPlugin.write: ${key}`);
     }

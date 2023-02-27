@@ -14,7 +14,13 @@ async function load() {
             return JSON.parse(g_defaultPreferences);
         }
     case "dataPlugin":
-        break;
+        try {
+            const data = await this.player.data.read(this.source.context, {});
+            return data || JSON.parse(g_defaultPreferences);
+        }
+        catch (err) {
+            return JSON.parse(g_defaultPreferences);
+        }
     }
 }
 
@@ -24,6 +30,7 @@ async function save(data) {
         setCookieIfAllowed(this.player, this.source.consentType, "preferences", JSON.stringify(data));
         break;
     case "dataPlugin":
+        await this.player.data.write(this.source.context, {}, data);
         break;
     }
 }
@@ -48,7 +55,7 @@ export default class Preferences extends PlayerResource {
         }
     }
 
-    async set(key, value, global = false) {
+    async set(key, value, { global = false } = {}) {
         const data = await load.apply(this);
         if (global) {
             data.global[key] = value; 
@@ -60,13 +67,13 @@ export default class Preferences extends PlayerResource {
         await save.apply(this, [data]);
     }
 
-    async get(key, global = false) {
+    async get(key, { global = false } = {}) {
         const data = await load.apply(this);
         if (global) {
             return data.global[key];
         }
         else {
-            return data.videos[this.player.videoId][key];
+            return data.videos[this.player.videoId] && data.videos[this.player.videoId][key] || undefined;
         }
     }
 }
