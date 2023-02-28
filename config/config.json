@@ -216,7 +216,8 @@
             "side": "right",
             "parentContainer": "testButtonGroup",
             "description": "Test popup button",
-            "menuTitle": "Test Pop Up"
+            "menuTitle": "Test Pop Up",
+            "popUpType": "no-modal"
         },
 
         "es.upv.paella.testPopUp2Button": {

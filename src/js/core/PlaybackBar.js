@@ -5,6 +5,7 @@ import { loadPluginsOfType, unloadPluginsOfType } from 'paella-core/js/core/Plug
 import { addButtonPlugin } from 'paella-core/js/core/ButtonPlugin';
 import { pauseAutoHideUiTimer, resumeAutoHideUiTimer } from './utils';
 import 'paella-core/styles/PlaybackBar.css';
+import PopUp from './PopUp';
 
 export default class PlaybackBar extends DomClass {
 	constructor(player,parent) {
@@ -34,6 +35,10 @@ export default class PlaybackBar extends DomClass {
 			this.element.appendChild(this._buttonPluginsRight);
 			this.element.appendChild(this._timerContainer);
 		}
+
+		this.element.addEventListener("click", () => {
+			PopUp.HideAllPopUps(false);
+		});
 
 		this._enabled = true;
 	}

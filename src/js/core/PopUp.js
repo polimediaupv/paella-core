@@ -57,6 +57,30 @@ function placePopUp(player, anchorElement, contentElement) {
 	}
 }
 
+function enableHidePopUpActionContainer(player) {
+	if (!player.__hidePopUpActionContainer) {
+		player.__hidePopUpActionContainer = createElementWithHtmlText('<div class="hide-popup-action-container"></div>');
+		player.videoContainer.element.appendChild(player.__hidePopUpActionContainer);
+		player.__hidePopUpActionContainer.style.position = "absolute";
+		player.__hidePopUpActionContainer.style.left = "0px";
+		player.__hidePopUpActionContainer.style.top = "0px";
+		player.__hidePopUpActionContainer.style.right = "0px";
+		player.__hidePopUpActionContainer.style.bottom = "0px";
+		player.__hidePopUpActionContainer.style.zIndex = 500;
+		player.__hidePopUpActionContainer.addEventListener("click", evt => {
+			PopUp.HideAllPopUps(false);
+			evt.stopPropagation();
+		});
+	}
+	player.__hidePopUpActionContainer.style.display = "block";
+}
+
+function disableHidePopUpActionContainer(player) {
+	if (player.__hidePopUpActionContainer) {
+		player.__hidePopUpActionContainer.style.display = "none";
+	}
+}
+
 export default class PopUp extends DomClass {
 	static GetPopUps() {
 		return g_popUps;
@@ -211,6 +235,7 @@ export default class PopUp extends DomClass {
 		}
 		super.show();
 		PopUp.HideNonAncestors(this);
+		enableHidePopUpActionContainer(this.player);
 		triggerEvent(this.player, Events.SHOW_POPUP, {
 			popUp: this,
 			plugin: this.contextObject
@@ -233,6 +258,9 @@ export default class PopUp extends DomClass {
 		super.hide();
 		if (this.lastFocusElement) {
 			this.lastFocusElement.focus();		
+		}
+		if (!g_popUps.some(p => p.isVisible)) {
+			disableHidePopUpActionContainer(this.player);
 		}
 	}
 
