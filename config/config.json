@@ -274,6 +274,8 @@
         "es.upv.paella.defaultShortcuts": {
             "enabled": true,
             "validPlaybackRates": [0.75, 2, 1, 1.5],
+            "skipBackwards": 10,
+            "skipForward": 10,
             "order": 1
         },
 

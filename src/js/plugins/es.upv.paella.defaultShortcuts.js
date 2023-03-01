@@ -108,6 +108,9 @@ export default class DefaultKeyShortcutsPlugin extends KeyShortcutPlugin {
     }
 
     async getKeys() {
+        const player = this.player;
+        const skipBackwards = this.config.skipBackwards || 30;
+        const skipForward = this.config.skipForward || 30;
         return [
             {
                 keyCode: KeyCodes.KeyM,
@@ -128,16 +131,16 @@ export default class DefaultKeyShortcutsPlugin extends KeyShortcutPlugin {
             },
             {
                 keyCode: KeyCodes.KeyJ,
-                description: "Rewind 30 seconds",
+                get description() { return player.translate("Rewind $1 seconds", [skipBackwards]) },
                 action: async () => {
-                    await this.seek(-30);
+                    await this.seek(-this.skipBackwards);
                 }
             },
             {
                 keyCode: KeyCodes.KeyL,
-                description: "Forward 30 seconds",
+                get description() { return player.translate("Forward $1 seconds", [skipForward]) },
                 action: async () => {
-                    await this.seek(30);
+                    await this.seek(this.skipForward);
                 }
             },
             {
@@ -163,16 +166,16 @@ export default class DefaultKeyShortcutsPlugin extends KeyShortcutPlugin {
             },
             {
                 keyCode: KeyCodes.ArrowLeft,
-                description: "Rewind 30 seconds",
+                get description() { return player.translate("Rewind $1 seconds", [skipBackwards]) },
                 action: async () => {
-                    await this.seek(-30);
+                    await this.seek(-this.skipBackwards);
                 }
             },
             {
                 keyCode: KeyCodes.ArrowRight,
-                description: "Forward 30 seconds",
+                get description() { return player.translate("Forward $1 seconds", [skipForward]) },
                 action: async () => {
-                    await this.seek(30);
+                    await this.seek(this.skipForward);
                 }
             },
             {
