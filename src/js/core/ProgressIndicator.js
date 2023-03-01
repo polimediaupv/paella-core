@@ -64,11 +64,18 @@ function updateCanvas() {
 }
 
 function updateHeight() {
+	const size = {
+		w: this.element.offsetWidth,
+		h: this.element.offsetHeight
+	};
+	this._canvas.forEach(c => {
+		c.width = size.w;
+		c.height = size.h;
+	});
 	const height = this._isHover ? this._minHeightHover : this._minHeight
 	this.element.style.minHeight = `${ height }px`;
 	this._canvas.forEach(canvas => canvas.height = this.element.clientHeight);
 	updateCanvas.apply(this);
-	this.requestUpdateCanvas();
 }
 
 function getTimerParentContainer(config, playbackBar) {
@@ -295,14 +302,6 @@ export default class ProgressIndicator extends DomClass {
 	}
 	
 	onResize() {
-		const size = {
-			w: this.element.offsetWidth,
-			h: this.element.offsetHeight
-		};
-		this._canvas.forEach(c => {
-			c.width = size.w;
-			c.height = size.h;
-		});
 		this.requestUpdateCanvas();
 	}
 }
