@@ -133,14 +133,14 @@ export default class DefaultKeyShortcutsPlugin extends KeyShortcutPlugin {
                 keyCode: KeyCodes.KeyJ,
                 get description() { return player.translate("Rewind $1 seconds", [skipBackwards]) },
                 action: async () => {
-                    await this.seek(-this.skipBackwards);
+                    await this.seek(-skipBackwards);
                 }
             },
             {
                 keyCode: KeyCodes.KeyL,
                 get description() { return player.translate("Forward $1 seconds", [skipForward]) },
                 action: async () => {
-                    await this.seek(this.skipForward);
+                    await this.seek(skipForward);
                 }
             },
             {
@@ -168,14 +168,14 @@ export default class DefaultKeyShortcutsPlugin extends KeyShortcutPlugin {
                 keyCode: KeyCodes.ArrowLeft,
                 get description() { return player.translate("Rewind $1 seconds", [skipBackwards]) },
                 action: async () => {
-                    await this.seek(-this.skipBackwards);
+                    await this.seek(-skipBackwards);
                 }
             },
             {
                 keyCode: KeyCodes.ArrowRight,
                 get description() { return player.translate("Forward $1 seconds", [skipForward]) },
                 action: async () => {
-                    await this.seek(this.skipForward);
+                    await this.seek(skipForward);
                 }
             },
             {
