@@ -1,4 +1,5 @@
-import Plugin, { loadPluginsOfType } from 'paella-core/js/core/Plugin';
+import Plugin from 'paella-core/js/core/Plugin';
+import { loadPluginsOfType } from 'paella-core/js/core/plugin_tools'
 import PlayerResource from 'paella-core/js/core/PlayerResource';
 
 export class DataPlugin extends Plugin {

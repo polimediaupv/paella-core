@@ -13,7 +13,7 @@ import { translate } from 'paella-core/js/core/Localization';
 
 import 'paella-core/styles/VideoContainer.css';
 import 'paella-core/styles/VideoLayout.css';
-import { loadPluginsOfType, unloadPluginsOfType } from './Plugin';
+import { loadPluginsOfType, unloadPluginsOfType } from 'paella-core/js/core/plugin_tools'
 import { loadVideoPlugins, unloadVideoPlugins, getVideoPluginWithFileUrl } from './VideoPlugin';
 import { addVideoCanvasButton, CanvasButtonPosition, setTabIndex } from './CanvasPlugin';
 

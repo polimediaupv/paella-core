@@ -1,7 +1,7 @@
 import { getNextTabIndex } from "./ButtonPlugin";
 import UserInterfacePlugin from "./UserInterfacePlugin";
 import { CanvasButtonPosition } from "./CanvasPlugin";
-import { loadPluginsOfType } from "./Plugin";
+import { loadPluginsOfType } from "./plugin_tools";
 
 export function getCanvasButtonPlugin(plugin) {
     return {

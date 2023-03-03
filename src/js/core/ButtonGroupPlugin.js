@@ -1,6 +1,6 @@
 import PopUpButtonPlugin from 'paella-core/js/core/PopUpButtonPlugin';
 import { createElementWithHtmlText } from 'paella-core/js/core/dom';
-import { loadPluginsOfType } from 'paella-core/js/core/Plugin';
+import { loadPluginsOfType } from 'paella-core/js/core/plugin_tools';
 import { addButtonPlugin } from 'paella-core/js/core/ButtonPlugin';
 import { translate } from 'paella-core/js/core/Localization';
 

@@ -1,7 +1,7 @@
 import Plugin from 'paella-core/js/core/Plugin';
 import { bindEvent } from 'paella-core/js/core/Events';
 
-import { loadPluginsOfType } from "paella-core/js/core/Plugin";
+import { loadPluginsOfType } from 'paella-core/js/core/plugin_tools'
 
 export async function loadLogEventPlugins(player) {
     await loadPluginsOfType(player, "eventLog", async (plugin) => {

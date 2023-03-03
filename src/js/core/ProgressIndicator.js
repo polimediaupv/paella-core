@@ -1,7 +1,7 @@
 import { DomClass, createElementWithHtmlText } from 'paella-core/js/core/dom';
 import Events, { bindEvent } from 'paella-core/js/core/Events';
 import { resolveResourcePath, secondsToTime } from 'paella-core/js/core/utils';
-import { loadPluginsOfType, unloadPluginsOfType } from './Plugin';
+import { loadPluginsOfType, unloadPluginsOfType } from 'paella-core/js/core/plugin_tools';
 import ProgressIndicatorTimer from './ProgressIndicatorTimer';
 
 export function getCurrentFrame(sortedFrameList,time) {

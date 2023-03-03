@@ -1,5 +1,5 @@
 import UserInterfacePlugin from 'paella-core/js/core/UserInterfacePlugin';
-import { getPluginsOfType } from 'paella-core/js/core/Plugin';
+import { getPluginsOfType } from 'paella-core/js/core/plugin_tools';
 import { createElementWithHtmlText } from 'paella-core/js/core/dom';
 import Events, { triggerEvent } from 'paella-core/js/core/Events';
 import { translate } from 'paella-core/js/core/Localization';

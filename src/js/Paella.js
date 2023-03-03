@@ -17,7 +17,7 @@ import {
 } from 'paella-core/js/core/utils';
 import Loader from "./core/Loader";
 import ErrorContainer from "./core/ErrorContainer";
-import { registerPlugins, unregisterPlugins } from 'paella-core/js/core/Plugin';
+import { registerPlugins, unregisterPlugins } from 'paella-core/js/core/plugin_tools';
 import VideoContainer, {
     getSourceWithUrl
 } from 'paella-core/js/core/VideoContainer';
