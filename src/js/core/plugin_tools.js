@@ -1,5 +1,5 @@
 import pluginRequireContext from '../../../plugin_directories';
-
+import { loadSvgIcon, joinPath } from './utils';
 import ButtonGroupPlugin from './ButtonGroupPlugin';
 
 function importPlugin(player, pluginClass, pluginInstance, PluginClass) {
@@ -65,6 +65,8 @@ export function registerPlugins(player) {
             const buttonGroupConfig = { plugins:{} };
             buttonGroupConfig.plugins[name] = btnData;
             const instance = new ButtonGroupPlugin(player, buttonGroupConfig, name);
+            instance._iconPath = joinPath([player.configResourcesUrl, btnData.icon]);
+
             console.log(instance);
             //      Configure the button icon: import the svg file and extract as HTML
             //console.log(buttonGroupConfig)

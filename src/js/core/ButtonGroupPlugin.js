@@ -5,8 +5,14 @@ import { addButtonPlugin } from 'paella-core/js/core/ButtonPlugin';
 import { translate } from 'paella-core/js/core/Localization';
 
 import 'paella-core/styles/ButtonGroup.css'; 
+import { loadSvgIcon } from './utils';
 
 export default class ButtonGroupPlugin extends PopUpButtonPlugin {
+    async load() {
+        if (this._iconPath) {
+            this.icon = await loadSvgIcon(this._iconPath);
+        }
+    }
 
     get groupName() {
         return this.config?.groupName || "buttonGroup";
