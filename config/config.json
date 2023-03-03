@@ -50,6 +50,19 @@
         }
     },
 
+    "buttonGroups": [
+        {
+            "enabled": true,
+            "groupName": "options",
+            "description": "Configuration options",
+            "icon": "settings-icon.svg",
+            "order": 4,
+            "side": "right",
+            "tabIndex": 10,
+            "parentContainer": "playbackBar"
+        }
+    ],
+
     "cookieConsent": [
         {
             "type": "necessary",
@@ -233,7 +246,7 @@
             "groupName": "testButtonGroup",
             "order": 3,
             "side": "right",
-            "_parentContainer": "videoContainer",
+            "parentContainer": "options",
             "menuTitle": "Options",
             "popUpType": "no-modal"
         },
