@@ -82,6 +82,11 @@ export function getPluginsOfType(player,type) {
 }
 
 export async function loadPluginsOfType(player,type,onLoad=null,onPreload=null) {
+    if (!player.__pluginData__.pluginInstances[type]) {
+        player.log.info(`There are no defined plugins of type '${type}'`);
+        return;
+    }
+    
     // Sort plugins
     player.__pluginData__.pluginInstances[type].sort((a,b) => a.order - b.order);
     player.__pluginData__.pluginInstances[type].forEach(p => player.log.debug(`type: ${type}, name: ${p.name}`));
