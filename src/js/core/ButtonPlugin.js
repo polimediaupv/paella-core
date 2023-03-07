@@ -3,6 +3,7 @@ import { getPluginsOfType } from 'paella-core/js/core/plugin_tools';
 import { createElementWithHtmlText } from 'paella-core/js/core/dom';
 import Events, { triggerEvent } from 'paella-core/js/core/Events';
 import { translate } from 'paella-core/js/core/Localization';
+import PopUp from './PopUp';
 
 export function getButtonPlugins(player, side = "any", parent = "playbackBar") {
 	return getPluginsOfType(player, "button")
@@ -78,6 +79,9 @@ export async function addButtonPlugin(plugin, buttonAreaElem) {
 	
 		button.addEventListener("click", (evt) => {
 			const plugin = button._pluginData;
+			if (plugin.closePopUps) {
+				PopUp.HideAllPopUps(false);
+			}
 			triggerEvent(plugin.player, Events.BUTTON_PRESS, {
 				plugin: plugin
 			});
@@ -205,6 +209,14 @@ export default class ButtonPlugin extends UserInterfacePlugin {
 	get side() {
 		const side = this.config?.side;
 		return side || "left";
+	}
+
+	get closePopUps() {
+		return this.config.closePopUps || this.getClosePopUps();
+	}
+
+	getClosePopUps() {
+		return true;
 	}
 
 	// "playbackBar" or "videoContainer"

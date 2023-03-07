@@ -26,6 +26,10 @@ export default class ButtonGroupPlugin extends PopUpButtonPlugin {
 		return this.config.menuTitle || null;
 	}
 
+    getClosePopUps() {
+        return false;
+    }
+
     async getContent() {
         const content = createElementWithHtmlText('<div class="button-group"></div>');
 
