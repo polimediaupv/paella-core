@@ -52,6 +52,7 @@ Apart from the `Plugin` methods, `ButtonPlugin` provides other methods and prope
 - `getMinContainerSize()` (paella-core >= 1.14): is used to return the minimum container width required to show the plugin in the playback bar. This value is is overridden by the `minContainerSize` attribute of the plugin configuration.
 - `getId()` (paella-core>=1.16): Allows to set the `id` attribute of the `<button>` element, in case the `id` property is not defined in the plugin configuration. By default returns `null`.
 - `getButtonName()` (paella-core>=1.16): Allows to set the `name` attribute of the `<button>` element, in case the `name` property is not defined in the plugin configuration. By default, returns `null`.
+- `getClosePopUps()` (paella-core>=1.22): Indicates whether or not to close pop ups when the button is clicked. By default this option is `true`, but in the case of the [`ButtonGroupPlugin`](button_group_plugin.md) this value is `false` by default.
 
 
 ## Button elements
@@ -83,8 +84,6 @@ async mouseOver(target) {
 }
 ```
 
-
-
 ## Other ButtonPlugin APIs
 
 `get iconElement()`: Returns the icon DOM element, that is a child of the `button` element.
@@ -94,6 +93,7 @@ async mouseOver(target) {
 `get id()` (paella-core>=1.16): get the `id` attribute to be set in the `<button>` element. This property returns the value of the `id` property of the plugin configuration, and if it is not defined, it returns the value returned by the `getId()` function. If neither of these cases returns a value, then the `id` attribute will not be added to the `<button>` element.
 
 `get buttonName()` (paella-core>=1.16): get the `name` attribute to be set in the `<button>` element. Not to be confused with the `name` attribute of the [`Plugin`](plugins.md) class. This property returns the value of the `name` property of the plugin configuration, and if it's not defined, it returns the value returned by the `getButtonName()` function. If neither of these cases returns a value, it will return the value of the `name` property, that is: the plugin identifier.
+`get closePopUps()` (paella-core>=1.22): returns the value of the `closePopUp` property of the plugin configuration, and if not set, then returns the value of the `getClosePopUps()` function. This is used internally by paella-core to determine if we want to close pop ups that are open when this button is pressed.
 
 `hide()`: hide the button.
 

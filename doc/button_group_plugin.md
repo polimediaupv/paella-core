@@ -1,5 +1,6 @@
 # Button group plugin
 
+
 It is a specific type of [PopUpButtonPlugin](popup_button_plugin.md) that allows to group several plugins of type button or of types derived from this one, in a pop up that is displayed when activating the plugin.
 
 In the plugin configuration a container name is specified using the `groupName` attribute. This container name will be used as `parentContainer` in those plugins that we want to group under this container. Finally, `menuTitle` is an optional attribute with which we can add a title that appears before the buttons that will be grouped in this plugin. The text included in this attribute will be translated using the localization API.:
@@ -55,6 +56,36 @@ export default class TestButtonGroupPlugin extends ButtonGroupPlugin {
     }
 }
 ```
+
+## Create button groups from configuration (paella-core>=1.22)
+
+From version 1.22 of `paella-core` it is possible to create new button plugin instances directly from the configuration file. This way, it is not necessary to extend a class to create a button group.
+
+Button groups are defined in the configuration, in the `buttonGroups` section:
+
+```json
+{
+    ...
+    "buttonGroups": [
+        {
+            "enabled": true,
+            "groupName": "options",
+            "description": "Configuration options",
+            "icon": "settings-icon.svg",
+            "order": 4,
+            "side": "right",
+            "tabIndex": 10,
+            "parentContainer": "playbackBar"
+        }
+    ],
+    ...
+}
+```
+
+Each element of the `buttonGroups` array is the configuration options of a ButtonGroup instance that will be created dynamically. In addition to these options, we also add the `icon` property, which is used to specify the icon we want to use for the button that will display the pop-up with the options.
+
+The icon must be a file in `svg` format, and will be looked for in a path relative to the location of the settings file. In the example above, the icon `settings-icon.svg` will be looked for in the same path as the configuration file.
+
 
 
 ## Customization

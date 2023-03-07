@@ -106,3 +106,8 @@
 
 - New pop up APIs: `HideTopPopUp()`, `Contains(domElement)`. [PopUp documentation](pop_up_api.md).
 - Improvements in UX: two non-hierarchically related pop-ups are now prevented from opening at the same time.
+
+## paella-core 1.22
+
+- Now you can [create button group instances](button_group_plugin.md) from the configuration file.
+- New button plugin configuration: [closePopUps](button_plugin.md).
