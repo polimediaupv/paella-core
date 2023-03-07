@@ -15,7 +15,8 @@ import {
     defaultGetCookieDescriptionCallback
 } from './js/core/CookieConsent';
 
-import Plugin, { importPlugins, getPluginsOfType, loadPluginsOfType } from 'paella-core/js/core/Plugin';
+import Plugin from 'paella-core/js/core/Plugin';
+import { importPlugins, getPluginsOfType, loadPluginsOfType } from 'paella-core/js/core/plugin_tools';
 import UserInterfacePlugin from 'paella-core/js/core/UserInterfacePlugin';
 import ButtonPlugin, { getNextTabIndex, getCurrentTabIndex } from 'paella-core/js/core/ButtonPlugin';
 import PopUpButtonPlugin from 'paella-core/js/core/PopUpButtonPlugin';
