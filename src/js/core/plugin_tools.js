@@ -32,9 +32,12 @@ export function importPlugins(player,context) {
     const config = player.config;
     context.keys().forEach(key => {
         const module = context(key);
-        const PluginClass = module.default;
-        const pluginInstance = new PluginClass(player, config, key.substring(2,key.length - 3));
-        importPlugin(player, key, pluginInstance, PluginClass);
+        const pluginName = key.substring(2,key.length - 3);
+        if (config.plugins[pluginName]) {
+            const PluginClass = module.default;
+            const pluginInstance = new PluginClass(player, config, pluginName);
+            importPlugin(player, key, pluginInstance, PluginClass);
+        }
     });
 }
 
@@ -54,10 +57,7 @@ export function registerPlugins(player) {
     player.initParams.customPluginContext.forEach(ctx => importPlugins(player, ctx));
 
     // Button Groups
-    // TODO: create button group instances
     const { buttonGroups } = config;
-    // For each button group in config
-    
     if (buttonGroups) {
         buttonGroups.forEach((btnData,i) => {
             //      Create a instance of ButtonPlugin
@@ -66,13 +66,8 @@ export function registerPlugins(player) {
             buttonGroupConfig.plugins[name] = btnData;
             const instance = new ButtonGroupPlugin(player, buttonGroupConfig, name);
             instance._iconPath = joinPath([player.configResourcesUrl, btnData.icon]);
-
-            console.log(instance);
-            //      Configure the button icon: import the svg file and extract as HTML
-            //console.log(buttonGroupConfig)
             importPlugin(player, instance.type, instance, `ButtonGroupPlugin${i}`);
         }) 
-        //      Add the plugin with importPlugin function. The PluginClass must be unqiue: ButtonGroupPlugin1, ButtonGroupPlugin2...
     }
 
     player.log.debug("Plugins have been registered:")
