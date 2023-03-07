@@ -6,6 +6,8 @@
 
     "defaultLayout": "presenter-presentation",
 
+    "defaultLanguage": "en",
+
     "defaultAudioStream": "presenter",
 
     "defaultVideoPreview": "/config/default_preview_landscape.jpg",

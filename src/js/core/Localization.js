@@ -1,12 +1,14 @@
 
 let g_currentLang = "en";
+let g_defaultLanguage = "";
 
 const g_dictionaries = {
 };
 
 export function defaultTranslateFunction(word) {
     const dict = g_dictionaries[g_currentLang] || {}
-    return dict[word] || word;
+    const defaultDict = g_dictionaries[g_defaultLanguage] || {};
+    return dict[word] || defaultDict[word] || word;
 }
 
 export function defaultSetLanguageFunction(lang) {
@@ -31,6 +33,10 @@ export function defaultGetDictionariesFunction() {
     return g_dictionaries;
 }
 
+export function defaultGetDefaultLanguageFunction(player) {
+    return player.config.defaultLanguage || navigator.language;
+}
+
 let g_translateFunc = defaultTranslateFunction;
 
 let g_setLanguageFunc = defaultSetLanguageFunction;
@@ -40,6 +46,8 @@ let g_getLanguageFunc = defaultGetLanguageFunction;
 let g_defaultAddDictionary = defaultAddDictionaryFunction;
 
 let g_defaultGetDictionaries = defaultGetDictionariesFunction;
+
+let g_defaultGetDefaultLang = defaultGetDefaultLanguageFunction;
 
 export function translate(word, keys = null) {
     const translated = g_translateFunc(word);
@@ -72,6 +80,10 @@ export function getDictionaries() {
     return g_defaultGetDictionaries();
 }
 
+export function getDefaultLanguage(player) {
+    return g_defaultGetDefaultLang(player);
+}
+
 export function setTranslateFunction(fn) {
     g_translateFunc = fn;
 }
@@ -90,4 +102,12 @@ export function setAddDictionaryFunction(fn) {
 
 export function setGetDictionariesFunction(fn) {
     g_defaultGetDictionaries = fn;
+}
+
+export function setGetDefaultLanguageFunction(fn) {
+    g_defaultGetDefaultLang = fn;
+}
+
+export function setupDefaultLanguage(player) {
+    g_defaultLanguage = getDefaultLanguage(player);
 }

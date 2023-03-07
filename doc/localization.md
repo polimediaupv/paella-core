@@ -50,15 +50,18 @@ For more information about Paella Player initialization, check [this document](i
 
 The `paella-core` instance includes an API for accessing localization functions, which can be used alternatively, without the need to import the API functions from the library.
 
-**`translate(word,keys)`**
+**`translate(word,keys)`:** Translates a phrase or word. The `keys` parameter is an array that allows substitutions to be made in the text once it has been translated. For example, if the text to translate is `"hello $1!"`, we could use the array `["John"]` which would substitute the key `$1`.
 
-**`setLanguage(lang)`**
+**`setLanguage(lang)`:** Sets the current language. By default, the current language is inferred from `navigator.language`.
 
-**`getLanguage()`**
+**`getLanguage()`:** Returns the current language.
 
-**`addDictionary(lang,dict)`**
+**`addDictionary(lang,dict)`:** Adds the `dict` dictionary for the `lang` language. The dictionary keys are added to the previously existing dictionary. Previously existing keys will be replaced with the keys from the new dictionary.
 
-**`getDictionaries()`**
+**`getDictionaries()`:** Returns the configured dictionaries.
+
+**`getDefaultLanguage()`:** Returns the default language of the player, in case no translations are found for the current language. The default implementation of this function returns the `defaultLanguage` attribute of the configuration file, and if undefined, returns the language `en`.
+
 
 Example: 
 
@@ -112,6 +115,7 @@ You can use the Paella Player initialization object to define custom translation
 const localization = {
   _dict: {},
   _lang: navigator.language.substring(0,2),
+  _defaultLang: 'en', // Use english as default language
   translate: (word) => {
     return this._dict[this._lang] && this._dict[this._lang][word] || word;
   },
@@ -127,7 +131,8 @@ const initParams = {
 	getLanguageFunction: () => localization._lang,
 	translateFunction: (word) => localization.translate(word),
 	addDictionaryFunction: (lang, dict) => localization.addDictionary(lang,dict),
-  getDictionariesFunction: () => localication._dict
+  getDictionariesFunction: () => localication._dict,
+  getDefaultLanguageFunction: (_player) => localization._defaultLang
 	...
 }
 ```

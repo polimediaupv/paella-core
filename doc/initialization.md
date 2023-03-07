@@ -42,13 +42,13 @@ const initParams = {
     manifestFileName: 'data.json',     // manifest file name (can be overrided in config.json)
 
     // Initialization callbacks
-    loadConfig: [default_load_config_function],      // overrides the config.json file load
-    getVideoId: [default_video_id_function],     // get the video identifier
-    getManifestUrl: [default_manifest_url_function],    // get the video manifest url
-    getManifestFileUrl: [default_manifest_file_url_function],   // get the full manifest file url
-    loadVideoManifest: [default_load_video_manifest_function],   // get the manifest file content
-    getCookieConsentFunction: [default_get_cookie_consent_function],    // get cookie consent preferences function
-    getCookieDescriptionFunction: [default_get_cookie_description_function],    // get cookie description function
+    loadConfig: default_load_config_function,      // overrides the config.json file load
+    getVideoId: default_video_id_function,     // get the video identifier
+    getManifestUrl: default_manifest_url_function,    // get the video manifest url
+    getManifestFileUrl: default_manifest_file_url_function,   // get the full manifest file url
+    loadVideoManifest: default_load_video_manifest_function,   // get the manifest file content
+    getCookieConsentFunction: default_get_cookie_consent_function,    // get cookie consent preferences function
+    getCookieDescriptionFunction: default_get_cookie_description_function,    // get cookie description function
   
   	customPluginContext: [],	// an array of require.context() function call results
 
