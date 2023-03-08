@@ -11,6 +11,11 @@
         box-sizing: border-box;
     }
 
+    .progress-indicator-remaining {
+        border: 3px solid gray;
+        box-sizing: border-box;
+    }
+
     .progress-indicator-handler {
         border: 5px solid white;
         box-sizing: border-box;
