@@ -21,12 +21,6 @@
 	forced-color-adjust: none;
 }
 
-@media (forced-colors: active) {
-	.popup-content {
-		forced-color-adjust: none;
-	}
-}
-
 .popup-container.no-modal .popup-content {
 	pointer-events: all;
 }

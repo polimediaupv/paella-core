@@ -69,6 +69,8 @@ import defaultDictionaries from "./default-dictionaries.js";
 
 import Preferences from "./core/Preferences";
 
+import "../css/ForcedColors.css";
+
 export const PlayerState = {
     UNLOADED: 0,
     LOADING_MANIFEST: 1,

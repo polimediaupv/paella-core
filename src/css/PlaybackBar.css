@@ -9,20 +9,6 @@
 	z-index: 100;
 }
 
-@media (forced-colors: active) {
-	.playback-bar {
-		forced-color-adjust: none;
-	}
-
-	.progress-indicator-content {
-		border: 5px solid white;
-	}
-
-	.progress-indicator-handler {
-		border: 5px solid white;
-	}
-}
-
 .playback-bar:hover {
 	background: var(--secondary-bg-color-hover);
 }
