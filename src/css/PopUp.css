@@ -18,6 +18,13 @@
 	box-shadow: 0px 0px 4px 0px var(--main-bg-color);
 	border-radius: 3px;
 	padding: 5px 5px 5px 5px;
+	forced-color-adjust: none;
+}
+
+@media (forced-colors: active) {
+	.popup-content {
+		forced-color-adjust: none;
+	}
 }
 
 .popup-container.no-modal .popup-content {

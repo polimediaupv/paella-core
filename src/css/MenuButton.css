@@ -34,6 +34,13 @@ ul.menu-button-content li.menu-button-item button.selected {
 	background-color: var(--highlight-bg-color);
 }
 
+@media (forced-colors: active) {
+
+	ul.menu-button-content li.menu-button-item button.selected {
+		border: 2px solid white;
+	}
+}
+
 ul.menu-button-content li.menu-button-item button.selected:hover {
 	background-color: var(--highlight-bg-color-hover);
 }
