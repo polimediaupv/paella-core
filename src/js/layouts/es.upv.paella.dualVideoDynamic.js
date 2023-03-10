@@ -3,10 +3,10 @@ import VideoLayout from 'paella-core/js/core/VideoLayout';
 
 import { CanvasButtonPosition } from '../core/CanvasPlugin';
 
-import defaultIconRotate from 'paella-core/icons/icon_rotate.svg';
-import defaultIconMinimize from 'paella-core/icons/minimize-3.svg';
+import defaultIconRotate from 'paella-core/icons/icon_switch_side.svg';
 import defaultIconMaximize from 'paella-core/icons/maximize.svg';
 import defaultIconClose from 'paella-core/icons/close.svg';
+import defaultIconSideBySide from 'paella-core/icons/icon_side_by_side.svg';
 
 export default class DualVideoDynamicLayout extends VideoLayout {
     get layoutType() {
@@ -18,21 +18,21 @@ export default class DualVideoDynamicLayout extends VideoLayout {
     }
 
     getVideoCanvasButtons(layoutStructure, content, video, videoCanvas) {
-        const iconMinimize = this.player.getCustomPluginIcon(this.name,"iconMinimize") || defaultIconMinimize;
         const iconMaximize = this.player.getCustomPluginIcon(this.name,"iconMaximize") || defaultIconMaximize;
+        const iconSideBySide = this.player.getCustomPluginIcon(this.name,"iconSideBySide") || defaultIconSideBySide;
         const iconSwitchSide = this.player.getCustomPluginIcon(this.name,"iconSwitchSide") || defaultIconRotate;
         const iconClose = this.player.getCustomPluginIcon(this.name,"iconClose") || defaultIconClose;
         const layoutData = () => this._currentContent.find(lo => lo.id === content);
         const isMinimized = () => layoutData().size === 25;
-        const isMaximized = () => layoutData().size > 25;
+        const isMaximized = () => layoutData().size > 50;
         const result = [];
 
-        if (isMinimized()) {
+        if (isMinimized() || isMaximized()) {
             result.push({
-                icon: iconMaximize,
+                icon: iconSideBySide,
                 position: CanvasButtonPosition.LEFT,
-                title: this.player.translate('Maximize video'),
-                ariaLabel: this.player.translate('Maximize video'),
+                title: this.player.translate('Minimize video'),
+                ariaLabel: this.player.translate('Minimize video'),
                 click: async () => {
                     this._currentContent.forEach(lo => {
                         lo.size = 50;
@@ -41,20 +41,21 @@ export default class DualVideoDynamicLayout extends VideoLayout {
                 }
             });
         }
-        else if (isMaximized()) {
+        else {
             result.push({
-                icon: iconMinimize,
+                icon: iconMaximize,
                 position: CanvasButtonPosition.LEFT,
-                title: this.player.translate('Minimize video'),
-                ariaLabel: this.player.translate('Minimize video'),
+                title: this.player.translate('Maximize video'),
+                ariaLabel: this.player.translate('Maximize video'),
                 click: async () => {
                     this._currentContent.forEach(lo => {
-                        lo.size = lo.id === content ? 25 : 75;
+                        lo.size = lo.id === content ? 75 : 25;
                     });
                     await this.player.videoContainer.updateLayout();
                 }
             });
         }
+
         result.push({
             icon: iconSwitchSide,
             position: CanvasButtonPosition.LEFT,
