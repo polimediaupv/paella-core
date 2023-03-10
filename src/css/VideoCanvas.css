@@ -7,6 +7,8 @@
     pointer-events: none;
     text-align: center;
     z-index: 1;
+    container-type: size;
+    container-name: button-area;
 }
 
 
@@ -49,18 +51,24 @@
 }
 
 
-@media (max-width: 600px) {
+@container button-area (max-width: 200px) {
     .video-canvas .button-area button {
-        width: 30px;
+        width: 25cqi;
     }
 }
 
-
-@media (min-width: 1200px) {
+@container button-area (min-width: 200px) and (max-width: 350px) {
     .video-canvas .button-area button {
-        width: 50px;
+        width: 45px;
     }
 }
+
+@container button-area (min-width: 350px) {
+    .video-canvas .button-area button {
+        width: 55px;
+    }
+}
+
 
 
   

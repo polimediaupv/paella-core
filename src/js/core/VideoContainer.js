@@ -161,9 +161,10 @@ async function updateLayoutDynamic() {
     this.baseVideoRect.style.display = "flex";
     this.baseVideoRect.classList.add("dynamic");
 
-    const width = this.element.clientWidth;
-    const height = this.element.clientHeight;
-    const isLandscape = width > height;
+
+    const videoContainerWidth = this.element.clientWidth;
+    const videoContainerHeight = this.element.clientHeight;
+    const isLandscape = videoContainerWidth > videoContainerHeight;
     if (isLandscape) {
         this.baseVideoRect.classList.remove("portrait");
         this.baseVideoRect.classList.add("landscape");
@@ -172,6 +173,8 @@ async function updateLayoutDynamic() {
         this.baseVideoRect.classList.add("portrait");
         this.baseVideoRect.classList.remove("landscape");
     }
+    const width = this.baseVideoRect.clientWidth;
+    const height = this.baseVideoRect.clientHeight;
 
     if (layoutStructure?.videos?.length) {
         let i = 0;

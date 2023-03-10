@@ -1,4 +1,8 @@
 
+:root {
+	--video-container-padding: 20px;
+}
+
 .video-container {
     background-color: var(--video-container-background-color);
     width: 100%;
@@ -13,7 +17,7 @@
 
 
 .video-container.over-playback-bar {
-	height: calc(100% - (var(--playback-bar-height) + 10px));
+	height: calc(100% - var(--playback-bar-height));
 	top: 0px;
 	transform: none;
 }
@@ -21,13 +25,15 @@
 .base-video-rect {
     background-color: var(--base-video-rect-background-color);
     position: relative;
+	height: calc(100% - var(--video-container-padding) * 2);
 }
 
 .base-video-rect.dynamic {
 	display: flex;
 	background-color: transparent;
-	gap: 5px;
+	gap: var(--video-container-padding);
 	padding: 5px;
+	width: calc(100% - var(--video-container-padding) * 2);
 }
 
 .base-video-rect.dynamic.portrait {
@@ -38,6 +44,7 @@
 
 .base-video-rect.dynamic.landscape {
 	align-items: center;
+	justify-content: space-around;
 }
 
 .video-container .button-plugins {
