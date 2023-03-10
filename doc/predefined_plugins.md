@@ -23,9 +23,9 @@ Layout plugins. You can check the documentation about [video layout plugins in t
 - `es.upv.paella.dualVideoDynamic.js`: Dynamimc size layout for videos with two or more streams. This layout contains buttons that allow you to switch to the layout of a single video. This plugin contains icons that can be configured:
 * plugin identifier: `es.upv.paella.dualVideoDynamic`
     * icon names:
-        + `iconRotate`: exchanges the contents of the streams.
+        + `iconSwitchSide`: exchanges the contents of the streams.
         + `iconMaximize`: maximize a video.
-        + `iconMinimize`: minimize a video.
+        + `iconSideBySide`: set both videos to 50% width.
         + `iconClose`: close a video (setting the corresponding single video layout).
 - `es.upv.paella.tripleVideo.js`: Layout for videos with three or more streams.
 
