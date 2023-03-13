@@ -3,29 +3,10 @@ import { loadSvgIcon, joinPath } from './utils';
 import ButtonGroupPlugin from './ButtonGroupPlugin';
 
 function importPlugin(player, pluginClass, pluginInstance, PluginClass) {
-    // A note about not using `instanceof` in this section of code
-    // You cannot use `pluginInstance instanceof Plugin` because Babel changes the names of the classes when transpiling,
-    // and then this code will stop working when using from the distribution version of paella-core outside this library.
-    // This code is not 100% safe if you don't follow the plugin implementation rules,
-    // but if the documentation is followed correctly it should work without problems:
-    // - Plugins are defined in separate folders.
-    // - The folders contain only plugins or module definitions.
-    // - In plugins, the `type` attribute of a plugin always has to return a type.
-    // - In module definitions, the `moduleName` attribute always has to return something. 
-    // - A module definition must never contain an attribute with the name `type`.
-    if (pluginInstance.type) {
-        const type = pluginInstance.type;
-        player.__pluginData__.pluginClasses[pluginClass] = PluginClass;
-        player.__pluginData__.pluginInstances[type] = player.__pluginData__.pluginInstances[type] || [];
-        player.__pluginData__.pluginInstances[type].push(pluginInstance);
-    }
-    else if (pluginInstance.moduleName) {
-        const name = pluginInstance.moduleName;
-        const version = pluginInstance.moduleVersion;
-        player.log.debug(`Plugin module imported: '${ name }': v${ version }`);
-        player.__pluginModules = player.__pluginModules || [];
-        player.__pluginModules.push(pluginInstance);
-    }
+    const type = pluginInstance.type;
+    player.__pluginData__.pluginClasses[pluginClass] = PluginClass;
+    player.__pluginData__.pluginInstances[type] = player.__pluginData__.pluginInstances[type] || [];
+    player.__pluginData__.pluginInstances[type].push(pluginInstance);
 }
 
 export function importPlugins(player,context) {
@@ -37,6 +18,16 @@ export function importPlugins(player,context) {
             const PluginClass = module.default;
             const pluginInstance = new PluginClass(player, config, pluginName);
             importPlugin(player, key, pluginInstance, PluginClass);
+        }
+        // Check if it is a plugin module
+        else if (/^[a-z0-9]+$/i.test(pluginName)) {
+            const ModuleClass = module.default;
+            const moduleInstance = new ModuleClass(player);
+            const name = moduleInstance.moduleName;
+            const version = moduleInstance.moduleVersion;
+            player.log.debug(`Plugin module imported: ${ name }: v${ version }`);
+            player.__pluginModules = player.__pluginModules || [];
+            player.__pluginModules.push(moduleInstance);
         }
     });
 }

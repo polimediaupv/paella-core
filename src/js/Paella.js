@@ -148,6 +148,19 @@ async function preLoadPlayer() {
 
     // This function will load the video plugins
     await this.videoContainer.create();
+
+    // Load plugin modules dictionaries
+    this.pluginModules?.forEach(module => {
+        console.log("Plugin module load dictionary");
+        console.log(module);
+        const dict = module.getDictionaries && module.getDictionaries();
+        console.log(dict);
+        if (dict) {
+            for (const lang in dict) {
+                addDictionary(lang, dict[lang]);
+            }
+        }
+    })
 }
 
 // Used in the last step of loadManifest and loadUrl

@@ -235,6 +235,12 @@ export default class TutorialPlugins extends PluginModule {
     get moduleVersion() {
         return packageData.version;
     }
+
+    async getDictionaries() {
+        // Optional: you can configure here the dictionaries
+        // used by the plugins in this module
+        return null;
+    }
 }
 ```
 

@@ -11,4 +11,8 @@ export default class PluginModule extends PlayerResource {
         this.player.log.warn(`Incomplete player module definition: '${ __filename }.moduleVersion'`);
         return "0.0.0";
     }
+
+    async getDictionaries() {
+        return null;
+    }
 }
