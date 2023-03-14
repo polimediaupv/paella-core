@@ -111,3 +111,8 @@
 
 - Now you can [create button group instances](button_group_plugin.md) from the configuration file.
 - New button plugin configuration: [closePopUps](button_plugin.md).
+
+## paella-core 1.23
+
+- Now the PluginModule class can use the `getDictionaries()` function, to get all the dictionaries required for this plugin module.
+
