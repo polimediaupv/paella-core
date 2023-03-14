@@ -236,6 +236,7 @@ export default class TutorialPlugins extends PluginModule {
         return packageData.version;
     }
 
+    // paella-core >= 1.23
     async getDictionaries() {
         // Optional: you can configure here the dictionaries
         // used by the plugins in this module

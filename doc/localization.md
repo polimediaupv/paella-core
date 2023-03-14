@@ -155,3 +155,30 @@ For more information, see the documentation for the plugin types descended from 
 
 In addition to this, the keyboard shortcut plugins also include the `getDictionaries()` function, to allow the keyboard shortcuts description to be translated.
 
+As of paella-core version 1.23, the `getDictionaries()` function is also available for classes that inherit from `PluginModule`. This way, it is possible to unify all dictionaries of a plugin module within the module definition:
+
+```js
+import { PluginModule } from 'paella-core';
+
+export default class MyPluginModule extends PluginModule {
+  get moduleName() {
+    return "my plugin module";
+  }
+
+  get moduleVersion() {
+    return "1.0.0";
+  }
+
+  async getDictionaries() {
+    const dict = {
+      es: {
+        "my plugin module": "mi módulo de plugins"
+      }
+    };
+
+    dict['es-ES'] = dict.es;
+    return dict;
+  }
+}
+```
+
