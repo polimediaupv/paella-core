@@ -150,17 +150,14 @@ async function preLoadPlayer() {
     await this.videoContainer.create();
 
     // Load plugin modules dictionaries
-    this.pluginModules?.forEach(module => {
-        console.log("Plugin module load dictionary");
-        console.log(module);
-        const dict = module.getDictionaries && module.getDictionaries();
-        console.log(dict);
+    for (const module of this.pluginModules) {
+        const dict = module.getDictionaries && await module.getDictionaries();
         if (dict) {
             for (const lang in dict) {
                 addDictionary(lang, dict[lang]);
             }
         }
-    })
+    }
 }
 
 // Used in the last step of loadManifest and loadUrl
@@ -303,7 +300,7 @@ export default class Paella {
     }
 
     get pluginModules() {
-        return this.__pluginModules;
+        return this.__pluginModules || [];
     }
 
     get log() {
