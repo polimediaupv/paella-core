@@ -33,6 +33,8 @@
 
 [Initialization](initialization.md): initialize paella and customize the default parameters and settings.
 
+[Configuration](configuration.md): general configuration options.
+
 [Paella object](paella_object.md): list of APIs of the main object of `paella-core`.
 
 [Player life cycle](life_cycle.md): change Paella Player state (UNLOADED, MANIFEST, LOADED).

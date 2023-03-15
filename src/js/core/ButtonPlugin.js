@@ -91,6 +91,23 @@ export async function addButtonPlugin(plugin, buttonAreaElem) {
 			plugin.action(evt);
 			evt.stopPropagation();
 		});
+
+		const clickWithSpacebar = plugin.player.config.accessibility?.clickWithSpacebar !== undefined ? 
+				plugin.player.config.accessibility?.clickWithSpacebar: true;
+		if (!clickWithSpacebar) {
+			button.addEventListener("keyup", evt => {
+				// prevent to send the clic event with spacebar
+				if (evt.keyCode == 32 ) {
+					evt.preventDefault();
+				} 
+			});
+			button.addEventListener("keydown", evt => {
+				// prevent to send the hover event with spacebar
+				if (evt.keyCode == 32 ) {
+					evt.preventDefault();
+				} 
+			});
+		}
 	}
 	else {
 		const button = createElementWithHtmlText(`

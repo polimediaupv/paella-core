@@ -91,10 +91,14 @@ export async function loadKeyShortcutPlugins(player) {
             return;
         }
 
-        // Exclude the action key when there are something focused
-        if (event.code === "Space" && validFocus()) {
+        // Exclude the action key when there are something focused, if the space bar is
+        // being used as click action
+        const clickWithSpacebar = player.config.accessibility?.clickWithSpacebar !== undefined ? 
+                player.config.accessibility?.clickWithSpacebar : true;
+        if (clickWithSpacebar && event.code === "Space" && validFocus()) {
             return;
         }
+
         const shortcut = player.__shortcuts__[event.code];
         if (shortcut) {
             await shortcut.forEach(async s => {

@@ -115,4 +115,9 @@
 ## paella-core 1.23
 
 - Now the PluginModule class can use the `getDictionaries()` function, to get all the dictionaries required for this plugin module.
+- Default language option added to define a fallback language, in the case that the browser language does not match with any defined dicctionary.
+
+## paella-core 1.24
+
+- Improvements in accessibility: now it is possible to define if the space bar acts as the button click.
 

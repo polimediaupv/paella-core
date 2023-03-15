@@ -15,6 +15,10 @@
 
     "logLevel": "INFO",
 
+    "accessibility": {
+        "clickWithSpacebar": false
+    },
+
     "progressIndicator": {
         "showTotal": true,
         "parentContainer": "progressIndicator",
