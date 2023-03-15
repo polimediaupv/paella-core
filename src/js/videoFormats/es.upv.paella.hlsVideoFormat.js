@@ -323,7 +323,7 @@ export class HlsVideo extends Mp4Video {
             throw Error("Invalid parameter setting video quality. VideoQualityItem object expected.");
         }
         
-        if (this.getHlsSupport(this.forceNative) === HlsSupport.MEDIA_SOURCE_EXTENSIONS) {
+        if (getHlsSupport(this.forceNative) === HlsSupport.MEDIA_SOURCE_EXTENSIONS) {
             this._currentQuality = q;
             this._hls.currentLevel = q.index;
         }
