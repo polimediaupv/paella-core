@@ -31,12 +31,4 @@ export default class PlayButtonPlugin extends ButtonPlugin {
 			await this.player.videoContainer.pause();
 		}
 	}
-
-	async getDictionaries() {
-		return {
-			es: {
-				"Play and pause button": "Reproducir y parar el vídeo"
-			}
-		};
-	}
 }
