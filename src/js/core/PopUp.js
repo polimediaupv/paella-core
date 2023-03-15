@@ -130,7 +130,7 @@ export default class PopUp extends DomClass {
 
 	static HideNonAncestors(popup) {
 		g_popUps.forEach(otherPopUp => {
-			if (!popup.isParent(otherPopUp)) {
+			if (popup.isParent && !popup.isParent(otherPopUp)) {
 				otherPopUp.hide();
 			}
 		});

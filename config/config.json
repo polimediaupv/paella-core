@@ -240,7 +240,7 @@
             "side": "right",
             "order": 2,
             "minContainerSize": 500,
-            "popUpType": "no-modal"
+            "popUpType": "timeline"
         },
 
         "es.upv.paella.testButtonGroupPlugin": {
