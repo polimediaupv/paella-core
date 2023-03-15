@@ -254,10 +254,10 @@ export default class PopUp extends DomClass {
 				popUp: this,
 				plugin: this.contextObject
 			});
-		}
-		super.hide();
-		if (this.lastFocusElement) {
-			this.lastFocusElement.focus();		
+			super.hide();
+			if (this.lastFocusElement) {
+				this.lastFocusElement.focus();
+			}
 		}
 		if (!g_popUps.some(p => p.isVisible)) {
 			disableHidePopUpActionContainer(this.player);
