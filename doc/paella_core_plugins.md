@@ -33,10 +33,14 @@ Video layout for single streams.
       "content": ["presenter-2"], 
       "icon": "present-mode-1.svg", 
       "title": "Presentation" }
-  ]
+  ],
+  "tabIndexStart": 20
 }
 ```
 
+Custom plugin icons:
+
+- `iconSideBySide`
 
 
 ### `es.upv.paella.dualVideo`:
@@ -65,9 +69,44 @@ Video layout for dual stream videos.
       "icon": "present-mode-3.svg", 
       "title": "Presenter and presentation" 
     }
-  ]
+  ],
+  "tabIndexStart": 20
 }
 ```
+
+Custom plugin icons:
+
+- `iconRotate`
+- `iconMaximize`
+- `iconClose`
+- `iconSwitchSide`
+- `iconMinimize`
+- `iconSideBySide`
+
+### `es.upv.paella.dualVideoDynamic`:
+
+Dynamic video layout for dual stream videos.
+
+```json
+{
+  "es.upv.paella.dualVideoDynamic": {
+    "enabled": true,
+    "validContent": [
+      { "id": "presenter-presentation-dynamic", "content": ["presentation","presenter"], "icon": "present-mode-3.svg", "title": "Presenter and presentation" },
+      { "id": "presenter-2-presentation-dynamic", "content": ["presenter-2","presentation"], "icon": "present-mode-3.svg", "title": "Presenter and presentation" },
+      { "id": "presenter-presenter-2-dynamic", "content": ["presenter","presenter-2"], "icon": "present-mode-3.svg", "title": "Presenter and presentation" }
+    ],
+    "tabIndexStart": 20
+  }
+}
+```
+
+Custom plugin icons:
+
+- `iconMaximize`
+- `iconSideBySide`
+- `iconSwitchSide`
+- `iconClose`
 
 ### `es.upv.paella.tripleVideo`:
 
@@ -89,7 +128,8 @@ Video layout for triple stream videos
         "icon": "present-mode-4.svg", 
         "title": "Presenter and presentation"
       }
-    ]
+    ],
+    "tabIndexStart": 20
   },
 ```
 

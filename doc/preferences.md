@@ -1,4 +1,4 @@
-# Preferences API
+# Preferences API (paella >= 1.19)
 
 The preferences API allows you to manage key/value type data, globally for the website or specific to the current video. Preference data can be stored in a cookie, via the [cookie consent API](cookie_consent.md), or using [data plugins](data_plugins.md).
 

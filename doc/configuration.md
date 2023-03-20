@@ -24,52 +24,45 @@ For more information, please refer to the documentation on [button groups](butto
 
 **`fallbackId`** (paella-core >= 1.8): Specifies a default video identifier to be used in case one is not specified. For more information see the [initialization](initialization.md) documentation.
 
+**`logLevel`**: Allows you to set the default logging level. For more information see the documentation on the [logging API](log.md). Note that the correct way to debug errors using the logger is to use the logLevel URL parameter.
 
-TODO: complete this document 
+**`repositoryUrl`**: Sets the URL of the manifest file repository for the videos. This attribute is related to `manifestFileName`.
 
-**`logLevel`**: "INFO",
+**`manifestFileName`**: Set the filename of the video manifest that `paella-core` will attempt to load. By default, if the predefined manifest search functions are not modified, the path to the manifest files will be defined by the `repositoryUrl` attribute, followed by the video identifier and the manifest file name. For example, if `repositoryUrl` is `"videos"`, the video identifier is `"video_0"` and `manifestFileName` is `"data.json"`, the path paella-core will search for is `"videos/video_0/data.json"`. To modify the manifest file resolution method, see the documentation on [paella-core initialization](initialization.md).
 
-**`manifestFileName`**: "data.json",
+**`progressIndicator`** (paella-core >= 1.2): Sets the visual configuration parameters for the progress indicator. These parameters are elements that would be very complicated to define using CSS. For more information, see the documentation on [progress indicator customisation](progress_indicator_customization.md).
 
-**`progressIndicator`**: {
-    **`showTotal`**: true,
-    **`parentContainer`**: "progressIndicator",
-    **`side`**: "left",
-    **`visible`**: true,
-    **`showHandler`**: true,
-    **`hideHandlerOnMouseOut`**: true,
-    **`showRemainingProgress`**: true
-},
+- **`showTotal`**: Show or hide the total duration of the video in the progress indicator. If `false` only the current time of the video is shown. If `true`, the following is displayed: `[current_time] / [total_time]`.
+- **`parentContainer`**: Indicates the container where the progress indicator will be displayed, which can be in two places:
+    + `"progressIndicator"`: Displayed above the video progress bar.
+    + `"buttonArea"`: It is displayed in the button bar, below the progress indicator.
+- **`side`:** Used to configure whether the progress indicator will be displayed on the left or on the right side of the container selected in the previous parameter. If displayed in the `buttonArea` it will be placed after the buttons on the left side, or before the buttons on the right side. Possible values are `left` and `right`.
+- **`visible`:** Allows you to hide the progress indicator. In this case the current time of the video will not be displayed. If we hide the progress indicator, we can choose other methods of displaying it, for example by using plugins. Possible values are `true` or `false`.
+- **`showHandler`:** Allows you to show or hide a progress indicator handle button. The layout of the button depends entirely on CSS styling, but by default it is a round dot. Possible values are `true` or `false`.
+- **`hideHandlerOnMouseOut`**: In case the above value is `true`, this parameter allows to select whether the handler is hidden when the mouse cursor is not over the playback bar. Possible values are `true` or `false`.
+- **`showRemainingProgress`**: Allows you to configure whether a different colour will be displayed in the playback bar, which fills in the remaining time of the video. If this value is `false`, then the remaining time will be displayed transparent (the background colour of the playback bar will be displayed).)
 
-**`preferences`**: {
-    **`currentSource`**: "dataPlugin",
-    **`sources`**: {
-        **`cookie`**: {
-            **`consentType`**: "necessary"
-        },
-        **`dataPlugin`**: {
-            **`context`**: "preferences"
-        }
-    }
-},
+**`preferences`** (paella >= 1.19): Manages the `paella-core` user preference system. User preferences can be managed via a specific API that can be used by plugins and certain parts of the library. These settings allow you to set where these preferences will be stored. For more information, see the [user preferences API](preferences.md) documentation.
 
-**`repositoryUrl`**: "repository",
+- `sources`: Stores the configuration of each data source for the preferences. The keys are the name of the data source, and the value are the settings for that data source.
+    +  `cookie`: Preference settings for using cookies as a data source.
+        * `consentType`: This is the type of cookie that will be used to store preferences via the cookie consent API.
+    + `dataPlugin`: Preferences for using data plugins as data source for preferences. For more information, see the [documentation on data plugins](data_plugins.md).
+        * `context`: Data context for use with data plugins.
+- `currentSource`: Sets the data source for storing preferences. The possible values of this attribute are the keys defined in the `sources` object.
 
 
-**`videoContainer`**: {
-    **`overPlaybackBar`**: true,
+**`videoContainer`**: Sets the configuration options related to the video container.
 
-    **`restorePlaybackRate`**: true,
-    **`restoreVolume`**: true,
-    **`restoreVideoLayout`**: {
-        **`enabled`**: true,
-        **`global`**: true
-    },
-    **`restoreLastTime`**: {
-        **`enabled`**: true,
-        **`remainingSeconds`**: 5
-    }
-},
+- `overPlaybackBar` (paella-core >= 1.4): If `true`, the video container will be placed above the playbar. In other words, the playbar will have an area reserved for its display, so it will never hide the video container. If `false`, the playbar will be superimposed on the video container.
+- `restorePlaybackRate` (paella-core >= 1.5): If true, user settings for playback speed will be stored in the preferences.
+- `restoreVolume` (paella-core >= 1.5): If true, user settings for volume will be stored in the preferences.
+- `restoreVideoLayout` (paella-core 1.19): guarda los ajustes sobre restauración del layout de vídeo.
+    + `enabled`: If `true`, the last video layout selected by the user will be restored, if available.
+    + `global`: Sets whether the video layout restoration settings are video specific or global. If `true`, the setting is global, so the video layout will be restored for all videos. If `false` the layout will only be restored for the video ID on which the user has changed the layout.
+- `restoreLastTime` (paella-core >= 1.18): Sets whether to remember the last known time instant for a particular video, in case it is reloaded.
+    + `enabled`: If `true`, the last known time instant for the video will be remembered.
+    + `remainingSeconds`: Used to prevent the current instant of time from being restored, whenever there are less than `remainintSeconds` seconds left in the video.
 
 ## Plugins
 
