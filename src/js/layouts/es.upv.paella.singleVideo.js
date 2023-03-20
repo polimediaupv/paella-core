@@ -26,7 +26,7 @@ export default class SingleVideoLayout extends VideoLayout {
         if (this._multiStream) {
             return [
                 {
-                    icon: sideBySideIcon,
+                    icon: this.player.getCustomPluginIcon(this.name,"iconSideBySide") || sideBySideIcon,
                     position: CanvasButtonPosition.LEFT,
                     title: this.player.translate("Show second video stream"),
                     ariaLabel: this.player.translate("Show second video stream"),
