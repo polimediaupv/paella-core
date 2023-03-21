@@ -8,7 +8,7 @@ export function getCurrentFrame(sortedFrameList,time) {
 	if (!sortedFrameList || sortedFrameList.length === 0) {
 		return null;
 	}
-	
+
 	let result = sortedFrameList[0];
 	let prevTime = result.time;
 	sortedFrameList.forEach(frame => {
@@ -17,7 +17,7 @@ export function getCurrentFrame(sortedFrameList,time) {
 			prevTime = result.time;
 		}
 	})
-	
+
 	return result;
 }
 
@@ -29,15 +29,15 @@ function updateFrameThumbnail(offsetX,time) {
 		const playbackBar = this.playbackBar;
 		const { top, left, bottom, width, height } = playbackBar.getBoundingClientRect();
 		const centerX = width / 2;
-		
+
 		this.frameThumbnail.style.bottom = `${ height }px`;
 		if (centerX > offsetX) {
-			this.frameThumbnail.style.left = `${ offsetX }px`;		
+			this.frameThumbnail.style.left = `${ offsetX }px`;
 		}
 		else {
 			this.frameThumbnail.style.left = `${ offsetX - thumbWidth }px`;
 		}
-		
+
 		const frameImage = resolveResourcePath(this.player, frame.url);
 		const thumbImageContainer = this.frameThumbnail.getElementsByClassName("thumbnail-image")[0];
 		const timeContainer = this.frameThumbnail.getElementsByClassName("thumbnail-time")[0];
@@ -46,7 +46,7 @@ function updateFrameThumbnail(offsetX,time) {
 			thumbImageContainer.alt = frame.id;
 			this._prevFrameImage = frameImage;
 		}
-		
+
 		timeContainer.innerHTML = secondsToTime(time);
 	}
 }
@@ -113,9 +113,9 @@ export default class ProgressIndicator extends DomClass {
 		super(player, { attributes, children, parent });
 
 		const parentContainer = getTimerParentContainer.apply(this, [player.config, playbackBar]);
-		
+
 		this._progressIndicatorTimer = new ProgressIndicatorTimer(player, parentContainer);
-		
+
 		this._frameThumbnail = createElementWithHtmlText(`
 			<div class="frame-thumbnail">
 				<img src="" alt="" class="thumbnail-image" />
@@ -123,7 +123,7 @@ export default class ProgressIndicator extends DomClass {
 			</div>`, player.containerElement);
 		this._frameThumbnail.style.display = "none";
 		this._frameThumbnail.style.position = "absolute";
-			
+
 		this._isHover = false;
 
 		this._canvas = [0,1].map(i => this.element.getElementsByClassName("progress-canvas")[i]);
@@ -141,9 +141,9 @@ export default class ProgressIndicator extends DomClass {
 
 		this._frameList = player.videoManifest?.frameList;
 		this._frameList?.sort((a,b) => a.time-b.time);
-		
+
 		this.onResize();
-	
+
 		let drag = false;
 		const updateProgressIndicator = async (currentTime) => {
 			const containerWidth = this.progressContainer.clientWidth;
@@ -156,29 +156,29 @@ export default class ProgressIndicator extends DomClass {
 				this.handler.style.left = `${ leftPosition - handlerWidth / 2 }px`;
 			}
 		}
-		
+
 		const positionToTime = async (pos) => {
 			const barWidth = this.element.offsetWidth;
 			const duration = await player.videoContainer.duration();
 			return pos * duration / barWidth;
 		}
-	
+
 		bindEvent(this.player, Events.TIMEUPDATE, async ({ currentTime }) => {
 			if (!drag) {
 				await updateProgressIndicator(currentTime);
 			}
 		});
-		
+
 		bindEvent(this.player, Events.SEEK, async ({ prevTime, newTime }) => {
 			if (!drag) {
 				await updateProgressIndicator(newTime);
 			}
 		});
-		
+
 		bindEvent(this.player, Events.STOP, async () => {
 			await updateProgressIndicator(0);
 		})
-		
+
 		this.progressContainer.addEventListener("mousedown", async (evt) => {
 			drag = true;
 			const newTime = await positionToTime(evt.offsetX);
@@ -192,7 +192,7 @@ export default class ProgressIndicator extends DomClass {
 				this.handler.style.display = "";
 			}
 		});
-		
+
 		this.progressContainer._progressIndicator = this;
 		this.progressContainer.addEventListener("mousemove", async (evt) => {
 			const { isTrimEnabled, trimStart } = this.player.videoContainer;
@@ -203,14 +203,14 @@ export default class ProgressIndicator extends DomClass {
 			}
 			updateFrameThumbnail.apply(this, [evt.offsetX,newTime + offset]);
 		});
-		
+
 		this.progressContainer.addEventListener("mouseup", async (evt) => {
 			const newTime = await positionToTime(evt.offsetX);
 			await updateProgressIndicator(newTime);
 			await player.videoContainer.setCurrentTime(newTime);
 			drag = false;
 		});
-		
+
 		this.progressContainer.addEventListener("mouseleave", async (evt) => {
 			if (drag) {
 				const newTime = await positionToTime(evt.offsetX);
@@ -234,6 +234,9 @@ export default class ProgressIndicator extends DomClass {
 				updateCanvasProcess();
 			}, 250);
 		}
+
+		this._enabled = player.config.progressIndicator?.enabled;
+
 		this._updateCanvas = true;
 		updateCanvasProcess();
 	}
@@ -241,7 +244,7 @@ export default class ProgressIndicator extends DomClass {
 	requestUpdateCanvas() {
 		this._updateCanvas = true;
 	}
-	
+
 	async loadPlugins() {
 		let minHeight = 0;
 		let minHeightHover = 0;
@@ -265,42 +268,68 @@ export default class ProgressIndicator extends DomClass {
 		await unloadPluginsOfType(this.player, "progressIndicator");
 	}
 
+	get enabled() {
+		return this._enabled;
+	}
+
+	set enabled(e) {
+		this._enabled = e;
+		if (!this._enabled) {
+			this.hide();
+		}
+		else {
+			this.showUserInterface();
+		}
+	}
+
+	hideUserInterface() {
+		this.player.log.debug("Hide playback bar user interface");
+		this.hide();
+	}
+
+	showUserInterface() {
+		if (this._enabled) {
+			this.show();
+			this.onResize();
+		}
+	}
+
 	get playbackBar() {
 		return this.element.parentElement;
 	}
-	
+
 	get canvasLayer0() {
 		return this._canvas[0];
 	}
-	
+
 	get canvasLayer1() {
 		return this._canvas[1];
 	}
-	
+
 	get progressIndicator() {
 		return this._progressIndicator;
 	}
-	
+
 	get handler() {
 		return this._handler;
 	}
-	
+
 	get progressTimer() {
 		return this._progressIndicatorTimer.element;
 	}
-	
+
 	get progressContainer() {
 		return this._progressContainer;
 	}
-	
+
 	get frameThumbnail() {
 		return this._frameThumbnail;
 	}
-	
+
 	get frameList() {
 		return this._frameList;
 	}
-	
+
 	onResize() {
 		this.requestUpdateCanvas();
 	}
