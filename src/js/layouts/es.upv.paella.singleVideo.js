@@ -9,6 +9,9 @@ export default class SingleVideoLayout extends VideoLayout {
     async load() {
         this.player.log.debug("Single video layout loaded");
         this.dualVideoContentIds = this.config.dualVideoContentIds || [
+            "presenter-presentation-dynamic",
+            "presenter-2-presentation-dynamic",
+            "presenter-presenter-2-dynamic",
             "presenter-presentation",
             "presenter-2-presentation",
             "presenter-presenter-2"
