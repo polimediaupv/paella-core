@@ -67,10 +67,10 @@ export function getValidContentSettings(player, streamData) {
     });
 }
 
-export function getLayoutStructure(player, streamData, contentId) {
+export function getLayoutStructure(player, streamData, contentId, mainContent = null) {
     const selectedLayout = getLayoutWithContentId(player, streamData, contentId);
     if (selectedLayout) {
-        const structure = selectedLayout.getLayoutStructure(streamData, contentId);
+        const structure = selectedLayout.getLayoutStructure(streamData, contentId, mainContent);
         structure.plugin = selectedLayout;
         return structure;
     }
@@ -155,7 +155,7 @@ export default class VideoLayout extends UserInterfacePlugin {
         return this.getValidStreams(streamData).length > 0;
     }
 
-    getLayoutStructure(/* streamData, contentId */) {
+    getLayoutStructure(/* streamData, contentId, mainContent */) {
         return {};
     }
 

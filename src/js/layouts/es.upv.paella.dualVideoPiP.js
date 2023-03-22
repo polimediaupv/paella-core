@@ -111,7 +111,7 @@ export default class DualVideoPiPLayout extends VideoLayout {
                 ariaLabel: this.player.translate("Switch side"),
                 click: async () => {
                     this.switchSide();
-                    await this.player.videoContainer.updateLayout();
+                    await this.player.videoContainer.updateLayout(this._fullVideo);
                 }
             });
 
@@ -122,7 +122,7 @@ export default class DualVideoPiPLayout extends VideoLayout {
                 ariaLabel: this.player.translate("Maximize video"),
                 click: async () => {
                     this.switchSources();
-                    await this.player.videoContainer.updateLayout();
+                    await this.player.videoContainer.updateLayout(this._fullVideo);
                 }
             })
         }
@@ -161,9 +161,13 @@ export default class DualVideoPiPLayout extends VideoLayout {
         this._fullVideo = tmp;
     }
 
-    getLayoutStructure(streamData, contentId) {
-        if (!this._pipVideo || !this._fullVideo) {
-            const { content } = this.validContent.find(content => content.id === contentId);
+    getLayoutStructure(streamData, contentId, mainContent) {
+        const { content } = this.validContent.find(content => content.id === contentId);
+        if (mainContent && content.find(content => content === mainContent)) {
+            this._fullVideo = mainContent;
+            this._pipVideo = content.find(content => content !== mainContent);
+        }
+        else if (!this._pipVideo || !this._fullVideo) {
             this._pipVideo = content[0];
             this._fullVideo = content[1];
         }

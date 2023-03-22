@@ -54,7 +54,7 @@ function hideAllVideoPlayers() {
 }
 
 async function updateLayoutStatic() {
-    const layoutStructure = getLayoutStructure(this.player, this.streamProvider.streamData, this._layoutId);
+    const layoutStructure = getLayoutStructure(this.player, this.streamProvider.streamData, this._layoutId, this._mainLayoutContent);
 
     await enableVideos.apply(this, [ layoutStructure ]);
 
@@ -150,7 +150,7 @@ async function updateLayoutStatic() {
 }
 
 async function updateLayoutDynamic() {
-    const layoutStructure = getLayoutStructure(this.player, this.streamProvider.streamData, this._layoutId);
+    const layoutStructure = getLayoutStructure(this.player, this.streamProvider.streamData, this._layoutId, this._mainLayoutContent);
 
     await enableVideos.apply(this, [ layoutStructure ]);
 
@@ -260,16 +260,22 @@ export default class VideoContainer extends DomClass {
     get layoutId() {
         return this._layoutId;
     }
+
+    get mainLayoutContent() {
+        return this._mainLayoutContent;
+    }
     
-    async setLayout(layoutId) {
+    async setLayout(layoutId,mainContent = null) {
         if (this.validContentIds.indexOf(layoutId) === -1) {
             return false;
         }
         else {
             const global = this.player.config.videoContainer?.restoreVideoLayout?.global;
             this.player.preferences.set('videoLayout', layoutId, { global });
+            this.player.preferences.set('videoLayoutMainContent', mainContent, { global });
             const prevLayout = this._layoutId;
             this._layoutId = layoutId;
+            this._mainLayoutContent = mainContent;
             await this.updateLayout();
             if (prevLayout !== layoutId) {
                 triggerEvent(this.player, Events.LAYOUT_CHANGED, { prevLayout, layoutId });
@@ -315,9 +321,11 @@ export default class VideoContainer extends DomClass {
         if (this.player.config.videoContainer?.restoreVideoLayout?.enabled) {
             const global = this.player.config.videoContainer?.restoreVideoLayout?.global;
             this._layoutId = await this.player.preferences.get("videoLayout", { global }) || this.player.config.defaultLayout;
+            this._mainLayoutContent = await this.player.preferences.get("videoLayoutMainContent", { global }) || null;
         }
         else {
             this._layoutId = this.player.config.defaultLayout;
+            this._mainLayoutContent = null;
         }
 
 
@@ -415,7 +423,10 @@ export default class VideoContainer extends DomClass {
     }
 
     // Return true if the layout this.layoutId is compatible with the current stream data.
-    async updateLayout() {
+    async updateLayout(mainContent = null) {
+        if (mainContent) {
+            this._mainLayoutContent = mainContent;
+        }
         if (!this.streamData) {
             // The stream data is not loaded. This can happen if the player is in MANIFEST_LOADED state
             // and the player container is resized
@@ -435,6 +446,7 @@ export default class VideoContainer extends DomClass {
         // Current layout: if not selected, or the selected layout is not compatible, load de default layout
         if (!this._layoutId || this._validContentIds.indexOf(this._layoutId) === -1) {
             this._layoutId = this.player.config.defaultLayout;
+            this._mainLayoutContent = null;
 
             // Check if the default layout is compatible
             if (this._validContentIds.indexOf(this._layoutId) === -1) {

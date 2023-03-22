@@ -99,7 +99,7 @@ export default class DualVideoDynamicLayout extends VideoLayout {
                 ariaLabel: this.player.translate("Picture-in-picture"),
                 click: async () => {
                     const contentId = this.player.videoContainer.validContentIds.find(cid => this.pipContentIds.indexOf(cid) !== -1);
-                    await this.player.videoContainer.setLayout(contentId);
+                    await this.player.videoContainer.setLayout(contentId,content);
                 }
             })
         }
@@ -107,7 +107,7 @@ export default class DualVideoDynamicLayout extends VideoLayout {
         return result;
     }
 
-    getLayoutStructure(streamData, contentId) {
+    getLayoutStructure(streamData, contentId, mainContent) {
         if (!this._currentContent) {
             const { content } = this.validContent.find(content => content.id === contentId);
             this._currentContent = content.map(c => {

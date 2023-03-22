@@ -201,13 +201,19 @@ In static layouts the `rect` array is returned inside each `videos` element, whi
 
 In dynamically sized layouts, instead of specifying the `rect` attribute, the `size` attribute is defined, which defines the percentage of the video container to be used by that stream.
 
+The `getLayoutStructure()` function takes three parameters:
+
+- `streamData`: is the information about the video streams being used, extracted from the [video manifest](video_manifest.md).
+- `contentId`: the content id identifying the layout being loaded, taken from the `validContent` attribute of the corresponding layout plugin configuration.
+- `mainContent`: this parameter is optional, so it can often be `null`. If it is not `null`, what is happening is that `paella-core` wants to give predominance to one of the video streams. This can happen, for example, in a layout plugin that displays videos at different sizes. If this parameter is not `null`, we should place that content in the larger video container. 
+
 
 **Static size layout structure:**
 
 ```javascript
 get layoutType() { return "static"; }
 
-getLayoutStructure(streamData) {
+getLayoutStructure(streamData,contentId,mainContent) {
     const structure = {
         name:{es:"One stream"},
         hidden:false,
@@ -248,7 +254,7 @@ getLayoutStructure(streamData) {
 ```javascript
 get layoutType() { return "dynamic"; }
 
-getLayoutStructure(streamData) {
+getLayoutStructure(streamData,contentId,mainContent) {
     const structure = {
         name:{es:"One stream"},
         hidden:false,
@@ -284,7 +290,7 @@ There are two ways to add buttons to a video layout:
 Example 1: extracted from the `es.upv.paella.tripleVideo` layout plugin:
 
 ```js
-getLayoutStructure(streamData, contentId) {
+getLayoutStructure(streamData, contentId,mainContent) {
   ...
   const result = {
     ...
