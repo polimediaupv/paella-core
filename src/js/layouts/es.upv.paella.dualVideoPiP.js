@@ -93,7 +93,19 @@ export default class DualVideoPiPLayout extends VideoLayout {
     }
 
     getVideoCanvasButtons(layoutStructure, content, video, videoCanvas) {
-        const result = [];
+        const result = [
+            {
+                icon: defaultIconClose,
+                position: CanvasButtonPosition.RIGHT,
+                title: this.player.translate("Close video"),
+                ariaLabel: this.player.translate("Close video"),
+                click: async () => {
+                    const singleStreamContentIds = this.player.videoContainer.validContentIds.filter(cid => cid.indexOf("-") === -1);
+                    const contentId = singleStreamContentIds.find(cid => cid !== content);
+                    await this.player.videoContainer.setLayout(contentId);
+                }
+            }
+        ];
         if (content === this._pipVideo) {
             result.push({
                 icon: defaultIconSwitchSide,
