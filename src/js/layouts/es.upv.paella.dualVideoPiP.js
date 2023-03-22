@@ -77,14 +77,7 @@ export default class DualVideoPiPLayout extends VideoLayout {
 
     async load() {
         this._currentLayout = pipLeft;
-        this.dualVideoContentIds = this.config.dualVideoContentId || [
-            "presenter-presentation-dynamic",
-            "presenter-2-presentation-dynamic",
-            "presenter-presenter-2-dynamic",
-            "presenter-presentation",
-            "presenter-2-presentation",
-            "presenter-presenter-2"
-        ]
+        this.dualVideoContentIds = this.config.dualVideoContentIds || []
     }
 
     getValidStreams(streamData) {
@@ -93,9 +86,13 @@ export default class DualVideoPiPLayout extends VideoLayout {
     }
 
     getVideoCanvasButtons(layoutStructure, content, video, videoCanvas) {
+        const iconClose = this.player.getCustomPluginIcon(this.name, "iconClose") || defaultIconClose;
+        const iconSwitchSide = this.player.getCustomPluginIcon(this.name, "iconSwitchSide") || defaultIconSwitchSide;
+        const iconMaximize = this.player.getCustomPluginIcon(this.name, "iconMaximize") || defaultIconMaximize;
+        const iconSideBySide = this.player.getCustomPluginIcon(this.name, "iconSideBySide") || defaultIconSideBySide;
         const result = [
             {
-                icon: defaultIconClose,
+                icon: iconClose,
                 position: CanvasButtonPosition.RIGHT,
                 title: this.player.translate("Close video"),
                 ariaLabel: this.player.translate("Close video"),
@@ -108,7 +105,7 @@ export default class DualVideoPiPLayout extends VideoLayout {
         ];
         if (content === this._pipVideo) {
             result.push({
-                icon: defaultIconSwitchSide,
+                icon: iconSwitchSide,
                 position: CanvasButtonPosition.LEFT,
                 title: this.player.translate("Switch side"),
                 ariaLabel: this.player.translate("Switch side"),
@@ -119,7 +116,7 @@ export default class DualVideoPiPLayout extends VideoLayout {
             });
 
             result.push({
-                icon: defaultIconMaximize,
+                icon: iconMaximize,
                 position: CanvasButtonPosition.LEFT,
                 title: this.player.translate("Maximize video"),
                 ariaLabel: this.player.translate("Maximize video"),
@@ -129,14 +126,13 @@ export default class DualVideoPiPLayout extends VideoLayout {
                 }
             })
         }
-        else {
+        else if (this.dualVideoContentIds.length > 1) {
             result.push({
-                icon: defaultIconSideBySide,
+                icon: iconSideBySide,
                 position: CanvasButtonPosition.LEFT,
                 title: this.player.translate("Set side by side"),
                 ariaLabel: this.player.translate("Set side by side"),
                 click: async () => {
-                    // TODO: set side by side layout
                     const availableContentIds = this.player.videoContainer.validContentIds;
                     const dualVideoContentId = this.dualVideoContentIds.find(id => {
                         return availableContentIds.indexOf(id) !== -1;

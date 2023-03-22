@@ -96,10 +96,20 @@ Dynamic video layout for dual stream videos.
       { "id": "presenter-2-presentation-dynamic", "content": ["presenter-2","presentation"], "icon": "present-mode-3.svg", "title": "Presenter and presentation" },
       { "id": "presenter-presenter-2-dynamic", "content": ["presenter","presenter-2"], "icon": "present-mode-3.svg", "title": "Presenter and presentation" }
     ],
-    "tabIndexStart": 20
+    "tabIndexStart": 20,
+    "pipContentIds": [
+      "presenter-presentation-pip",
+      "presenter-2-presentation-pip",
+      "presenter-presentation-2-pip"
+    ],
+    "allowSwitchSide": false
   }
 }
 ```
+
+The `pipContentIds` attribute is used to enable direct switching to a dual stream layout for PiP mode. The valid content-ids of the PiP layout we want to switch to will be placed inside. If the array is empty or not present, the PiP mode switch button will not be displayed.
+
+The `allowSwitchSide` attribute is used to show or hide the button that reverses the position of the videos. Because this is a side-by-side layout, changing the order of the videos may not be relevant, so the option is given to not show this button.
 
 Custom plugin icons:
 
@@ -107,6 +117,42 @@ Custom plugin icons:
 - `iconSideBySide`
 - `iconSwitchSide`
 - `iconClose`
+
+
+
+### `es.upv.paella.dualVideoPiP`:
+
+Video layout to show dual stream videos in picture-in-piture mode.
+
+```json
+"es.upv.paella.dualVideoPiP": {
+    "enabled": true,
+    "validContent": [
+      { "id": "presenter-presentation-pip", "content": ["presenter","presentation"], "icon": "present-mode-3.svg", "title": "Presenter and presentation" },
+      { "id": "presenter-2-presentation-pip", "content": ["presenter-2","presentation"], "icon": "present-mode-3.svg", "title": "Presenter and presentation" },
+      { "id": "presenter-presenter-2-pip", "content": ["presenter","presenter-2"], "icon": "present-mode-3.svg", "title": "Presenter and presentation" }
+    ],
+    "dualVideoContentIds": [
+      "presenter-presentation-dynamic",
+      "presenter-2-presentation-dynamic",
+      "presenter-presenter-2-dynamic",
+      "presenter-presentation",
+      "presenter-2-presentation",
+      "presenter-presenter-2"
+    ],
+    "tabIndexStart": 20
+},
+```
+
+The `dualVideoContentIds` attribute is used to allow direct switching to a different dual stream layout. If the array is empty or not present, the switch to side by side mode button will not be displayed.
+
+Custom plugin icons:
+
+- `iconMaximize`
+- `iconSideBySide`
+- `iconSwitchSide`
+- `iconClose`
+
 
 ### `es.upv.paella.tripleVideo`:
 
