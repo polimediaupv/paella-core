@@ -166,15 +166,17 @@ async function updateLayoutDynamic() {
     const videoContainerHeight = this.element.clientHeight;
     const isLandscape = videoContainerWidth > videoContainerHeight;
     if (isLandscape) {
+        const videoCanvasAlign = this.player.config.videoContainer?.dynamicLayout?.landscapeVerticalAlignment || "align-center";
         this.baseVideoRect.classList.remove("portrait");
         this.baseVideoRect.classList.add("landscape");
+        this.baseVideoRect.classList.add(videoCanvasAlign);
     }
     else {
         this.baseVideoRect.classList.add("portrait");
         this.baseVideoRect.classList.remove("landscape");
     }
     const width = this.baseVideoRect.clientWidth;
-    const height = this.baseVideoRect.clientHeight;
+    const height = this.element.clientHeight;
 
     if (layoutStructure?.videos?.length) {
         let i = 0;
@@ -188,15 +190,15 @@ async function updateLayoutDynamic() {
             const maxWidth = width;
             const maxHeight = height;
             const baseSize = (isLandscape ? maxWidth : maxHeight) * video.size / 100;
-            let videoWidth = isLandscape ? baseSize : baseSize * videoAspectRatio;
-            let videoHeight = isLandscape ? baseSize / videoAspectRatio : baseSize;
+            let videoWidth = Math.round(isLandscape ? baseSize : baseSize * videoAspectRatio);
+            let videoHeight = Math.round(isLandscape ? baseSize / videoAspectRatio : baseSize);
             if (videoWidth>maxWidth) {
                 videoWidth = maxWidth;
-                videoHeight = videoWidth / videoAspectRatio;
+                videoHeight = Math.round(videoWidth / videoAspectRatio);
             }
             if (videoHeight>maxHeight) {
                 videoHeight = maxHeight;
-                videoWidth = videoHeight * videoAspectRatio;
+                videoWidth = Math.round(videoHeight * videoAspectRatio);
             }
             
 

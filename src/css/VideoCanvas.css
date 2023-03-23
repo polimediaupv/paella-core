@@ -1,7 +1,7 @@
 
 .video-canvas .button-area {
     position: absolute;
-    top: 0px;
+    top: 5px;
     left: 0px;
     right: 0px;
     pointer-events: none;

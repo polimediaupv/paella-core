@@ -1,6 +1,6 @@
 
 :root {
-	--video-container-padding: 20px;
+	--video-container-padding: 10px;
 }
 
 .video-container {
@@ -25,7 +25,6 @@
 .base-video-rect {
     background-color: var(--base-video-rect-background-color);
     position: relative;
-	height: calc(100% - var(--video-container-padding) * 2);
 }
 
 .base-video-rect.dynamic {
@@ -43,8 +42,19 @@
 }
 
 .base-video-rect.dynamic.landscape {
-	align-items: center;
 	justify-content: space-around;
+}
+
+.base-video-rect.dynamic.align-bottom {
+	align-items: baseline;
+}
+
+.base-video-rect.dynamic.align-center {
+	align-items: center;
+}
+
+.base-video-rect.dynamic.align-top {
+	align-items: flex-start;
 }
 
 .video-container .button-plugins {

@@ -53,6 +53,10 @@
         "restoreLastTime": {
             "enabled": true,
             "remainingSeconds": 5
+        },
+
+        "dynamicLayout": {
+            "landscapeVerticalAlignment": "align-bottom"
         }
     },
 
