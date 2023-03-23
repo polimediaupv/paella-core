@@ -63,6 +63,9 @@ For more information, please refer to the documentation on [button groups](butto
 - `restoreLastTime` (paella-core >= 1.18): Sets whether to remember the last known time instant for a particular video, in case it is reloaded.
     + `enabled`: If `true`, the last known time instant for the video will be remembered.
     + `remainingSeconds`: Used to prevent the current instant of time from being restored, whenever there are less than `remainintSeconds` seconds left in the video.
+- `dynamicLayout`: Dynamic layouts inherit many properties from the video container, so a section has been added in the configuration to control them.
+    + `landscapeVerticalAlignment`: defines the vertical alignment of videos when they are in landscape format. Possible values are `align-bottom`, `align-center` and `align-top`.
+    + `portraitHorizontalAlignment`: defines the horizontal alignment of videos when they are in portrait format. Possible values are `align-left`, `align-center` and `align-right`.
 
 ## Plugins
 

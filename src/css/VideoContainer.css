@@ -57,6 +57,14 @@
 	align-items: flex-start;
 }
 
+.base-video-rect.dynamic.portrait.align-left {
+	justify-content: start;
+}
+
+.base-video-rect.dynamic.portrait.align-right {
+	justify-content: right;
+}
+
 .video-container .button-plugins {
     position: absolute;
     top: 10px;

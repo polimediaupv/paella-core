@@ -165,6 +165,12 @@ async function updateLayoutDynamic() {
     const videoContainerWidth = this.element.clientWidth;
     const videoContainerHeight = this.element.clientHeight;
     const isLandscape = videoContainerWidth > videoContainerHeight;
+    this.baseVideoRect.classList.remove("align-center");
+    this.baseVideoRect.classList.remove("align-top");
+    this.baseVideoRect.classList.remove("align-bottom");
+    this.baseVideoRect.classList.remove("align-left");
+    this.baseVideoRect.classList.remove("align-right");
+
     if (isLandscape) {
         const videoCanvasAlign = this.player.config.videoContainer?.dynamicLayout?.landscapeVerticalAlignment || "align-center";
         this.baseVideoRect.classList.remove("portrait");
@@ -172,8 +178,10 @@ async function updateLayoutDynamic() {
         this.baseVideoRect.classList.add(videoCanvasAlign);
     }
     else {
+        const videoCanvasAlign = this.player.config.videoContainer?.dynamicLayout?.portraitHorizontalAlignment || "align-center";
         this.baseVideoRect.classList.add("portrait");
         this.baseVideoRect.classList.remove("landscape");
+        this.baseVideoRect.classList.add(videoCanvasAlign);
     }
     const width = this.baseVideoRect.clientWidth;
     const height = this.element.clientHeight;
