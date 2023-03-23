@@ -513,6 +513,10 @@ export default class VideoContainer extends DomClass {
         return this._ready;
     }
 
+    get isLiveStream() {
+        return this.streamProvider.isLiveStream;
+    }
+
     async play() {
         const result = await this.streamProvider.play();
         triggerEvent(this.player, Events.PLAY);

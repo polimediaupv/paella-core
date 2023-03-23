@@ -205,7 +205,9 @@ export default class LayoutSelectorPlugin extends MenuButtonPlugin {
 
 `async videoContainer.setVolume(v)`: Sets the volume to the specified intensity, from 0 to 1. This API only works on desktop browsers.
 
-`async videoContainer.duration`:Returns the video duration.0090
+`async videoContainer.duration`:Returns the video duration.
+
+`videoContainer.isLiveStream`: Returns true if some of the video streams is of type [`hlsLive`](hls_live_video_plugin.md).
 
 
 

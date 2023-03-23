@@ -121,3 +121,8 @@
 
 - Improvements in accessibility: now it is possible to define if the space bar acts as the button click.
 
+## paella-core 1.25
+
+- New options in dynamic video layout settings. See the [videoContainer configuration](configuration.md) for more information.
+- New API: [videoContainer.isLiveStream](video_container.md)
+

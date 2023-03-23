@@ -248,6 +248,10 @@ export default class SteramProvider extends PlayerResource {
 			Promise.all(p).then(() => resolve(res));
 		})
 	}
+
+	get isLiveStream() {
+		return this._streamData.some(sd => Array.from(Object.keys(sd.sources)).indexOf("hlsLive") !== -1);
+	}
 	
 	async play() {
 		this.startStreamSync();
