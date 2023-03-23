@@ -235,8 +235,6 @@ export default class ProgressIndicator extends DomClass {
 			}, 250);
 		}
 
-		this._enabled = player.config.progressIndicator?.enabled;
-
 		this._updateCanvas = true;
 		updateCanvasProcess();
 	}
@@ -268,30 +266,19 @@ export default class ProgressIndicator extends DomClass {
 		await unloadPluginsOfType(this.player, "progressIndicator");
 	}
 
-	get enabled() {
-		return this._enabled;
+	hideTimeLine(hideProgressTimer=true){
+		if(hideProgressTimer){
+			this.hideProgressTimer();
+		}
+		this.hideProgressContainer()
 	}
 
-	set enabled(e) {
-		this._enabled = e;
-		if (!this._enabled) {
-			this.hide();
-		}
-		else {
-			this.showUserInterface();
-		}
+	hideProgressContainer(){
+		this.progressContainer.style.display = "none";
 	}
 
-	hideUserInterface() {
-		this.player.log.debug("Hide playback bar user interface");
-		this.hide();
-	}
-
-	showUserInterface() {
-		if (this._enabled) {
-			this.show();
-			this.onResize();
-		}
+	hideProgressTimer(){
+		this.progressTimer.style.display = "none";
 	}
 
 	get playbackBar() {
