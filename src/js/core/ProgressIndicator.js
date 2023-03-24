@@ -266,19 +266,32 @@ export default class ProgressIndicator extends DomClass {
 		await unloadPluginsOfType(this.player, "progressIndicator");
 	}
 
-	hideTimeLine(hideProgressTimer=true){
+	hideTimeLine(hideProgressTimer=true) {
 		if(hideProgressTimer){
 			this.hideProgressTimer();
 		}
-		this.hideProgressContainer()
+		this.hideProgressContainer();
 	}
 
-	hideProgressContainer(){
+	hideProgressContainer() {
 		this.progressContainer.style.display = "none";
 	}
 
-	hideProgressTimer(){
+	hideProgressTimer() {
 		this.progressTimer.style.display = "none";
+	}
+
+	showTimeLine() {
+		this.showProgressContainer();
+		this.showProgressTimer();
+	}
+
+	showProgressContainer() {
+		this.progressContainer.style.display = "";
+	}
+
+	showProgressTimer() {
+		this.progressTimer.style.display = "";
 	}
 
 	get playbackBar() {
