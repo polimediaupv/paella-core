@@ -30,6 +30,17 @@ player.bindEvent(player.Events.PLAYER_LOADED, () => {
 }, false);
 ```
 
+## Progress indicator visibility (paella-core >= 1.25)
+
+On some occasions we may want to modify the visibility of the video progress indicator, for example in live broadcasts. The progress indicator provides several functions to control the visibility of the timeline and the current time indicator of the video:
+
+- **`playbackBar.progressIndicator.hideProgressContainer()`:** Hides the progress indicator bar.
+- **`playbackBar.progressIndicator.hideProgressTimer()`:** Hides the current timer text.
+- **`playbackBar.progressIndicator.hideTimeLine()`:** Hides the progress indicator bar and the current time text.
+- **`playbackBar.progressIndicator.showProgressContainer()`:** Shows the progress indicator bar.
+- **`playbackBar.progressIndicator.showProgressTimer()`:** Shows the current time text.
+- **`playbackBar.progressIndicator.showTimeLine()`:** Shows the progress indicator bar and the current time text.
+
 ## Customization
 
 You can customize several elements of the playback and progress indication using CSS styles and the player configuration. Check [here how to customize it](progress_indicator_customization.md).

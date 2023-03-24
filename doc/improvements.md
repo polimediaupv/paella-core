@@ -125,4 +125,5 @@
 
 - New options in dynamic video layout settings. See the [videoContainer configuration](configuration.md) for more information.
 - New API: [videoContainer.isLiveStream](video_container.md)
+- New API: [progressIndicator timeline visibility](playback_bar.md)
 
