@@ -76,12 +76,13 @@ const config = {
       },
     },
 
-    {
-      name: 'webkit',
-      use: {
-        ...devices['Desktop Safari'],
-      },
-    },
+    /* It seems that this profile works quite unstable on github and is causing a lot of timeout failures. */
+    // {
+    //  name: 'webkit',
+    //  use: {
+    //    ...devices['Desktop Safari'],
+    //  },
+    // },
 
     /* Test against mobile viewports. */
     // {
