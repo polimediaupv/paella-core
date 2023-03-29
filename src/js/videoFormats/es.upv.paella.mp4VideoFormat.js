@@ -17,6 +17,7 @@ export class Mp4Video extends Video {
     constructor(player, parent, isMainAudio) {
         super('video', player, parent);
         this.element.setAttribute("playsinline","true");
+        this.element.setAttribute("crossorigin","");
 
         this.isMainAudio = isMainAudio;
 
