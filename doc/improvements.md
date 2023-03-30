@@ -127,3 +127,7 @@
 - New API: [videoContainer.isLiveStream](video_container.md)
 - New API: [progressIndicator timeline visibility](playback_bar.md)
 
+## paella-core 1.26
+
+- [New metadata](video_manifest.md): **visibleTimeLine**. Allows to hide the progress bar time line.
+ 

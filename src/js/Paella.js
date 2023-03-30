@@ -665,6 +665,10 @@ export default class Paella {
     
             triggerEvent(this, Events.PLAYER_LOADED);
     
+            const hideTimeLine = !(this.videoManifest.metadata.visibleTimeLine ?? true);
+            if (hideTimeLine) {
+                this.playbackBar.progressIndicator.hideTimeLine();
+            }
             
             if (!this._loader.debug) {
                 this._loader.removeFromParent();

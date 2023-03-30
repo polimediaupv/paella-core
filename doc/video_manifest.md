@@ -14,6 +14,8 @@ It consists of four attributes, two of which, metadata and streams, are mandator
 
 - **trimming:** (paella-core>=1.16) Contains the video trimming information.
 
+- **visibleTimeLine:** (paella-core>=1.26) Define whether the timeline has to be visible or not. This metadata is useful to hide the timeline in streams that do not allow backtracking in the stream.
+
 Once loaded, you can access the videoManifest through the following API:
 
 ```javascript

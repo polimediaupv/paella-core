@@ -3,7 +3,8 @@
 		"duration": 228,
         "title": "HLS live",
 		"preview": "https://repository.paellaplayer.upv.es/hls-multiaudio/preview.jpg",
-		"related": []
+		"related": [],
+		"visibleTimeLine": false
 	},
 	"streams": [
 		{
