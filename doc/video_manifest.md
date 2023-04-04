@@ -1,8 +1,10 @@
 # Video manifest
 
+**Note:** some metadata fields are mandatory in versions previous to 1.27.
+
 The video manifest is a json document that catalogs the properties and resources that make up a multi stream video for Paella Player. By default, the manifest is stored in a file named `data.json`, inside a directory named after the video identifier. To learn more about how to modify this configuration, see the [initialization](initialization.md) document.
 
-It consists of four attributes, two of which, metadata and streams, are mandatory:
+It consists of four attributes, one of which, streams, is mandatory:
 
 - **metadata:** Contains the cataloging data of the video.
 
@@ -24,7 +26,9 @@ myPlayerInstance.videoManifest
 
 ## Metadata
 
-The video cataloging data is used to display the title, preview, duration and other data. In this section, the `duration` and `preview` fields are mandatory.
+The video cataloging data is used to display the title, preview, duration and other data. In this section, the `preview` field is mandatory, because some browsers have automatic video playback disabled. However, it is possible to specify a preview image in [the paella-core configuration file](configuration.md). If a preview is specified in the configuration for landscape mode, portrait mode or both modes, then the entire `metadata` object is no longer required. You can also find information about setting up a default image in the [paella-core initialization document](initialization.md).
+
+Metadata fields may be used by plugins that display information and are loaded before the video is fully loaded, so this data may still be required for some plugins to function. If a plugin requires any of these fields to work, this plugin must do the check at the `isEnabled()` function. If the requirements for loading the plugin are not met, the plugin should warn you with a warning in the debug terminal, but in no case should it throw an exception.
 
 ```json
 {
@@ -47,7 +51,7 @@ The video cataloging data is used to display the title, preview, duration and ot
 
 **duration:** Is the total duration of the video, in seconds. If the video has soft trimming configured, it does not have to be taken into account in the total duration computation.
 
-**title:** Is the title of the video. The title is not used directly by any `paella-core` element, but it can be used by plugins, so, although it is not a mandatory field, it is highly recommended to include it.
+**title:** Is the title of the video.
 
 **preview:** It is a preview image that identifies the video. 
 
@@ -59,8 +63,6 @@ The video cataloging data is used to display the title, preview, duration and ot
 - **url:** The URL to access the video. It can be absolute or relative to the URL of the current video player.
 - **thumb:** The video thumbnail.
 - **id:** The video identifier.
-
-**NOTE ABOUT PREVIEW IMAGE:** The preview image is a mandatory parameter that must be set properly for the player to work. However, as of version 1.11 it is possible to set a default preview image. If the player has a default preview image configured, it is not mandatory to set this parameter in the video manifest. For more information on the default image configuration, see the [document on player initialization](initialization.md).
 
 It is possible to set only one version of the image in preview, landscape or portrait format, but it is recommended to set both images.
 

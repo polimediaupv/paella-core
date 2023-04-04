@@ -131,3 +131,7 @@
 
 - [New metadata](video_manifest.md): **visibleTimeLine**. Allows to hide the progress bar time line.
  
+ ## paella-core 1.27
+
+- [Metadata object no longer mandatory](video_manifest.md). The preview image is still mandatory, but a default one can be specified in the player configuration. [See the documentation](video_manifest.md) for more information.
+

@@ -81,7 +81,7 @@ const loadHls = (player, streamData, video, config, cors) => {
 export class HlsLiveVideo extends HlsVideo {
     async loadStreamData(streamData) {
         if (hlsSupport === HlsSupport.NATIVE) {
-            // We delegate the upload to HlsVideo, which in turn will delegate it to MP4Video.
+            // We delegate the load to HlsVideo, which in turn will delegate it to MP4Video'.
             streamData.sources.hls = streamData.sources.hlsLive;
             return super.loadStreamData(streamData);
         }

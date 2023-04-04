@@ -538,10 +538,6 @@ export default class Paella {
             url = [url];
         }
 
-        if (!duration) {
-            duration = 1;
-            this.log.warn("Paella.loadUrl(): no duration specified. There may be problems with some plugins.");
-        }
         if (!title) {
             title = getUrlFileName(url[0]);
             this.log.warn("Paella.loadUrl(): no title specified. Using URL file name as video name.");
@@ -616,6 +612,7 @@ export default class Paella {
             this.log.debug(`Loading video with identifier '${this.videoId}' from URL '${this.manifestFileUrl}'`);
     
             this._videoManifest = await this.initParams.loadVideoManifest(this.manifestFileUrl,this._config,this);
+            this._videoManifest.metadata = this._videoManifest.metadata || {};
             if (!this._videoManifest.metadata.preview && (this.defaultVideoPreview !== "" || this.defaultVideoPreviewPortrait !== "")) {
                 this._videoManifest.metadata.preview = this.defaultVideoPreview;
                 this._videoManifest.metadata.previewPortrait = this.defaultVideoPreviewPortrait;

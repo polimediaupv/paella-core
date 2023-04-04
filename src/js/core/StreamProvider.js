@@ -11,11 +11,8 @@ export function checkManifestIntegrity(manifest) {
 		}
 	}
 
-	check(manifest.metadata, "missing 'metadata' object.");
 	check(manifest.streams, "missing 'streams' object.");
 	check(manifest.streams.length>0, "the 'streams' array is empty.");
-	check(manifest.metadata?.duration>0, "'metadata.duration' must be higher than zero.");
-	check(manifest.metadata?.title, "the 'metadata.title' field is required.");
 	check(manifest.metadata?.preview, "the 'metadata.preview' field is required.");
 }
 
