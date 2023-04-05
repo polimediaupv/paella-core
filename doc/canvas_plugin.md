@@ -50,7 +50,22 @@ When the [StreamProvider](stream_provider.md) loads the video streams into the v
 
 ### Canvas plugin
 
-The canvas plugin integrates with the [paella player plugins](plugins.md) system and is responsible for deciding if the plugin is compatible with a given stream, and for creating the instance of the canvas implementation. As many canvas will be created as many streams are visible in the video, and to determine if the canvas is compatible, the `canvas` attribute of the stream obtained from the [video manifest](video_manifest.md) will be used.
+The canvas plugin integrates with the [paella player plugins](plugins.md) system and is responsible for deciding if the plugin is compatible with a given stream, and for creating the instance of the canvas implementation. As many canvas will be created as many streams are visible in the video, and to determine if the canvas is compatible, the `canvas` attribute of the stream obtained from the [video manifest](video_manifest.md) will be used. This attribute is an array, since there may be more than one applicable canvas type, and the first canvas type that is compatible with the current `paella-core` configuration will be chosen.
+
+**data.json:**
+
+```json
+{
+    ...
+    "streams": [
+        {
+            "sources": {...},
+            "content": "presenter",
+            "canvas":["video360","video"]
+        }
+    ]
+}
+```
 
 
 

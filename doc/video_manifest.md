@@ -78,7 +78,8 @@ It is an array that contains the information of the streams that compose the vid
     {
       "sources": {...},
       "content": "presenter",
-      "role": "mainAudio"
+      "role": "mainAudio",
+      "canvas": ["video"]
     },
     {
       "sources": {...},
@@ -129,6 +130,24 @@ If the video manifest contains more than one video stream, it is mandatory to ma
 }
 ```
 
+### Canvas
+
+Specifies a list of canvas types supported by video. In `paella-core` there are two canvas types: `video` and `audio`, but other new canvas types can be defined via plugins. For example, in the `paella-webgl-plugins` package there is the `Video360Canvas` plugin, which allows to display 360-degree videos recorded in equirectangular format. In this case, the canvas type to be defined is `video360`, and we could also add the `video` type as fallback, in case the `video360` plugin is not enabled:
+
+```json
+{
+  "streams": [
+    {
+      "sources": {...},
+      "content": "presenter",
+      "role": "mainAudio",
+      "canvas": ["video360", "video"]
+    }
+  ]
+}
+```
+
+Similarly, for a canvas type there can be more than one compatible canvas. The clearest example of this is the `video` type canvas included by default in `paella-core`, and the `video` type canvas defined in the `paella-zoom-plugin` package: it provides a video canvas that allows zooming in and out.
 
 
 ## Frame List
