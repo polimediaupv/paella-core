@@ -281,8 +281,8 @@ export default class VideoContainer extends DomClass {
         }
         else {
             const global = this.player.config.videoContainer?.restoreVideoLayout?.global;
-            this.player.preferences.set('videoLayout', layoutId, { global });
-            this.player.preferences.set('videoLayoutMainContent', mainContent, { global });
+            await this.player.preferences.set('videoLayout', layoutId, { global });
+            await this.player.preferences.set('videoLayoutMainContent', mainContent, { global });
             const prevLayout = this._layoutId;
             this._layoutId = layoutId;
             this._mainLayoutContent = mainContent;
@@ -400,7 +400,7 @@ export default class VideoContainer extends DomClass {
                 const paused = await this.paused();
                 if (!paused) {
                     const currentTime = await this.currentTime();
-                    this.player.preferences.set("lastKnownTime", currentTime, { global: false });
+                    await this.player.preferences.set("lastKnownTime", currentTime, { global: false });
                 }
                 setTimeout(saveCurrentTime, 1000);
             }
@@ -555,7 +555,7 @@ export default class VideoContainer extends DomClass {
     async setVolume(v) {
         const result = await this.streamProvider.setVolume(v);
         triggerEvent(this.player, Events.VOLUME_CHANGED, { volume: v });
-        this.player.preferences.set("volume", v, { global: true });
+        await this.player.preferences.set("volume", v, { global: true });
         return result;
     }
     
@@ -570,7 +570,7 @@ export default class VideoContainer extends DomClass {
     async setPlaybackRate(r) {
         const result = await this.streamProvider.setPlaybackRate(r);
         triggerEvent(this.player, Events.PLAYBACK_RATE_CHANGED, { newPlaybackRate: r });
-        this.player.preferences.set("playbackRate", r, { global: true });
+        await this.player.preferences.set("playbackRate", r, { global: true });
         return result;
     }
 
