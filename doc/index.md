@@ -128,3 +128,4 @@ Video plugin formats available in [paella core](https://github.com/polimediaupv/
 - [Paella zoom plugin](https://github.com/polimediaupv/paella-zoom-plugin): A [canvas plugin](canvas_plugin.md) to zoom videos for paella-core.
 - [Paella user tracking plugins](https://github.com/polimediaupv/paella-user-tracking): It contains basic plugins for capturing user events, such as button or key presses, and other video events
 - [Paella layout plugins](https://github.com/polimediaupv/paella-layout-plugins): Contains extra layout plugins
+- [Paella webgl plugins](https://github.com/polimediaupv/paella-webgl-plugins): [Canvas plugins](canvas_plugin.md) to show videos using WebGL.
