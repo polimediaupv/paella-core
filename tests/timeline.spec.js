@@ -1,10 +1,5 @@
 const { test, expect } = require('@playwright/test');
-import { 
-    waitState,
-    getState,
-    getPlayerState,
-    playVideo
-} from './basic.spec';
+import { playVideo } from './utils';
 
 const loadPlayer = async (page) => {
     await page.evaluate(`

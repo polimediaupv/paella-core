@@ -1,5 +1,5 @@
 const { test, expect } = require('@playwright/test');
-import { waitState, getState, getPlayerState } from './basic.spec';
+import { waitState, getState, getPlayerState } from './utils';
 
 const loadPlayer = async (page, removePreview = false, addPreviewAtInit = false) => {
     const previewAtInit = `

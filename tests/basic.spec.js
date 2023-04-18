@@ -1,22 +1,6 @@
 // @ts-check
 const { test, expect } = require('@playwright/test');
-
-const player = '__paella_instances__[0]';
-
-const loadPlayer = async (page) => {
-  await page.evaluate(`
-    const initParams = {
-      defaultVideoPreview: "/config/default_preview_landscape.jpg",
-      defaultVideoPreviewPortrait: "/config/default_preview_portrait.jpg"
-    };
-
-    
-    const paella = new Paella('player-container', initParams);
-    paella.loadManifest()
-      .then(() => {})
-      .catch(err => console.error(err));
-  `)
-}
+const { playVideo, checkPlayVideo, getPlayerState, waitState, getState } = require('./utils.js');
 
 const loadUrl = async (page, presenter, presentation = null) => {
   const videos = !presentation ? `["${presenter}"]` : `["${presenter}","${presentation}"]`;
@@ -32,28 +16,6 @@ const loadUrl = async (page, presenter, presentation = null) => {
       .then(() => {})
       .catch(err => console.error(err));
   `);
-}
-
-export const getPlayerState = async page => page.evaluate(`${player}.PlayerState`);
-
-export const waitState = async (page, state) => {
-  await page.evaluate(`${player}.waitState(${state})`);
-}
-
-export const getState = async (page) => await page.evaluate(`${player}.state`);
-
-
-export const playVideo = async (page) => {
-  const PlayerState = await getPlayerState(page);
-  await waitState(page, PlayerState.MANIFEST);
-  await page.click('#playerContainerClickArea');
-  await waitState(page, PlayerState.LOADED);
-  await expect(await getState(page)).toBe(PlayerState.LOADED);
-}
-
-export const checkPlayVideo = async (page) => {
-  await loadPlayer(page);
-  await playVideo(page);
 }
 
 const checkPlayUrl = async (page, video1, video2 = null) => {
