@@ -32,6 +32,31 @@ The configuration callbacks cannot be specified, but in practice the only callba
 }
 ```
 
+By default, the `crossorigin` attribute of the HTML video is added without content:
+
+```html
+...
+<video crossorigin >
+  ...
+</video>
+```
+
+If any other value needs to be configured, the `crossOrigin` configuration parameter can be used:
+
+```json
+{
+    "plugins": {
+        ...
+        "es.upv.paella.mp4VideoFormat": {
+            "enabled": true,
+            "order": 1,
+            "crossOrigin": "user-credentials"
+        },
+        ...
+    }
+}
+```
+
 ## Video Manifest
 
 ```json
