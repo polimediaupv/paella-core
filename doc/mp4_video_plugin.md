@@ -26,6 +26,8 @@ To recognise mp4 videos, you need to activate the plugin in the settings.
 
 If there is more than one stream type in a stream within the video manifest that is compatible with the current configuration, the plugin whose value in the `order` attribute is lower will be used. For more information, see the [video format plugins](video_plugins.md) documentation.
 
+### crossorigin (paella-core >= 1.28)
+
 By default, the `crossorigin` attribute of the HTML video is added without content:
 
 ```html

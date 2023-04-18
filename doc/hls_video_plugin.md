@@ -32,6 +32,8 @@ The configuration callbacks cannot be specified, but in practice the only callba
 }
 ```
 
+### crossorigin (paella-core >= 1.28)
+
 By default, the `crossorigin` attribute of the HTML video is added without content:
 
 ```html

@@ -135,3 +135,6 @@
 
 - [Metadata object no longer mandatory](video_manifest.md). The preview image is still mandatory, but a default one can be specified in the player configuration. [See the documentation](video_manifest.md) for more information.
 
+## paella-core 1.28
+
+- New configuration option added to [mp4](mp4_video_plugin.md), [hls](hls_video_plugin.md) and hls live videos: `crossOrigin`. Allows to set the `crossorigin` attribute of the `<video>` element.
