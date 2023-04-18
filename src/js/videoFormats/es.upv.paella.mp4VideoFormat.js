@@ -14,10 +14,15 @@ export function supportsVideoType(type) {
 }
 
 export class Mp4Video extends Video {
-    constructor(player, parent, isMainAudio) {
+    constructor(player, parent, isMainAudio, config) {
         super('video', player, parent);
+        this._config = config || {};
+
+        const crossorigin = this._config.crossOrigin ?? "";
         this.element.setAttribute("playsinline","true");
-        this.element.setAttribute("crossorigin","");
+        if (crossorigin !== false) {
+            this.element.setAttribute("crossorigin",crossorigin);
+        }
 
         this.isMainAudio = isMainAudio;
 
@@ -325,7 +330,7 @@ export default class Mp4VideoPlugin extends VideoPlugin {
     }
 
     async getVideoInstance(playerContainer, isMainAudio) {
-        return new Mp4Video(this.player, playerContainer, isMainAudio);
+        return new Mp4Video(this.player, playerContainer, isMainAudio, this.config);
     }
     
     getCompatibleFileExtensions() {

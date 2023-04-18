@@ -1,6 +1,6 @@
 // @ts-check
-const { test, expect } = require('@playwright/test');
-const { playVideo, checkPlayVideo, getPlayerState, waitState, getState } = require('./utils.js');
+const { test } = require('@playwright/test');
+const { playVideo, checkPlayVideo } = require('./utils.js');
 
 const loadUrl = async (page, presenter, presentation = null) => {
   const videos = !presentation ? `["${presenter}"]` : `["${presenter}","${presentation}"]`;

@@ -190,9 +190,9 @@ const loadHls = (player, streamData, video, config, cors) => {
 
 export class HlsVideo extends Mp4Video {
     constructor(player, parent, config, isMainAudio) {
-        super(player, parent, isMainAudio);
+        super(player, parent, isMainAudio, config);
         
-        this._config = {
+        this._config = this._config || {
             audioTrackLabel: config.audioTrackLabel || 'name',
             enableCache: config.enableCache || false
         }
