@@ -57,6 +57,16 @@ If any other value needs to be configured, the `crossOrigin` configuration param
 }
 ```
 
+To prevent the `crossorigin` attribute from being added to the `<video>` element, you can set the configuration value to `false`.:
+
+```json
+"es.upv.paella.mp4VideoFormat": {
+    "enabled": true,
+    "order": 1,
+    "crossOrigin": false
+}
+```
+
 ## Video Manifest
 
 ```json
