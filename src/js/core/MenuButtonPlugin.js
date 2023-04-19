@@ -67,7 +67,7 @@ export default class MenuButtonPlugin extends PopUpButtonPlugin {
 			}
 			
 			const itemButton = createElementWithHtmlText(`
-				<button class="${ className }" aria-label="${ item.title }">${ itemContent }</button>`
+				<button class="${ className }" aria-label="${ item.title }" title="${ item.title }">${ itemContent }</button>`
 				, itemElem);
 			if (!firstItem) {
 				firstItem = itemButton;
