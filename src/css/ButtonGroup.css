@@ -78,6 +78,25 @@
 	margin-top: 0 !important;
 }
 
+.button-group button.dynamic-width span {
+    margin-top: 0px;
+    color: var(--main-fg-color);
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+.button-group button.dynamic-width span.button-title-small {
+    margin-top: 0px;
+}
+
+.button-group button.dynamic-width span.button-title-medium {
+    margin-top: 0px;
+}
+
+.button-group button.dynamic-width span.button-title-large {
+    margin-top: 0px;
+}
+
 
 .button-group button i svg {
 	fill: var(--main-fg-color);
