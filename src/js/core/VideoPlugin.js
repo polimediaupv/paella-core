@@ -135,6 +135,10 @@ export class Video extends DomClass {
         return false;
     }
 
+    initVolume(v) {
+        this._initialVolume = v;
+    }
+
     async paused() {
         return true;
     }

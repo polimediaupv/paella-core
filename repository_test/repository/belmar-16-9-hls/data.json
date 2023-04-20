@@ -1,0 +1,83 @@
+{
+	"metadata": {
+		"duration": 900,
+		"title": "Belmar 16:9 - 15 minutes (hls)",
+		"preview": "https://repository.paellaplayer.upv.es/belmar_16_9_hls/preview.png"
+	},
+	"streams": [
+		{
+			"sources": {
+				"hls": [
+					{
+						"src": "https://repository.paellaplayer.upv.es/belmar_16_9_hls/SCREEN.m3u8",
+						"mimetype": "video/mp4"
+					}
+				]
+				
+			},
+			"content":"presentation"
+		},
+		{
+			"sources": {
+				"hls": [
+					{
+						"src": "https://repository.paellaplayer.upv.es/belmar_16_9_hls/PRESENTER.m3u8",
+						"mimetype": "video/mp4"
+					}
+				]
+			},
+			"content":"presenter",
+			"audioTag":"es"
+		}
+	],
+	"frameList": [
+        {
+            "mimetype": "image/jpg",
+            "url": "https://repository.paellaplayer.upv.es/belmar_16_9_hls/framelist/frame.0.jpg",
+            "id": "frame_0",
+            "thumb": "https://repository.paellaplayer.upv.es/belmar_16_9_hls/framelist/thumb.0.jpg",
+            "time": 0
+        },
+        {
+            "mimetype": "image/jpg",
+            "url": "https://repository.paellaplayer.upv.es/belmar_16_9_hls/framelist/frame.420.jpg",
+            "id": "frame_420",
+            "thumb": "https://repository.paellaplayer.upv.es/belmar_16_9_hls/framelist/thumb.420.jpg",
+            "time": 420
+        },
+        {
+            "mimetype": "image/jpg",
+            "url": "https://repository.paellaplayer.upv.es/belmar_16_9_hls/framelist/frame.660.jpg",
+            "id": "frame_660",
+            "thumb": "https://repository.paellaplayer.upv.es/belmar_16_9_hls/framelist/thumb.660.jpg",
+            "time": 660
+        },
+        {
+            "mimetype": "image/jpg",
+            "url": "https://repository.paellaplayer.upv.es/belmar_16_9_hls/framelist/frame.870.jpg",
+            "id": "frame_870",
+            "thumb": "https://repository.paellaplayer.upv.es/belmar_16_9_hls/framelist/thumb.870.jpg",
+            "time": 870
+        }
+    ],
+	"captions": [
+		{
+			"lang": "de",
+			"text": "Deutsch (automatische Übersetzung)",
+			"format": "vtt",
+			"url": "captions.de.vtt"
+		},
+		{
+			"lang": "en",
+			"text": "English (automatic transcription)",
+			"format": "vtt",
+			"url": "captions.en.vtt"
+		},
+		{
+			"lang": "es",
+			"text": "Español (traducción automática)",
+			"format": "vtt",
+			"url": "captions.es.vtt"
+		}
+	]
+}

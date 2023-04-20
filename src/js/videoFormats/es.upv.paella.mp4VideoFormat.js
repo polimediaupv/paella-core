@@ -210,6 +210,13 @@ export class Mp4Video extends Video {
         if (!this.isMainAudioPlayer) {
             this.video.muted = true;
         }
+
+        if (this._initialVolume) {
+            this.video.volume = this._initialVolume;
+            if (this._initialVolume === 0) {
+                this.video.muted = true;
+            }
+        }
         
         this.video.src = resolveResourcePath(this.player, this._currentSource.src);
         this._endedCallback = this._endedCallback || (() => {
@@ -237,29 +244,6 @@ export class Mp4Video extends Video {
 
     async enable() {
         this._videoEnabled = true;
-        /*
-        this.player.log.debug("video.enable()");
-
-        if (this._timeUpdateTimer) {
-            clearTimeout(this._timeUpdateTimer);
-            this._timeUpdateTimer = null;
-        }
-
-        this._videoEnabled = true;
-
-        await this.loadStreamData(this._streamData);
-
-        // Restore video settings
-        this.video.currentTime = this._disabledProperties.currentTime;
-        if (this._disabledProperties.paused) {
-            await this.video.pause();
-        }
-        else {
-            await this.video.play();
-        }
-
-        return this._videoEnabled;
-        */
     }
 
     async disable() {
@@ -268,24 +252,6 @@ export class Mp4Video extends Video {
         }
         else {
             this._videoEnabled = false;
-            /*
-            this.player.log.debug("video.disable()");
-
-            this.saveDisabledProperties(this.video);
-
-            const startTimeupdate = () => {
-                this._timeUpdateTimer = setTimeout(() => {
-                    if (!this._disabledProperties.paused) {
-                        this._disabledProperties.currentTime += 0.25;
-                    }
-                    startTimeupdate();
-                }, 250);
-            }
-            startTimeupdate();
-    
-            this._videoEnabled = false;
-            await this.clearStreamData();
-            */
         }
 
         return this._videoEnabled;
