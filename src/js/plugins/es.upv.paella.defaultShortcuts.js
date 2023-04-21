@@ -138,7 +138,7 @@ export default class DefaultKeyShortcutsPlugin extends KeyShortcutPlugin {
             },
             {
                 keyCode: KeyCodes.KeyL,
-                get description() { return player.translate("Go forward $1 seconds", [skipForward]) },
+                get description() { return player.translate("Forward $1 seconds", [skipForward]) },
                 action: async () => {
                     await this.seek(skipForward);
                 }
@@ -173,7 +173,7 @@ export default class DefaultKeyShortcutsPlugin extends KeyShortcutPlugin {
             },
             {
                 keyCode: KeyCodes.ArrowRight,
-                get description() { return player.translate("Go forward $1 seconds", [skipForward]) },
+                get description() { return player.translate("Forward $1 seconds", [skipForward]) },
                 action: async () => {
                     await this.seek(skipForward);
                 }
