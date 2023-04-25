@@ -9,8 +9,9 @@ export function getCanvasButtonPlugin(plugin) {
         position: plugin.position,
         title: plugin.description,
         ariaLabel: plugin.ariaLabel,
-        click: async () => {
-            await plugin.action();
+        click: async (content) => {
+            const stream = plugin.player.videoContainer.streamProvider.streams[content];
+            await plugin.action(content, stream?.player, stream?.canvas, stream?.canvasPlugin);
         }
     }
 }
@@ -89,7 +90,7 @@ export default class CanvasButtonPlugin extends UserInterfacePlugin {
         }
     }
 
-    async action() {
+    async action(content) {
         this.player.log.warn(`Action not implemented in canvas button plugin ${ this.name }`);
     }
 }

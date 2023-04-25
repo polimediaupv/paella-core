@@ -46,7 +46,8 @@ const addButton = function({
     title,
     className,
     position = CanvasButtonPosition.CENTER,
-    click
+    click,
+    content
 }) {
     if (!icon) {
         throw new Error("Error in video layout definition. getVideoCanvasButtons(): missing 'icon' attribute.");
@@ -69,14 +70,14 @@ const addButton = function({
     `);
     this.buttonsArea.appendChild(btn);
     btn.addEventListener('click', (evt) => {
-        click(evt);
+        click(content);
         evt.stopPropagation();
         return false;
     });
     return btn;
 }
 
-export const addVideoCanvasButton = async (player, layoutStructure, canvas, video) => {
+export const addVideoCanvasButton = async (player, layoutStructure, canvas, video, content) => {
     const plugin = layoutStructure.plugin;
     let tabIndexStart = plugin.tabIndexStart;
     const externalButtons = await getCanvasButtons(player, video);
@@ -85,6 +86,7 @@ export const addVideoCanvasButton = async (player, layoutStructure, canvas, vide
         ...plugin.getVideoCanvasButtons(layoutStructure, video.content, video, canvas)];
     buttons.forEach(btnData => {
         btnData.tabIndex = tabIndexStart++;
+        btnData.content = content;
         const btn = addButton.apply(canvas, [btnData]);
         buttonElements.push(btn);
     });

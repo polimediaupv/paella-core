@@ -7,7 +7,11 @@ export default class CanvasButtonPluginTest extends CanvasButtonPlugin {
         this.icon = TestIcon;
     }
 
-    async action() {
-        this.player.playbackBar.enabled = !this.player.playbackBar.enabled;
+    async action(content, videoPlayer, videoCanvas, canvasPlugin) {
+        console.log(`Content: ${ content }`);
+        console.log(videoPlayer);
+        console.log(videoCanvas);
+        console.log(canvasPlugin);
+        //this.player.playbackBar.enabled = !this.player.playbackBar.enabled;
     }
 }

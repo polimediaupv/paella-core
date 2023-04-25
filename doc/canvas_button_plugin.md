@@ -24,11 +24,19 @@ export default class MyCanvasButtonPlugin extends CanvasButtonPlugin {
         this.icon = MyCanvasButtonIcon;
     }
 
-    async action() {
+    async action(content, videoPlayer, videoCanvas, canvasPlugin) {
         alert("Test Canvas Button");
     }
 }
 ```
+
+The `async action(content, videoPlayer, videoCanvas, canvasPlugin)` function is executed when the user presses the button. This function receives the following parameters (paella-core >= 1.29):
+
+- `content`: stream `content` tag, present in the video manifest.
+- `videoPlayer`: [video player plugin](video_plugin.md) used to play the video. For example, a `es.upv.paella.mp4VideoFormat` instance.
+- `videoCanvas`: [video canvas instance](video_canvas_plugin.md) used to render the video.
+- `canvasPlugin`: [video canvas plugin](video_canvas_plugin.md) used to create the video canvas instance.
+
 
 ## Configuration
 

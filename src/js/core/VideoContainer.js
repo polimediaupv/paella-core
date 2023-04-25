@@ -87,7 +87,7 @@ async function updateLayoutStatic() {
             let resultRect = null;
 
             canvas.buttonsArea.innerHTML = "";
-            buttonElements.push(await addVideoCanvasButton(this.player, layoutStructure, canvas, video));
+            buttonElements.push(await addVideoCanvasButton(this.player, layoutStructure, canvas, video, video.content));
             
             video.rect.forEach((videoRect) => {
                 const aspectRatioData = /^(\d+.?\d*)\/(\d+.?\d*)$/.exec(videoRect.aspectRatio);
@@ -211,7 +211,7 @@ async function updateLayoutDynamic() {
             
 
             canvas.buttonsArea.innerHTML = "";
-            buttonElements.push(await addVideoCanvasButton(this.player, layoutStructure, canvas, video));
+            buttonElements.push(await addVideoCanvasButton(this.player, layoutStructure, canvas, video, video.content));
 
             canvas.element.style = {};
             canvas.element.style.display = "block";
