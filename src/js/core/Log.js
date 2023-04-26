@@ -1,13 +1,13 @@
 /* eslint-disable no-console */
 
-export const LOG_LEVEL = {
+export const LOG_LEVEL = Object.freeze({
     DISABLED: 0,
     ERROR: 1,
     WARN: 2,
     INFO: 3,
     DEBUG: 4,
     VERBOSE: 5
-};
+});
 
 let g_globalLogLevel = LOG_LEVEL.INFO;
 

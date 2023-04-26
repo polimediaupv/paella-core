@@ -1,5 +1,5 @@
 
-export default {
+export default Object.freeze({
 	PLAY: "paella:play",
 	PAUSE: "paella:pause",
 	STOP: "paella:stop",
@@ -29,7 +29,7 @@ export default {
 	HIDE_UI: "paella:hideUI",
 	SHOW_UI: "paella:showUI",
 	COOKIE_CONSENT_CHANGED: "paella:cookieConsentChanged"
-};
+});
 
 export function bindEvent(player, event, callback, unregisterOnUnload = true) {
 	player.__eventListeners__ = player.__eventListeners__ || {};

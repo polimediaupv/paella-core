@@ -33,11 +33,11 @@ export function getCanvasPlugin(player, stream) {
     return plugin;
 }
 
-export const CanvasButtonPosition = {
+export const CanvasButtonPosition = Object.freeze({
     LEFT: 'left',
     CENTER: 'center',
     RIGHT: 'right'
-};
+});
 
 const addButton = function({
     icon,

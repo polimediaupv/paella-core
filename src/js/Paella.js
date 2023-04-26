@@ -71,7 +71,7 @@ import Preferences from "./core/Preferences";
 
 import "../css/ForcedColors.css";
 
-export const PlayerState = {
+export const PlayerState = Object.freeze({
     UNLOADED: 0,
     LOADING_MANIFEST: 1,
     MANIFEST: 2,
@@ -80,9 +80,9 @@ export const PlayerState = {
     UNLOADING_MANIFEST: 5,
     UNLOADING_PLAYER: 6,
     ERROR: 7
-};
+});
 
-export const PlayerStateNames = [
+export const PlayerStateNames = Object.freeze([
     'UNLOADED',
     'LOADING_MANIFEST',
     'MANIFEST',
@@ -91,7 +91,7 @@ export const PlayerStateNames = [
     'UNLOADING_MANIFEST',
     'UNLOADING_PLAYER',
     'ERROR'
-];
+]);
 
 function buildPreview() {
     const preview = (this.videoManifest?.metadata?.preview && resolveResourcePath(this, this.videoManifest?.metadata?.preview)) || this.defaultVideoPreview;
