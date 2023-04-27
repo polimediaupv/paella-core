@@ -34,8 +34,8 @@ export default class DualVideoDynamicLayout extends VideoLayout {
             result.push({
                 icon: iconSideBySide,
                 position: CanvasButtonPosition.LEFT,
-                title: this.player.translate('Minimize video'),
-                ariaLabel: this.player.translate('Minimize video'),
+                title: this.player.translate('Dual stream 50%'),
+                ariaLabel: this.player.translate('Dual stream 50%'),
                 click: async () => {
                     this._currentContent.forEach(lo => {
                         lo.size = 50;
