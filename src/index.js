@@ -44,6 +44,7 @@ import Captions from 'paella-core/js/captions/Captions';
 
 import KeyShortcutPlugin, { KeyCodes, getShortcuts } from './js/core/KeyShortcutPlugin';
 
+import { VideoContainerMessagePosition } from './js/core/VideoContainerMessage';
 
 import {
     defaultTranslateFunction,
@@ -194,6 +195,8 @@ export {
     VideoCanvasPlugin,
     VideoCanvas,
 
-    CanvasButtonPlugin
+    CanvasButtonPlugin,
+
+    VideoContainerMessagePosition
 }
 
