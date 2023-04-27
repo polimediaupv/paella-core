@@ -1,0 +1,68 @@
+.video-container-message {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    padding-top: 1%;
+}
+
+.video-container-message .container {
+    width: 31%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    height: 30%;
+}
+
+.video-container-message .container .message-content {
+    background-color: #ffffff80;
+    border-radius: 5px;
+    width: 100%;
+    text-align: center;
+}
+
+.video-container-message .container .message-content .text {
+    text-shadow: 0px 0px 3px white;
+    color: black;
+}
+
+.top-left {
+
+}
+
+.top-middle {
+
+}
+
+.top-right {
+
+}
+
+.center-left {
+
+}
+
+.center-middle {
+
+}
+
+.center-right {
+
+}
+
+.bottom-left {
+
+}
+
+.bottom-middle {
+
+}
+
+.bottom-right {
+
+}

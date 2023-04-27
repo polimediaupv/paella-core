@@ -16,6 +16,7 @@ import 'paella-core/styles/VideoLayout.css';
 import { loadPluginsOfType, unloadPluginsOfType } from 'paella-core/js/core/plugin_tools'
 import { loadVideoPlugins, unloadVideoPlugins, getVideoPluginWithFileUrl } from './VideoPlugin';
 import { addVideoCanvasButton, CanvasButtonPosition, setTabIndex } from './CanvasPlugin';
+import VideoContainerMessage from './VideoContainerMessage';
 
 export function getSourceWithUrl(player,url) {
     if (!Array.isArray[url]) {
@@ -417,6 +418,8 @@ export default class VideoContainer extends DomClass {
             saveCurrentTime();
         }
 
+        this._messageContainer = new VideoContainerMessage(this.player, this.element);
+
         this._ready = true;
     }
 
@@ -503,6 +506,10 @@ export default class VideoContainer extends DomClass {
                 stream.canvas.showButtons();
             }
         }
+    }
+
+    get message() {
+        return this._messageContainer;
     }
 
     get elementSize() {
