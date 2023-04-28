@@ -1,3 +1,7 @@
+:root {
+    --video-container-message-bkg: rgba(0, 0, 0, 0.4);
+    --video-container-message-color: white;
+}
 .video-container-message {
     display: flex;
     justify-content: space-around;
@@ -9,6 +13,8 @@
     right: 0px;
     padding-top: 1%;
     pointer-events: none;
+    container-type: size;
+    container-name: video-container-message;
 }
 
 .video-container-message .container {
@@ -21,14 +27,44 @@
 }
 
 .video-container-message .container .message-content {
-    background-color: #ffffff80;
+    background-color: var(--video-container-message-bkg);
     border-radius: 5px;
     padding-left: 10%;
     padding-right: 10%;
     text-align: center;
+    width: 40%;
 }
 
 .video-container-message .container .message-content .text {
-    text-shadow: 0px 0px 3px white;
-    color: black;
+    text-shadow: 0px 0px 3px var(--video-container-message-bkg);
+    color: var(--video-container-message-color);
+    width: 100%;
+}
+
+.video-container-message .container .message-content i {
+    display: inline-block;
+    width: 90%;
+    padding-top: 10%;
+}
+
+.video-container-message .container .message-content i svg {
+    fill: var(--video-container-message-color);
+}
+
+@container video-container-message (max-width: 700px) {
+    .video-container-message .container .message-content .text {
+        font-size: 1.2em;
+    }
+}
+
+@container video-container-message (min-width: 700px) and (max-width: 1300px) {
+    .video-container-message .container .message-content .text {
+        font-size: 2.0em;
+    }
+}
+
+@container video-container-message (min-width: 1300px) {
+    .video-container-message .container .message-content .text {
+        font-size: 2.3em;
+    }
 }
