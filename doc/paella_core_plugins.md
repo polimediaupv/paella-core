@@ -268,6 +268,27 @@ Is the more basic video canvas plugin, and allows to display a video stream usin
 }
 ```
 
+## Shortcuts
+
+### `es.upv.paella.defaultShortcuts`:
+
+Handles the default paella-core keyboard shortcuts. Check the [shortcuts plugin for more information](key_shortcuts.md).
+
+```json
+"es.upv.paella.cookieDataPlugin": {
+  "enabled": true
+}
+```
+
+
+Custom plugin icons: keyboard shortcuts show some messages and icons with the [VideoContainerMessage](video_container_message.md) API. These are the identifiers to customize them:
+
+- `volumeMuteIcon`
+- `volumeLowIcon`
+- `volumeMidIcon`
+- `volumeHighIcon`
+
+
 
 
 ## Data plugins
