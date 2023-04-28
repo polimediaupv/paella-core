@@ -1,8 +1,29 @@
 
 import KeyShortcutPlugin, { KeyCodes } from "paella-core/js/core/KeyShortcutPlugin";
 import PopUp from "paella-core/js/core/PopUp";
+import { VideoContainerMessagePosition } from "../core/VideoContainerMessage";
+
+import defaultVolumeMuteIcon from "../../icons/volume-mute.svg"
+import defaultVolumeLowIcon from "../../icons/volume-low.svg"
+import defaultVolumeMidIcon from "../../icons/volume-mid.svg"
+import defaultVolumeHighIcon from "../../icons/volume-high.svg"
 
 export default class DefaultKeyShortcutsPlugin extends KeyShortcutPlugin {
+
+    getVolumeIcon(volume) {
+        if (volume === 0) {
+            return this.player.getCustomPluginIcon(this.name,"volumeMuteIcon") || defaultVolumeMuteIcon;
+        }
+        else if (volume < 0.3) {
+            return this.player.getCustomPluginIcon(this.name,"volumeLowIcon") || defaultVolumeLowIcon
+        }
+        else if (volume < 0.6) {
+            return this.player.getCustomPluginIcon(this.name,"volumeMidIcon") || defaultVolumeMidIcon;
+        }
+        else {
+            return this.player.getCustomPluginIcon(this.name,"volumeHighIcon") || defaultVolumeHighIcon;
+        }
+    }
 
     toggleCaptions() {
         if (this.player?.captionsCanvas?.captions?.length > 0) {
@@ -47,12 +68,32 @@ export default class DefaultKeyShortcutsPlugin extends KeyShortcutPlugin {
     async seek(seconds) {
         const currentTime = await this.player.videoContainer.streamProvider.currentTime();
         await this.player.videoContainer.streamProvider.setCurrentTime(currentTime + seconds);
+        if (seconds < 0) {
+            this.player.videoContainer.message.show({
+                text: `<< ${Math.abs(seconds)}s`,
+                position: VideoContainerMessagePosition.CENTER_LEFT,
+                timeout: 500
+            });
+        }
+        else {
+            this.player.videoContainer.message.show({
+                text: `${seconds}s >>`,
+                position: VideoContainerMessagePosition.CENTER_RIGHT,
+                timeout: 500
+            });
+        }
     }
 
     async incrementVolume(percent) {
         const volume = await this.player.videoContainer.streamProvider.volume();
         const newVolume = Math.min(Math.max(0, volume + percent * 0.01), 1);
         await this.player.videoContainer.setVolume(newVolume);
+        const icon = this.getVolumeIcon(newVolume);
+        this.player.videoContainer.message.show({
+            text: `${ Math.round(newVolume * 100) }%`,
+            position: VideoContainerMessagePosition.CENTER_MIDDLE,
+            icon
+        });
     }
 
     closePopUp() {
@@ -74,6 +115,10 @@ export default class DefaultKeyShortcutsPlugin extends KeyShortcutPlugin {
             }
         });
         await this.player.videoContainer.setPlaybackRate(selected);
+        this.player.videoContainer.message.show({
+            text: `${ selected }X`,
+            position: VideoContainerMessagePosition.CENTER_MIDDLE
+        });
     }
 
     async increaseSpeed() {
@@ -89,17 +134,30 @@ export default class DefaultKeyShortcutsPlugin extends KeyShortcutPlugin {
             selected = this._validPlaybackRates[this._validPlaybackRates.length - 1];
         }
         await this.player.videoContainer.setPlaybackRate(selected);
+        this.player.videoContainer.message.show({
+            text: `${ selected }X`,
+            position: VideoContainerMessagePosition.CENTER_MIDDLE
+        });
     }
 
     async toggleVolume() {
         const vol = await this.player.videoContainer.volume();
+        let newVol = 0;
         if (vol>0) {
             this._lastVolume = vol;
-            await this.player.videoContainer.setVolume(0);
+            newVol = 0;
         }
         else {
-            await this.player.videoContainer.setVolume(this._lastVolume || 1);
+            newVol = this._lastVolume || 1;
         }
+
+        await this.player.videoContainer.setVolume(newVol);
+        const icon = this.getVolumeIcon(newVol);
+        this.player.videoContainer.message.show({
+            text: `volume: ${ Math.round(newVol * 100) }%`,
+            position: VideoContainerMessagePosition.CENTER_MIDDLE,
+            icon
+        });
     }
 
     async load() {
