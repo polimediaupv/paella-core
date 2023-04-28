@@ -138,3 +138,13 @@
 ## paella-core 1.28
 
 - New configuration option added to [mp4](mp4_video_plugin.md), [hls](hls_video_plugin.md) and hls live videos: `crossOrigin`. Allows to set the `crossorigin` attribute of the `<video>` element.
+
+
+## paella-core 1.29
+
+- [Improvements in CanvasButton API](canvas_button_plugin.md): new parameters passed to `action()` function
+
+## paella-core 1.30
+
+- New API: [VideoContainerMessage](video_container_message.md).
+
