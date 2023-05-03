@@ -35,8 +35,9 @@ export default class CaptionCanvas extends DomClass {
 
         this._currentCaptions = null;
 
-        const timeChanged = evt => {
-            const time = evt.currentTime || evt.newTime || 0;
+        const timeChanged = async evt => {
+            const offset = player.videoContainer.isTrimEnabled ? player.videoContainer.trimStart : 0;
+            const time = offset + (evt.currentTime || evt.newTime || 0);
             if (this._currentCaptions) {
                 const cue = this._currentCaptions.getCue(time);
                 this._captionsContainer.innerHTML = "";
