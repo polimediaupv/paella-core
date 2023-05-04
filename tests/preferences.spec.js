@@ -27,7 +27,7 @@ test.describe("Preferences", () => {
     test("Preferences: using cookies", async ({page}) => {
         await page.goto('/?id=belmar-multiresolution-remote');
 
-        await loadPlayer(page, {
+        const cfg = {
             // Use cookies for preferences
             preferences: {
                 currentSource: "cookie",
@@ -46,7 +46,8 @@ test.describe("Preferences", () => {
                     required: true
                 }
             ]
-        });
+        };
+        await loadPlayer(page, cfg);
         
         await playVideo(page);
 
@@ -57,26 +58,7 @@ test.describe("Preferences", () => {
 
         // Reload page
         await page.goto('/?id=belmar-multiresolution-remote');
-        await loadPlayer(page, {
-            // Use cookies for preferences
-            preferences: {
-                currentSource: "cookie",
-                sources: {
-                    cookie: {
-                        consentType: "necessary"
-                    }
-                }
-            },
-
-            cookieConsent: [
-                {
-                    type: "necessary",
-                    title: "Necessary",
-                    description: "",
-                    required: true
-                }
-            ]
-        });
+        await loadPlayer(page, cfg);
         
         await playVideo(page);
 
@@ -88,26 +70,54 @@ test.describe("Preferences", () => {
 
         // Reload page
         await page.goto('/?id=hls-multiquality');
-        await loadPlayer(page, {
-            // Use cookies for preferences
+        await loadPlayer(page, cfg);
+        
+        await playVideo(page);
+
+        localValue = await page.evaluate(`__paella_instances__[0].preferences.get("playwrightTest", { global: false })`);
+        globalValue = await page.evaluate(`__paella_instances__[0].preferences.get("playwrightTestGlobal", { global: true })`);
+        await expect(localValue).not.toBeDefined();
+        await expect(globalValue).toBe(testValue);
+    });
+
+    test("Preferences: using data plugin", async ({page}) => {
+        await page.goto('/?id=belmar-multiresolution-remote');
+
+        const cfg = {
+            // Use data plugin for preferences
             preferences: {
-                currentSource: "cookie",
+                currentSource: "dataPlugin",
                 sources: {
-                    cookie: {
-                        consentType: "necessary"
+                    dataPlugin: {
+                        context: "preferences"
                     }
                 }
-            },
+            }
+        }
+        await loadPlayer(page, cfg);
+        
+        await playVideo(page);
 
-            cookieConsent: [
-                {
-                    type: "necessary",
-                    title: "Necessary",
-                    description: "",
-                    required: true
-                }
-            ]
-        });
+        // Save preference
+        const testValue = "testValue";
+        await page.evaluate(`__paella_instances__[0].preferences.set("playwrightTest", "${ testValue }", { global: false })`);
+        await page.evaluate(`__paella_instances__[0].preferences.set("playwrightTestGlobal", "${ testValue }", { global: true })`);
+
+        // Reload page
+        await page.goto('/?id=belmar-multiresolution-remote');
+        await loadPlayer(page, cfg);
+        
+        await playVideo(page);
+
+        // Recover preference
+        let localValue = await page.evaluate(`__paella_instances__[0].preferences.get("playwrightTest", { global: false })`);
+        let globalValue = await page.evaluate(`__paella_instances__[0].preferences.get("playwrightTestGlobal", { global: true })`);
+        await expect(localValue).toBe(testValue);
+        await expect(globalValue).toBe(testValue);
+
+        // Reload page
+        await page.goto('/?id=hls-multiquality');
+        await loadPlayer(page, cfg);
         
         await playVideo(page);
 
