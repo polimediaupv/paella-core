@@ -127,3 +127,29 @@ Check documentation about [cookie consent APIs](cookie_consent.md) to get more i
 await utils.loadStyle('my_paella_core_skin.css');
 ```
 
+**Merge objects:** (paella-core >= 1.31) mixes the information of two objects, overwriting the values of `extendData` over those of `baseData`.
+
+```javascript
+const objA = {
+  key1: "hello",
+  key2: {
+    key3: "world"
+  }
+};
+
+const objB = {
+	key2: {
+	  key3: "Paella",
+	  key4: 42
+	}
+};
+
+utils.mergeObjects(objA, objB);
+// objA: {
+//  key1: "hello",
+//  key2: {
+//    key3: "Paella",
+//    key4: 42
+//  }
+// }
+```

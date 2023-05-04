@@ -240,3 +240,17 @@ export function loadStyle(url) {
         head.appendChild(link);
     });
 }
+
+export function mergeObjects(baseData, extendData) {
+    for (const key in extendData) {
+        const baseVal = baseData[key];
+        const extendVal = extendData[key];
+
+        if (typeof(baseVal) == "object" && extendVal) {
+            mergeObjects(baseVal, extendVal);
+        }
+        else {
+            baseData[key] = extendData[key];
+        }
+    }
+}
