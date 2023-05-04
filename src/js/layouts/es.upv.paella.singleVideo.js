@@ -31,8 +31,8 @@ export default class SingleVideoLayout extends VideoLayout {
                 {
                     icon: this.player.getCustomPluginIcon(this.name,"iconSideBySide") || sideBySideIcon,
                     position: CanvasButtonPosition.LEFT,
-                    title: this.player.translate("Dual stream 50%"),
-                    ariaLabel: this.player.translate("Dual stream 50%"),
+                    title: this.player.translate("Two videos 50%"),
+                    ariaLabel: this.player.translate("Two videos 50%"),
                     click: () => {
                         const availableContentIds = this.player.videoContainer.validContentIds;
                         const dualVideoContentId = this.dualVideoContentIds.find(id => {
