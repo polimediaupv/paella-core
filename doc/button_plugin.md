@@ -47,6 +47,8 @@ Apart from the `Plugin` methods, `ButtonPlugin` provides other methods and prope
 
 - `async mouseOver(target)`: is called when the mouse enters the button area. See the section on button sections below for more information.
 - `async mouseOut(target)`: called when the mouse leaves one of the button areas
+- `async focusIn()` (paella-core >= 1.31): called when the button receive the focus, for example, with the tabulator key.
+- `async focusOut()` (paella-core >= 1.31): called when the button loses the focus.
 - `async action()`: called when the user clicks the button.
 - `getDescription()`: is used to return the text of the HTML attribute `title`.
 - `getMinContainerSize()` (paella-core >= 1.14): is used to return the minimum container width required to show the plugin in the playback bar. This value is is overridden by the `minContainerSize` attribute of the plugin configuration.

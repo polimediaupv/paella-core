@@ -148,3 +148,7 @@
 
 - New API: [VideoContainerMessage](video_container_message.md).
 
+## paella-core 1.31
+
+- New utility function: [`mergeObjects(objA,objB)`](utils.md).
+- New APIs for [button plugins](button_plugin.md): callbacks called on get and lost focus.

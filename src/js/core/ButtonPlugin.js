@@ -70,11 +70,17 @@ export async function addButtonPlugin(plugin, buttonAreaElem) {
 		parent._pluginData = plugin;
 
 		// Event listeners
-		parent.addEventListener("mouseenter", (evt) => {
-			parent._pluginData.mouseOver(parent, evt);
+		parent.addEventListener("mouseenter", async (evt) => {
+			await parent._pluginData.mouseOver(parent, evt);
 		});
-		parent.addEventListener("mouseleave", (evt) => {
-			parent._pluginData.mouseOut(parent, evt);
+		parent.addEventListener("mouseleave", async (evt) => {
+			await parent._pluginData.mouseOut(parent, evt);
+		});
+		button.addEventListener("focus", async () => {
+			await button._pluginData.focusIn();
+		});
+		button.addEventListener("blur", async () => {
+			await button._pluginData.focusOut();
 		});
 	
 		button.addEventListener("click", (evt) => {
@@ -265,6 +271,14 @@ export default class ButtonPlugin extends UserInterfacePlugin {
 	}
 
 	async mouseOut(target) {
+
+	}
+
+	async focusIn() {
+
+	}
+
+	async focusOut() {
 
 	}
 

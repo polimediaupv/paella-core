@@ -12,6 +12,14 @@ export default class FoldableButtonPlugin extends ButtonPlugin {
         }
     }
 
+    showFoldableContainer() {
+        this.foldableContainer.style.display = "inline-block";
+    }
+
+    hideFoldableContainer() {
+        this.foldableContainer.style.display = "none";
+    }
+
     async load() {
         this.icon = screenIcon;
         this.foldableContainer.style.display = "none";
@@ -19,10 +27,18 @@ export default class FoldableButtonPlugin extends ButtonPlugin {
     }
 
     async mouseOver(target) {
-        this.foldableContainer.style.display = "inline-block";
+        this.showFoldableContainer();
     }
 
     async mouseOut(target) {
-        this.foldableContainer.style.display = "none";
+        this.hideFoldableContainer();
+    }
+
+    async focusIn() {
+        this.showFoldableContainer();
+    }
+
+    async focusOut() {
+        this.hideFoldableContainer();
     }
 }
