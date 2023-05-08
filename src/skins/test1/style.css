@@ -1,0 +1,12 @@
+:root {
+    --main-fg-color: #F9FAFB;
+    --main-bg-color: #1F2937;
+    --main-bg-color-hover: #1F2937;
+    --main-bg-gradient: #1F2937;
+    --secondary-bg-color-hover: #1F2937;
+
+    --highlight-bg-color: #3073B8;
+    --highlight-bg-color-hover: #3a8bdd;
+
+    --base-video-rect-background-color: #9CA3AF;
+}

@@ -1,6 +1,7 @@
 import 'paella-core/styles/base.css';
 
-import Paella, { PlayerState, PlayerStateNames } from 'paella-core/js/Paella';
+import Paella, { PlayerStateNames } from 'paella-core/js/Paella';
+import PlayerState from './js/core/PlayerState';
 import PopUp from 'paella-core/js/core/PopUp';
 import * as utils from 'paella-core/js/core/utils';
 import {

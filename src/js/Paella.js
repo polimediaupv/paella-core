@@ -69,18 +69,11 @@ import defaultDictionaries from "./default-dictionaries.js";
 
 import Preferences from "./core/Preferences";
 
+import Skin from "./core/Skin";
+
 import "../css/ForcedColors.css";
 
-export const PlayerState = Object.freeze({
-    UNLOADED: 0,
-    LOADING_MANIFEST: 1,
-    MANIFEST: 2,
-    LOADING_PLAYER: 3,
-    LOADED: 4,
-    UNLOADING_MANIFEST: 5,
-    UNLOADING_PLAYER: 6,
-    ERROR: 7
-});
+import PlayerState from "./core/PlayerState";
 
 export const PlayerStateNames = Object.freeze([
     'UNLOADED',
@@ -108,6 +101,8 @@ async function preLoadPlayer() {
 
     this.log.debug("Loading paella player");
     this._config = await this.initParams.loadConfig(this.configUrl,this);
+
+    this.skin.overrideConfig(this._config);
 
     setupDefaultLanguage(this);
 
@@ -224,6 +219,9 @@ export default class Paella {
         }
         
         containerElement.classList.add("player-container");
+
+        this.log.debug("Loading skin manager");
+        this._skin = new Skin(this);
         
         this._containerElement = containerElement;
         this._initParams = initParams;
@@ -325,6 +323,10 @@ export default class Paella {
 
     get preferences() {
         return this._preferences;
+    }
+
+    get skin() {
+        return this._skin;
     }
 
     translate(word, keys = null) {
