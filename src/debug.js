@@ -193,7 +193,7 @@ window.onload = async () => {
 
 	paella.loadManifest()
 		.then(() => {
-			paella.addCustomPluginIcon("es.upv.paella.playPauseButton","play",testIcon);
+			//paella.addCustomPluginIcon("es.upv.paella.playPauseButton","play",testIcon);
 			paella.log.debug(`${paella.translate("Rice")} ${paella.translate("Chicken")}`
 		)})
 		.catch(e => paella.log.error(e));

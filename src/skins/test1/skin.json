@@ -8,5 +8,11 @@
 
         }
     },
-    "customIcons": []
+    "icons": [
+        {
+            "plugin": "es.upv.paella.playPauseButton",
+            "identifier": "play",
+            "icon": "play-icon.svg"
+        }
+    ]
 }

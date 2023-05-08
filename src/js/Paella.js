@@ -69,7 +69,7 @@ import defaultDictionaries from "./default-dictionaries.js";
 
 import Preferences from "./core/Preferences";
 
-import Skin from "./core/Skin";
+import Skin, { overrideSkinConfig, loadSkinStyleSheets, loadSkinIcons } from "./core/Skin";
 
 import "../css/ForcedColors.css";
 
@@ -102,7 +102,8 @@ async function preLoadPlayer() {
     this.log.debug("Loading paella player");
     this._config = await this.initParams.loadConfig(this.configUrl,this);
 
-    this.skin.overrideConfig(this._config);
+    // Override config.json options from skin
+    overrideSkinConfig.apply(this.skin, [this._config]);
 
     setupDefaultLanguage(this);
 
@@ -621,6 +622,12 @@ export default class Paella {
                 this.log.warn("Paella.loadUrl(): no preview image specified. Using default preview image.");
             }
     
+            // Load custom icons from skin
+            loadSkinIcons.apply(this.skin);
+
+            // Load custom style sheets
+            await loadSkinStyleSheets.apply(this.skin);
+
             await postLoadPlayer.apply(this);
         }
         catch (err) {

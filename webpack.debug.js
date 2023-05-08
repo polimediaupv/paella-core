@@ -29,7 +29,8 @@ config.plugins.push(new HtmlWebpackPlugin({
 config.plugins.push(new CopyWebpackPlugin({
 	patterns: [
 		{ from: 'config', to: 'config' },
-		{ from: 'repository_test/repository', to: 'repository' }
+		{ from: 'repository_test/repository', to: 'repository' },
+		{ from: 'src/skins', to: 'skins' }
 	]
 }));
 
