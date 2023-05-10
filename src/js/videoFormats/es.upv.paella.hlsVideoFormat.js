@@ -276,6 +276,12 @@ export class HlsVideo extends Mp4Video {
             const tracks = await this.getAudioTracks();
             this._currentAudioTrack = tracks.find(track => track.selected);
             this.saveDisabledProperties(this.video);
+            this._endedCallback = this._endedCallback || (() => {
+                if (typeof(this._videoEndedCallback) == "function") {
+                    this._videoEndedCallback();
+                }
+            });
+            this.video.addEventListener("ended", this._endedCallback);
         }
     }
 
