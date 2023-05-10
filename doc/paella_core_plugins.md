@@ -251,6 +251,12 @@ This is the only functional [button plugin](button_plugin.md) in paella-core. As
 }
 ```
 
+Icon customization data:
+
+- `play`
+- `pause`
+- `replay`
+
 
 
 ## Video Canvas
