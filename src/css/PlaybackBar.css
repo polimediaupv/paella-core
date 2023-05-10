@@ -10,14 +10,8 @@
 }
 
 .playback-bar.inline-mode {
-	position: absolute;
-	bottom: 0px;
-	left: 0px;
-	right: 0px;
-	background: var(--secondary-bg-color);
-	background: var(--main-bg-gradient);
-	z-index: 100;
 	display: flex;
+	align-items: center;
 }
 
 .playback-bar:hover {

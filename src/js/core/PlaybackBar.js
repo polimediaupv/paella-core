@@ -11,7 +11,7 @@ export default class PlaybackBar extends DomClass {
 	constructor(player,parent) {
 		const inlineMode = player.config.progressIndicator?.inlineMode ?? false;
 		const attributes = {
-			"class": inlineMode ? "playback-bar top-mode" : "playback-bar inline-mode"
+			"class": inlineMode ? "playback-bar inline-mode" : "playback-bar top-mode"
 		};
 		super(player, { attributes, parent });
 
@@ -25,14 +25,22 @@ export default class PlaybackBar extends DomClass {
 		this._buttonPluginsRight = createElementWithHtmlText(
 			`<div class="button-plugins right-side"></div>`);
 			
-		
+
+		const timerSide = player.config.progressIndicator?.side || "left";
 		if (inlineMode) {
 			this.element.appendChild(this._buttonPluginsLeft);
-			this._progressIndicator = new ProgressIndicator(player, this);
-			this.element.appendChild(this._buttonPluginsRight);
+			if (timerSide === "left") {
+				this.element.appendChild(this._timerContainer);
+				this._progressIndicator = new ProgressIndicator(player, this);
+				this.element.appendChild(this._buttonPluginsRight);
+			}
+			else {
+				this._progressIndicator = new ProgressIndicator(player, this);
+				this.element.appendChild(this._timerContainer);
+				this.element.appendChild(this._buttonPluginsRight);
+			}
 		}
 		else {
-			const timerSide = player.config.progressIndicator?.side || "left";
 			this._progressIndicator = new ProgressIndicator(player, this);
 			this.element.appendChild(this._buttonPluginsLeft);
 			if (timerSide === "left") {
