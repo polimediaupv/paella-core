@@ -243,6 +243,12 @@ export class HlsVideo extends Mp4Video {
             // Initialize current quality
             this._currentQuality = this._autoQuality;
             this.saveDisabledProperties(this.video);
+            this._endedCallback = this._endedCallback || (() => {
+                if (typeof(this._videoEndedCallback) == "function") {
+                    this._videoEndedCallback();
+                }
+            });
+            this.video.addEventListener("ended", this._endedCallback);
             return result;
         }
         else {
