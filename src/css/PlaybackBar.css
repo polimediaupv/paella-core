@@ -9,6 +9,17 @@
 	z-index: 100;
 }
 
+.playback-bar.inline-mode {
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	background: var(--secondary-bg-color);
+	background: var(--main-bg-gradient);
+	z-index: 100;
+	display: flex;
+}
+
 .playback-bar:hover {
 	background: var(--secondary-bg-color-hover);
 }
@@ -17,6 +28,10 @@
 	width: 98%;
 	margin-left: 1%;
 	height: 10px;
+}
+
+.progress-indicator.inline-mode {
+	flex: 1;
 }
 
 .progress-indicator-timer {

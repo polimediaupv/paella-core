@@ -97,8 +97,9 @@ function getTimerParentContainer(config, playbackBar) {
 export default class ProgressIndicator extends DomClass {
 	constructor(player, playbackBar) {
 		const parent = playbackBar.element;
+		const inlineMode = player.config.progressIndicator?.inlineMode ?? false;
 		const attributes = {
-			"class": "progress-indicator"
+			"class": `progress-indicator${ inlineMode ? ' inline-mode' : ' top-mode' }`
 		};
 		const handler = player.config.progressIndicator?.showHandler ? '<i class="progress-indicator-handler" style="pointer-events: none"></i>' : "";
 		const children = `

@@ -26,7 +26,8 @@
         "visible": true,
         "showHandler": true,
         "hideHandlerOnMouseOut": true,
-        "showRemainingProgress": true
+        "showRemainingProgress": true,
+        "inlineMode": false
     },
 
     "preferences": {

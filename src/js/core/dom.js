@@ -47,8 +47,8 @@ export class DomClass extends PlayerResource {
         this.element.style.display = "none";
     }
     
-    show() {
-        this.element.style.display = "block";
+    show(showMode = "block") {
+        this.element.style.display = showMode;
     }
     
     get isVisible() {

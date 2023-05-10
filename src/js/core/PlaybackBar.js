@@ -9,8 +9,9 @@ import PopUp from './PopUp';
 
 export default class PlaybackBar extends DomClass {
 	constructor(player,parent) {
+		const inlineMode = player.config.progressIndicator?.inlineMode ?? false;
 		const attributes = {
-			"class": "playback-bar"
+			"class": inlineMode ? "playback-bar top-mode" : "playback-bar inline-mode"
 		};
 		super(player, { attributes, parent });
 
@@ -23,17 +24,25 @@ export default class PlaybackBar extends DomClass {
 			`<div class="timer-container"></div>`);
 		this._buttonPluginsRight = createElementWithHtmlText(
 			`<div class="button-plugins right-side"></div>`);
-		this._progressIndicator = new ProgressIndicator(player, this);
-
-		const timerSide = player.config.progressIndicator?.side || "left";
-		this.element.appendChild(this._buttonPluginsLeft);
-		if (timerSide === "left") {
-			this.element.appendChild(this._timerContainer);
+			
+		
+		if (inlineMode) {
+			this.element.appendChild(this._buttonPluginsLeft);
+			this._progressIndicator = new ProgressIndicator(player, this);
 			this.element.appendChild(this._buttonPluginsRight);
 		}
 		else {
-			this.element.appendChild(this._buttonPluginsRight);
-			this.element.appendChild(this._timerContainer);
+			const timerSide = player.config.progressIndicator?.side || "left";
+			this._progressIndicator = new ProgressIndicator(player, this);
+			this.element.appendChild(this._buttonPluginsLeft);
+			if (timerSide === "left") {
+				this.element.appendChild(this._timerContainer);
+				this.element.appendChild(this._buttonPluginsRight);
+			}
+			else {
+				this.element.appendChild(this._buttonPluginsRight);
+				this.element.appendChild(this._timerContainer);
+			}
 		}
 
 		this.element.addEventListener("click", () => {
@@ -103,7 +112,9 @@ export default class PlaybackBar extends DomClass {
 	
 	showUserInterface() {
 		if (this._enabled) {
-			this.show();
+			const inlineMode = this.player.config.progressIndicator?.inlineMode ?? false;
+			const showMode = inlineMode ? 'flex' : 'block';
+			this.show(showMode);
 			this.onResize();
 		}
 	}
