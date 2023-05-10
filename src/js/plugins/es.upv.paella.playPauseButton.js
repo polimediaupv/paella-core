@@ -3,11 +3,13 @@ import Events, { bindEvent } from 'paella-core/js/core/Events';
 
 import defaultPlayIcon from 'paella-core/icons/play.svg';
 import defaultPauseIcon from 'paella-core/icons/pause.svg';
+import defaultReplayIcon from 'paella-core/icons/replay.svg';
 
 export default class PlayButtonPlugin extends ButtonPlugin {
 	async load() {
 		const playIcon = this.player.getCustomPluginIcon(this.name,"play") || defaultPlayIcon;
 		const pauseIcon = this.player.getCustomPluginIcon(this.name,"pause") || defaultPauseIcon;
+		const replayIcon = this.player.getCustomPluginIcon(this.name,"replay") || defaultReplayIcon;
 		this.icon = playIcon;
 		bindEvent(this.player, Events.PLAY, () => {
 			this.icon = pauseIcon;
@@ -16,7 +18,7 @@ export default class PlayButtonPlugin extends ButtonPlugin {
 			this.icon = playIcon;
 		});
 		bindEvent(this.player, Events.ENDED, () => {
-			this.icon = playIcon;
+			this.icon = replayIcon;
 		});
 		bindEvent(this.player, Events.STOP, () => {
 			this.icon = playIcon;
