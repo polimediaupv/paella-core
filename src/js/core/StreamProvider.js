@@ -242,7 +242,7 @@ export default class SteramProvider extends PlayerResource {
 				}));
 			})
 			
-			Promise.all(p).then(() => resolve(res));
+			Promise.allSettled(p).then(() => resolve(res));
 		})
 	}
 
@@ -337,7 +337,7 @@ export default class SteramProvider extends PlayerResource {
 			return this.trimEnd - this.trimStart;	
 		}
 		else {
-			return (await this.executeAction("duration"))[0];	
+			return (await this.executeAction("duration"))[0];
 		}
 	}
 	
