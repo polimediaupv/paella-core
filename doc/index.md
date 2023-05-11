@@ -121,6 +121,9 @@ Video plugin formats available in [paella core](https://github.com/polimediaupv/
 
 [Preferences API](preferences.md) (paella >= 1.19): API to manage user preferences using cookies or DataPlugins.
 
+[Skins](skin_api.md) (paella-core >= 1.32)
+
+
 ## Plugin repositories
 
 - [Paella basic plugins](https://github.com/polimediaupv/paella-basic-plugins): collection of basic plugins for paella-core.

@@ -44,6 +44,15 @@ paella.loadManifest()
 		.catch(e => paella.log.error(e));
 ```
 
+## `Paella.removeCustomPluginIcon(pluginName,iconName)` (paella-core >= 1.32)
+
+Allows you to delete a custom icon. This function removes the icon from the custom icon registry, but does not change it in the plugin where it is used. For the changes to take effect, the player must be restarted with the `paella.reload()` or `paella.unload()` APIs.
+
+```js
+paella.removeCustomPluginIcon("es.upv.paella.playPauseButton","play");
+paella.reload();
+```
+
 ## Summary
 
 There are APIs to customize plugin icons, but it must be noted that the plugin must support it. It may be the case that the developer of a plugin does not want the icon he has used to be modified, and in this case the `addCustomPluginIcon` function will have no effect. 
