@@ -1,7 +1,8 @@
-import { mergeObjects } from "./utils";
+import { mergeObjects, unloadStyle } from "./utils";
 import PlayerState from "./PlayerState";
 import { removeFileName } from "./utils";
 import { joinPath } from "./utils";
+import { loadStyle } from "./utils";
 
 // The following functions should be called only by a paella-core instance
 export function overrideSkinConfig(config) {
@@ -10,10 +11,28 @@ export function overrideSkinConfig(config) {
     }
 }
 
-export function loadSkinStyleSheets() {
+export async function loadSkinStyleSheets() {
+    this.player.__skinStyleSheets__ = this.player.__skinStyleSheets__ || [];
     if (this._skinData?.styleSheets) {
-        // TODO: load style sheets
+        const p = [];
+        this._skinData.styleSheets.forEach(css => {
+            const cssPath = joinPath([this._skinUrl, css]);
+            p.push(new Promise(async resolve => {
+                const link = await loadStyle(cssPath);
+                this.player.__skinStyleSheets__.push(link);
+                resolve();
+            }))
+        });
+        await Promise.allSettled(p);
     }
+}
+
+export function unloadSkinStyleSheets() {
+    this.player.__skinStyleSheets__ = this.player.__skinStyleSheets__ || [];
+    this.player.__skinStyleSheets__.forEach(link => {
+        unloadStyle(link);
+    });
+    this.player.__skinStyleSheets__ = [];
 }
 
 export async function loadSkinIcons() {
@@ -49,10 +68,25 @@ export default class Skin {
         }
         this._skinData = await req.json();
 
-        // load stylesheets
-        // load icons
-
         // If the player status is loaded, reload the player
+        if (this._player.state === PlayerState.LOADED ||
+            this._player.state === PlayerState.MANIFEST)
+        {
+            this._player.reload();
+        }
+    }
+
+    unloadSkin() {
+        // Unload custom icons
+        if (Array.isArray(this._skinData?.icons)) {
+            this._skinData?.icons.forEach(({ plugin, identifier }) => {
+                this.player.removeCustomPluginIcon(plugin, identifier);
+            });
+        }
+
+        this._skinUrl = null;
+        this._skinData = {};
+
         if (this._player.state === PlayerState.LOADED ||
             this._player.state === PlayerState.MANIFEST)
         {

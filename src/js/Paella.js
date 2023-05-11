@@ -69,7 +69,7 @@ import defaultDictionaries from "./default-dictionaries.js";
 
 import Preferences from "./core/Preferences";
 
-import Skin, { overrideSkinConfig, loadSkinStyleSheets, loadSkinIcons } from "./core/Skin";
+import Skin, { overrideSkinConfig, loadSkinStyleSheets, loadSkinIcons, unloadSkinStyleSheets } from "./core/Skin";
 
 import "../css/ForcedColors.css";
 
@@ -623,6 +623,7 @@ export default class Paella {
             }
     
             // Load custom icons from skin
+            unloadSkinStyleSheets.apply(this.skin);
             loadSkinIcons.apply(this.skin);
 
             // Load custom style sheets
@@ -750,6 +751,9 @@ export default class Paella {
         this._previewContainer?.removeFromParent();
         this._preferences = null;
         this._playerState = PlayerState.UNLOADED;
+
+        // Unload skin style sheets
+        unloadSkinStyleSheets.apply(this.skin);
     }
 
     async unloadPlayer() {
@@ -907,6 +911,10 @@ export default class Paella {
 
     addCustomPluginIcon(pluginName, iconName, svgData) {
         this._customPluginIcons[`${pluginName}-${iconName}`] = svgData;
+    }
+
+    removeCustomPluginIcon(pluginName, iconName) {
+        this._customPluginIcons[`${pluginName}-${iconName}`] = null;
     }
 
     getCustomPluginIcon(pluginName, iconName) {

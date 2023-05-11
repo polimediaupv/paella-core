@@ -235,10 +235,15 @@ export function loadStyle(url) {
         const link = document.createElement('link');
         link.setAttribute('rel','stylesheet');
         link.setAttribute('href',url);
-        link.onload = () => resolve();
+        link.onload = () => resolve(link);
         const head = document.getElementsByTagName('head')[0];
         head.appendChild(link);
     });
+}
+
+export function unloadStyle(link) {
+    const head = document.getElementsByTagName('head')[0];
+    head.removeChild(link);
 }
 
 export function mergeObjects(baseData, extendData) {

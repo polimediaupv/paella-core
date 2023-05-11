@@ -1,8 +1,10 @@
 {
-    "styleSheets": [],
+    "styleSheets": [
+        "style.css"
+    ],
     "configOverrides": {
         "progressIndicator": {
-
+            "inlineMode": true
         },
         "videoContainer": {
 
