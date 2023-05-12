@@ -38,6 +38,18 @@ The styles of the progress indicator can be set via CSS (see the [documentation 
 **`hideHandlerOnMouseOut` (`true`|`false`):** If `true`, the handler will only be visible when the mouse is over the playback bar. This parameter has no effect if `showHandler` is `false`.
 **`showRemainingProgress` (`true`|`false`):** If `true`, a bar will be displayed showing the remaining time of the video.
 
+## Time line position
+
+It is possible to place the playback bar at the top of the playback bar, but it can also be placed inline between the action buttons. The `inlineMode` attribute is used for this purpose:
+
+```js
+{
+    "progressIndicator": {
+        "inlineMode": true
+    }
+}
+```
+
 ## Style customization
 
 Most of the elements in the progress bar are customised using CSS styles. Please refer to [this document to find out how to include custom styles](styles.md) using the function `loadStyle()`, as it is not enough to include them in the header of the website.

@@ -211,3 +211,16 @@ Generally the video playback functions are accessed through the `videoContainer`
 **`async exitFullscreen()`** Exit from fullscreen mode.
 
 
+## Skin and customization
+
+The access to the [skins APIs](skin_api.md) (paella-core >= 1.32) is done through the paella core instance:
+
+- `paella.skin`
+
+The plugin [icon customization APIs](plugin_icon_customization.md) are also accessible through the player instance:
+
+- `paella.addCustomPluginIcon(pluginName, iconName, svgData)`
+- `paella.removeCustomPluginIcon(pluginName, iconName)`
+- `paella.getCustomPluginIcon(pluginName, iconName)`
+
+

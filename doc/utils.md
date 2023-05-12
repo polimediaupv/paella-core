@@ -121,10 +121,18 @@ utils.getJSONCookie("aJSONValue");
 
 Check documentation about [cookie consent APIs](cookie_consent.md) to get more information about `setCookieIfAllowed()` function.
 
-**Load syles:** loading stylesheets to be used as Paella Core skins. Style sheets loaded with this API will always have priority over those defined in Paella Core and its plugins.
+**Load syles:** loading stylesheets to be used as Paella Core skins. Style sheets loaded with this API will always have priority over those defined in Paella Core and its plugins. Returns the DOM element `<link>` that is added to the page header.
 
 ```javascript
 await utils.loadStyle('my_paella_core_skin.css');
+```
+
+**Unload style:** unload a stylesheet. The  The DOM element, which can be obtained from the `loadStyle()` function, is passed as a parameter.
+
+```javascript
+const style = await utils.loadStyle('style.css');
+...
+utils.unloadStyle(style);
 ```
 
 **Merge objects:** (paella-core >= 1.31) mixes the information of two objects, overwriting the values of `extendData` over those of `baseData`.

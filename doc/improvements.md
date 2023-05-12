@@ -152,3 +152,8 @@
 
 - New utility function: [`mergeObjects(objA,objB)`](utils.md).
 - New APIs for [button plugins](button_plugin.md): callbacks called on get and lost focus.
+
+## paella-core 1.32
+
+- New [skin API](skin_api.md)
+- New customization options for [playback bar](progress_indicator_customization.md)
