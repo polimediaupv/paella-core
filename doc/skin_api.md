@@ -54,4 +54,27 @@ The skin definition file is divided into three sections:
 - `icons`: is an array with the list of custom icons, in the form of objects with attributes `plugin`, `identifier` and `icon`. For more information, see the [icon customization API](plugin_icon_customization.md) documentation. The file paths included here are relative to the skin definition file.
 
 
+## Skin API
 
+The skin APIs are accessible through the paella player instance, through the `paella.skin` object. Internally, the `paella.skin` object stores all the necessary information of the skin package loaded, so that the player can access these resources when needed, at the time of loading.
+
+The loading of a skin has to be done before loading the video manifest (see paella-core life cycle documentation), but the skin manager takes care of reloading the player if necessary, so we can load in any of the three valid paella-core states: `UNLOADED`, `MANIFEST` and `LOADED`.
+
+Only one skin can be loaded at any given time. If a skin is loaded while another one is loaded, the previous one will be unloaded first. Once a skin is loaded, it is possible to unload it so that the player is left with its predefined style configuration.
+
+The `paella.skin` API includes only two functions for uploading and downloading a skin:
+
+- `async loadSkin(skinUrl)`:  Loads a skin package from its URL. If the player is not in `UNLOADED` state, the video will be reloaded.
+- `unloadSkin()`: Unload the current skin resources. If the player is not in `UNLOADED` state, the video will be reloaded.
+
+
+```js
+...
+const paella = new Paella('player-container', initParams)
+
+paella.loadSkin("skins/default/default.json");
+
+paella.loadManifest()
+    .then(() => console.log("Player loaded"))
+    .catch(err => console.error(err));
+```
