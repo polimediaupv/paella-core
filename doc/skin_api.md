@@ -72,7 +72,7 @@ The `paella.skin` API includes only two functions for uploading and downloading 
 ...
 const paella = new Paella('player-container', initParams)
 
-paella.loadSkin("skins/default/default.json");
+paella.skin.loadSkin("skins/default/default.json");
 
 paella.loadManifest()
     .then(() => console.log("Player loaded"))
