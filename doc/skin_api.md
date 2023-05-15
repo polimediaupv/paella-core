@@ -51,7 +51,7 @@ The skin definition file is divided into three sections:
 
 - `styleSheets`: an array containing the list of style sheet files to be included when the skin is loaded. The file paths included here are relative to the skin definition file.
 - `configOverrides`: is a json with the same properties as the main configuration file. It should be noted that in this section it is possible to include any configuration option, and not only those related to the user interface. For example: it is possible to define plugins configuration. The elements defined in this section overwrite any attribute that also exists in the main configuration file. It is important to note that configuration attributes of type array overwrite the entire array defined in the configuration, i.e. they are not added to the main array, but replaced.
-- `icons`: is an array with the list of custom icons, in the form of objects with attributes `plugin`, `identifier` and `icon`. For more information, see the [icon customization API](plugin_icon_customization.md) documentation. The file paths included here are relative to the skin definition file.
+- `icons`: is an array with the list of custom icons, in the form of objects with attributes `plugin`, `identifier` and `icon`. The `icon` attribute can contain either a filename, with URL relative to the skin definition file, or an icon defined by text in SVG format. For more information, see the [icon customization API](plugin_icon_customization.md) documentation. The file paths included here are relative to the skin definition file.
 
 
 ## Skin API
