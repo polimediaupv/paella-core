@@ -48,7 +48,10 @@
 }
 
 .video-container-message .container .message-content i svg {
+    width: 100%;
+    height: 100%;
     fill: var(--video-container-message-color);
+    color: var(--video-container-message-color);
 }
 
 @container video-container-message (max-width: 700px) {

@@ -140,7 +140,10 @@
 }
 
 .video-container .button-plugins button i svg {
-	fill: var(--main-fg-color);
+	width: 100%;
+    height: 100%;
+    fill: var(--main-fg-color);
+	color: var(--main-fg-color);
 }
 
 
@@ -181,7 +184,10 @@
 }
 
 .video-container .button-plugins div i svg {
-	fill: var(--main-fg-color);
+	width: 100%;
+    height: 100%;
+    fill: var(--main-fg-color);
+	color: var(--main-fg-color);
 }
 
 .video-container .button-plugins .button-plugin-container div.dynamic-width div.non-interactive-button-content {
