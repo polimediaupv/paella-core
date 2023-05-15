@@ -37,13 +37,26 @@ export function unloadSkinStyleSheets() {
 
 export async function loadSkinIcons() {
     if (Array.isArray(this._skinData?.icons)) {
-        await Promise.allSettled(this._skinData.icons.map(({ plugin, identifier, icon }) => {
-            return new Promise(async resolve => {
-                const path = joinPath([this._skinUrl, icon]);
-                const req = await fetch(path);
-                const iconData = await req.text();
-                this.player.addCustomPluginIcon(plugin, identifier, iconData);
-                resolve();
+        await Promise.all(this._skinData.icons.map(({ plugin, identifier, icon }) => {
+            return new Promise(async (resolve,reject) => {
+                const div = document.createElement('div');
+                div.innerHTML = icon;
+                if (div.children[0] && div.children[0].tagName === 'svg') {
+                    this.player.addCustomPluginIcon(plugin, identifier, icon);
+                    resolve();
+                }
+                else {
+                    const iconFullUrl = joinPath([this._skinUrl, icon]);
+                    const req = await fetch(iconFullUrl);
+                    if (req.ok) {
+                        const iconData = await req.text();
+                        this.player.addCustomPluginIcon(plugin, identifier, iconData);
+                        resolve();
+                    }
+                    else {
+                        reject(new Error(`Skin icon not found at URL '${ iconFullUrl }'`));
+                    }
+                }
             })
         }));
     }

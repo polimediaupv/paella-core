@@ -624,7 +624,7 @@ export default class Paella {
     
             // Load custom icons from skin
             unloadSkinStyleSheets.apply(this.skin);
-            loadSkinIcons.apply(this.skin);
+            await loadSkinIcons.apply(this.skin);
 
             // Load custom style sheets
             await loadSkinStyleSheets.apply(this.skin);
