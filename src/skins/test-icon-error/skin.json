@@ -1,0 +1,20 @@
+{
+    "styleSheets": [
+        "style.css"
+    ],
+    "configOverrides": {
+        "progressIndicator": {
+            "inlineMode": true
+        },
+        "videoContainer": {
+
+        }
+    },
+    "icons": [
+        {
+            "plugin": "es.upv.paella.playPauseButton",
+            "identifier": "play",
+            "icon": "play-icon-fail.svg"
+        }
+    ]
+}
