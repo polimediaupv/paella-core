@@ -230,14 +230,16 @@ export function getJSONCookie(cname) {
     }
 }
 
-export function loadStyle(url) {
+export function loadStyle(url, addToHeader = true) {
     return new Promise(resolve => {
         const link = document.createElement('link');
         link.setAttribute('rel','stylesheet');
         link.setAttribute('href',url);
         link.onload = () => resolve(link);
         const head = document.getElementsByTagName('head')[0];
-        head.appendChild(link);
+        if (addToHeader) {
+            head.appendChild(link);
+        }
     });
 }
 

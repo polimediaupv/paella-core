@@ -11,6 +11,28 @@ export function overrideSkinConfig(config) {
     }
 }
 
+async function checkLoadSkinStyleSheets() {
+    if (this._skinData?.styleSheets) {
+        const p = [];
+        this._skinData.styleSheets.forEach(css => {
+            if (/\{.*/.test(css)) {
+                p.push(Promise.resolve());
+            }
+            else if (this._externalResourcesAllowed) {
+                const cssPath = joinPath([this._skinUrl, css]);
+                p.push(new Promise(async (resolve,reject) => {
+                    await loadStyle(cssPath, false);
+                    resolve();
+                }))
+            }
+            else {
+                throw new Error("No external resources allowed loading skin object");
+            }
+        });
+        await Promise.allSettled(p);
+    }
+}
+
 export async function loadSkinStyleSheets() {
     this.player.__skinStyleSheets__ = this.player.__skinStyleSheets__ || [];
     if (this._skinData?.styleSheets) {
@@ -83,20 +105,41 @@ export default class Skin {
         return this._player;
     }
 
-    async loadSkin(skinUrl) {
-        // load skin data from url to this._skinData
-        this._skinUrl = removeFileName(skinUrl);
-        const req = await fetch(skinUrl);
-        if (!req.ok) {
-            throw new Error(`Error loading skin from URL ${skinUrl}`);
+    async loadSkin(skinParam) {
+        if (typeof(skinParam) === "string") {
+            // load skin data from url to this._skinData
+            this._skinUrl = removeFileName(skinParam);
+            this._externalResourcesAllowed = true;
+            const req = await fetch(skinParam);
+            if (!req.ok) {
+                throw new Error(`Error loading skin from URL ${skinParam}`);
+            }
+            this._skinData = await req.json();
         }
-        this._skinData = await req.json();
+        else if (typeof(skinParam) === "object") {
+            this._skinUrl = "";
+            this._externalResourcesAllowed = false;
+            this._skinData = skinParam;
+        }
 
-        // If the player status is loaded, reload the player
-        if (this._player.state === PlayerState.LOADED ||
-            this._player.state === PlayerState.MANIFEST)
-        {
-            this._player.reload();
+        try {
+            // TODO: check skinData object
+            await checkLoadSkinStyleSheets.apply(this);
+            // TODO: preload skin resources
+            // TODO: Throw error if _externalResourcesAllowed === false and the skin has external resources
+    
+            // If the player status is loaded, reload the player
+            if (this._player.state === PlayerState.LOADED ||
+                this._player.state === PlayerState.MANIFEST)
+            {
+                this._player.reload();
+            }
+        }
+        catch (err) {
+            this._skinUrl = "";
+            this._externalResourcesAllowed = true;
+            this._skinData = {};
+            throw err;
         }
     }
 
