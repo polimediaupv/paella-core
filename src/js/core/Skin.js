@@ -15,15 +15,15 @@ async function checkLoadSkinStyleSheets() {
     if (this._skinData?.styleSheets) {
         const p = [];
         this._skinData.styleSheets.forEach(css => {
+            console.log("Foreach")
             if (/\{.*/.test(css)) {
-                p.push(Promise.resolve());
             }
             else if (this._externalResourcesAllowed) {
                 const cssPath = joinPath([this._skinUrl, css]);
-                p.push(new Promise(async (resolve,reject) => {
+                p.push(new Promise(async resolve => {
                     await loadStyle(cssPath, false);
                     resolve();
-                }))
+                }));
             }
             else {
                 throw new Error("No external resources allowed loading skin object");

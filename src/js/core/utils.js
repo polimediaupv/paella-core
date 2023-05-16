@@ -240,6 +240,7 @@ export function loadStyle(url, addToHeader = true) {
         if (addToHeader) {
             head.appendChild(link);
         }
+        resolve();
     });
 }
 
