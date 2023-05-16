@@ -157,3 +157,10 @@
 
 - New [skin API](skin_api.md)
 - New customization options for [playback bar](progress_indicator_customization.md)
+
+## paella-core 1.33
+
+- Support for embedded icons in the skin definition file.
+- Support for embedded style sheet in the skin definition file.
+- Support for loading a skin using an object.
+
