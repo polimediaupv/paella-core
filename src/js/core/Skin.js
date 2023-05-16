@@ -16,12 +16,23 @@ export async function loadSkinStyleSheets() {
     if (this._skinData?.styleSheets) {
         const p = [];
         this._skinData.styleSheets.forEach(css => {
-            const cssPath = joinPath([this._skinUrl, css]);
-            p.push(new Promise(async resolve => {
-                const link = await loadStyle(cssPath);
-                this.player.__skinStyleSheets__.push(link);
-                resolve();
-            }))
+            if (/\{.*/.test(css)) {
+                p.push(new Promise(resolve => {
+                    const style = document.createElement('style');
+                    style.innerHTML = css;
+                    this.player.__skinStyleSheets__.push(style);
+                    document.head.appendChild(style);
+                    resolve();
+                }))
+            }
+            else {
+                const cssPath = joinPath([this._skinUrl, css]);
+                p.push(new Promise(async resolve => {
+                    const link = await loadStyle(cssPath);
+                    this.player.__skinStyleSheets__.push(link);
+                    resolve();
+                }))
+            }
         });
         await Promise.allSettled(p);
     }
