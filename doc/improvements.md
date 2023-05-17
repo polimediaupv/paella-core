@@ -160,7 +160,7 @@
 
 ## paella-core 1.33
 
-- Support for embedded icons in the skin definition file.
-- Support for embedded style sheet in the skin definition file.
-- Support for loading a skin using an object.
+- Support for embedded icons in the [skin definition file](skin_api.md).
+- Support for embedded style sheet in the [skin definition file](skin_api.md).
+- Support for loading a [skin using an object](skin_api.md).
 

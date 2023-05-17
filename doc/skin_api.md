@@ -49,9 +49,10 @@ Skin packages contain at least one skin configuration file, and additionally oth
 
 The skin definition file is divided into three sections:
 
-- `styleSheets`: an array containing the list of style sheet files to be included when the skin is loaded. The file paths included here are relative to the skin definition file. In `paella-core` version 1.33, this array can also contain an embedded CSS file instead of a file name.
+- `styleSheets`: an array containing the list of style sheet files to be included when the skin is loaded. The file paths included here are relative to the skin definition file. From `paella-core` version 1.33, this array can also contain an embedded CSS file instead of a file name.
 - `configOverrides`: is a json with the same properties as the main configuration file. It should be noted that in this section it is possible to include any configuration option, and not only those related to the user interface. For example: it is possible to define plugins configuration. The elements defined in this section overwrite any attribute that also exists in the main configuration file. It is important to note that configuration attributes of type array overwrite the entire array defined in the configuration, i.e. they are not added to the main array, but replaced.
 - `icons`: is an array with the list of custom icons, in the form of objects with attributes `plugin`, `identifier` and `icon`. Starting in `paella-core` version 1.33, The `icon` attribute can contain either a filename, with URL relative to the skin definition file, or an icon defined by text in SVG format. For more information, see the [icon customization API](plugin_icon_customization.md) documentation. The file paths included here are relative to the skin definition file.
+
 
 
 ## Skin API
@@ -77,4 +78,41 @@ paella.skin.loadSkin("skins/default/default.json");
 paella.loadManifest()
     .then(() => console.log("Player loaded"))
     .catch(err => console.error(err));
+```
+
+## Skin definition object (paella-core >= 1.33)
+
+You can use a JavaScript object instead of a JSON URL as skin definition. The content of the skin definition object is identical to that of the skin definition file, with one exception: a skin definition object must have CSS style definitions and icons defined in an embedded form.
+
+```js
+let skinDefinition = {
+    styleSheets: [
+        `:root {
+            --main-fg-color: #F9FAFB;
+            --main-bg-color: #1F2937;
+            --main-bg-color-hover: #1F2937;
+            --main-bg-gradient: #1F2937;
+            --secondary-bg-color-hover: #1F2937;
+            --highlight-bg-color: #3073B8;
+            --highlight-bg-color-hover: #3a8bdd;
+            --base-video-rect-background-color: #9CA3AF;
+        }`
+    ],
+    configOverrides: {
+        progressIndicator: {
+            inlineMode: true
+        },
+        videoContainer: {
+        }
+    },
+    icons: [
+        {
+            plugin: "es.upv.paella.playPauseButton",
+            identifier: "play",
+            icon: "<svg viewBox=\"0 0 16 20\" xmlns=\"http://www.w3.org/2000/svg\"><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M0.520812 0.122289C0.841885 -0.0530018 1.23305 -0.0389906 1.54076 0.158822L15.5408 9.15882C15.827 9.34282 16 9.65974 16 10C16 10.3403 15.827 10.6572 15.5408 10.8412L1.54076 19.8412C1.23305 20.039 0.841885 20.053 0.520812 19.8777C0.199739 19.7024 0 19.3658 0 19V1C0 0.634194 0.199739 0.297579 0.520812 0.122289ZM2 2.83167V17.1683L13.1507 10L2 2.83167Z\" /></svg>"
+        }
+    ]
+}
+
+paella.skin.loadSkin(skinDefinition);
 ```
