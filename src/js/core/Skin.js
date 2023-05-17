@@ -15,7 +15,6 @@ async function checkLoadSkinStyleSheets() {
     if (this._skinData?.styleSheets) {
         const p = [];
         this._skinData.styleSheets.forEach(css => {
-            console.log("Foreach")
             if (/\{.*/.test(css)) {
             }
             else if (this._externalResourcesAllowed) {
@@ -66,6 +65,33 @@ export function unloadSkinStyleSheets() {
         unloadStyle(link);
     });
     this.player.__skinStyleSheets__ = [];
+}
+
+export async function checkLoadSkinIcons() {
+    if (Array.isArray(this._skinData?.icons)) {
+        await Promise.all(this._skinData.icons.map(({ plugin, identifier, icon }) => {
+            return new Promise(async (resolve,reject) => {
+                const div = document.createElement('div');
+                div.innerHTML = icon;
+                if (div.children[0] && div.children[0].tagName === 'svg') {
+                    // Embedded icon     
+                }
+                else if (this._externalResourcesAllowed) {
+                    const iconFullUrl = joinPath([this._skinUrl, icon]);
+                    const req = await fetch(iconFullUrl);
+                    if (req.ok) {
+                        resolve();
+                    }
+                    else {
+                        reject(new Error(`Skin icon not found at URL '${ iconFullUrl }'`));
+                    }
+                }
+                else {
+                    throw new Error("No external resources allowed loading skin object");
+                }
+            })
+        }))
+    }
 }
 
 export async function loadSkinIcons() {
@@ -123,11 +149,10 @@ export default class Skin {
         }
 
         try {
-            // TODO: check skinData object
+            // check skinData object
             await checkLoadSkinStyleSheets.apply(this);
-            // TODO: preload skin resources
-            // TODO: Throw error if _externalResourcesAllowed === false and the skin has external resources
-    
+            await checkLoadSkinIcons.apply(this);
+            
             // If the player status is loaded, reload the player
             if (this._player.state === PlayerState.LOADED ||
                 this._player.state === PlayerState.MANIFEST)
