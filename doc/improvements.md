@@ -164,3 +164,7 @@
 - Support for embedded style sheet in the [skin definition file](skin_api.md).
 - Support for loading a [skin using an object](skin_api.md).
 
+## paella-core 1.34
+
+- Improvements in `utils.mergeObjects()` function to merge arrays.
+

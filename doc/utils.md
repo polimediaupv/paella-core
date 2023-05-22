@@ -162,7 +162,7 @@ utils.mergeObjects(objA, objB);
 // }
 ```
 
-When an object contains properties that are arrays, it is possible to mix the contents of the array as long as the array elements are objects and contain the `id` property. In this case, the `mergeObjects` function will be applied recursively on the objects of the array `A`, with the objects of the array `B` whose identifier matches. In any other case, objects from the array `A` that do not meet these requirements will be added to the end of the array `B`.
+(paella-core >= 1.34) When an object contains properties that are arrays, it is possible to mix the contents of the array as long as the array elements are objects and contain the `id` property. In this case, the `mergeObjects` function will be applied recursively on the objects of the array `A`, with the objects of the array `B` whose identifier matches. In any other case, objects from the array `A` that do not meet these requirements will be added to the end of the array `B`.
 
 ```js
 const objA = {
