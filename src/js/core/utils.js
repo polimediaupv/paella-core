@@ -252,9 +252,26 @@ export function unloadStyle(link) {
 export function mergeObjects(baseData, extendData) {
     for (const key in extendData) {
         const baseVal = baseData[key];
-        const extendVal = extendData[key];
+        let extendVal = extendData[key];
 
-        if (typeof(baseVal) == "object" && extendVal) {
+        if (Array.isArray(baseVal) && Array.isArray(extendVal)) {
+            // Replace objects if there is an identifier property
+            baseVal.forEach(item => {
+                extendVal = extendVal.filter(extendItem => {
+                    if (item.id === extendItem.id) {
+                        mergeObjects(item, extendItem);
+                        return false;
+                    }
+                    return true;
+                });
+            });
+            
+            // Add objects that have not been added before
+            extendVal.forEach(extendItem => {
+                baseVal.push(extendItem);
+            });
+        }
+        else if (typeof(baseVal) == "object" && extendVal) {
             mergeObjects(baseVal, extendVal);
         }
         else {
