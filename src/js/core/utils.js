@@ -258,7 +258,10 @@ export function mergeObjects(baseData, extendData) {
             // Replace objects if there is an identifier property
             baseVal.forEach(item => {
                 extendVal = extendVal.filter(extendItem => {
-                    if (item.id === extendItem.id) {
+                    if (typeof(item) === "object" &&
+                        typeof(extendItem) === "object" &&
+                        item.id === extendItem.id)
+                    {
                         mergeObjects(item, extendItem);
                         return false;
                     }
