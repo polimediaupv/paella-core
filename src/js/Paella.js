@@ -918,6 +918,17 @@ export default class Paella {
     }
 
     getCustomPluginIcon(pluginName, iconName) {
+        this._requestedCustomIcons = this._requestedCustomIcons || [];
+        if (!this._requestedCustomIcons.find(item => item.pluginName === pluginName && item.iconName === iconName)) {
+            this._requestedCustomIcons.push({
+                pluginName,
+                iconName
+            });
+        }
         return this._customPluginIcons[`${pluginName}-${iconName}`];
+    }
+
+    get requestedCustonIcons() {
+        return this._requestedCustomIcons || [];
     }
 }
