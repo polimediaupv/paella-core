@@ -74,7 +74,8 @@ export async function checkLoadSkinIcons() {
                 const div = document.createElement('div');
                 div.innerHTML = icon;
                 if (div.children[0] && div.children[0].tagName === 'svg') {
-                    // Embedded icon     
+                    // Embedded icon
+                    resolve();   
                 }
                 else if (this._externalResourcesAllowed) {
                     const iconFullUrl = joinPath([this._skinUrl, icon]);
@@ -157,7 +158,7 @@ export default class Skin {
             if (this._player.state === PlayerState.LOADED ||
                 this._player.state === PlayerState.MANIFEST)
             {
-                this._player.reload();
+                await this._player.reload();
             }
         }
         catch (err) {
