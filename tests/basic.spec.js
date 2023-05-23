@@ -1,5 +1,6 @@
 // @ts-check
-const { test } = require('@playwright/test');
+const { test, expect } = require('@playwright/test');
+
 const { playVideo, checkPlayVideo } = require('./utils.js');
 
 const loadUrl = async (page, presenter, presentation = null) => {
@@ -90,5 +91,47 @@ test.describe("Play videos using file URLs", () => {
     }
   });
 });
+
+test.describe("Other basic tests", () => {
+  test('Utilities', async ({ page }) => {
+    await page.goto('/');
+
+    const result = await page.evaluate(() => {
+      const sourceObject = {
+        testArray: [
+          {
+            "name": "obj1"
+          },
+          {
+            "id": "id1",
+            "name": "srcName"
+          }
+        ]
+      }
+
+      const replaceObject = {
+        testArray: [
+          {
+            "id": "id1",
+            "name": "dstName",
+          },
+          {
+            "id": "id2",
+            "name": "dstName2"
+          },
+          "name 4"
+        ]
+      }
+    
+      window.utils.mergeObjects(sourceObject, replaceObject);
+      return sourceObject.testArray[0].name === "obj1" &&
+             sourceObject.testArray[1].name === "dstName" &&
+             sourceObject.testArray[2].name === "dstName2" &&
+             sourceObject.testArray[3] === "name 4";
+    });
+
+    await expect(result).toBe(true);
+  })
+})
 
 

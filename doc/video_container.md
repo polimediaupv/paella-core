@@ -357,4 +357,19 @@ The default CSS styles of `paella-core` use these classes to define the size and
 
 Of course, it is possible [to modify the CSS styles](styles.md) of the video container, but keep in mind that if the video container is placed above the playbar, the size of the container is related to the size of the playbar. If we modify the size of the playbar, we will also have to modify the styles for the video container.
 
+### Dynamic layouts
+
+In dynamic layouts, the alignment of the video streams is configured via the configuration file, with the `landscapeVerticalAlignment` and `portraitHorizontalAlignment` properties. For more information, see the section on [dynamic layouts](video_layout.md).
+
+```json
+{
+  "videoContainer": {
+    "dynamicLayout" : {
+        "portraitHorizontalAlignment": "align-center", // align-center (default), align-left, align-right
+        "landscapeVerticalAlignment": "align-center"   // align-center (default), align-top, align-bottom
+    }
+    ...
+  }
+}
+```
 

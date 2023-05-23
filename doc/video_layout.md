@@ -69,9 +69,27 @@ From paella-core version 1.9 onwards, there are two types of video layouts: stat
 ### Static layouts
 
 Static layouts allow defining the positions and sizes of the sub-streams by static positions according to the template base size. The base size of the video template corresponds to a 16:9 aspect ratio video, and the positions and sizes of the sub-streams are defined in relation to a container of size 1280x720px. When the layout is loaded, these sizes are automatically converted to percentage measurements, so that the window can be resized without affecting the proportions.
+
 ### Dynamic layouts
 
 Dynamically sized layouts define the size of the sub-streams by a percentage of container occupancy. Depending on the size of the video container, the sub-streams will be placed horizontally or vertically. The total occupancy percentage of all streams must not exceed 100%.
+
+Dynamic layouts are placed in rows or columns, depending on the available space in the window. Specifically, if the available space in the video area is landscape, then the videos will be placed in rows. If, on the other hand, the available area is vertical (for example, on a mobile screen), the videos will be arranged in a column. In either of these two configurations, one video may be larger than the other. If the videos are arranged in a row, the horizontal alignment of the videos remains to be defined. The same applies to videos arranged in a column: the vertical alignment must be set.
+
+To configure the vertical or horizontal alignment of the videos, the configuration of the `videoContainer` element in the configuration file is used:
+
+```json
+{
+  "videoContainer": {
+    "dynamicLayout" : {
+        "portraitHorizontalAlignment": "align-center", // align-center (default), align-left, align-right
+        "landscapeVerticalAlignment": "align-center"   // align-center (default), align-top, align-bottom
+    }
+    ...
+  }
+}
+```
+
 ## Layout properties and functions
 
 ### Layout type
@@ -277,6 +295,7 @@ getLayoutStructure(streamData,contentId,mainContent) {
     return structure;
 }
 ```
+
 
 ### User interaction
 
