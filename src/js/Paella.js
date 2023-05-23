@@ -928,7 +928,7 @@ export default class Paella {
         return this._customPluginIcons[`${pluginName}-${iconName}`];
     }
 
-    get requestedCustonIcons() {
+    get requestedCustomIcons() {
         return this._requestedCustomIcons || [];
     }
 }
