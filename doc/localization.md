@@ -27,10 +27,12 @@ import { addDictionary } from 'paella-core';
 
 
 
-You can load dictionaries using the Paella Player initialization object. This function adds the corresponding dictionary with the specified language, and if this dictionary is already included, extends it with the new translation strings:
+You can load dictionaries using the Paella Player initialization object. This function adds the corresponding dictionary with the specified language, and if this dictionary is already included, extends it with the new translation strings.
+
+The default language of the player is set in the [configuration file](configuration.md). If we want to change this value to a different one, we have to do it also in the `loadDictionaries` function. The following example shows how to add a dictionary and also set the default language from the browser language:
 
 ```javascript
-import { addDictionary } from 'paella-core';
+import { addDictionary, setLanguage } from 'paella-core';
 ...
 const initParams = {
   ...
@@ -38,11 +40,14 @@ const initParams = {
     addDictionary('es',{
       "Hello": "Hola",
       "World": "Mundo"
-    })
+    });
+    player.setLanguage(navigator.language.substring(0,2));
   }
 }
 ...
 ```
+
+If no translations are found in the dictionaries we have added, and for the language set with `setLanguage`, the default translation function will try with the default language (the one defined in the configuration file), and if no translation is found either, it will return the string untranslated.
 
 For more information about Paella Player initialization, check [this document](initialization.md).
 
