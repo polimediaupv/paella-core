@@ -222,5 +222,6 @@ The plugin [icon customization APIs](plugin_icon_customization.md) are also acce
 - `paella.addCustomPluginIcon(pluginName, iconName, svgData)`
 - `paella.removeCustomPluginIcon(pluginName, iconName)`
 - `paella.getCustomPluginIcon(pluginName, iconName)`
+- `paella.requestedCustomIcons`
 
 

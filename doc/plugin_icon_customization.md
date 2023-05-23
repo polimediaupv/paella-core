@@ -75,3 +75,17 @@ export default class MyVolumePlugin extends VolumePlugin {
 ```
 
 For more information, check the document [Customization](customization.md).
+
+## `Paella.requestedCustomIcons` (paella-core >= 1.35)
+
+Returns the custom icons that have been requested from the `paella-core` instance. Only returns the plugin identifier and the icon name. It can be used to get the complete list of customizable icons. It is important to note that this function will only return the correct list of icons when the player is in [`PlayerState.LOADED`](life_cycle.md). Plugin icons that are not active (for example, the subtitle plugin in a video that does not have subtitles) will not be included in this list, because we will only be able to see the icon data that has been requested by the plugin.
+
+```javascript
+paella.bindEvent(paella.Events.PLAYER_LOADED, () => {
+	console.log(paella.requestedCustomIcons);
+});
+
+paella.loadManifest()
+		.then(() => {)})
+		.catch(e => paella.log.error(e));
+```

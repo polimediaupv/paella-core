@@ -168,3 +168,6 @@
 
 - Improvements in `utils.mergeObjects()` function to merge arrays.
 
+## paella-core 1.35
+
+- New API function: [`paella.requestedCustomIcons`](paella_object.md)
