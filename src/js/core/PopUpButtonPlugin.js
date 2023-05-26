@@ -60,7 +60,7 @@ export default class PopUpButtonPlugin extends ButtonPlugin {
 	}
 
 	get popUpType() {
-		return "modal"; // "timeline" or "no-modal"
+		return this.config.popUpType || "modal"; // "timeline" or "no-modal"
 	}
 	
 	hidePopUp() {
