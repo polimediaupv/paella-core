@@ -361,6 +361,10 @@
             "enabled": true,
             "side": "right",
             "parentContainer": "videoContainer"
+        },
+
+        "es.upv.paella.testMenuTitleElement": {
+            "enabled": true
         }
     }
 }

@@ -27,9 +27,14 @@ export default class MenuButtonPlugin extends PopUpButtonPlugin {
 		this._menuItems = menuItems;
 		let radioItemChecked = false;
 		let firstItem = null;
-		if (title !== null) {
-			createElementWithHtmlText(`<li class="menu-button-title">${this.player.translate(title)}</li>`, content)
+		if (title !== null && title instanceof Element) {
+			const titleElem = createElementWithHtmlText(`<li class="menu-button-title"></li>`, content);
+			titleElem.appendChild(title);
 		}
+		else if (title !== null) {
+			createElementWithHtmlText(`<li class="menu-button-title">${this.player.translate(title)}</li>`, content);
+		}
+		
 		menuItems.forEach(item => {
 			const itemElem = createElementWithHtmlText(`<li class="menu-button-item"></li>`, content);
 			let className = "";
@@ -48,27 +53,44 @@ export default class MenuButtonPlugin extends PopUpButtonPlugin {
 			}
 			let itemContent = "";
 			
-			//item.icon ? item.icon : item.title;
-			if (item.icon && item.title && this.showTitles) {
+			const menuTitleElement = item.title instanceof Element ? item.title : null;
+			if (item.icon && item.title && this.showTitles && !menuTitleElement) {
 				itemContent = `
 				<i class="menu-icon">${ item.icon }</i>
 				<span class="menu-title">${ item.title }</span>
 				`;
+				
+			}
+			if (item.icon && menuTitleElement && this.showTitles) {
+				itemContent = `
+				<i class="menu-icon">${ item.icon }</i>
+				<span class="menu-title"></span>
+				`;
+				
 			}
 			else if (item.icon) {
 				itemContent = `
 				<i class="menu-icon">${ item.icon }</i>
 				`;
 			}
-			else if (item.title) {
+			else if (item.title && !menuTitleElement) {
 				itemContent = `
 				<span class="menu-title">${ item.title }</span>
+				`;
+			}
+			else if (menuTitleElement) {
+				itemContent = `
+				<span class="menu-title"></span>
 				`;
 			}
 			
 			const itemButton = createElementWithHtmlText(`
 				<button class="${ className }" aria-label="${ item.title }" title="${ item.title }">${ itemContent }</button>`
 				, itemElem);
+			if (menuTitleElement) {
+				const menuTitleContainer = itemButton.getElementsByClassName("menu-title")[0];
+				menuTitleContainer.appendChild(menuTitleElement);
+			}
 			if (!firstItem) {
 				firstItem = itemButton;
 			}
