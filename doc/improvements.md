@@ -171,3 +171,7 @@
 ## paella-core 1.35
 
 - New API function: [`paella.requestedCustomIcons`](paella_object.md)
+
+## paella-core 1.36
+
+- New API options in [`MenuButtonPlugin`](menu_button_plugin.md): now you can use DOM elements as menu items and menu title.

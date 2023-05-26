@@ -38,7 +38,25 @@ import { utils } from 'paella-core';
 const icon = await utils.loadSvgIcon(iconPath);
 ```
 
+(paella-core >= 1.36) It is possible to return a custom DOM element as menu title:
 
+
+```javascript
+import { MenuButtonPlugin, createElementWithHtmlText } from 'paella-core';
+
+export default class MyMenuButtonPlugin extends MenuButtonPlugin {
+  async getMenu() {
+    const items = [
+      { id: 0, title: createElementWithHtmlText(`<h1>Option 1</h1>`) },
+			{ id: 1, title: createElementWithHtmlText(`<h1>Option 2</h1>`) },
+			{ id: 2, title: createElementWithHtmlText(`<h1>Option 3</h1>`) },
+			{ id: 3, title: createElementWithHtmlText(`<h1>Option 4</h1>`) },
+			{ id: 4, title: createElementWithHtmlText(`<h1>Option 5</h1>`) }
+    ]
+    return items;
+  }
+}
+```
 
 ## Button action
 
@@ -102,6 +120,20 @@ export default class MyMenuPlugin extends MenuButtonPlugin {
   }
 }
 ```
+
+If you override the `menuTitle` property, it is possible to return a DOM element instead of text (paella-core >= 1.36):
+
+```js
+export default class MyMenuPlugin extends MenuButtonPlugin {
+  ...
+  get menuTitle() {
+    const myElem = document.createElement('h2');
+    myElem.innerText = "My menu";
+    return myElem;
+  }
+}
+```
+
 
 ## Menu type
 
