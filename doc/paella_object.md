@@ -148,7 +148,17 @@ See [the documentation about localization](localization.md) to get more informat
 
 ### Plugins API
 
-**`getPlugin(identifier, type = null)`:** Returns the plugin instance with the identifier `identifier`. If the `type` parameter is not `null`, it restricts the search to plugins of the specified type. Note that, if they are more than one instance of `paella-core` loaded, this function can return different plugins for each instance. For example, some plugins are loaded only if the video manifest meets certain requirements. See the documentation about [`plugins`](plugins.md) to get more information.
+**`getPlugin(identifier, type = null)`:** Returns an object with the plugin instance corresponding to the plugin specified by the identifier `identifier`. The name of the property containing the plugin instance will be the name of the plugin type. For example:
+
+```js
+paella.getPlugin("es.upv.paella.playPauseButton");
+> Object { button: { ... }}
+
+paella.getPlugin("es.upv.paella.defaultShortcuts");
+> Object { keyshortcut: { ... }}
+```
+
+If the `type` parameter is not `null`, it restricts the search to plugins of the specified type. Note that, if they are more than one instance of `paella-core` loaded, this function can return different plugins for each instance. For example, some plugins are loaded only if the video manifest meets certain requirements. See the documentation about [`plugins`](plugins.md) to get more information.
 
 ### Life cycle functions
 
