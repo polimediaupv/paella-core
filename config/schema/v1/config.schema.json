@@ -257,7 +257,13 @@
                 "^([a-z0-9]+\\.)+[a-z0-9]+$": {
                     "anyOf": [
                         {
+                            "$ref": "https://paellaplayer.upv.es/schema/v1/plugin.schema.json"
+                        },
+                        {
                             "$ref": "https://paellaplayer.upv.es/schema/v1/button-group-plugin.schema.json"
+                        },
+                        {
+                            "$ref": "https://paellaplayer.upv.es/schema/v1/button-plugin.schema.json"
                         }
                     ]
                 }
