@@ -33,6 +33,7 @@
 	gap: var(--video-container-padding);
 	padding: 5px;
 	width: calc(100% - var(--video-container-padding) * 2);
+	height: calc(100% - var(--video-container-padding) * 2);
 }
 
 .base-video-rect.dynamic.portrait {
