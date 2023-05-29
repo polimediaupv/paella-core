@@ -18,7 +18,8 @@ const pipLeft = {
                 {aspectRatio:"16/10",left:64,top:0,width:1152,height:720},
                 {aspectRatio:"5/3",left:40,top:0,width:1200,height:720},
                 {aspectRatio:"5/4",left:190,top:0,width:900,height:720},
-                {aspectRatio:"4/3",left:160,top:0,width:960,height:720}
+                {aspectRatio:"4/3",left:160,top:0,width:960,height:720},
+                {aspectRatio:"9/16",left:617,top:17,width:386,height:687}
             ],
             visible:true,
             layer:1
@@ -30,7 +31,8 @@ const pipLeft = {
                 {aspectRatio:"16/10",left:50,top:448,width:350,height:219},
                 {aspectRatio:"5/3",left:50,top:457,width:350,height:210},
                 {aspectRatio:"5/4",left:50,top:387,width:350,height:280},
-                {aspectRatio:"4/3",left:50,top:404,width:350,height:262}
+                {aspectRatio:"4/3",left:50,top:404,width:350,height:262},
+                {aspectRatio:"9/16",left:224,top:301,width:224,height:400}
             ],
             visible:true,
             layer:2
@@ -51,7 +53,8 @@ const pipRight = {
                 {aspectRatio:"16/10",left:64,top:0,width:1152,height:720},
                 {aspectRatio:"5/3",left:40,top:0,width:1200,height:720},
                 {aspectRatio:"5/4",left:190,top:0,width:900,height:720},
-                {aspectRatio:"4/3",left:160,top:0,width:960,height:720}
+                {aspectRatio:"4/3",left:160,top:0,width:960,height:720},
+                {aspectRatio:"9/16",left:242,top:17,width:386,height:687}
             ],
             visible:true,
             layer:1
@@ -63,7 +66,8 @@ const pipRight = {
                 {aspectRatio:"16/10",left:880,top:448,width:350,height:219},
                 {aspectRatio:"5/3",left:880,top:457,width:350,height:210},
                 {aspectRatio:"5/4",left:880,top:387,width:350,height:280},
-                {aspectRatio:"4/3",left:880,top:404,width:350,height:262}
+                {aspectRatio:"4/3",left:880,top:404,width:350,height:262},
+                {aspectRatio:"9/16",left:887,top:304,width:224,height:400}
             ],
             visible:true,
             layer:2
