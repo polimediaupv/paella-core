@@ -1,0 +1,42 @@
+{
+	"metadata": {
+		"duration": 14,
+		"title": "UPVXXL",
+		"previewPortrait": "https://repository.paellaplayer.upv.es/portrait/thumb.jpg"
+	},
+	"streams": [
+		{
+			"sources": {
+				"mp4": [
+					{
+						"src": "https://repository.paellaplayer.upv.es/portrait/video.mp4",
+						"mimetype": "video/mp4",
+						"res": {
+							"w": "720",
+							"h": "1280"
+						}
+					}
+				]
+			},
+			"content":"presenter",
+			"role": "master"
+		},
+		{
+			"sources": {
+				"mp4": [
+					{
+						"src": "https://repository.paellaplayer.upv.es/portrait/video.mp4",
+						"mimetype": "video/mp4",
+						"res": {
+							"w": "720",
+							"h": "1280"
+						}
+					}
+				]
+			},
+			"content":"presentation"
+		}
+	],
+	"frameList": [
+	]
+}
