@@ -25,8 +25,9 @@ export default class DualVideoDynamicLayout extends VideoLayout {
     getVideoCanvasButtons(layoutStructure, content, video, videoCanvas) {
         const iconSideBySide = this.player.getCustomPluginIcon(this.name,"iconSideBySide") || defaultIconSideBySide;
 
-        return [
-            {
+        const result = [];
+        if (this._multiStream) {
+            result.push({
                 icon: iconSideBySide,
                 position: CanvasButtonPosition.LEFT,
                 title: this.player.translate('Dual stream 50%'),
@@ -40,11 +41,16 @@ export default class DualVideoDynamicLayout extends VideoLayout {
                         this.player.videoContainer.setLayout(dualVideoContentId);
                     }
                 }
-            }
-        ];
+            });
+        }
+        return result;
     }
 
     getLayoutStructure(streamData, contentId, mainContent) {
+        if (streamData.length > 1) {
+            this._multiStream = true;
+        }
+
         if (!this._currentContent) {
             const { content } = this.validContent.find(content => content.id === contentId);
             this._currentContent = content.map(c => {
