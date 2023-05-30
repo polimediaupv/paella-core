@@ -175,3 +175,8 @@
 ## paella-core 1.36
 
 - New API options in [`MenuButtonPlugin`](menu_button_plugin.md): now you can use DOM elements as menu items and menu title.
+
+## paella-core 1.37
+
+- Better support for portrait videos
+- Single video dynamic layout added
