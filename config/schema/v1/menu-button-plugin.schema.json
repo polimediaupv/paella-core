@@ -1,6 +1,6 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://paellaplayer.upv.es/schema/v1/pop-up-button-plugin.schema.json",
+    "$id": "https://paellaplayer.upv.es/schema/v1/menu-button-plugin.schema.json",
     "title": "paella-core pop up button plugin settings",
     "description": "Common configuration options for paella-core pop up button plugins.",
     "type": "object",
@@ -72,6 +72,11 @@
                 "timeline"
             ],
             "default": "modal"
+        },
+        "menuTitle": {
+            "description": "Adds a title to the menu options",
+            "type": "string",
+            "default": null
         }
     }
 }

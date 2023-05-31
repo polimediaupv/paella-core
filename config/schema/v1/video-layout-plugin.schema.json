@@ -1,0 +1,49 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://paellaplayer.upv.es/schema/v1/video-layout-plugin.schema.json",
+    "title": "paella-core generic plugin settings",
+    "description": "Common configuration options for paella-core plugins.",
+    "type": "object",
+    "properties": {
+        "enabled": {
+            "description": "Defines whether the plugin is active or not",
+            "type": "boolean",
+            "default": false
+        },
+        "order": {
+            "description": "Within each plugin type, the loading order is defined by the 'order' attribute. The lower the order attribute is, the sooner the plugin will be loaded.",
+            "type": "number",
+            "default": 0
+        },
+        "description": {
+            "description": "Descriptive text of the button, which can be displayed at different times depending on the paella-core configuration.",
+            "type": "string"
+        },
+        "validContent": {
+            "description": "It allows you to configure which contents will be displayed in a video layout, and identifies each configuration with a unique identifier, which will then be used to activate that configuration.",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "Unique identifier for this content configuration",
+                    "type": "string"
+                },
+                "content": {
+                    "description": "Identifies the contents to be loaded for this configuration. The values in this list match the 'content' property of the streams in the video manifest.",
+                    "type": "array"
+                },
+                "icon": {
+                    "description": "Name of an SVG file that identifies the contents of this configuration. The path of the icon is relative to the location of the config.json file.",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Cadena de texto que identifica esta configuración.",
+                    "type": "string"
+                }
+            }
+        },
+        "dualVideoContentIds": {
+            "description": "List of contentIds, ordered by preference, that identifies a dual stream video layout. It is used to activate a dual stream layout from this video layout, for example, by using an embedded button within the layout.",
+            "type": "array"
+        }
+    }
+}
