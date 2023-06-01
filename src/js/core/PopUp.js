@@ -148,6 +148,10 @@ export default class PopUp extends DomClass {
 		this._lastFocusElement = document.activeElement;
 		this._modal = modal;
 		this._contextObject = contextObject;
+		this._dragActionData = null;
+
+		this._moveable = false;
+		this._resizeable = false;
 
 		this._id = Symbol(this);
 		g_popUps.push(this);
@@ -157,6 +161,63 @@ export default class PopUp extends DomClass {
 		});
 		
 		this._contentElement = this.element.getElementsByClassName("popup-content")[0];
+
+		this._contentElement.addEventListener("mousedown", (event) => {
+			if (this.moveable || this.resizeable) {
+				// Make static the current position and size of the pop up window
+				const rect = this._contentElement.getBoundingClientRect();
+				this._contentElement.style.boxSizing = "border-box";
+				this._contentElement.style.userSelect = "none";
+				this._contentElement.style.top = rect.top;
+				this._contentElement.style.left = rect.left;
+				this._contentElement.style.width = rect.width;
+				this._contentElement.style.height = rect.height;
+				this._contentElement.style.position = "absolute";
+	
+				this._dragActionData = {
+					popUp: this,
+					action: "MOVE",
+					event,
+					initialPosition: {
+						left: event.clientX,
+						top: event.clientY
+					}
+				}
+			}
+			event.stopPropagation();
+		});
+
+		this.element.addEventListener("mouseup", evt => {
+			if (this.moveable || this.resizeable) {
+				this._dragActionData = null;
+			}
+		})
+
+		this.element.addEventListener('mousemove', evt => {
+			if (this._dragActionData) {
+				const offset = {
+					left: evt.clientX - this._dragActionData.initialPosition.left,
+					top: evt.clientY - this._dragActionData.initialPosition.top
+				};
+				this._dragActionData.initialPosition =  {
+					left: evt.clientX,
+					top: evt.clientY
+				};
+				const rect = this._contentElement.getBoundingClientRect();
+				this._contentElement.style.top = `${ rect.top + offset.top }px`;
+				this._contentElement.style.left = `${ rect.left + offset.left }px`;
+				console.log(offset);
+			}
+		});
+
+		this._contentElement.addEventListener("mouseup", (evt) => {
+			this._dragActionData = null;
+			evt.stopPropagation();
+		});
+
+		this._contentElement.addEventListener("click", evt => {
+			evt.stopPropagation();
+		})
 		
 		this._anchorElement = anchorElement; 
 		if (anchorElement) {
@@ -194,6 +255,14 @@ export default class PopUp extends DomClass {
 
 	get parentPopUp() {
 		return this._parentPopUp;
+	}
+
+	get moveable() {
+		return this._moveable;
+	}
+
+	get resizeable() {
+		return this._resizeable;
 	}
 	
 	isParent(otherPopUp) {
