@@ -81,6 +81,12 @@ function disableHidePopUpActionContainer(player) {
 	}
 }
 
+function getDragAction(rect,click) {
+	const topBorder = 10;
+	const leftBorder = 10;
+	const rightBorder = 10;
+	const bottomBorder = 10;
+}
 export default class PopUp extends DomClass {
 	static GetPopUps() {
 		return g_popUps;
@@ -136,22 +142,29 @@ export default class PopUp extends DomClass {
 		});
 	}
 	
-	constructor(player, parent, anchorElement = null, contextObject = null, modal = true) {
+	constructor(player, parent, anchorElement = null, contextObject = null, modal = true, moveable = false, resizeable = false) {
 		const attributes = {
 			"class": modal ? "popup-container" :  "popup-container no-modal"
 		};
-		
+
+		moveable = moveable || resizeable;
 		const children = `
-		<div class="popup-content"></div>
+		<div class="popup-content${ resizeable ? " resizeable" : "" }${ moveable ? " moveable" : "" }">
+			<div class="border-top-left"></div><div class="border-top-center"></div><div class="border-top-right"></div>
+			<div class="move-area"></div>
+			<div class="center-container"></div>
+			<div class="border-bottom-left"></div><div class="border-bottom-center"></div><div class="border-bottom-right"></div>
+		</div>
 		`;
 		super(player,{ attributes, children, parent });
 		this._lastFocusElement = document.activeElement;
 		this._modal = modal;
 		this._contextObject = contextObject;
 		this._dragActionData = null;
+		this._moveable = moveable || resizeable;
+		this._resizeable = resizeable;
 
-		this._moveable = false;
-		this._resizeable = false;
+		
 
 		this._id = Symbol(this);
 		g_popUps.push(this);
@@ -161,6 +174,7 @@ export default class PopUp extends DomClass {
 		});
 		
 		this._contentElement = this.element.getElementsByClassName("popup-content")[0];
+		this._centerContainer = this.element.getElementsByClassName("center-container")[0];
 
 		this._contentElement.addEventListener("mousedown", (event) => {
 			if (this.moveable || this.resizeable) {
@@ -206,7 +220,6 @@ export default class PopUp extends DomClass {
 				const rect = this._contentElement.getBoundingClientRect();
 				this._contentElement.style.top = `${ rect.top + offset.top }px`;
 				this._contentElement.style.left = `${ rect.left + offset.left }px`;
-				console.log(offset);
 			}
 		});
 
@@ -247,6 +260,10 @@ export default class PopUp extends DomClass {
 	get contentElement() {
 		return this._contentElement;
 	}
+
+	get centerContainer() {
+		return this._centerContainer;
+	}
 		
 	// This is the content element you set with setContent()
 	get content() {
@@ -281,13 +298,13 @@ export default class PopUp extends DomClass {
 	}
 
 	setContent(domElement) {
-		this.contentElement.innerHTML = "";
+		this.centerContainer.innerHTML = "";
 		if (typeof(domElement) === "string") {
-			this._popupContent = createElementWithHtmlText(domElement, this.contentElement);
+			this._popupContent = createElementWithHtmlText(domElement, this.centerContainer);
 		}
 		else {
 			this._popupContent = domElement;
-			this.contentElement.appendChild(domElement);	
+			this.centerContainer.appendChild(domElement);	
 		}
 	}
 	

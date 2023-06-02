@@ -1,3 +1,9 @@
+:root {
+	--popup-resizeable-border: 10px;
+	--popup-move-area-size: 20px;
+	--popup-move-area-color: var(--highlight-bg-color);
+}
+
 .popup-container {
 	z-index: 1000;
 	position: fixed;
@@ -8,7 +14,7 @@
 }
 
 .popup-container.no-modal {
-	pointer-events: none;;
+	pointer-events: none;
 }
 
 .popup-content {
@@ -21,6 +27,86 @@
 	forced-color-adjust: none;
 }
 
+.popup-content.resizeable {
+	padding: 0px;
+	cursor: col-resize;
+}
+
 .popup-container.no-modal .popup-content {
 	pointer-events: all;
+}
+
+.popup-content.resizeable .border-top-left {
+	width: var(--popup-resizeable-border);
+	height: var(--popup-resizeable-border);
+	cursor: nw-resize;
+	float: left;
+}
+
+.popup-content.resizeable .border-top-center {
+	width: calc(100% - var(--popup-resizeable-border) * 2);
+	height: var(--popup-resizeable-border);
+	cursor: row-resize;
+	float: left;
+}
+
+.popup-content.resizeable .border-top-right {
+	width: var(--popup-resizeable-border);
+	height: var(--popup-resizeable-border);
+	cursor: ne-resize;
+	float: left;
+}
+
+.popup-content.moveable .move-area {
+	height: var(--popup-move-area-size);
+	width: 100%;
+	float: left;
+	background-color: var(--popup-move-area-color);
+	cursor: move;
+}
+
+.popup-content.moveable.resizeable .move-area {
+	width: calc(100% - var(--popup-resizeable-border) * 2);
+	margin-left: var(--popup-resizeable-border);
+	margin-right: var(--popup-resizeable-border);
+}
+
+.popup-content.resizeable .separator-left {
+	width: var(--popup-resizeable-border);
+	height: var(--popup-resizeable-border);
+	float: left;
+}
+
+.popup-content.resizeable .center-container {
+	width: calc(100% - var(--popup-resizeable-border) * 2);
+	margin-left: var(--popup-resizeable-border);
+	margin-right: var(--popup-resizeable-border);
+	float: left;
+}
+
+.popup-content.resizeable .separator-right {
+	width: var(--popup-resizeable-border);
+	height: var(--popup-resizeable-border);
+	float: left;
+}
+
+.popup-content.resizeable .border-bottom-left {
+	width: var(--popup-resizeable-border);
+	height: var(--popup-resizeable-border);
+	cursor: sw-resize;
+	float: left;
+}
+
+.popup-content.resizeable .border-bottom-center {
+	width: calc(100% - var(--popup-resizeable-border) * 2);
+	height: var(--popup-resizeable-border);
+	cursor: row-resize;
+	float: left;
+}
+
+.popup-content.resizeable .border-bottom-right {
+	width: var(--popup-resizeable-border);
+	height: var(--popup-resizeable-border);
+	cursor: se-resize;
+	float: left;
 }
