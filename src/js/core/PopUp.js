@@ -86,7 +86,36 @@ function getDragAction(rect,click) {
 	const leftBorder = 10;
 	const rightBorder = 10;
 	const bottomBorder = 10;
+
+	const left = click.left - rect.x;
+	const top = click.top - rect.y;
+	const right = rect.width - left;
+	const bottom = rect.height - top;
+
+	switch (true) {
+	case left <= leftBorder && top <= topBorder:
+		return 'RESIZE_NW';
+	case left <= leftBorder && bottom <= bottomBorder:
+		return 'RESIZE_SW';
+	case left <= leftBorder:
+		return 'RESIZE_W';
+	case right <= rightBorder && top <= topBorder:
+		return 'RESIZE_NE';
+	case right <= rightBorder && bottom <= bottomBorder:
+		return 'RESIZE_SE';
+	case right <= rightBorder:
+		return 'RESIZE_E';
+	case top <= topBorder:
+		return 'RESIZE_N';
+	case bottom <= bottomBorder:
+		return 'RESIZE_S';
+	default:
+		return 'MOVE';
+	}
+
+	return "MOVE"
 }
+
 export default class PopUp extends DomClass {
 	static GetPopUps() {
 		return g_popUps;
@@ -164,8 +193,6 @@ export default class PopUp extends DomClass {
 		this._moveable = moveable || resizeable;
 		this._resizeable = resizeable;
 
-		
-
 		this._id = Symbol(this);
 		g_popUps.push(this);
 		
@@ -178,8 +205,10 @@ export default class PopUp extends DomClass {
 
 		this._contentElement.addEventListener("mousedown", (event) => {
 			if (this.moveable || this.resizeable) {
+				this._moved = true;
 				// Make static the current position and size of the pop up window
 				const rect = this._contentElement.getBoundingClientRect();
+				this._contentElement.classList.add("static-position");
 				this._contentElement.style.boxSizing = "border-box";
 				this._contentElement.style.userSelect = "none";
 				this._contentElement.style.top = rect.top;
@@ -187,15 +216,22 @@ export default class PopUp extends DomClass {
 				this._contentElement.style.width = rect.width;
 				this._contentElement.style.height = rect.height;
 				this._contentElement.style.position = "absolute";
+				this._contentElement.style.overflow = "hidden";
+				this._contentElement.style.maxHeight = "";
+				this._contentElement.style.minHeight = "";
+				this._contentElement.style.minWidth = "";
+				this._contentElement.style.maxWidth = "";
+				this._contentElement.style.display = "";
 	
+				const initialPosition = {
+					left: event.clientX,
+					top: event.clientY
+				};
 				this._dragActionData = {
 					popUp: this,
-					action: "MOVE",
+					action: getDragAction(rect, initialPosition),
 					event,
-					initialPosition: {
-						left: event.clientX,
-						top: event.clientY
-					}
+					initialPosition
 				}
 			}
 			event.stopPropagation();
@@ -218,8 +254,45 @@ export default class PopUp extends DomClass {
 					top: evt.clientY
 				};
 				const rect = this._contentElement.getBoundingClientRect();
-				this._contentElement.style.top = `${ rect.top + offset.top }px`;
-				this._contentElement.style.left = `${ rect.left + offset.left }px`;
+				// TODO: Check minimum size
+				if (this._dragActionData.action === 'MOVE') {
+					this._contentElement.style.top = `${ rect.top + offset.top }px`;
+					this._contentElement.style.left = `${ rect.left + offset.left }px`;
+				}
+				else if (this._dragActionData.action === 'RESIZE_N') {
+					this._contentElement.style.height = `${ rect.height - offset.top}px`;
+					this._contentElement.style.top = `${ rect.top + offset.top }px`;
+				}
+				else if (this._dragActionData.action === 'RESIZE_NE') {
+					this._contentElement.style.height = `${ rect.height - offset.top}px`;
+					this._contentElement.style.top = `${ rect.top + offset.top }px`;
+					this._contentElement.style.width = `${ rect.width + offset.left}px`;
+				}
+				else if (this._dragActionData.action === 'RESIZE_E') {
+					this._contentElement.style.width = `${ rect.width + offset.left}px`;
+				}
+				else if (this._dragActionData.action === 'RESIZE_SE') {
+					this._contentElement.style.width = `${ rect.width + offset.left}px`;
+					this._contentElement.style.height = `${ rect.height + offset.top}px`;
+				}
+				else if (this._dragActionData.action === 'RESIZE_S') {
+					this._contentElement.style.height = `${ rect.height + offset.top}px`;
+				}
+				else if (this._dragActionData.action === 'RESIZE_SW') {
+					this._contentElement.style.height = `${ rect.height + offset.top}px`;
+					this._contentElement.style.width = `${ rect.width - offset.left}px`;
+					this._contentElement.style.left = `${ rect.left + offset.left}px`;
+				}
+				else if (this._dragActionData.action === 'RESIZE_NW') {
+					this._contentElement.style.width = `${ rect.width - offset.left}px`;
+					this._contentElement.style.left = `${ rect.left + offset.left}px`;
+					this._contentElement.style.height = `${ rect.height - offset.top}px`;
+					this._contentElement.style.top = `${ rect.top + offset.top }px`;
+				}
+				else if (this._dragActionData.action === 'RESIZE_W') {
+					this._contentElement.style.width = `${ rect.width - offset.left}px`;
+					this._contentElement.style.left = `${ rect.left + offset.left}px`;
+				}
 			}
 		});
 
@@ -309,7 +382,7 @@ export default class PopUp extends DomClass {
 	}
 	
 	show(parent = null, parentPopUp = null) {
-		if (this._anchorElement) {
+		if (this._anchorElement && !this._moved) {
 			placePopUp(this.player, this._anchorElement, this.contentElement);
 		}
 		if (parent) {
