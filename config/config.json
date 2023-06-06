@@ -380,7 +380,9 @@
         },
 
         "es.upv.paella.testMenuTitleElement": {
-            "enabled": true
+            "enabled": true,
+            "moveable": true,
+            "resizeable": true
         }
     }
 }

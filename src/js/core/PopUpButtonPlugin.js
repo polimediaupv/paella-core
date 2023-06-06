@@ -54,6 +54,18 @@ export default class PopUpButtonPlugin extends ButtonPlugin {
 		return this._popUp;
 	}
 
+	get menuTitle() {
+		return this.config.menuTitle || null;
+	}
+
+	get moveable() {
+		return this.config.moveable ?? false;
+	}
+
+	get resizeable() {
+		return this.config.resizeable ?? false;
+	}
+
 	async getContent() {
 		const content = createElementWithHtmlText('<p>Pop Up Button Plugin Content</p>');
 		return content;
@@ -79,12 +91,13 @@ export default class PopUpButtonPlugin extends ButtonPlugin {
 			this._popUp = null;
 			const type = resolvePopUpType.apply(this);
 			if (type === "modal" || type === "no-modal") {
-				this._popUp = new PopUp(this.player, parentContainer, this.button, this, type === "modal");
+				this._popUp = new PopUp(this.player, parentContainer, this.button, this, type === "modal", this.moveable, this.resizeable);
 			}
 			else if (type === "timeline") {
 				this._popUp = new TimeLinePopUp(this.player, this);
 			}
 			const content = await this.getContent();
+			this._popUp.title = this.menuTitle;
 			this._popUp.setContent(content);
 			this._popUp.show(parentContainer, this._parentPopUp);
 			this.refreshContent = false;

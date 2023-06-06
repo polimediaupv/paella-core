@@ -22,10 +22,6 @@ export default class ButtonGroupPlugin extends PopUpButtonPlugin {
         return "no-modal";
     }
 
-    get menuTitle() {
-		return this.config.menuTitle || null;
-	}
-
     getClosePopUps() {
         return false;
     }
@@ -37,13 +33,7 @@ export default class ButtonGroupPlugin extends PopUpButtonPlugin {
         this._firstItem = null;
         if (!this._initialized) {
             this.player.log.debug(`Load button plugins into "${this.groupName}" container`);
-            if (this.menuTitle !== null && typeof(this.menuTitle) === "string") {
-                createElementWithHtmlText(`<div class="button-group-title">${ this.player.translate(this.menuTitle) }</div>`, content);
-            }
-            else if (this.menuTitle !== null && this.menuTitle instanceof Element) {
-                const titleElem =createElementWithHtmlText(`<div class="button-group-title"></div>`, content);
-			    titleElem.appendChild(this.menuTitle);
-            }
+
             await loadPluginsOfType(this.player,"button",async (plugin) => {
                 this.player.log.debug(` Button plugin: ${ plugin.name }`);
                 const pluginWrapper = createElementWithHtmlText('<div class="button-plugin-wrapper"></div>', content);

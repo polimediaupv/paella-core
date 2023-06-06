@@ -3,6 +3,8 @@ import Events, { triggerEvent } from 'paella-core/js/core/Events';
 
 import 'paella-core/styles/PopUp.css';
 
+import defaultMinimizeIcon from 'paella-core/icons/minimize-3.svg';
+
 const g_popUps = [];
 
 function placePopUp(player, anchorElement, contentElement) {
@@ -26,6 +28,9 @@ function placePopUp(player, anchorElement, contentElement) {
 		contentElement.style.right = "";
 		contentElement.style.bottom = "";
 		contentElement.style.top = "";
+		contentElement.style.width = "";
+		contentElement.style.height = "";
+		contentElement.classList.remove("static-position");
 		if (viewportCenterX>centerX && viewportCenterY<=centerY) {
 			// bottom left
 			const b = viewportHeight - (bottom - height);
@@ -79,7 +84,7 @@ function disableHidePopUpActionContainer(player) {
 	}
 }
 
-function getDragAction(rect,click) {
+function getDragAction(rect,click,titleHeight,resizeable) {
 	const topBorder = 10;
 	const leftBorder = 10;
 	const rightBorder = 10;
@@ -91,27 +96,27 @@ function getDragAction(rect,click) {
 	const bottom = rect.height - top;
 
 	switch (true) {
-	case left <= leftBorder && top <= topBorder:
+	case left <= leftBorder && top <= topBorder && resizeable:
 		return 'RESIZE_NW';
-	case left <= leftBorder && bottom <= bottomBorder:
+	case left <= leftBorder && bottom <= bottomBorder && resizeable:
 		return 'RESIZE_SW';
-	case left <= leftBorder:
+	case left <= leftBorder && resizeable:
 		return 'RESIZE_W';
-	case right <= rightBorder && top <= topBorder:
+	case right <= rightBorder && top <= topBorder && resizeable:
 		return 'RESIZE_NE';
-	case right <= rightBorder && bottom <= bottomBorder:
+	case right <= rightBorder && bottom <= bottomBorder && resizeable:
 		return 'RESIZE_SE';
-	case right <= rightBorder:
+	case right <= rightBorder && resizeable:
 		return 'RESIZE_E';
-	case top <= topBorder:
+	case top <= topBorder && resizeable:
 		return 'RESIZE_N';
-	case bottom <= bottomBorder:
+	case bottom <= bottomBorder && resizeable:
 		return 'RESIZE_S';
-	default:
+	case top <= topBorder + titleHeight:
 		return 'MOVE';
+	default:
+		return '';
 	}
-
-	return "MOVE"
 }
 
 export default class PopUp extends DomClass {
@@ -169,16 +174,20 @@ export default class PopUp extends DomClass {
 		});
 	}
 	
-	constructor(player, parent, anchorElement = null, contextObject = null, modal = true, moveable = true, resizeable = true) {
+	constructor(player, parent, anchorElement = null, contextObject = null, modal = true, moveable = false, resizeable = false) {
 		const attributes = {
 			"class": modal ? "popup-container" :  "popup-container no-modal"
 		};
 
 		moveable = moveable || resizeable;
+		const minimizeButton = player.getCustomPluginIcon("paella-core","dock-popup") || defaultMinimizeIcon;
 		const children = `
 		<div class="popup-content${ resizeable ? " resizeable" : "" }${ moveable ? " moveable" : "" }">
 			<div class="border-top-left"></div><div class="border-top-center"></div><div class="border-top-right"></div>
-			<div class="move-area"></div>
+			<div class="title-bar">
+				<div class="title-bar-content"></div>
+				<button class="dock-button"><i>${minimizeButton}</i></button>
+			</div>
 			<div class="center-container"></div>
 			<div class="border-bottom-left"></div><div class="border-bottom-center"></div><div class="border-bottom-right"></div>
 		</div>
@@ -193,6 +202,11 @@ export default class PopUp extends DomClass {
 
 		this._id = Symbol(this);
 		g_popUps.push(this);
+
+		const dockButton = this.element.getElementsByClassName("dock-button")[0];
+		dockButton.addEventListener('click', evt => {
+			this.dock();
+		});
 		
 		this.element.addEventListener("click", () => {
 			this.hide();	
@@ -200,9 +214,11 @@ export default class PopUp extends DomClass {
 		
 		this._contentElement = this.element.getElementsByClassName("popup-content")[0];
 		this._centerContainer = this.element.getElementsByClassName("center-container")[0];
+		this._titleBar = this.element.getElementsByClassName("title-bar")[0];
 
 		this._contentElement.addEventListener("mousedown", (event) => {
 			if (this.moveable || this.resizeable) {
+				this._element.style.pointerEvents = "all";
 				this._moved = true;
 				// Make static the current position and size of the pop up window
 				const rect = this._contentElement.getBoundingClientRect();
@@ -211,6 +227,12 @@ export default class PopUp extends DomClass {
 				this._contentElement.style.left = rect.left;
 				this._contentElement.style.width = rect.width;
 				this._contentElement.style.height = rect.height;
+
+				// We don't know the actual size of the title bar by CSS, so we have 
+				// to adjust the height of the container inline
+				const titleRect = this._titleBar.getBoundingClientRect();
+				const titleBarHeight = titleRect.height;
+				this._centerContainer.style.height = `calc(100% - var(--popup-resizeable-border) * 2 - ${titleBarHeight}px)`;
 	
 				const initialPosition = {
 					left: event.clientX,
@@ -218,7 +240,7 @@ export default class PopUp extends DomClass {
 				};
 				this._dragActionData = {
 					popUp: this,
-					action: getDragAction(rect, initialPosition),
+					action: getDragAction(rect, initialPosition, titleBarHeight, this._resizeable),
 					event,
 					initialPosition
 				}
@@ -227,6 +249,7 @@ export default class PopUp extends DomClass {
 		});
 
 		this.element.addEventListener("mouseup", evt => {
+			this._element.style.pointerEvents = "";
 			if (this.moveable || this.resizeable) {
 				this._dragActionData = null;
 			}
@@ -287,6 +310,7 @@ export default class PopUp extends DomClass {
 
 		this._contentElement.addEventListener("mouseup", (evt) => {
 			this._dragActionData = null;
+			this._element.style.pointerEvents = "";
 			evt.stopPropagation();
 		});
 
@@ -300,6 +324,12 @@ export default class PopUp extends DomClass {
 		}
 		this._parentPopUp = null;
 		this.hide();
+	}
+
+	dock() {
+		this._moved = false;
+		this.hide();
+		this.show();
 	}
 
 	get lastFocusElement() {
@@ -342,6 +372,27 @@ export default class PopUp extends DomClass {
 
 	get resizeable() {
 		return this._resizeable;
+	}
+
+	get titleBar() {
+		return this._titleBar;
+	}
+
+	set title(titleData) {
+		this._title = titleData;
+		const titleBarContent = this._titleBar.getElementsByClassName('title-bar-content')[0];
+		if (titleData !== null && titleData instanceof Element) {
+			titleBarContent.innerHTML = "";
+			titleBarContent.appendChild(titleData);
+		}
+		else if (titleData !== null) {
+			titleBarContent.innerHTML = "";
+			titleBarContent.innerHTML = titleData;
+		}
+	}
+
+	get title() {
+		return this._title;
 	}
 	
 	isParent(otherPopUp) {

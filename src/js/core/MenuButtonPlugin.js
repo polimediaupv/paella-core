@@ -27,13 +27,13 @@ export default class MenuButtonPlugin extends PopUpButtonPlugin {
 		this._menuItems = menuItems;
 		let radioItemChecked = false;
 		let firstItem = null;
-		if (title !== null && title instanceof Element) {
-			const titleElem = createElementWithHtmlText(`<li class="menu-button-title"></li>`, content);
-			titleElem.appendChild(title);
-		}
-		else if (title !== null) {
-			createElementWithHtmlText(`<li class="menu-button-title">${this.player.translate(title)}</li>`, content);
-		}
+		//if (title !== null && title instanceof Element) {
+		//	const titleElem = createElementWithHtmlText(`<li class="menu-button-title"></li>`, content);
+		//	titleElem.appendChild(title);
+		//}
+		//else if (title !== null) {
+		//	createElementWithHtmlText(`<li class="menu-button-title">${this.player.translate(title)}</li>`, content);
+		//}
 		
 		menuItems.forEach(item => {
 			const itemElem = createElementWithHtmlText(`<li class="menu-button-item"></li>`, content);
@@ -136,9 +136,9 @@ export default class MenuButtonPlugin extends PopUpButtonPlugin {
 		return content;
 	}
 
-	get menuTitle() {
-		return this.config.menuTitle || null;
-	}
+	//get menuTitle() {
+	//	return this.config.menuTitle || null;
+	//}
 	
 	async getMenu() {
 		const items = [

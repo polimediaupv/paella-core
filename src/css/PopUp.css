@@ -1,7 +1,8 @@
 :root {
 	--popup-resizeable-border: 10px;
-	--popup-move-area-size: 20px;
-	--popup-move-area-color: var(--highlight-bg-color);
+	--popup-title-bar-size: 20px;
+	--popup-title-bar-color: var(--highlight-bg-color);
+	--popup-dock-button-size: 15px;
 }
 
 .popup-container {
@@ -40,6 +41,8 @@
 .popup-content.resizeable {
 	padding: 0px;
 	cursor: col-resize;
+	min-width: 180px;
+	min-height: 180px;
 }
 
 .popup-container.no-modal .popup-content {
@@ -67,18 +70,60 @@
 	float: left;
 }
 
-.popup-content.moveable .move-area {
-	height: var(--popup-move-area-size);
-	width: 100%;
-	float: left;
-	background-color: var(--popup-move-area-color);
-	cursor: move;
+.popup-content .title-bar {
+	font-family: arial, sans-serif;
+	text-align: center;
+	user-select: none;
+	box-sizing: border-box;
+	overflow: hidden;
 }
 
-.popup-content.moveable.resizeable .move-area {
+.popup-content.moveable .title-bar {
+	/*height: var(--popup-title-bar-size);*/
+	min-height: var(--popup-title-bar-size);
+	width: 100%;
+	float: left;
+	background-color: var(--popup-title-bar-color);
+	cursor: move;
+	position: relative;
+}
+
+.popup-content.moveable .title-bar .title-bar-content {
+	padding-left: calc(var(--popup-dock-button-size) * 2);
+	padding-right: calc(var(--popup-dock-button-size) * 2);
+}
+
+.popup-content.moveable.resizeable .title-bar {
 	width: calc(100% - var(--popup-resizeable-border) * 2);
 	margin-left: var(--popup-resizeable-border);
 	margin-right: var(--popup-resizeable-border);
+}
+
+.popup-content button.dock-button {
+	display: none;
+	position: absolute;
+	top: 3px;
+	right: 3px;
+	background-color: transparent;
+    border: 1px solid var(--main-fg-color);
+	border-radius: 7px;
+	cursor: pointer;
+}
+
+.popup-content button.dock-button:hover {
+	background-color: var(--highlight-bg-color-hover);
+}
+
+.popup-content button.dock-button i {
+	width: var(--popup-dock-button-size);
+	height: var(--popup-dock-button-size);
+	display: block;
+	color: var(--main-fg-color);
+	fill: var(--main-fg-color);
+}
+
+.popup-content.static-position button.dock-button {
+	display: inline-block;
 }
 
 .popup-content.resizeable .separator-left {
@@ -95,7 +140,7 @@
 }
 
 .popup-content.resizeable.static-position .center-container {
-	height: calc(100% - var(--popup-resizeable-border) * 2 - var(--popup-move-area-size));
+	height: calc(100% - var(--popup-resizeable-border) * 2 - var(--popup-title-bar-size));
 	overflow: auto;
 }
 
