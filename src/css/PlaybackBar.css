@@ -12,6 +12,8 @@
 .playback-bar.inline-mode {
 	display: flex;
 	align-items: center;
+	-webkit-user-select: none;
+  	user-select: none;
 }
 
 .playback-bar:hover {

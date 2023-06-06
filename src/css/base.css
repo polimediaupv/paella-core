@@ -13,12 +13,16 @@ button:focus {
     */
 }
 
-.player-container button {
+.player-container button,
+.video-container .video-canvas .button-area button,
+.button-group .button-plugin-container button {
     outline-style: none;
 }
 
-.player-container button:focus-visible {
+.player-container button:focus-visible,
+.video-container .video-canvas .button-area button:focus-visible,
+.button-group .button-plugin-container button:focus-visible {
     outline-style: solid;
-    outline-color: var(--highlight-bg-color-hover);
+    outline-color: var(--main-outline-color);
     outline-width: 2px;
 }
