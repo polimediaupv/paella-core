@@ -25,6 +25,16 @@
 	border-radius: 3px;
 	padding: 5px 5px 5px 5px;
 	forced-color-adjust: none;
+	overflow: auto;
+	display: table;
+}
+
+.popup-content.static-position {
+	box-sizing: border-box;
+	user-select: none;
+	position: absolute;
+	overflow: hidden;
+	display: block;
 }
 
 .popup-content.resizeable {

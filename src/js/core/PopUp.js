@@ -22,8 +22,6 @@ function placePopUp(player, anchorElement, contentElement) {
 
 		
 		// Decide where to attach the popup depending on the anchor position
-		contentElement.style.overflow = "auto";
-		contentElement.style.display = "table";
 		contentElement.style.left = "";
 		contentElement.style.right = "";
 		contentElement.style.bottom = "";
@@ -171,7 +169,7 @@ export default class PopUp extends DomClass {
 		});
 	}
 	
-	constructor(player, parent, anchorElement = null, contextObject = null, modal = true, moveable = false, resizeable = false) {
+	constructor(player, parent, anchorElement = null, contextObject = null, modal = true, moveable = true, resizeable = true) {
 		const attributes = {
 			"class": modal ? "popup-container" :  "popup-container no-modal"
 		};
@@ -209,19 +207,10 @@ export default class PopUp extends DomClass {
 				// Make static the current position and size of the pop up window
 				const rect = this._contentElement.getBoundingClientRect();
 				this._contentElement.classList.add("static-position");
-				this._contentElement.style.boxSizing = "border-box";
-				this._contentElement.style.userSelect = "none";
 				this._contentElement.style.top = rect.top;
 				this._contentElement.style.left = rect.left;
 				this._contentElement.style.width = rect.width;
 				this._contentElement.style.height = rect.height;
-				this._contentElement.style.position = "absolute";
-				this._contentElement.style.overflow = "hidden";
-				this._contentElement.style.maxHeight = "";
-				this._contentElement.style.minHeight = "";
-				this._contentElement.style.minWidth = "";
-				this._contentElement.style.maxWidth = "";
-				this._contentElement.style.display = "";
 	
 				const initialPosition = {
 					left: event.clientX,
