@@ -299,7 +299,9 @@
             "side": "right",
             "parentContainer": "options",
             "menuTitle": "Options",
-            "popUpType": "no-modal"
+            "popUpType": "no-modal",
+            "moveable": true,
+            "resizeable": false
         },
 
         "es.upv.paella.videoCanvas": {

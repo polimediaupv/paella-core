@@ -14,7 +14,6 @@ function placePopUp(player, anchorElement, contentElement) {
 		const centerY = top + height / 2;
 		const scroll =  document.body.scrollTop;
 
-		// TODO: use the viewContainer element
 		const viewportWidth = window.innerWidth;
 		const viewportHeight = window.innerHeight;
 		const viewportCenterX = window.innerWidth / 2;
@@ -22,7 +21,6 @@ function placePopUp(player, anchorElement, contentElement) {
 		
 		const containerBounds = player.containerElement.getBoundingClientRect();
 
-		
 		// Decide where to attach the popup depending on the anchor position
 		contentElement.style.left = "";
 		contentElement.style.right = "";
@@ -182,7 +180,7 @@ export default class PopUp extends DomClass {
 		moveable = moveable || resizeable;
 		const minimizeButton = player.getCustomPluginIcon("paella-core","dock-popup") || defaultMinimizeIcon;
 		const children = `
-		<div class="popup-content${ resizeable ? " resizeable" : "" }${ moveable ? " moveable" : "" }">
+		<div class="popup-content${ resizeable ? " resizeable" : "" }${ moveable ? " moveable" :  " fixed" }">
 			<div class="border-top-left"></div><div class="border-top-center"></div><div class="border-top-right"></div>
 			<div class="title-bar">
 				<div class="title-bar-content"></div>
@@ -215,6 +213,11 @@ export default class PopUp extends DomClass {
 		this._contentElement = this.element.getElementsByClassName("popup-content")[0];
 		this._centerContainer = this.element.getElementsByClassName("center-container")[0];
 		this._titleBar = this.element.getElementsByClassName("title-bar")[0];
+
+		this._centerContainer.addEventListener("mousedown", evt => {
+			console.log("Click on center container")
+			evt.stopPropagation();
+		});
 
 		this._contentElement.addEventListener("mousedown", (event) => {
 			if (this.moveable || this.resizeable) {
@@ -328,6 +331,7 @@ export default class PopUp extends DomClass {
 
 	dock() {
 		this._moved = false;
+		this._centerContainer.style.height = "";
 		this.hide();
 		this.show();
 	}
@@ -380,14 +384,17 @@ export default class PopUp extends DomClass {
 
 	set title(titleData) {
 		this._title = titleData;
+		this._titleBar.classList.remove("not-empty");
 		const titleBarContent = this._titleBar.getElementsByClassName('title-bar-content')[0];
 		if (titleData !== null && titleData instanceof Element) {
 			titleBarContent.innerHTML = "";
 			titleBarContent.appendChild(titleData);
+			this._titleBar.classList.add("not-empty");
 		}
 		else if (titleData !== null) {
 			titleBarContent.innerHTML = "";
 			titleBarContent.innerHTML = titleData;
+			this._titleBar.classList.add("not-empty");
 		}
 	}
 

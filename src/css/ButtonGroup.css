@@ -17,6 +17,7 @@
     flex-direction: row;
     align-content: center;
     align-items: center;
+	box-sizing: border-box;
 }
 
 .button-group .button-plugin-container button {
