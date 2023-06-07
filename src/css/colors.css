@@ -11,4 +11,5 @@
     --main-border-color: rgba(125,125,125,0.4);
     --video-container-background-color: #e4e4e4;
     --base-video-rect-background-color: #8a8a8a;
+    --main-outline-color: var(--highlight-bg-color-hover);
 }

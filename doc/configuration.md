@@ -41,6 +41,7 @@ For more information, please refer to the documentation on [button groups](butto
 - **`showHandler`:** Allows you to show or hide a progress indicator handle button. The layout of the button depends entirely on CSS styling, but by default it is a round dot. Possible values are `true` or `false`.
 - **`hideHandlerOnMouseOut`**: In case the above value is `true`, this parameter allows to select whether the handler is hidden when the mouse cursor is not over the playback bar. Possible values are `true` or `false`.
 - **`showRemainingProgress`**: Allows you to configure whether a different colour will be displayed in the playback bar, which fills in the remaining time of the video. If this value is `false`, then the remaining time will be displayed transparent (the background colour of the playback bar will be displayed).)
+- **`inlineMode`**: Allows to display the playbar in the center of the playbar, between the buttons. This setting is more suitable when we have few plugins active, because it reduces the overall height of the playback bar.
 
 **`preferences`** (paella >= 1.19): Manages the `paella-core` user preference system. User preferences can be managed via a specific API that can be used by plugins and certain parts of the library. These settings allow you to set where these preferences will be stored. For more information, see the [user preferences API](preferences.md) documentation.
 
@@ -57,12 +58,12 @@ For more information, please refer to the documentation on [button groups](butto
 - `overPlaybackBar` (paella-core >= 1.4): If `true`, the video container will be placed above the playbar. In other words, the playbar will have an area reserved for its display, so it will never hide the video container. If `false`, the playbar will be superimposed on the video container.
 - `restorePlaybackRate` (paella-core >= 1.5): If true, user settings for playback speed will be stored in the preferences.
 - `restoreVolume` (paella-core >= 1.5): If true, user settings for volume will be stored in the preferences.
-- `restoreVideoLayout` (paella-core 1.19): guarda los ajustes sobre restauración del layout de vídeo.
+- `restoreVideoLayout` (paella-core 1.19): saves the settings on video layout restoration.
     + `enabled`: If `true`, the last video layout selected by the user will be restored, if available.
     + `global`: Sets whether the video layout restoration settings are video specific or global. If `true`, the setting is global, so the video layout will be restored for all videos. If `false` the layout will only be restored for the video ID on which the user has changed the layout.
 - `restoreLastTime` (paella-core >= 1.18): Sets whether to remember the last known time instant for a particular video, in case it is reloaded.
     + `enabled`: If `true`, the last known time instant for the video will be remembered.
-    + `remainingSeconds`: Used to prevent the current instant of time from being restored, whenever there are less than `remainintSeconds` seconds left in the video.
+    + `remainingSeconds`: Used to prevent the current instant of time from being restored, whenever there are less than `remainingSeconds` seconds left in the video.
 - `dynamicLayout`: Dynamic layouts inherit many properties from the video container, so a section has been added in the configuration to control them.
     + `landscapeVerticalAlignment`: defines the vertical alignment of videos when they are in landscape format. Possible values are `align-bottom`, `align-center` and `align-top`.
     + `portraitHorizontalAlignment`: defines the horizontal alignment of videos when they are in portrait format. Possible values are `align-left`, `align-center` and `align-right`.

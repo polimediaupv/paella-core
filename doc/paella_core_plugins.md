@@ -17,6 +17,14 @@ Video layout for single streams.
 ```json
 "es.upv.paella.singleVideo": {
   "enabled": true,
+  "dualVideoContentIds": [
+      "presenter-presentation-dynamic",
+      "presenter-2-presentation-dynamic",
+      "presenter-presenter-2-dynamic",
+      "presenter-presentation",
+      "presenter-2-presentation",
+      "presenter-presenter-2"
+  ],
   "validContent": [
     { 
       "id": "presenter", 
@@ -37,6 +45,50 @@ Video layout for single streams.
   "tabIndexStart": 20
 }
 ```
+
+The `dualVideoContentIds` attribute is used to identify which are the valid `content-id` we want to use to switch to dual video mode. This layout includes a button that allows switching to dual mode, and these content-id are used to know which dual layout is the preferred one to use. For this reason the attribute is a list: the first valid content-id of the list will be used.
+
+Custom plugin icons:
+
+- `iconSideBySide`
+
+### `es.upv.paella.singleVideoDynamic`:
+
+Dynamic video layout for single streams.
+
+```json
+"es.upv.paella.singleVideoDynamic": {
+  "enabled": true,
+  "dualVideoContentIds": [
+      "presenter-presentation-dynamic",
+      "presenter-2-presentation-dynamic",
+      "presenter-presenter-2-dynamic",
+      "presenter-presentation",
+      "presenter-2-presentation",
+      "presenter-presenter-2"
+  ],
+  "validContent": [
+    { 
+      "id": "presenter", 
+      "content": ["presenter"], 
+      "icon": "present-mode-2.svg", 
+      "title": "Presenter" },
+    { 
+      "id": "presentation", 
+      "content": ["presentation"], 
+      "icon": "present-mode-1.svg", 
+      "title": "Presentation" },
+    { 
+      "id": "presenter-2", 
+      "content": ["presenter-2"], 
+      "icon": "present-mode-1.svg", 
+      "title": "Presentation" }
+  ],
+  "tabIndexStart": 20
+}
+```
+
+The configuration options for this plugin are the same as for the static single video plugin.
 
 Custom plugin icons:
 

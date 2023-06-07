@@ -177,6 +177,10 @@ As with `parentContainer`, the `side` property also takes its value from the plu
 
 The `minContainerSize` (paella-core >= 1.14) attribute is used to set a minimum required size of the playback bar to show the button plugin. By default, this value is zero.
 
+The `tabIndex` attribute defines the tab index to be used for scrolling through the buttons using the tab key.
+
+The `ariaLabel` attribute defines the text used in the `aria-label` attribute of the button.
+
 ## Non-interactive buttons (paella-core >= 1.4)
 
 It is possible to add non-interactive buttons. Although strictly speaking a non-interactive button is not a button, this allows you to create plugins that are active but not usable. For example, if we want to emphasise that the player supports subtitles, but the current video does not include them, we can add a non-interactive button.

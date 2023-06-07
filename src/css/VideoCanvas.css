@@ -20,6 +20,11 @@
     background-color: var(--main-bg-color);
     border: none;
     border-radius: 5px;
+    opacity: 0.3;
+}
+
+.video-canvas:hover .button-area button {
+    opacity: 1;
 }
 
 .video-canvas .button-area button:hover {

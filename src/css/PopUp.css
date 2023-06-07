@@ -1,3 +1,10 @@
+:root {
+	--popup-resizeable-border: 10px;
+	--popup-title-bar-size: 20px;
+	--popup-title-bar-color: var(--highlight-bg-color);
+	--popup-dock-button-size: 15px;
+}
+
 .popup-container {
 	z-index: 1000;
 	position: fixed;
@@ -8,7 +15,7 @@
 }
 
 .popup-container.no-modal {
-	pointer-events: none;;
+	pointer-events: none;
 }
 
 .popup-content {
@@ -19,8 +26,156 @@
 	border-radius: 3px;
 	padding: 5px 5px 5px 5px;
 	forced-color-adjust: none;
+	overflow: auto;
+	display: table;
+}
+
+.popup-content.static-position {
+	box-sizing: border-box;
+	user-select: none;
+	position: absolute;
+	overflow: hidden;
+	display: block;
+}
+
+.popup-content.moveable {
+	padding: 0px;
+	cursor: col-resize;
+	min-width: 180px;
+	min-height: 100px;
 }
 
 .popup-container.no-modal .popup-content {
 	pointer-events: all;
+}
+
+.popup-content.resizeable .border-top-left {
+	width: var(--popup-resizeable-border);
+	height: var(--popup-resizeable-border);
+	cursor: nw-resize;
+	float: left;
+}
+
+.popup-content.resizeable .border-top-center {
+	width: calc(100% - var(--popup-resizeable-border) * 2);
+	height: var(--popup-resizeable-border);
+	cursor: row-resize;
+	float: left;
+}
+
+.popup-content.resizeable .border-top-right {
+	width: var(--popup-resizeable-border);
+	height: var(--popup-resizeable-border);
+	cursor: ne-resize;
+	float: left;
+}
+
+.popup-content .title-bar {
+	font-family: arial, sans-serif;
+	text-align: center;
+	user-select: none;
+	box-sizing: border-box;
+	overflow: hidden;
+}
+
+.popup-content.moveable .title-bar {
+	/*height: var(--popup-title-bar-size);*/
+	min-height: max(var(--popup-title-bar-size), calc(var(--popup-dock-button-size) + 11px));
+	width: 100%;
+	float: left;
+	background-color: var(--popup-title-bar-color);
+	cursor: move;
+	position: relative;
+	display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+}
+
+.popup-content.fixed .title-bar.not-empty {
+	padding: 5px;
+	border-bottom: 1px solid var(--main-fg-color);
+}
+
+.popup-content.moveable .title-bar .title-bar-content {
+	padding-left: calc(var(--popup-dock-button-size) * 2);
+	padding-right: calc(var(--popup-dock-button-size) * 2);
+}
+
+.popup-content.moveable.resizeable .title-bar {
+	width: calc(100% - var(--popup-resizeable-border) * 2);
+	margin-left: var(--popup-resizeable-border);
+	margin-right: var(--popup-resizeable-border);
+}
+
+.popup-content button.dock-button {
+	display: none;
+	position: absolute;
+	top: 3px;
+	right: 3px;
+	background-color: transparent;
+    border: 1px solid var(--main-fg-color);
+	border-radius: 7px;
+	cursor: pointer;
+}
+
+.popup-content button.dock-button:hover {
+	background-color: var(--highlight-bg-color-hover);
+}
+
+.popup-content button.dock-button i {
+	width: var(--popup-dock-button-size);
+	height: var(--popup-dock-button-size);
+	display: block;
+	color: var(--main-fg-color);
+	fill: var(--main-fg-color);
+}
+
+.popup-content.static-position button.dock-button {
+	display: inline-block;
+}
+
+.popup-content.resizeable .separator-left {
+	width: var(--popup-resizeable-border);
+	height: var(--popup-resizeable-border);
+	float: left;
+}
+
+.popup-content .center-container {
+	width: calc(100% - var(--popup-resizeable-border) * 2);
+	margin-left: var(--popup-resizeable-border);
+	margin-right: var(--popup-resizeable-border);
+	float: left;
+}
+
+.popup-content.resizeable.static-position .center-container {
+	height: calc(100% - var(--popup-resizeable-border) * 2 - var(--popup-title-bar-size));
+	overflow: auto;
+}
+
+.popup-content.resizeable .separator-right {
+	width: var(--popup-resizeable-border);
+	height: var(--popup-resizeable-border);
+	float: left;
+}
+
+.popup-content.resizeable .border-bottom-left {
+	width: var(--popup-resizeable-border);
+	height: var(--popup-resizeable-border);
+	cursor: sw-resize;
+	float: left;
+}
+
+.popup-content.resizeable .border-bottom-center {
+	width: calc(100% - var(--popup-resizeable-border) * 2);
+	height: var(--popup-resizeable-border);
+	cursor: row-resize;
+	float: left;
+}
+
+.popup-content.resizeable .border-bottom-right {
+	width: var(--popup-resizeable-border);
+	height: var(--popup-resizeable-border);
+	cursor: se-resize;
+	float: left;
 }

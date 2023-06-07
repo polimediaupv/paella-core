@@ -187,7 +187,30 @@ async function updateLayoutDynamic() {
     const width = this.baseVideoRect.clientWidth;
     const height = this.element.clientHeight;
 
-    if (layoutStructure?.videos?.length) {
+    if (layoutStructure?.videos?.length === 1) {
+        const canvasElements = [];
+        const buttonElements = [];
+        const video = layoutStructure.videos[0];
+        const videoData = this.streamProvider.streams[video.content];
+        const { player, canvas } = videoData;
+
+        canvas.buttonsArea.innerHTML = "";
+        buttonElements.push(await addVideoCanvasButton(this.player, layoutStructure, canvas, video, video.content));
+
+        canvas.element.style = {};
+        canvas.element.style.display = "block";
+        canvas.element.style.width = "100%";
+        canvas.element.style.height = "100%";
+        canvas.element.style.overflow = "hidden";
+        canvas.element.style.position = "relative";
+        canvasElements.push(canvas.element);
+        canvas.element.sortIndex = 0;
+        canvasElements.forEach(e => this.baseVideoRect.appendChild(e));
+        setTimeout(() => {
+            setTabIndex(this.player, layoutStructure, buttonElements.flat());
+        }, 100);
+    }
+    else if (layoutStructure?.videos?.length) {
         let i = 0;
         const canvasElements = [];
         const buttonElements = [];

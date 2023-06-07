@@ -113,6 +113,22 @@
             "side": "right"
         },
         "es.upv.paella.singleVideo": {
+            "enabled": false,
+            "dualVideoContentIds": [
+                "presenter-presentation-dynamic",
+                "presenter-2-presentation-dynamic",
+                "presenter-presenter-2-dynamic",
+                "presenter-presentation",
+                "presenter-2-presentation",
+                "presenter-presenter-2"
+            ],
+            "validContent": [
+                { "id": "presenter", "content": ["presenter"], "icon": "present-mode-2.svg", "title": "Presenter" },
+                { "id": "presentation", "content": ["presentation"], "icon": "present-mode-1.svg", "title": "Presentation" },
+                { "id": "presenter-2", "content": ["presenter-2"], "icon": "present-mode-1.svg", "title": "Presentation" }
+            ]
+        },
+        "es.upv.paella.singleVideoDynamic": {
             "enabled": true,
             "dualVideoContentIds": [
                 "presenter-presentation-dynamic",
@@ -283,7 +299,9 @@
             "side": "right",
             "parentContainer": "options",
             "menuTitle": "Options",
-            "popUpType": "no-modal"
+            "popUpType": "no-modal",
+            "moveable": true,
+            "resizeable": false
         },
 
         "es.upv.paella.videoCanvas": {
@@ -361,6 +379,12 @@
             "enabled": true,
             "side": "right",
             "parentContainer": "videoContainer"
+        },
+
+        "es.upv.paella.testMenuTitleElement": {
+            "enabled": true,
+            "moveable": true,
+            "resizeable": true
         }
     }
 }
