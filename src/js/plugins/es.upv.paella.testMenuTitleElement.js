@@ -5,7 +5,10 @@ import TestIcon from "../../icons/close.svg";
 export default class TestMenuTitleElement extends MenuButtonPlugin {
     async load() {
         this.icon = TestIcon;
-
+        await new Promise(resolve => {
+            setTimeout(() => resolve(), 5000);
+        });
+        console.log("Timeout");
     }
 
     get menuTitle() {

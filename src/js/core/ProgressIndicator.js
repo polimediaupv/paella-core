@@ -52,15 +52,17 @@ function updateFrameThumbnail(offsetX,time) {
 }
 
 function updateCanvas() {
-	const backgroundContext = this._canvasContext[0];
-	const foregroundContext = this._canvasContext[1];
-	const width = this._canvas[0].clientWidth;
-	const height = this._canvas[0].clientHeight;
-	this._canvasPlugins.forEach(plugin => {
-		plugin.drawForeground(foregroundContext, width, height, this._isHover);
-		plugin.drawBackground(backgroundContext, width, height, this._isHover);
-	})
-	this._updateCanvas = false;
+	if (Array.isArray(this._canvasPlugins)) {
+		const backgroundContext = this._canvasContext[0];
+		const foregroundContext = this._canvasContext[1];
+		const width = this._canvas[0].clientWidth;
+		const height = this._canvas[0].clientHeight;
+		this._canvasPlugins.forEach(plugin => {
+			plugin.drawForeground(foregroundContext, width, height, this._isHover);
+			plugin.drawBackground(backgroundContext, width, height, this._isHover);
+		})
+		this._updateCanvas = false;
+	}
 }
 
 function updateHeight() {
