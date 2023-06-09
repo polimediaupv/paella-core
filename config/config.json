@@ -384,7 +384,12 @@
         "es.upv.paella.testMenuTitleElement": {
             "enabled": true,
             "moveable": true,
-            "resizeable": true
+            "resizeable": true,
+            "popUpType": "no-modal",
+            "closeActions": {
+                "clickOutside": false,
+                "closeButton": true
+            }
         }
     }
 }

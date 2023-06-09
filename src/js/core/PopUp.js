@@ -139,7 +139,9 @@ export default class PopUp extends DomClass {
 	static HideAllPopUps(onlyModal = true) {
 		g_popUps.forEach(p => {
 			if (onlyModal && p.isModal || !onlyModal) {
-				p.hide();
+				if (p._closeOnClickOut) {
+					p.hide();
+				}
 			}
 		});
 	}
@@ -153,7 +155,9 @@ export default class PopUp extends DomClass {
 				}
 				return topPopUp !== null;
 			});
-			topPopUp?.hide();
+			if (topPopUp && topPopUp._closeOnClickOut) {
+				topPopUp.hide();
+			}
 		}
 	}
 
@@ -166,7 +170,7 @@ export default class PopUp extends DomClass {
 
 	static HideNonAncestors(popup) {
 		g_popUps.forEach(otherPopUp => {
-			if (popup.isParent && !popup.isParent(otherPopUp)) {
+			if (popup.isParent && !popup.isParent(otherPopUp) && otherPopUp._closeOnClickOut) {
 				otherPopUp.hide();
 			}
 		});
@@ -207,7 +211,9 @@ export default class PopUp extends DomClass {
 		});
 		
 		this.element.addEventListener("click", () => {
-			this.hide();	
+			if (this._closeOnClickOut) {
+				this.hide();	
+			}
 		});
 		
 		this._contentElement = this.element.getElementsByClassName("popup-content")[0];
@@ -393,13 +399,18 @@ export default class PopUp extends DomClass {
 		}
 		else if (titleData !== null) {
 			titleBarContent.innerHTML = "";
-			titleBarContent.innerHTML = titleData;
+			titleBarContent.innerHTML = this.player.translate(titleData);
 			this._titleBar.classList.add("not-empty");
 		}
 	}
 
 	get title() {
 		return this._title;
+	}
+
+	setCloseActions({ clickOutside = true, closeButton = false }) {
+		this._closeOnClickOut = clickOutside;
+		this._closeOnButton = closeButton;
 	}
 	
 	isParent(otherPopUp) {
@@ -441,7 +452,9 @@ export default class PopUp extends DomClass {
 		}
 		super.show();
 		PopUp.HideNonAncestors(this);
-		enableHidePopUpActionContainer(this.player);
+		if (this._closeOnClickOut) {
+			enableHidePopUpActionContainer(this.player);
+		}
 		triggerEvent(this.player, Events.SHOW_POPUP, {
 			popUp: this,
 			plugin: this.contextObject
@@ -451,7 +464,11 @@ export default class PopUp extends DomClass {
 	hide() {
 		if (this.isVisible) {
 			if (this._children) {
-				this._children.forEach(child => child.hide());
+				this._children.forEach(child => {
+					if (child._closeOnClickOut) {
+						child.hide();
+					}
+				});
 			}
 			if (this._parentPopUp) {
 				this._parentPopUp.removeChild(this);
@@ -465,7 +482,9 @@ export default class PopUp extends DomClass {
 				this.lastFocusElement.focus();
 			}
 		}
-		if (!g_popUps.some(p => p.isVisible)) {
+		if (!g_popUps.some(p => {
+			return p.isVisible && p._closeOnClickOut;
+		})) {
 			disableHidePopUpActionContainer(this.player);
 		}
 	}
