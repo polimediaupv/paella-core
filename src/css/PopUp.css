@@ -108,22 +108,27 @@
 	margin-right: var(--popup-resizeable-border);
 }
 
-.popup-content button.dock-button {
-	display: none;
+.popup-content .popup-action-buttons {
 	position: absolute;
 	top: 3px;
 	right: 3px;
+	display: flex;
+}
+
+.popup-content button.popup-action-button {
+	display: none;
 	background-color: transparent;
     border: 1px solid var(--main-fg-color);
 	border-radius: 7px;
 	cursor: pointer;
+	margin-right: 2px;
 }
 
-.popup-content button.dock-button:hover {
+.popup-content button.popup-action-button:hover {
 	background-color: var(--highlight-bg-color-hover);
 }
 
-.popup-content button.dock-button i {
+.popup-content button.popup-action-button i {
 	width: var(--popup-dock-button-size);
 	height: var(--popup-dock-button-size);
 	display: block;
@@ -131,7 +136,7 @@
 	fill: var(--main-fg-color);
 }
 
-.popup-content.static-position button.dock-button {
+.popup-content.static-position button.popup-action-button {
 	display: inline-block;
 }
 

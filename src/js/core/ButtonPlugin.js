@@ -252,6 +252,16 @@ export default class ButtonPlugin extends UserInterfacePlugin {
 	}
 	
 	get className() { return ""; }
+
+	enable() {
+		this._enabled = true;
+		this.show();
+	}
+
+	disable() {
+		this._enabled = false;
+		this.hide();
+	}
 	
 	hide() {
 		if (this._button) {
@@ -260,6 +270,9 @@ export default class ButtonPlugin extends UserInterfacePlugin {
 	}
 	
 	show() {
+		if (!this._enabled) {
+			return;
+		}
 		const { width } = this.player.playbackBar.containerSize;
 		if (this._button && (width > this.minContainerSize || this.parentContainer !== "playbackBar")) {
 			this._button.style.display = "block";

@@ -4,6 +4,7 @@ import Events, { triggerEvent } from 'paella-core/js/core/Events';
 import 'paella-core/styles/PopUp.css';
 
 import defaultMinimizeIcon from 'paella-core/icons/minimize-3.svg';
+import defaultCloseButton from 'paella-core/icons/close.svg';
 
 const g_popUps = [];
 
@@ -183,12 +184,16 @@ export default class PopUp extends DomClass {
 
 		moveable = moveable || resizeable;
 		const minimizeButton = player.getCustomPluginIcon("paella-core","dock-popup") || defaultMinimizeIcon;
+		const closeButtonIcon = player.getCustomPluginIcon("paella-core","close-popup") || defaultCloseButton;
 		const children = `
 		<div class="popup-content${ resizeable ? " resizeable" : "" }${ moveable ? " moveable" :  " fixed" }">
 			<div class="border-top-left"></div><div class="border-top-center"></div><div class="border-top-right"></div>
 			<div class="title-bar">
 				<div class="title-bar-content"></div>
-				<button class="dock-button"><i>${minimizeButton}</i></button>
+				<div class="popup-action-buttons">
+					<button class="popup-action-button dock-button"><i>${minimizeButton}</i></button>
+					<button class="popup-action-button close-button"><i>${closeButtonIcon}</i></button>
+				</div>
 			</div>
 			<div class="center-container"></div>
 			<div class="border-bottom-left"></div><div class="border-bottom-center"></div><div class="border-bottom-right"></div>
@@ -209,6 +214,11 @@ export default class PopUp extends DomClass {
 		dockButton.addEventListener('click', evt => {
 			this.dock();
 		});
+
+		const closeButton = this.element.getElementsByClassName("close-button")[0];
+		closeButton.addEventListener('click', () => this.hide());
+		closeButton.addEventListener('mousedown', evt => evt.stopPropagation());
+		this._closeButton = closeButton;
 		
 		this.element.addEventListener("click", () => {
 			if (this._closeOnClickOut) {
@@ -221,7 +231,6 @@ export default class PopUp extends DomClass {
 		this._titleBar = this.element.getElementsByClassName("title-bar")[0];
 
 		this._centerContainer.addEventListener("mousedown", evt => {
-			console.log("Click on center container")
 			evt.stopPropagation();
 		});
 
@@ -411,6 +420,12 @@ export default class PopUp extends DomClass {
 	setCloseActions({ clickOutside = true, closeButton = false }) {
 		this._closeOnClickOut = clickOutside;
 		this._closeOnButton = closeButton;
+		if (this._closeOnButton) {
+			this._closeButton.style.display = "block";
+		}
+		else {
+			this._closeButton.style.display = "none";
+		}
 	}
 	
 	isParent(otherPopUp) {
