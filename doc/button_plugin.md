@@ -101,6 +101,11 @@ async mouseOver(target) {
 
 `show()`: shows the button.
 
+The `hide/show` APIs are used internally for some player actions, for example, to hide buttons when there is not enough space in the playbar. If you want to hide a button permanently, you have to use the `enable/disable` APIs.
+
+`disable()`: disables and hides the button. When the `disabled` state is set, the `show()` function will have no effect when the button is disabled.
+
+`enable()`: enables the button and displays it.
 
 
 ## Button icon
