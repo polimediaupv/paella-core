@@ -63,6 +63,7 @@
 .base-video-rect.dynamic .landscape-container {
 	display: flex;
 	width: 100%;
+	justify-content: space-around;
 }
 
 .base-video-rect.dynamic.align-bottom .landscape-container {
