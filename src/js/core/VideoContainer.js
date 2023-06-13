@@ -161,6 +161,7 @@ async function updateLayoutDynamic() {
     this.baseVideoRect.style.height = "";
     this.baseVideoRect.style.display = "flex";
     this.baseVideoRect.classList.add("dynamic");
+    this.baseVideoRect.innerHTML = "";
 
 
     const videoContainerWidth = this.element.clientWidth;
@@ -246,7 +247,13 @@ async function updateLayoutDynamic() {
             canvas.element.sortIndex = i++;
             canvasElements.push(canvas.element);
         }
-        canvasElements.forEach(e => this.baseVideoRect.appendChild(e));
+        if (isLandscape) {
+            const landscapeContainer = createElementWithHtmlText(`<div class="landscape-container"></div>`, this.baseVideoRect);
+            canvasElements.forEach(e => landscapeContainer.appendChild(e));
+        }
+        else {
+            canvasElements.forEach(e => this.baseVideoRect.appendChild(e));
+        }
         setTimeout(() => {
             setTabIndex(this.player, layoutStructure, buttonElements.flat());
         }, 100);

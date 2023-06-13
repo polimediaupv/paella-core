@@ -57,7 +57,7 @@
         },
 
         "dynamicLayout": {
-            "landscapeVerticalAlignment": "align-center",
+            "landscapeVerticalAlignment": "align-bottom",
             "portraitHorizontalAlignment": "align-center"
         }
     },
