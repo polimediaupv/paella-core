@@ -79,10 +79,7 @@
 }
 
 .popup-content.moveable .title-bar {
-	/*height: var(--popup-title-bar-size);*/
 	min-height: max(var(--popup-title-bar-size), calc(var(--popup-dock-button-size) + 11px));
-	width: 100%;
-	float: left;
 	background-color: var(--popup-title-bar-color);
 	cursor: move;
 	position: relative;
@@ -136,16 +133,6 @@
 	fill: var(--main-fg-color);
 }
 
-.popup-content.static-position button.popup-action-button {
-	display: inline-block;
-}
-
-.popup-content.resizeable .separator-left {
-	width: var(--popup-resizeable-border);
-	height: var(--popup-resizeable-border);
-	float: left;
-}
-
 .popup-content .center-container {
 	width: calc(100% - var(--popup-resizeable-border) * 2);
 	margin-left: var(--popup-resizeable-border);
@@ -153,32 +140,43 @@
 	float: left;
 }
 
-.popup-content.resizeable.static-position .center-container {
+.popup-content.static-position .center-container {
 	height: calc(100% - var(--popup-resizeable-border) * 2 - var(--popup-title-bar-size));
 	overflow: auto;
 }
 
-.popup-content.resizeable .separator-right {
+/* Begin properties for static position pop up: */
+.popup-content.static-position button.popup-action-button {
+	display: inline-block;
+}
+
+.popup-content.static-position .separator-left {
 	width: var(--popup-resizeable-border);
 	height: var(--popup-resizeable-border);
 	float: left;
 }
 
-.popup-content.resizeable .border-bottom-left {
+.popup-content.static-position .separator-right {
+	width: var(--popup-resizeable-border);
+	height: var(--popup-resizeable-border);
+	float: left;
+}
+
+.popup-content.static-position .border-bottom-left {
 	width: var(--popup-resizeable-border);
 	height: var(--popup-resizeable-border);
 	cursor: sw-resize;
 	float: left;
 }
 
-.popup-content.resizeable .border-bottom-center {
+.popup-content.static-position .border-bottom-center {
 	width: calc(100% - var(--popup-resizeable-border) * 2);
 	height: var(--popup-resizeable-border);
 	cursor: row-resize;
 	float: left;
 }
 
-.popup-content.resizeable .border-bottom-right {
+.popup-content.static-position .border-bottom-right {
 	width: var(--popup-resizeable-border);
 	height: var(--popup-resizeable-border);
 	cursor: se-resize;

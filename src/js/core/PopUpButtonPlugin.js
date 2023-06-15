@@ -66,6 +66,19 @@ export default class PopUpButtonPlugin extends ButtonPlugin {
 		return this.config.resizeable ?? false;
 	}
 
+	get customPopUpClass() {
+		return this.config.customPopUpClass ?? "";
+	}
+
+	get closeActions() {
+		const clickOutside = this.config.closeActions?.clickOutside ?? true
+		const closeButton = this.config.closeActions?.closeButton ?? false;
+		return {
+			clickOutside,
+			closeButton
+		}
+	}
+
 	async getContent() {
 		const content = createElementWithHtmlText('<p>Pop Up Button Plugin Content</p>');
 		return content;
@@ -92,7 +105,7 @@ export default class PopUpButtonPlugin extends ButtonPlugin {
 			const type = resolvePopUpType.apply(this);
 			if (type === "modal" || type === "no-modal") {
 				const { clickOutside, closeButton } = this.config.closeActions || { clickOutside: true }
-				this._popUp = new PopUp(this.player, parentContainer, this.button, this, type === "modal", this.moveable, this.resizeable);
+				this._popUp = new PopUp(this.player, parentContainer, this.button, this, type === "modal", this.moveable, this.resizeable, this.customPopUpClass);
 				this._popUp.setCloseActions({ clickOutside, closeButton });
 			}
 			else if (type === "timeline") {

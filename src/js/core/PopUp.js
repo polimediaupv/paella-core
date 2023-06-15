@@ -177,9 +177,9 @@ export default class PopUp extends DomClass {
 		});
 	}
 	
-	constructor(player, parent, anchorElement = null, contextObject = null, modal = true, moveable = false, resizeable = false) {
+	constructor(player, parent, anchorElement = null, contextObject = null, modal = true, moveable = false, resizeable = false, customClass = "") {
 		const attributes = {
-			"class": modal ? "popup-container" :  "popup-container no-modal"
+			"class": `${ modal ? "popup-container" :  "popup-container no-modal" } ${customClass}`
 		};
 
 		moveable = moveable || resizeable;
@@ -241,10 +241,10 @@ export default class PopUp extends DomClass {
 				// Make static the current position and size of the pop up window
 				const rect = this._contentElement.getBoundingClientRect();
 				this._contentElement.classList.add("static-position");
-				this._contentElement.style.top = rect.top;
-				this._contentElement.style.left = rect.left;
-				this._contentElement.style.width = rect.width;
-				this._contentElement.style.height = rect.height;
+				this._contentElement.style.top = rect.top + 'px';
+				this._contentElement.style.left = rect.left + 'px';
+				this._contentElement.style.width = rect.width + 'px';
+				this._contentElement.style.height = rect.height + 'px';
 
 				// We don't know the actual size of the title bar by CSS, so we have 
 				// to adjust the height of the container inline
@@ -288,6 +288,8 @@ export default class PopUp extends DomClass {
 				if (this._dragActionData.action === 'MOVE') {
 					this._contentElement.style.top = `${ rect.top + offset.top }px`;
 					this._contentElement.style.left = `${ rect.left + offset.left }px`;
+					this._contentElement.style.height = `${ rect.height }px`;
+					this._contentElement.style.width = `${ rect.width }px`;
 				}
 				else if (this._dragActionData.action === 'RESIZE_N') {
 					this._contentElement.style.height = `${ rect.height - offset.top}px`;
@@ -297,18 +299,24 @@ export default class PopUp extends DomClass {
 					this._contentElement.style.height = `${ rect.height - offset.top}px`;
 					this._contentElement.style.top = `${ rect.top + offset.top }px`;
 					this._contentElement.style.width = `${ rect.width + offset.left}px`;
+					this._contentElement.style.left = `${ rect.left }px`;
 				}
 				else if (this._dragActionData.action === 'RESIZE_E') {
 					this._contentElement.style.width = `${ rect.width + offset.left}px`;
+					this._contentElement.style.left = `${ rect.left }px`;
 				}
 				else if (this._dragActionData.action === 'RESIZE_SE') {
+					this._contentElement.style.top = `${ rect.top }px`;
+					this._contentElement.style.left = `${ rect.left }px`;
 					this._contentElement.style.width = `${ rect.width + offset.left}px`;
 					this._contentElement.style.height = `${ rect.height + offset.top}px`;
 				}
 				else if (this._dragActionData.action === 'RESIZE_S') {
+					this._contentElement.style.top = `${ rect.top }px`;
 					this._contentElement.style.height = `${ rect.height + offset.top}px`;
 				}
 				else if (this._dragActionData.action === 'RESIZE_SW') {
+					this._contentElement.style.top = `${ rect.top }px`;
 					this._contentElement.style.height = `${ rect.height + offset.top}px`;
 					this._contentElement.style.width = `${ rect.width - offset.left}px`;
 					this._contentElement.style.left = `${ rect.left + offset.left}px`;
