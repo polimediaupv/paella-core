@@ -224,7 +224,7 @@ Another common design pattern is to define custom configuration properties, and 
 ```
 
 ```js
-export default class MyPopUpWindowPlugin extends PopUpButtonPlugin {
+export default class MyPopUpWindowPlugin extends PopUpButtonPlugin { 
   ...
   get customPopUpClass() {
 		return this.config.bluePopUpBackground && "blue-background";

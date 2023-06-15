@@ -180,3 +180,9 @@
 
 - Better support for portrait videos
 - Single video dynamic layout added
+
+
+## paella-core 1.38
+
+- Moveable and resizeable pop ups: [See PopUpButtonPlugin documentation](popup_button_plugin.md) for more information.
+
