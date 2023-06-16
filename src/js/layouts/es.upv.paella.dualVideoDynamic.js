@@ -36,6 +36,7 @@ export default class DualVideoDynamicLayout extends VideoLayout {
                 position: CanvasButtonPosition.LEFT,
                 title: this.player.translate('Dual stream 50%'),
                 ariaLabel: this.player.translate('Dual stream 50%'),
+                name: this.name + ':iconSideBySide',
                 click: async () => {
                     this._currentContent.forEach(lo => {
                         lo.size = 50;
@@ -50,6 +51,7 @@ export default class DualVideoDynamicLayout extends VideoLayout {
                 position: CanvasButtonPosition.LEFT,
                 title: this.player.translate('Maximize video'),
                 ariaLabel: this.player.translate('Maximize video'),
+                name: this.name + ':iconMaximize',
                 click: async () => {
                     this._currentContent.forEach(lo => {
                         lo.size = lo.id === content ? 75 : 25;
@@ -65,6 +67,7 @@ export default class DualVideoDynamicLayout extends VideoLayout {
                 position: CanvasButtonPosition.LEFT,
                 title: this.player.translate('Switch side'),
                 ariaLabel: this.player.translate('Switch side'),
+                name: this.name + ':iconSwitchSide',
                 click: async () => {
                     const ct1 = this._currentContent[0].id;
                     const ct2 = this._currentContent[1].id;
@@ -84,6 +87,7 @@ export default class DualVideoDynamicLayout extends VideoLayout {
             position: CanvasButtonPosition.RIGHT,
             title: this.player.translate("Close video"),
             ariaLabel: this.player.translate("Close video"),
+            name: this.name + ':iconClose',
             click: async () => {
                 const singleStreamContentIds = this.player.videoContainer.validContentIds.filter(cid => cid.indexOf("-") === -1);
                 const contentId = singleStreamContentIds.find(cid => cid != content);
@@ -97,6 +101,7 @@ export default class DualVideoDynamicLayout extends VideoLayout {
                 position: CanvasButtonPosition.LEFT,
                 title: this.player.translate("Picture-in-picture"),
                 ariaLabel: this.player.translate("Picture-in-picture"),
+                name: this.name + ':iconPiP',
                 click: async () => {
                     const contentId = this.player.videoContainer.validContentIds.find(cid => this.pipContentIds.indexOf(cid) !== -1);
                     await this.player.videoContainer.setLayout(contentId,content);

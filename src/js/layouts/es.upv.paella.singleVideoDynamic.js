@@ -32,6 +32,7 @@ export default class DualVideoDynamicLayout extends VideoLayout {
                 position: CanvasButtonPosition.LEFT,
                 title: this.player.translate('Dual stream 50%'),
                 ariaLabel: this.player.translate('Dual stream 50%'),
+                name: this.name + ':iconSideBySide',
                 click: async () => {
                     const availableContentIds = this.player.videoContainer.validContentIds;
                     const dualVideoContentId = this.dualVideoContentIds.find(id => {
@@ -50,16 +51,13 @@ export default class DualVideoDynamicLayout extends VideoLayout {
         if (streamData.length > 1) {
             this._multiStream = true;
         }
-
-        if (!this._currentContent) {
-            const { content } = this.validContent.find(content => content.id === contentId);
-            this._currentContent = content.map(c => {
-                return {
-                    id: c,
-                    size: 50
-                }
-            });
-        }
+        const { content } = this.validContent.find(content => content.id === contentId);
+        this._currentContent = content.map(c => {
+            return {
+                id: c,
+                size: 50
+            }
+        });
         return {
             id: "single-dynamic",
             videos: [

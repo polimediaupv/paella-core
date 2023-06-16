@@ -227,6 +227,7 @@ export default class DualVideoLayout extends VideoLayout {
                     position: CanvasButtonPosition.LEFT,
                     title: this.player.translate('Swap position of the videos'),
                     ariaLabel: this.player.translate('Swap position of the videos'),
+                    name: this.name + ':iconRotate',
                     click: async () => {
                         await this.switchContent();
                     }
@@ -238,6 +239,7 @@ export default class DualVideoLayout extends VideoLayout {
                     position: CanvasButtonPosition.LEFT,
                     title: this.player.translate('Maximize video'),
                     ariaLabel: this.player.translate('Maximize video'),
+                    name: this.name + ':iconMaximize',
                     click: async () => {
                         await this.maximizeVideo(content);
                     }
@@ -249,6 +251,7 @@ export default class DualVideoLayout extends VideoLayout {
                     position: CanvasButtonPosition.RIGHT,
                     title: this.player.translate('Close video'),
                     ariaLabel: this.player.translate('Close video'),
+                    name: this.name + ':iconClose',
                     click: async () => {
                         await this.closeVideo(content);
                     }
@@ -264,6 +267,7 @@ export default class DualVideoLayout extends VideoLayout {
                     position: CanvasButtonPosition.LEFT,
                     title: this.player.translate('Maximize video'),
                     ariaLabel: this.player.translate('Maximize video'),
+                    name: this.name + ':iconMaximize',
                     click: async () => {
                         await this.switchContent();
                     }
@@ -274,6 +278,7 @@ export default class DualVideoLayout extends VideoLayout {
                     position: CanvasButtonPosition.LEFT,
                     title: this.player.translate('Place the video on the other side of the screen'),
                     ariaLabel: this.player.translate('Place the video on the other side of the screen'),
+                    name: this.name + ':iconSwitchSide',
                     click: async () => {
                         await this.minimizeVideo(content);
                     }
@@ -284,6 +289,7 @@ export default class DualVideoLayout extends VideoLayout {
                     position: CanvasButtonPosition.RIGHT,
                     title: this.player.translate('Close video'),
                     ariaLabel: this.player.translate('Close video'),
+                    name: this.name + ':iconClose',
                     click: async () => {
                         await this.closeVideo(content);
                     }
@@ -295,6 +301,7 @@ export default class DualVideoLayout extends VideoLayout {
                     position: CanvasButtonPosition.LEFT,
                     title: this.player.translate('Minimize video'),
                     ariaLabel: this.player.translate('Minimize video'),
+                    name: this.name + ':iconMinimize',
                     click: async () => {
                         await this.switchContent();
                     }
@@ -305,6 +312,7 @@ export default class DualVideoLayout extends VideoLayout {
                     position: CanvasButtonPosition.LEFT,
                     title: this.player.translate('Put the videos side by side'),
                     ariaLabel: this.player.translate('Put the videos side by side'),
+                    name: this.name + ':iconSideBySide',
                     click: async () => {
                         await this.setSideBySide();
                     }
@@ -315,6 +323,7 @@ export default class DualVideoLayout extends VideoLayout {
                     position: CanvasButtonPosition.RIGHT,
                     title: this.player.translate('Close video'),
                     ariaLabel: this.player.translate('Close video'),
+                    name: this.name + ':iconClose',
                     click: async () => {
                         await this.closeVideo(content);
                     }

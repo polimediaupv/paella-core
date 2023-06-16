@@ -33,6 +33,7 @@ export default class SingleVideoLayout extends VideoLayout {
                     position: CanvasButtonPosition.LEFT,
                     title: this.player.translate("Two videos 50%"),
                     ariaLabel: this.player.translate("Two videos 50%"),
+                    name: this.name + ':iconSideBySide',
                     click: () => {
                         const availableContentIds = this.player.videoContainer.validContentIds;
                         const dualVideoContentId = this.dualVideoContentIds.find(id => {

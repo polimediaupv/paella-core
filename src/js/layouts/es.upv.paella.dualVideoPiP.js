@@ -100,6 +100,7 @@ export default class DualVideoPiPLayout extends VideoLayout {
                 position: CanvasButtonPosition.RIGHT,
                 title: this.player.translate("Close video"),
                 ariaLabel: this.player.translate("Close video"),
+                name: this.name + ':iconClose',
                 click: async () => {
                     const singleStreamContentIds = this.player.videoContainer.validContentIds.filter(cid => cid.indexOf("-") === -1);
                     const contentId = singleStreamContentIds.find(cid => cid !== content);
@@ -113,6 +114,7 @@ export default class DualVideoPiPLayout extends VideoLayout {
                 position: CanvasButtonPosition.LEFT,
                 title: this.player.translate("Switch side"),
                 ariaLabel: this.player.translate("Switch side"),
+                name: this.name + ':iconSwitchSide',
                 click: async () => {
                     this.switchSide();
                     await this.player.videoContainer.updateLayout(this._fullVideo);
@@ -124,6 +126,7 @@ export default class DualVideoPiPLayout extends VideoLayout {
                 position: CanvasButtonPosition.LEFT,
                 title: this.player.translate("Maximize video"),
                 ariaLabel: this.player.translate("Maximize video"),
+                name: this.name + ':iconMaximize',
                 click: async () => {
                     this.switchSources();
                     await this.player.videoContainer.updateLayout(this._fullVideo);
@@ -136,6 +139,7 @@ export default class DualVideoPiPLayout extends VideoLayout {
                 position: CanvasButtonPosition.LEFT,
                 title: this.player.translate("Set side by side"),
                 ariaLabel: this.player.translate("Set side by side"),
+                name: this.name + ':iconSideBySide',
                 click: async () => {
                     const availableContentIds = this.player.videoContainer.validContentIds;
                     const dualVideoContentId = this.dualVideoContentIds.find(id => {
