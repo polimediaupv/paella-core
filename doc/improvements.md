@@ -185,4 +185,8 @@
 ## paella-core 1.38
 
 - Moveable and resizeable pop ups: [See PopUpButtonPlugin documentation](popup_button_plugin.md) for more information.
+- Attribute "name" added to canvas button plugins
+- Video layouts now include the "name" attribute in buttons.
+
+
 
