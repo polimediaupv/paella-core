@@ -47,7 +47,8 @@ const addButton = function({
     className,
     position = CanvasButtonPosition.CENTER,
     click,
-    content
+    content,
+    name
 }) {
     if (!icon) {
         throw new Error("Error in video layout definition. getVideoCanvasButtons(): missing 'icon' attribute.");
@@ -65,12 +66,15 @@ const addButton = function({
     if (tabIndex !== undefined) {
         attributes += ` tabindex="${tabIndex}"`;
     }
+    if (name !== undefined) {
+        attributes += ` name="${name}"`;
+    }
     const btn = createElementWithHtmlText(`
         <button ${attributes}><i class="button-icon" style="pointer-events: none">${ icon }</i></button>
     `);
     this.buttonsArea.appendChild(btn);
-    btn.addEventListener('click', (evt) => {
-        click(content);
+    btn.addEventListener('click', async (evt) => {
+        await click(content);
         evt.stopPropagation();
         return false;
     });

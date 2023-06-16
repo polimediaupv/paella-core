@@ -9,6 +9,7 @@ export function getCanvasButtonPlugin(plugin) {
         position: plugin.position,
         title: plugin.description,
         ariaLabel: plugin.ariaLabel,
+        name: plugin.buttonName,
         click: async (content) => {
             const stream = plugin.player.videoContainer.streamProvider.streams[content];
             await plugin.action(content, stream?.player, stream?.canvas, stream?.canvasPlugin);
@@ -75,6 +76,10 @@ export default class CanvasButtonPlugin extends UserInterfacePlugin {
 
     get side() {
         return this.config?.side || "left";
+    }
+
+    get buttonName() {
+        return this.name;   // By default, the button "name" property is the plugin identifier name
     }
 
     get position() {
