@@ -48,9 +48,11 @@ async function enableVideos(layoutStructure) {
 
 function hideAllVideoPlayers() {
     // Hide all video players
+    
     for (const key in this.streamProvider.streams) {
         const videoData = this.streamProvider.streams[key];
         videoData.canvas.element.style.display = "none";
+        this._hiddenVideos.appendChild(videoData.canvas.element);
     }
 }
 
@@ -107,6 +109,8 @@ async function updateLayoutStatic() {
             canvas.element.style.width = `${ resultRect?.width * wFactor }%`;
             canvas.element.style.height = `${ resultRect?.height * hFactor }%`;
             canvas.element.style.zIndex = video.layer;
+
+            this.baseVideoRect.appendChild(canvas.element);
         }
 
         setTimeout(() => {
@@ -276,11 +280,12 @@ export default class VideoContainer extends DomClass {
         }
 
         const children = `
-            <div class="${ baseVideoRectClass }">
-            </div>
+            <div class="${ baseVideoRectClass }"></div>
+            <div class="hidden-videos-container" style="display: none"></div>
         `
         super(player, {attributes, children, parent});
 
+        this._hiddenVideos = this.element.getElementsByClassName("hidden-videos-container")[0];
         this._baseVideoRect = this.element.getElementsByClassName(baseVideoRectClass)[0];
         this.element.addEventListener("click", async () => {
             if (await this.paused()) {
