@@ -19,8 +19,6 @@ function placePopUp(player, anchorElement, contentElement) {
 		const viewportHeight = window.innerHeight;
 		const viewportCenterX = window.innerWidth / 2;
 		const viewportCenterY = window.innerHeight / 2;
-		
-		const containerBounds = player.containerElement.getBoundingClientRect();
 
 		// Decide where to attach the popup depending on the anchor position
 		contentElement.style.left = "";
@@ -56,6 +54,12 @@ function placePopUp(player, anchorElement, contentElement) {
 			contentElement.style.bottom = `${ b }px`;
 			contentElement.style.maxHeight = `calc(100vh - ${ b }px - 10px)`;
 		}
+
+		setTimeout(() => {
+			if (contentElement.offsetTop<0) {
+				contentElement.style.top = "0px";
+			}
+		}, 100);
 	}
 }
 
@@ -245,6 +249,7 @@ export default class PopUp extends DomClass {
 				this._contentElement.style.left = rect.left + 'px';
 				this._contentElement.style.width = rect.width + 'px';
 				this._contentElement.style.height = rect.height + 'px';
+				this._contentElement.style.maxHeight = "unset";
 
 				// We don't know the actual size of the title bar by CSS, so we have 
 				// to adjust the height of the container inline
