@@ -374,14 +374,17 @@ This kind of plugins allows to include captions using the [captions API](caption
 ```json
 "es.upv.paella.vttManifestCaptionsPlugin": {
   "enabled": true
+},
+"es.upv.paella.dfxpManifestCaptionsPlugin": {
+  "enabled": true
 }
 ```
 
 Specifically, this plugin gets the subtitle information of the video from the [video manifest](video_manifest.md). The `captions` section is used, where an array of objects with the following properties is defined:
 
 - **`url`:** URL of the subtitle file. This plug-in only recognizes subtitle files in the [`vtt`](https://www.w3.org/wiki/VTT_Concepts).
-- **`lang`:** captions language. This attribute does not need to be a standardized language code, it is only the unique identifier that will differentiate this subtitle file from a different one. For example, `en_UK`, `en` or `en-auto`.
-- **`text`:** Descriptive text string of the subtitle file. This text should make it easy for the user to identify the subtitles. For example `English (UK)`, `English` or `English (automatic)`.
+- **`lang`:** captions language. This attribute does not need to be a standardized language code, it is only the unique identifier that will differentiate this subtitle file from a different one. For example, `en_UK`, `en` or `en-auto`. NOTE: in DFXP format, one file contains the list of languages. If the captions format is DFXP, this attribute is ignored.
+- **`text`:** Descriptive text string of the subtitle file. This text should make it easy for the user to identify the subtitles. For example `English (UK)`, `English` or `English (automatic)`. NOTE: in DFXP format, this attribute is ignored because each file can contain more than one language. In this case, the text label for each language will be built using the translated language.
 - **`format`:** This is the format of the subtitle file. This plugin only recognizes `vtt` format files. All the fields in this section of the video manifest are generic, so using other plugins that recognize different formats, this field will help `paella-core` identify which plugin to use to load the subtitles.
 
 

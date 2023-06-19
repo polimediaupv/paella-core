@@ -188,5 +188,7 @@
 - Attribute "name" added to canvas button plugins
 - Video layouts now include the "name" attribute in buttons.
 
+## paella-core 1.39
 
+- DFXP manifest plugin implemented. [See paella-core plugins](paella_core_plugins.md) for more information.
 
