@@ -333,6 +333,10 @@
             "enabled": true
         },
 
+        "es.upv.paella.dfxpManifestCaptionsPlugin": {
+            "enabled": true
+        },
+
         "es.upv.paella.testEventLogPlugin": {
             "enabled": true
         },

@@ -191,6 +191,19 @@ export function timeToSeconds(timeString) {
     return null;
 }
 
+export function timeToMilliseconds(timeString) {
+    const re = /^(?:(\d+):){0,1}(\d+):(\d+)\.(\d+)?$/;
+    const result = re.exec(timeString);
+    if (result) {
+        const hours = result[1] !== undefined ? Number(result[1]) : 0;
+        const minutes = Number(result[2]);
+        const seconds = Number(result[3]);
+        const milliseconds = result[4] && Number(result[4]) || 0;
+        return hours * 3600000 + minutes * 60000 + seconds * 1000 + milliseconds;
+    }
+    return null;
+}
+
 export function setCookie(cname, cvalue, exdays = 365) {
     let d = new Date();
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
