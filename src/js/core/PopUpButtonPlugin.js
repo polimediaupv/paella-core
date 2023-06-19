@@ -104,7 +104,7 @@ export default class PopUpButtonPlugin extends ButtonPlugin {
 			this._popUp = null;
 			const type = resolvePopUpType.apply(this);
 			if (type === "modal" || type === "no-modal") {
-				const { clickOutside, closeButton } = this.config.closeActions || { clickOutside: true }
+				const { clickOutside, closeButton } = this.closeActions;
 				this._popUp = new PopUp(this.player, parentContainer, this.button, this, type === "modal", this.moveable, this.resizeable, this.customPopUpClass);
 				this._popUp.setCloseActions({ clickOutside, closeButton });
 			}
