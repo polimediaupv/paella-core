@@ -7,6 +7,7 @@ import defaultVolumeMuteIcon from "../../icons/volume-mute.svg"
 import defaultVolumeLowIcon from "../../icons/volume-low.svg"
 import defaultVolumeMidIcon from "../../icons/volume-mid.svg"
 import defaultVolumeHighIcon from "../../icons/volume-high.svg"
+import PlayerState from "../core/PlayerState";
 
 export default class DefaultKeyShortcutsPlugin extends KeyShortcutPlugin {
 
@@ -169,6 +170,7 @@ export default class DefaultKeyShortcutsPlugin extends KeyShortcutPlugin {
         const player = this.player;
         const skipBackwards = this.config.skipBackwards || 30;
         const skipForward = this.config.skipForward || 30;
+        const isLoaded = () => player.state === PlayerState.LOADED;
         return [
             {
                 keyCode: KeyCodes.KeyM,
@@ -177,7 +179,7 @@ export default class DefaultKeyShortcutsPlugin extends KeyShortcutPlugin {
                     ctrlKey: false
                 },
                 action: async () => {
-                    await this.toggleVolume();
+                    if (isLoaded()) await this.toggleVolume();
                 }
             },
             {
@@ -191,84 +193,84 @@ export default class DefaultKeyShortcutsPlugin extends KeyShortcutPlugin {
                 keyCode: KeyCodes.KeyJ,
                 get description() { return player.translate("Rewind $1 seconds", [skipBackwards]) },
                 action: async () => {
-                    await this.seek(-skipBackwards);
+                    if (isLoaded()) await this.seek(-skipBackwards);
                 }
             },
             {
                 keyCode: KeyCodes.KeyL,
                 get description() { return player.translate("Forward $1 seconds", [skipForward]) },
                 action: async () => {
-                    await this.seek(skipForward);
+                    if (isLoaded()) await this.seek(skipForward);
                 }
             },
             {
                 keyCode: KeyCodes.Space,
                 description: "Toggle play/pause",
                 action: async () => {
-                    await this.togglePlayPause();
+                    if (isLoaded()) await this.togglePlayPause();
                 }
             },
             {
                 keyCode: KeyCodes.KeyF,
                 description: "Toggle fullscreen",
                 action: async () => {
-                    await this.toggleFullscreen();
+                    if (isLoaded()) await this.toggleFullscreen();
                 }
             },
             {
                 keyCode: KeyCodes.KeyC,
                 description: "Toggle captions",
                 action: async () => {
-                    this.toggleCaptions();
+                    if (isLoaded()) this.toggleCaptions();
                 }
             },
             {
                 keyCode: KeyCodes.ArrowLeft,
                 get description() { return player.translate("Rewind $1 seconds", [skipBackwards]) },
                 action: async () => {
-                    await this.seek(-skipBackwards);
+                    if (isLoaded()) await this.seek(-skipBackwards);
                 }
             },
             {
                 keyCode: KeyCodes.ArrowRight,
                 get description() { return player.translate("Forward $1 seconds", [skipForward]) },
                 action: async () => {
-                    await this.seek(skipForward);
+                    if (isLoaded()) await this.seek(skipForward);
                 }
             },
             {
                 keyCode: KeyCodes.ArrowUp,
                 description: "Volume up 10%",
                 action: async () => {
-                    this.incrementVolume(10);
+                    if (isLoaded()) this.incrementVolume(10);
                 }
             },
             {
                 keyCode: KeyCodes.ArrowDown,
                 description: "Volume down 10%",
                 action: async () => {
-                    this.incrementVolume(-10);
+                    if (isLoaded()) this.incrementVolume(-10);
                 }
             },
             {
                 keyCode: KeyCodes.Escape,
                 description: "Close pop-up",
                 action: async () => {
-                    this.closePopUp();
+                    if (isLoaded()) this.closePopUp();
                 }
             },
             {
                 keyCode: KeyCodes.KeyU,
                 description: "Decrease playback speed",
                 action: async () => {
-                    await this.decreaseSpeed();
+                    if (isLoaded()) await this.decreaseSpeed();
                 }
             },
             {
                 keyCode: KeyCodes.KeyO,
                 description: "Increase playback speed",
                 action: async () => {
-                    this.increaseSpeed();
+                    if (isLoaded()) this.increaseSpeed();
                 }
             }
         ]
