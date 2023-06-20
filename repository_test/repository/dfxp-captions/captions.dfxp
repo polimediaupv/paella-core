@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <tt xml:lang="es" xmlns="http://www.w3.org/ns/ttml" xmlns:tts="http://www.w3.org/2006/04/ttaf1#styling">
 <head>
+    <styling>
+        <style id="defaultSpeaker" tts:backgroundColor="black" tts:color="white"
+        tts:fontFamily="SansSerif" tts:fontSize="12" tts:fontStyle="normal" tts:fontWeight="normal"
+        tts:textAlign="left" tts:textDecoration="none"/>
+        <style id="defaultCaption" tts:backgroundColor="black" tts:color="white"
+        tts:fontFamily="SansSerif" tts:fontSize="12" tts:fontStyle="normal" tts:fontWeight="normal"
+        tts:textAlign="left" tts:textDecoration="none"/>
+    </styling>
 </head>
 <body>
-    <div xml:lang="es">
+    <div xml:lang="es" style="defaultCaption">
         <p begin="00:00:02.220" end="00:00:05.800">Ok voy a hablar de tycho brahe porque creo</p>
         <p begin="00:00:06.300" end="00:00:09.270">que su trabajo era realmente el inicio de la ciencia</p>
     </div>
-    <div xml:lang="en">
+    <div xml:lang="en" style="defaultCaption">
         <p begin="00:00:02.220" end="00:00:05.800">Ok I'm going to talk about tycho brahe because I think</p>
         <p begin="00:00:06.300" end="00:00:09.270">his work really was the start of science</p>
     </div>

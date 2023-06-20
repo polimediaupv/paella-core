@@ -5,9 +5,9 @@ export function parseDFXP(player, text) {
     const captions = {};
 
 
-    const parser = document.createElement('div');
-    parser.innerHTML = text;
-    const doc = parser.children[0];
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(text, 'text/xml');
+
     Array.from(doc.getElementsByTagName('div')).forEach(div => {
         const lang = div.getAttribute('xml:lang') || "unknonw";
         captions[lang] = captions[lang] || new Captions(player.translate(lang), lang);
@@ -15,10 +15,10 @@ export function parseDFXP(player, text) {
         Array.from(div.getElementsByTagName('p')).forEach(p => {
             const begin = timeToMilliseconds(p.getAttribute('begin'))
             captions[lang].addCue({
-                label: `caption_${p.getAttribute('xml:id') || timeToMilliseconds(begin)}`,
-                start: timeToMilliseconds(begin) / 1000,
+                label: `caption_${p.getAttribute('xml:id') || begin}`,
+                start: begin / 1000,
                 end: timeToMilliseconds(p.getAttribute('end')) / 1000,
-                captions: p.innerText
+                captions: p.innerHTML
             });
         })
     })
