@@ -37,9 +37,12 @@ export default class VttManifestCaptionsPlugin extends CaptionsPlugin {
                         })
                     
                 }
+                else {
+                    reject();
+                }
             }));
         });
-        await Promise.all(p);
+        await Promise.allSettled(p);
         return result;
     }
 }
