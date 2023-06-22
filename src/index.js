@@ -40,6 +40,7 @@ import Loader from './js/core/Loader';
 import { DomClass, createElementWithHtmlText, createElement } from 'paella-core/js/core/dom';
 
 import WebVTTParser, { parseWebVTT } from './js/captions/WebVTTParser';
+import DFXPParser, { parseDFXP } from './js/captions/DFXPParser';
 import CaptionsPlugin from 'paella-core/js/captions/CaptionsPlugin';
 import Captions from 'paella-core/js/captions/Captions';
 
@@ -87,6 +88,7 @@ import TripleVideoLayoutPlugin from './js/layouts/es.upv.paella.tripleVideo';
 
 // Captions
 import VttManifestCaptionsPlugin from './js/plugins/es.upv.paella.vttManifestCaptionsPlugin';
+import DfxpManifestCaptionsPlugin from './js/plugins/es.upv.paella.dfxpManifestCaptionsPlugin';
 
 
 // Video canvas
@@ -148,6 +150,8 @@ export {
 
     WebVTTParser,
     parseWebVTT,
+    DFXPParser,
+    parseDFXP,
     CaptionsPlugin,
     Captions,
 
@@ -187,6 +191,7 @@ export {
     PlayPauseButtonPlugin,
 
     VttManifestCaptionsPlugin,
+    DfxpManifestCaptionsPlugin,
 
     SingleVideoLayoutPlugin,
     DualVideoLayoutPlugin,
