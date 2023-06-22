@@ -107,8 +107,8 @@ async function preLoadPlayer() {
 
     setupDefaultLanguage(this);
 
-    this._defaultVideoPreview = this._config.defaultVideoPreview || this._initParams.defaultVideoPreview || null;
-    this._defaultVideoPreviewPortrait = this._config.defaultVideoPreviewPortrait || this._initParams.defaultVideoPreviewPortrait || null;
+    this._defaultVideoPreview = this._config.defaultVideoPreview || this._initParams.defaultVideoPreview || "";
+    this._defaultVideoPreviewPortrait = this._config.defaultVideoPreviewPortrait || this._initParams.defaultVideoPreviewPortrait || "";
 
     this._cookieConsent = new CookieConsent(this, {
         getConsent: this._initParams.getCookieConsentFunction, 
@@ -268,8 +268,8 @@ export default class Paella {
         setGetDefaultLanguageFunction(this._initParams.getDefaultLanguageFunction);
 
         this._config = null;
-        this._defaultVideoPreview = null;
-        this._defaultVideoPreviewPortrait = null;
+        this._defaultVideoPreview = "";
+        this._defaultVideoPreviewPortrait = "";
         this._videoId = null;
         this._manifestUrl = null;
         this._manifestFileUrl = null;
@@ -554,7 +554,7 @@ export default class Paella {
                 previewPortrait = this.defaultVideoPreviewPortrait;
                 this.log.warn("Paella.loadUrl(): no preview image specified. Using default preview image.");
             }
-            else if (!preview || !previewPortrait) {
+            else if (!preview && !previewPortrait) {
                 throw new Error("Paella.loadUrl(): no preview image specified and no default preview image configured.");
             }
 
