@@ -19,7 +19,7 @@ export default class VttManifestCaptionsPlugin extends CaptionsPlugin {
             p.push(new Promise((resolve, reject) => {
                 if (/vtt/i.test(captions.format)) {
                     const fileUrl = resolveResourcePath(this.player, captions.url);
-                    fetch(fileUrl)
+                    return fetch(fileUrl)
                         .then(fetchResult => {
                             if (fetchResult.ok) {
                                 return fetchResult.text();
@@ -37,9 +37,12 @@ export default class VttManifestCaptionsPlugin extends CaptionsPlugin {
                         })
                     
                 }
+                else {
+                    reject();
+                }
             }));
         });
-        await Promise.all(p);
+        await Promise.allSettled(p);
         return result;
     }
 }

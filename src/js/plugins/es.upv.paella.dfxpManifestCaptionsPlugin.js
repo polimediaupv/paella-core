@@ -4,7 +4,7 @@ import DFXPParser from 'paella-core/js/captions/DFXPParser';
 
 import { resolveResourcePath } from 'paella-core/js/core/utils';
 
-export default class VttManifestCaptionsPlugin extends CaptionsPlugin {
+export default class DfxpManifestCaptionsPlugin extends CaptionsPlugin {
     async isEnabled() {
         const enabled = await super.isEnabled();
         return  enabled &&
@@ -19,10 +19,19 @@ export default class VttManifestCaptionsPlugin extends CaptionsPlugin {
             p.push(new Promise((resolve, reject) => {
                 if (/dfxp/i.test(captions.format)) {
                     const fileUrl = resolveResourcePath(this.player, captions.url);
-                    fetch(fileUrl)
+                    return fetch(fileUrl)
                         .then(fetchResult => {
                             if (fetchResult.ok) {
-                                return fetchResult.text();
+                                let cleaned = fetchResult.text();
+                                // fix malformed xml replacing the malformed characters with blank
+                                // Ignore no-control-regex is Ok for cleaning test per eslint docs
+                                // "If you need to use control character pattern matching, then you should turn this rule off."
+                                // ref https://eslint.org/docs/latest/rules/no-control-regex
+                                // eslint-disable-next-line no-control-regex
+                                cleaned = cleaned.replace(/[^\x09\x0A\x0D\x20-\xFF\x85\xA0-\uD7FF\uE000-\uFDCF\uFDE0-\uFFFD]/gm, '');
+                                cleaned = cleaned.replace(/&\w+;/gmi,'');
+                                cleaned = cleaned.replaceAll('<br>','');
+                                return cleaned;
                             }
                             else {
                                 reject();
