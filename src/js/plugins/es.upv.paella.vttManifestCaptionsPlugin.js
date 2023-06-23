@@ -16,26 +16,21 @@ export default class VttManifestCaptionsPlugin extends CaptionsPlugin {
         const result = [];
         const p = [];
         this.player.videoManifest.captions.forEach(captions => {
-            p.push(new Promise((resolve, reject) => {
+            p.push(new Promise(async (resolve, reject) => {
                 if (/vtt/i.test(captions.format)) {
                     const fileUrl = resolveResourcePath(this.player, captions.url);
-                    return fetch(fileUrl)
-                        .then(fetchResult => {
-                            if (fetchResult.ok) {
-                                return fetchResult.text();
-                            }
-                            else {
-                                reject();
-                            }
-                        })
-                        .then((text) => {
-                            const parser = new WebVTTParser(text);
-                            parser.captions.label = captions.text;
-                            parser.captions.language = captions.lang;
-                            result.push(parser.captions);
-                            resolve();
-                        })
-                    
+                    const fetchResult = await fetch(fileUrl)    
+                    if (fetchResult.ok) {
+                        const text = await fetchResult.text();
+                        const parser = new WebVTTParser(text);
+                        parser.captions.label = captions.text;
+                        parser.captions.language = captions.lang;
+                        result.push(parser.captions);
+                        resolve();
+                    }
+                    else {
+                        reject();
+                    }                    
                 }
                 else {
                     reject();

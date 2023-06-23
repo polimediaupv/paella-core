@@ -16,35 +16,30 @@ export default class DfxpManifestCaptionsPlugin extends CaptionsPlugin {
         const result = [];
         const p = [];
         this.player.videoManifest.captions.forEach(captions => {
-            p.push(new Promise((resolve, reject) => {
+            p.push(new Promise(async (resolve, reject) => {
                 if (/dfxp/i.test(captions.format)) {
                     const fileUrl = resolveResourcePath(this.player, captions.url);
-                    return fetch(fileUrl)
-                        .then(fetchResult => {
-                            if (fetchResult.ok) {
-                                let cleaned = fetchResult.text();
-                                // fix malformed xml replacing the malformed characters with blank
-                                // Ignore no-control-regex is Ok for cleaning test per eslint docs
-                                // "If you need to use control character pattern matching, then you should turn this rule off."
-                                // ref https://eslint.org/docs/latest/rules/no-control-regex
-                                // eslint-disable-next-line no-control-regex
-                                cleaned = cleaned.replace(/[^\x09\x0A\x0D\x20-\xFF\x85\xA0-\uD7FF\uE000-\uFDCF\uFDE0-\uFFFD]/gm, '');
-                                cleaned = cleaned.replace(/&\w+;/gmi,'');
-                                cleaned = cleaned.replaceAll('<br>','');
-                                return cleaned;
-                            }
-                            else {
-                                reject();
-                            }
-                        })
-                        .then((text) => {
-                            const parser = new DFXPParser(this.player, text);
-                            Object.entries(parser.captions).forEach(([lang,captions]) => {
-                                result.push(captions);
-                            });
-                            resolve();
-                        })
-                    
+                    const fetchResult = await fetch(fileUrl);    
+                    if (fetchResult.ok) {
+                        let text = await fetchResult.text();
+                        // fix malformed xml replacing the malformed characters with blank
+                        // Ignore no-control-regex is Ok for cleaning test per eslint docs
+                        // "If you need to use control character pattern matching, then you should turn this rule off."
+                        // ref https://eslint.org/docs/latest/rules/no-control-regex
+                        // eslint-disable-next-line no-control-regex
+                        text = text.replace(/[^\x09\x0A\x0D\x20-\xFF\x85\xA0-\uD7FF\uE000-\uFDCF\uFDE0-\uFFFD]/gm, '');
+                        text = text.replace(/&\w+;/gmi,'');
+                        text = text.replaceAll('<br>','');
+                        
+                        const parser = new DFXPParser(this.player, text);
+                        Object.entries(parser.captions).forEach(([lang,captions]) => {
+                            result.push(captions);
+                        });
+                        resolve();
+                    }
+                    else {
+                        reject();
+                    }
                 }
                 else {
                     reject();
