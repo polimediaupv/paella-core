@@ -247,3 +247,47 @@ In the current example we only have one single and one double video layout activ
 Now we have two layouts that can display two streams, and the `singleVideoDynamic` plugin doesn't know which layout to use when we click the button to watch two videos. When a video layout plugin includes a system that allows you to switch to a different layout, parameters are included in the configuration to set which layout you want to switch to. The picture-in-picture video plugin also has a button that deactivates this mode, and what it does is to switch to another video layout. Therefore, the PiP video plugin also includes a configuration parameter to set which dual video layout we want to use. Finally, the `dualVideoDynamic` plugin can switch to `PiP` mode if the layout is specified in the configuration.
 
 Below you can see the complete configuration of the three layout plugins.
+
+```json
+{
+    ...
+    "plugins": {
+        "es.upv.paella.singleVideoDynamic": {
+            "enabled": "true",
+            "validContent": [
+                { "id": "presenter", "content": ["presenter"], "icon": "", "title": "Presenter" },
+                { "id": "presentation", "content": ["presentation"], "icon": "", "title": "Presentation" }
+            ],
+            "dualVideoContentIds": [
+                "presenter-presentation"
+            ]
+        },
+
+        "es.upv.paella.dualVideoDynamic": {
+            "enabled": "true",
+            "validContent": [
+                { "id": "presenter-presentation", "content": ["presenter","presentation"], "icon": "", "title": "Presenter and presentation" }
+            ],
+            
+            "pipContentIds": [
+                "presenter-presentation-pip"
+            ]
+        },
+
+        "es.upv.paella.dualVideoPiP": {
+            "enabled": true,
+            "validContent": [
+                { "id": "presenter-presentation-pip", "content": ["presenter","presentation"], "icon": "present-mode-3.svg", "title": "Presenter and presentation" }
+            ],
+            "dualVideoContentIds": [
+                "presenter-presentation"
+            ]
+        },
+        ...
+    }
+}
+```
+
+
+
+
