@@ -288,6 +288,22 @@ Below you can see the complete configuration of the three layout plugins.
 }
 ```
 
+## Repository location
+
+It is generally not a good idea to keep the video repository in the same location as the player. Let's set up the video repository in the `repo` folder.
+
+- Create a folder in `data/repo` and move the two video directories (`dual-stream` and `single-stream`) into this folder.
+- Add the following attributes to the beginning of the configuration file:
+
+```json
+{
+    "repositoryUrl": "repo",
+    "manifestFileName": "data.json",
+    ...
+}
+```
+
+The `repositoryUrl` attribute specifies the URL where the player will look for the folders with the manifest video identifiers. `manifestFileName` specifies the name of the `json` file that each folder should contain. To form the full path to the video manifest file, use `${repositoryUrl}/${video_id}/${manifestFileName}`. According to this, to search for video with a `dual-stream` identifier, the path the player will search for is `repo/dual-stream/data.json`.
 
 
 

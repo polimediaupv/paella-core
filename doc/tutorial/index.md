@@ -4,7 +4,7 @@ Welcome to the paella-core tutorial for creating your own video player. This tut
 
 1. [Quick start](quick_start.md)
 2. [Two streams](two_streams.md)
-3. Init params
+3. [Init params](init_params.md)
 4. Configuration file
 5. Add plugins from libraries
 6. Group buttons
