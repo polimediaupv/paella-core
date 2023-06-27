@@ -133,7 +133,7 @@ export default class DualVideoPiPLayout extends VideoLayout {
                 }
             })
         }
-        else if (this.dualVideoContentIds.length > 1) {
+        else if (this.dualVideoContentIds.length > 0) {
             result.push({
                 icon: iconSideBySide,
                 position: CanvasButtonPosition.LEFT,
