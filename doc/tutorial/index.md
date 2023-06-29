@@ -5,16 +5,15 @@ Welcome to the paella-core tutorial for creating your own video player. This tut
 1. [Quick start](quick_start.md)
 2. [Two streams](two_streams.md)
 3. [Init params](init_params.md)
-4. Configuration file
-5. Add plugins from libraries
-6. Group buttons
-7. Customize playback bar
-8. Video manifest: formats
-9. Video manifest: dual video
-10. Video manifest: captions
-11. Data plugins
-12. Customize icons
-13. Create a custom plugin
-14. Video manifest: video canvas
-15. Trimming basics
-16. VideoContainer API
+4. [Add plugins from libraries](add_plugins.md)
+5. [Group buttons](group_buttons.md)
+6. Customize playback bar
+7. Video manifest: formats
+8. Video manifest: dual video
+9. Video manifest: captions
+10. Data plugins
+11. Customize icons
+12. Create a custom plugin
+13. Video manifest: video canvas
+14. Trimming basics
+15. VideoContainer API

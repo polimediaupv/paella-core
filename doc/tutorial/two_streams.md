@@ -277,7 +277,7 @@ Below you can see the complete configuration of the three layout plugins.
         "es.upv.paella.dualVideoPiP": {
             "enabled": true,
             "validContent": [
-                { "id": "presenter-presentation-pip", "content": ["presenter","presentation"], "icon": "present-mode-3.svg", "title": "Presenter and presentation" }
+                { "id": "presenter-presentation-pip", "content": ["presenter","presentation"], "icon": "", "title": "PiP mode" }
             ],
             "dualVideoContentIds": [
                 "presenter-presentation"
