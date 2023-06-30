@@ -270,7 +270,7 @@ export default class ButtonPlugin extends UserInterfacePlugin {
 	}
 	
 	show() {
-		if (!this._enabled) {
+		if (this._enabled === false) {
 			return;
 		}
 		const { width } = this.player.playbackBar.containerSize;
