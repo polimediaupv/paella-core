@@ -2,6 +2,12 @@
 :root {
 	--button-fixed-width: 40px;
 	--button-fixed-height: 40px;
-    --playback-bar-height: var(--button-fixed-height) + 10px;
+    --button-fixed-width-sm: 26px;
+    --button-fixed-height-sm: 26px;
+    --progress-indicator-height: 10px;
+    --playback-bar-height: calc(var(--button-fixed-height) + var(--progress-indicator-height));
     --button-icon-size: calc(var(--button-fixed-width) / 2);
+    --button-icon-size-sm: calc(var(--button-fixed-width-sm) / 2);
+	--progress-indicator-handler-size: 20px;
+    --playback-bar-width: 100%;
 }
