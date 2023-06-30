@@ -361,6 +361,10 @@
 }
 
 @container playback-bar (max-width: 700px) {
+	.playback-bar {
+		min-height: var(--playback-bar-height-sm);
+	}
+
 	.playback-bar .button-plugins button i {
 		width: var(--button-icon-size-sm);
 	}
