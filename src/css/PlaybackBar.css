@@ -363,6 +363,7 @@
 @container playback-bar (max-width: 700px) {
 	.playback-bar {
 		min-height: var(--playback-bar-height-sm);
+		background-color: red;
 	}
 
 	.playback-bar .button-plugins button i {

@@ -390,6 +390,7 @@
             "moveable": true,
             "resizeable": true,
             "popUpType": "no-modal",
+            "minContainerSize": 500,
             "closeActions": {
                 "clickOutside": false,
                 "closeButton": true
