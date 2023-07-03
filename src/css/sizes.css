@@ -2,8 +2,8 @@
 :root {
 	--button-fixed-width: 40px;
 	--button-fixed-height: 40px;
-    --button-fixed-width-sm: 26px;
-    --button-fixed-height-sm: 26px;
+    --button-fixed-width-sm: 40px;
+    --button-fixed-height-sm: 40px;
     --progress-indicator-height: 10px;
     --playback-bar-height: calc(var(--button-fixed-height) + var(--progress-indicator-height));
     --playback-bar-height-sm: calc(var(--button-fixed-height-sm) + var(--progress-indicator-height));

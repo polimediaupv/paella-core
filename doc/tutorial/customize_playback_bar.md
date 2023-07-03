@@ -112,6 +112,7 @@ There are a number of CSS variables that can be used to customise the playbar:
 - `--button-icon-size-sm`: button icon size, in small size mode. By default, this size is calculated as `--button-fixed-width-sm / 2`
 - `--progress-indicator-height`: height of the playback bar
 - `--playback-bar-height`: minimum height of the playback bar (the height can be changed by plugins, so it is defined as minimum height). By default is calculated as `--button-fixed-height + --progress-indicator-height`
+- `--playback-bar-height-sm`: minimum height of playback bar when the player is in small size. By default is calculated as `--button-fixed-height-sm + --progress-indicator-height`
 - `--progress-indicator-handler-size`: size of the playback bar seek handle.
 - `--playback-bar-width`: width of the player bar. The default is 100% of the player. If this value is changed to a lower value, the playback bar will be centred automatically.
 
