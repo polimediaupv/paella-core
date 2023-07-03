@@ -1,4 +1,9 @@
 
+.player-container {
+	container-type: inline-size;
+	container-name: player-container;
+}
+
 .playback-bar {
 	position: absolute;
 	bottom: 0px;
@@ -360,11 +365,13 @@
 	padding: 1;
 }
 
-@container playback-bar (max-width: 700px) {
+@container player-container (max-width: 700px) {
 	.playback-bar {
 		min-height: var(--playback-bar-height-sm);
-		background-color: red;
 	}
+}
+
+@container playback-bar (max-width: 700px) {
 
 	.playback-bar .button-plugins button i {
 		width: var(--button-icon-size-sm);
