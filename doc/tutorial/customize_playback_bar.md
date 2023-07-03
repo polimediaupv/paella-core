@@ -118,7 +118,18 @@ There are a number of CSS variables that can be used to customise the playbar:
 
 The playbar works in two sizes: the small size is when the playbar is less than 700px wide, and the normal size is at larger sizes. This is related to the variables `--button-fixed-width`, `--button-fixed-height`, `--button-fixed-width-sm`, `--button-fixed-height-sm`, `--button-icon-size` and `--button-icon-size-sm`.
 
-By default, the sizes defined for normal mode and small mode are the same. If the player is going to contain a lot of active plugins, it is advisable to modify the size in small mode to make them fit better. To do this, you only need to modify the `--button-fixed-width-sm` and `--button-fixed-height-sm` variables, as the rest of the variables are calculated automatically. The rest of the variables can be modified, but it is not essential.
+By default, the sizes defined for normal mode and small mode are the same. If the player is going to contain a lot of active plugins, it is advisable to modify the size in small mode to make them fit better. To do this, you only need to modify the `--button-fixed-width-sm` and `--button-fixed-height-sm` variables, as the rest of the variables are calculated automatically. The rest of the variables can be modified, but it is not essential:
+
+```css
+:root {
+    --button-fixed-width: 40px;
+    --button-fixed-height: 40px;
+    --button-fixed-width-sm: 26px;
+    --button-fixed-height-sm: 26px;
+}
+```
+
+The fixed button size is used to calculate many other sizes. If the `--button-fixed-fixed-*` and `--button-fixed-*-sm` sizes are to be redefined using pixels as units, it is recommended that the sizes used are even numbers, as many other sizes are calculated as half of these sizes.
 
 We can also optimise the playbar buttons by hiding some buttons below a certain size. To do this we can use the `minContainerSize` property, which will cause that button not to be displayed if the playbar is smaller than that size. With this option we can hide the less relevant plugins when the player is too small to display them all. This property only works if the container where the button is located is the playback bar.
 
@@ -130,4 +141,37 @@ We can also optimise the playbar buttons by hiding some buttons below a certain 
 },
 ```
 
-## 
+## Include CSS styles
+
+paella-core is packaged using [Webpack](https://webpack.js.org), which packages stylesheets and javascript code in the same file. Coupled with other packaging systems (Webpack or other), this makes it difficult to set the order in which the stylesheets are loaded. For that reason, `paella-core` includes an API designed to load stylesheets ensuring that the last one loaded will be the most prioritised. This mechanism is also used to implement the skins system, which will be explained later in another tutorial.
+
+Create a new file: `public/custom-style.css`:
+
+```css
+body {
+    margin: 0px;
+    font-family: sans-serif;
+}
+
+:root {
+    --button-fixed-width-sm: 26px;
+    --button-fixed-height-sm: 26px;
+}
+```
+
+Update the `main.js` code to load the style sheet when the player has loaded:
+
+```js
+import {
+    ...
+    utils   // To use utils.loadStyle()
+} from 'paella-core';
+...
+await player.loadManifest();
+// Load style after the player has loaded.
+await utils.loadStyle('style.css');
+```
+
+It is important to note that this behaviour affects the size of the player, not the size of the browser window. If we have a player inside a container on a website, and that container is less than 700px wide, `small` mode will be activated. CSS container queries have been used to do this using two containers: `player-container`, which affects the size of the player bar, and `playback-bar`, which affects the size of the content of the player bar (e.g. buttons).
+
+
