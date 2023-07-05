@@ -9,6 +9,7 @@ Welcome to the paella-core tutorial for creating your own video player. This tut
 5. [Group buttons](group_buttons.md)
 6. [Customize colors](customize_colors.md)
 7. [Customize playback bar](customize_playback_bar.md)
+8. [Video frame thumnail preview](video_frames_preview.md)
 8. Video manifest: formats
 9. Video manifest: dual video
 10. Video manifest: captions
