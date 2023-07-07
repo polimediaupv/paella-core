@@ -91,8 +91,14 @@ The HLS (HTTP Live Streaming) format is becoming the new standard for web video.
 - It has no firewall problems because it uses the same port as the rest of the web.
 - It can take advantage of the SSL protocol itself for security.
 - It can be implemented using HTTP file servers.
+- Supports dynamic quality change
+- Supports multiple audio tracks
 
 
+The implementation of the HLS plugin in `paella-core` is done using the [hls.js](https://github.com/video-dev/hls.js/) library. The operation of HLS is quite a bit more complex than HTML5 or mp4 video, so I recommend that you consult the documentation on [the HLS plugin](../hls_video_plugin.md). Many problems come from the video encoding or streaming server configuration itself, so it is important that you familiarize yourself with this documentation. We also have a document [on troubleshooting common problems in HLS with Wowza streaming server](../wowza_configure_hls_low_latency.md), and also we have documentation on [generate multiple audio tracks with ffmpeg for HLS](../ffmpeg_multiple_audio_tracks_hls.md).
+
+
+## HLS Live
 
 ## Images
 
