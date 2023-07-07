@@ -10,7 +10,7 @@ Welcome to the paella-core tutorial for creating your own video player. This tut
 6. [Customize colors](customize_colors.md)
 7. [Customize playback bar](customize_playback_bar.md)
 8. [Video frame thumnail preview](video_frames_preview.md)
-8. Video manifest: formats
+8. [Video manifest: formats](video_formats.md)
 9. [Customize icons](customize_icons.md)
 10. Video manifest: captions
 11. Data plugins
