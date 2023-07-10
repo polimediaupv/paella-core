@@ -40,7 +40,9 @@ For each element of the `validContent` array we have to specify four attributes:
 
 We are going to add the `es.upv.paella.dualVideoDynamic` plugin configuration to be able to display two streams:
 
-```config.json
+**config.json**
+
+```json
 {
     "plugins": {
         "es.upv.paella.singleVideoDynamic": {

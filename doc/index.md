@@ -18,6 +18,8 @@
 
 [Tutorial. Create your own paella player](tutorial.md)
 
+[Extended tutorial](tutorial/index.md): A walkthrough of all `paella-core` and its main plugins, through tutorials.
+
 [Video manifest (data.json)](video_manifest.md): the video manifest is a set of resources that compose the video, specified in JSON format.
 
 [Embedding Paella Player in a React application](paella_react.md)

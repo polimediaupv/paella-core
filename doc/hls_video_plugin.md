@@ -152,7 +152,7 @@ To customise this tag we can use the plugin configuration, or the [video manifes
 
 ```json
 "es.upv.paella.hlsVideoFormat": {
-  "enabled": true,
+  ...
   "audioTrackLabel": "name",
   ...
 }
@@ -161,6 +161,30 @@ To customise this tag we can use the plugin configuration, or the [video manifes
 If you have generated an m3u8 playlist following the instructions in the previous section ([Using ffmpeg to generate an HLS with multiple audio tracks](ffmpeg_multiple_audio_tracks_hls.md)), you may have encountered the problem that FFMPEG ignores the track names specified on the command line. It is possible to edit the playlist file afterwards to modify the track names, but you can also use the `audioTrackLabel` property to get the track names from another field, such as the language.
 
 
+```json
+"es.upv.paella.hlsVideoFormat": {
+  ...
+  "enableCache": false,
+  ...
+}
+```
+
+The `enableCache` attribute allows you to enable the browser cache for downloading m3u8 files. It is usually advisable to enable it, but if the m3u8 playlist files or the streaming server configuration changes frequently, it is usually better to disable it.
+
+
+```json
+"es.upv.paella.hlsVideoFormat": {
+  ...
+  "forceNative": false,
+  ...
+}
+```
+
+The `forceNative` attribute is used on iPadOS and macOS platforms, using the Safari browser. These platforms using Safari support HLS natively, but also support the hlsjs-based plugin.
+
+Native playback is better in terms of efficiency and usually gives fewer problems. In addition to this, if native HLS playback fails due to some problem, the problem is almost certainly in the video streaming server configuration or encoding, so it can be used for debugging.
+
+In contrast, the hlsjs library uses the Media Source Extensions to implement HLS playback via JavaScript. This option is less efficient, but much more flexible. For example, with the native mode it is not possible to manually select the streaming quality.
 
 ## Troubleshooting
 
