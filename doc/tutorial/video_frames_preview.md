@@ -245,3 +245,8 @@ If the `order` attribute of the plugins is not properly configured, the arrows w
 
 ![prev_slide_nav_wrong_order](prev_slide_nav_wrong_order.jpg)
 
+
+
+
+Previous tutorial: [Customize playback bar](customize_playback_bar.md)
+Next tutorial: [Video manifest: formats](video_formats.md)

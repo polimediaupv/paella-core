@@ -80,3 +80,8 @@ It is an auxiliary variable used to draw elements containing borders. `paella-co
 ### `--main-outline-color`
 
 It is the color of the highlight border. It is used to mark elements that have the focus. For more information, see the tutorial on [Accessibility](accessibility.md).
+
+
+
+Previous tutorial: [Group buttons](group_buttons.md)
+Next tutorial: [Customize playback bar](customize_playback_bar.md)

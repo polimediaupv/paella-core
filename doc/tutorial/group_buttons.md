@@ -88,3 +88,7 @@ That text is the default value of the `description` property of the plugin. We c
 ```
 
 ![button description](button_description.jpg)
+
+
+Previous tutorial: [Add plugins from libraries](add_plugins.md)
+Next tutorial: [Customize colors](customize_colors.md)

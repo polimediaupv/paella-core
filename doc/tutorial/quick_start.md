@@ -152,3 +152,4 @@ El reproductor funciona, pero no tiene ningún botón para pausar o reanudar la 
 }
 
  
+Next tutorial: [Two streams](two_streams.md)

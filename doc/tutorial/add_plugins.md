@@ -188,3 +188,6 @@ Note, however, that video layouts can also contain icons, and may overlap with b
 
 ![video_container_button.jpg](video_container_button.jpg)
 
+
+Previous tutorial: [Init params](init_params.md)
+Next tutorial: [Group buttons](group_buttons.md)

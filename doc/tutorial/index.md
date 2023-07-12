@@ -13,7 +13,7 @@ Welcome to the paella-core tutorial for creating your own video player. This tut
 9. [Video manifest: formats](video_formats.md)
 10. [Quality selector plugin](quality_selector.md)
 11. [Customize icons](customize_icons.md)
-12. Video manifest: captions
+12. [Video manifest: captions](video_manifest_captions.md)
 13. Data plugins
 14. Customize icons
 15. Create a custom plugin

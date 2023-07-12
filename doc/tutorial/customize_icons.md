@@ -215,3 +215,5 @@ player.addCustomPluginIcon('es.upv.paella.volumeButtonPlugin','volumeMuteIcon',v
 ...
 ```
 
+Previous tutorial: [Quality selector plugin](quality_selector.md)
+Next tutorial: [Video manifest: captions](video_manifest_captions.md)

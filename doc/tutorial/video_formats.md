@@ -439,3 +439,8 @@ In the following example configuration the highest priority plugin is set to be 
 		...
 	}
 ```
+
+
+Previous tutorial: [Video frame thumnail preview](video_frames_preview.md)
+Next tutorial: [Quality selector plugin](quality_selector.md)
+

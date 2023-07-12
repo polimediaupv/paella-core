@@ -88,5 +88,6 @@ The `defaultVideoPreview` and `defaultVideoPreviewPortrait` attributes can also 
 
 You can learn more about the initialisation parameters [in this document](../initialization.md).
 
-
+Previous tutorial: [Two streams](two_streams.md)
+Next tutorial: [Add plugins from libraries](add_plugins.md)
 

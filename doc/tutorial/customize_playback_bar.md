@@ -175,3 +175,6 @@ await utils.loadStyle('style.css');
 It is important to note that this behaviour affects the size of the player, not the size of the browser window. If we have a player inside a container on a website, and that container is less than 700px wide, `small` mode will be activated. CSS container queries have been used to do this using two containers: `player-container`, which affects the size of the player bar, and `playback-bar`, which affects the size of the content of the player bar (e.g. buttons).
 
 
+
+Previous tutorial: [Customize colors](customize_colors.md)
+Next tutorial: [Video frame thumnail preview](video_frames_preview.md)

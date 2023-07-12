@@ -309,3 +309,5 @@ The `repositoryUrl` attribute specifies the URL where the player will look for t
 
 
 
+Previous tutorial: [Quick start](quick_start.md)
+Next tutorial: [Init params](init_params.md)
