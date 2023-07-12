@@ -33,43 +33,48 @@ Modify the `public/repo/dual-stream/data.json` file to add the thumbnail data:
 ```json
 {
     ...
-    "frameList": [
-		{
-			"id": "frame_854",
-			"mimetype": "image/jpeg",
-			"time": 854,
-			"url": "https://repository.paellaplayer.upv.es/belmar-multiresolution/slides/3d90109c-9608-44c1-8660-fce3f216d716/presentation_cut.jpg",
-			"thumb": "https://repository.paellaplayer.upv.es/belmar-multiresolution/slides/403de1df-aa66-44c0-b600-7683acf249b8/presentation_cut.jpg"
-		},
-		{
-			"id": "frame_751",
-			"mimetype": "image/jpeg",
-			"time": 751,
-			"url": "https://repository.paellaplayer.upv.es/belmar-multiresolution/slides/598bd2ba-4fef-4886-884e-0ab82176f13d/presentation_cut.jpg",
-			"thumb": "https://repository.paellaplayer.upv.es/belmar-multiresolution/slides/73a6564c-b2d6-4896-b0f1-38129dde2c85/presentation_cut.jpg"
-		},
-		{
-			"id": "frame_0",
-			"mimetype": "image/jpeg",
-			"time": 0,
-			"url": "https://repository.paellaplayer.upv.es/belmar-multiresolution/slides/7dc22bee-14f3-442c-8f0d-30d8b68c8604/presentation_cut.jpg",
-			"thumb": "https://repository.paellaplayer.upv.es/belmar-multiresolution/slides/46561b90-85b3-4ad7-a986-cdd9b52ae02b/presentation_cut.jpg"
-		},
-		{
-			"id": "frame_363",
-			"mimetype": "image/jpeg",
-			"time": 363,
-			"url": "https://repository.paellaplayer.upv.es/belmar-multiresolution/slides/d3194d9b-8f65-403b-a639-9de4311a283b/presentation_cut.jpg",
-			"thumb": "https://repository.paellaplayer.upv.es/belmar-multiresolution/slides/4505b6d9-8a0c-4809-ade3-840e743188ed/presentation_cut.jpg"
-		}
-	]
+    "frameList": {
+        "targetContent": "presentation",
+        "frames": [
+            {
+                "id": "frame_854",
+                "mimetype": "image/jpeg",
+                "time": 854,
+                "url": "https://repository.paellaplayer.upv.es/belmar-multiresolution/slides/3d90109c-9608-44c1-8660-fce3f216d716/presentation_cut.jpg",
+                "thumb": "https://repository.paellaplayer.upv.es/belmar-multiresolution/slides/403de1df-aa66-44c0-b600-7683acf249b8/presentation_cut.jpg"
+            },
+            {
+                "id": "frame_751",
+                "mimetype": "image/jpeg",
+                "time": 751,
+                "url": "https://repository.paellaplayer.upv.es/belmar-multiresolution/slides/598bd2ba-4fef-4886-884e-0ab82176f13d/presentation_cut.jpg",
+                "thumb": "https://repository.paellaplayer.upv.es/belmar-multiresolution/slides/73a6564c-b2d6-4896-b0f1-38129dde2c85/presentation_cut.jpg"
+            },
+            {
+                "id": "frame_0",
+                "mimetype": "image/jpeg",
+                "time": 0,
+                "url": "https://repository.paellaplayer.upv.es/belmar-multiresolution/slides/7dc22bee-14f3-442c-8f0d-30d8b68c8604/presentation_cut.jpg",
+                "thumb": "https://repository.paellaplayer.upv.es/belmar-multiresolution/slides/46561b90-85b3-4ad7-a986-cdd9b52ae02b/presentation_cut.jpg"
+            },
+            {
+                "id": "frame_363",
+                "mimetype": "image/jpeg",
+                "time": 363,
+                "url": "https://repository.paellaplayer.upv.es/belmar-multiresolution/slides/d3194d9b-8f65-403b-a639-9de4311a283b/presentation_cut.jpg",
+                "thumb": "https://repository.paellaplayer.upv.es/belmar-multiresolution/slides/4505b6d9-8a0c-4809-ade3-840e743188ed/presentation_cut.jpg"
+            }
+        ]
+    }
 }
 ```
+NOTE: The frame preview settings have changed as of `paella-core` v1.40. Files from earlier versions are still supported, but the example above will only work with `paella-core` v1.40 or higher.
 
 If a video manifest contains a list of frames, then `paella-core` will use it to represent them on the timeline when hovering the mouse cursor over them:
 
 ![video_thumbnail](video_thumbnail.jpg)
 
+You can see more about [frame thumbnails in the documentation on video manifest](../video_manifest.md).
 
 ## Slide plugins
 
@@ -119,6 +124,8 @@ In the configuration file, add the following settings:
 ```
 
 There is a new attribute in the configuration of this plugin: `targentContent`. It corresponds to the `content` attribute of each stream in the video manifest. When the image of the frame is displayed in full resolution, it will be displayed over the container of the video stream that corresponds to `targetContent`. As in the video we have included the presentation frames, we define `targetContent` as `presentation`.
+
+In the frame list in the video manifest it is possible to specify the `targetContent`. If so, the value defined in the video manifest will take precedence over the plugin settings.
 
 ![frame_slide_navigation](frame_control_button_plugin.jpg)
 
