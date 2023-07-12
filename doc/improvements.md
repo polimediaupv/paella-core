@@ -192,3 +192,7 @@
 
 - DFXP manifest plugin implemented. [See paella-core plugins](paella_core_plugins.md) for more information.
 
+## paella-core 1.40
+
+- New API: [frameList](paella_object.md)
+
