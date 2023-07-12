@@ -74,8 +74,7 @@ export default class PlaybackBar extends DomClass {
 		}
 	}
 	
-	async load() {		
-		this._frameList = this.player.videoManifest;
+	async load() {
 		this._enabledPlugins = [];
 		
 		this.player.log.debug("Loading button plugins");

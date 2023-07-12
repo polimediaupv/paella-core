@@ -504,6 +504,10 @@ export default class Paella {
         return PlayerStateNames;
     }
 
+    get frameList() {
+        return this._frameList || { frames: [], targetContent: null };
+    }
+
     waitState(state) {
         return new Promise((resolve, reject) => {
             const checkState = () => {
@@ -620,6 +624,22 @@ export default class Paella {
                 this._videoManifest.metadata.preview = this.defaultVideoPreview;
                 this._videoManifest.metadata.previewPortrait = this.defaultVideoPreviewPortrait;
                 this.log.warn("Paella.loadUrl(): no preview image specified. Using default preview image.");
+            }
+
+            // Check frameList format
+            if (this._videoManifest.frameList &&
+                !Array.isArray(this._videoManifest.frameList) &&
+                typeof(this._videoManifest.frameList) === "object" &&
+                typeof(this._videoManifest.frameList.targetContent) === "string" &&
+                Array.isArray(this._videoManifest.frameList.frames)) 
+            {
+                this._frameList = this._videoManifest.frameList;
+            }
+            else if (Array.isArray(this._videoManifest.frameList)) {
+                this._frameList = {
+                    targetContent: null,
+                    frames: this._videoManifest.frameList
+                }
             }
     
             // Load custom icons from skin

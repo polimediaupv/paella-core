@@ -142,7 +142,7 @@ export default class ProgressIndicator extends DomClass {
 			this._remainingContainer.style.display = "none";
 		}
 
-		this._frameList = player.videoManifest?.frameList;
+		this._frameList = player.frameList.frames;
 		this._frameList?.sort((a,b) => a.time-b.time);
 
 		this.onResize();

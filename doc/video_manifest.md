@@ -156,6 +156,8 @@ It is a list of representative frames of the video, associated to an instant of 
 
 The frame list is used to bring up a thumbnail on the timeline when hovering over it, but it can also be used by other plugins. This attribute is optional, but it is highly recommended to include it for easy navigation through the video.
 
+**`paella-core < 1.40`:** In versions prior to 1.40, the frame list is stored directly in an array:
+
 ```json
 {
   ...
@@ -178,6 +180,46 @@ The frame list is used to bring up a thumbnail on the timeline when hovering ove
   ]
 }
 ```
+
+**`paella-core >= 1.40`:** As of version 1.40 the `frameList` array is replaced by an object:
+
+```json
+{
+  ...
+  "frameList": {
+    "targetContent": "presenter",
+    "frames": [
+      {
+        "id": "frame_854",
+        "mimetype": "image/jpeg",
+        "time": 854,
+        "url": "image_854.jpg",
+        "thumb": "image_854_thumb.jpg"
+      },
+      {
+        "id": "frame_0",
+        "mimetype": "image/jpeg",
+        "time": 0,
+        "url": "image_0.jpg",
+        "thumb": "image_0_thumb.jpg"
+      },
+      ...
+    ]
+  }
+}
+```
+
+The `targetContent` attribute allows you to specify which video stream the frame list was extracted from. If the list of frames has not been extracted from any stream (i.e. if they have been created independently), if the frames have been composed from several streams or if the video contains only one stream, the `targetContent` attribute can be `null`. In addition to this, later versions of `paella-core 1.40` have to be backward compatible with the `frameList` format. For these reasons, plugins must allow for the possibility that `targetContent` is `null`.
+
+To access the frame list, starting with `paella-core 1.40` you must use the `frameList` API:
+
+```javascript
+const player = new Paella('player-container', initParams);
+...
+const { frames, targetContent } = player.frameList;
+```
+
+The internal format of each frame object is as follows:
 
 - **id:** unique identifier of the frame
 - **mimetype:** the mimetype of the image

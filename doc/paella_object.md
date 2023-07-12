@@ -235,3 +235,33 @@ The plugin [icon customization APIs](plugin_icon_customization.md) are also acce
 - `paella.requestedCustomIcons`
 
 
+## Frame list (paella-core >= 1.40.0)
+
+The access to the thumbnails of the video frames has been done through the video manifest information. From version 1.40 onwards, access to video thumbnail information has been standardized through the `frameList` API:
+
+```javascript
+const { frames, targetContent } = player.frameList;
+```
+
+- `player.frameList.frames`: It is the array of frames. Each frame has the same format as in the video manifest:
+
+```json
+"frames": [
+    {
+        "id": "frame_id",
+        "mimetype": "image/jpeg",
+        "time": 0,
+        "url": "image_full_res.jpg",
+        "thumb": "image_thumb.jpg
+    }
+]
+```
+
+- `player.frameList.targetContent`: Indicates the content from which the frames were extracted. If they have been extracted from the stream with content id `presentation`, then this value will be `presentation`. This property can be `null` for several reasons:
+
+- The frame list is not extracted from any stream. For example, if independently created frames are used.
+- The frame list has been extracted from a composite of several streams.
+- The format of the video manifest has not been updated since the previous version to `1.40`. In previous formats this parameter was not stored in the video manifest.
+
+In this case, plugins that use this parameter have to define an alternative method to link the frames to the stream, for example, by defining this property in the plugin configuration.
+
