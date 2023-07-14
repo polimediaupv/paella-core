@@ -22,3 +22,9 @@ Welcome to the paella-core tutorial for creating your own video player. This tut
 18. Video manifest: video canvas
 19. Audio streams
 20. VideoContainer API
+
+
+You can download the source code of the completed tutorials from the github repository:
+
+[https://github.com/polimediaupv/paella-tutorials](https://github.com/polimediaupv/paella-tutorials)
+
