@@ -239,5 +239,5 @@ Add the following files:
 Note how the DFXP format allows multiple subtitles to be added using the same file. In this case, the DFXP plugin uses the internal tags of the subtitle file to name each track, and these values are used to label the subtitle menu items.
 
 Previous tutorial: [Customize icons](customize_icons.md)
-Next tutorial: 
+Next tutorial: [Localization](localization.md)
 
