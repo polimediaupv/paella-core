@@ -31,15 +31,20 @@ By adding this property, we can be sure that if we add a dictionary for the `en`
 
 ## Add dictionary
 
-To add dictionaries just use the `player.addDictionary()` API, but always before the player is loaded. If this API is used after `loadManifest`, the texts will be available for all UI plugins:
+To add dictionaries just use the `player.addDictionary()` API after calling `loadManifest()`:
 
 ```js
-await player.loadManifest();
+player = new Paella(...)
 ...
+player.loadManifest();
 player.addDictionary(lang, dict);
 ```
 
-If we want to have access to translations before `loadManifest` (for example, for keyboard shortcuts plugins), then we have to call this API from the `loadDictionaries` function of the init delegate. Generally, this is the preferred method in most cases, since the dictionaries we add are available for all types of plugins. The negative part is that this function is in charge of setting the default language, so if we overwrite it we have to do it ourselves.:
+Plugins can add their own dictionaries. If we use `addDictionary()` after `loadManifest()`, the text strings we put in will have priority over those in the dictionaries defined by the plugins. If what we want is to add only those texts that may be missing in the dictionaries, then we will want the plugins dictionaries to have priority over our dictionaries. In that case we have to call `addDictionary()` from the `loadDictionaries` callback defined in the `initParams` object.
+
+The `loadDictionaries` callback is executed before loading the plugins, so the dictionary strings defined by the plugins will overwrite the strings added in this callback.
+
+In the default implementation of `loadDictionaries` is where the default language of `paella-core` is set. If we define this callback, we have to define the default language selection method as well. In the following example the browser language is set, which is the same behavior that `loadDictionaries` has by default:
 
 ```js
 const initParams = {
