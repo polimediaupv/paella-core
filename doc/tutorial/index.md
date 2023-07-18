@@ -16,7 +16,7 @@ Welcome to the paella-core tutorial for creating your own video player. This tut
 12. [Video manifest: captions](video_manifest_captions.md)
 13. [Localization](localization.md)
 14. [Basic accessibility](accessibility.md)
-15. Data plugins
+15. [Data plugins and preferences](data_plugins_and_preferences.md)
 16. Trimming basics
 17. Create a custom plugin
 18. Video manifest: video canvas

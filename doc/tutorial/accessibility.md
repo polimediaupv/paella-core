@@ -310,4 +310,5 @@ To avoid this conflict, we can use the `clickWithSpacebar` property inside the `
 ```
 
 Previous tutorial: [Localization](localization.md)
-Next tutorial: 
+Next tutorial: [Data plugins and preferences](data_plugins_and_preferences.md)
+
