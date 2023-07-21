@@ -54,10 +54,10 @@ export const printMessage = ({
             console.warn(`${ context } - Warning: ${msg}`);
             break;
         case LOG_LEVEL.INFO:
-            console.log(`${ context } - Info: ${msg}`);
+            console.info(`${ context } - Info: ${msg}`);
             break;
         case LOG_LEVEL.DEBUG:
-            console.log(`${ context } - Debug: ${msg}`);
+            console.debug(`${ context } - Debug: ${msg}`);
             break;
         case LOG_LEVEL.VERBOSE:
             console.log(`${ context } - Verbose: ${msg}`);
