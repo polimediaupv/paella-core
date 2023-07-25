@@ -140,6 +140,10 @@ export class AudioOnlyVideo extends Video {
 }
 
 export default class AudioVideoPlugin extends VideoPlugin {
+    get name() {
+		return super.name || "es.upv.paella.audioVideoFormat";
+	}
+
     get streamType() {
         return "audio";
     }

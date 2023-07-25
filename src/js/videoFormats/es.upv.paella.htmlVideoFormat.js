@@ -41,6 +41,10 @@ export class HtmlVideo extends Mp4Video {
 }
 
 export default class HtmlVideoPlugin extends VideoPlugin {
+    get name() {
+		return super.name || "es.upv.paella.htmlVideoFormat";
+	}
+
     get streamType() {
         return "html";
     }

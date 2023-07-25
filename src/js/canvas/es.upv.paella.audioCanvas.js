@@ -13,6 +13,10 @@ export class AudioCanvas extends Canvas {
 }
 
 export default class AudioCanvasPlugin extends CanvasPlugin {
+    get name() {
+		return super.name || "es.upv.paella.audioCanvas";
+	}
+
     get canvasType() { return 'audio'; }
 
     getCanvasInstance(videoContainer) {

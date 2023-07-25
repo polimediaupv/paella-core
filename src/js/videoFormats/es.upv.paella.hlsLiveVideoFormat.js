@@ -112,6 +112,10 @@ export class HlsLiveVideo extends HlsVideo {
 }
 
 export default class HlsLiveVideoFormat extends VideoPlugin {
+    get name() {
+		return super.name || "es.upv.paella.hlsLiveVideoFormat";
+	}
+
     get streamType() {
         return "hlsLive";
     }

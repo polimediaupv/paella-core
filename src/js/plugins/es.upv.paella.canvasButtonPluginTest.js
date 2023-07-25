@@ -3,6 +3,14 @@ import CanvasButtonPlugin from "../core/CanvasButtonPlugin";
 import TestIcon from "paella-core/icons/screen.svg";
 
 export default class CanvasButtonPluginTest extends CanvasButtonPlugin {
+    get name() {
+		return super.name || "es.upv.paella.canvasButtonPluginTest";
+	}
+
+    get name() {
+        return super.name || "es.upv.paella.canvasButtonPluginTest";
+    }
+    
     async load() {
         this.icon = TestIcon;
     }

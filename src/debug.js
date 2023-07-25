@@ -4,6 +4,9 @@ import { defaultLoadVideoManifestFunction } from 'paella-core/js/core/initFuncti
 import { setCookie, getCookie, setCookieIfAllowed } from 'paella-core/js/core/utils';
 import './debug.css';
 
+import PlayPauseButton from 'paella-core/js/plugins/es.upv.paella.playPauseButton';
+import CanvasButtonPluginTest from 'paella-core/js/plugins/es.upv.paella.canvasButtonPluginTest';
+
 // Objects to store the custom localization dictionaries
 import g_dictionaries from 'paella-core/js/default-dictionaries.js';
 let g_currentLanguage = navigator.language.substring(0,2);
@@ -48,6 +51,16 @@ const getCookieConsentData = () => {
 
 const initParams = {
 	customLoader: CustomLoader,
+
+	plugins: [
+		PlayPauseButton,
+		{
+			plugin: CanvasButtonPluginTest,
+			config: {
+				enabled: false
+			}
+		}
+	],
 
 	loadVideoManifest: async function(videoManifestUrl,config,player) {
 		player.log.debug(config);

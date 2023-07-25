@@ -129,6 +129,10 @@ function currentLayout(validContent) {
 }
 
 export default class DualVideoLayout extends VideoLayout {
+    get name() {
+		return super.name || "es.upv.paella.dualVideo";
+	}
+
     get identifier() { return "dual-video"; }
 
     async load() {

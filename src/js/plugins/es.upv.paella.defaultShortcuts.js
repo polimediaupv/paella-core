@@ -11,6 +11,10 @@ import PlayerState from "../core/PlayerState";
 
 export default class DefaultKeyShortcutsPlugin extends KeyShortcutPlugin {
 
+    get name() {
+		return super.name || "es.upv.paella.defaultShortcuts";
+	}
+
     getVolumeIcon(volume) {
         if (volume === 0) {
             return this.player.getCustomPluginIcon(this.name,"volumeMuteIcon") || defaultVolumeMuteIcon;

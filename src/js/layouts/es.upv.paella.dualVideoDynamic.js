@@ -10,6 +10,10 @@ import defaultIconSideBySide from 'paella-core/icons/icon_side_by_side.svg';
 import defaultIconPiP from 'paella-core/icons/icon_pip.svg';
 
 export default class DualVideoDynamicLayout extends VideoLayout {
+    get name() {
+		return super.name || "es.upv.paella.dualVideoDynamic";
+	}
+
     get layoutType() {
         return "dynamic";
     }

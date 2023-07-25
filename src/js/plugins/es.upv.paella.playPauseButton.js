@@ -6,6 +6,10 @@ import defaultPauseIcon from 'paella-core/icons/pause.svg';
 import defaultReplayIcon from 'paella-core/icons/replay.svg';
 
 export default class PlayButtonPlugin extends ButtonPlugin {
+	get name() {
+		return super.name || "es.upv.paella.playPauseButton";
+	}
+
 	async load() {
 		const playIcon = this.player.getCustomPluginIcon(this.name,"play") || defaultPlayIcon;
 		const pauseIcon = this.player.getCustomPluginIcon(this.name,"pause") || defaultPauseIcon;

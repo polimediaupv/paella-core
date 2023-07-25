@@ -1,12 +1,68 @@
 import pluginRequireContext from '../../../plugin_directories';
+import paellaPlugins from '../../../paella_plugins';
 import { loadSvgIcon, joinPath } from './utils';
 import ButtonGroupPlugin from './ButtonGroupPlugin';
+import { mergeObjects } from './utils';
 
-function importPlugin(player, pluginClass, pluginInstance, PluginClass) {
+export const createPluginInstance = (PluginClass, player, name, staticConfig = {}) => {
+    const instance = new PluginClass(player, name);
+    // The name defined by the instance has a higher priority than the name obtained through the file name
+    name = instance.name || name;
+    if (!name) {
+        player.log.warn(`The instance of the ${PluginClass.name} plugin cannot be created because it is being loaded explicitly and does not have the name property implemented.`)
+        return null;
+    }
+    else {
+        if (player.config.plugins && player.config.plugins[name]) {
+            mergeObjects(staticConfig, player.config.plugins[name]);
+        }
+        instance._config = staticConfig;
+        return instance;
+    }
+}
+
+function importPlugin(player, pluginClass, pluginInstance, PluginClass, overwrite = false) {
     const type = pluginInstance.type;
+    if (player.__pluginData__.pluginInstances[type] &&
+        player.__pluginData__.pluginInstances[type].find(registeredPlugin => {
+            return registeredPlugin.name === pluginInstance.name
+        }) &&
+        !overwrite)
+    {
+        player.log.info(`Plugin ${pluginInstance.name} of type ${type} already registered.`);
+        return;        
+    }
     player.__pluginData__.pluginClasses[pluginClass] = PluginClass;
     player.__pluginData__.pluginInstances[type] = player.__pluginData__.pluginInstances[type] || [];
     player.__pluginData__.pluginInstances[type].push(pluginInstance);
+}
+
+export function importSinglePlugin(player,pluginData) {
+    let PluginClass = null;
+    let config = { enabled: true };
+    if (typeof(pluginData) === "function") {
+        PluginClass = pluginData;
+    }
+    else if (typeof(pluginData) === "object"
+        && typeof(pluginData.plugin) === "function")
+    {
+        PluginClass = pluginData.plugin;
+        config = pluginData.config;
+    }
+
+    if (!PluginClass) {
+        player.log.warn("Error importing plugin with explicit import API. Check the 'plugins' array at init params");
+    }
+    else {
+        const pluginInstance = createPluginInstance(PluginClass, player, null, config);
+        if (!pluginInstance) {
+            player.log.warn(`Unable to create an instance of the plugin ${PluginClass.name}`);
+        }
+        else {
+            const className = pluginInstance.constructor.name;
+            importPlugin(player, className, pluginInstance, PluginClass, true);
+        }
+    }
 }
 
 export function importPlugins(player,context) {
@@ -16,8 +72,8 @@ export function importPlugins(player,context) {
         const pluginName = key.substring(2,key.length - 3);
         if (config.plugins[pluginName]) {
             const PluginClass = module.default;
-            const pluginInstance = new PluginClass(player, config, pluginName);
-            importPlugin(player, key, pluginInstance, PluginClass);
+            const pluginInstance = createPluginInstance(PluginClass, player, pluginName, config);
+            importPlugin(player, key, pluginInstance, PluginClass, false);
         }
         // Check if it is a plugin module
         else if (/^[a-z0-9]+$/i.test(pluginName)) {
@@ -42,6 +98,17 @@ export function registerPlugins(player) {
     // If the s_pluginClasses array is not empty, the plugins have already been registered
     if (player.__pluginData__.pluginClasses.length !== 0) return;
 
+    // Single plugin import. The single plugin import API has higher priority than 
+    // the pluginContext API. Plugins that have been loaded with this API will not be loaded
+    // with the pluginContext API.
+    [
+        ...paellaPlugins,
+        ...player.initParams.plugins
+    ].forEach(pluginData => {
+            importSinglePlugin(player, pluginData);
+        });
+
+    // TODO: pluginContext API will be deprecated soon
     // Import plugins
     pluginRequireContext.forEach(ctx => importPlugins(player, ctx));
     // Custom plugins
@@ -57,7 +124,7 @@ export function registerPlugins(player) {
             buttonGroupConfig.plugins[name] = btnData;
             const instance = new ButtonGroupPlugin(player, buttonGroupConfig, name);
             instance._iconPath = joinPath([player.configResourcesUrl, btnData.icon]);
-            importPlugin(player, instance.type, instance, `ButtonGroupPlugin${i}`);
+            importPlugin(player, instance.type, instance, `ButtonGroupPlugin${i}`, false);
         }) 
     }
 

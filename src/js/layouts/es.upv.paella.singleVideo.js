@@ -4,6 +4,10 @@ import VideoLayout from '../core/VideoLayout';
 import sideBySideIcon from "../../icons/icon_side_by_side.svg";
 
 export default class SingleVideoLayout extends VideoLayout {
+    get name() {
+		return super.name || "es.upv.paella.singleVideo";
+	}
+
     get identifier() { return "single-video"; }
 
     async load() {

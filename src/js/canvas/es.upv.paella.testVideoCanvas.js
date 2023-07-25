@@ -27,7 +27,8 @@ export default class TestVideoCanvasPlugin extends CanvasPlugin {
     async isEnabled() {
         this.player.log.debug("TestVideoCanvasPlugin");
         return super.isEnabled();
-    } 
+    }
+
     isCompatible(stream) {
         if (!Array.isArray(stream.canvas) || stream.canvas.length === 0) {
             return true;

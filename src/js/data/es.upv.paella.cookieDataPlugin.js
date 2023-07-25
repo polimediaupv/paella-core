@@ -3,6 +3,10 @@ import { DataPlugin } from 'paella-core/js/core/Data';
 import { setCookie, getCookie } from 'paella-core/js/core/utils';
 
 export default class CookieDataPlugin extends DataPlugin {
+    get name() {
+        return super.name || "es.upv.paella.cookieDataPlugin";
+    }
+    
     serializeKey(context,params) {
         if (typeof(params) === "object") {
             params = JSON.stringify(params);

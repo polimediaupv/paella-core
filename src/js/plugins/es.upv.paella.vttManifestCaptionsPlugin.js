@@ -5,6 +5,10 @@ import WebVTTParser from 'paella-core/js/captions/WebVTTParser';
 import { resolveResourcePath } from 'paella-core/js/core/utils';
 
 export default class VttManifestCaptionsPlugin extends CaptionsPlugin {
+    get name() {
+		return super.name || "es.upv.paella.vttManifestCaptionsPlugin";
+	}
+
     async isEnabled() {
         const enabled = await super.isEnabled();
         return  enabled &&

@@ -142,6 +142,10 @@ export class ImageVideo extends Video {
 }
 
 export default class ImageVideoPlugin extends VideoPlugin {
+	get name() {
+		return super.name || "es.upv.paella.imageVideoFormat";
+	}
+
 	get streamType() {
 		return "image";
 	}

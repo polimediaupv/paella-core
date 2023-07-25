@@ -1,11 +1,9 @@
 import PlayerResource from './PlayerResource';
 
-
 export default class Plugin extends PlayerResource {
-    constructor(player,config,name) {
+    constructor(player, name) {
         super(player);
         this._name = name;
-        this._config = config.plugins[this.name];
     }
 
     get config() { return this._config; }

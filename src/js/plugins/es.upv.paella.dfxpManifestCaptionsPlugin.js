@@ -5,6 +5,10 @@ import DFXPParser from 'paella-core/js/captions/DFXPParser';
 import { resolveResourcePath } from 'paella-core/js/core/utils';
 
 export default class DfxpManifestCaptionsPlugin extends CaptionsPlugin {
+    get name() {
+		return super.name || "es.upv.paella.dfxpManifestCaptionsPlugin";
+	}
+
     async isEnabled() {
         const enabled = await super.isEnabled();
         return  enabled &&
