@@ -5,7 +5,7 @@ import HtmlVideoPlugin from "paella-core/js/videoFormats/es.upv.paella.htmlVideo
 import ImageVideoPlugin from "paella-core/js/videoFormats/es.upv.paella.imageVideoFormat";
 import Mp4VideoPlugin from "paella-core/js/videoFormats/es.upv.paella.mp4VideoFormat";
 
-import DefaultKeyShortcutsPlugin from "paella-core/js/plugins/es.upv.paella.collisionTestShortucts";
+import DefaultKeyShortcutsPlugin from "paella-core/js/plugins/es.upv.paella.defaultShortcuts";
 import DfxpManifestCaptionsPlugin from "paella-core/js/plugins/es.upv.paella.dfxpManifestCaptionsPlugin";
 import PlayPauseButtonPlugin from "paella-core/js/plugins/es.upv.paella.playPauseButton";
 import VttManifestCaptionsPlugin from "paella-core/js/plugins/es.upv.paella.vttManifestCaptionsPlugin";
