@@ -29,6 +29,10 @@ export default class TimeLinePopUp extends DomClass {
         }
     }
 
+    static HideAll(player) {
+        player?.__timeLinePopUp?.popUps.forEach(p => p.hide());
+    }
+
     static Unload(player) {
         if (!player.__timeLinePopUp) return;
         if (player.__timeLinePopUp.current) {

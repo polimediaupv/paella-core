@@ -8,6 +8,7 @@ import defaultVolumeLowIcon from "../../icons/volume-low.svg"
 import defaultVolumeMidIcon from "../../icons/volume-mid.svg"
 import defaultVolumeHighIcon from "../../icons/volume-high.svg"
 import PlayerState from "../core/PlayerState";
+import TimeLinePopUp from "../core/TimeLinePopUp";
 
 export default class DefaultKeyShortcutsPlugin extends KeyShortcutPlugin {
 
@@ -103,6 +104,7 @@ export default class DefaultKeyShortcutsPlugin extends KeyShortcutPlugin {
 
     closePopUp() {
         PopUp.HideTopPopUp();
+        TimeLinePopUp.HideAll(this.player);
     }
 
     async decreaseSpeed() {
