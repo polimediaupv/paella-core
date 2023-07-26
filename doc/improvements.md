@@ -196,3 +196,6 @@
 
 - New API: [frameList](paella_object.md)
 
+## paella-core 1.41
+
+- New API: [close all TimeLine pop ups](time_line_pop_up.md)
