@@ -5,7 +5,13 @@ import { CanvasButtonPosition } from '../core/CanvasPlugin';
 
 import defaultIconSideBySide from 'paella-core/icons/icon_side_by_side.svg';
 
+import PaellaCoreLayouts from './PaellaCoreLayouts';
+
 export default class DualVideoDynamicLayout extends VideoLayout {
+    getPluginModuleInstance() {
+        return PaellaCoreLayouts.Get();
+    }
+    
     get name() {
 		return super.name || "es.upv.paella.singleVideoDynamic";
 	}

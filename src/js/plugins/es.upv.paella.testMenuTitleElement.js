@@ -2,11 +2,15 @@ import MenuButtonPlugin from "../core/MenuButtonPlugin";
 
 import TestIcon from "../../icons/close.svg";
 
+import PaellaCorePlugins from "./PaellaCorePlugins";
+
 export default class TestMenuTitleElement extends MenuButtonPlugin {
+    getPluginModuleInstance() {
+        return PaellaCorePlugins.Get();
+    }
+    
     async load() {
         this.icon = TestIcon;
-      
-
     }
 
     get menuTitle() {

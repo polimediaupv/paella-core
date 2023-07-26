@@ -1,7 +1,12 @@
 
 import ProgressIndicatorPlugin from "../core/ProgressIndicatorPlugin";
+import PaellaCorePlugins from "./PaellaCorePlugins";
 
 export default class TestProgressIndicatorPlugin extends ProgressIndicatorPlugin {
+    getPluginModuleInstance() {
+        return PaellaCorePlugins.Get();
+    }
+    
     get minHeight() {
         return 20;
     }

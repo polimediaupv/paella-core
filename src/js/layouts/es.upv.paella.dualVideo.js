@@ -8,6 +8,7 @@ import defaultIconSwitchSide from 'paella-core/icons/icon_switch_side.svg';
 import defaultIconMaximize from 'paella-core/icons/maximize.svg';
 import defaultIconClose from 'paella-core/icons/close.svg';
 import defaultIconSideBySide from 'paella-core/icons/icon_side_by_side.svg';
+import PaellaCoreLayouts from './PaellaCoreLayouts';
 
 let layout = 0;
 /**
@@ -129,6 +130,10 @@ function currentLayout(validContent) {
 }
 
 export default class DualVideoLayout extends VideoLayout {
+    getPluginModuleInstance() {
+        return PaellaCoreLayouts.Get();
+    }
+
     get name() {
 		return super.name || "es.upv.paella.dualVideo";
 	}

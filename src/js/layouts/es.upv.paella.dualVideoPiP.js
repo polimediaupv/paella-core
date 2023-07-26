@@ -6,6 +6,8 @@ import defaultIconClose from 'paella-core/icons/close.svg';
 import defaultIconSideBySide from 'paella-core/icons/icon_side_by_side.svg';
 import { CanvasButtonPosition } from "../core/CanvasPlugin";
 
+import PaellaCoreLayouts from "./PaellaCoreLayouts";
+
 const pipLeft = {
     id: 'pip-left',
     name: {es: "Dos streams imagen dentro de imagen"},
@@ -77,6 +79,10 @@ const pipRight = {
 };
 
 export default class DualVideoPiPLayout extends VideoLayout {
+    getPluginModuleInstance() {
+        return PaellaCoreLayouts.Get();
+    }
+    
     get name() {
 		return super.name || "es.upv.paella.dualVideoPiP";
 	}

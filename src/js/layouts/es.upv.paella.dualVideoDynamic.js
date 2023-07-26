@@ -2,6 +2,7 @@
 import VideoLayout from 'paella-core/js/core/VideoLayout';
 
 import { CanvasButtonPosition } from '../core/CanvasPlugin';
+import PaellaCoreLayouts from './PaellaCoreLayouts';
 
 import defaultIconRotate from 'paella-core/icons/icon_switch_side.svg';
 import defaultIconMaximize from 'paella-core/icons/maximize.svg';
@@ -10,6 +11,10 @@ import defaultIconSideBySide from 'paella-core/icons/icon_side_by_side.svg';
 import defaultIconPiP from 'paella-core/icons/icon_pip.svg';
 
 export default class DualVideoDynamicLayout extends VideoLayout {
+    getPluginModuleInstance() {
+        return PaellaCoreLayouts.Get();
+    }
+
     get name() {
 		return super.name || "es.upv.paella.dualVideoDynamic";
 	}

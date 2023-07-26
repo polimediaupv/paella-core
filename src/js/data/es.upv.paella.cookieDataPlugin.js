@@ -1,8 +1,13 @@
 import { DataPlugin } from 'paella-core/js/core/Data';
 
 import { setCookie, getCookie } from 'paella-core/js/core/utils';
+import PaellaCoreDataPlugins from './PaellaCoreDataPlugins';
 
 export default class CookieDataPlugin extends DataPlugin {
+    getPluginModuleInstance() {
+        return PaellaCoreDataPlugins.Get();
+    }
+
     get name() {
         return super.name || "es.upv.paella.cookieDataPlugin";
     }

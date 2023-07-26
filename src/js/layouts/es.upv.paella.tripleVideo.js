@@ -4,6 +4,8 @@ import VideoLayout from 'paella-core/js/core/VideoLayout';
 
 import iconRotate from 'paella-core/icons/icon_rotate.svg';
 
+import PaellaCoreLayouts from './PaellaCoreLayouts';
+
 const layout = {
     videos: [
         {
@@ -51,6 +53,10 @@ function getLayout(validContent) {
 }
 
 export default class TripleVideoLayout extends VideoLayout {
+    getPluginModuleInstance() {
+        return PaellaCoreLayouts.Get();
+    }
+    
     get name() {
 		return super.name || "es.upv.paella.tripleVideo";
 	}

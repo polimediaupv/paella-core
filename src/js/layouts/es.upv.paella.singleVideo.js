@@ -3,7 +3,13 @@ import VideoLayout from '../core/VideoLayout';
 
 import sideBySideIcon from "../../icons/icon_side_by_side.svg";
 
+import PaellaCoreLayouts from './PaellaCoreLayouts';
+
 export default class SingleVideoLayout extends VideoLayout {
+    getPluginModuleInstance() {
+        return PaellaCoreLayouts.Get();
+    }
+    
     get name() {
 		return super.name || "es.upv.paella.singleVideo";
 	}

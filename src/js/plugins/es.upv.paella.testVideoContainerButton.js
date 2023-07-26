@@ -1,5 +1,6 @@
 import MenuButtonPlugin from 'paella-core/js/core/MenuButtonPlugin';
 
+import PaellaCorePlugins from './PaellaCorePlugins';
 
 import screenIcon from 'paella-core/icons/screen.svg';
 
@@ -13,6 +14,10 @@ const wait = async (fn,t) => {
 }
 
 export default class VideoContainerButtonPlugin extends MenuButtonPlugin {
+    getPluginModuleInstance() {
+        return PaellaCorePlugins.Get();
+    }
+
     async load() {
         this.icon = screenIcon;
         this.title = "tx";

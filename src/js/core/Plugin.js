@@ -6,6 +6,10 @@ export default class Plugin extends PlayerResource {
         this._name = name;
     }
 
+    getPluginModuleInstance() {
+        return null;
+    }
+
     get config() { return this._config; }
 
     get type() { return "none"; }

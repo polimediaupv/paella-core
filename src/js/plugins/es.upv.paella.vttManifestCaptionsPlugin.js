@@ -1,10 +1,15 @@
 
 import CaptionsPlugin from 'paella-core/js/captions/CaptionsPlugin';
 import WebVTTParser from 'paella-core/js/captions/WebVTTParser';
+import PaellaCorePlugins from './PaellaCorePlugins';
 
 import { resolveResourcePath } from 'paella-core/js/core/utils';
 
 export default class VttManifestCaptionsPlugin extends CaptionsPlugin {
+    getPluginModuleInstance() {
+        return PaellaCorePlugins.Get();
+    }
+    
     get name() {
 		return super.name || "es.upv.paella.vttManifestCaptionsPlugin";
 	}

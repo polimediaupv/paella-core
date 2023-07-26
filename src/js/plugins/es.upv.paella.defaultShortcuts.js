@@ -10,8 +10,13 @@ import defaultVolumeHighIcon from "../../icons/volume-high.svg"
 import PlayerState from "../core/PlayerState";
 import TimeLinePopUp from "../core/TimeLinePopUp";
 
-export default class DefaultKeyShortcutsPlugin extends KeyShortcutPlugin {
+import PaellaCorePlugins from "./PaellaCorePlugins";
 
+export default class DefaultKeyShortcutsPlugin extends KeyShortcutPlugin {
+    getPluginModuleInstance() {
+        return PaellaCorePlugins.Get();
+    }
+    
     get name() {
 		return super.name || "es.upv.paella.defaultShortcuts";
 	}

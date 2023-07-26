@@ -1,8 +1,13 @@
 import ButtonPlugin from "../core/ButtonPlugin";
+import PaellaCorePlugins from "./PaellaCorePlugins";
 
 import testIcon from 'paella-core/icons/screen.svg';
 
 export default class DynamicWidthButtonTest extends ButtonPlugin {
+    getPluginModuleInstance() {
+        return PaellaCorePlugins.Get();
+    }
+    
     async load() {
         this.icon = testIcon;
         this.title = "Dynamic width button";

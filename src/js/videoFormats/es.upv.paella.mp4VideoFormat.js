@@ -1,5 +1,6 @@
 import VideoPlugin, { Video } from 'paella-core/js/core/VideoPlugin';
 import { resolveResourcePath } from 'paella-core/js/core/utils';
+import PaellaCoreVideoFormats from './PaellaCoreVideoFormats';
 
 let video = null;
 
@@ -286,6 +287,10 @@ export class Mp4Video extends Video {
 }
 
 export default class Mp4VideoPlugin extends VideoPlugin {
+    getPluginModuleInstance() {
+        return PaellaCoreVideoFormats.Get();
+    }
+    
     get name() {
 		return super.name || "es.upv.paella.mp4VideoFormat";
 	}

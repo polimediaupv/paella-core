@@ -4,6 +4,8 @@ import VideoQualityItem from 'paella-core/js/core/VideoQualityItem';
 import AudioTrackData from "paella-core/js/core/AudioTrackData";
 import Events, { triggerEvent } from "../core/Events";
 
+import PaellaCoreVideoFormats from "./PaellaCoreVideoFormats";
+
 import Hls from "hls.js";
 
 export const defaultHlsConfig = {
@@ -437,6 +439,10 @@ export class HlsVideo extends Mp4Video {
 }
 
 export default class HlsVideoPlugin extends VideoPlugin {
+    getPluginModuleInstance() {
+        return PaellaCoreVideoFormats.Get();
+    }
+    
     get name() {
 		return super.name || "es.upv.paella.hlsVideoFormat";
 	}

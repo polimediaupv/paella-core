@@ -23,9 +23,13 @@ export const createPluginInstance = (PluginClass, player, name, staticConfig = {
 
 function importPlugin(player, pluginClass, pluginInstance, PluginClass, overwrite = false) {
     const type = pluginInstance.type;
+    let currentInstance = -1;
     if (player.__pluginData__.pluginInstances[type] &&
-        player.__pluginData__.pluginInstances[type].find(registeredPlugin => {
-            return registeredPlugin.name === pluginInstance.name
+        player.__pluginData__.pluginInstances[type].find((registeredPlugin,i) => {
+            if (registeredPlugin.name === pluginInstance.name) {
+                currentInstance = i;
+                return true;
+            }
         }) &&
         !overwrite)
     {
@@ -34,6 +38,9 @@ function importPlugin(player, pluginClass, pluginInstance, PluginClass, overwrit
     }
     player.__pluginData__.pluginClasses[pluginClass] = PluginClass;
     player.__pluginData__.pluginInstances[type] = player.__pluginData__.pluginInstances[type] || [];
+    if (currentInstance !== -1) {
+        player.__pluginData__.pluginInstances[type].splice(currentInstance, 1);    
+    }
     player.__pluginData__.pluginInstances[type].push(pluginInstance);
 }
 
@@ -72,7 +79,7 @@ export function importPlugins(player,context) {
         const pluginName = key.substring(2,key.length - 3);
         if (config.plugins[pluginName]) {
             const PluginClass = module.default;
-            const pluginInstance = createPluginInstance(PluginClass, player, pluginName, config);
+            const pluginInstance = createPluginInstance(PluginClass, player, pluginName, {});
             importPlugin(player, key, pluginInstance, PluginClass, false);
         }
         // Check if it is a plugin module
@@ -118,11 +125,9 @@ export function registerPlugins(player) {
     const { buttonGroups } = config;
     if (buttonGroups) {
         buttonGroups.forEach((btnData,i) => {
-            //      Create a instance of ButtonPlugin
+            // Create a instance of ButtonPlugin
             const name = `button_group_${i}`;
-            const buttonGroupConfig = { plugins:{} };
-            buttonGroupConfig.plugins[name] = btnData;
-            const instance = new ButtonGroupPlugin(player, buttonGroupConfig, name);
+            const instance = createPluginInstance(ButtonGroupPlugin, player, name, btnData);
             instance._iconPath = joinPath([player.configResourcesUrl, btnData.icon]);
             importPlugin(player, instance.type, instance, `ButtonGroupPlugin${i}`, false);
         }) 

@@ -1,6 +1,7 @@
 import { getFileExtension, resolveResourcePath } from "../core/utils";
 import VideoPlugin from "../core/VideoPlugin";
 import { Mp4Video, supportsVideoType } from "./es.upv.paella.mp4VideoFormat";
+import PaellaCoreVideoFormats from "./PaellaCoreVideoFormats";
 
 export class HtmlVideo extends Mp4Video {
     constructor(player, parent, isMainAudio) {
@@ -41,6 +42,10 @@ export class HtmlVideo extends Mp4Video {
 }
 
 export default class HtmlVideoPlugin extends VideoPlugin {
+    getPluginModuleInstance() {
+        return PaellaCoreVideoFormats.Get();
+    }
+    
     get name() {
 		return super.name || "es.upv.paella.htmlVideoFormat";
 	}

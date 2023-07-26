@@ -1,6 +1,7 @@
 import VideoPlugin, { Video } from 'paella-core/js/core/VideoPlugin';
 import { resolveResourcePath } from 'paella-core/js/core/utils';
 import VideoQualityItem from 'paella-core/js/core/VideoQualityItem';
+import PaellaCoreVideoFormats from './PaellaCoreVideoFormats';
 
 function updateFrame(t) {
 	let frame = this._currentSource.frames[0];
@@ -142,6 +143,10 @@ export class ImageVideo extends Video {
 }
 
 export default class ImageVideoPlugin extends VideoPlugin {
+	getPluginModuleInstance() {
+        return PaellaCoreVideoFormats.Get();
+    }
+	
 	get name() {
 		return super.name || "es.upv.paella.imageVideoFormat";
 	}

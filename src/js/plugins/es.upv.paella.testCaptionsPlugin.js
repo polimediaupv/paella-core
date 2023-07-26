@@ -1,5 +1,9 @@
 import CaptionsPlugin from 'paella-core/js/captions/CaptionsPlugin';
 
-export default class TestCaptionsPlugin extends CaptionsPlugin {
+import PaellaCorePlugins from './PaellaCorePlugins';
 
+export default class TestCaptionsPlugin extends CaptionsPlugin {
+    getPluginModuleInstance() {
+        return PaellaCorePlugins.Get();
+    }
 }

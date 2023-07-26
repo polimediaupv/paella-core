@@ -1,8 +1,12 @@
 
 import KeyShortcutPlugin, { KeyCodes } from "paella-core/js/core/KeyShortcutPlugin";
+import PaellaCoreDataPlugins from "../data/PaellaCoreDataPlugins";
 
 export default class DefaultKeyShortcutsPlugin extends KeyShortcutPlugin {
-
+    getPluginModuleInstance() {
+        return PaellaCorePlugins.Get();
+    }
+    
     async getKeys() {
         return [
             {

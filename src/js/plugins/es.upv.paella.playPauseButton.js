@@ -5,7 +5,13 @@ import defaultPlayIcon from 'paella-core/icons/play.svg';
 import defaultPauseIcon from 'paella-core/icons/pause.svg';
 import defaultReplayIcon from 'paella-core/icons/replay.svg';
 
+import PaellaCorePlugins from './PaellaCorePlugins';
+
 export default class PlayButtonPlugin extends ButtonPlugin {
+	getPluginModuleInstance() {
+        return PaellaCorePlugins.Get();
+    }
+	
 	get name() {
 		return super.name || "es.upv.paella.playPauseButton";
 	}

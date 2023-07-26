@@ -5,6 +5,8 @@ import { HlsVideo, getHlsSupport, HlsSupport, defaultHlsConfig } from './es.upv.
 import VideoPlugin from 'paella-core/js/core/VideoPlugin';
 import VideoQualityItem from 'paella-core/js/core/VideoQualityItem';
 
+import PaellaCoreVideoFormats from './PaellaCoreVideoFormats';
+
 const hlsSupport = getHlsSupport();
 
 const loadHls = (player, streamData, video, config, cors) => {
@@ -112,6 +114,10 @@ export class HlsLiveVideo extends HlsVideo {
 }
 
 export default class HlsLiveVideoFormat extends VideoPlugin {
+    getPluginModuleInstance() {
+        return PaellaCoreVideoFormats.Get();
+    }
+    
     get name() {
 		return super.name || "es.upv.paella.hlsLiveVideoFormat";
 	}

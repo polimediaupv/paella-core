@@ -1,6 +1,8 @@
 import VideoPlugin, { Video } from 'paella-core/js/core/VideoPlugin';
 import { resolveResourcePath } from 'paella-core/js/core/utils';
 
+import PaellaCoreVideoFormats from './PaellaCoreVideoFormats';
+
 function getAsyncImage(src) {
     return new Promise((resolve, reject) => {
         const img = new Image();
@@ -140,6 +142,10 @@ export class AudioOnlyVideo extends Video {
 }
 
 export default class AudioVideoPlugin extends VideoPlugin {
+    getPluginModuleInstance() {
+        return PaellaCoreVideoFormats.Get();
+    }
+
     get name() {
 		return super.name || "es.upv.paella.audioVideoFormat";
 	}

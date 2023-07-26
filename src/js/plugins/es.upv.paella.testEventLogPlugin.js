@@ -2,7 +2,13 @@
 import EventLogPlugin from 'paella-core/js/core/EventLogPlugin';
 import Events from 'paella-core/js/core/Events';
 
+import PaellaCorePlugins from './PaellaCorePlugins';
+
 export default class TestEventLogPlugin extends EventLogPlugin {
+    getPluginModuleInstance() {
+        return PaellaCorePlugins.Get();
+    }
+    
     get events() {
         return [
             Events.PLAY,

@@ -2,7 +2,13 @@ import ButtonPlugin from 'paella-core/js/core/ButtonPlugin';
 
 import screenIcon from 'paella-core/icons/screen.svg';
 
+import PaellaCorePlugins from './PaellaCorePlugins';
+
 export default class FoldableButtonPlugin extends ButtonPlugin {
+    getPluginModuleInstance() {
+        return PaellaCorePlugins.Get();
+    }
+    
     get foldableContainer() {
         if (this.config.side === "left") {
             return this.rightArea;
