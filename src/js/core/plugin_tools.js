@@ -42,6 +42,20 @@ function importPlugin(player, pluginClass, pluginInstance, PluginClass, overwrit
         player.__pluginData__.pluginInstances[type].splice(currentInstance, 1);    
     }
     player.__pluginData__.pluginInstances[type].push(pluginInstance);
+
+    player.__pluginModules = player.__pluginModules || [];
+    const pluginModule = pluginInstance.getPluginModuleInstance();
+    if (pluginModule) {
+        pluginModule._player = pluginModule._player || player;
+        if (!player.__pluginModules.find(module => {
+            return module.constructor.name === pluginModule.constructor.name
+        })) {
+            const name = pluginModule.moduleName;
+            const version = pluginModule.moduleVersion;
+            player.log.debug(`Plugin module imported: ${ name }: v${ version }`);
+            player.__pluginModules.push(pluginModule);
+        }
+    }
 }
 
 export function importSinglePlugin(player,pluginData) {
@@ -84,13 +98,17 @@ export function importPlugins(player,context) {
         }
         // Check if it is a plugin module
         else if (/^[a-z0-9]+$/i.test(pluginName)) {
+            player.__pluginModules = player.__pluginModules || [];
             const ModuleClass = module.default;
             const moduleInstance = new ModuleClass(player);
-            const name = moduleInstance.moduleName;
-            const version = moduleInstance.moduleVersion;
-            player.log.debug(`Plugin module imported: ${ name }: v${ version }`);
-            player.__pluginModules = player.__pluginModules || [];
-            player.__pluginModules.push(moduleInstance);
+            if (!player.__pluginModules.find(module => {
+                return module.constructor.name === moduleInstance.constructor.name;
+            })) {
+                const name = moduleInstance.moduleName;
+                const version = moduleInstance.moduleVersion;
+                player.log.debug(`Plugin module imported: ${ name }: v${ version }`);
+                player.__pluginModules.push(moduleInstance);
+            }
         }
     });
 }

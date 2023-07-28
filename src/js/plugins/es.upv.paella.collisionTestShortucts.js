@@ -1,6 +1,6 @@
 
 import KeyShortcutPlugin, { KeyCodes } from "paella-core/js/core/KeyShortcutPlugin";
-import PaellaCoreDataPlugins from "../data/PaellaCoreDataPlugins";
+import PaellaCorePlugins from "./PaellaCorePlugins";
 
 export default class DefaultKeyShortcutsPlugin extends KeyShortcutPlugin {
     getPluginModuleInstance() {

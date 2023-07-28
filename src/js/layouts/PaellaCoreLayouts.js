@@ -1,7 +1,7 @@
 import PluginModule from "../core/PluginModule";
 import packageData from "../../../package.json";
 
-const g_pluginModule = null;
+let g_pluginModule = null;
 
 export default class PaellaCoreLayouts extends PluginModule {
     static Get() {
