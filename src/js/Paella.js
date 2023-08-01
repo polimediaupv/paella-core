@@ -75,6 +75,8 @@ import "../css/ForcedColors.css";
 
 import PlayerState from "./core/PlayerState";
 
+import corePlugins from "../../paella_plugins";
+
 export const PlayerStateNames = Object.freeze([
     'UNLOADED',
     'LOADING_MANIFEST',
@@ -259,6 +261,12 @@ export default class Paella {
 
             setLanguage(navigator.language.substring(0,2));
         }
+
+        const userPlugins = this._initParams.plugins || [];
+        this._initParams.plugins = [
+            ...corePlugins,
+            userPlugins
+        ]
 
         setTranslateFunction(this._initParams.translateFunction);
         setSetLanguageFunction(this._initParams.setLanguageFunction);

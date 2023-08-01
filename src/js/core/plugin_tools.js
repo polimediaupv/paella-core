@@ -14,7 +14,7 @@ export const createPluginInstance = (PluginClass, player, name, staticConfig = {
     }
     else {
         if (player.config.plugins && player.config.plugins[name]) {
-            mergeObjects(staticConfig, player.config.plugins[name]);
+            mergeObjects(staticConfig, player.config.plugins[name], false);
         }
         instance._config = staticConfig;
         return instance;

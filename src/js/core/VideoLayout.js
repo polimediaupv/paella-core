@@ -34,7 +34,7 @@ export function getAvailableContentIds(player, numberOfStreams) {
     const result = [];
     getPluginsOfType(player, "layout")
         .filter(layout => {
-            if (layout.config?.enabled) {
+            if (layout.config?.enabled && layout.config?.validContent) {
                 return layout.config.validContent.every(cntItem => cntItem.content.length === numberOfStreams);
             }
         })
@@ -100,7 +100,7 @@ export default class VideoLayout extends UserInterfacePlugin {
 
     // Return the array of valid content in the configuration of the plugin
     get validContent() {
-        return this.config?.validContent;
+        return this.config?.validContent || [];
     }
 
     get validContentIds() {

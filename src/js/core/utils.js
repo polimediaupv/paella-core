@@ -267,12 +267,12 @@ export function unloadStyle(link) {
     head.removeChild(link);
 }
 
-export function mergeObjects(baseData, extendData) {
+export function mergeObjects(baseData, extendData, mergeArrays = true) {
     for (const key in extendData) {
         const baseVal = baseData[key];
         let extendVal = extendData[key];
 
-        if (Array.isArray(baseVal) && Array.isArray(extendVal)) {
+        if (mergeArrays && Array.isArray(baseVal) && Array.isArray(extendVal)) {
             // Replace objects if there is an identifier property
             baseVal.forEach(item => {
                 extendVal = extendVal.filter(extendItem => {
@@ -280,7 +280,7 @@ export function mergeObjects(baseData, extendData) {
                         typeof(extendItem) === "object" &&
                         item.id === extendItem.id)
                     {
-                        mergeObjects(item, extendItem);
+                        mergeObjects(item, extendItem, mergeArrays);
                         return false;
                     }
                     return true;
@@ -293,7 +293,7 @@ export function mergeObjects(baseData, extendData) {
             });
         }
         else if (typeof(baseVal) == "object" && extendVal) {
-            mergeObjects(baseVal, extendVal);
+            mergeObjects(baseVal, extendVal, mergeArrays);
         }
         else {
             baseData[key] = extendData[key];

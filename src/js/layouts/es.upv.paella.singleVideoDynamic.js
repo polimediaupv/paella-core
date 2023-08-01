@@ -7,7 +7,7 @@ import defaultIconSideBySide from 'paella-core/icons/icon_side_by_side.svg';
 
 import PaellaCoreLayouts from './PaellaCoreLayouts';
 
-export default class DualVideoDynamicLayout extends VideoLayout {
+export default class SingleVideoDynamicLayout extends VideoLayout {
     getPluginModuleInstance() {
         return PaellaCoreLayouts.Get();
     }
