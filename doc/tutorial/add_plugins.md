@@ -24,7 +24,7 @@ const initParams = {
         getBasicPluginContext(),
     ]
 };
-const player = new PaellaÇ('player-container', initParams);
+const player = new Paella('player-container', initParams);
 ...
 ```
 
