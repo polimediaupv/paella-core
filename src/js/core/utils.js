@@ -16,7 +16,6 @@ export function loadSvgIcon(url) {
 }
 
 export function getUrlParameter(name) {
-    // Optional: implement this using a fallback to support IE11
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.has(name) ? urlParams.get(name) : null;
 }
