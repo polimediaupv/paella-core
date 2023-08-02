@@ -6826,7 +6826,6 @@ function loadSvgIcon(url) {
   });
 }
 function getUrlParameter(name) {
-  // Optional: implement this using a fallback to support IE11
   var urlParams = new URLSearchParams(window.location.search);
   return urlParams.has(name) ? urlParams.get(name) : null;
 }
