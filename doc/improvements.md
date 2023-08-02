@@ -199,3 +199,4 @@
 ## paella-core 1.41
 
 - New API: [close all TimeLine pop ups](time_line_pop_up.md)
+- [New plugin API](explicit_import_plugin_api.md)
