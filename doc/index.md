@@ -78,7 +78,7 @@
 - [Exported plugin classes](exported_plugins.md): in this document you can check the list of the built-in plugin classes exported by `paella-core`. You can extend these plugins in your player to extend their default features.
 - [Predefined plugins](predefined_plugins.md): List of plugins included in `paella-core`
 
-### Customization
+## Customization
 
 - [Customization](customization.md): modification and customisation of different elements of the user interface and player design.
 - [Button plugin icon customization (paella-core >= 1.2)](plugin_icon_customization.md): Icon customization API for plugins. Allows you to modify the icons of a plugin defined in a plugin library, provided that the plugin supports it.
