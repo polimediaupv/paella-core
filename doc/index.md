@@ -47,6 +47,7 @@
 - [paella-core plugins](paella_core_plugins.md): list of plugins that paella-core includes as standard.
 - [Video layout](video_layout.md): how to implement plugins to distribute the position of the video streams in the player container area.
 - [Pop Up API](pop_up_api.md): how to show pop up windows.
+- [Explicit plugin import API](explicit_import_plugin_api.md) (paella-core >= 1.41): new API for defining plugins, independent of the building system, which will be the only one available in paella-core 2.0.
 
 #### Add buttons to the playback bar:
 

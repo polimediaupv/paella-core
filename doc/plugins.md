@@ -1,5 +1,17 @@
 # Plugins
 
+
+## Important note
+
+This document describes the import of plugins based on the `require.context` object, which is Webpack dependent. Starting with version 1.41 of paella-core a new plugin import and definition API has been introduced which is independent of the building system, and soon APIs based on `require.context` will be deprecated. As of `paella-core` 2.0 plugins based on `require.context` will no longer work.
+
+For version `1.41` of `paella-core` and all plugin libraries maintained by the Universitat Politècnica de València, all plugins support these new APIs. If you have not developed any plugins, you will only have to modify the way you import them. All other configuration parameters remain the same.
+
+If you have developed plugins in your player, besides importing them with the new API you will have to explicitly define the plugin identifier by adding the `name` attribute to the plugin class, and if you have created a plugin module you will also have to create the module instance.
+
+You can get all the information you need to import plugins into your player and to migrate your existing plugins in [this document](explicit_import_plugin_api.md)
+
+
 ## Introduction
 
 Paella Player uses plugins to extend its functionality. Each Paella Player module that can be extended by plugins defines a new plugin type and a specific API, extending the `Plugin` base class.
