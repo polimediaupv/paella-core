@@ -43871,7 +43871,7 @@ Hls.defaultConfig = void 0;
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"paella-core","version":"1.41.0","description":"Multistream HTML video player","main":"src/index.js","module":"dist/paella-core.js","scripts":{"build":"webpack --mode production","dev":"webpack serve --mode development --config webpack.debug.js --host 0.0.0.0","captions":"webpack serve --mode development --config webpack.captions.js","eslint":"eslint .","nomanifest":"webpack serve --mode development --config webpack.nomanifest.js","testenv":"webpack serve --mode development --config webpack.test.js --host 0.0.0.0"},"repository":{"type":"git","url":"git+https://github.com/polimediaupv/paella-core.git"},"keywords":["html","player","video","hls"],"author":"Fernando Serrano Carpena <ferserc1@gmail.com>","license":"ECL-2.0","bugs":{"url":"https://github.com/polimediaupv/paella-core/issues"},"homepage":"https://github.com/polimediaupv/paella-core#readme","devDependencies":{"@babel/core":"^7.12.10","@babel/plugin-transform-modules-commonjs":"^7.19.6","@babel/preset-env":"^7.12.11","@playwright/test":"^1.29.2","babel-loader":"^9.0.0","babel-plugin-transform-require-context":"^0.1.1","copy-webpack-plugin":"^11.0.0","css-loader":"^6.6.0","eslint":"^8.29.0","file-loader":"^6.2.0","html-webpack-plugin":"^5.5.0","source-map-loader":"^4.0.0","style-loader":"^3.3.1","svg-inline-loader":"^0.8.2","webpack":"^5.66.0","webpack-cli":"^5.0.0","webpack-dev-server":"^4.7.3"},"dependencies":{"core-js":"^3.8.2","hls.js":"^1.0.4"}}');
+module.exports = JSON.parse('{"name":"paella-core","version":"1.41.1","description":"Multistream HTML video player","main":"src/index.js","module":"dist/paella-core.js","scripts":{"build":"webpack --mode production","dev":"webpack serve --mode development --config webpack.debug.js --host 0.0.0.0","captions":"webpack serve --mode development --config webpack.captions.js","eslint":"eslint .","nomanifest":"webpack serve --mode development --config webpack.nomanifest.js","testenv":"webpack serve --mode development --config webpack.test.js --host 0.0.0.0"},"repository":{"type":"git","url":"git+https://github.com/polimediaupv/paella-core.git"},"keywords":["html","player","video","hls"],"author":"Fernando Serrano Carpena <ferserc1@gmail.com>","license":"ECL-2.0","bugs":{"url":"https://github.com/polimediaupv/paella-core/issues"},"homepage":"https://github.com/polimediaupv/paella-core#readme","devDependencies":{"@babel/core":"^7.12.10","@babel/plugin-transform-modules-commonjs":"^7.19.6","@babel/preset-env":"^7.12.11","@playwright/test":"^1.29.2","babel-loader":"^9.0.0","babel-plugin-transform-require-context":"^0.1.1","copy-webpack-plugin":"^11.0.0","css-loader":"^6.6.0","eslint":"^8.29.0","file-loader":"^6.2.0","html-webpack-plugin":"^5.5.0","source-map-loader":"^4.0.0","style-loader":"^3.3.1","svg-inline-loader":"^0.8.2","webpack":"^5.66.0","webpack-cli":"^5.0.0","webpack-dev-server":"^4.7.3"},"dependencies":{"core-js":"^3.8.2","hls.js":"^1.0.4"}}');
 
 /***/ }),
 
@@ -49328,7 +49328,7 @@ function _postLoadPlayer() {
     var _this$videoManifest7,
       _this$videoManifest7$,
       _this6 = this;
-    var lang, dict, loadKeypressHandler;
+    var lang, dict;
     return Paella_regeneratorRuntime().wrap(function _callee21$(_context21) {
       while (1) switch (_context21.prev = _context21.next) {
         case 0:
@@ -49359,30 +49359,29 @@ function _postLoadPlayer() {
 
           // Register a keyboard event to enable the playback button, but only if there are only one player in the page
           if (__paella_instances__.length === 1) {
-            loadKeypressHandler = /*#__PURE__*/function () {
+            this._loadKeypressHandler = this._loadKeypressHandler || /*#__PURE__*/function () {
               var _ref3 = Paella_asyncToGenerator( /*#__PURE__*/Paella_regeneratorRuntime().mark(function _callee20(evt) {
                 return Paella_regeneratorRuntime().wrap(function _callee20$(_context20) {
                   while (1) switch (_context20.prev = _context20.next) {
                     case 0:
                       if (!/space/i.test(evt.code)) {
-                        _context20.next = 4;
+                        _context20.next = 3;
                         break;
                       }
                       _context20.next = 3;
                       return _this6.play();
                     case 3:
-                      window.removeEventListener('keypress', loadKeypressHandler, true);
-                    case 4:
                     case "end":
                       return _context20.stop();
                   }
                 }, _callee20);
               }));
-              return function loadKeypressHandler(_x3) {
+              return function (_x3) {
                 return _ref3.apply(this, arguments);
               };
             }();
-            window.addEventListener('keypress', loadKeypressHandler, true);
+            // This event listener is removed in Paella.play() function
+            window.addEventListener('keypress', this._loadKeypressHandler, true);
           }
         case 13:
         case "end":
@@ -50394,16 +50393,20 @@ var Paella = /*#__PURE__*/function () {
         return Paella_regeneratorRuntime().wrap(function _callee13$(_context13) {
           while (1) switch (_context13.prev = _context13.next) {
             case 0:
+              if (this._loadKeypressHandler) {
+                window.removeEventListener('keypress', this._loadKeypressHandler, true);
+                this._loadKeypressHandler = null;
+              }
               if (this.videoContainer.ready) {
-                _context13.next = 3;
+                _context13.next = 4;
                 break;
               }
-              _context13.next = 3;
+              _context13.next = 4;
               return this.loadPlayer();
-            case 3:
-              _context13.next = 5;
+            case 4:
+              _context13.next = 6;
               return this.videoContainer.play();
-            case 5:
+            case 6:
             case "end":
               return _context13.stop();
           }
