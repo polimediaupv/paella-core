@@ -37,13 +37,23 @@ const g_iconStyle = `
     opacity: 0.6;
 `;
 
+const g_buttonStyle = `
+    display: block;
+    width: 20%;
+    background: none;
+    border: none;
+    cursor: pointer;
+`;
+
 import PlayIcon from 'paella-core/icons/play_icon_fullscreen.svg';
 
 export default class PreviewContainer extends DomClass {
     constructor(player, parentElement,backgroundImage,backgroundImagePortrait) {
         const attributes = {
             "class": "preview-container",
-            "style": g_style
+            "style": g_style,
+            "role": "button",
+            "aria-label": "Play video"
         };
         super(player, {attributes, parent: parentElement});
 
@@ -52,7 +62,9 @@ export default class PreviewContainer extends DomClass {
             ${ backgroundImage ? `<img style="${g_imgStyle}" src="${backgroundImage}" class="preview-image-landscape" alt=""/>` : "" }
             ${ backgroundImagePortrait ? `<img style="${g_imgStyle}" src="${backgroundImagePortrait}" class="preview-image-portrait" alt=""/>` : "" }
             <div style="${ g_iconContainerStyle }">
-                <i class="preview-play-icon" style="${ g_iconStyle }">${ PlayIcon }</i>
+                <button style="${g_buttonStyle}" role="button" aria-label="Play video">
+                    <i class="preview-play-icon" style="${ g_iconStyle }">${ PlayIcon }</i>
+                </button>
             </div>
         </div>
         `, this.element);
