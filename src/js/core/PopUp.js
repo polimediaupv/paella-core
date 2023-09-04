@@ -162,8 +162,10 @@ export default class PopUp extends DomClass {
 			});
 			if (topPopUp && topPopUp._closeOnClickOut) {
 				topPopUp.hide();
+				return true;
 			}
 		}
+		return false;
 	}
 
 	static Unload() {

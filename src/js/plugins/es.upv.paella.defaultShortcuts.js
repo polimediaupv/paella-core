@@ -108,8 +108,9 @@ export default class DefaultKeyShortcutsPlugin extends KeyShortcutPlugin {
     }
 
     closePopUp() {
-        PopUp.HideTopPopUp();
-        TimeLinePopUp.HideAll(this.player);
+        if (!PopUp.HideTopPopUp()) {
+            TimeLinePopUp.HideAll(this.player);
+        }
     }
 
     async decreaseSpeed() {
