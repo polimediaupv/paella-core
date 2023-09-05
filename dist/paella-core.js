@@ -2649,7 +2649,8 @@ var EventLogPlugin = /*#__PURE__*/function (_Plugin) {
   VIDEO_QUALITY_CHANGED: "paella:videoQualityChanged",
   HIDE_UI: "paella:hideUI",
   SHOW_UI: "paella:showUI",
-  COOKIE_CONSENT_CHANGED: "paella:cookieConsentChanged"
+  COOKIE_CONSENT_CHANGED: "paella:cookieConsentChanged",
+  LOG: "paella:log"
 }));
 function bindEvent(player, event, callback) {
   var unregisterOnUnload = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
@@ -3855,6 +3856,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 var g_popUps = [];
 function placePopUp(player, anchorElement, contentElement) {
   if (anchorElement) {
+    anchorElement.setAttribute("aria-pressed", true);
     var _anchorElement$getBou = anchorElement.getBoundingClientRect(),
       top = _anchorElement$getBou.top,
       left = _anchorElement$getBou.left,
@@ -4290,6 +4292,9 @@ var PopUp_PopUp = /*#__PURE__*/function (_DomClass) {
           popUp: this,
           plugin: this.contextObject
         });
+        if (this._anchorElement) {
+          this._anchorElement.setAttribute("aria-pressed", false);
+        }
         _get(_getPrototypeOf(PopUp.prototype), "hide", this).call(this);
         if (this.lastFocusElement) {
           this.lastFocusElement.focus();
@@ -4382,8 +4387,10 @@ var PopUp_PopUp = /*#__PURE__*/function (_DomClass) {
         });
         if (topPopUp && topPopUp._closeOnClickOut) {
           topPopUp.hide();
+          return true;
         }
       }
+      return false;
     }
   }, {
     key: "Unload",
@@ -10066,8 +10073,9 @@ var DefaultKeyShortcutsPlugin = /*#__PURE__*/function (_KeyShortcutPlugin) {
   }, {
     key: "closePopUp",
     value: function closePopUp() {
-      paella_core_js_core_PopUp__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .Z.HideTopPopUp();
-      _core_TimeLinePopUp__WEBPACK_IMPORTED_MODULE_8__/* ["default"] */ .Z.HideAll(this.player);
+      if (!paella_core_js_core_PopUp__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .Z.HideTopPopUp()) {
+        _core_TimeLinePopUp__WEBPACK_IMPORTED_MODULE_8__/* ["default"] */ .Z.HideAll(this.player);
+      }
     }
   }, {
     key: "decreaseSpeed",
@@ -43871,7 +43879,7 @@ Hls.defaultConfig = void 0;
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"paella-core","version":"1.41.1","description":"Multistream HTML video player","main":"src/index.js","module":"dist/paella-core.js","scripts":{"build":"webpack --mode production","dev":"webpack serve --mode development --config webpack.debug.js --host 0.0.0.0","captions":"webpack serve --mode development --config webpack.captions.js","eslint":"eslint .","nomanifest":"webpack serve --mode development --config webpack.nomanifest.js","testenv":"webpack serve --mode development --config webpack.test.js --host 0.0.0.0"},"repository":{"type":"git","url":"git+https://github.com/polimediaupv/paella-core.git"},"keywords":["html","player","video","hls"],"author":"Fernando Serrano Carpena <ferserc1@gmail.com>","license":"ECL-2.0","bugs":{"url":"https://github.com/polimediaupv/paella-core/issues"},"homepage":"https://github.com/polimediaupv/paella-core#readme","devDependencies":{"@babel/core":"^7.12.10","@babel/plugin-transform-modules-commonjs":"^7.19.6","@babel/preset-env":"^7.12.11","@playwright/test":"^1.29.2","babel-loader":"^9.0.0","babel-plugin-transform-require-context":"^0.1.1","copy-webpack-plugin":"^11.0.0","css-loader":"^6.6.0","eslint":"^8.29.0","file-loader":"^6.2.0","html-webpack-plugin":"^5.5.0","source-map-loader":"^4.0.0","style-loader":"^3.3.1","svg-inline-loader":"^0.8.2","webpack":"^5.66.0","webpack-cli":"^5.0.0","webpack-dev-server":"^4.7.3"},"dependencies":{"core-js":"^3.8.2","hls.js":"^1.0.4"}}');
+module.exports = JSON.parse('{"name":"paella-core","version":"1.42.0","description":"Multistream HTML video player","main":"src/index.js","module":"dist/paella-core.js","scripts":{"build":"webpack --mode production","dev":"webpack serve --mode development --config webpack.debug.js --host 0.0.0.0","captions":"webpack serve --mode development --config webpack.captions.js","eslint":"eslint .","nomanifest":"webpack serve --mode development --config webpack.nomanifest.js","testenv":"webpack serve --mode development --config webpack.test.js --host 0.0.0.0"},"repository":{"type":"git","url":"git+https://github.com/polimediaupv/paella-core.git"},"keywords":["html","player","video","hls"],"author":"Fernando Serrano Carpena <ferserc1@gmail.com>","license":"ECL-2.0","bugs":{"url":"https://github.com/polimediaupv/paella-core/issues"},"homepage":"https://github.com/polimediaupv/paella-core#readme","devDependencies":{"@babel/core":"^7.12.10","@babel/plugin-transform-modules-commonjs":"^7.19.6","@babel/preset-env":"^7.12.11","@playwright/test":"^1.29.2","babel-loader":"^9.0.0","babel-plugin-transform-require-context":"^0.1.1","copy-webpack-plugin":"^11.0.0","css-loader":"^6.6.0","eslint":"^8.29.0","file-loader":"^6.2.0","html-webpack-plugin":"^5.5.0","source-map-loader":"^4.0.0","style-loader":"^3.3.1","svg-inline-loader":"^0.8.2","webpack":"^5.66.0","webpack-cli":"^5.0.0","webpack-dev-server":"^4.7.3"},"dependencies":{"core-js":"^3.8.2","hls.js":"^1.0.4"}}');
 
 /***/ }),
 
@@ -46893,6 +46901,7 @@ var g_style = "\n    background-color: #e4e4e4;\n    width: 100%;\n    height: 1
 var g_imgStyle = "\n    width: 100%;\n";
 var g_iconContainerStyle = "\n    position: absolute; \n    top: 0px; \n    left: 0px; \n    right: 0px; \n    bottom: 0px; \n    display: flex;\n    align-content: center;\n    justify-content: center;\n    align-items: center;\n";
 var g_iconStyle = "\n    pointer-events: none;\n    width: 20%;\n    max-width: 400px;\n    min-width: 100px;\n    opacity: 0.6;\n";
+var g_buttonStyle = "\n    display: block;\n    width: 20%;\n    background: none;\n    border: none;\n    cursor: pointer;\n";
 
 var PreviewContainer = /*#__PURE__*/function (_DomClass) {
   PreviewContainer_inherits(PreviewContainer, _DomClass);
@@ -46902,13 +46911,15 @@ var PreviewContainer = /*#__PURE__*/function (_DomClass) {
     PreviewContainer_classCallCheck(this, PreviewContainer);
     var attributes = {
       "class": "preview-container",
-      "style": g_style
+      "style": g_style,
+      "role": "button",
+      "aria-label": "Play video"
     };
     _this = _super.call(this, player, {
       attributes: attributes,
       parent: parentElement
     });
-    _this._img = (0,dom/* createElementWithHtmlText */.jS)("\n        <div style=\"".concat(g_imgStyle, "\">\n            ").concat(backgroundImage ? "<img style=\"".concat(g_imgStyle, "\" src=\"").concat(backgroundImage, "\" class=\"preview-image-landscape\" alt=\"\"/>") : "", "\n            ").concat(backgroundImagePortrait ? "<img style=\"".concat(g_imgStyle, "\" src=\"").concat(backgroundImagePortrait, "\" class=\"preview-image-portrait\" alt=\"\"/>") : "", "\n            <div style=\"").concat(g_iconContainerStyle, "\">\n                <i class=\"preview-play-icon\" style=\"").concat(g_iconStyle, "\">").concat((play_icon_fullscreen_default()), "</i>\n            </div>\n        </div>\n        "), _this.element);
+    _this._img = (0,dom/* createElementWithHtmlText */.jS)("\n        <div style=\"".concat(g_imgStyle, "\">\n            ").concat(backgroundImage ? "<img style=\"".concat(g_imgStyle, "\" src=\"").concat(backgroundImage, "\" class=\"preview-image-landscape\" alt=\"\"/>") : "", "\n            ").concat(backgroundImagePortrait ? "<img style=\"".concat(g_imgStyle, "\" src=\"").concat(backgroundImagePortrait, "\" class=\"preview-image-portrait\" alt=\"\"/>") : "", "\n            <div style=\"").concat(g_iconContainerStyle, "\">\n                <button style=\"").concat(g_buttonStyle, "\" role=\"button\" aria-label=\"Play video\">\n                    <i class=\"preview-play-icon\" style=\"").concat(g_iconStyle, "\">").concat((play_icon_fullscreen_default()), "</i>\n                </button>\n            </div>\n        </div>\n        "), _this.element);
     _this.element.setAttribute('id', 'playerContainerClickArea');
     _this.element.addEventListener("click", function (evt) {
       player.play();
@@ -48341,6 +48352,7 @@ var LOG_LEVEL = Object.freeze({
   DEBUG: 4,
   VERBOSE: 5
 });
+
 var g_globalLogLevel = LOG_LEVEL.INFO;
 var setLogLevel = function setLogLevel(l) {
   var player = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
@@ -48373,6 +48385,14 @@ var printMessage = function printMessage(_ref) {
   var current = currentLogLevel(player);
   if (level < LOG_LEVEL.DISABLED) {
     throw Error("printMessage: invalid log level ".concat(level));
+  }
+  if (player) {
+    (0,Events/* triggerEvent */.qe)(player, Events/* default */.ZP.LOG, {
+      severity: level,
+      context: context,
+      message: msg,
+      currentLogLevel: current
+    });
   }
   if (level <= current) {
     switch (level) {
