@@ -176,3 +176,28 @@ playerInstance.bindEvent(eventName, callback, unloadOnReload = true);
 
 **`SHOW_UI`**: when the user interface is hidden during playback, it is shown again in response to any user action (click, mouse movement, key press, etc.). This event is triggered when the UI is visible again.
  
+ **`COOKIE_CONSENT_CHANGED`**: is launched when the user has changed the cookie consent settings.
+
+ **`LOG`** (paella-core >= 1.42): is triggered when messages are generated in the `paella-core` [log system](log.md). It receives as parameter the following data:
+
+  - severity: is the type of log message that has occurred.
+  - context: is the context in which the message originated.
+  - message: is the log message.
+  - currentLogLevel: is the current log level configured in the system.
+
+The log system will always generate log events regardless of the current log level you have configured.
+
+IMPORTANT: Never use the log system from the callback that handles a log event, as this would produce an infinite recursion:
+
+```js
+paellaInstance.bindEvent(Events.LOG, params => {
+  // Ok:
+  console.log(params.message);
+
+  // NEVER DO THIS
+  // paellaInstance.log.info(params.message);
+})
+```
+
+For more information, please refer to the [documentation on the `paella-core` log API](log.md).
+

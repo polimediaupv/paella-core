@@ -20,6 +20,12 @@ log.debug("This is a debug message");
 log.verbose("This is a more verbose debug message");
 ```
 
+In addition to the message text, an optional second parameter can be specified to indicate the context in which the message occurs. By default the context is `paella-core`. It can be used to indicate the origin of the message. For example, if we want to display a message from a plugin we are implementing, we could use the `myPlugin` context:
+
+```javascript
+log.warn("This is a warning message","myPlugin");
+```
+
 The default verbosity level, if it is not set in the `config.json` file, is `INFO`. However, befor the player configuration is completed, the initial verbosity level is `VERBOSE`. If you want to explicitly modify the verbosity level before the configuration is load, you must do so after creating the paella player instance.
 
 ```javascript
@@ -85,7 +91,6 @@ From version 1.5.1 onwards, the `logLevel` parameter is case insensitive, so you
 - `https://my-paella.com/?id=video_id&loglevel=Verbose`
 - `https://my-paella.com/?id=video_id&LOGLEVEL=VERBOSE`
 - `https://my-paella.com/?id=video_id&loglevel=verbose`
-
 
 
 

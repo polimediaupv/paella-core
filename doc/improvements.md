@@ -200,3 +200,7 @@
 
 - New API: [close all TimeLine pop ups](time_line_pop_up.md)
 - [New plugin API](explicit_import_plugin_api.md)
+
+## paella-core 1.42
+
+- New event to be triggered when writing messages in the log system: [Events.LOG](events.md)
