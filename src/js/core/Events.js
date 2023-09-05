@@ -28,7 +28,8 @@ export default Object.freeze({
 	VIDEO_QUALITY_CHANGED: "paella:videoQualityChanged",
 	HIDE_UI: "paella:hideUI",
 	SHOW_UI: "paella:showUI",
-	COOKIE_CONSENT_CHANGED: "paella:cookieConsentChanged"
+	COOKIE_CONSENT_CHANGED: "paella:cookieConsentChanged",
+	LOG: "paella:log"
 });
 
 export function bindEvent(player, event, callback, unregisterOnUnload = true) {

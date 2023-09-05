@@ -9,6 +9,8 @@ export const LOG_LEVEL = Object.freeze({
     VERBOSE: 5
 });
 
+import Events, { triggerEvent } from "./Events";
+
 let g_globalLogLevel = LOG_LEVEL.INFO;
 
 export const setLogLevel = (l,player = null) => {
@@ -43,6 +45,10 @@ export const printMessage = ({
     const current = currentLogLevel(player);
     if (level<LOG_LEVEL.DISABLED) {
         throw Error(`printMessage: invalid log level ${ level }`);
+    }
+
+    if (player) {
+        triggerEvent(player, Events.LOG, { severity: level, context, message: msg, currentLogLevel: current });
     }
 
     if (level<=current) {
