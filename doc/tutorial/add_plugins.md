@@ -10,25 +10,126 @@ The first thing we do is install the `paella-basic-plugins` plugin library from 
 $ npm install --save paella-basic-plugins
 ```
 
-## Plugin context
+## Plugin system
 
-To load a plugin we use a special load function that exports each plugin library. It is a function that returns an object called plugin context. This callback is called by `paella-core` at load time. Each plugin library must define a function that returns the plugin context. Using the `initData` object we will supply the callbacks to the player to load them when needed. Generally, the convention is that the plugin context function is obtained directly by importing the package from the plugin library.
+The plugins included in `paella-core` are imported automatically, for this reason, to use them we only had to add the configuration of each plugin. This is for two reasons: On the one hand, the automatically imported `paella-core` plugins are disabled by default, and to enable them you have to indicate it in the configuration. On the other hand, some plugins need a certain minimum configuration to work, such as video layout plugins.
+
+However, `paella-core` includes an explicit plugin import system. With this system we can import the plugins we want to use, and in this case they will be activated by default. The explicit plugin import system has higher priority than the automatic import system: if a plugin is imported explicitly, then the automatic import system will not be used to import that plugin. Therefore, we can import `paella-core` plugins explicitly so that it is not necessary to include them in the configuration.
+To see this at work, let's remove the part of the code where we activate the play/pause button plugin. We will also remove from the configuration file the reference to the `playPauseButton` configuration:
+
+
+**`main.js`:**
 
 ```js
 ...
-import getBasicPluginContext from 'paella-basic-plugins';
+    loadConfig: async (configUrl, player) => {
+        const config = await defaultLoadConfigFunction(configUrl, player);
+        utils.mergeObjects(config, {
+        //    plugins: {
+        //        "es.upv.paella.playPauseButton": {
+        //            "enabled": true
+        //        }
+        //    }
+        })
+        return config;
+    },
+    ...
+```
+
+**`settings.json`:**
+
+```json
+{
+    ...
+    "plugins": {
+        ...
+        //"es.upv.paella.playPauseButton": {
+        //    "enabled": false
+        //}
+    }
+}
+```
+
+After that you will see that the play button has disappeared from the playback bar. To include the play button again, we are going to import the plugin explicitly using the `plugins` attribute of the `initParams` object:
+
+```js
+import { 
+    ...
+    PlayPauseButtonPlugin
+} from 'paella-core';
 
 const initParams = {
     ...
-    customPluginContext: [
-        getBasicPluginContext(),
+    plugins: [
+        PlayPauseButtonPlugin
     ]
 };
-const player = new Paella('player-container', initParams);
 ...
 ```
 
-With this we have imported the plugins library, but to make them work we need to activate them. We are going to activate two plugins: volume and fullscreen, in addition to the plugin we had activated before play/pause:
+When you add the `PlayPauseButtonPlugin` plugin explicitly, the play button appears again, even if you have not added it in the configuration. Note that not all `paella-core` plugins are automatically activated when you explicitly import them. For example, video format plugins or video canvas plugins are not automatically activated because they may interfere with other plugins we may import.
+
+The list of plugins you can import from `paella-core` is [at this link](../exported_plugins.md).
+
+In addition to importing plugins, you can also include a default configuration. This is useful if you want your player to include certain initial configuration parameters so that they do not have to appear in the configuration file. To do this, instead of including the plugin directly, you can use an object that includes the plugin and also its configuration:
+
+```js
+...
+const initParams = {
+    ...
+    plugins: [
+        {
+            plugin: PlayPauseButtonPlugin,
+            config: {
+                enabled: true
+            }
+        }
+    ]
+};
+...
+```
+
+## Import plugins from libraries
+
+To import external plugins, we will use the library documentation as a reference to know which classes correspond to each plugin. From here you just have to add the plugins to the `plugins` array of `initParams`.:
+
+```js
+...
+import {
+    FullscreenButtonPlugin,
+    VolumeButtonPlugin
+} from 'paella-basic-plugins';
+...
+const initParams = {
+    ...
+    plugins: [
+        PlayPauseButtonPlugin,
+        FullscreenButtonPlugin,
+        VolumeButtonPlugin
+    ]
+};
+...
+```
+
+Normally you can also import all plugins from a library. To do this, the library must include an array with all plugins. All plugins libraries of the Universidad Politécnica de Valencia include this array, which is also defined in the documentation:
+
+```js
+...
+import {
+    basicPlugins
+} from 'paella-basic-plugins';
+...
+const initParams = {
+    ...
+    plugins: [
+        PlayPauseButtonPlugin,
+        ...basicPlugins
+    ]
+};
+...
+```
+
+When importing all plugins from a library, in this case using the `basicPlugins` array, they are not activated by default, so you will have to activate them in the configuration file. We are going to activate two plugins: volume and fullscreen, in addition to the plugin we had activated before play/pause:
 
 **settings.json:***
 
