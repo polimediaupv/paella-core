@@ -88,13 +88,14 @@ A continuación, añade el plugin context a `initParams`:
 
 ```js
 ...
-import getSlidePluginContext from 'paella-slide-plugins';
+import { slidePlugins } from 'paella-slide-plugins';
 
 const initParams = {
     ...
-    customPluginContext: [
-        ...
-        getSlidePluginContext()
+    plugins: [
+        PlayPauseButtonPlugin,
+        ...basicPlugins,
+        ...slidePlugins
     ]
 };
 ```
