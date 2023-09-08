@@ -86,3 +86,6 @@ To save the volume and playback speed we only need to activate the `restorePlayb
 `restoreLastTime`: this preference setting only works for each specific video. The `remainingSeconds` attribute is used to set a time value at which reloading the video will start playback from the beginning. In the example above, if there are less than 5 seconds left in the video, reloading the video will start playback from the beginning.
 
 
+
+Previous tutorial: [Basic accessibility](accessibility.md)
+Next tutorial: [Trimming basics](trimming_basics.md)
