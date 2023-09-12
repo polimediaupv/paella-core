@@ -24,7 +24,72 @@ The solution to this problem is soft trimming: the beginning and end of the vide
 
  ## Trimming API
 
-Text under construction
+The trimming API functions are inside [`videoContainer`](../video_container.md). To activate the trimming we will use the `setTrimming()` function, where we will pass as parameter an object with the trimming details:
+
+- `enabled`: Enables or disables soft trimming. If the parameter is `false`, then all other parameters are optional.
+- `start`: Indica el instante inicial del trimming en segundos.
+- `end`: Indicates the final time instant of trimming in seconds. This time instant is expressed with respect to the total duration of the video, without taking into account the `start` parameter.
+
+To see an example, let's set up a trimming from the 100th second to the 160th second. It is possible to use the functions of the trimming APIs after the loading of the video manifest:
+
+```js
+...
+await player.loadManifest();
+
+player.videoContainer.setTrimming({ start: 100, end: 160, enabled: true });
+...
+```
+
+When playing the video, both the playback bar and the time indicator will indicate a video with a duration of one minute.
+
+To obtain the trimming data we can use the `isTrimEnabled`, `trimStart` and `trimEnd` attributes:
+
+```js
+...
+...
+const start = player.videoContainer.trimStart;
+const end = player.videoContainer.trimEnd;
+if (player.videoContainer.isTrimEnabled) {
+    console.log(`Trimming is enabled. Start: ${start}, end: ${end}`);
+}
+...
+```
+
+The trimming API can be used to implement plugins, but `paella-core` has a number of tools that serve to facilitate the integration of the trimming system with the server backend.
+
+## trimming in video manifest
+
+You can set the trimming of a video using the video manifest file. To begin with, delete the lines you added earlier to set the trimming manually.
+
+
+```js
+...
+await player.loadManifest();
+
+//player.videoContainer.setTrimming({ start: 100, end: 160, enabled: true });
+...
+```
+
+Add a new video manifest file in the `public/repo/trimming/data.json` folder. Copy the contents of `data.json` from the `repo/repo/hls-dual/data.json` example:
+
+```json
+{
+	"streams": [
+		...
+	],
+    "frameList": [
+		...
+	],
+	"trimming": {
+		"enabled": true,
+		"start": 100,
+		"end": 160
+	}
+}
+```
+
+Load the new example video with the URL `http://localhost:5173/?id=trimming`. The player will recognize the information in the `data.json` file and will automatically set the trimming.
+
 
 Previous tutorial: [Data plugins and preferences](data_plugins_and_preferences.md)
 Next tutorial: 
