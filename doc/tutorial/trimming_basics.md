@@ -92,4 +92,4 @@ Load the new example video with the URL `http://localhost:5173/?id=trimming`. Th
 
 
 Previous tutorial: [Data plugins and preferences](data_plugins_and_preferences.md)
-Next tutorial: 
+Next tutorial: [Create custom plugin](create_custom_plugin.md)

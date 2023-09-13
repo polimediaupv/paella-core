@@ -320,6 +320,12 @@
         },
 
         "es.upv.paella.cookieDataPlugin": {
+            "enabled": false,
+            "order": 0,
+            "context": ["default","trimming","preferences"]
+        },
+
+        "es.upv.paella.localStorageDataPlugin": {
             "enabled": true,
             "order": 0,
             "context": ["default","trimming","preferences"]

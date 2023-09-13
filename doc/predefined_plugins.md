@@ -5,6 +5,7 @@
 Data plugins. You can check the documentation on [data plugins here](data_plugins.md).
 
 - `es.upv.paella.cookieDataPlugin.js`: A [data plugin](data_plugin.md) to store and load data from cookies.
+- `es.upv.paella.localStorageDataPlugin.js`: A [data plugin](data_plugin.md) to store and load data from browser local storage.
 
 ## src/js/layouts
 

@@ -333,8 +333,12 @@ Is the more basic video canvas plugin, and allows to display a video stream usin
 Handles the default paella-core keyboard shortcuts. Check the [shortcuts plugin for more information](key_shortcuts.md).
 
 ```json
-"es.upv.paella.cookieDataPlugin": {
-  "enabled": true
+"es.upv.paella.defaultShortcuts": {
+  "enabled": true,
+  "validPlaybackRates": [0.75, 2, 1, 1.5],
+  "skipBackwards": 10,
+  "skipForward": 10,
+  "order": 1
 }
 ```
 
@@ -359,6 +363,18 @@ It allows to store information in cookies, using the [paella player data API](da
 
 ```json
 "es.upv.paella.cookieDataPlugin": {
+  "enabled": true,
+  "order": 0,
+  "context": ["default","trimming"]
+}
+```
+
+### `es.upv.paella.localStorageDataPlugin`:
+
+It allows to store information in the browser local storage, using the [paella player data API](data_plugins.md).
+
+```json
+"es.upv.paella.localStorageDataPlugin": {
   "enabled": true,
   "order": 0,
   "context": ["default","trimming"]
