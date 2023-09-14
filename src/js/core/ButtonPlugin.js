@@ -96,6 +96,14 @@ export async function addButtonPlugin(plugin, buttonAreaElem) {
 			});
 			plugin.action(evt);
 			evt.stopPropagation();
+
+			// We remove the focus on the button click event, because otherwise the user
+			// interface will never be hidden.
+			// We use pageX and pageY to differentiate the origin of the click: if it was produced
+			// by a keyboard action, then we do not remove the focus so as not to hinder accessibility.
+			if (evt.pageX !== 0 && evt.pageY !== 0) {
+				document.activeElement.blur();
+			}
 		});
 
 		const clickWithSpacebar = plugin.player.config.accessibility?.clickWithSpacebar !== undefined ? 
