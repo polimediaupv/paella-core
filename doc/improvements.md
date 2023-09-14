@@ -204,3 +204,7 @@
 ## paella-core 1.42
 
 - New event to be triggered when writing messages in the log system: [Events.LOG](events.md)
+
+## paella-core 1.43
+
+- New data plugin: localStorageDataPlugin. It works the same as cookieDataPlugin, but in this case it uses the browser's localStorage instead of cookies.
