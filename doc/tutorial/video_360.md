@@ -95,6 +95,91 @@ Añadimos un nuevo manifest para el video de 360º:
 }
 ```
 
+Load the video via the URL [http://localhost:5173/?id=video360](http://localhost:5173/?id=video360). The video loads using the default video canvas, what is going on?
+
+The problem is that we also another two video canvas loaded to handle `video` canvas types:
+
+**settings.json**
+
+```json
+{
+    ...
+    "plugins": {
+        ...
+        "es.upv.paella.videoCanvas": {
+            "enabled": true,
+            "order": 1
+        },
+
+        "es.upv.paella.zoomPlugin": {
+            "enabled": true,
+            "order": 0
+        },
+        ...
+    }
+}
+```
+
+We have loaded the plugin for the `video360` canvas using a static configuration without specifying the loading order of the plugin, we have only configured the plugin to be active by default:
+
+```js
+...
+const initParams = {
+    ...
+    plugins: [
+        ...
+        {
+            plugin: Video360CanvasPlugin,
+            config: {
+                enabled: true
+            }
+        }
+    ],
+    ...
+```
+
+Finally, the video manifest of the 360 video example has two types of canvas configured, so that if the video360 plugin is not available, at least the video can be displayed in normal format:
+
+```json
+{
+	"streams": [
+		{
+			...
+			"canvas": [ "video360", "video" ]
+		}
+	]
+}
+```
+
+The problem is that the video canvas plugin to be used is determined by the priority order of loading plugins. The `canvas` attribute of the video manifest does not set any kind of priority, so we have to configure the player to give more priority to the 360 video canvas. To do this, let's add the 360 video canvas configuration:
+
+```json
+{
+    ...
+    "plugins": {
+        ...
+        "es.upv.paella.videoCanvas": {
+            "enabled": true,
+            "order": 2
+        },
+
+        "es.upv.paella.zoomPlugin": {
+            "enabled": true,
+            "order": 1
+        },
+
+        "es.upv.paella.video360Canvas": {
+            "enabled": true,
+            "order": 0
+        }
+        ...
+    }
+}
+```
+
+In general, plugins that are more restrictive should be set with higher priority (i.e. with a lower `order` value). In this case, the least restrictive plugin is the `videoCanvas` plugin, because it should work with any type of video. The `zoomPlugin` plugin is more restrictive because it may not activate if the video does not have sufficient resolution. Finally, the `video360Canvas` plugin requires WebGL to work, and in addition to that, videos using this plugin will also specify the `video` video canvas only as a fallback method in case WebGL is not available. Por ese motivo, el orden de carga se ha configurado para que se carguen los plugins `video360Canvas`, luego `zoomPlugin` y por último `videoCanvas`.
+
+
 Previous tutorial: [Video canvas: adding zoom](video_canvas.md)
-Next tutorial: 
+Next tutorial: [Audio streams](audio_streams.md)
 
