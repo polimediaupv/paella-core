@@ -36,5 +36,5 @@ export default class TestButtonPlugin extends ButtonPlugin {
 
 The `name` attribute is mandatory and has to return a unique identifier for that plugin. The `async load()` function is called just before loading the plugin, so we can use it to load resources necessary for its operation. In this case we have initialized the button icon (attribute `this.icon`). The `async action()` function, in button type plugins, is the one called when the user clicks on it.
 
-Previous tutorial: [Create custom plugin](create_custom_plugin.md)
+Previous tutorial: [Trimming basics](trimming_basics.md)
 Next tutorial: [Video canvas: adding zoom](video_canvas.md)

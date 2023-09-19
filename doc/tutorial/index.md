@@ -20,7 +20,7 @@ Welcome to the paella-core tutorial for creating your own video player. This tut
 16. [Trimming basics](trimming_basics.md)
 17. [Create a custom plugin](create_custom_plugin.md)
 18. [Video canvas: adding zoom](video_canvas.md)
-19. Video canvas: video 360
+19. [Video canvas: video 360](video_360.md)
 20. Audio streams
 21. VideoContainer API
 
