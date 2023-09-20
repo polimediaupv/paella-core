@@ -36,6 +36,19 @@ The above list corresponds to the video plugins. In addition to this, the classe
 
 **HlsVideo**, **Mp4Video**, **ImageVideo**, **AudioOnlyVideo**
 
+The following utilities are also exported for HLS support:
+
+```js
+const HlsSupport = {
+    UNSUPPORTED: 0,
+    MEDIA_SOURCE_EXTENSIONS: 1,
+    NATIVE: 2
+}
+```
+
+`getHlsSupport(forceNative)`: Returns the HLS support for the current browser, which can be any of the values of `HlsSupport`.
+
+`defaultHlsConfig()`: Returns the minimum default configuration for `hls.js`.
 
 ### Video layout
 
