@@ -208,3 +208,7 @@
 ## paella-core 1.43
 
 - New data plugin: localStorageDataPlugin. It works the same as cookieDataPlugin, but in this case it uses the browser's localStorage instead of cookies.
+
+## paella-core 1.44
+
+- New classes and utilities have been exported to implement external video formats via plugins. More info here: [exported plugins](exported_plugins.md)

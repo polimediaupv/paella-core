@@ -24,19 +24,19 @@ Remember that you must to define a new property at the `config.json` file that m
 
 ### Video format
 
-**es.upv.paella.hlsVideoFormat:** exported as `HlsVideoFormatPlugin`
+**es.upv.paella.hlsVideoFormat:** exported as `HlsVideoFormatPlugin` (paella-core 1.44)
 
-**es.upv.paella.mp4VideoFormat:** exported as `Mp4VideoFormatPlugin`
+**es.upv.paella.mp4VideoFormat:** exported as `Mp4VideoFormatPlugin` (paella-core 1.44)
 
-**es.upv.paella.imageVideoFormat:** exported as `ImageVideoFormatPlugin`
+**es.upv.paella.imageVideoFormat:** exported as `ImageVideoFormatPlugin` (paella-core 1.44)
 
-**es.upv.paella.audioVideoFormat:** exported as `AudioVideoPlugin`
+**es.upv.paella.audioVideoFormat:** exported as `AudioVideoPlugin` (paella-core 1.44)
 
-The above list corresponds to the video plugins. In addition to this, the classes that implement the video formats are also exported:
+The above list corresponds to the video plugins. In addition to this, the classes that implement the video formats are also exported  (paella-core 1.5):
 
 **HlsVideo**, **Mp4Video**, **ImageVideo**, **AudioOnlyVideo**
 
-The following utilities are also exported for HLS support:
+The following utilities are also exported for HLS support (paella-core 1.44):
 
 ```js
 const HlsSupport = {
