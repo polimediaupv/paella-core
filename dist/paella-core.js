@@ -44028,7 +44028,7 @@ Hls.defaultConfig = void 0;
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"paella-core","version":"1.43.1","description":"Multistream HTML video player","main":"src/index.js","module":"dist/paella-core.js","scripts":{"build":"webpack --mode production","dev":"webpack serve --mode development --config webpack.debug.js --host 0.0.0.0","captions":"webpack serve --mode development --config webpack.captions.js","eslint":"eslint .","nomanifest":"webpack serve --mode development --config webpack.nomanifest.js","testenv":"webpack serve --mode development --config webpack.test.js --host 0.0.0.0"},"repository":{"type":"git","url":"git+https://github.com/polimediaupv/paella-core.git"},"keywords":["html","player","video","hls"],"author":"Fernando Serrano Carpena <ferserc1@gmail.com>","license":"ECL-2.0","bugs":{"url":"https://github.com/polimediaupv/paella-core/issues"},"homepage":"https://github.com/polimediaupv/paella-core#readme","devDependencies":{"@babel/core":"^7.12.10","@babel/plugin-transform-modules-commonjs":"^7.19.6","@babel/preset-env":"^7.12.11","@playwright/test":"^1.29.2","babel-loader":"^9.0.0","babel-plugin-transform-require-context":"^0.1.1","copy-webpack-plugin":"^11.0.0","css-loader":"^6.6.0","eslint":"^8.29.0","file-loader":"^6.2.0","html-webpack-plugin":"^5.5.0","source-map-loader":"^4.0.0","style-loader":"^3.3.1","svg-inline-loader":"^0.8.2","webpack":"^5.66.0","webpack-cli":"^5.0.0","webpack-dev-server":"^4.7.3"},"dependencies":{"core-js":"^3.8.2","hls.js":"^1.0.4"}}');
+module.exports = JSON.parse('{"name":"paella-core","version":"1.44.0","description":"Multistream HTML video player","main":"src/index.js","module":"dist/paella-core.js","scripts":{"build":"webpack --mode production","dev":"webpack serve --mode development --config webpack.debug.js --host 0.0.0.0","captions":"webpack serve --mode development --config webpack.captions.js","eslint":"eslint .","nomanifest":"webpack serve --mode development --config webpack.nomanifest.js","testenv":"webpack serve --mode development --config webpack.test.js --host 0.0.0.0"},"repository":{"type":"git","url":"git+https://github.com/polimediaupv/paella-core.git"},"keywords":["html","player","video","hls"],"author":"Fernando Serrano Carpena <ferserc1@gmail.com>","license":"ECL-2.0","bugs":{"url":"https://github.com/polimediaupv/paella-core/issues"},"homepage":"https://github.com/polimediaupv/paella-core#readme","devDependencies":{"@babel/core":"^7.12.10","@babel/plugin-transform-modules-commonjs":"^7.19.6","@babel/preset-env":"^7.12.11","@playwright/test":"^1.29.2","babel-loader":"^9.0.0","babel-plugin-transform-require-context":"^0.1.1","copy-webpack-plugin":"^11.0.0","css-loader":"^6.6.0","eslint":"^8.29.0","file-loader":"^6.2.0","html-webpack-plugin":"^5.5.0","source-map-loader":"^4.0.0","style-loader":"^3.3.1","svg-inline-loader":"^0.8.2","webpack":"^5.66.0","webpack-cli":"^5.0.0","webpack-dev-server":"^4.7.3"},"dependencies":{"core-js":"^3.8.2","hls.js":"^1.0.4"}}');
 
 /***/ }),
 
@@ -44130,7 +44130,9 @@ __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
+  AudioOnlyVideo: () => (/* reexport */ es_upv_paella_audioVideoFormat.AudioOnlyVideo),
   AudioTrackData: () => (/* reexport */ AudioTrackData/* default */.Z),
+  AudioVideoPlugin: () => (/* reexport */ es_upv_paella_audioVideoFormat["default"]),
   ButtonGroupPlugin: () => (/* reexport */ ButtonGroupPlugin/* default */.Z),
   ButtonPlugin: () => (/* reexport */ ButtonPlugin/* default */.ZP),
   Canvas: () => (/* reexport */ CanvasPlugin/* Canvas */.Xz),
@@ -44151,7 +44153,9 @@ __webpack_require__.d(__webpack_exports__, {
   Events: () => (/* reexport */ Events/* default */.ZP),
   HlsSupport: () => (/* reexport */ es_upv_paella_hlsVideoFormat.HlsSupport),
   HlsVideo: () => (/* reexport */ es_upv_paella_hlsVideoFormat.HlsVideo),
+  HlsVideoFormatPlugin: () => (/* reexport */ es_upv_paella_hlsVideoFormat["default"]),
   ImageVideo: () => (/* reexport */ es_upv_paella_imageVideoFormat.ImageVideo),
+  ImageVideoFormatPlugin: () => (/* reexport */ es_upv_paella_imageVideoFormat["default"]),
   KeyCodes: () => (/* reexport */ KeyShortcutPlugin/* KeyCodes */.mW),
   KeyShortcutPlugin: () => (/* reexport */ KeyShortcutPlugin/* default */.ZP),
   LOG_LEVEL: () => (/* reexport */ LOG_LEVEL),
@@ -44159,6 +44163,7 @@ __webpack_require__.d(__webpack_exports__, {
   Log: () => (/* reexport */ Log),
   MenuButtonPlugin: () => (/* reexport */ MenuButtonPlugin/* default */.Z),
   Mp4Video: () => (/* reexport */ es_upv_paella_mp4VideoFormat.Mp4Video),
+  Mp4VideoFormatPlugin: () => (/* reexport */ es_upv_paella_mp4VideoFormat["default"]),
   Paella: () => (/* reexport */ Paella),
   PlayPauseButtonPlugin: () => (/* reexport */ es_upv_paella_playPauseButton["default"]),
   PlayerResource: () => (/* reexport */ PlayerResource/* default */.Z),
@@ -50787,6 +50792,8 @@ var es_upv_paella_hlsVideoFormat = __webpack_require__(8069);
 var es_upv_paella_mp4VideoFormat = __webpack_require__(2604);
 // EXTERNAL MODULE: ./src/js/videoFormats/es.upv.paella.imageVideoFormat.js
 var es_upv_paella_imageVideoFormat = __webpack_require__(4348);
+// EXTERNAL MODULE: ./src/js/videoFormats/es.upv.paella.audioVideoFormat.js
+var es_upv_paella_audioVideoFormat = __webpack_require__(6361);
 // EXTERNAL MODULE: ./src/js/plugins/es.upv.paella.playPauseButton.js
 var es_upv_paella_playPauseButton = __webpack_require__(3591);
 // EXTERNAL MODULE: ./src/js/plugins/es.upv.paella.defaultShortcuts.js
@@ -50847,6 +50854,7 @@ var CanvasButtonPlugin = __webpack_require__(7118);
 
 /******* Export the built-in plugin classes *******/
 // video formats
+
 
 
 
