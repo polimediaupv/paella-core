@@ -24,11 +24,17 @@ Remember that you must to define a new property at the `config.json` file that m
 
 ### Video format
 
-**es.upv.paella.hlsVideoFormat:** exported as `HlsVideo`
+**es.upv.paella.hlsVideoFormat:** exported as `HlsVideoFormatPlugin`
 
-**es.upv.paella.mp4VideoFormat:** exported as `Mp4Video`
+**es.upv.paella.mp4VideoFormat:** exported as `Mp4VideoFormatPlugin`
 
-**es.upv.paella.imageVideoFormat:** exported as `ImageVideo`
+**es.upv.paella.imageVideoFormat:** exported as `ImageVideoFormatPlugin`
+
+**es.upv.paella.audioVideoFormat:** exported as `AudioVideoPlugin`
+
+The above list corresponds to the video plugins. In addition to this, the classes that implement the video formats are also exported:
+
+**HlsVideo**, **Mp4Video**, **ImageVideo**, **AudioOnlyVideo**
 
 
 ### Video layout

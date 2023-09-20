@@ -70,9 +70,10 @@ import Log, {
 
 /******* Export the built-in plugin classes *******/
 // video formats
-import { HlsVideo, getHlsSupport, defaultHlsConfig, HlsSupport } from './js/videoFormats/es.upv.paella.hlsVideoFormat';
-import { Mp4Video } from './js/videoFormats/es.upv.paella.mp4VideoFormat';
-import { ImageVideo } from './js/videoFormats/es.upv.paella.imageVideoFormat';
+import HlsVideoFormatPlugin, { HlsVideo, getHlsSupport, defaultHlsConfig, HlsSupport } from './js/videoFormats/es.upv.paella.hlsVideoFormat';
+import Mp4VideoFormatPlugin, { Mp4Video } from './js/videoFormats/es.upv.paella.mp4VideoFormat';
+import ImageVideoFormatPlugin, { ImageVideo } from './js/videoFormats/es.upv.paella.imageVideoFormat';
+import AudioVideoPlugin, { AudioOnlyVideo } from './js/videoFormats/es.upv.paella.audioVideoFormat';
 
 // Buttons
 import PlayPauseButtonPlugin from './js/plugins/es.upv.paella.playPauseButton';
@@ -164,6 +165,12 @@ export {
     HlsSupport,
     Mp4Video,
     ImageVideo,
+    AudioOnlyVideo,
+
+    HlsVideoFormatPlugin,
+    Mp4VideoFormatPlugin,
+    ImageVideoFormatPlugin,
+    AudioVideoPlugin,
 
     KeyShortcutPlugin,
     KeyCodes,

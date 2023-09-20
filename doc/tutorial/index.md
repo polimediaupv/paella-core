@@ -22,7 +22,8 @@ Welcome to the paella-core tutorial for creating your own video player. This tut
 18. [Video canvas: adding zoom](video_canvas.md)
 19. [Video canvas: video 360](video_360.md)
 20. [Audio streams](audio_streams.md)
-21. VideoContainer API
+21. [Using a sequence of images as video](image_sequence_video.md)
+22. VideoContainer API
 
 
 You can download the source code of the completed tutorials from the github repository:
