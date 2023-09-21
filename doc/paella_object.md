@@ -78,7 +78,7 @@ __paella_instances__[0].pluginModules.forEach(module => {
 
 **`Events`** (read): Returns the `Events` object, containing all the available event types. See the documentation about [events](events.md) for more information.
 
-**`hideUiTime`** (read/write): Set or get the amount of seconds that must elapse without user interaction, while the video is playing, to hide the user interface.
+**`hideUiTime`** (read/write): Set or get the amount of milliseconds that must elapse without user interaction, while the video is playing, to hide the user interface. Has to be set after the player has been loaded as otherwise, it's overwritten.
     
 **`containerSize`** (read): Returns the player container size (`{ w: X, h: Y}`) in pixels.
 
