@@ -315,3 +315,21 @@ export function mergeObjects(baseData, extendData, mergeArrays = true) {
         }
     }
 }
+
+export function testIfIPad() {
+    // As of Sept 2023, iPad may still use deprecated navigator.platform,
+    // not navigator.userAgentData.platform
+    const platform = navigator?.userAgentData?.platform || navigator?.platform || "not known";
+    const isIPad = (
+        (
+          platform === "MacIntel" && navigator?.maxTouchPoints > 0
+        )
+        || /iPad/.test(platform)
+    );
+    return isIPad;
+}
+
+export function testIfIOS() {
+    const isIPad = testIfIPad();
+    return isIPad || /iPhone|iPod/.test(navigator?.userAgent);
+}

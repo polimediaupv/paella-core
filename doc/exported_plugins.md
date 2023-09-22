@@ -46,7 +46,7 @@ const HlsSupport = {
 }
 ```
 
-`getHlsSupport(forceNative)`: Returns the HLS support for the current browser, which can be any of the values of `HlsSupport`.
+`getHlsSupport(forceNative, forceNativeForIOS)`: Returns the HLS support for the current browser, which can be any of the values of `HlsSupport`.
 
 `defaultHlsConfig()`: Returns the minimum default configuration for `hls.js`.
 

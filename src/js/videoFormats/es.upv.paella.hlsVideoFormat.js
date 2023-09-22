@@ -3,7 +3,7 @@ import VideoPlugin from 'paella-core/js/core/VideoPlugin';
 import VideoQualityItem from 'paella-core/js/core/VideoQualityItem';
 import AudioTrackData from "paella-core/js/core/AudioTrackData";
 import Events, { triggerEvent } from "../core/Events";
-
+import { testIfIOS } from "paella-core/js/core/utils";
 import PaellaCoreVideoFormats from "./PaellaCoreVideoFormats";
 
 import Hls from "hls.js";
@@ -26,19 +26,6 @@ export const defaultHlsConfig = {
     maxFragLookUpTolerance: 0.2,
     enableWorker: true,
     enableSoftwareAES: true,
-    manifestLoadingTimeOut: 10000,
-    manifestLoadingMaxRetry: 1,
-    manifestLoadingRetryDelay: 500,
-    manifestLoadingMaxRetryTimeout : 64000,
-    startLevel: undefined,
-    levelLoadingTimeOut: 10000,
-    levelLoadingMaxRetry: 4,
-    levelLoadingRetryDelay: 500,
-    levelLoadingMaxRetryTimeout: 64000,
-    fragLoadingTimeOut: 20000,
-    fragLoadingMaxRetry: 6,
-    fragLoadingRetryDelay: 500,
-    fragLoadingMaxRetryTimeout: 64000,
     startFragPrefetch: false,
     appendErrorMaxRetry: 3,
     enableWebVTT: true,
@@ -53,7 +40,9 @@ export const defaultHlsConfig = {
     abrEwmaDefaultEstimate: 500000,
     abrBandWidthFactor: 0.95,
     abrBandWidthUpFactor: 0.7,
-    minAutoBitrate: 0
+    minAutoBitrate: 0,
+    lowLatencyMode: true,
+    backBufferLength: 90,
 };
 
 const defaultCorsConfig = {
@@ -71,9 +60,15 @@ export const HlsSupport = {
     NATIVE: 2
 };
 
-export function getHlsSupport(forceNative = false) {
+export function getHlsSupport(forceNative = false, forceNativeForIOS = false) {
     const video = document.createElement("video");
-    if (video.canPlayType('application/vnd.apple.mpegurl') && forceNative) {
+    // This is limited to IOS devices (iPad, iPod, iPhone)
+    if (testIfIOS() && forceNativeForIOS)
+    {
+      return HlsSupport.NATIVE;
+    }
+    // This will also force systems like Android/Chrome in addition to IOS
+    else if (video.canPlayType('application/vnd.apple.mpegurl') && forceNative) {
         return HlsSupport.NATIVE;
     }
     else if (Hls.isSupported()) {
@@ -88,7 +83,8 @@ export function getHlsSupport(forceNative = false) {
 }
 
 const loadHls = (player, streamData, video, config, cors) => {
-    
+    // Saving content name for log/debug help
+    video.name = streamData.content;
     if (cors.withCredentials) {
         config.xhrSetup = function(xhr,url) {
             xhr.withCredentials = cors.withCredentials;
@@ -122,46 +118,46 @@ const loadHls = (player, streamData, video, config, cors) => {
                 switch (data.type) {
                 case Hls.ErrorTypes.NETWORK_ERROR:
                     if (data.details === Hls.ErrorDetails.MANIFEST_LOAD_ERROR) {
-                        reject(Error("hlsVideoFormatPlugin: unrecoverable error in HLS player. The video is not available"));
+                        reject(Error(`hlsVideoFormatPlugin: unrecoverable error in HLS player. The video is not available (${video.name})`));
                     }
                     else {
-                        player.log.warn("hlsVideoFormatPlugin: Fatal network error. Try to recover");
+                        player.log.warn(`hlsVideoFormatPlugin: Fatal network error. Try to recover (${video.name})`);
                         hls.startLoad();
                     }
                     break;
                 case Hls.ErrorTypes.MEDIA_ERROR:
-                    player.log.warn("hlsVideoFormatPlugin: Fatal media error encountered. Try to recover");
+                    player.log.warn(`hlsVideoFormatPlugin: Fatal media error encountered. Try to recover (${video.name})`);
                     hls.recoverMediaError()
                     break;
                 default:
                     hls.destroy();
-                    reject(Error("hlsVideoFormat: Fatal error. Can not recover"));
+                    reject(Error(`hlsVideoFormat: Fatal error. Can not recover (${video.name})`));
                 }
             }
             else {
-                player.log.warn('HLS: error');
+                player.log.warn(`HLS: error (${video.name})`);
                 player.log.warn(data.details);
             }
         });
 
         hls.on(Hls.Events.LEVEL_SWITCHING, () => {
-            player.log.debug("HLS media attached");
+            player.log.debug(`HLS media attached (${video.name})`);
         });
 
         hls.on(Hls.Events.MEDIA_ATTACHED, () => {
-            player.log.debug("HLS media attached");
+            player.log.debug(`HLS media attached (${video.name})`);
         });
 
         hls.on(Hls.Events.MEDIA_DETACHING, () => {
-            player.log.debug("HLS media detaching");
+            player.log.debug(`HLS media detaching (${video.name})`);
         });
 
         hls.on(Hls.Events.MEDIA_DETACHED, () => {
-            player.log.debug("HLS media detached");
+            player.log.debug(`HLS media detached (${video.name})`);
         });
 
         hls.on(Hls.Events.MANIFEST_PARSED, () => {
-            player.log.debug("HLS manifest parsed");
+            player.log.debug(`HLS manifest parsed (${video.name})`);
             hls.startLoad(-1);
         });
 
@@ -185,6 +181,12 @@ const loadHls = (player, streamData, video, config, cors) => {
         setTimeout(() => {
             if (!ready) {
                 video.play();
+                player.log.debug(`HLS: WORKAROUND to force play() to resolve load (${video.name})`);
+                video.play().catch((e) => {
+                  // This usually fails on the second of a multi-video event
+                  // possibly because of the await async between user-click action and second video load
+                  player.log.error(`HLS: WORKAROUND to force play() was not accepted (${video.name}) ${e}`);
+                });
             }
         }, 1000);
     })];
@@ -218,6 +220,8 @@ export class HlsVideo extends Mp4Video {
         this._ready = false;
         this._autoQuality = true;
         this._forceNative = config.forceNative || false;
+        // When forceNative is true, it overrides forceNativeForIOS
+        this._forceNativeForIOS = config.forceNativeForIOS || false;
     }
 
     get autoQuality() {
@@ -225,11 +229,19 @@ export class HlsVideo extends Mp4Video {
     }
 
     get forceNative() {
+        // When forceNative is true, it overrides forceNativeForIOS
         return this._forceNative;
     }
 
+    get forceNativeForIOS() {
+      // When forceNative is true, it overrides forceNativeForIOS
+      return this._forceNativeForIOS;
+    }
+
     async loadStreamData(streamData) {
-        if (getHlsSupport(this.forceNative) === HlsSupport.NATIVE) {
+        if (
+            getHlsSupport(this.forceNative, this.forceNativeForIOS) === HlsSupport.NATIVE
+        ) {
             streamData.sources.mp4 = streamData.sources.hls;
             const result = await super.loadStreamData(streamData);
             const tracks = await this.getAudioTracks();
@@ -254,7 +266,7 @@ export class HlsVideo extends Mp4Video {
             return result;
         }
         else {
-            this.player.log.debug("Loading HLS stream");
+            this.player.log.debug(`Loading HLS stream (${streamData.content})`);
 
             const hlsStream = streamData?.sources?.hls?.length && streamData.sources.hls[0];
             this._config.audioTrackLabel = hlsStream?.audioLabel || this._config.audioTrackLabel;
@@ -288,17 +300,31 @@ export class HlsVideo extends Mp4Video {
     }
 
     async waitForLoaded() {
-        if (getHlsSupport(this.forceNative) === HlsSupport.NATIVE) {
+        if (
+          getHlsSupport(this.forceNative, this.forceNativeForIOS) === HlsSupport.NATIVE
+        ) {
             return super.waitForLoaded();
         }
         else {
             await (new Promise((resolve,reject) => {
                 const checkReady = () => {
+                    // If already ready, return
+                    if (this._ready) {
+                      resolve();
+                    }
                     // readyState === 2: HAVE_CURRENT_DATA. Data is available for the current playback
-                    // position, but not enought to actually play more than one frame. In firefox, the
+                    // position, but not enough to actually play more than one frame. In firefox, the
                     // video returns readyState === 2 when the video reaches the end, so the correct
-                    // comparision here is >= instead of >
-                    if (this.video.readyState >= 2) {
+                    // comparison here is >= instead of >
+                    // Separate out Firefox special handling
+                    else if (
+                        /Firefox/.test(navigator.userAgent)
+                        && this.video.readyState == 2
+                    ) {
+                        this._ready = true;
+                        resolve();
+                    }
+                    else if (this.video.readyState >= 3) {
                         this._ready = true;
                         resolve();
                     }
@@ -315,7 +341,9 @@ export class HlsVideo extends Mp4Video {
         const q = [];
         q.push(this._autoQuality);
 
-        if (getHlsSupport(this.forceNative) === HlsSupport.MEDIA_SOURCE_EXTENSIONS) {
+        if (
+            getHlsSupport(this.forceNative, this.forceNativeForIOS) === HlsSupport.MEDIA_SOURCE_EXTENSIONS
+        ) {
             this._hls.levels.forEach((level, index) => {
                 q.push(new VideoQualityItem({
                     index: index, // TODO: should be level.id??
@@ -338,15 +366,17 @@ export class HlsVideo extends Mp4Video {
         }
 
         if (!(q instanceof VideoQualityItem)) {
-            throw Error("Invalid parameter setting video quality. VideoQualityItem object expected.");
+            throw Error(`Invalid parameter setting video quality. VideoQualityItem object expected. (${this.video.name})`);
         }
         
-        if (getHlsSupport(this.forceNative) === HlsSupport.MEDIA_SOURCE_EXTENSIONS) {
+        if (
+            getHlsSupport(this.forceNative, this.forceNativeForIOS) === HlsSupport.MEDIA_SOURCE_EXTENSIONS
+          ) {
             this._currentQuality = q;
             this._hls.currentLevel = q.index;
         }
         else {
-            this.player.log.warn("Could not set video quality of HLS stream, because the HLS support of this browser is native.");
+            this.player.log.warn(`Could not set video quality of HLS stream, because the HLS support of this browser is native. (${this.video.name})`);
         }
     }
 
@@ -356,7 +386,7 @@ export class HlsVideo extends Mp4Video {
 
     async supportsMultiaudio() {
         await this.waitForLoaded();
-        const hlsSupport = getHlsSupport(this.forceNative);
+        const hlsSupport = getHlsSupport(this.forceNative, this.forceNativeForIOS);
 
         if (hlsSupport === HlsSupport.MEDIA_SOURCE_EXTENSIONS) {
             return this._hls.audioTracks.length > 1;
@@ -373,7 +403,7 @@ export class HlsVideo extends Mp4Video {
         await this.waitForLoaded();
 
         const audioTrackLabel = this._config.audioTrackLabel || 'name';
-        const hlsSupport = getHlsSupport(this.forceNative);
+        const hlsSupport = getHlsSupport(this.forceNative, this.forceNativeForIOS);
 
         if (hlsSupport === HlsSupport.MEDIA_SOURCE_EXTENSIONS) {
             const result = this._hls.audioTracks.map(track => {
@@ -407,7 +437,7 @@ export class HlsVideo extends Mp4Video {
 
         const tracks = await this.getAudioTracks();
         const selected = tracks.find(track => track.id === newTrack.id);
-        const hlsSupport = getHlsSupport(this.forceNative);
+        const hlsSupport = getHlsSupport(this.forceNative, this.forceNativeForIOS);
         if (hlsSupport === HlsSupport.MEDIA_SOURCE_EXTENSIONS && selected) {
             this._hls.audioTrack = selected.id;
         }

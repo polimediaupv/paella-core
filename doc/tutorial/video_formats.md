@@ -143,6 +143,7 @@ The HLS plugin has more configuration options than others, as it includes some m
             "audioTrackLabel": "name",
             "enableCache": true,
             "forceNative": false,
+            "forceNativeForIOS": false,
             "hlsConfig": {
             },
             "corsConfig": {
@@ -411,6 +412,7 @@ In the following example configuration the highest priority plugin is set to be 
             "audioTrackLabel": "name",
             "enableCache": true,
             "forceNative": false,
+            "forceNativeForIOS": false,
             "hlsConfig": {
             },
             "corsConfig": {

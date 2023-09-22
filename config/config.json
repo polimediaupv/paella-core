@@ -214,6 +214,7 @@
             "audioTrackLabel": "name",
             "enableCache": true,
             "forceNative": false,
+            "forceNativeForIOS": false,
             "hlsConfig": {
                 "enableWorker": true,
                 "maxBufferLength": 1,
