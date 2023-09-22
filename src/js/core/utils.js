@@ -100,6 +100,35 @@ export function resumeAutoHideUiTimer(player) {
 export function setupAutoHideUiTimer(player, hideUiTimePropertyName = "hideUiTime") {
     player.__hideTimer__ = null;
 
+    const hideUserInterface = async () => {
+        //player.__hideTimer__ = null;
+        const visible = PopUp.IsSomePopUpVisible();
+        if (visible) {
+            player.log.debug("UI not hidden because there are visible pop ups");
+            //setupTimer();
+            return false;
+        }
+        else if (player.__hideTimerPaused__) {
+            player.log.debug("UI not hidden because the auto hide timer is paused");
+            //setupTimer();
+            return false;
+        }
+        else if (checkFocus()) {
+            player.log.debug("UI not hidden because there is a focused element");
+            //setupTimer();
+            return false;
+        }
+        await player.hideUserInterface();
+        return true;
+    }
+    
+    // Used to hide user interface when the mouse leave the player container
+    if (player.config.ui?.hideOnMouseLeave) {
+        player.containerElement.addEventListener("mouseleave", () => {
+            hideUserInterface();
+        });
+    }
+
     const checkFocus = () => {
         const active = document.activeElement;
         return  (player.playbackBar.element.contains(active) ||
@@ -118,21 +147,8 @@ export function setupAutoHideUiTimer(player, hideUiTimePropertyName = "hideUiTim
         await player.showUserInterface();
         player.__hideTimer__ = setTimeout(async () => {
             player.__hideTimer__ = null;
-            const visible = PopUp.IsSomePopUpVisible();
-            if (visible) {
-                player.log.debug("UI not hidden because there are visible pop ups");
+            if (!hideUserInterface()) {
                 setupTimer();
-            }
-            else if (player.__hideTimerPaused__) {
-                player.log.debug("UI not hidden because the auto hide timer is paused");
-                setupTimer();
-            }
-            else if (checkFocus()) {
-                player.log.debug("UI not hidden because there is a focused element");
-                setupTimer();
-            }
-            else {
-                await player.hideUserInterface();
             }
         }, player[hideUiTimePropertyName]);
     }

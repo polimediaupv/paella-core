@@ -12,8 +12,7 @@ import {
     clearAutoHideTimer,
     getUrlFileName,
     removeExtension,
-    removeFileName,
-    getFileExtension
+    removeFileName
 } from 'paella-core/js/core/utils';
 import Loader from "./core/Loader";
 import ErrorContainer from "./core/ErrorContainer";

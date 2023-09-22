@@ -16,7 +16,8 @@
     "logLevel": "INFO",
 
     "ui": {
-        "hideUITimer": 2000
+        "hideUITimer": 2000,
+        "hideOnMouseLeave": true
     },
 
     "accessibility": {

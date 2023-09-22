@@ -32,7 +32,8 @@ For more information, please refer to the documentation on [button groups](butto
 
 **`ui`** (paella-core >= 1.45): General configuration options for the user interface:
 
-- **`hideUITimer`**: Sets the time for hiding the playback bar. The time elapses from the moment the user stops moving the mouse over the player. Note that there are exceptions that cause the playback bar not to be hidden, for example, when the mouse cursor is over the playback bar.
+- **`hideUITimer`** (paella-core >= 1.45): Sets the time for hiding the playback bar. The time elapses from the moment the user stops moving the mouse over the player. Note that there are exceptions that cause the playback bar not to be hidden, for example, when the mouse cursor is over the playback bar.
+- **`hideOnMouseLeave`** (paella-core >= 1.45): If true, the user interface is hidden when the mouse leave the player container. This action has the same restrictions as the `hideUITimer`, for example, the user interface will not be hidden when a pop up is open. 
 
 **`progressIndicator`** (paella-core >= 1.2): Sets the visual configuration parameters for the progress indicator. These parameters are elements that would be very complicated to define using CSS. For more information, see the documentation on [progress indicator customisation](progress_indicator_customization.md).
 

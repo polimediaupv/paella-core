@@ -212,3 +212,8 @@
 ## paella-core 1.44
 
 - New classes and utilities have been exported to implement external video formats via plugins. More info here: [exported plugins](exported_plugins.md)
+
+## paella-core 1.45
+
+- Default hide UI timer is now configurable
+- New configuration option: hide on mouse leave
