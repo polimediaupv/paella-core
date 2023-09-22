@@ -15,6 +15,10 @@
 
     "logLevel": "INFO",
 
+    "ui": {
+        "hideUITimer": 2000
+    },
+
     "accessibility": {
         "clickWithSpacebar": false
     },

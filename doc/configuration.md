@@ -30,6 +30,10 @@ For more information, please refer to the documentation on [button groups](butto
 
 **`manifestFileName`**: Set the filename of the video manifest that `paella-core` will attempt to load. By default, if the predefined manifest search functions are not modified, the path to the manifest files will be defined by the `repositoryUrl` attribute, followed by the video identifier and the manifest file name. For example, if `repositoryUrl` is `"videos"`, the video identifier is `"video_0"` and `manifestFileName` is `"data.json"`, the path paella-core will search for is `"videos/video_0/data.json"`. To modify the manifest file resolution method, see the documentation on [paella-core initialization](initialization.md).
 
+**`ui`** (paella-core >= 1.45): General configuration options for the user interface:
+
+- **`hideUITimer`**: Sets the time for hiding the playback bar. The time elapses from the moment the user stops moving the mouse over the player. Note that there are exceptions that cause the playback bar not to be hidden, for example, when the mouse cursor is over the playback bar.
+
 **`progressIndicator`** (paella-core >= 1.2): Sets the visual configuration parameters for the progress indicator. These parameters are elements that would be very complicated to define using CSS. For more information, see the documentation on [progress indicator customisation](progress_indicator_customization.md).
 
 - **`showTotal`**: Show or hide the total duration of the video in the progress indicator. If `false` only the current time of the video is shown. If `true`, the following is displayed: `[current_time] / [total_time]`.

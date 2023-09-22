@@ -688,7 +688,7 @@ export default class Paella {
             await this._playbackBar.load();
             
             // UI hide timer
-            this._hideUiTime = 5000;
+            this._hideUiTime = this.config.ui?.hideUITimer ?? 5000;
             setupAutoHideUiTimer(this);
             
             this._captionsCanvas.load();
