@@ -217,3 +217,7 @@
 
 - Default hide UI timer is now configurable
 - New configuration option: hide on mouse leave
+
+## paella-core 1.46
+
+- New utility function: [`isVolumeApiAvailable()`](video_plugin.md)

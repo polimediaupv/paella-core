@@ -193,3 +193,45 @@ export default class HTML5VideoPlayer extends VideoPlugin {
     }
 }
 ```
+
+## Utilities
+
+The JavaScript volume API is not available on some devices, such as iPad and iPhones, because the operating system restricts these actions to the physical volume buttons. You can check if the device supports the volume API using the `async isVolumeApiAvailable()` function.
+
+This function is available in the `Video` base class:
+
+```js
+import { Video, VideoPlugin } from 'paella-core';
+
+export class MyMp4VideoPlugin extends Video {
+    ...
+    async setVolume(v) {
+        if (await this.isVolumeApiAvailable()) {
+            this.video.volume = v;
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    ...
+}
+```
+
+You can also import the standalone version of this function. This is very useful, for example, to implement UI plugins:
+
+```js
+import { ButtonPlugin, isVolumeApiAvailable } from 'paella-core';
+
+export default class MyMutePlugin extends ButtonPlugin {
+    async isEnabled() {
+        const e = await super.isEnabled();
+        if (e) {
+            return await isVolumeApiAvailable();
+        }
+        return false;
+    }
+    ...
+}
+```
+
