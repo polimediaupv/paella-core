@@ -108,8 +108,8 @@ export default class DefaultKeyShortcutsPlugin extends KeyShortcutPlugin {
     }
 
     closePopUp() {
-        if (!PopUp.HideTopPopUp()) {
-            TimeLinePopUp.HideAll(this.player);
+        if (!PopUp.HideTopPopUp() && !TimeLinePopUp.HideAll(this.player)) {
+            document.activeElement?.blur()
         }
     }
 
