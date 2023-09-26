@@ -23,7 +23,7 @@ import ButtonPlugin, { getNextTabIndex, getCurrentTabIndex } from 'paella-core/j
 import PopUpButtonPlugin from 'paella-core/js/core/PopUpButtonPlugin';
 import MenuButtonPlugin from 'paella-core/js/core/MenuButtonPlugin';
 import VideoLayout from 'paella-core/js/core/VideoLayout';
-import VideoPlugin, { Video } from 'paella-core/js/core/VideoPlugin';
+import VideoPlugin, { Video, isVolumeApiAvailable } from 'paella-core/js/core/VideoPlugin';
 import ProgressIndicatorPlugin from 'paella-core/js/core/ProgressIndicatorPlugin';
 import Events, { bindEvent, triggerEvent, triggerIfReady } from 'paella-core/js/core/Events';
 import PlayerResource from 'paella-core/js/core/PlayerResource';
@@ -134,6 +134,7 @@ export {
     AudioTrackData,
     EventLogPlugin,
     ButtonGroupPlugin,
+    isVolumeApiAvailable,
 
     getNextTabIndex,
     getCurrentTabIndex,

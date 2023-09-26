@@ -66,6 +66,19 @@ export function getVideoPlugin(player, streamData) {
     return plugin;
 }
 
+export async function isVolumeApiAvailable() {
+    const value = await (new Promise(resolve => {
+        const audio = document.createElement('audio');
+        const resolveTimer = setTimeout(() => resolve(false), 100);
+        audio.addEventListener('volumechange', evt => {
+            clearTimeout(resolveTimer);
+            resolve(true);
+        });
+        audio.volume = 0.5;
+    }));
+    return value
+}
+
 export class Video extends DomClass {
     constructor(tag, player, parent) {
         const attributes = {
@@ -76,6 +89,10 @@ export class Video extends DomClass {
         this._streamProvider = null;
         this._streamData = null;
         this._ready = false;
+    }
+
+    async isVolumeApiAvailable() {
+        return await isVolumeApiAvailable()
     }
 
     get streamData() {

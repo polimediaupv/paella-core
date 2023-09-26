@@ -21,6 +21,8 @@ import testIcon from './icons/play_icon_fullscreen.svg';
 import { createElementWithHtmlText } from './js/core/dom';
 import Loader from './js/core/Loader';
 
+import { isVolumeApiAvailable } from './js/core/VideoPlugin';
+
 class CustomLoader extends Loader {
 	async create() {
 		createElementWithHtmlText(`
@@ -119,6 +121,8 @@ const initParams = {
 
 window.onload = async () => {
 	let paella = new Paella('player-container', initParams);
+
+	console.log("Volume API available: " + await isVolumeApiAvailable());
 
 	const saveCookies = () => {
 		const val = (item) => document.getElementById(item).checked;
