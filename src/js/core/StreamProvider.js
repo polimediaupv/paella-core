@@ -273,6 +273,14 @@ export default class SteramProvider extends PlayerResource {
 	}
 
 	async setCurrentTime(t) {
+		const duration = await this.duration();
+        if (t < 0) {
+            t = 0;
+        }
+        else if (t > duration) {
+            t = duration;
+        }
+
 		const prevTime = (await this.executeAction("currentTime"))[0];
 		let returnValue = null;
 
