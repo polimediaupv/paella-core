@@ -5459,6 +5459,7 @@ var VideoLayout = /*#__PURE__*/function (_UserInterfacePlugin) {
 /* harmony export */   ZP: () => (/* binding */ VideoPlugin),
 /* harmony export */   m7: () => (/* binding */ unloadVideoPlugins),
 /* harmony export */   nk: () => (/* binding */ Video),
+/* harmony export */   pL: () => (/* binding */ _isVolumeApiAvailable2),
 /* harmony export */   ti: () => (/* binding */ getVideoPlugin),
 /* harmony export */   zE: () => (/* binding */ loadVideoPlugins)
 /* harmony export */ });
@@ -5548,19 +5549,19 @@ function loadVideoPlugins(_x) {
   return _loadVideoPlugins.apply(this, arguments);
 }
 function _loadVideoPlugins() {
-  _loadVideoPlugins = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee22(player) {
-    return _regeneratorRuntime().wrap(function _callee22$(_context22) {
-      while (1) switch (_context22.prev = _context22.next) {
+  _loadVideoPlugins = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee23(player) {
+    return _regeneratorRuntime().wrap(function _callee23$(_context23) {
+      while (1) switch (_context23.prev = _context23.next) {
         case 0:
-          _context22.next = 2;
+          _context23.next = 2;
           return (0,paella_core_js_core_plugin_tools__WEBPACK_IMPORTED_MODULE_0__/* .loadPluginsOfType */ .FP)(player, "video", function (plugin) {
             g_enabledVideoPlugins.push(plugin);
           });
         case 2:
         case "end":
-          return _context22.stop();
+          return _context23.stop();
       }
-    }, _callee22);
+    }, _callee23);
   }));
   return _loadVideoPlugins.apply(this, arguments);
 }
@@ -5568,16 +5569,16 @@ function unloadVideoPlugins(_x2) {
   return _unloadVideoPlugins.apply(this, arguments);
 }
 function _unloadVideoPlugins() {
-  _unloadVideoPlugins = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee23(player) {
-    return _regeneratorRuntime().wrap(function _callee23$(_context23) {
-      while (1) switch (_context23.prev = _context23.next) {
+  _unloadVideoPlugins = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee24(player) {
+    return _regeneratorRuntime().wrap(function _callee24$(_context24) {
+      while (1) switch (_context24.prev = _context24.next) {
         case 0:
           g_enabledVideoPlugins.slice(0);
         case 1:
         case "end":
-          return _context23.stop();
+          return _context24.stop();
       }
-    }, _callee23);
+    }, _callee24);
   }));
   return _unloadVideoPlugins.apply(this, arguments);
 }
@@ -5605,6 +5606,39 @@ function getVideoPlugin(player, streamData) {
   });
   return plugin;
 }
+function _isVolumeApiAvailable2() {
+  return _isVolumeApiAvailable.apply(this, arguments);
+}
+
+function _isVolumeApiAvailable() {
+  _isVolumeApiAvailable = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee25() {
+    var value;
+    return _regeneratorRuntime().wrap(function _callee25$(_context25) {
+      while (1) switch (_context25.prev = _context25.next) {
+        case 0:
+          _context25.next = 2;
+          return new Promise(function (resolve) {
+            var audio = document.createElement('audio');
+            var resolveTimer = setTimeout(function () {
+              return resolve(false);
+            }, 100);
+            audio.addEventListener('volumechange', function (evt) {
+              clearTimeout(resolveTimer);
+              resolve(true);
+            });
+            audio.volume = 0.5;
+          });
+        case 2:
+          value = _context25.sent;
+          return _context25.abrupt("return", value);
+        case 4:
+        case "end":
+          return _context25.stop();
+      }
+    }, _callee25);
+  }));
+  return _isVolumeApiAvailable.apply(this, arguments);
+}
 var Video = /*#__PURE__*/function (_DomClass) {
   _inherits(Video, _DomClass);
   var _super2 = _createSuper(Video);
@@ -5625,6 +5659,28 @@ var Video = /*#__PURE__*/function (_DomClass) {
     return _this;
   }
   _createClass(Video, [{
+    key: "isVolumeApiAvailable",
+    value: function () {
+      var _isVolumeApiAvailable3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return _isVolumeApiAvailable2();
+            case 2:
+              return _context2.abrupt("return", _context2.sent);
+            case 3:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2);
+      }));
+      function isVolumeApiAvailable() {
+        return _isVolumeApiAvailable3.apply(this, arguments);
+      }
+      return isVolumeApiAvailable;
+    }()
+  }, {
     key: "streamData",
     get: function get() {
       return this._streamData;
@@ -5637,23 +5693,23 @@ var Video = /*#__PURE__*/function (_DomClass) {
   }, {
     key: "load",
     value: function () {
-      var _load = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(streamData, streamProvider) {
+      var _load = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(streamData, streamProvider) {
         var result;
-        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-          while (1) switch (_context2.prev = _context2.next) {
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
             case 0:
               this._streamProvider = streamProvider;
               this._streamData = streamData;
-              _context2.next = 4;
+              _context3.next = 4;
               return this.loadStreamData(streamData);
             case 4:
-              result = _context2.sent;
-              return _context2.abrupt("return", result);
+              result = _context3.sent;
+              return _context3.abrupt("return", result);
             case 6:
             case "end":
-              return _context2.stop();
+              return _context3.stop();
           }
-        }, _callee2, this);
+        }, _callee3, this);
       }));
       function load(_x3, _x4) {
         return _load.apply(this, arguments);
@@ -5677,26 +5733,7 @@ var Video = /*#__PURE__*/function (_DomClass) {
   }, {
     key: "play",
     value: function () {
-      var _play = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-          while (1) switch (_context3.prev = _context3.next) {
-            case 0:
-              return _context3.abrupt("return", false);
-            case 1:
-            case "end":
-              return _context3.stop();
-          }
-        }, _callee3);
-      }));
-      function play() {
-        return _play.apply(this, arguments);
-      }
-      return play;
-    }()
-  }, {
-    key: "pause",
-    value: function () {
-      var _pause = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+      var _play = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
         return _regeneratorRuntime().wrap(function _callee4$(_context4) {
           while (1) switch (_context4.prev = _context4.next) {
             case 0:
@@ -5707,6 +5744,25 @@ var Video = /*#__PURE__*/function (_DomClass) {
           }
         }, _callee4);
       }));
+      function play() {
+        return _play.apply(this, arguments);
+      }
+      return play;
+    }()
+  }, {
+    key: "pause",
+    value: function () {
+      var _pause = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+          while (1) switch (_context5.prev = _context5.next) {
+            case 0:
+              return _context5.abrupt("return", false);
+            case 1:
+            case "end":
+              return _context5.stop();
+          }
+        }, _callee5);
+      }));
       function pause() {
         return _pause.apply(this, arguments);
       }
@@ -5715,16 +5771,16 @@ var Video = /*#__PURE__*/function (_DomClass) {
   }, {
     key: "duration",
     value: function () {
-      var _duration = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
-        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
-          while (1) switch (_context5.prev = _context5.next) {
+      var _duration = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+          while (1) switch (_context6.prev = _context6.next) {
             case 0:
-              return _context5.abrupt("return", -1);
+              return _context6.abrupt("return", -1);
             case 1:
             case "end":
-              return _context5.stop();
+              return _context6.stop();
           }
-        }, _callee5);
+        }, _callee6);
       }));
       function duration() {
         return _duration.apply(this, arguments);
@@ -5739,16 +5795,16 @@ var Video = /*#__PURE__*/function (_DomClass) {
   }, {
     key: "currentTime",
     value: function () {
-      var _currentTime = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
-        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
-          while (1) switch (_context6.prev = _context6.next) {
+      var _currentTime = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
+        return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+          while (1) switch (_context7.prev = _context7.next) {
             case 0:
-              return _context6.abrupt("return", -1);
+              return _context7.abrupt("return", -1);
             case 1:
             case "end":
-              return _context6.stop();
+              return _context7.stop();
           }
-        }, _callee6);
+        }, _callee7);
       }));
       function currentTime() {
         return _currentTime.apply(this, arguments);
@@ -5758,16 +5814,16 @@ var Video = /*#__PURE__*/function (_DomClass) {
   }, {
     key: "setCurrentTime",
     value: function () {
-      var _setCurrentTime = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
-        return _regeneratorRuntime().wrap(function _callee7$(_context7) {
-          while (1) switch (_context7.prev = _context7.next) {
+      var _setCurrentTime = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
+        return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+          while (1) switch (_context8.prev = _context8.next) {
             case 0:
-              return _context7.abrupt("return", false);
+              return _context8.abrupt("return", false);
             case 1:
             case "end":
-              return _context7.stop();
+              return _context8.stop();
           }
-        }, _callee7);
+        }, _callee8);
       }));
       function setCurrentTime() {
         return _setCurrentTime.apply(this, arguments);
@@ -5779,16 +5835,16 @@ var Video = /*#__PURE__*/function (_DomClass) {
   }, {
     key: "volume",
     value: function () {
-      var _volume = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
-        return _regeneratorRuntime().wrap(function _callee8$(_context8) {
-          while (1) switch (_context8.prev = _context8.next) {
+      var _volume = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
+        return _regeneratorRuntime().wrap(function _callee9$(_context9) {
+          while (1) switch (_context9.prev = _context9.next) {
             case 0:
-              return _context8.abrupt("return", -1);
+              return _context9.abrupt("return", -1);
             case 1:
             case "end":
-              return _context8.stop();
+              return _context9.stop();
           }
-        }, _callee8);
+        }, _callee9);
       }));
       function volume() {
         return _volume.apply(this, arguments);
@@ -5798,16 +5854,16 @@ var Video = /*#__PURE__*/function (_DomClass) {
   }, {
     key: "setVolume",
     value: function () {
-      var _setVolume = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
-        return _regeneratorRuntime().wrap(function _callee9$(_context9) {
-          while (1) switch (_context9.prev = _context9.next) {
+      var _setVolume = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee10() {
+        return _regeneratorRuntime().wrap(function _callee10$(_context10) {
+          while (1) switch (_context10.prev = _context10.next) {
             case 0:
-              return _context9.abrupt("return", false);
+              return _context10.abrupt("return", false);
             case 1:
             case "end":
-              return _context9.stop();
+              return _context10.stop();
           }
-        }, _callee9);
+        }, _callee10);
       }));
       function setVolume() {
         return _setVolume.apply(this, arguments);
@@ -5824,16 +5880,16 @@ var Video = /*#__PURE__*/function (_DomClass) {
   }, {
     key: "paused",
     value: function () {
-      var _paused = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee10() {
-        return _regeneratorRuntime().wrap(function _callee10$(_context10) {
-          while (1) switch (_context10.prev = _context10.next) {
+      var _paused = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee11() {
+        return _regeneratorRuntime().wrap(function _callee11$(_context11) {
+          while (1) switch (_context11.prev = _context11.next) {
             case 0:
-              return _context10.abrupt("return", true);
+              return _context11.abrupt("return", true);
             case 1:
             case "end":
-              return _context10.stop();
+              return _context11.stop();
           }
-        }, _callee10);
+        }, _callee11);
       }));
       function paused() {
         return _paused.apply(this, arguments);
@@ -5843,16 +5899,16 @@ var Video = /*#__PURE__*/function (_DomClass) {
   }, {
     key: "playbackRate",
     value: function () {
-      var _playbackRate = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee11() {
-        return _regeneratorRuntime().wrap(function _callee11$(_context11) {
-          while (1) switch (_context11.prev = _context11.next) {
+      var _playbackRate = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee12() {
+        return _regeneratorRuntime().wrap(function _callee12$(_context12) {
+          while (1) switch (_context12.prev = _context12.next) {
             case 0:
-              return _context11.abrupt("return", -1);
+              return _context12.abrupt("return", -1);
             case 1:
             case "end":
-              return _context11.stop();
+              return _context12.stop();
           }
-        }, _callee11);
+        }, _callee12);
       }));
       function playbackRate() {
         return _playbackRate.apply(this, arguments);
@@ -5862,16 +5918,16 @@ var Video = /*#__PURE__*/function (_DomClass) {
   }, {
     key: "setPlaybackRate",
     value: function () {
-      var _setPlaybackRate = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee12() {
-        return _regeneratorRuntime().wrap(function _callee12$(_context12) {
-          while (1) switch (_context12.prev = _context12.next) {
+      var _setPlaybackRate = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee13() {
+        return _regeneratorRuntime().wrap(function _callee13$(_context13) {
+          while (1) switch (_context13.prev = _context13.next) {
             case 0:
-              return _context12.abrupt("return", false);
+              return _context13.abrupt("return", false);
             case 1:
             case "end":
-              return _context12.stop();
+              return _context13.stop();
           }
-        }, _callee12);
+        }, _callee13);
       }));
       function setPlaybackRate() {
         return _setPlaybackRate.apply(this, arguments);
@@ -5881,16 +5937,16 @@ var Video = /*#__PURE__*/function (_DomClass) {
   }, {
     key: "getQualities",
     value: function () {
-      var _getQualities = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee13() {
-        return _regeneratorRuntime().wrap(function _callee13$(_context13) {
-          while (1) switch (_context13.prev = _context13.next) {
+      var _getQualities = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee14() {
+        return _regeneratorRuntime().wrap(function _callee14$(_context14) {
+          while (1) switch (_context14.prev = _context14.next) {
             case 0:
-              return _context13.abrupt("return", null);
+              return _context14.abrupt("return", null);
             case 1:
             case "end":
-              return _context13.stop();
+              return _context14.stop();
           }
-        }, _callee13);
+        }, _callee14);
       }));
       function getQualities() {
         return _getQualities.apply(this, arguments);
@@ -5900,16 +5956,16 @@ var Video = /*#__PURE__*/function (_DomClass) {
   }, {
     key: "setQuality",
     value: function () {
-      var _setQuality = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee14() {
-        return _regeneratorRuntime().wrap(function _callee14$(_context14) {
-          while (1) switch (_context14.prev = _context14.next) {
+      var _setQuality = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee15() {
+        return _regeneratorRuntime().wrap(function _callee15$(_context15) {
+          while (1) switch (_context15.prev = _context15.next) {
             case 0:
-              return _context14.abrupt("return", false);
+              return _context15.abrupt("return", false);
             case 1:
             case "end":
-              return _context14.stop();
+              return _context15.stop();
           }
-        }, _callee14);
+        }, _callee15);
       }));
       function setQuality() {
         return _setQuality.apply(this, arguments);
@@ -5926,16 +5982,16 @@ var Video = /*#__PURE__*/function (_DomClass) {
   }, {
     key: "getDimensions",
     value: function () {
-      var _getDimensions = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee15() {
-        return _regeneratorRuntime().wrap(function _callee15$(_context15) {
-          while (1) switch (_context15.prev = _context15.next) {
+      var _getDimensions = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee16() {
+        return _regeneratorRuntime().wrap(function _callee16$(_context16) {
+          while (1) switch (_context16.prev = _context16.next) {
             case 0:
-              return _context15.abrupt("return", null);
+              return _context16.abrupt("return", null);
             case 1:
             case "end":
-              return _context15.stop();
+              return _context16.stop();
           }
-        }, _callee15);
+        }, _callee16);
       }));
       function getDimensions() {
         return _getDimensions.apply(this, arguments);
@@ -5945,16 +6001,16 @@ var Video = /*#__PURE__*/function (_DomClass) {
   }, {
     key: "supportsMultiaudio",
     value: function () {
-      var _supportsMultiaudio = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee16() {
-        return _regeneratorRuntime().wrap(function _callee16$(_context16) {
-          while (1) switch (_context16.prev = _context16.next) {
+      var _supportsMultiaudio = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee17() {
+        return _regeneratorRuntime().wrap(function _callee17$(_context17) {
+          while (1) switch (_context17.prev = _context17.next) {
             case 0:
-              return _context16.abrupt("return", false);
+              return _context17.abrupt("return", false);
             case 1:
             case "end":
-              return _context16.stop();
+              return _context17.stop();
           }
-        }, _callee16);
+        }, _callee17);
       }));
       function supportsMultiaudio() {
         return _supportsMultiaudio.apply(this, arguments);
@@ -5964,16 +6020,16 @@ var Video = /*#__PURE__*/function (_DomClass) {
   }, {
     key: "getAudioTracks",
     value: function () {
-      var _getAudioTracks = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee17() {
-        return _regeneratorRuntime().wrap(function _callee17$(_context17) {
-          while (1) switch (_context17.prev = _context17.next) {
+      var _getAudioTracks = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee18() {
+        return _regeneratorRuntime().wrap(function _callee18$(_context18) {
+          while (1) switch (_context18.prev = _context18.next) {
             case 0:
-              return _context17.abrupt("return", null);
+              return _context18.abrupt("return", null);
             case 1:
             case "end":
-              return _context17.stop();
+              return _context18.stop();
           }
-        }, _callee17);
+        }, _callee18);
       }));
       function getAudioTracks() {
         return _getAudioTracks.apply(this, arguments);
@@ -5983,14 +6039,14 @@ var Video = /*#__PURE__*/function (_DomClass) {
   }, {
     key: "setCurrentAudioTrack",
     value: function () {
-      var _setCurrentAudioTrack = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee18() {
-        return _regeneratorRuntime().wrap(function _callee18$(_context18) {
-          while (1) switch (_context18.prev = _context18.next) {
+      var _setCurrentAudioTrack = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee19() {
+        return _regeneratorRuntime().wrap(function _callee19$(_context19) {
+          while (1) switch (_context19.prev = _context19.next) {
             case 0:
             case "end":
-              return _context18.stop();
+              return _context19.stop();
           }
-        }, _callee18);
+        }, _callee19);
       }));
       function setCurrentAudioTrack() {
         return _setCurrentAudioTrack.apply(this, arguments);
@@ -6005,16 +6061,16 @@ var Video = /*#__PURE__*/function (_DomClass) {
   }, {
     key: "loadStreamData",
     value: function () {
-      var _loadStreamData = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee19(streamData) {
-        return _regeneratorRuntime().wrap(function _callee19$(_context19) {
-          while (1) switch (_context19.prev = _context19.next) {
+      var _loadStreamData = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee20(streamData) {
+        return _regeneratorRuntime().wrap(function _callee20$(_context20) {
+          while (1) switch (_context20.prev = _context20.next) {
             case 0:
-              return _context19.abrupt("return", false);
+              return _context20.abrupt("return", false);
             case 1:
             case "end":
-              return _context19.stop();
+              return _context20.stop();
           }
-        }, _callee19);
+        }, _callee20);
       }));
       function loadStreamData(_x5) {
         return _loadStreamData.apply(this, arguments);
@@ -6029,16 +6085,16 @@ var Video = /*#__PURE__*/function (_DomClass) {
   }, {
     key: "enable",
     value: function () {
-      var _enable = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee20() {
-        return _regeneratorRuntime().wrap(function _callee20$(_context20) {
-          while (1) switch (_context20.prev = _context20.next) {
+      var _enable = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee21() {
+        return _regeneratorRuntime().wrap(function _callee21$(_context21) {
+          while (1) switch (_context21.prev = _context21.next) {
             case 0:
               this._enabled = true;
             case 1:
             case "end":
-              return _context20.stop();
+              return _context21.stop();
           }
-        }, _callee20, this);
+        }, _callee21, this);
       }));
       function enable() {
         return _enable.apply(this, arguments);
@@ -6048,16 +6104,16 @@ var Video = /*#__PURE__*/function (_DomClass) {
   }, {
     key: "disable",
     value: function () {
-      var _disable = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee21() {
-        return _regeneratorRuntime().wrap(function _callee21$(_context21) {
-          while (1) switch (_context21.prev = _context21.next) {
+      var _disable = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee22() {
+        return _regeneratorRuntime().wrap(function _callee22$(_context22) {
+          while (1) switch (_context22.prev = _context22.next) {
             case 0:
               this._enabled = false;
             case 1:
             case "end":
-              return _context21.stop();
+              return _context22.stop();
           }
-        }, _callee21, this);
+        }, _callee22, this);
       }));
       function disable() {
         return _disable.apply(this, arguments);
@@ -6913,8 +6969,62 @@ function resumeAutoHideUiTimer(player) {
   player.__hideTimerPaused__ = false;
 }
 function setupAutoHideUiTimer(player) {
+  var _player$config$ui;
   var hideUiTimePropertyName = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "hideUiTime";
   player.__hideTimer__ = null;
+  var hideUserInterface = /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+      var visible;
+      return _regeneratorRuntime().wrap(function _callee$(_context) {
+        while (1) switch (_context.prev = _context.next) {
+          case 0:
+            //player.__hideTimer__ = null;
+            visible = paella_core_js_core_PopUp__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .Z.IsSomePopUpVisible();
+            if (!visible) {
+              _context.next = 6;
+              break;
+            }
+            player.log.debug("UI not hidden because there are visible pop ups");
+            //setupTimer();
+            return _context.abrupt("return", false);
+          case 6:
+            if (!player.__hideTimerPaused__) {
+              _context.next = 11;
+              break;
+            }
+            player.log.debug("UI not hidden because the auto hide timer is paused");
+            //setupTimer();
+            return _context.abrupt("return", false);
+          case 11:
+            if (!checkFocus()) {
+              _context.next = 14;
+              break;
+            }
+            player.log.debug("UI not hidden because there is a focused element");
+            //setupTimer();
+            return _context.abrupt("return", false);
+          case 14:
+            _context.next = 16;
+            return player.hideUserInterface();
+          case 16:
+            return _context.abrupt("return", true);
+          case 17:
+          case "end":
+            return _context.stop();
+        }
+      }, _callee);
+    }));
+    return function hideUserInterface() {
+      return _ref.apply(this, arguments);
+    };
+  }();
+
+  // Used to hide user interface when the mouse leave the player container
+  if ((_player$config$ui = player.config.ui) !== null && _player$config$ui !== void 0 && _player$config$ui.hideOnMouseLeave) {
+    player.containerElement.addEventListener("mouseleave", function () {
+      hideUserInterface();
+    });
+  }
   var checkFocus = function checkFocus() {
     var active = document.activeElement;
     return (player.playbackBar.element.contains(active) || player.videoContainer.element.contains(active)) && ["input", "textarea", "button"].find(function (tagName) {
@@ -6922,108 +7032,68 @@ function setupAutoHideUiTimer(player) {
     }) !== -1;
   };
   var setupTimer = /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-      return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-        while (1) switch (_context2.prev = _context2.next) {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+      return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+        while (1) switch (_context3.prev = _context3.next) {
           case 0:
             if (player.__hideTimer__) {
               clearTimeout(player.__hideTimer__);
             }
-            _context2.next = 3;
+            _context3.next = 3;
             return player.showUserInterface();
           case 3:
-            player.__hideTimer__ = setTimeout( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-              var visible;
-              return _regeneratorRuntime().wrap(function _callee$(_context) {
-                while (1) switch (_context.prev = _context.next) {
+            player.__hideTimer__ = setTimeout( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+              return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+                while (1) switch (_context2.prev = _context2.next) {
                   case 0:
                     player.__hideTimer__ = null;
-                    visible = paella_core_js_core_PopUp__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .Z.IsSomePopUpVisible();
-                    if (!visible) {
-                      _context.next = 7;
-                      break;
+                    if (!hideUserInterface()) {
+                      setupTimer();
                     }
-                    player.log.debug("UI not hidden because there are visible pop ups");
-                    setupTimer();
-                    _context.next = 19;
-                    break;
-                  case 7:
-                    if (!player.__hideTimerPaused__) {
-                      _context.next = 12;
-                      break;
-                    }
-                    player.log.debug("UI not hidden because the auto hide timer is paused");
-                    setupTimer();
-                    _context.next = 19;
-                    break;
-                  case 12:
-                    if (!checkFocus()) {
-                      _context.next = 17;
-                      break;
-                    }
-                    player.log.debug("UI not hidden because there is a focused element");
-                    setupTimer();
-                    _context.next = 19;
-                    break;
-                  case 17:
-                    _context.next = 19;
-                    return player.hideUserInterface();
-                  case 19:
+                  case 2:
                   case "end":
-                    return _context.stop();
+                    return _context2.stop();
                 }
-              }, _callee);
+              }, _callee2);
             })), player[hideUiTimePropertyName]);
           case 4:
-          case "end":
-            return _context2.stop();
-        }
-      }, _callee2);
-    }));
-    return function setupTimer() {
-      return _ref.apply(this, arguments);
-    };
-  }();
-  player.containerElement.addEventListener("mousemove", /*#__PURE__*/function () {
-    var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(evt) {
-      return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-        while (1) switch (_context3.prev = _context3.next) {
-          case 0:
-            setupTimer();
-          case 1:
           case "end":
             return _context3.stop();
         }
       }, _callee3);
     }));
+    return function setupTimer() {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+  player.containerElement.addEventListener("mousemove", /*#__PURE__*/function () {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(evt) {
+      return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+        while (1) switch (_context4.prev = _context4.next) {
+          case 0:
+            setupTimer();
+          case 1:
+          case "end":
+            return _context4.stop();
+        }
+      }, _callee4);
+    }));
     return function (_x) {
-      return _ref3.apply(this, arguments);
+      return _ref4.apply(this, arguments);
     };
   }());
-  (0,paella_core_js_core_Events__WEBPACK_IMPORTED_MODULE_0__/* .bindEvent */ .GT)(player, paella_core_js_core_Events__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .ZP.PLAY, /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
-    return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-      while (1) switch (_context4.prev = _context4.next) {
-        case 0:
-          setupTimer();
-        case 1:
-        case "end":
-          return _context4.stop();
-      }
-    }, _callee4);
-  })));
-  (0,paella_core_js_core_Events__WEBPACK_IMPORTED_MODULE_0__/* .bindEvent */ .GT)(player, paella_core_js_core_Events__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .ZP.PAUSE, /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+  (0,paella_core_js_core_Events__WEBPACK_IMPORTED_MODULE_0__/* .bindEvent */ .GT)(player, paella_core_js_core_Events__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .ZP.PLAY, /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
     return _regeneratorRuntime().wrap(function _callee5$(_context5) {
       while (1) switch (_context5.prev = _context5.next) {
         case 0:
-          _context5.next = 2;
-          return player.showUserInterface();
-        case 2:
+          setupTimer();
+        case 1:
         case "end":
           return _context5.stop();
       }
     }, _callee5);
   })));
-  (0,paella_core_js_core_Events__WEBPACK_IMPORTED_MODULE_0__/* .bindEvent */ .GT)(player, paella_core_js_core_Events__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .ZP.ENDED, /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+  (0,paella_core_js_core_Events__WEBPACK_IMPORTED_MODULE_0__/* .bindEvent */ .GT)(player, paella_core_js_core_Events__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .ZP.PAUSE, /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
     return _regeneratorRuntime().wrap(function _callee6$(_context6) {
       while (1) switch (_context6.prev = _context6.next) {
         case 0:
@@ -7035,16 +7105,28 @@ function setupAutoHideUiTimer(player) {
       }
     }, _callee6);
   })));
-  document.addEventListener('keydown', /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
+  (0,paella_core_js_core_Events__WEBPACK_IMPORTED_MODULE_0__/* .bindEvent */ .GT)(player, paella_core_js_core_Events__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .ZP.ENDED, /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
     return _regeneratorRuntime().wrap(function _callee7$(_context7) {
       while (1) switch (_context7.prev = _context7.next) {
         case 0:
-          setupTimer();
-        case 1:
+          _context7.next = 2;
+          return player.showUserInterface();
+        case 2:
         case "end":
           return _context7.stop();
       }
     }, _callee7);
+  })));
+  document.addEventListener('keydown', /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
+    return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+      while (1) switch (_context8.prev = _context8.next) {
+        case 0:
+          setupTimer();
+        case 1:
+        case "end":
+          return _context8.stop();
+      }
+    }, _callee8);
   })));
 
   //document.addEventListener('focusin', async () => {
@@ -10221,8 +10303,9 @@ var DefaultKeyShortcutsPlugin = /*#__PURE__*/function (_KeyShortcutPlugin) {
   }, {
     key: "closePopUp",
     value: function closePopUp() {
-      if (!paella_core_js_core_PopUp__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .Z.HideTopPopUp()) {
-        _core_TimeLinePopUp__WEBPACK_IMPORTED_MODULE_8__/* ["default"] */ .Z.HideAll(this.player);
+      if (!paella_core_js_core_PopUp__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .Z.HideTopPopUp() && !_core_TimeLinePopUp__WEBPACK_IMPORTED_MODULE_8__/* ["default"] */ .Z.HideAll(this.player)) {
+        var _document$activeEleme;
+        (_document$activeEleme = document.activeElement) === null || _document$activeEleme === void 0 ? void 0 : _document$activeEleme.blur();
       }
     }
   }, {
@@ -16002,7 +16085,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `:root {
 }
 
 .popup-content {
-	position: absolute;
+	position: fixed;
 	background-color: var(--main-bg-color);
 	color: var(--main-fg-color);
 	box-shadow: 0px 0px 4px 0px var(--main-bg-color);
@@ -16165,7 +16248,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `:root {
 	cursor: se-resize;
 	float: left;
 }
-`, "",{"version":3,"sources":["webpack://./src/css/PopUp.css"],"names":[],"mappings":"AAAA;CACC,+BAA+B;CAC/B,4BAA4B;CAC5B,kDAAkD;CAClD,8BAA8B;AAC/B;;AAEA;CACC,aAAa;CACb,eAAe;CACf,QAAQ;CACR,SAAS;CACT,aAAa;CACb,YAAY;AACb;;AAEA;CACC,oBAAoB;AACrB;;AAEA;CACC,kBAAkB;CAClB,sCAAsC;CACtC,2BAA2B;CAC3B,gDAAgD;CAChD,kBAAkB;CAClB,wBAAwB;CACxB,yBAAyB;CACzB,cAAc;CACd,cAAc;AACf;;AAEA;CACC,sBAAsB;CACtB,iBAAiB;CACjB,kBAAkB;CAClB,gBAAgB;CAChB,cAAc;AACf;;AAEA;CACC,YAAY;CACZ,kBAAkB;CAClB,gBAAgB;CAChB,iBAAiB;AAClB;;AAEA;CACC,mBAAmB;AACpB;;AAEA;CACC,qCAAqC;CACrC,sCAAsC;CACtC,iBAAiB;CACjB,WAAW;AACZ;;AAEA;CACC,sDAAsD;CACtD,sCAAsC;CACtC,kBAAkB;CAClB,WAAW;AACZ;;AAEA;CACC,qCAAqC;CACrC,sCAAsC;CACtC,iBAAiB;CACjB,WAAW;AACZ;;AAEA;CACC,8BAA8B;CAC9B,kBAAkB;CAClB,iBAAiB;CACjB,sBAAsB;CACtB,gBAAgB;AACjB;;AAEA;CACC,wFAAwF;CACxF,8CAA8C;CAC9C,YAAY;CACZ,kBAAkB;CAClB,aAAa;IACV,eAAe;IACf,qBAAqB;IACrB,uBAAuB;AAC3B;;AAEA;CACC,YAAY;CACZ,6CAA6C;AAC9C;;AAEA;CACC,qDAAqD;CACrD,sDAAsD;AACvD;;AAEA;CACC,sDAAsD;CACtD,2CAA2C;CAC3C,4CAA4C;AAC7C;;AAEA;CACC,kBAAkB;CAClB,QAAQ;CACR,UAAU;CACV,aAAa;AACd;;AAEA;CACC,aAAa;CACb,6BAA6B;IAC1B,sCAAsC;CACzC,kBAAkB;CAClB,eAAe;CACf,iBAAiB;AAClB;;AAEA;CACC,iDAAiD;AAClD;;AAEA;CACC,oCAAoC;CACpC,qCAAqC;CACrC,cAAc;CACd,2BAA2B;CAC3B,0BAA0B;AAC3B;;AAEA;CACC,sDAAsD;CACtD,2CAA2C;CAC3C,4CAA4C;CAC5C,WAAW;AACZ;;AAEA;CACC,qFAAqF;CACrF,cAAc;AACf;;AAEA,iDAAiD;AACjD;CACC,qBAAqB;AACtB;;AAEA;CACC,qCAAqC;CACrC,sCAAsC;CACtC,WAAW;AACZ;;AAEA;CACC,qCAAqC;CACrC,sCAAsC;CACtC,WAAW;AACZ;;AAEA;CACC,qCAAqC;CACrC,sCAAsC;CACtC,iBAAiB;CACjB,WAAW;AACZ;;AAEA;CACC,sDAAsD;CACtD,sCAAsC;CACtC,kBAAkB;CAClB,WAAW;AACZ;;AAEA;CACC,qCAAqC;CACrC,sCAAsC;CACtC,iBAAiB;CACjB,WAAW;AACZ","sourcesContent":[":root {\n\t--popup-resizeable-border: 10px;\n\t--popup-title-bar-size: 20px;\n\t--popup-title-bar-color: var(--highlight-bg-color);\n\t--popup-dock-button-size: 15px;\n}\n\n.popup-container {\n\tz-index: 1000;\n\tposition: fixed;\n\ttop: 0px;\n\tleft: 0px;\n\theight: 100vh;\n\twidth: 100vw;\n}\n\n.popup-container.no-modal {\n\tpointer-events: none;\n}\n\n.popup-content {\n\tposition: absolute;\n\tbackground-color: var(--main-bg-color);\n\tcolor: var(--main-fg-color);\n\tbox-shadow: 0px 0px 4px 0px var(--main-bg-color);\n\tborder-radius: 3px;\n\tpadding: 5px 5px 5px 5px;\n\tforced-color-adjust: none;\n\toverflow: auto;\n\tdisplay: table;\n}\n\n.popup-content.static-position {\n\tbox-sizing: border-box;\n\tuser-select: none;\n\tposition: absolute;\n\toverflow: hidden;\n\tdisplay: block;\n}\n\n.popup-content.moveable {\n\tpadding: 0px;\n\tcursor: col-resize;\n\tmin-width: 180px;\n\tmin-height: 100px;\n}\n\n.popup-container.no-modal .popup-content {\n\tpointer-events: all;\n}\n\n.popup-content.resizeable .border-top-left {\n\twidth: var(--popup-resizeable-border);\n\theight: var(--popup-resizeable-border);\n\tcursor: nw-resize;\n\tfloat: left;\n}\n\n.popup-content.resizeable .border-top-center {\n\twidth: calc(100% - var(--popup-resizeable-border) * 2);\n\theight: var(--popup-resizeable-border);\n\tcursor: row-resize;\n\tfloat: left;\n}\n\n.popup-content.resizeable .border-top-right {\n\twidth: var(--popup-resizeable-border);\n\theight: var(--popup-resizeable-border);\n\tcursor: ne-resize;\n\tfloat: left;\n}\n\n.popup-content .title-bar {\n\tfont-family: arial, sans-serif;\n\ttext-align: center;\n\tuser-select: none;\n\tbox-sizing: border-box;\n\toverflow: hidden;\n}\n\n.popup-content.moveable .title-bar {\n\tmin-height: max(var(--popup-title-bar-size), calc(var(--popup-dock-button-size) + 11px));\n\tbackground-color: var(--popup-title-bar-color);\n\tcursor: move;\n\tposition: relative;\n\tdisplay: flex;\n    flex-wrap: wrap;\n    align-content: center;\n    justify-content: center;\n}\n\n.popup-content.fixed .title-bar.not-empty {\n\tpadding: 5px;\n\tborder-bottom: 1px solid var(--main-fg-color);\n}\n\n.popup-content.moveable .title-bar .title-bar-content {\n\tpadding-left: calc(var(--popup-dock-button-size) * 2);\n\tpadding-right: calc(var(--popup-dock-button-size) * 2);\n}\n\n.popup-content.moveable.resizeable .title-bar {\n\twidth: calc(100% - var(--popup-resizeable-border) * 2);\n\tmargin-left: var(--popup-resizeable-border);\n\tmargin-right: var(--popup-resizeable-border);\n}\n\n.popup-content .popup-action-buttons {\n\tposition: absolute;\n\ttop: 3px;\n\tright: 3px;\n\tdisplay: flex;\n}\n\n.popup-content button.popup-action-button {\n\tdisplay: none;\n\tbackground-color: transparent;\n    border: 1px solid var(--main-fg-color);\n\tborder-radius: 7px;\n\tcursor: pointer;\n\tmargin-right: 2px;\n}\n\n.popup-content button.popup-action-button:hover {\n\tbackground-color: var(--highlight-bg-color-hover);\n}\n\n.popup-content button.popup-action-button i {\n\twidth: var(--popup-dock-button-size);\n\theight: var(--popup-dock-button-size);\n\tdisplay: block;\n\tcolor: var(--main-fg-color);\n\tfill: var(--main-fg-color);\n}\n\n.popup-content .center-container {\n\twidth: calc(100% - var(--popup-resizeable-border) * 2);\n\tmargin-left: var(--popup-resizeable-border);\n\tmargin-right: var(--popup-resizeable-border);\n\tfloat: left;\n}\n\n.popup-content.static-position .center-container {\n\theight: calc(100% - var(--popup-resizeable-border) * 2 - var(--popup-title-bar-size));\n\toverflow: auto;\n}\n\n/* Begin properties for static position pop up: */\n.popup-content.static-position button.popup-action-button {\n\tdisplay: inline-block;\n}\n\n.popup-content.static-position .separator-left {\n\twidth: var(--popup-resizeable-border);\n\theight: var(--popup-resizeable-border);\n\tfloat: left;\n}\n\n.popup-content.static-position .separator-right {\n\twidth: var(--popup-resizeable-border);\n\theight: var(--popup-resizeable-border);\n\tfloat: left;\n}\n\n.popup-content.static-position .border-bottom-left {\n\twidth: var(--popup-resizeable-border);\n\theight: var(--popup-resizeable-border);\n\tcursor: sw-resize;\n\tfloat: left;\n}\n\n.popup-content.static-position .border-bottom-center {\n\twidth: calc(100% - var(--popup-resizeable-border) * 2);\n\theight: var(--popup-resizeable-border);\n\tcursor: row-resize;\n\tfloat: left;\n}\n\n.popup-content.static-position .border-bottom-right {\n\twidth: var(--popup-resizeable-border);\n\theight: var(--popup-resizeable-border);\n\tcursor: se-resize;\n\tfloat: left;\n}\n"],"sourceRoot":""}]);
+`, "",{"version":3,"sources":["webpack://./src/css/PopUp.css"],"names":[],"mappings":"AAAA;CACC,+BAA+B;CAC/B,4BAA4B;CAC5B,kDAAkD;CAClD,8BAA8B;AAC/B;;AAEA;CACC,aAAa;CACb,eAAe;CACf,QAAQ;CACR,SAAS;CACT,aAAa;CACb,YAAY;AACb;;AAEA;CACC,oBAAoB;AACrB;;AAEA;CACC,eAAe;CACf,sCAAsC;CACtC,2BAA2B;CAC3B,gDAAgD;CAChD,kBAAkB;CAClB,wBAAwB;CACxB,yBAAyB;CACzB,cAAc;CACd,cAAc;AACf;;AAEA;CACC,sBAAsB;CACtB,iBAAiB;CACjB,kBAAkB;CAClB,gBAAgB;CAChB,cAAc;AACf;;AAEA;CACC,YAAY;CACZ,kBAAkB;CAClB,gBAAgB;CAChB,iBAAiB;AAClB;;AAEA;CACC,mBAAmB;AACpB;;AAEA;CACC,qCAAqC;CACrC,sCAAsC;CACtC,iBAAiB;CACjB,WAAW;AACZ;;AAEA;CACC,sDAAsD;CACtD,sCAAsC;CACtC,kBAAkB;CAClB,WAAW;AACZ;;AAEA;CACC,qCAAqC;CACrC,sCAAsC;CACtC,iBAAiB;CACjB,WAAW;AACZ;;AAEA;CACC,8BAA8B;CAC9B,kBAAkB;CAClB,iBAAiB;CACjB,sBAAsB;CACtB,gBAAgB;AACjB;;AAEA;CACC,wFAAwF;CACxF,8CAA8C;CAC9C,YAAY;CACZ,kBAAkB;CAClB,aAAa;IACV,eAAe;IACf,qBAAqB;IACrB,uBAAuB;AAC3B;;AAEA;CACC,YAAY;CACZ,6CAA6C;AAC9C;;AAEA;CACC,qDAAqD;CACrD,sDAAsD;AACvD;;AAEA;CACC,sDAAsD;CACtD,2CAA2C;CAC3C,4CAA4C;AAC7C;;AAEA;CACC,kBAAkB;CAClB,QAAQ;CACR,UAAU;CACV,aAAa;AACd;;AAEA;CACC,aAAa;CACb,6BAA6B;IAC1B,sCAAsC;CACzC,kBAAkB;CAClB,eAAe;CACf,iBAAiB;AAClB;;AAEA;CACC,iDAAiD;AAClD;;AAEA;CACC,oCAAoC;CACpC,qCAAqC;CACrC,cAAc;CACd,2BAA2B;CAC3B,0BAA0B;AAC3B;;AAEA;CACC,sDAAsD;CACtD,2CAA2C;CAC3C,4CAA4C;CAC5C,WAAW;AACZ;;AAEA;CACC,qFAAqF;CACrF,cAAc;AACf;;AAEA,iDAAiD;AACjD;CACC,qBAAqB;AACtB;;AAEA;CACC,qCAAqC;CACrC,sCAAsC;CACtC,WAAW;AACZ;;AAEA;CACC,qCAAqC;CACrC,sCAAsC;CACtC,WAAW;AACZ;;AAEA;CACC,qCAAqC;CACrC,sCAAsC;CACtC,iBAAiB;CACjB,WAAW;AACZ;;AAEA;CACC,sDAAsD;CACtD,sCAAsC;CACtC,kBAAkB;CAClB,WAAW;AACZ;;AAEA;CACC,qCAAqC;CACrC,sCAAsC;CACtC,iBAAiB;CACjB,WAAW;AACZ","sourcesContent":[":root {\n\t--popup-resizeable-border: 10px;\n\t--popup-title-bar-size: 20px;\n\t--popup-title-bar-color: var(--highlight-bg-color);\n\t--popup-dock-button-size: 15px;\n}\n\n.popup-container {\n\tz-index: 1000;\n\tposition: fixed;\n\ttop: 0px;\n\tleft: 0px;\n\theight: 100vh;\n\twidth: 100vw;\n}\n\n.popup-container.no-modal {\n\tpointer-events: none;\n}\n\n.popup-content {\n\tposition: fixed;\n\tbackground-color: var(--main-bg-color);\n\tcolor: var(--main-fg-color);\n\tbox-shadow: 0px 0px 4px 0px var(--main-bg-color);\n\tborder-radius: 3px;\n\tpadding: 5px 5px 5px 5px;\n\tforced-color-adjust: none;\n\toverflow: auto;\n\tdisplay: table;\n}\n\n.popup-content.static-position {\n\tbox-sizing: border-box;\n\tuser-select: none;\n\tposition: absolute;\n\toverflow: hidden;\n\tdisplay: block;\n}\n\n.popup-content.moveable {\n\tpadding: 0px;\n\tcursor: col-resize;\n\tmin-width: 180px;\n\tmin-height: 100px;\n}\n\n.popup-container.no-modal .popup-content {\n\tpointer-events: all;\n}\n\n.popup-content.resizeable .border-top-left {\n\twidth: var(--popup-resizeable-border);\n\theight: var(--popup-resizeable-border);\n\tcursor: nw-resize;\n\tfloat: left;\n}\n\n.popup-content.resizeable .border-top-center {\n\twidth: calc(100% - var(--popup-resizeable-border) * 2);\n\theight: var(--popup-resizeable-border);\n\tcursor: row-resize;\n\tfloat: left;\n}\n\n.popup-content.resizeable .border-top-right {\n\twidth: var(--popup-resizeable-border);\n\theight: var(--popup-resizeable-border);\n\tcursor: ne-resize;\n\tfloat: left;\n}\n\n.popup-content .title-bar {\n\tfont-family: arial, sans-serif;\n\ttext-align: center;\n\tuser-select: none;\n\tbox-sizing: border-box;\n\toverflow: hidden;\n}\n\n.popup-content.moveable .title-bar {\n\tmin-height: max(var(--popup-title-bar-size), calc(var(--popup-dock-button-size) + 11px));\n\tbackground-color: var(--popup-title-bar-color);\n\tcursor: move;\n\tposition: relative;\n\tdisplay: flex;\n    flex-wrap: wrap;\n    align-content: center;\n    justify-content: center;\n}\n\n.popup-content.fixed .title-bar.not-empty {\n\tpadding: 5px;\n\tborder-bottom: 1px solid var(--main-fg-color);\n}\n\n.popup-content.moveable .title-bar .title-bar-content {\n\tpadding-left: calc(var(--popup-dock-button-size) * 2);\n\tpadding-right: calc(var(--popup-dock-button-size) * 2);\n}\n\n.popup-content.moveable.resizeable .title-bar {\n\twidth: calc(100% - var(--popup-resizeable-border) * 2);\n\tmargin-left: var(--popup-resizeable-border);\n\tmargin-right: var(--popup-resizeable-border);\n}\n\n.popup-content .popup-action-buttons {\n\tposition: absolute;\n\ttop: 3px;\n\tright: 3px;\n\tdisplay: flex;\n}\n\n.popup-content button.popup-action-button {\n\tdisplay: none;\n\tbackground-color: transparent;\n    border: 1px solid var(--main-fg-color);\n\tborder-radius: 7px;\n\tcursor: pointer;\n\tmargin-right: 2px;\n}\n\n.popup-content button.popup-action-button:hover {\n\tbackground-color: var(--highlight-bg-color-hover);\n}\n\n.popup-content button.popup-action-button i {\n\twidth: var(--popup-dock-button-size);\n\theight: var(--popup-dock-button-size);\n\tdisplay: block;\n\tcolor: var(--main-fg-color);\n\tfill: var(--main-fg-color);\n}\n\n.popup-content .center-container {\n\twidth: calc(100% - var(--popup-resizeable-border) * 2);\n\tmargin-left: var(--popup-resizeable-border);\n\tmargin-right: var(--popup-resizeable-border);\n\tfloat: left;\n}\n\n.popup-content.static-position .center-container {\n\theight: calc(100% - var(--popup-resizeable-border) * 2 - var(--popup-title-bar-size));\n\toverflow: auto;\n}\n\n/* Begin properties for static position pop up: */\n.popup-content.static-position button.popup-action-button {\n\tdisplay: inline-block;\n}\n\n.popup-content.static-position .separator-left {\n\twidth: var(--popup-resizeable-border);\n\theight: var(--popup-resizeable-border);\n\tfloat: left;\n}\n\n.popup-content.static-position .separator-right {\n\twidth: var(--popup-resizeable-border);\n\theight: var(--popup-resizeable-border);\n\tfloat: left;\n}\n\n.popup-content.static-position .border-bottom-left {\n\twidth: var(--popup-resizeable-border);\n\theight: var(--popup-resizeable-border);\n\tcursor: sw-resize;\n\tfloat: left;\n}\n\n.popup-content.static-position .border-bottom-center {\n\twidth: calc(100% - var(--popup-resizeable-border) * 2);\n\theight: var(--popup-resizeable-border);\n\tcursor: row-resize;\n\tfloat: left;\n}\n\n.popup-content.static-position .border-bottom-right {\n\twidth: var(--popup-resizeable-border);\n\theight: var(--popup-resizeable-border);\n\tcursor: se-resize;\n\tfloat: left;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -44028,7 +44111,7 @@ Hls.defaultConfig = void 0;
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"paella-core","version":"1.44.0","description":"Multistream HTML video player","main":"src/index.js","module":"dist/paella-core.js","scripts":{"build":"webpack --mode production","dev":"webpack serve --mode development --config webpack.debug.js --host 0.0.0.0","captions":"webpack serve --mode development --config webpack.captions.js","eslint":"eslint .","nomanifest":"webpack serve --mode development --config webpack.nomanifest.js","testenv":"webpack serve --mode development --config webpack.test.js --host 0.0.0.0"},"repository":{"type":"git","url":"git+https://github.com/polimediaupv/paella-core.git"},"keywords":["html","player","video","hls"],"author":"Fernando Serrano Carpena <ferserc1@gmail.com>","license":"ECL-2.0","bugs":{"url":"https://github.com/polimediaupv/paella-core/issues"},"homepage":"https://github.com/polimediaupv/paella-core#readme","devDependencies":{"@babel/core":"^7.12.10","@babel/plugin-transform-modules-commonjs":"^7.19.6","@babel/preset-env":"^7.12.11","@playwright/test":"^1.29.2","babel-loader":"^9.0.0","babel-plugin-transform-require-context":"^0.1.1","copy-webpack-plugin":"^11.0.0","css-loader":"^6.6.0","eslint":"^8.29.0","file-loader":"^6.2.0","html-webpack-plugin":"^5.5.0","source-map-loader":"^4.0.0","style-loader":"^3.3.1","svg-inline-loader":"^0.8.2","webpack":"^5.66.0","webpack-cli":"^5.0.0","webpack-dev-server":"^4.7.3"},"dependencies":{"core-js":"^3.8.2","hls.js":"^1.0.4"}}');
+module.exports = JSON.parse('{"name":"paella-core","version":"1.44.1","description":"Multistream HTML video player","main":"src/index.js","module":"dist/paella-core.js","scripts":{"build":"webpack --mode production","dev":"webpack serve --mode development --config webpack.debug.js --host 0.0.0.0","captions":"webpack serve --mode development --config webpack.captions.js","eslint":"eslint .","nomanifest":"webpack serve --mode development --config webpack.nomanifest.js","testenv":"webpack serve --mode development --config webpack.test.js --host 0.0.0.0"},"repository":{"type":"git","url":"git+https://github.com/polimediaupv/paella-core.git"},"keywords":["html","player","video","hls"],"author":"Fernando Serrano Carpena <ferserc1@gmail.com>","license":"ECL-2.0","bugs":{"url":"https://github.com/polimediaupv/paella-core/issues"},"homepage":"https://github.com/polimediaupv/paella-core#readme","devDependencies":{"@babel/core":"^7.12.10","@babel/plugin-transform-modules-commonjs":"^7.19.6","@babel/preset-env":"^7.12.11","@playwright/test":"^1.29.2","babel-loader":"^9.0.0","babel-plugin-transform-require-context":"^0.1.1","copy-webpack-plugin":"^11.0.0","css-loader":"^6.6.0","eslint":"^8.29.0","file-loader":"^6.2.0","html-webpack-plugin":"^5.5.0","source-map-loader":"^4.0.0","style-loader":"^3.3.1","svg-inline-loader":"^0.8.2","webpack":"^5.66.0","webpack-cli":"^5.0.0","webpack-dev-server":"^4.7.3"},"dependencies":{"core-js":"^3.8.2","hls.js":"^1.0.4"}}');
 
 /***/ }),
 
@@ -44214,6 +44297,7 @@ __webpack_require__.d(__webpack_exports__, {
   getPluginsOfType: () => (/* reexport */ plugin_tools/* getPluginsOfType */.FN),
   getShortcuts: () => (/* reexport */ KeyShortcutPlugin/* getShortcuts */.gg),
   importPlugins: () => (/* reexport */ plugin_tools/* importPlugins */.gQ),
+  isVolumeApiAvailable: () => (/* reexport */ VideoPlugin/* isVolumeApiAvailable */.pL),
   loadPluginsOfType: () => (/* reexport */ plugin_tools/* loadPluginsOfType */.FP),
   log: () => (/* reexport */ log),
   parseDFXP: () => (/* reexport */ DFXPParser/* parseDFXP */.l),
@@ -45067,60 +45151,69 @@ var SteramProvider = /*#__PURE__*/function (_PlayerResource) {
     key: "setCurrentTime",
     value: function () {
       var _setCurrentTime = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee9(t) {
-        var prevTime, returnValue, result, newTime, _result, _newTime, currentTime;
+        var duration, prevTime, returnValue, result, newTime, _result, _newTime, currentTime;
         return StreamProvider_regeneratorRuntime().wrap(function _callee9$(_context9) {
           while (1) switch (_context9.prev = _context9.next) {
             case 0:
               _context9.next = 2;
-              return this.executeAction("currentTime");
+              return this.duration();
             case 2:
+              duration = _context9.sent;
+              if (t < 0) {
+                t = 0;
+              } else if (t > duration) {
+                t = duration;
+              }
+              _context9.next = 6;
+              return this.executeAction("currentTime");
+            case 6:
               prevTime = _context9.sent[0];
               returnValue = null;
               if (!this.isTrimEnabled) {
-                _context9.next = 16;
+                _context9.next = 20;
                 break;
               }
               t = t + this.trimStart;
               t = t >= this.trimEnd ? this.trimEnd : t;
-              _context9.next = 9;
+              _context9.next = 13;
               return this.executeAction("setCurrentTime", [t]);
-            case 9:
+            case 13:
               result = _context9.sent[0];
-              _context9.next = 12;
+              _context9.next = 16;
               return this.executeAction("currentTime");
-            case 12:
+            case 16:
               newTime = _context9.sent[0];
               returnValue = {
                 result: result,
                 prevTime: prevTime - this.trimStart,
                 newTime: newTime - this.trimStart
               };
-              _context9.next = 23;
+              _context9.next = 27;
               break;
-            case 16:
-              _context9.next = 18;
+            case 20:
+              _context9.next = 22;
               return this.executeAction("setCurrentTime", [t]);
-            case 18:
+            case 22:
               _result = _context9.sent[0];
-              _context9.next = 21;
+              _context9.next = 25;
               return this.executeAction("currentTime");
-            case 21:
+            case 25:
               _newTime = _context9.sent[0];
               returnValue = {
                 result: _result,
                 prevTime: prevTime,
                 newTime: _newTime
               };
-            case 23:
-              _context9.next = 25;
+            case 27:
+              _context9.next = 29;
               return this.currentTime();
-            case 25:
+            case 29:
               currentTime = _context9.sent;
               (0,Events/* triggerIfReady */.Ss)(this.player, Events/* default */.ZP.TIMEUPDATE, {
                 currentTime: currentTime
               });
               return _context9.abrupt("return", returnValue);
-            case 28:
+            case 32:
             case "end":
               return _context9.stop();
           }
@@ -50178,7 +50271,7 @@ var Paella = /*#__PURE__*/function () {
     key: "loadPlayer",
     value: function () {
       var _loadPlayer = Paella_asyncToGenerator( /*#__PURE__*/Paella_regeneratorRuntime().mark(function _callee4() {
-        var _this$_previewContain, _this$videoManifest5, _this$videoManifest$m2, hideTimeLine;
+        var _this$_previewContain, _this$videoManifest5, _this$config$ui$hideU, _this$config$ui, _this$videoManifest$m2, hideTimeLine;
         return Paella_regeneratorRuntime().wrap(function _callee4$(_context4) {
           while (1) switch (_context4.prev = _context4.next) {
             case 0:
@@ -50205,7 +50298,7 @@ var Paella = /*#__PURE__*/function () {
               return this._playbackBar.load();
             case 15:
               // UI hide timer
-              this._hideUiTime = 5000;
+              this._hideUiTime = (_this$config$ui$hideU = (_this$config$ui = this.config.ui) === null || _this$config$ui === void 0 ? void 0 : _this$config$ui.hideUITimer) !== null && _this$config$ui$hideU !== void 0 ? _this$config$ui$hideU : 5000;
               (0,utils.setupAutoHideUiTimer)(this);
               this._captionsCanvas.load();
               this._playerState = PlayerState/* default */.Z.LOADED;
