@@ -17,6 +17,7 @@ import { loadPluginsOfType, unloadPluginsOfType } from 'paella-core/js/core/plug
 import { loadVideoPlugins, unloadVideoPlugins, getVideoPluginWithFileUrl } from './VideoPlugin';
 import { addVideoCanvasButton, CanvasButtonPosition, setTabIndex } from './CanvasPlugin';
 import VideoContainerMessage from './VideoContainerMessage';
+import PlayerState from './PlayerState';
 
 export function getSourceWithUrl(player,url) {
     if (!Array.isArray[url]) {
@@ -383,7 +384,7 @@ export default class VideoContainer extends DomClass {
         this._validContentSettings = getValidContentSettings(this.player, streamData);
         
         // Load video layout
-        await this.updateLayout();
+        await this.updateLayout(null, true);
 
         const leftSideButtons = createElementWithHtmlText(
             `<div class="button-plugins left-side"></div>`, this.element
@@ -472,12 +473,13 @@ export default class VideoContainer extends DomClass {
 
     // Return true if the layout this.layoutId is compatible with the current stream data.
     async updateLayout(mainContent = null) {
+        // The second argument in this function is for internal use only
+        const ignorePlayerState = arguments[1];
+
         if (mainContent) {
             this._mainLayoutContent = mainContent;
         }
-        if (!this.streamData) {
-            // The stream data is not loaded. This can happen if the player is in MANIFEST_LOADED state
-            // and the player container is resized
+        if (!ignorePlayerState && this.player.state !== PlayerState.LOADED) {
             return;
         }
 
