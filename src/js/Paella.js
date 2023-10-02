@@ -646,8 +646,8 @@ export default class Paella {
                 }
             }
 
-            this._frameList.getImage = time => {
-                if (this.videoContainer.isTrimEnabled) {
+            this._frameList.getImage = (time, ignoreTrimming = false) => {
+                if (this.videoContainer.isTrimEnabled && !ignoreTrimming) {
                     time += this.videoContainer.trimStart;
                 }
                 return this._frameList.frames

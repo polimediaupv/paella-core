@@ -257,6 +257,8 @@ const { frames, targetContent } = player.frameList;
 ]
 ```
 
+**`player.frameList.getImage(time)`** (paella-core >= 1.47): returns the frame image object corresponding with the time instant. This function takes trimming into account to obtain the result image.
+
 - `player.frameList.targetContent`: Indicates the content from which the frames were extracted. If they have been extracted from the stream with content id `presentation`, then this value will be `presentation`. This property can be `null` for several reasons:
 
 - The frame list is not extracted from any stream. For example, if independently created frames are used.

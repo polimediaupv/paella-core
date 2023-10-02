@@ -54,6 +54,22 @@
     padding: 5px;
 }
 
+.video-canvas.image-canvas .image-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+}
+.video-canvas.image-canvas img.landscape {
+    height: 100%;
+}
+
+.video-canvas.image-canvas img.portrait {
+    width: 100%;
+}
+
 
 @container button-area (max-width: 200px) {
     .video-canvas .button-area button {

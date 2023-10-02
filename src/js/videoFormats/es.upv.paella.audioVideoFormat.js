@@ -123,7 +123,10 @@ export class AudioOnlyVideo extends Video {
             throw new Error("Invalid video manifest data: preview image is required");
         }
         this._previewImage = await getAsyncImage(previewSrc);
-        this._previewImage.style.width = '100%';
+        this._imageContainer = document.createElement("div");
+        this._imageContainer.className = "image-container";
+        this.parent.appendChild(this._imageContainer);
+        this._imageContainer.appendChild(this._previewImage);
 
         this._source = streamData.sources.audio && streamData.sources.audio[0];
         if (!this._source) {
@@ -135,9 +138,36 @@ export class AudioOnlyVideo extends Video {
         }
 
         await asyncLoadAudio(this.player, this.audio, this._source.src);
-        this._ready = true;
 
-        this.parent.appendChild(this._previewImage);
+        const fixAspectRatio = () => {
+            const parentRatio = 
+                this.player.videoContainer.baseVideoRect.offsetWidth /
+                this.player.videoContainer.baseVideoRect.offsetHeight;
+            const imageRatio = this._previewImage.width / this._previewImage.height;
+            if (parentRatio > imageRatio) {
+                this._previewImage.classList.add('landscape');
+                this._previewImage.classList.remove('portrait');
+            }
+            else {
+                this._previewImage.classList.add('portrait');
+                this._previewImage.classList.remove('landscape');
+            }
+        }
+
+        if (this.player.frameList.frames.length > 0) {
+            this.audio.addEventListener("timeupdate", evt => {
+                const img = this.player.frameList.getImage(evt.target.currentTime, true);
+                if (this._previewImage.src != img.url) {
+                    this._previewImage.src = img.url;
+                    this._previewImage.onload = () => fixAspectRatio();
+                }
+            });
+        }
+
+        window.addEventListener("resize", evt => fixAspectRatio());
+        fixAspectRatio();
+
+        this._ready = true;
     }
 }
 
