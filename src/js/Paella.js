@@ -646,7 +646,14 @@ export default class Paella {
                 }
             }
 
-            this._frameList.getImage = time => this._frameList.frames.sort((a,b) => b.time - a.time).find(f => f.time < time)
+            this._frameList.getImage = time => {
+                if (this.videoContainer.isTrimEnabled) {
+                    time += this.videoContainer.trimStart;
+                }
+                return this._frameList.frames
+                    .sort((a,b) => b.time - a.time)
+                    .find(f => f.time < time)
+            }
     
             // Load custom icons from skin
             unloadSkinStyleSheets.apply(this.skin);
