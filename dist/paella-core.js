@@ -12801,8 +12801,10 @@ var AudioOnlyVideo = /*#__PURE__*/function (_Video) {
     key: "loadStreamData",
     value: function () {
       var _loadStreamData = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee12() {
+        var _this3 = this;
         var streamData,
           previewSrc,
+          fixAspectRatio,
           _args12 = arguments;
         return _regeneratorRuntime().wrap(function _callee12$(_context12) {
           while (1) switch (_context12.prev = _context12.next) {
@@ -12821,26 +12823,54 @@ var AudioOnlyVideo = /*#__PURE__*/function (_Video) {
               return getAsyncImage(previewSrc);
             case 8:
               this._previewImage = _context12.sent;
-              this._previewImage.style.width = '100%';
+              this._imageContainer = document.createElement("div");
+              this._imageContainer.className = "image-container";
+              this.parent.appendChild(this._imageContainer);
+              this._imageContainer.appendChild(this._previewImage);
               this._source = streamData.sources.audio && streamData.sources.audio[0];
               if (this._source) {
-                _context12.next = 13;
+                _context12.next = 16;
                 break;
               }
               throw new Error("Invalid source in audio only video stream");
-            case 13:
+            case 16:
               if (this.isMainAudioPlayer) {
-                _context12.next = 15;
+                _context12.next = 18;
                 break;
               }
               throw new Error("Audio only video stream must be main audio player. Check the role property at video manifest");
-            case 15:
-              _context12.next = 17;
+            case 18:
+              _context12.next = 20;
               return asyncLoadAudio(this.player, this.audio, this._source.src);
-            case 17:
+            case 20:
+              fixAspectRatio = function fixAspectRatio() {
+                var parentRatio = _this3.player.videoContainer.baseVideoRect.offsetWidth / _this3.player.videoContainer.baseVideoRect.offsetHeight;
+                var imageRatio = _this3._previewImage.width / _this3._previewImage.height;
+                if (parentRatio > imageRatio) {
+                  _this3._previewImage.classList.add('landscape');
+                  _this3._previewImage.classList.remove('portrait');
+                } else {
+                  _this3._previewImage.classList.add('portrait');
+                  _this3._previewImage.classList.remove('landscape');
+                }
+              };
+              if (this.player.frameList.frames.length > 0) {
+                this.audio.addEventListener("timeupdate", function (evt) {
+                  var img = _this3.player.frameList.getImage(evt.target.currentTime, true);
+                  if (_this3._previewImage.src != img.url) {
+                    _this3._previewImage.src = img.url;
+                    _this3._previewImage.onload = function () {
+                      return fixAspectRatio();
+                    };
+                  }
+                });
+              }
+              window.addEventListener("resize", function (evt) {
+                return fixAspectRatio();
+              });
+              fixAspectRatio();
               this._ready = true;
-              this.parent.appendChild(this._previewImage);
-            case 19:
+            case 25:
             case "end":
               return _context12.stop();
           }
@@ -16364,6 +16394,22 @@ ___CSS_LOADER_EXPORT___.push([module.id, `
     padding: 5px;
 }
 
+.video-canvas.image-canvas .image-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+}
+.video-canvas.image-canvas img.landscape {
+    height: 100%;
+}
+
+.video-canvas.image-canvas img.portrait {
+    width: 100%;
+}
+
 
 @container button-area (max-width: 200px) {
     .video-canvas .button-area button {
@@ -16385,7 +16431,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `
 
 
 
-  `, "",{"version":3,"sources":["webpack://./src/css/VideoCanvas.css"],"names":[],"mappings":";AACA;IACI,kBAAkB;IAClB,QAAQ;IACR,SAAS;IACT,UAAU;IACV,oBAAoB;IACpB,kBAAkB;IAClB,UAAU;IACV,oBAAoB;IACpB,2BAA2B;AAC/B;;;AAGA;IACI,mBAAmB;IACnB,WAAW;IACX,WAAW;IACX,YAAY;IACZ,sCAAsC;IACtC,YAAY;IACZ,kBAAkB;IAClB,YAAY;AAChB;;AAEA;IACI,UAAU;AACd;;AAEA;IACI,iDAAiD;AACrD;;AAEA;IACI,WAAW;IACX,YAAY;IACZ,0BAA0B;IAC1B,2BAA2B;AAC/B;;AAEA;IACI,UAAU;AACd;;AAEA;IACI,WAAW;AACf;;AAEA;IACI,YAAY;AAChB;;AAEA;IACI,YAAY;AAChB;;;AAGA;IACI;QACI,YAAY;IAChB;AACJ;;AAEA;IACI;QACI,WAAW;IACf;AACJ;;AAEA;IACI;QACI,WAAW;IACf;AACJ","sourcesContent":["\n.video-canvas .button-area {\n    position: absolute;\n    top: 5px;\n    left: 0px;\n    right: 0px;\n    pointer-events: none;\n    text-align: center;\n    z-index: 1;\n    container-type: size;\n    container-name: button-area;\n}\n\n\n.video-canvas .button-area button {\n    pointer-events: all;\n    margin: 2px;\n    width: 40px;\n    opacity: 0.8;\n    background-color: var(--main-bg-color);\n    border: none;\n    border-radius: 5px;\n    opacity: 0.3;\n}\n\n.video-canvas:hover .button-area button {\n    opacity: 1;\n}\n\n.video-canvas .button-area button:hover {\n    background-color: var(--highlight-bg-color-hover);\n}\n\n.video-canvas .button-area button i svg {\n    width: 100%;\n    height: 100%;\n    fill: var(--main-fg-color);\n    color: var(--main-fg-color);\n}\n\n.video-canvas .button-area button:hover {\n    opacity: 1;\n}\n\n.video-canvas .button-area button.align-left {\n    float: left;\n}\n\n.video-canvas .button-area button.align-right {\n    float: right;\n}\n\n.video-canvas .button-area {\n    padding: 5px;\n}\n\n\n@container button-area (max-width: 200px) {\n    .video-canvas .button-area button {\n        width: 25cqi;\n    }\n}\n\n@container button-area (min-width: 200px) and (max-width: 350px) {\n    .video-canvas .button-area button {\n        width: 45px;\n    }\n}\n\n@container button-area (min-width: 350px) {\n    .video-canvas .button-area button {\n        width: 55px;\n    }\n}\n\n\n\n  "],"sourceRoot":""}]);
+  `, "",{"version":3,"sources":["webpack://./src/css/VideoCanvas.css"],"names":[],"mappings":";AACA;IACI,kBAAkB;IAClB,QAAQ;IACR,SAAS;IACT,UAAU;IACV,oBAAoB;IACpB,kBAAkB;IAClB,UAAU;IACV,oBAAoB;IACpB,2BAA2B;AAC/B;;;AAGA;IACI,mBAAmB;IACnB,WAAW;IACX,WAAW;IACX,YAAY;IACZ,sCAAsC;IACtC,YAAY;IACZ,kBAAkB;IAClB,YAAY;AAChB;;AAEA;IACI,UAAU;AACd;;AAEA;IACI,iDAAiD;AACrD;;AAEA;IACI,WAAW;IACX,YAAY;IACZ,0BAA0B;IAC1B,2BAA2B;AAC/B;;AAEA;IACI,UAAU;AACd;;AAEA;IACI,WAAW;AACf;;AAEA;IACI,YAAY;AAChB;;AAEA;IACI,YAAY;AAChB;;AAEA;IACI,WAAW;IACX,YAAY;IACZ,aAAa;IACb,mBAAmB;IACnB,qBAAqB;IACrB,uBAAuB;AAC3B;AACA;IACI,YAAY;AAChB;;AAEA;IACI,WAAW;AACf;;;AAGA;IACI;QACI,YAAY;IAChB;AACJ;;AAEA;IACI;QACI,WAAW;IACf;AACJ;;AAEA;IACI;QACI,WAAW;IACf;AACJ","sourcesContent":["\n.video-canvas .button-area {\n    position: absolute;\n    top: 5px;\n    left: 0px;\n    right: 0px;\n    pointer-events: none;\n    text-align: center;\n    z-index: 1;\n    container-type: size;\n    container-name: button-area;\n}\n\n\n.video-canvas .button-area button {\n    pointer-events: all;\n    margin: 2px;\n    width: 40px;\n    opacity: 0.8;\n    background-color: var(--main-bg-color);\n    border: none;\n    border-radius: 5px;\n    opacity: 0.3;\n}\n\n.video-canvas:hover .button-area button {\n    opacity: 1;\n}\n\n.video-canvas .button-area button:hover {\n    background-color: var(--highlight-bg-color-hover);\n}\n\n.video-canvas .button-area button i svg {\n    width: 100%;\n    height: 100%;\n    fill: var(--main-fg-color);\n    color: var(--main-fg-color);\n}\n\n.video-canvas .button-area button:hover {\n    opacity: 1;\n}\n\n.video-canvas .button-area button.align-left {\n    float: left;\n}\n\n.video-canvas .button-area button.align-right {\n    float: right;\n}\n\n.video-canvas .button-area {\n    padding: 5px;\n}\n\n.video-canvas.image-canvas .image-container {\n    width: 100%;\n    height: 100%;\n    display: flex;\n    align-items: center;\n    align-content: center;\n    justify-content: center;\n}\n.video-canvas.image-canvas img.landscape {\n    height: 100%;\n}\n\n.video-canvas.image-canvas img.portrait {\n    width: 100%;\n}\n\n\n@container button-area (max-width: 200px) {\n    .video-canvas .button-area button {\n        width: 25cqi;\n    }\n}\n\n@container button-area (min-width: 200px) and (max-width: 350px) {\n    .video-canvas .button-area button {\n        width: 45px;\n    }\n}\n\n@container button-area (min-width: 350px) {\n    .video-canvas .button-area button {\n        width: 55px;\n    }\n}\n\n\n\n  "],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -16784,7 +16830,9 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.video-layout-button {
 
 .video-player {
 	box-shadow: 2px 2px 4px 0px rgba(90,90,90,0.8);
-}`, "",{"version":3,"sources":["webpack://./src/css/VideoLayout.css"],"names":[],"mappings":"AAAA;CACC,YAAY;CACZ,kBAAkB;CAClB,gDAAgD;CAChD,0BAA0B;CAC1B,cAAc;CACd,kBAAkB;CAClB,4CAA4C;CAC5C,YAAY;CACZ,kBAAkB;CAClB,aAAa;AACd;;AAEA;CACC,2CAA2C;AAC5C;;AAEA;CACC,iDAAiD;AAClD;;AAEA;CACC,8CAA8C;AAC/C","sourcesContent":[".video-layout-button {\n\tborder: none;\n\tborder-radius: 10%;\n\tbox-shadow: 1px 1px 5px 0px var(rgba(0,0,0,0.8));\n\tbackground-size: 100% 100%;\n\tdisplay: block;\n\tposition: absolute;\n\tbackground-color: var(--main-bg-color-hover);\n\tborder: none;\n\tborder-radius: 5px;\n\tpadding: 0.5%;\n}\n\n.video-layout-button:hover {\n\tbackground-color: var(--highlight-bg-color);\n}\n\n.video-layout-button:active {\n\tbackground-color: var(--highlight-bg-color-hover);\n}\n\n.video-player {\n\tbox-shadow: 2px 2px 4px 0px rgba(90,90,90,0.8);\n}"],"sourceRoot":""}]);
+}
+
+`, "",{"version":3,"sources":["webpack://./src/css/VideoLayout.css"],"names":[],"mappings":"AAAA;CACC,YAAY;CACZ,kBAAkB;CAClB,gDAAgD;CAChD,0BAA0B;CAC1B,cAAc;CACd,kBAAkB;CAClB,4CAA4C;CAC5C,YAAY;CACZ,kBAAkB;CAClB,aAAa;AACd;;AAEA;CACC,2CAA2C;AAC5C;;AAEA;CACC,iDAAiD;AAClD;;AAEA;CACC,8CAA8C;AAC/C","sourcesContent":[".video-layout-button {\n\tborder: none;\n\tborder-radius: 10%;\n\tbox-shadow: 1px 1px 5px 0px var(rgba(0,0,0,0.8));\n\tbackground-size: 100% 100%;\n\tdisplay: block;\n\tposition: absolute;\n\tbackground-color: var(--main-bg-color-hover);\n\tborder: none;\n\tborder-radius: 5px;\n\tpadding: 0.5%;\n}\n\n.video-layout-button:hover {\n\tbackground-color: var(--highlight-bg-color);\n}\n\n.video-layout-button:active {\n\tbackground-color: var(--highlight-bg-color-hover);\n}\n\n.video-player {\n\tbox-shadow: 2px 2px 4px 0px rgba(90,90,90,0.8);\n}\n\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -44111,7 +44159,7 @@ Hls.defaultConfig = void 0;
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"paella-core","version":"1.44.2","description":"Multistream HTML video player","main":"src/index.js","module":"dist/paella-core.js","scripts":{"build":"webpack --mode production","dev":"webpack serve --mode development --config webpack.debug.js --host 0.0.0.0","captions":"webpack serve --mode development --config webpack.captions.js","eslint":"eslint .","nomanifest":"webpack serve --mode development --config webpack.nomanifest.js","testenv":"webpack serve --mode development --config webpack.test.js --host 0.0.0.0"},"repository":{"type":"git","url":"git+https://github.com/polimediaupv/paella-core.git"},"keywords":["html","player","video","hls"],"author":"Fernando Serrano Carpena <ferserc1@gmail.com>","license":"ECL-2.0","bugs":{"url":"https://github.com/polimediaupv/paella-core/issues"},"homepage":"https://github.com/polimediaupv/paella-core#readme","devDependencies":{"@babel/core":"^7.12.10","@babel/plugin-transform-modules-commonjs":"^7.19.6","@babel/preset-env":"^7.12.11","@playwright/test":"^1.29.2","babel-loader":"^9.0.0","babel-plugin-transform-require-context":"^0.1.1","copy-webpack-plugin":"^11.0.0","css-loader":"^6.6.0","eslint":"^8.29.0","file-loader":"^6.2.0","html-webpack-plugin":"^5.5.0","source-map-loader":"^4.0.0","style-loader":"^3.3.1","svg-inline-loader":"^0.8.2","webpack":"^5.66.0","webpack-cli":"^5.0.0","webpack-dev-server":"^4.7.3"},"dependencies":{"core-js":"^3.8.2","hls.js":"^1.0.4"}}');
+module.exports = JSON.parse('{"name":"paella-core","version":"1.45.0","description":"Multistream HTML video player","main":"src/index.js","module":"dist/paella-core.js","scripts":{"build":"webpack --mode production","dev":"webpack serve --mode development --config webpack.debug.js --host 0.0.0.0","captions":"webpack serve --mode development --config webpack.captions.js","eslint":"eslint .","nomanifest":"webpack serve --mode development --config webpack.nomanifest.js","testenv":"webpack serve --mode development --config webpack.test.js --host 0.0.0.0"},"repository":{"type":"git","url":"git+https://github.com/polimediaupv/paella-core.git"},"keywords":["html","player","video","hls"],"author":"Fernando Serrano Carpena <ferserc1@gmail.com>","license":"ECL-2.0","bugs":{"url":"https://github.com/polimediaupv/paella-core/issues"},"homepage":"https://github.com/polimediaupv/paella-core#readme","devDependencies":{"@babel/core":"^7.12.10","@babel/plugin-transform-modules-commonjs":"^7.19.6","@babel/preset-env":"^7.12.11","@playwright/test":"^1.29.2","babel-loader":"^9.0.0","babel-plugin-transform-require-context":"^0.1.1","copy-webpack-plugin":"^11.0.0","css-loader":"^6.6.0","eslint":"^8.29.0","file-loader":"^6.2.0","html-webpack-plugin":"^5.5.0","source-map-loader":"^4.0.0","style-loader":"^3.3.1","svg-inline-loader":"^0.8.2","webpack":"^5.66.0","webpack-cli":"^5.0.0","webpack-dev-server":"^4.7.3"},"dependencies":{"core-js":"^3.8.2","hls.js":"^1.0.4"}}');
 
 /***/ }),
 
@@ -49598,7 +49646,7 @@ function _postLoadPlayer() {
   _postLoadPlayer = Paella_asyncToGenerator( /*#__PURE__*/Paella_regeneratorRuntime().mark(function _callee21() {
     var _this$videoManifest7,
       _this$videoManifest7$,
-      _this6 = this;
+      _this7 = this;
     var lang, dict;
     return Paella_regeneratorRuntime().wrap(function _callee21$(_context21) {
       while (1) switch (_context21.prev = _context21.next) {
@@ -49640,7 +49688,7 @@ function _postLoadPlayer() {
                         break;
                       }
                       _context20.next = 3;
-                      return _this6.play();
+                      return _this7.play();
                     case 3:
                     case "end":
                       return _context20.stop();
@@ -50181,6 +50229,7 @@ var Paella = /*#__PURE__*/function () {
     key: "loadManifest",
     value: function () {
       var _loadManifest = Paella_asyncToGenerator( /*#__PURE__*/Paella_regeneratorRuntime().mark(function _callee3() {
+        var _this4 = this;
         return Paella_regeneratorRuntime().wrap(function _callee3$(_context3) {
           while (1) switch (_context3.prev = _context3.next) {
             case 0:
@@ -50239,32 +50288,43 @@ var Paella = /*#__PURE__*/function () {
                   frames: this._videoManifest.frameList
                 };
               }
+              this._frameList.getImage = function (time) {
+                var ignoreTrimming = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+                if (_this4.videoContainer.isTrimEnabled && !ignoreTrimming) {
+                  time += _this4.videoContainer.trimStart;
+                }
+                return _this4._frameList.frames.sort(function (a, b) {
+                  return b.time - a.time;
+                }).find(function (f) {
+                  return f.time < time;
+                });
+              };
 
               // Load custom icons from skin
               unloadSkinStyleSheets.apply(this.skin);
-              _context3.next = 28;
+              _context3.next = 29;
               return loadSkinIcons.apply(this.skin);
-            case 28:
-              _context3.next = 30;
+            case 29:
+              _context3.next = 31;
               return loadSkinStyleSheets.apply(this.skin);
-            case 30:
-              _context3.next = 32;
+            case 31:
+              _context3.next = 33;
               return postLoadPlayer.apply(this);
-            case 32:
-              _context3.next = 40;
+            case 33:
+              _context3.next = 41;
               break;
-            case 34:
-              _context3.prev = 34;
+            case 35:
+              _context3.prev = 35;
               _context3.t0 = _context3["catch"](4);
               this._playerState = PlayerState/* default */.Z.ERROR;
               this.log.error(_context3.t0);
               this._errorContainer = new ErrorContainer(this, this.translate(_context3.t0.message));
               throw _context3.t0;
-            case 40:
+            case 41:
             case "end":
               return _context3.stop();
           }
-        }, _callee3, this, [[4, 34]]);
+        }, _callee3, this, [[4, 35]]);
       }));
       function loadManifest() {
         return _loadManifest.apply(this, arguments);
@@ -50564,7 +50624,7 @@ var Paella = /*#__PURE__*/function () {
       var _resize = Paella_asyncToGenerator( /*#__PURE__*/Paella_regeneratorRuntime().mark(function _callee10() {
         var _this$videoContainer2,
           _this$playbackBar,
-          _this4 = this;
+          _this5 = this;
         var getSize;
         return Paella_regeneratorRuntime().wrap(function _callee10$(_context10) {
           while (1) switch (_context10.prev = _context10.next) {
@@ -50574,8 +50634,8 @@ var Paella = /*#__PURE__*/function () {
               if (this.videoContainer) {
                 getSize = function getSize() {
                   return {
-                    w: _this4.videoContainer.element.offsetWidth,
-                    h: _this4.videoContainer.element.offsetHeight
+                    w: _this5.videoContainer.element.offsetWidth,
+                    h: _this5.videoContainer.element.offsetHeight
                   };
                 };
                 (0,Events/* triggerEvent */.qe)(this, Events/* default */.ZP.RESIZE, {
@@ -50585,7 +50645,7 @@ var Paella = /*#__PURE__*/function () {
                   clearTimeout(this._resizeEndTimer);
                 }
                 this._resizeEndTimer = setTimeout(function () {
-                  (0,Events/* triggerEvent */.qe)(_this4, Events/* default */.ZP.RESIZE_END, {
+                  (0,Events/* triggerEvent */.qe)(_this5, Events/* default */.ZP.RESIZE_END, {
                     size: getSize()
                   });
                 }, 1000);
@@ -50764,7 +50824,7 @@ var Paella = /*#__PURE__*/function () {
     key: "enterFullscreen",
     value: function () {
       var _enterFullscreen = Paella_asyncToGenerator( /*#__PURE__*/Paella_regeneratorRuntime().mark(function _callee17() {
-        var _this5 = this;
+        var _this6 = this;
         var result;
         return Paella_regeneratorRuntime().wrap(function _callee17$(_context17) {
           while (1) switch (_context17.prev = _context17.next) {
@@ -50777,7 +50837,7 @@ var Paella = /*#__PURE__*/function () {
                 result = this.containerElement.webkitRequestFullScreen();
               }
               setTimeout(function () {
-                return _this5.resize();
+                return _this6.resize();
               }, 500);
               return _context17.abrupt("return", result);
             case 4:
