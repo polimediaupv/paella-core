@@ -645,6 +645,8 @@ export default class Paella {
                     frames: this._videoManifest.frameList
                 }
             }
+
+            this._frameList.getImage = time => this._frameList.frames.sort((a,b) => b.time - a.time).find(f => f.time < time)
     
             // Load custom icons from skin
             unloadSkinStyleSheets.apply(this.skin);
