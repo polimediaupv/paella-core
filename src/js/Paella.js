@@ -92,6 +92,7 @@ function buildPreview() {
 }
 
 import packageData from "../../package.json";
+import ManifestParser from "./core/ManifestParser";
 
 // Used in the first step of loadManifest and loadUrl
 async function preLoadPlayer() {
@@ -508,8 +509,29 @@ export default class Paella {
         return PlayerStateNames;
     }
 
+    // Manifest query functions
+    get metadata() {
+        return this._manifestParser.metadata;
+    }
+
+    get streams() {
+        return this._manifestParser.streams;
+    }
+
     get frameList() {
-        return this._frameList || { frames: [], targetContent: null };
+        return this._manifestParser.frameList;
+    }
+
+    get captions() {
+        return this._manifestParser.captions;
+    }
+
+    get trimming() {
+        return this._manifestParser.trimming;
+    }
+
+    get visibleTimeLine() {
+        return this._manifestParser.visibleTimeLine;
     }
 
     waitState(state) {
@@ -630,30 +652,7 @@ export default class Paella {
                 this.log.warn("Paella.loadUrl(): no preview image specified. Using default preview image.");
             }
 
-            // Check frameList format
-            if (this._videoManifest.frameList &&
-                !Array.isArray(this._videoManifest.frameList) &&
-                typeof(this._videoManifest.frameList) === "object" &&
-                typeof(this._videoManifest.frameList.targetContent) === "string" &&
-                Array.isArray(this._videoManifest.frameList.frames)) 
-            {
-                this._frameList = this._videoManifest.frameList;
-            }
-            else if (Array.isArray(this._videoManifest.frameList)) {
-                this._frameList = {
-                    targetContent: null,
-                    frames: this._videoManifest.frameList
-                }
-            }
-
-            this._frameList.getImage = (time, ignoreTrimming = false) => {
-                if (this.videoContainer.isTrimEnabled && !ignoreTrimming) {
-                    time += this.videoContainer.trimStart;
-                }
-                return this._frameList.frames
-                    .sort((a,b) => b.time - a.time)
-                    .find(f => f.time < time)
-            }
+            this._manifestParser = new ManifestParser(this.videoManifest, this);
     
             // Load custom icons from skin
             unloadSkinStyleSheets.apply(this.skin);
