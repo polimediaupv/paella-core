@@ -11,6 +11,37 @@ export default class ManifestParser {
         this._captions = this._videoManifest.captions;
         this._visibleTimeLine = this._videoManifest.visibleTimeLine;
 
+        function getNativeSource() {
+            if (this.streams.length !== 1) {
+                return null;
+            }
+            if (this.isAudioOnly) {
+                return this.audioOnlySource.src;
+            }
+            const stream = this.streams[0];
+            const source = stream.sources.mp4 || stream.sources.hls || stream.sources.hlsLive;
+            if (!source) {
+                return null;
+            }
+            const video = document.createElement('video');
+            if (stream.sources.mp4 && 
+                stream.sources.mp4.length &&
+                video.canPlayType(stream.sources.mp4[0].mimetype || "video/mp4") === "probably"
+                )
+            {
+                return stream.sources.mp4[0].src;
+            }
+            const hls = stream.sources.hls || stream.sources.hlsLive;
+            if (hls &&
+                hls.length &&
+                video.canPlayType(hls[0].mimetype || "application/vnd.apple.mpegurl") !== "" &&
+                /safari/i.test(navigator.userAgent))    // HLS native only on Safari
+            {
+                return hls[0].src;
+            }
+            return null;
+        }
+
         this._streams = {
             streams: this._videoManifest.streams,
             get contents() {
@@ -34,13 +65,19 @@ export default class ManifestParser {
                 const streams = this.getStream(content);
                 return canvasTypes.length === 1 && 
                     canvasTypes[0] === "audio" &&
-                    streams.sources.audio;
+                    streams.sources.audio && streams.sources.audio.length > 0;
             },
             get audioOnlySource() {
                 if (!this.isAudioOnly) {
                     return null;
                 }
                 return this.getStream(this.contents[0]).sources.audio[0];
+            },
+            get isNativelyPlayable() {
+                return getNativeSource.apply(this) !== null;
+            },
+            get nativeSource() {
+                return getNativeSource.apply(this);
             }
         };
 
