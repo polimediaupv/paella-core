@@ -31,7 +31,16 @@ export default class ManifestParser {
                 // Check if the manifest only contains audio streams
                 const content = this.contents.length === 1 && this.contents[0];
                 const canvasTypes = content && this.getCanvasTypes(content) || [];
-                return canvasTypes.length === 1 && canvasTypes[0] === "audio";
+                const streams = this.getStream(content);
+                return canvasTypes.length === 1 && 
+                    canvasTypes[0] === "audio" &&
+                    streams.sources.audio;
+            },
+            get audioOnlySource() {
+                if (!this.isAudioOnly) {
+                    return null;
+                }
+                return this.getStream(this.contents[0]).sources.audio[0];
             }
         };
 
