@@ -40,6 +40,7 @@
 - [Utilities](utils.md): common-use utility package.
 - [DOM Utilities](dom_utilities.md): utilities to create DOM elements that can be displayed in the browser.
 - [PopUps](pop_up_api.md) and [TimeLinePopUp](time_line_pop_up.md): allows you to display windows, dialogs, menus, etc. This API should only be used to invoke the appearance of pop ups through JavaScript code, if you want to display a pop up or menu triggered by user action, first look at the [pop up button](popup_button_plugin.md), [button group](button_group_plugin.md) and [menu button](menu_button_plugin.md) plugins.
+- [ManifestParser](manifest_parser.md): Utilities to extract information from the [video manifest](video_manifest.md).
 
 
 ### Plugins

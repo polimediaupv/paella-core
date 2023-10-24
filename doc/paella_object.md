@@ -267,3 +267,21 @@ const { frames, targetContent } = player.frameList;
 
 In this case, plugins that use this parameter have to define an alternative method to link the frames to the stream, for example, by defining this property in the plugin configuration.
 
+## ManifestParser (paella-core >= 1.46)
+
+As of `paella-core` version 1.46, we can use the `manifestParser` API to extract data from the video manifest.
+
+The ManifestParser object has been used to refactor the `frameList` property described in the previous section, and also now adds the following new properties:
+
+- **`manifestParser.metadata`**
+- **`manifestParser.streams`**
+- **`manifestParser.frameList`**: available from paella-core >= 1.40, as of `paella-core` >= 1.46 this property has been refactor and now is extracted from ManifestParser, but the API has remained unchanged, so there is no need to update any code prior to version 1.46.
+- **`manifestParser.captions`**
+- **`manifestParser.trimming`**
+- **`manifestParser.visibleTimeLine`**
+
+See more information about this in the [`ManifestParser` page](manifest_parser.md).
+
+
+
+

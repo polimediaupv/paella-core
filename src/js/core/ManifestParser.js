@@ -78,6 +78,23 @@ export default class ManifestParser {
             },
             get nativeSource() {
                 return getNativeSource.apply(this);
+            },
+            get nativeType() {
+                if (!this.isNativelyPlayable) {
+                    return null;
+                }
+                return this.isAudioOnly ? 'audio' : 'video';
+            },
+            get nativePlayer() {
+                const type = this.nativeType();
+                if (type) {
+                    const player = document.createElement(type);
+                    player.src = this.nativeSource;
+                    return player;
+                }
+                else {
+                    return null;
+                }
             }
         };
 

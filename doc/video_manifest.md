@@ -262,3 +262,7 @@ Allows to define the soft trimming configuration of the video. For more informat
 - **end:** trimming end, in seconds
 - **enabled:** if this property is `false`, the video will be loaded with the defined `start` and `end` information stored in the video container, but the trimming will be disabled.
 
+## ManifestParser (paella-core >= 1.46)
+
+As of `paella-core` version 1.46, we can use the `manifestParser` API to extract data from the video manifest. See more information about this in the [`ManifestParser` page](manifest_parser.md)
+

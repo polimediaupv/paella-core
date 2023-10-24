@@ -48,6 +48,8 @@ import KeyShortcutPlugin, { KeyCodes, getShortcuts } from './js/core/KeyShortcut
 
 import { VideoContainerMessagePosition } from './js/core/VideoContainerMessage';
 
+import ManifestParser from './js/core/ManifestParser';
+
 import {
     defaultTranslateFunction,
     defaultSetLanguageFunction,
@@ -135,6 +137,8 @@ export {
     EventLogPlugin,
     ButtonGroupPlugin,
     isVolumeApiAvailable,
+
+    ManifestParser,
 
     getNextTabIndex,
     getCurrentTabIndex,
