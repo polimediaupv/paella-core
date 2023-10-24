@@ -10,8 +10,14 @@ export function supportsVideoType(type) {
         video = document.createElement("video");
     }
 
-    const canPlay = video.canPlayType(type);
-    return canPlay === "maybe" || canPlay === "probably";
+    let canPlay = video.canPlayType(type);
+    if (canPlay === "maybe" || canPlay === "probably") {
+        return true;
+    }
+    else if (/video\/mp4/i.test(type)) {
+        canPlay = video.canPlayType("video/mp4");
+        return canPlay === "maybe" || canPlay === "probably";
+    }
 }
 
 export class Mp4Video extends Video {

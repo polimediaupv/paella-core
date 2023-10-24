@@ -86,7 +86,7 @@ export default class ManifestParser {
                 return this.isAudioOnly ? 'audio' : 'video';
             },
             get nativePlayer() {
-                const type = this.nativeType();
+                const type = this.nativeType;
                 if (type) {
                     const player = document.createElement(type);
                     player.src = this.nativeSource;
