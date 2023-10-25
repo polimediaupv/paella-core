@@ -220,3 +220,7 @@
 - New utility function: [`isVolumeApiAvailable()`](video_plugin.md)
 - New function in `frameList` object [frameList](paella_object.md)
 - Audio only format now supports frame list.
+
+##  paella-core 1.46
+
+- New API: [ManifestParser](manifest_parser.md)
