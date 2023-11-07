@@ -100,4 +100,4 @@ The image sequence stream data are as follows:
 Run the player with `npm run dev` and test the video using the following URL: [http://localhost:5173/?id=audio-and-images](http://localhost:5173/?id=audio-and-images).
 
 Previous tutorial: [Audio streams](audio_streams.md)
-Next tutorial: 
+Next tutorial: [Using standard HTML player if the video is compatible](native_player.md)

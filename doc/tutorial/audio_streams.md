@@ -57,5 +57,7 @@ We add a new audio-only video manifest. If we define a video manifest that only 
 
 Launch the debugger with `npm run dev` and load the player at URL [http://localhost:5173/?id=audio-only](http://localhost:5173/?id=audio-only)
 
+Note: paella-core is not intended to play only an audio stream, but it provides APIs to replace paella with a native HTML 5 audio player. You can see how to do this in the [tutorial 22](native_player.md).
+
 Previous tutorial: [Video canvas: video 360](video_360.md)
 Next tutorial: [Using a sequence of images as video](image_sequence_video.md)
