@@ -13513,20 +13513,53 @@ var HlsVideo = /*#__PURE__*/function (_Mp4Video) {
       return loadStreamData;
     }()
   }, {
-    key: "waitForLoaded",
+    key: "duration",
     value: function () {
-      var _waitForLoaded = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        var _this3 = this;
+      var _duration = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        var _duration2, _this$_hls;
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
-              if (!(getHlsSupport(this.forceNative) === HlsSupport.NATIVE)) {
-                _context2.next = 4;
+              if (!this._videoEnabled) {
+                _context2.next = 8;
                 break;
               }
-              return _context2.abrupt("return", _get(_getPrototypeOf(HlsVideo.prototype), "waitForLoaded", this).call(this));
+              _context2.next = 3;
+              return this.waitForLoaded();
+            case 3:
+              _duration2 = this.video.duration;
+              if (_duration2 === Infinity) {
+                _duration2 = ((_this$_hls = this._hls) === null || _this$_hls === void 0 ? void 0 : _this$_hls.liveSyncPosition) || 0;
+              }
+              return _context2.abrupt("return", _duration2);
+            case 8:
+              return _context2.abrupt("return", this._disabledProperties.duration);
+            case 9:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2, this);
+      }));
+      function duration() {
+        return _duration.apply(this, arguments);
+      }
+      return duration;
+    }()
+  }, {
+    key: "waitForLoaded",
+    value: function () {
+      var _waitForLoaded = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        var _this3 = this;
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              if (!(getHlsSupport(this.forceNative) === HlsSupport.NATIVE)) {
+                _context3.next = 4;
+                break;
+              }
+              return _context3.abrupt("return", _get(_getPrototypeOf(HlsVideo.prototype), "waitForLoaded", this).call(this));
             case 4:
-              _context2.next = 6;
+              _context3.next = 6;
               return new Promise(function (resolve, reject) {
                 var checkReady = function checkReady() {
                   // readyState === 2: HAVE_CURRENT_DATA. Data is available for the current playback
@@ -13546,9 +13579,9 @@ var HlsVideo = /*#__PURE__*/function (_Mp4Video) {
               });
             case 6:
             case "end":
-              return _context2.stop();
+              return _context3.stop();
           }
-        }, _callee2, this);
+        }, _callee3, this);
       }));
       function waitForLoaded() {
         return _waitForLoaded.apply(this, arguments);
@@ -13558,10 +13591,10 @@ var HlsVideo = /*#__PURE__*/function (_Mp4Video) {
   }, {
     key: "getQualities",
     value: function () {
-      var _getQualities = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+      var _getQualities = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
         var q;
-        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-          while (1) switch (_context3.prev = _context3.next) {
+        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
             case 0:
               q = [];
               q.push(this._autoQuality);
@@ -13580,12 +13613,12 @@ var HlsVideo = /*#__PURE__*/function (_Mp4Video) {
                   return a.res.h - b.res.h;
                 });
               }
-              return _context3.abrupt("return", q);
+              return _context4.abrupt("return", q);
             case 4:
             case "end":
-              return _context3.stop();
+              return _context4.stop();
           }
-        }, _callee3, this);
+        }, _callee4, this);
       }));
       function getQualities() {
         return _getQualities.apply(this, arguments);
@@ -13595,18 +13628,18 @@ var HlsVideo = /*#__PURE__*/function (_Mp4Video) {
   }, {
     key: "setQuality",
     value: function () {
-      var _setQuality = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(q) {
-        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-          while (1) switch (_context4.prev = _context4.next) {
+      var _setQuality = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(q) {
+        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+          while (1) switch (_context5.prev = _context5.next) {
             case 0:
               if (this._videoEnabled) {
-                _context4.next = 2;
+                _context5.next = 2;
                 break;
               }
-              return _context4.abrupt("return");
+              return _context5.abrupt("return");
             case 2:
               if (q instanceof paella_core_js_core_VideoQualityItem__WEBPACK_IMPORTED_MODULE_5__/* ["default"] */ .Z) {
-                _context4.next = 4;
+                _context5.next = 4;
                 break;
               }
               throw Error("Invalid parameter setting video quality. VideoQualityItem object expected.");
@@ -13619,9 +13652,9 @@ var HlsVideo = /*#__PURE__*/function (_Mp4Video) {
               }
             case 5:
             case "end":
-              return _context4.stop();
+              return _context5.stop();
           }
-        }, _callee4, this);
+        }, _callee5, this);
       }));
       function setQuality(_x2) {
         return _setQuality.apply(this, arguments);
@@ -13636,33 +13669,33 @@ var HlsVideo = /*#__PURE__*/function (_Mp4Video) {
   }, {
     key: "supportsMultiaudio",
     value: function () {
-      var _supportsMultiaudio = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+      var _supportsMultiaudio = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
         var hlsSupport, _this$video$audioTrac;
-        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
-          while (1) switch (_context5.prev = _context5.next) {
+        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+          while (1) switch (_context6.prev = _context6.next) {
             case 0:
-              _context5.next = 2;
+              _context6.next = 2;
               return this.waitForLoaded();
             case 2:
               hlsSupport = getHlsSupport(this.forceNative);
               if (!(hlsSupport === HlsSupport.MEDIA_SOURCE_EXTENSIONS)) {
-                _context5.next = 7;
+                _context6.next = 7;
                 break;
               }
-              return _context5.abrupt("return", this._hls.audioTracks.length > 1);
+              return _context6.abrupt("return", this._hls.audioTracks.length > 1);
             case 7:
               if (!(hlsSupport === HlsSupport.NATIVE)) {
-                _context5.next = 11;
+                _context6.next = 11;
                 break;
               }
-              return _context5.abrupt("return", ((_this$video$audioTrac = this.video.audioTracks) === null || _this$video$audioTrac === void 0 ? void 0 : _this$video$audioTrac.length) > 1);
+              return _context6.abrupt("return", ((_this$video$audioTrac = this.video.audioTracks) === null || _this$video$audioTrac === void 0 ? void 0 : _this$video$audioTrac.length) > 1);
             case 11:
-              return _context5.abrupt("return", false);
+              return _context6.abrupt("return", false);
             case 12:
             case "end":
-              return _context5.stop();
+              return _context6.stop();
           }
-        }, _callee5, this);
+        }, _callee6, this);
       }));
       function supportsMultiaudio() {
         return _supportsMultiaudio.apply(this, arguments);
@@ -13672,19 +13705,19 @@ var HlsVideo = /*#__PURE__*/function (_Mp4Video) {
   }, {
     key: "getAudioTracks",
     value: function () {
-      var _getAudioTracks = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+      var _getAudioTracks = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
         var _this4 = this;
         var audioTrackLabel, hlsSupport, result, _result;
-        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
-          while (1) switch (_context6.prev = _context6.next) {
+        return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+          while (1) switch (_context7.prev = _context7.next) {
             case 0:
-              _context6.next = 2;
+              _context7.next = 2;
               return this.waitForLoaded();
             case 2:
               audioTrackLabel = this._config.audioTrackLabel || 'name';
               hlsSupport = getHlsSupport(this.forceNative);
               if (!(hlsSupport === HlsSupport.MEDIA_SOURCE_EXTENSIONS)) {
-                _context6.next = 9;
+                _context7.next = 9;
                 break;
               }
               result = this._hls.audioTracks.map(function (track) {
@@ -13695,10 +13728,10 @@ var HlsVideo = /*#__PURE__*/function (_Mp4Video) {
                   selected: _this4._hls.audioTrack === track.id
                 });
               });
-              return _context6.abrupt("return", result);
+              return _context7.abrupt("return", result);
             case 9:
               if (!(hlsSupport === HlsSupport.NATIVE)) {
-                _context6.next = 14;
+                _context7.next = 14;
                 break;
               }
               _result = Array.from(this.video.audioTracks).map(function (track) {
@@ -13709,14 +13742,14 @@ var HlsVideo = /*#__PURE__*/function (_Mp4Video) {
                   selected: track.enabled
                 });
               });
-              return _context6.abrupt("return", _result);
+              return _context7.abrupt("return", _result);
             case 14:
-              return _context6.abrupt("return", null);
+              return _context7.abrupt("return", null);
             case 15:
             case "end":
-              return _context6.stop();
+              return _context7.stop();
           }
-        }, _callee6, this);
+        }, _callee7, this);
       }));
       function getAudioTracks() {
         return _getAudioTracks.apply(this, arguments);
@@ -13726,18 +13759,18 @@ var HlsVideo = /*#__PURE__*/function (_Mp4Video) {
   }, {
     key: "setCurrentAudioTrack",
     value: function () {
-      var _setCurrentAudioTrack = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7(newTrack) {
+      var _setCurrentAudioTrack = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8(newTrack) {
         var tracks, selected, hlsSupport;
-        return _regeneratorRuntime().wrap(function _callee7$(_context7) {
-          while (1) switch (_context7.prev = _context7.next) {
+        return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+          while (1) switch (_context8.prev = _context8.next) {
             case 0:
-              _context7.next = 2;
+              _context8.next = 2;
               return this.waitForLoaded();
             case 2:
-              _context7.next = 4;
+              _context8.next = 4;
               return this.getAudioTracks();
             case 4:
-              tracks = _context7.sent;
+              tracks = _context8.sent;
               selected = tracks.find(function (track) {
                 return track.id === newTrack.id;
               });
@@ -13754,12 +13787,12 @@ var HlsVideo = /*#__PURE__*/function (_Mp4Video) {
                 });
               }
               this._currentAudioTrack = selected;
-              return _context7.abrupt("return", selected);
+              return _context8.abrupt("return", selected);
             case 10:
             case "end":
-              return _context7.stop();
+              return _context8.stop();
           }
-        }, _callee7, this);
+        }, _callee8, this);
       }));
       function setCurrentAudioTrack(_x3) {
         return _setCurrentAudioTrack.apply(this, arguments);
@@ -13774,9 +13807,9 @@ var HlsVideo = /*#__PURE__*/function (_Mp4Video) {
   }, {
     key: "clearStreamData",
     value: function () {
-      var _clearStreamData = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
-        return _regeneratorRuntime().wrap(function _callee8$(_context8) {
-          while (1) switch (_context8.prev = _context8.next) {
+      var _clearStreamData = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
+        return _regeneratorRuntime().wrap(function _callee9$(_context9) {
+          while (1) switch (_context9.prev = _context9.next) {
             case 0:
               // See loadHls function
               this.video.removeEventListener("canplay", this._hls._videoEventListener);
@@ -13785,9 +13818,9 @@ var HlsVideo = /*#__PURE__*/function (_Mp4Video) {
               this._ready = false;
             case 4:
             case "end":
-              return _context8.stop();
+              return _context9.stop();
           }
-        }, _callee8, this);
+        }, _callee9, this);
       }));
       function clearStreamData() {
         return _clearStreamData.apply(this, arguments);
@@ -13828,16 +13861,16 @@ var HlsVideoPlugin = /*#__PURE__*/function (_VideoPlugin) {
   }, {
     key: "getVideoInstance",
     value: function () {
-      var _getVideoInstance = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9(playerContainer, isMainAudio) {
-        return _regeneratorRuntime().wrap(function _callee9$(_context9) {
-          while (1) switch (_context9.prev = _context9.next) {
+      var _getVideoInstance = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee10(playerContainer, isMainAudio) {
+        return _regeneratorRuntime().wrap(function _callee10$(_context10) {
+          while (1) switch (_context10.prev = _context10.next) {
             case 0:
-              return _context9.abrupt("return", new HlsVideo(this.player, playerContainer, this.config, isMainAudio));
+              return _context10.abrupt("return", new HlsVideo(this.player, playerContainer, this.config, isMainAudio));
             case 1:
             case "end":
-              return _context9.stop();
+              return _context10.stop();
           }
-        }, _callee9, this);
+        }, _callee10, this);
       }));
       function getVideoInstance(_x4, _x5) {
         return _getVideoInstance.apply(this, arguments);
@@ -44231,7 +44264,7 @@ Hls.defaultConfig = void 0;
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"paella-core","version":"1.46.0","description":"Multistream HTML video player","main":"src/index.js","module":"dist/paella-core.js","scripts":{"build":"webpack --mode production","dev":"webpack serve --mode development --config webpack.debug.js --host 0.0.0.0","captions":"webpack serve --mode development --config webpack.captions.js","eslint":"eslint .","nomanifest":"webpack serve --mode development --config webpack.nomanifest.js","testenv":"webpack serve --mode development --config webpack.test.js --host 0.0.0.0"},"repository":{"type":"git","url":"git+https://github.com/polimediaupv/paella-core.git"},"keywords":["html","player","video","hls"],"author":"Fernando Serrano Carpena <ferserc1@gmail.com>","license":"ECL-2.0","bugs":{"url":"https://github.com/polimediaupv/paella-core/issues"},"homepage":"https://github.com/polimediaupv/paella-core#readme","devDependencies":{"@babel/core":"^7.12.10","@babel/plugin-transform-modules-commonjs":"^7.19.6","@babel/preset-env":"^7.12.11","@playwright/test":"^1.29.2","babel-loader":"^9.0.0","babel-plugin-transform-require-context":"^0.1.1","copy-webpack-plugin":"^11.0.0","css-loader":"^6.6.0","eslint":"^8.29.0","file-loader":"^6.2.0","html-webpack-plugin":"^5.5.0","source-map-loader":"^4.0.0","style-loader":"^3.3.1","svg-inline-loader":"^0.8.2","webpack":"^5.66.0","webpack-cli":"^5.0.0","webpack-dev-server":"^4.7.3"},"dependencies":{"core-js":"^3.8.2","hls.js":"^1.0.4"}}');
+module.exports = JSON.parse('{"name":"paella-core","version":"1.46.1","description":"Multistream HTML video player","main":"src/index.js","module":"dist/paella-core.js","scripts":{"build":"webpack --mode production","dev":"webpack serve --mode development --config webpack.debug.js --host 0.0.0.0","captions":"webpack serve --mode development --config webpack.captions.js","eslint":"eslint .","nomanifest":"webpack serve --mode development --config webpack.nomanifest.js","testenv":"webpack serve --mode development --config webpack.test.js --host 0.0.0.0"},"repository":{"type":"git","url":"git+https://github.com/polimediaupv/paella-core.git"},"keywords":["html","player","video","hls"],"author":"Fernando Serrano Carpena <ferserc1@gmail.com>","license":"ECL-2.0","bugs":{"url":"https://github.com/polimediaupv/paella-core/issues"},"homepage":"https://github.com/polimediaupv/paella-core#readme","devDependencies":{"@babel/core":"^7.12.10","@babel/plugin-transform-modules-commonjs":"^7.19.6","@babel/preset-env":"^7.12.11","@playwright/test":"^1.29.2","babel-loader":"^9.0.0","babel-plugin-transform-require-context":"^0.1.1","copy-webpack-plugin":"^11.0.0","css-loader":"^6.6.0","eslint":"^8.29.0","file-loader":"^6.2.0","html-webpack-plugin":"^5.5.0","source-map-loader":"^4.0.0","style-loader":"^3.3.1","svg-inline-loader":"^0.8.2","webpack":"^5.66.0","webpack-cli":"^5.0.0","webpack-dev-server":"^4.7.3"},"dependencies":{"core-js":"^3.8.2","hls.js":"^1.0.4"}}');
 
 /***/ }),
 
@@ -46664,7 +46697,7 @@ var VideoContainer_VideoContainer = /*#__PURE__*/function (_DomClass) {
               _context7.next = 50;
               return this.player.videoContainer.setTrimming(this.player.videoManifest.trimming);
             case 50:
-              if (!((_this$player$config$v6 = this.player.config.videoContainer) !== null && _this$player$config$v6 !== void 0 && (_this$player$config$v6 = _this$player$config$v6.restoreLastTime) !== null && _this$player$config$v6 !== void 0 && _this$player$config$v6.enabled)) {
+              if (!((_this$player$config$v6 = this.player.config.videoContainer) !== null && _this$player$config$v6 !== void 0 && (_this$player$config$v6 = _this$player$config$v6.restoreLastTime) !== null && _this$player$config$v6 !== void 0 && _this$player$config$v6.enabled && !this.streamProvider.isLiveStream)) {
                 _context7.next = 64;
                 break;
               }
