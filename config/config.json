@@ -215,13 +215,6 @@
             "enableCache": true,
             "forceNative": false,
             "hlsConfig": {
-                "enableWorker": true,
-                "maxBufferLength": 1,
-                "liveBackBufferLength": 0,
-                "liveSyncDuration": 0,
-                "liveMaxLatencyDuration": 5,
-                "liveDurationInfinity": true,
-                "highBufferWatchdogPeriod": 1
             },
             "corsConfig": {
                 "withCredentials": false,
@@ -235,13 +228,6 @@
             "order": 0,
             "enableCache": true,
             "hlsConfig": {
-                "enableWorker": true,
-                "maxBufferLength": 1,
-                "liveBackBufferLength": 0,
-                "liveSyncDuration": 0,
-                "liveMaxLatencyDuration": 5,
-                "liveDurationInfinity": true,
-                "highBufferWatchdogPeriod": 1
             },
             "corsConfig": {
                 "withCredentials": false,

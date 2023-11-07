@@ -287,6 +287,20 @@ export class HlsVideo extends Mp4Video {
         }
     }
 
+    async duration() {
+        if (this._videoEnabled) {
+            await this.waitForLoaded();
+            let duration = this.video.duration;
+            if (duration === Infinity) {
+                duration = this._hls?.liveSyncPosition || 0;
+            }
+            return duration;
+        }
+        else {
+            return this._disabledProperties.duration;
+        }
+    }
+
     async waitForLoaded() {
         if (getHlsSupport(this.forceNative) === HlsSupport.NATIVE) {
             return super.waitForLoaded();

@@ -431,7 +431,7 @@ export default class VideoContainer extends DomClass {
             await this.player.videoContainer.setTrimming(this.player.videoManifest.trimming);
         }
 
-        if (this.player.config.videoContainer?.restoreLastTime?.enabled)
+        if (this.player.config.videoContainer?.restoreLastTime?.enabled && !this.streamProvider.isLiveStream)
         {
             const saveCurrentTime = async () => {
                 const paused = await this.paused();
