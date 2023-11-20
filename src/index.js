@@ -1,4 +1,3 @@
-import 'paella-core/styles/base.css';
 
 import Paella, { PlayerStateNames } from 'paella-core/js/Paella';
 import PlayerState from './js/core/PlayerState';
