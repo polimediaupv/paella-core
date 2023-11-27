@@ -1,6 +1,6 @@
 
-import EventLogPlugin from 'paella-core/js/core/EventLogPlugin';
-import Events from 'paella-core/js/core/Events';
+import EventLogPlugin from '../core/EventLogPlugin';
+import Events from '../core/Events';
 
 import PaellaCorePlugins from './PaellaCorePlugins';
 

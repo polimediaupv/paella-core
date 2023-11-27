@@ -1,4 +1,4 @@
-import CanvasPlugin, { Canvas } from 'paella-core/js/core/CanvasPlugin';
+import CanvasPlugin, { Canvas } from '../core/CanvasPlugin';
 
 export class AudioCanvas extends Canvas {
     constructor(player, videoContainer) {

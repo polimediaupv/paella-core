@@ -1,8 +1,8 @@
-import UserInterfacePlugin from 'paella-core/js/core/UserInterfacePlugin';
-import { getPluginsOfType } from 'paella-core/js/core/plugin_tools';
-import { createElementWithHtmlText } from 'paella-core/js/core/dom';
-import Events, { triggerEvent } from 'paella-core/js/core/Events';
-import { translate } from 'paella-core/js/core/Localization';
+import UserInterfacePlugin from './UserInterfacePlugin';
+import { getPluginsOfType } from './plugin_tools';
+import { createElementWithHtmlText } from './dom';
+import Events, { triggerEvent } from './Events';
+import { translate } from './Localization';
 import PopUp from './PopUp';
 
 export function getButtonPlugins(player, side = "any", parent = "playbackBar") {

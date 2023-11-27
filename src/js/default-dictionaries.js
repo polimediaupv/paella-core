@@ -1,6 +1,7 @@
 
 const defaultDictionaries = {};
 
+/*
 const dictionaries = require.context('../i18n/', true, /\.json$/);
 dictionaries.keys().forEach(k => {
     const reResult = /([a-z-]+[A-Z_]+)\.json/.exec(k);
@@ -16,5 +17,5 @@ dictionaries.keys().forEach(k => {
         }
     }
 });
-
+*/
 export default defaultDictionaries;

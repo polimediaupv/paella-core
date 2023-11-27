@@ -1,5 +1,5 @@
-import Plugin from 'paella-core/js/core/Plugin';
-import { loadPluginsOfType } from 'paella-core/js/core/plugin_tools';
+import Plugin from './Plugin';
+import { loadPluginsOfType } from './plugin_tools';
 import PopUp from './PopUp';
 
 const getModifierStatus = sc => {

@@ -1,6 +1,6 @@
-import Plugin from 'paella-core/js/core/Plugin';
-import { getPluginsOfType, loadPluginsOfType } from 'paella-core/js/core/plugin_tools';
-import { DomClass } from 'paella-core/js/core/dom';
+import Plugin from './Plugin';
+import { getPluginsOfType, loadPluginsOfType } from './plugin_tools';
+import { DomClass } from './dom';
 import { createElement, createElementWithHtmlText } from './dom';
 import { getCanvasButtons } from './CanvasButtonPlugin';
 

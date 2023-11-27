@@ -1,9 +1,9 @@
 import VideoLayout from "../core/VideoLayout";
 
-import defaultIconSwitchSide from 'paella-core/icons/icon_switch_side.svg';
-import defaultIconMaximize from 'paella-core/icons/maximize.svg';
-import defaultIconClose from 'paella-core/icons/close.svg';
-import defaultIconSideBySide from 'paella-core/icons/icon_side_by_side.svg';
+import defaultIconSwitchSide from '../../icons/icon_switch_side';
+import defaultIconMaximize from '../../icons/maximize';
+import defaultIconClose from '../../icons/close';
+import defaultIconSideBySide from '../../icons/icon_side_by_side';
 import { CanvasButtonPosition } from "../core/CanvasPlugin";
 
 import PaellaCoreLayouts from "./PaellaCoreLayouts";

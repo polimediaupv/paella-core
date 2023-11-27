@@ -1,7 +1,7 @@
-import ButtonPlugin from 'paella-core/js/core/ButtonPlugin';
-import PopUp from 'paella-core/js/core/PopUp';
-import { createElementWithHtmlText } from 'paella-core/js/core/dom';
-import TimeLinePopUp from 'paella-core/js/core/TimeLinePopUp';
+import ButtonPlugin from './ButtonPlugin';
+import PopUp from './PopUp';
+import { createElementWithHtmlText } from './dom';
+import TimeLinePopUp from './TimeLinePopUp';
 
 function resolvePopUpType() {
 	const types = ["modal","timeline","no-modal"];

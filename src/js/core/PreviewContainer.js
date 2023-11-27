@@ -45,7 +45,7 @@ const g_buttonStyle = `
     cursor: pointer;
 `;
 
-import PlayIcon from 'paella-core/icons/play_icon_fullscreen.svg';
+import PlayIcon from '../../icons/play_icon_fullscreen';
 
 export default class PreviewContainer extends DomClass {
     constructor(player, parentElement,backgroundImage,backgroundImagePortrait) {

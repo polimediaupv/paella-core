@@ -1,11 +1,10 @@
-import "regenerator-runtime/runtime";
 import {
     defaultLoadConfigFunction,
     defaultGetVideoIdFunction,
     defaultGetManifestUrlFunction,
     defaultGetManifestFileUrlFunction,
     defaultLoadVideoManifestFunction
-} from 'paella-core/js/core/initFunctions';
+} from './core/initFunctions';
 import { 
     resolveResourcePath,
     setupAutoHideUiTimer,
@@ -13,23 +12,23 @@ import {
     getUrlFileName,
     removeExtension,
     removeFileName
-} from 'paella-core/js/core/utils';
+} from './core/utils';
 import Loader from "./core/Loader";
 import ErrorContainer from "./core/ErrorContainer";
-import { registerPlugins, unregisterPlugins } from 'paella-core/js/core/plugin_tools';
+import { registerPlugins, unregisterPlugins } from './core/plugin_tools';
 import VideoContainer, {
     getSourceWithUrl
-} from 'paella-core/js/core/VideoContainer';
-import PreviewContainer from 'paella-core/js/core/PreviewContainer';
-import PlaybackBar from 'paella-core/js/core/PlaybackBar';
-import Events, { bindEvent, triggerEvent, unregisterEvents } from 'paella-core/js/core/Events';
-import TimeLinePopUp from 'paella-core/js/core/TimeLinePopUp';
-import PopUp from 'paella-core/js/core/PopUp';
-import Data from 'paella-core/js/core/Data';
-import CaptionCanvas from 'paella-core/js/captions/CaptionsCanvas';
-import { loadLogEventPlugins, unloadLogEventPlugins } from "paella-core/js/core/EventLogPlugin";
-import { loadKeyShortcutPlugins, unloadKeyShortcutPlugins, getShortcuts } from "paella-core/js/core/KeyShortcutPlugin";
-import { checkManifestIntegrity } from "paella-core/js/core/StreamProvider";
+} from './core/VideoContainer';
+import PreviewContainer from './core/PreviewContainer';
+import PlaybackBar from './core/PlaybackBar';
+import Events, { bindEvent, triggerEvent, unregisterEvents } from './core/Events';
+import TimeLinePopUp from './core/TimeLinePopUp';
+import PopUp from './core/PopUp';
+import Data from './core/Data';
+import CaptionCanvas from './captions/CaptionsCanvas';
+import { loadLogEventPlugins, unloadLogEventPlugins } from "./core/EventLogPlugin";
+import { loadKeyShortcutPlugins, unloadKeyShortcutPlugins, getShortcuts } from "./core/KeyShortcutPlugin";
+import { checkManifestIntegrity } from "./core/StreamProvider";
 import CookieConsent, {
     defaultGetCookieConsentCallback,
     defaultGetCookieDescriptionCallback
@@ -55,22 +54,17 @@ import {
     setGetDictionariesFunction,
     defaultGetDefaultLanguageFunction,
     setupDefaultLanguage
-} from "paella-core/js/core/Localization";
+} from "./core/Localization";
 
-import 'paella-core/styles/colors.css';
-import 'paella-core/styles/sizes.css';
-import 'paella-core/styles/base.css';
 import { defaultGetLanguageFunction } from "./core/Localization";
 
-import Log, { LOG_LEVEL } from "paella-core/js/core/Log";
+import Log, { LOG_LEVEL } from "./core/Log";
 
 import defaultDictionaries from "./default-dictionaries.js";
 
 import Preferences from "./core/Preferences";
 
 import Skin, { overrideSkinConfig, loadSkinStyleSheets, loadSkinIcons, unloadSkinStyleSheets } from "./core/Skin";
-
-import "../css/ForcedColors.css";
 
 import PlayerState from "./core/PlayerState";
 

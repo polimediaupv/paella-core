@@ -9,8 +9,8 @@ This function is designed to be used from the plugin code. It is used to obtain 
 If the icon has not been customized, then this function will return `null`. The following example is extracted from the code of the `es.upv.paella.playPauseButton` plugin, which uses two different icons for play and pause:
 
 ```js
-import defaultPlayIcon from 'paella-core/icons/play.svg';
-import defaultPauseIcon from 'paella-core/icons/pause.svg';
+import defaultPlayIcon from '../icons/play';
+import defaultPauseIcon from '../icons/pause';
 
 export default class PlayButtonPlugin extends ButtonPlugin {
 	async load() {

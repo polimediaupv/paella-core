@@ -1,12 +1,12 @@
 
-import KeyShortcutPlugin, { KeyCodes } from "paella-core/js/core/KeyShortcutPlugin";
-import PopUp from "paella-core/js/core/PopUp";
+import KeyShortcutPlugin, { KeyCodes } from "../core/KeyShortcutPlugin";
+import PopUp from "../core/PopUp";
 import { VideoContainerMessagePosition } from "../core/VideoContainerMessage";
 
-import defaultVolumeMuteIcon from "../../icons/volume-mute.svg"
-import defaultVolumeLowIcon from "../../icons/volume-low.svg"
-import defaultVolumeMidIcon from "../../icons/volume-mid.svg"
-import defaultVolumeHighIcon from "../../icons/volume-high.svg"
+import defaultVolumeMuteIcon from "../../icons/volume-mute"
+import defaultVolumeLowIcon from "../../icons/volume-low"
+import defaultVolumeMidIcon from "../../icons/volume-mid"
+import defaultVolumeHighIcon from "../../icons/volume-high"
 import PlayerState from "../core/PlayerState";
 import TimeLinePopUp from "../core/TimeLinePopUp";
 

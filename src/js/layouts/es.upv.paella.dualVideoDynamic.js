@@ -1,14 +1,14 @@
 
-import VideoLayout from 'paella-core/js/core/VideoLayout';
+import VideoLayout from '../core/VideoLayout';
 
 import { CanvasButtonPosition } from '../core/CanvasPlugin';
 import PaellaCoreLayouts from './PaellaCoreLayouts';
 
-import defaultIconRotate from 'paella-core/icons/icon_switch_side.svg';
-import defaultIconMaximize from 'paella-core/icons/maximize.svg';
-import defaultIconClose from 'paella-core/icons/close.svg';
-import defaultIconSideBySide from 'paella-core/icons/icon_side_by_side.svg';
-import defaultIconPiP from 'paella-core/icons/icon_pip.svg';
+import defaultIconRotate from '../../icons/icon_switch_side';
+import defaultIconMaximize from '../../icons/maximize';
+import defaultIconClose from '../../icons/close';
+import defaultIconSideBySide from '../../icons/icon_side_by_side';
+import defaultIconPiP from '../../icons/icon_pip';
 
 export default class DualVideoDynamicLayout extends VideoLayout {
     getPluginModuleInstance() {

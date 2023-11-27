@@ -1,5 +1,5 @@
 
-import { getPluginsOfType } from 'paella-core/js/core/plugin_tools';
+import { getPluginsOfType } from './plugin_tools';
 import UserInterfacePlugin from "./UserInterfacePlugin";
 
 

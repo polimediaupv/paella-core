@@ -1,7 +1,7 @@
-import ButtonPlugin from 'paella-core/js/core/ButtonPlugin';
+import ButtonPlugin from '../core/ButtonPlugin';
 import PaellaCorePlugins from './PaellaCorePlugins';
 
-import testIcon from 'paella-core/icons/screen.svg';
+import testIcon from '../../icons/screen';
 
 export default class NonInteractiveButton extends ButtonPlugin {
     getPluginModuleInstance() {

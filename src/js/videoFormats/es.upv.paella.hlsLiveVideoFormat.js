@@ -2,8 +2,8 @@ import Hls from 'hls.js';
 import Events, { triggerEvent } from '../core/Events';
 
 import { HlsVideo, getHlsSupport, HlsSupport, defaultHlsConfig } from './es.upv.paella.hlsVideoFormat';
-import VideoPlugin from 'paella-core/js/core/VideoPlugin';
-import VideoQualityItem from 'paella-core/js/core/VideoQualityItem';
+import VideoPlugin from '../core/VideoPlugin';
+import VideoQualityItem from '../core/VideoQualityItem';
 
 import PaellaCoreVideoFormats from './PaellaCoreVideoFormats';
 

@@ -2,7 +2,7 @@
 
 import { createElementWithHtmlText, DomClass } from './dom';
 
-import ProgressIndicatorIcon from '../../icons/progress_indicator.svg';
+import ProgressIndicatorIcon from '../../icons/progress_indicator';
 
 import '../../css/Loader.css';
 

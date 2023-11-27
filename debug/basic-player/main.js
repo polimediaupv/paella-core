@@ -1,3 +1,4 @@
-import { secondsToTime } from "paella-core/core/utils";
 
-console.log(secondsToTime(100));
+import Paella from 'paella-core/Paella';
+
+const player = new Paella('playerContainer');

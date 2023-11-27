@@ -1,7 +1,6 @@
-import { DomClass, createElementWithHtmlText } from 'paella-core/js/core/dom';
-import Events, { triggerEvent } from 'paella-core/js/core/Events';
+import { DomClass, createElementWithHtmlText } from './dom';
+import Events, { triggerEvent } from './Events';
 
-import 'paella-core/styles/TimeLinePopUp.css';
 
 function setupPlayerInstance(player) {
     if (!player.__timeLinePopUp) {

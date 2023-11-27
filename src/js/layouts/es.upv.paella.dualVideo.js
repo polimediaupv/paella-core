@@ -1,13 +1,13 @@
-import VideoLayout from 'paella-core/js/core/VideoLayout';
-import { getCookie, setCookie } from 'paella-core/js/core/utils';
+import VideoLayout from '../core/VideoLayout';
+import { getCookie, setCookie } from '../core/utils';
 import { CanvasButtonPosition } from '../core/CanvasPlugin';
 
-import defaultIconRotate from 'paella-core/icons/icon_rotate.svg';
-import defaultIconMinimize from 'paella-core/icons/minimize-3.svg';
-import defaultIconSwitchSide from 'paella-core/icons/icon_switch_side.svg';
-import defaultIconMaximize from 'paella-core/icons/maximize.svg';
-import defaultIconClose from 'paella-core/icons/close.svg';
-import defaultIconSideBySide from 'paella-core/icons/icon_side_by_side.svg';
+import defaultIconRotate from '../../icons/icon_rotate';
+import defaultIconMinimize from '../../icons/minimize-3';
+import defaultIconSwitchSide from '../../icons/icon_switch_side';
+import defaultIconMaximize from '../../icons/maximize';
+import defaultIconClose from '../../icons/close';
+import defaultIconSideBySide from '../../icons/icon_side_by_side';
 import PaellaCoreLayouts from './PaellaCoreLayouts';
 
 let layout = 0;

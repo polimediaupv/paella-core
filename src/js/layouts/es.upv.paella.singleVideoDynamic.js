@@ -1,9 +1,9 @@
 
-import VideoLayout from 'paella-core/js/core/VideoLayout';
+import VideoLayout from '../core/VideoLayout';
 
 import { CanvasButtonPosition } from '../core/CanvasPlugin';
 
-import defaultIconSideBySide from 'paella-core/icons/icon_side_by_side.svg';
+import defaultIconSideBySide from '../../icons/icon_side_by_side';
 
 import PaellaCoreLayouts from './PaellaCoreLayouts';
 

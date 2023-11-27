@@ -1,7 +1,7 @@
 import CanvasButtonPlugin from "../core/CanvasButtonPlugin";
 import PaellaCorePlugins from "./PaellaCorePlugins";
 
-import TestIcon from "paella-core/icons/screen.svg";
+import TestIcon from "../../icons/screen";
 
 export default class CanvasButtonPluginTest extends CanvasButtonPlugin {
     getPluginModuleInstance() {

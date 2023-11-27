@@ -1,7 +1,7 @@
 import { Mp4Video } from "./es.upv.paella.mp4VideoFormat";
-import VideoPlugin from 'paella-core/js/core/VideoPlugin';
-import VideoQualityItem from 'paella-core/js/core/VideoQualityItem';
-import AudioTrackData from "paella-core/js/core/AudioTrackData";
+import VideoPlugin from '../core/VideoPlugin';
+import VideoQualityItem from '../core/VideoQualityItem';
+import AudioTrackData from "../core/AudioTrackData";
 import Events, { triggerEvent } from "../core/Events";
 
 import PaellaCoreVideoFormats from "./PaellaCoreVideoFormats";

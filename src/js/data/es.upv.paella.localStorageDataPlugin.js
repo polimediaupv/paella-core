@@ -1,4 +1,4 @@
-import { DataPlugin } from 'paella-core/js/core/Data';
+import { DataPlugin } from '../core/Data';
 
 import PaellaCoreDataPlugins from './PaellaCoreDataPlugins';
 

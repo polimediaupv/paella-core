@@ -1,6 +1,6 @@
-import { DomClass } from 'paella-core/js/core/dom';
-import { secondsToTime } from 'paella-core/js/core/utils';
-import Events from 'paella-core/js/core/Events.js';
+import { DomClass } from './dom';
+import { secondsToTime } from './utils';
+import Events from './Events.js';
 
 export default class ProgressIndicatorTimer extends DomClass {
     constructor(player, parent) {

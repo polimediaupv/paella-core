@@ -1,9 +1,7 @@
 
-import { DomClass, createElementWithHtmlText } from 'paella-core/js/core/dom';
-import { loadCaptionsPlugins } from 'paella-core/js/captions/CaptionsPlugin';
-import Events, { bindEvent, triggerEvent } from 'paella-core/js/core/Events';
-
-import 'paella-core/styles/CaptionCanvas.css';
+import { DomClass, createElementWithHtmlText } from '../core/dom';
+import { loadCaptionsPlugins } from './CaptionsPlugin';
+import Events, { bindEvent, triggerEvent } from '../core/Events';
 
 const containerSizeClasses = [
     { maxWidth: 400, className: 'size-s' },

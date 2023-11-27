@@ -1,26 +1,26 @@
-import AudioVideoPlugin from "paella-core/js/videoFormats/es.upv.paella.audioVideoFormat";
-import HlsVideoPlugin from "paella-core/js/videoFormats/es.upv.paella.hlsVideoFormat";
-import HlsLiveVideoFormat from "paella-core/js/videoFormats/es.upv.paella.hlsLiveVideoFormat";
-import HtmlVideoPlugin from "paella-core/js/videoFormats/es.upv.paella.htmlVideoFormat";
-import ImageVideoPlugin from "paella-core/js/videoFormats/es.upv.paella.imageVideoFormat";
-import Mp4VideoPlugin from "paella-core/js/videoFormats/es.upv.paella.mp4VideoFormat";
+import AudioVideoPlugin from "./videoFormats/es.upv.paella.audioVideoFormat";
+import HlsVideoPlugin from "./videoFormats/es.upv.paella.hlsVideoFormat";
+import HlsLiveVideoFormat from "./videoFormats/es.upv.paella.hlsLiveVideoFormat";
+import HtmlVideoPlugin from "./videoFormats/es.upv.paella.htmlVideoFormat";
+import ImageVideoPlugin from "./videoFormats/es.upv.paella.imageVideoFormat";
+import Mp4VideoPlugin from "./videoFormats/es.upv.paella.mp4VideoFormat";
 
-import DefaultKeyShortcutsPlugin from "paella-core/js/plugins/es.upv.paella.defaultShortcuts";
-import DfxpManifestCaptionsPlugin from "paella-core/js/plugins/es.upv.paella.dfxpManifestCaptionsPlugin";
-import PlayPauseButtonPlugin from "paella-core/js/plugins/es.upv.paella.playPauseButton";
-import VttManifestCaptionsPlugin from "paella-core/js/plugins/es.upv.paella.vttManifestCaptionsPlugin";
+import DefaultKeyShortcutsPlugin from "./plugins/es.upv.paella.defaultShortcuts";
+import DfxpManifestCaptionsPlugin from "./plugins/es.upv.paella.dfxpManifestCaptionsPlugin";
+import PlayPauseButtonPlugin from "./plugins/es.upv.paella.playPauseButton";
+import VttManifestCaptionsPlugin from "./plugins/es.upv.paella.vttManifestCaptionsPlugin";
 
-import DualVideoDynamicLayout from "paella-core/js/layouts/es.upv.paella.dualVideoDynamic";
-import DualVideoLayout from "paella-core/js/layouts/es.upv.paella.dualVideo";
-import DualVideoPiPLayout from "paella-core/js/layouts/es.upv.paella.dualVideoPiP";
-import SingleVideoLayout from "paella-core/js/layouts/es.upv.paella.singleVideo";
-import SingleVideoDynamicLayout from "paella-core/js/layouts/es.upv.paella.singleVideoDynamic";
-import TripleVideoLayout from "paella-core/js/layouts/es.upv.paella.tripleVideo";
+import DualVideoDynamicLayout from "./layouts/es.upv.paella.dualVideoDynamic";
+import DualVideoLayout from "./layouts/es.upv.paella.dualVideo";
+import DualVideoPiPLayout from "./layouts/es.upv.paella.dualVideoPiP";
+import SingleVideoLayout from "./layouts/es.upv.paella.singleVideo";
+import SingleVideoDynamicLayout from "./layouts/es.upv.paella.singleVideoDynamic";
+import TripleVideoLayout from "./layouts/es.upv.paella.tripleVideo";
 
-import AudioCanvasPlugin from "paella-core/js/canvas/es.upv.paella.audioCanvas";
-import VideoCanvasPlugin from "paella-core/js/canvas/es.upv.paella.videoCanvas";
+import AudioCanvasPlugin from "./canvas/es.upv.paella.audioCanvas";
+import VideoCanvasPlugin from "./canvas/es.upv.paella.videoCanvas";
 
-import CookieDataPlugin from "paella-core/js/data/es.upv.paella.cookieDataPlugin";
+import CookieDataPlugin from "./data/es.upv.paella.cookieDataPlugin";
 
 export default [
     {

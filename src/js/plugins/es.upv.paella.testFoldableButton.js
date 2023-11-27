@@ -1,6 +1,6 @@
-import ButtonPlugin from 'paella-core/js/core/ButtonPlugin';
+import ButtonPlugin from '../core/ButtonPlugin';
 
-import screenIcon from 'paella-core/icons/screen.svg';
+import screenIcon from '../../icons/screen';
 
 import PaellaCorePlugins from './PaellaCorePlugins';
 

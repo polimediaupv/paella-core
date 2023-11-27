@@ -1,7 +1,7 @@
 
-import PopUpButtonPlugin from 'paella-core/js/core/PopUpButtonPlugin';
-import { createElementWithHtmlText } from 'paella-core/js/core/dom';
-import PopUp from 'paella-core/js/core/PopUp';
+import PopUpButtonPlugin from './PopUpButtonPlugin';
+import { createElementWithHtmlText } from './dom';
+import PopUp from './PopUp';
 
 import 'paella-core/styles/MenuButton.css';
 

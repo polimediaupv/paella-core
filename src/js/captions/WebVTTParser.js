@@ -1,5 +1,5 @@
 
-import Captions from 'paella-core/js/captions/Captions';
+import Captions from './Captions';
 
 const TIMESTAMP = "(?:\\d*:){1,2}\\d*(?:\\.\\d+)?";
 const CUE_TIMING = `(${TIMESTAMP})\\s*\\-\\->\\s*(${TIMESTAMP})`;

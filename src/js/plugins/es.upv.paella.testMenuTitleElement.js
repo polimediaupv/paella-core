@@ -1,6 +1,6 @@
 import MenuButtonPlugin from "../core/MenuButtonPlugin";
 
-import TestIcon from "../../icons/close.svg";
+import TestIcon from "../../icons/close";
 
 import PaellaCorePlugins from "./PaellaCorePlugins";
 

@@ -1,4 +1,4 @@
-import CaptionsPlugin from 'paella-core/js/captions/CaptionsPlugin';
+import CaptionsPlugin from '../captions/CaptionsPlugin';
 
 import PaellaCorePlugins from './PaellaCorePlugins';
 

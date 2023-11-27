@@ -2,9 +2,8 @@
 
 import { createElementWithHtmlText, DomClass } from './dom';
 
-import ErrorIcon from '../../icons/error.svg';
+import ErrorIcon from '../../icons/error.js';
 
-import '../../css/Error.css';
 
 export default class ErrorContainer extends DomClass {
     constructor(player, message = "") {

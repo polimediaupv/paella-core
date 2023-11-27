@@ -1,5 +1,5 @@
 
-import { timeToSeconds, secondsToTime } from 'paella-core/js/core/utils';
+import { timeToSeconds, secondsToTime } from '../core/utils';
 
 export default class Captions {
     get cues() {

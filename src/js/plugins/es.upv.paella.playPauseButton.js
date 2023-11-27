@@ -1,9 +1,9 @@
-import ButtonPlugin from 'paella-core/js/core/ButtonPlugin';
-import Events, { bindEvent } from 'paella-core/js/core/Events';
+import ButtonPlugin from '../core/ButtonPlugin';
+import Events, { bindEvent } from '../core/Events';
 
-import defaultPlayIcon from 'paella-core/icons/play.svg';
-import defaultPauseIcon from 'paella-core/icons/pause.svg';
-import defaultReplayIcon from 'paella-core/icons/replay.svg';
+import defaultPlayIcon from '../../icons/play';
+import defaultPauseIcon from '../../icons/pause';
+import defaultReplayIcon from '../../icons/replay';
 
 import PaellaCorePlugins from './PaellaCorePlugins';
 

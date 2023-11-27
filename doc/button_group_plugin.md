@@ -48,7 +48,7 @@ In general, a plugin of type Button Group only implements the icon specification
 ```javascript
 import { ButtonGroupPlugin } from 'paella-core';
 
-import ScreenIcon from 'paella-core/icons/screen.svg';
+import ScreenIcon from '../icons/screen';
 
 export default class TestButtonGroupPlugin extends ButtonGroupPlugin {
     async load() {

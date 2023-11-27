@@ -1,10 +1,9 @@
-import { DomClass, createElementWithHtmlText } from 'paella-core/js/core/dom';
+import { DomClass, createElementWithHtmlText } from './dom';
 
-import ProgressIndicator from 'paella-core/js/core/ProgressIndicator';
-import { loadPluginsOfType, unloadPluginsOfType } from 'paella-core/js/core/plugin_tools'
-import { addButtonPlugin } from 'paella-core/js/core/ButtonPlugin';
+import ProgressIndicator from './ProgressIndicator';
+import { loadPluginsOfType, unloadPluginsOfType } from './plugin_tools'
+import { addButtonPlugin } from './ButtonPlugin';
 import { pauseAutoHideUiTimer, resumeAutoHideUiTimer } from './utils';
-import 'paella-core/styles/PlaybackBar.css';
 import PopUp from './PopUp';
 
 export default class PlaybackBar extends DomClass {

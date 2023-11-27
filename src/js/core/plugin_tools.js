@@ -1,5 +1,4 @@
-import pluginRequireContext from '../../../plugin_directories';
-import paellaPlugins from '../../../paella_plugins';
+import paellaPlugins from '../paella_plugins';
 import { loadSvgIcon, joinPath } from './utils';
 import ButtonGroupPlugin from './ButtonGroupPlugin';
 import { mergeObjects } from './utils';
@@ -132,12 +131,6 @@ export function registerPlugins(player) {
     ].forEach(pluginData => {
             importSinglePlugin(player, pluginData);
         });
-
-    // TODO: pluginContext API will be deprecated soon
-    // Import plugins
-    pluginRequireContext.forEach(ctx => importPlugins(player, ctx));
-    // Custom plugins
-    player.initParams.customPluginContext.forEach(ctx => importPlugins(player, ctx));
 
     // Button Groups
     const { buttonGroups } = config;

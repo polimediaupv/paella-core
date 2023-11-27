@@ -1,7 +1,7 @@
 import { CanvasButtonPosition } from '../core/CanvasPlugin';
 import VideoLayout from '../core/VideoLayout';
 
-import sideBySideIcon from "../../icons/icon_side_by_side.svg";
+import sideBySideIcon from "../../icons/icon_side_by_side";
 
 import PaellaCoreLayouts from './PaellaCoreLayouts';
 

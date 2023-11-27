@@ -2,7 +2,7 @@
 
 import { DomClass } from './dom';
 import Plugin from './Plugin';
-import { loadPluginsOfType } from 'paella-core/js/core/plugin_tools'
+import { loadPluginsOfType } from './plugin_tools'
 import { getFileExtension } from './utils';
 export default class VideoPlugin extends Plugin {
     get type() { return "video"; }
