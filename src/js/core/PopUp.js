@@ -1,10 +1,8 @@
-import { DomClass, createElementWithHtmlText } from 'paella-core/js/core/dom';
-import Events, { triggerEvent } from 'paella-core/js/core/Events';
+import { DomClass, createElementWithHtmlText } from './dom';
+import Events, { triggerEvent } from './Events';
 
-import 'paella-core/styles/PopUp.css';
-
-import defaultMinimizeIcon from 'paella-core/icons/minimize-3.svg';
-import defaultCloseButton from 'paella-core/icons/close.svg';
+import defaultMinimizeIcon from '../../icons/minimize-3';
+import defaultCloseButton from '../../icons/close';
 
 const g_popUps = [];
 
