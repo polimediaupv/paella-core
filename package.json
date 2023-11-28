@@ -1,14 +1,17 @@
 {
   "name": "paella-core",
   "exports": {
-    "./": "./src/js/"
+    ".": "./src/js/index.js",
+    "./*": "./src/js/*",
+    "./paella-core.css": "./css/paella-core.css"
   },
   "version": "2.0.0",
   "description": "Multistream HTML video player",
-  "main": "src/index.js",
-  "module": "src/index.js",
+  "main": "src/js/index.js",
+  "module": "src/js/index.js",
   "type": "module",
   "scripts": {
+    "styles": "node src/scripts/merge-css.js"
   },
   "repository": {
     "type": "git",

@@ -1,5 +1,4 @@
 import { DomClass, createElementWithHtmlText } from "./dom";
-import "../../css/VideoContainerMessage.css";
 
 export const VideoContainerMessagePosition = Object.freeze({
     TOP_LEFT: "topLeft",

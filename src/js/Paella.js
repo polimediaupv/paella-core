@@ -505,27 +505,27 @@ export default class Paella {
 
     // Manifest query functions
     get metadata() {
-        return this._manifestParser.metadata;
+        return this._manifestParser?.metadata || {};
     }
 
     get streams() {
-        return this._manifestParser.streams;
+        return this._manifestParser?.streams || [];
     }
 
     get frameList() {
-        return this._manifestParser.frameList;
+        return this._manifestParser?.frameList || {};
     }
 
     get captions() {
-        return this._manifestParser.captions;
+        return this._manifestParser?.captions || [];
     }
 
     get trimming() {
-        return this._manifestParser.trimming;
+        return this._manifestParser?.trimming || {};
     }
 
     get visibleTimeLine() {
-        return this._manifestParser.visibleTimeLine;
+        return this._manifestParser?.visibleTimeLine || true;
     }
 
     waitState(state) {

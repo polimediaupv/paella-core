@@ -4,7 +4,6 @@ import { DomClass } from './dom';
 import { createElement, createElementWithHtmlText } from './dom';
 import { getCanvasButtons } from './CanvasButtonPlugin';
 
-import "../../css/VideoCanvas.css";
 
 const g_enabledCanvasPlugins = [];
 export async function loadCanvasPlugins(player) {

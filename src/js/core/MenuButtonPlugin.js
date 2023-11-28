@@ -3,8 +3,6 @@ import PopUpButtonPlugin from './PopUpButtonPlugin';
 import { createElementWithHtmlText } from './dom';
 import PopUp from './PopUp';
 
-import 'paella-core/styles/MenuButton.css';
-
 export default class MenuButtonPlugin extends PopUpButtonPlugin {
 	
 	get closeOnSelect() {

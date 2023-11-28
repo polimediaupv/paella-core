@@ -1,0 +1,1420 @@
+.button-group {
+}
+
+.button-group-title {
+    font-family: sans-serif;
+    text-align: center;
+    padding: 5px;
+    border-bottom: 1px solid #938e8e;
+}
+
+.button-group .button-plugin-container {
+    display: inline;
+}
+
+.button-group .button-plugin-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+	box-sizing: border-box;
+}
+
+.button-group .button-plugin-container button {
+	width: 40px;
+	height: 40px;
+	display: block;
+	background: none;
+	border: none;
+	float: left;
+}
+
+.button-group button:hover {
+	background-color: var(--secondary-bg-color-hover);
+}
+
+.button-group button:active {
+	background-color: var(--main-bg-color);
+}
+
+.button-group button i {
+	background-size: 50% 50%;
+	width: 20px;
+	height: 20px;
+	display: block;
+	background-repeat: no-repeat;
+	background-position: 3px 7px;
+	margin-left: 5px;
+}
+
+/* Fix default iPad button padding */
+.button-group .button-plugin-container button {
+	padding: 2px 6px 3px 6px;
+}
+
+.video-container .button-plugin-container button {
+	padding: 2px 6px 3px 6px;
+}
+
+.button-group span.button-title {
+    display: block;
+}
+
+.button-group span.button-title.button-title-small {
+	margin-top: -16px;
+    font-size: 8px;
+}
+
+.button-group span.button-title.button-title-medium {
+	margin-top: -17px;
+    font-size: 10px;
+}
+
+.button-group span.button-title.button-title-large {
+	margin-top: -19px;
+    font-size: 12px;
+}
+
+.button-group span.button-title:empty {
+	margin-top: 0 !important;
+}
+
+.button-group button.dynamic-width span {
+    margin-top: 0px;
+    color: var(--main-fg-color);
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+.button-group button.dynamic-width span.button-title-small {
+    margin-top: 0px;
+}
+
+.button-group button.dynamic-width span.button-title-medium {
+    margin-top: 0px;
+}
+
+.button-group button.dynamic-width span.button-title-large {
+    margin-top: 0px;
+}
+
+
+.button-group button i svg {
+	width: 100%;
+    height: 100%;
+    fill: var(--main-fg-color);
+	color: var(--main-fg-color);
+}
+
+.button-group .button-plugin-wrapper .button-description {
+    font-family: sans-serif;
+    margin-left: 4px;
+	cursor: pointer;
+	height: 40px;
+	line-height: 40px;
+	padding-right: 20px;
+	box-sizing: border-box;
+	color: var(--main-fg-color);
+	user-select: none;
+}
+
+.button-group .button-plugin-wrapper .button-description:hover {
+    color: var(--main-fg-color);
+	text-shadow:0px 0px 2px var(--main-fg-color);
+}.captions-canvas {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 50;
+    pointer-events: none;
+}
+
+.captions-canvas .text-container {
+    width: 80%;
+    background-color: var(--main-bg-color);
+    border-radius: 5px;
+    color: var(--main-fg-color);
+    position: absolute;
+    bottom: 5px;
+    left: 10%;
+    right: 10%;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 15px;
+    text-align: center;
+}
+
+.captions-canvas.visible-ui .text-container {
+    bottom: 55px;
+}
+
+.captions-canvas.size-s .text-container {
+    font-size: 18px;
+}
+
+.captions-canvas.size-m .text-container {
+    font-size: 20px;
+}
+
+.captions-canvas.size-l .text-container {
+    font-size: 24px;
+}
+
+.captions-canvas.size-xl .text-container {
+    font-size: 30px;
+}
+
+.captions-canvas.size-xxl .text-container {
+    font-size: 34px;
+}
+
+div.error-container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 1000;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0px;
+    bottom: 0px;
+}
+
+div.error-container div {
+    text-align: center;
+}
+
+div.error-container i {
+    width: 350px;
+    height: 350px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (max-width: 500px) {
+    div.error-container i {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+@media (max-width: 800px) {
+    div.error-container i {
+        width: 200px;
+        height: 200px;
+    }
+}
+
+
+@media (forced-colors: active) {
+    /* selected menu item */
+    ul.menu-button-content li.menu-button-item button.selected {
+		border: 2px solid white;
+	}
+
+    /* Progress indicator */
+    .progress-indicator-content {
+        border: 5px solid white;
+        box-sizing: border-box;
+    }
+
+    .progress-indicator-remaining {
+        border: 3px solid gray;
+        box-sizing: border-box;
+    }
+
+    .progress-indicator-handler {
+        border: 5px solid white;
+        box-sizing: border-box;
+    }
+    
+
+}
+
+div.loader-container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 1000;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+div.loader-container i {
+    width: 350px;
+    height: 350px;
+    display: block;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 500px) {
+    div.loader-container i {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+@media (max-width: 800px) {
+    div.loader-container i {
+        width: 200px;
+        height: 200px;
+    }
+}
+
+
+ul.menu-button-content {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+.menu-button-title {
+	list-style: none;
+    font-family: sans-serif;
+    text-align: center;
+    padding: 5px;
+    border-bottom: 1px solid #938e8e;
+}
+
+ul.menu-button-content li.menu-button-item {
+	min-width:40px;
+}
+
+ul.menu-button-content li.menu-button-item button {
+	background: none;
+	border: none;
+	width: 100%;
+	color: var(--main-fg-color);
+	display: flex;
+	justify-content: space-around;
+}
+
+ul.menu-button-content li.menu-button-item button:hover {
+	background-color: var(--secondary-bg-color);
+}
+
+ul.menu-button-content li.menu-button-item button.selected {
+	background-color: var(--highlight-bg-color);
+}
+
+ul.menu-button-content li.menu-button-item button.selected:hover {
+	background-color: var(--highlight-bg-color-hover);
+}
+
+ul.menu-button-content li.menu-button-item button i.menu-icon {
+	pointer-events: none;
+}
+
+ul.menu-button-content li.menu-button-item button i.menu-icon svg {
+	width: 100%;
+    height: 100%;
+    fill: var(--main-fg-color);
+	color: var(--main-fg-color);
+	height: 40px;
+}
+
+ul.menu-button-content li.menu-button-item button span.menu-title {
+	height: 40px;
+	line-height: 40px;
+	padding-left: 4px;
+	padding-right: 4px;
+	pointer-events: none;
+}
+.player-container {
+	container-type: inline-size;
+	container-name: player-container;
+}
+
+.playback-bar {
+	position: absolute;
+	bottom: 0px;
+	width: var(--playback-bar-width);
+	min-height: var(--playback-bar-height);
+	left: calc((100% - var(--playback-bar-width)) / 2);
+	right: calc((100% - var(--playback-bar-width)) / 2);
+	background: var(--secondary-bg-color);
+	background: var(--main-bg-gradient);
+	z-index: 100;
+	container-type: inline-size;
+	container-name: playback-bar;
+}
+
+.playback-bar.inline-mode {
+	display: flex;
+	align-items: center;
+  	user-select: none;
+}
+
+.playback-bar:hover {
+	background: var(--secondary-bg-color-hover);
+}
+
+.progress-indicator {
+	width: 98%;
+	margin-left: 1%;
+	height: var(--progress-indicator-height);
+}
+
+.progress-indicator.inline-mode {
+	flex: 1;
+}
+
+.progress-indicator-timer {
+	position: absolute;
+	top:1px;
+	color: var(--main-fg-color);
+	font-size: 10px;
+	line-height: 11px;
+	padding-left: 11px;
+	pointer-events: none;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1;
+}
+
+.progress-indicator-timer.left-side {
+	left: 0px;
+}
+
+.progress-indicator-timer.right-side {
+	right: 0px;
+}
+
+.playback-bar .button-plugins {
+	height: var(--button-fixed-height);
+}
+
+.playback-bar .button-plugins.left-side {
+	float: left;
+}
+
+.playback-bar .button-plugins.right-side {
+	float: right;
+}
+
+.playback-bar .button-plugins .button-plugin-container {
+	display: inline;
+}
+
+.playback-bar .button-plugins .button-plugin-container button {
+	height: var(--button-fixed-height);
+	background: none;
+	border: none;
+	float: left;
+	align-items: center;
+	align-items: center;
+    justify-content: center;
+}
+
+.playback-bar .button-plugins .button-plugin-container button.dynamic-width div.interactive-button-content {
+	display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+}
+
+.playback-bar .button-plugins .button-plugin-container button.fixed-width {
+	width: var(--button-fixed-width);
+}
+
+.playback-bar .button-plugins button:hover {
+	background-color: var(--highlight-bg-color-hover);
+}
+
+.playback-bar .button-plugins button:active {
+	background-color: var(--secondary-bg-color-hover);
+}
+
+.playback-bar .button-plugins button.dynamic-width span {
+	margin-top: 0px;
+	color: var(--main-fg-color);
+	padding-left: 3px;
+	padding-right: 3px;
+}
+
+.playback-bar .button-plugins button i {
+	background-size: 50% 50%;
+	width: var(--button-icon-size);
+	display: block;
+	background-repeat: no-repeat;
+	background-position: 3px 7px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* non-interactive buttons **/
+.playback-bar .button-plugins .button-plugin-container div.non-interactive {
+	height: var(--button-fixed-height);
+	background: none;
+	border: none;
+	float: left;
+	box-sizing: border-box;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+	pointer-events: none;
+}
+
+.playback-bar .button-plugins .button-plugin-container div.dynamic-width div.non-interactive-button-content {
+	display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+}
+
+.playback-bar .button-plugins .button-plugin-container div.non-interactive.fixed-width {
+	width: var(--button-fixed-width);
+}
+
+.playback-bar .button-plugins div.non-interactive i {
+	background-size: 50% 50%;
+	width: var(--button-icon-size);
+	display: block;
+	background-repeat: no-repeat;
+	background-position: 3px 7px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.playback-bar .button-plugins div.non-interactive span {
+	display: block;
+	text-align: center;
+	margin-top: -23px;
+}
+
+.playback-bar .button-plugins div.no-icon span {
+	line-height: var(--button-fixed-height);
+    margin-top: 0px;
+	color: var(--main-fg-color);
+}
+
+.playback-bar .button-plugins div.dynamic-width span {
+	margin-top: 0px;
+	color: var(--main-fg-color);
+	padding-left: 3px;
+	padding-right: 3px;
+}
+
+.playback-bar .button-plugins .button-plugin-container div.non-interactive {
+	padding: 2px 6px 3px 6px;
+}
+.video-container .button-plugins .button-plugin-container div.non-interactive {
+	padding: 2px 6px 3px 6px;
+}
+
+.playback-bar .button-plugins div.non-interactive i svg {
+	width: 100%;
+    height: 100%;
+    fill: var(--main-fg-color);
+	color: var(--main-fg-color);
+}
+
+
+/* Fix default iPad button padding */
+.playback-bar .button-plugins .button-plugin-container button {
+	padding: 0px 6px 0px 6px;
+}
+.video-container .button-plugins .button-plugin-container button {
+	padding: 0px 6px 0px 6px;
+}
+
+.button-plugins span.button-title {
+    display: block;
+}
+
+.button-plugins span.button-title.button-title-small {
+	margin-top: -13px;
+    font-size: 8px;
+}
+
+.button-plugins span.button-title.button-title-medium {
+	margin-top: -14px;
+    font-size: 10px;
+}
+
+.button-plugins span.button-title.button-title-large {
+	margin-top: -16px;
+    font-size: 12px;
+}
+
+.button-plugins span.button-title:empty {
+	margin-top: 0 !important;
+}
+
+
+.playback-bar .button-plugins button i svg {
+	width: 100%;
+    height: 100%;
+    fill: var(--main-fg-color);
+	color: var(--main-fg-color);
+}
+
+.playback-bar .button-plugin-side-area {
+	display: inline;
+	color: var(--main-fg-color);
+	height: 40px;
+	line-height: 40px;
+}
+
+.playback-bar .timer-container {
+	height: 40px;
+	line-height: 40px;
+	display: none;
+}
+
+.playback-bar .timer-container.left-side {
+	float: left;
+	display: block;
+}
+
+.playback-bar .timer-container.right-side {
+	float: right;
+	display: block;
+}
+
+.progress-indicator {
+	position: relative;
+}
+
+.progress-indicator canvas {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	pointer-events: none;
+	opacity: 0.5;
+}
+
+.playback-bar:hover .progress-indicator canvas {
+	opacity: 1;
+}
+
+.progress-indicator .progress-indicator-container {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+}
+
+.progress-indicator-container .progress-indicator-content {
+	height: 10px;
+	background-color: var(--highlight-bg-color-hover);
+	opacity: 0.8;
+	pointer-events: none;
+}
+
+.playback-bar:hover .progress-indicator-container .progress-indicator-content {
+	background-color: var(--highlight-bg-color-hover);
+}
+
+.progress-indicator-remaining {
+	display: block;
+	width: 100%;
+	background-color: rgb(139, 139, 139);
+	height: 10px;
+	position: absolute;
+	z-index: -1;
+	opacity: 0.4;
+}
+
+.progress-indicator-handler {
+	display: block;
+	width: var(--progress-indicator-handler-size);
+	height: var(--progress-indicator-handler-size);
+	margin-left: -10px;
+	background-color: var(--highlight-bg-color-hover);
+	border-radius: 10px;
+	z-index: 1;
+}
+
+.frame-thumbnail {
+	background-color: var(--secondary-bg-color-hover);
+	min-width: 100px;
+	min-height: 100px;
+	box-shadow: 0px 0px 5px 0px var(--main-bg-color);
+	z-index: 10000;
+	pointer-events: none;
+}
+
+.frame-thumbnail .thumbnail-image {
+	pointer-events: none;
+}
+
+.timer-container .progress-indicator-timer {
+	position: static;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+
+@media (max-width: 500px) {
+	.frame-thumbnail .thumbnail-image {
+		width: 130px;
+		pointer-events: none;
+	}
+}
+
+@media (max-width: 750px) {
+	.frame-thumbnail .thumbnail-image {
+		width: 230px;
+		pointer-events: none;
+	}
+}
+
+@media (min-width: 750px) {
+	.frame-thumbnail .thumbnail-image {
+		width: 330px;
+		pointer-events: none;
+	}
+}
+
+.frame-thumbnail .thumbnail-time {
+	pointer-events: none;
+	font-size: 12px;
+	line-height: 12px;
+	display: block;
+	height: 12px;
+	color: var(--main-fg-color);
+	text-align: center;
+	margin: 0;
+	padding: 1;
+}
+
+@container player-container (max-width: 700px) {
+	.playback-bar {
+		min-height: var(--playback-bar-height-sm);
+	}
+}
+
+@container playback-bar (max-width: 700px) {
+
+	.playback-bar .button-plugins button i {
+		width: var(--button-icon-size-sm);
+	}
+
+	.playback-bar .button-plugins {
+		height: var(--button-fixed-height-sm);
+	}
+
+	.playback-bar .button-plugins .button-plugin-container button {
+		height: var(--button-fixed-height-sm);
+	}
+
+	.playback-bar .button-plugins .button-plugin-container button.fixed-width {
+		width: var(--button-fixed-width-sm);
+	}
+
+	.playback-bar .button-plugins .button-plugin-container div.non-interactive {
+		height: var(--button-fixed-height-sm);
+	}
+
+	.playback-bar .button-plugins .button-plugin-container div.non-interactive.fixed-width {
+		width: var(--button-fixed-width-sm);
+	}
+
+	.playback-bar .button-plugins div.non-interactive i {
+		width: var(--button-icon-size-sm);
+	}
+
+	.playback-bar .button-plugins div.no-icon span {
+		line-height: var(--button-fixed-height-sm);
+	}
+}:root {
+	--popup-resizeable-border: 10px;
+	--popup-title-bar-size: 20px;
+	--popup-title-bar-color: var(--highlight-bg-color);
+	--popup-dock-button-size: 15px;
+}
+
+.popup-container {
+	z-index: 1000;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	height: 100vh;
+	width: 100vw;
+}
+
+.popup-container.no-modal {
+	pointer-events: none;
+}
+
+.popup-content {
+	position: fixed;
+	background-color: var(--main-bg-color);
+	color: var(--main-fg-color);
+	box-shadow: 0px 0px 4px 0px var(--main-bg-color);
+	border-radius: 3px;
+	padding: 5px 5px 5px 5px;
+	forced-color-adjust: none;
+	overflow: auto;
+	display: table;
+}
+
+.popup-content.static-position {
+	box-sizing: border-box;
+	user-select: none;
+	position: absolute;
+	overflow: hidden;
+	display: block;
+}
+
+.popup-content.moveable {
+	padding: 0px;
+	cursor: col-resize;
+	min-width: 180px;
+	min-height: 100px;
+}
+
+.popup-container.no-modal .popup-content {
+	pointer-events: all;
+}
+
+.popup-content.resizeable .border-top-left {
+	width: var(--popup-resizeable-border);
+	height: var(--popup-resizeable-border);
+	cursor: nw-resize;
+	float: left;
+}
+
+.popup-content.resizeable .border-top-center {
+	width: calc(100% - var(--popup-resizeable-border) * 2);
+	height: var(--popup-resizeable-border);
+	cursor: row-resize;
+	float: left;
+}
+
+.popup-content.resizeable .border-top-right {
+	width: var(--popup-resizeable-border);
+	height: var(--popup-resizeable-border);
+	cursor: ne-resize;
+	float: left;
+}
+
+.popup-content .title-bar {
+	font-family: arial, sans-serif;
+	text-align: center;
+	user-select: none;
+	box-sizing: border-box;
+	overflow: hidden;
+}
+
+.popup-content.moveable .title-bar {
+	min-height: max(var(--popup-title-bar-size), calc(var(--popup-dock-button-size) + 11px));
+	background-color: var(--popup-title-bar-color);
+	cursor: move;
+	position: relative;
+	display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+}
+
+.popup-content.fixed .title-bar.not-empty {
+	padding: 5px;
+	border-bottom: 1px solid var(--main-fg-color);
+}
+
+.popup-content.moveable .title-bar .title-bar-content {
+	padding-left: calc(var(--popup-dock-button-size) * 2);
+	padding-right: calc(var(--popup-dock-button-size) * 2);
+}
+
+.popup-content.moveable.resizeable .title-bar {
+	width: calc(100% - var(--popup-resizeable-border) * 2);
+	margin-left: var(--popup-resizeable-border);
+	margin-right: var(--popup-resizeable-border);
+}
+
+.popup-content .popup-action-buttons {
+	position: absolute;
+	top: 3px;
+	right: 3px;
+	display: flex;
+}
+
+.popup-content button.popup-action-button {
+	display: none;
+	background-color: transparent;
+    border: 1px solid var(--main-fg-color);
+	border-radius: 7px;
+	cursor: pointer;
+	margin-right: 2px;
+}
+
+.popup-content button.popup-action-button:hover {
+	background-color: var(--highlight-bg-color-hover);
+}
+
+.popup-content button.popup-action-button i {
+	width: var(--popup-dock-button-size);
+	height: var(--popup-dock-button-size);
+	display: block;
+	color: var(--main-fg-color);
+	fill: var(--main-fg-color);
+}
+
+.popup-content .center-container {
+	width: calc(100% - var(--popup-resizeable-border) * 2);
+	margin-left: var(--popup-resizeable-border);
+	margin-right: var(--popup-resizeable-border);
+	float: left;
+}
+
+.popup-content.static-position .center-container {
+	height: calc(100% - var(--popup-resizeable-border) * 2 - var(--popup-title-bar-size));
+	overflow: auto;
+}
+
+/* Begin properties for static position pop up: */
+.popup-content.static-position button.popup-action-button {
+	display: inline-block;
+}
+
+.popup-content.static-position .separator-left {
+	width: var(--popup-resizeable-border);
+	height: var(--popup-resizeable-border);
+	float: left;
+}
+
+.popup-content.static-position .separator-right {
+	width: var(--popup-resizeable-border);
+	height: var(--popup-resizeable-border);
+	float: left;
+}
+
+.popup-content.static-position .border-bottom-left {
+	width: var(--popup-resizeable-border);
+	height: var(--popup-resizeable-border);
+	cursor: sw-resize;
+	float: left;
+}
+
+.popup-content.static-position .border-bottom-center {
+	width: calc(100% - var(--popup-resizeable-border) * 2);
+	height: var(--popup-resizeable-border);
+	cursor: row-resize;
+	float: left;
+}
+
+.popup-content.static-position .border-bottom-right {
+	width: var(--popup-resizeable-border);
+	height: var(--popup-resizeable-border);
+	cursor: se-resize;
+	float: left;
+}
+.timeline-popup-content {
+    display: block;
+    background-color: var(--main-bg-color);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    position: absolute;
+    border-radius: 4px;
+    left: 2px;
+    right: 2px;
+    bottom: 52px;
+    color: var(--main-fg-color);
+    border-top: 1px solid var(--main-border-color);
+    z-index: 100;
+}
+
+.video-canvas .button-area {
+    position: absolute;
+    top: 5px;
+    left: 0px;
+    right: 0px;
+    pointer-events: none;
+    text-align: center;
+    z-index: 1;
+    container-type: size;
+    container-name: button-area;
+}
+
+
+.video-canvas .button-area button {
+    pointer-events: all;
+    margin: 2px;
+    width: 40px;
+    opacity: 0.8;
+    background-color: var(--main-bg-color);
+    border: none;
+    border-radius: 5px;
+    opacity: 0.3;
+}
+
+.video-canvas:hover .button-area button {
+    opacity: 1;
+}
+
+.video-canvas .button-area button:hover {
+    background-color: var(--highlight-bg-color-hover);
+}
+
+.video-canvas .button-area button i svg {
+    width: 100%;
+    height: 100%;
+    fill: var(--main-fg-color);
+    color: var(--main-fg-color);
+}
+
+.video-canvas .button-area button:hover {
+    opacity: 1;
+}
+
+.video-canvas .button-area button.align-left {
+    float: left;
+}
+
+.video-canvas .button-area button.align-right {
+    float: right;
+}
+
+.video-canvas .button-area {
+    padding: 5px;
+}
+
+.video-canvas.image-canvas .image-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+}
+.video-canvas.image-canvas img.landscape {
+    height: 100%;
+}
+
+.video-canvas.image-canvas img.portrait {
+    width: 100%;
+}
+
+
+@container button-area (max-width: 200px) {
+    .video-canvas .button-area button {
+        width: 25cqi;
+    }
+}
+
+@container button-area (min-width: 200px) and (max-width: 350px) {
+    .video-canvas .button-area button {
+        width: 45px;
+    }
+}
+
+@container button-area (min-width: 350px) {
+    .video-canvas .button-area button {
+        width: 55px;
+    }
+}
+
+
+
+  
+:root {
+	--video-container-padding: 0px;
+	--video-container-gap: 10px;
+}
+
+.video-container {
+    background-color: var(--video-container-background-color);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+
+.video-container.over-playback-bar {
+	height: calc(100% - var(--playback-bar-height) - 30px);
+	top: 0px;
+	transform: none;
+}
+
+.base-video-rect {
+    background-color: var(--base-video-rect-background-color);
+    position: relative;
+}
+
+.base-video-rect.dynamic {
+	display: flex;
+	background-color: transparent;
+	gap: var(--video-container-gap);
+	padding: var(--video-container-padding);
+	box-sizing: border-box;
+	width: 100%;
+	height: 100%;
+}
+
+.base-video-rect.dynamic.portrait {
+	flex-wrap: wrap;
+	align-items: center;
+    justify-content: center;
+}
+
+.base-video-rect.dynamic.landscape {
+	justify-content: space-around;
+}
+
+.base-video-rect.dynamic {
+	align-items: center;
+}
+
+.base-video-rect.dynamic.portrait.align-left {
+	justify-content: start;
+}
+
+.base-video-rect.dynamic.portrait.align-right {
+	justify-content: right;
+}
+
+.base-video-rect.dynamic .landscape-container {
+	display: flex;
+	width: 100%;
+	justify-content: space-around;
+}
+
+.base-video-rect.dynamic.align-bottom .landscape-container {
+	align-items: flex-end;
+}
+
+.base-video-rect.dynamic.align-top .landscape-container {
+	align-items: flex-start;
+}
+
+.base-video-rect.dynamic.align-center .landscape-container {
+	align-items: center;
+}
+
+.video-container .button-plugins {
+    position: absolute;
+    top: 10px;
+    height: 40px;
+	z-index: 100;
+}
+
+.video-container .button-plugins.left-side {
+    left: 10px;
+}
+
+.video-container .button-plugins.right-side {
+    right: 10px;
+}
+
+.video-container .user-area {
+	position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    pointer-events: none;
+}
+
+.video-container .button-plugins .button-plugin-container {
+	display: inline;
+}
+
+.video-container .button-plugins .button-plugin-container button {
+	height: var(--button-fixed-height);
+	display: block;
+	background-color: var(--main-bg-color);
+    border-radius: 6px;
+	border: none;
+	float: left;
+	margin-left: 2px;
+    margin-right: 2px;
+}
+
+.video-container .button-plugins .button-plugin-container button.fixed-width {
+	width: var(--button-fixed-width);
+}
+
+.video-container .button-plugins .button-plugin-container button.dynamic-width div.interactive-button-content {
+	display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+}
+
+.video-container .button-plugins button.dynamic-width span {
+	margin-top: 0px;
+	color: var(--main-fg-color);
+	padding-left: 3px;
+	padding-right: 3px;
+}
+
+.video-container .button-plugins button:hover {
+	background-color: var(--highlight-bg-color-hover);
+}
+
+.video-container .button-plugins button:active {
+	background-color: var(--main-bg-color-hover);
+}
+
+.video-container .button-plugins button i {
+	background-size: 50% 50%;
+	width: 20px;
+	display: block;
+	background-repeat: no-repeat;
+	background-position: 3px 7px;
+	margin-left: 5px;
+}
+
+.video-container .button-plugins button i svg {
+	width: 100%;
+    height: 100%;
+    fill: var(--main-fg-color);
+	color: var(--main-fg-color);
+}
+
+
+
+/* non-interactive buttons */
+.video-container .button-plugins .button-plugin-container div.non-interactive {
+	height: var(--button-fixed-height);
+	background-color: transparent;
+    border-radius: 6px;
+	border: none;
+	float: left;
+	box-sizing: border-box;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+	pointer-events: none;
+}
+
+.video-container .button-plugins .button-plugin-container div.dynamic-width div.non-interactive-button-content {
+	display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+}
+
+.video-container .button-plugins .button-plugin-container div.non-interactive.fixed-width {
+	width: var(--button-fixed-width);
+}
+
+.video-container .button-plugins div i {
+	background-size: 50% 50%;
+	width: 20px;
+	display: block;
+	background-repeat: no-repeat;
+	background-position: 3px 7px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.video-container .button-plugins div i svg {
+	width: 100%;
+    height: 100%;
+    fill: var(--main-fg-color);
+	color: var(--main-fg-color);
+}
+
+.video-container .button-plugins .button-plugin-container div.dynamic-width div.non-interactive-button-content {
+	display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+}
+
+.video-container .button-plugins div.non-interactive span {
+	display: block;
+	text-align: center;
+}
+
+.video-container .button-plugins div.no-icon span {
+	line-height: var(--button-fixed-height);
+    margin-top: 0px;
+	color: var(--main-fg-color);
+}
+
+.video-container .button-plugins div.dynamic-width span {
+	margin-top: 0px;
+	color: var(--main-fg-color);
+	padding-left: 3px;
+	padding-right: 3px;
+}
+
+.video-container .button-plugin-side-area {
+	display: inline;
+	color: var(--main-fg-color);
+	height: 40px;
+	line-height: 40px;
+}:root {
+    --video-container-message-bkg: rgba(0, 0, 0, 0.4);
+    --video-container-message-color: white;
+}
+.video-container-message {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    padding-top: 1%;
+    pointer-events: none;
+    container-type: size;
+    container-name: video-container-message;
+}
+
+.video-container-message .container {
+    width: 31%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    height: 30%;
+}
+
+.video-container-message .container .message-content {
+    background-color: var(--video-container-message-bkg);
+    border-radius: 5px;
+    padding-left: 10%;
+    padding-right: 10%;
+    text-align: center;
+    width: 40%;
+}
+
+.video-container-message .container .message-content .text {
+    text-shadow: 0px 0px 3px var(--video-container-message-bkg);
+    color: var(--video-container-message-color);
+    width: 100%;
+}
+
+.video-container-message .container .message-content i {
+    display: inline-block;
+    width: 90%;
+    padding-top: 10%;
+}
+
+.video-container-message .container .message-content i svg {
+    width: 100%;
+    height: 100%;
+    fill: var(--video-container-message-color);
+    color: var(--video-container-message-color);
+}
+
+@container video-container-message (max-width: 700px) {
+    .video-container-message .container .message-content .text {
+        font-size: 1.2em;
+    }
+}
+
+@container video-container-message (min-width: 700px) and (max-width: 1300px) {
+    .video-container-message .container .message-content .text {
+        font-size: 2.0em;
+    }
+}
+
+@container video-container-message (min-width: 1300px) {
+    .video-container-message .container .message-content .text {
+        font-size: 2.3em;
+    }
+}.video-layout-button {
+	border: none;
+	border-radius: 10%;
+	box-shadow: 1px 1px 5px 0px var(rgba(0,0,0,0.8));
+	background-size: 100% 100%;
+	display: block;
+	position: absolute;
+	background-color: var(--main-bg-color-hover);
+	border: none;
+	border-radius: 5px;
+	padding: 0.5%;
+}
+
+.video-layout-button:hover {
+	background-color: var(--highlight-bg-color);
+}
+
+.video-layout-button:active {
+	background-color: var(--highlight-bg-color-hover);
+}
+
+.video-player {
+	box-shadow: 2px 2px 4px 0px rgba(90,90,90,0.8);
+}
+
+.player-container {
+    position: relative;
+    overflow: hidden;
+}
+
+svg {
+    pointer-events: none;
+}
+
+button:focus {
+    /*border: 3px solid var(--highlight-bg-color-hover) !important;
+    box-shadow: 0px 0px 7px 0px var(--highlight-bg-color-hover) !important;
+    */
+}
+
+.player-container button,
+.video-container .video-canvas .button-area button,
+.button-group .button-plugin-container button {
+    outline-style: none;
+}
+
+.player-container button:focus-visible,
+.video-container .video-canvas .button-area button:focus-visible,
+.button-group .button-plugin-container button:focus-visible {
+    outline-style: solid;
+    outline-color: var(--main-outline-color);
+    outline-width: 2px;
+}
+:root {
+    --main-fg-color: white;
+    --main-bg-color: rgba(0,0,0,0.8);
+    --main-bg-color-hover: rgb(0,0,0);
+    --secondary-bg-color: rgb(32,32,32);
+    --secondary-bg-color-hover: rgba(32,32,32,0.8);
+    --highlight-bg-color: #A00;
+    --highlight-bg-color-hover: red;
+    --main-bg-gradient: linear-gradient(0deg, rgba(32,32,32,1) 0%, rgba(32,32,32,0.49531687675070024) 72%, rgba(32,32,32,0.08355217086834732) 100%);
+    --main-border-color: rgba(125,125,125,0.4);
+    --video-container-background-color: #e4e4e4;
+    --base-video-rect-background-color: #8a8a8a;
+    --main-outline-color: var(--highlight-bg-color-hover);
+}
+/* Button plugins */
+:root {
+	--button-fixed-width: 40px;
+	--button-fixed-height: 40px;
+    --button-fixed-width-sm: 40px;
+    --button-fixed-height-sm: 40px;
+    --progress-indicator-height: 10px;
+    --playback-bar-height: calc(var(--button-fixed-height) + var(--progress-indicator-height));
+    --playback-bar-height-sm: calc(var(--button-fixed-height-sm) + var(--progress-indicator-height));
+    --button-icon-size: calc(var(--button-fixed-width) / 2);
+    --button-icon-size-sm: calc(var(--button-fixed-width-sm) / 2);
+	--progress-indicator-handler-size: 20px;
+    --playback-bar-width: 100%;
+}
