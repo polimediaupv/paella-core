@@ -1417,4 +1417,149 @@ button:focus {
     --button-icon-size-sm: calc(var(--button-fixed-width-sm) / 2);
 	--progress-indicator-handler-size: 20px;
     --playback-bar-width: 100%;
+}.push-navigator {
+    --navigation-duration: 100ms;
+    --background: #ccc;
+    --color: black;
+    --title-padding: 10px;
+    --border: 1px solid #ccc;
+    --page-background: white;
+    --page-color: black;
+    --container-border-radius: 7px;
+    --page-border-radius: 5px;
+    --page-margin: 4px;
+
+    background-color: var(--background);
+    overflow: hidden;
+    border-radius: var(--container-border-radius);
+}
+
+.push-navigator > .page-container {
+    box-sizing: border-box;
+    background-color: white;
+    padding: 10px;
+    border: 1px solid #ccc;
+    display: flex;
+    border-radius: var(--page-border-radius);
+    margin: var(--page-margin);
+    overflow: hidden;
+}
+
+
+.push-navigator > header {
+    padding: var(--title-padding);
+    display: flex;
+    gap: 10px;
+}
+
+.push-navigator > header > .title {
+    margin: 0;
+    color: var(--color);
+}
+
+.push-navigator > header > button.hidden {
+    display: none;
+}
+
+.push-navigator > .page-container > article {
+    width: 100%;
+    flex-shrink: 0;
+    transition-duration: var(--navigation-duration);
+}
+
+.push-navigator > .page-container > article.out {
+    margin-left: -100%;
+    transition-duration: var(--navigation-duration);
+}
+
+section.modal-container {
+    --hide-transition-time: 300ms;
+    --show-transition-time: 50ms;
+    --window-border-color: rgb(75, 90, 141);
+    --window-title-color: white;
+    --window-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+    --window-handler-size: 10px;
+    --window-title-height: 35px;
+    --window-title-padding: 7px;
+}
+
+section.modal-container > article {
+    display: grid;
+    grid-template-columns: var(--window-handler-size) 1fr var(--window-handler-size);
+    grid-template-rows: var(--window-title-height) 1fr var(--window-handler-size);
+
+    position: fixed;
+    top: 40px;
+    left: 60px;
+    width: 250px;
+
+    box-shadow: 1px 1px 10px rgb(0 0 0 /50%);
+    box-sizing: border-box;
+    border-radius: 5px;
+    overflow: hidden;
+    border: 1px solid rgb(104 104 104 / 90%);
+    background: var(--window-border-color);
+}
+
+section.modal-container > article > div.content {
+    background: white;
+    box-sizing: border-box;
+    padding: 20px;
+    overflow: auto;
+    border: 1px solid rgb(104 104 104 / 90%);
+}
+
+section.modal-container > article > div.nw-handler {
+    cursor: nw-resize;
+}
+
+section.modal-container > article > div.move-handler {
+    cursor: move;
+}
+
+section.modal-container > article > div.move-handler > h1 {
+    padding: var(--window-title-padding);
+    color: var(--window-title-color);
+    margin: 0;
+    pointer-events: none;
+    user-select: none;
+}
+
+section.modal-container > article > div.ne-handler {
+    cursor: ne-resize;
+}
+
+section.modal-container > article > div.w-handler {
+    cursor: w-resize;
+}
+
+section.modal-container > article > div.e-handler {
+    cursor: e-resize;            
+}
+
+section.modal-container > article > div.sw-handler {
+    cursor: sw-resize;
+}
+
+section.modal-container > article > div.s-handler {
+    cursor: s-resize;
+}
+
+section.modal-container > article > div.se-handler {
+    cursor: se-resize;
+}
+
+section.modal-container > article {
+    transition-property: opacity, scale;
+    transition-duration: var(--show-transition-time);
+}
+
+section.modal-container.hidden > article {
+    opacity: 0;
+    scale: 0.5;
+    transition-duration: var(--hide-transition-time);
+}
+
+section.modal-container.removed {
+    display: none;
 }

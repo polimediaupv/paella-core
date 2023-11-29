@@ -21,6 +21,7 @@ import AudioCanvasPlugin from "./canvas/es.upv.paella.audioCanvas";
 import VideoCanvasPlugin from "./canvas/es.upv.paella.videoCanvas";
 
 import CookieDataPlugin from "./data/es.upv.paella.cookieDataPlugin";
+import LocalStorageDataPlugin from "./data/es.upv.paella.localStorageDataPlugin";
 
 export default [
     {
@@ -141,6 +142,13 @@ export default [
         plugin: CookieDataPlugin,
         config: {
             enabled: false,
+            context: ["default"]
+        }
+    },
+    {
+        plugin: LocalStorageDataPlugin,
+        config: {
+            enable: true,
             context: ["default"]
         }
     }
