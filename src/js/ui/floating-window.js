@@ -1,8 +1,28 @@
 
-export function createWindow(content) {
+export function createWindow({
+    content = "Floating window content", 
+    title = "Floating Window",
+    closeButton = true,
+    left = null,
+    top = null,
+    width = null,
+    height = null,
+    initiallyHidden = true,
+    modal = false
+} = {}) {
+    if (typeof content === 'string') {
+        const contentText = content;
+        content = document.createElement('div');
+        content.innerHTML = contentText;
+    }
+    
     const modalContainer = document.createElement('section');
-    modalContainer.className = 'modal-container';
+    modalContainer.className = 'floating-window-container removed hidden';
     document.body.appendChild(modalContainer);
+
+    if (modal) {
+        modalContainer.classList.add('modal');
+    }
 
     const modalWindow = document.createElement('article');
     modalContainer.appendChild(modalWindow);
@@ -77,8 +97,9 @@ export function createWindow(content) {
 
     modalWindow.setSize = function(w, h) {
         const contentArea = modalWindow.querySelector('div.content');
-        w !== null && (modalWindow.style.width = `${w}px`);
-        h !== null && (contentArea.style.height = `${h}px`);
+        modalWindow.style.width = w !== null ? `${w}px` : null;        
+        contentArea.style.height = h !== null ? `${h}px` : null;
+        console.log(modalWindow.getSize());
     }
 
     modalWindow.getSize = function() {
@@ -90,8 +111,8 @@ export function createWindow(content) {
     }
 
     modalWindow.setPosition = function(x, y) {
-        x !== null && (modalWindow.style.left = `${x}px`);
-        y !== null && (modalWindow.style.top = `${y}px`);
+        modalWindow.style.left = x !== null ? `${x}px` : null;
+        modalWindow.style.top = y !== null ? `${y}px` : null;
     }
 
     modalWindow.getPosition = function() {
@@ -103,7 +124,7 @@ export function createWindow(content) {
     }
 
     modalWindow.setTitle = function(title) {
-        modalWindow.querySelector('.move-handler').innerHTML = `<h1>${title}</h1>`;
+        modalWindow.querySelector('.move-handler > h1').innerHTML = title;
     }
 
     modalWindow.show = function() {
@@ -114,13 +135,36 @@ export function createWindow(content) {
     modalWindow.hide = function() {
         modalContainer.classList.add('hidden');
         const checkVisible = () => {
-            if (getComputedStyle(modalContainer).opacity === '0') {
+            if (getComputedStyle(modalWindow).opacity === '0') {
                 modalContainer.classList.add('removed');
                 return;
             }
             setTimeout(checkVisible, 100);
         }
         checkVisible();
+    }
+
+    const moveHandler = modalWindow.querySelector('.move-handler');
+    moveHandler.innerHTML = '<h1></h1>'
+
+    if (closeButton) {
+        const closeButton = document.createElement('button');
+        closeButton.className = 'close-button';
+        closeButton.setAttribute("aria-label", "Close window");
+        closeButton.addEventListener('click', () => {
+            modalWindow.hide();
+        });
+        moveHandler.appendChild(closeButton);
+    }
+
+    if (title !== null && title !== undefined) {
+        modalWindow.setTitle(title);
+    }
+
+    modalWindow.setPosition(left, top);
+    modalWindow.setSize(width, height);
+    if (!initiallyHidden) {
+        modalWindow.show();
     }
 
     return modalWindow;

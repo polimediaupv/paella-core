@@ -1417,44 +1417,76 @@ button:focus {
     --button-icon-size-sm: calc(var(--button-fixed-width-sm) / 2);
 	--progress-indicator-handler-size: 20px;
     --playback-bar-width: 100%;
-}.push-navigator {
-    --navigation-duration: 100ms;
-    --background: #ccc;
-    --color: black;
-    --title-padding: 10px;
-    --border: 1px solid #ccc;
-    --page-background: white;
-    --page-color: black;
-    --container-border-radius: 7px;
-    --page-border-radius: 5px;
-    --page-margin: 4px;
+}:root {
+    /* Push navigator */
+    --push-navigator-transition-duration: 100ms;
+    --push-navigator-bg-color: #ccc;
+    --push-navigator-fg-color: black;
+    --push-navigator-title-padding: 10px;
+    --push-navigator-container-border-radius: 7px;
+    --push-navigator-page-border: 1px solid #ccc;
+    --push-navigator-page-bg-color: white;
+    --push-navigator-page-fg-color: black;
+    --push-navigator-page-padding: 10px;
+    --push-navigator-page-border-radius: 5px;
+    --push-navigator-page-margin: 4px;
 
-    background-color: var(--background);
+    /* floating window */
+    --floating-window-hide-transition-time: 100ms;
+    --floating-window-show-transition-time: 50ms;
+    --floating-window-border-color: rgb(208, 211, 219);
+    --floating-window-title-color: black;
+    --floating-window-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+    --floating-window-handler-size: 10px;
+    --floating-window-title-height: 35px;
+    --floating-window-title-padding: 7px;
+    --floating-window-btn-size: 60%;
+    --floating-window-btn-color: white;
+    --floating-window-btn-border: none;
+    --floating-window-btn-aspect-ratio: 1;
+    --floating-window-btn-font-family: system-ui;
+    --floating-window-btn-font-size: 10px;
+    --floating-window-btn-font-weight: bold;
+    --floating-window-btn-hover-bg-color: rgb(152, 0, 0);
+    --floating-window-btn-hover-fg-color: white;
+    --floating-window-btn-active-bg-color: rgb(255, 144, 144);
+    --floating-window-btn-active-fg-color: rgb(0, 0, 0);
+    --floating-window-close-btn-content: 'X';
+    --floating-window-modal-background: rgba(0, 0, 0, 0.4);
+    --floating-window-modal-backdrop-filter: blur(10px);
+    --floating-window-min-height: 70px;
+    --floating-window-min-width: 220px;
+}
+
+/* Push navigator */
+.push-navigator {
+    background-color: var(--push-navigator-bg-color);
     overflow: hidden;
-    border-radius: var(--container-border-radius);
+    border-radius: var(--push-navigator-container-border-radius);
 }
 
 .push-navigator > .page-container {
     box-sizing: border-box;
-    background-color: white;
-    padding: 10px;
-    border: 1px solid #ccc;
+    background-color: var(--push-navigator-page-bg-color);
+    padding: var(--push-navigator-page-padding);
+    border: var(--push-navigator-page-border);
     display: flex;
-    border-radius: var(--page-border-radius);
-    margin: var(--page-margin);
+    border-radius: var(--push-navigator-page-border-radius);
+    margin: var(--push-navigator-page-margin);
     overflow: hidden;
+    color: var(--push-navigator-page-fg-color);
 }
 
 
 .push-navigator > header {
-    padding: var(--title-padding);
+    padding: var(--push-navigator-title-padding);
     display: flex;
     gap: 10px;
 }
 
 .push-navigator > header > .title {
     margin: 0;
-    color: var(--color);
+    color: var(--push-navigator-fg-color);
 }
 
 .push-navigator > header > button.hidden {
@@ -1464,102 +1496,137 @@ button:focus {
 .push-navigator > .page-container > article {
     width: 100%;
     flex-shrink: 0;
-    transition-duration: var(--navigation-duration);
+    transition-duration: var(--push-navigator-transition-duration);
 }
 
 .push-navigator > .page-container > article.out {
     margin-left: -100%;
-    transition-duration: var(--navigation-duration);
+    transition-duration: var(--push-navigator-transition-duration);
 }
 
-section.modal-container {
-    --hide-transition-time: 300ms;
-    --show-transition-time: 50ms;
-    --window-border-color: rgb(75, 90, 141);
-    --window-title-color: white;
-    --window-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
-    --window-handler-size: 10px;
-    --window-title-height: 35px;
-    --window-title-padding: 7px;
-}
-
-section.modal-container > article {
+/* Floating window*/
+section.floating-window-container > article {
     display: grid;
-    grid-template-columns: var(--window-handler-size) 1fr var(--window-handler-size);
-    grid-template-rows: var(--window-title-height) 1fr var(--window-handler-size);
+    grid-template-columns: var(--floating-window-handler-size) 1fr var(--floating-window-handler-size);
+    grid-template-rows: var(--floating-window-title-height) 1fr var(--floating-window-handler-size);
 
     position: fixed;
-    top: 40px;
-    left: 60px;
-    width: 250px;
+    min-width: var(--floating-window-min-width);
 
     box-shadow: 1px 1px 10px rgb(0 0 0 /50%);
     box-sizing: border-box;
     border-radius: 5px;
     overflow: hidden;
     border: 1px solid rgb(104 104 104 / 90%);
-    background: var(--window-border-color);
+    background: var(--floating-window-border-color);
 }
 
-section.modal-container > article > div.content {
+section.floating-window-container > article > div.content {
     background: white;
     box-sizing: border-box;
     padding: 20px;
     overflow: auto;
     border: 1px solid rgb(104 104 104 / 90%);
+    user-select: none;
+    -webkit-user-select: none;
+    min-height: var(--floating-window-min-height);
 }
 
-section.modal-container > article > div.nw-handler {
+section.floating-window-container > article > div.nw-handler {
     cursor: nw-resize;
 }
 
-section.modal-container > article > div.move-handler {
+section.floating-window-container > article > div.move-handler {
     cursor: move;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-section.modal-container > article > div.move-handler > h1 {
-    padding: var(--window-title-padding);
-    color: var(--window-title-color);
+section.floating-window-container > article > div.move-handler > h1 {
+    padding: var(--floating-window-title-padding);
+    color: var(--floating-window-title-color);
     margin: 0;
     pointer-events: none;
     user-select: none;
+    -webkit-user-select: none;
 }
 
-section.modal-container > article > div.ne-handler {
+section.floating-window-container > article > div.move-handler > button {
+    background-color: var(--floating-window-btn-color);
+    box-sizing: border-box;
+    border: var(--floating-window-btn-border);
+    border-radius: 50%;
+    height: var(--floating-window-btn-size);
+    aspect-ratio: var(--floating-window-btn-aspect-ratio);
+    overflow: hidden;
+    font-family: var(--floating-window-btn-font-family);
+    font-size: var(--floating-window-btn-font-size);
+    font-weight: var(--floating-window-btn-font-weight);
+}
+
+section.floating-window-container > article > div.move-handler > button:hover {
+    background: var(--floating-window-btn-hover-bg-color);
+    color: var(--floating-window-btn-hover-fg-color);
+}
+
+section.floating-window-container > article > div.move-handler > button:active {
+    background: var(--floating-window-btn-active-bg-color);
+    color: var(--floating-window-btn-active-fg-color);
+}
+
+section.floating-window-container > article > div.move-handler > button:before {
+    content: var(--floating-window-close-btn-content);
+}
+
+section.floating-window-container > article > div.ne-handler {
     cursor: ne-resize;
 }
 
-section.modal-container > article > div.w-handler {
+section.floating-window-container > article > div.w-handler {
     cursor: w-resize;
 }
 
-section.modal-container > article > div.e-handler {
+section.floating-window-container > article > div.e-handler {
     cursor: e-resize;            
 }
 
-section.modal-container > article > div.sw-handler {
+section.floating-window-container > article > div.sw-handler {
     cursor: sw-resize;
 }
 
-section.modal-container > article > div.s-handler {
+section.floating-window-container > article > div.s-handler {
     cursor: s-resize;
 }
 
-section.modal-container > article > div.se-handler {
+section.floating-window-container > article > div.se-handler {
     cursor: se-resize;
 }
 
-section.modal-container > article {
+section.floating-window-container > article {
     transition-property: opacity, scale;
-    transition-duration: var(--show-transition-time);
+    transition-duration: var(--floating-window-show-transition-time);
 }
 
-section.modal-container.hidden > article {
+section.floating-window-container.hidden > article {
     opacity: 0;
     scale: 0.5;
-    transition-duration: var(--hide-transition-time);
+    transition-duration: var(--floating-window-hide-transition-time);
 }
 
-section.modal-container.removed {
+section.floating-window-container.removed {
     display: none;
+}
+
+section.floating-window-container.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: var(--floating-window-modal-background);
+    backdrop-filter: var(--floating-window-modal-backdrop-filter);
+    -webkit-backdrop-filter: var(--floating-window-modal-backdrop-filter);
+    user-select: none;
+    -webkit-user-select: none;
 }
