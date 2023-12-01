@@ -1,6 +1,6 @@
 
 
-export const makePushNavigator = (initialPage, { title = "Pu sh Navigator", width = null, backButtonLabel = "<" } = {}) => {
+export const makePushNavigator = (initialPage, { title = "", width = null, backButtonLabel = "<" } = {}) => {
     const navigator = document.createElement("section");
     navigator.className = "push-navigator";
     navigator.innerHTML = `
@@ -16,7 +16,7 @@ export const makePushNavigator = (initialPage, { title = "Pu sh Navigator", widt
     pageContainer.appendChild(initialPage);
 
     const navigationDuration = () => {
-        const duration = getComputedStyle(document.querySelector('.push-navigator')).getPropertyValue('--navigation-duration');
+        const duration = getComputedStyle(document.querySelector(':root')).getPropertyValue('--push-navigator-transition-duration');
         const resultMilliseconds = /([\d.]*)ms$/.exec(duration);
         if (resultMilliseconds) {
             return parseInt(resultMilliseconds[1]);

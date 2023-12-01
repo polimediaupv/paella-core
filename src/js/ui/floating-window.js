@@ -89,24 +89,25 @@ export function createWindow({
         } else {
             content.parentElement?.removeChild(content);
             handler = content;
-            handler.className = direction;
+            handler.classList.add(direction);
         }
         
         modalWindow.appendChild(handler);
     });
 
     modalWindow.setSize = function(w, h) {
-        const contentArea = modalWindow.querySelector('div.content');
+        const contentArea = modalWindow.querySelector('.content');
+        const height = contentArea.offsetHeight;
         if (w !== undefined) {
             modalWindow.style.width = w !== null ? `${w}px` : null;        
         }
-        if (h !== undefined) {
+        if (h !== undefined && h !== height) {
             contentArea.style.height = h !== null ? `${h}px` : null;
         }
     }
 
     modalWindow.getSize = function() {
-        const contentArea = modalWindow.querySelector('div.content');
+        const contentArea = modalWindow.querySelector('.content');
         return {
             w: modalWindow.offsetWidth,
             h: contentArea.offsetHeight
@@ -172,6 +173,10 @@ export function createWindow({
     modalWindow.setSize(width, height);
     if (!initiallyHidden) {
         modalWindow.show();
+    }
+
+    modalWindow.getContentElement = () => {
+
     }
 
     return modalWindow;

@@ -1461,7 +1461,7 @@ button:focus {
 /* Push navigator */
 .push-navigator {
     background-color: var(--push-navigator-bg-color);
-    overflow: hidden;
+    overflow: auto;
     border-radius: var(--push-navigator-container-border-radius);
 }
 
@@ -1493,13 +1493,13 @@ button:focus {
     display: none;
 }
 
-.push-navigator > .page-container > article {
+.push-navigator > .page-container > div {
     width: 100%;
     flex-shrink: 0;
     transition-duration: var(--push-navigator-transition-duration);
 }
 
-.push-navigator > .page-container > article.out {
+.push-navigator > .page-container > div.out {
     margin-left: -100%;
     transition-duration: var(--push-navigator-transition-duration);
 }
