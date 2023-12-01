@@ -56,14 +56,14 @@ export default class SteramProvider extends PlayerResource {
 		await loadCanvasPlugins(this.player);
 		
 		// Find video plugins for each stream
-		this._streamData.forEach(stream => {
+		for (const stream of this._streamData) {
 			const canvasPlugin = getCanvasPlugin(this.player, stream);
 			if (!canvasPlugin) {
 				throw Error(`Canvas plugin not found: ${ stream.canvas }`);
 			}
 
 			const isMainAudio = stream.content === mainAudioContent;
-			const videoPlugin = getVideoPlugin(this.player, stream);
+			const videoPlugin = await getVideoPlugin(this.player, stream);
 			if (!videoPlugin) {
 				throw Error(`Incompatible stream type: ${ stream.content }`);
 			}
@@ -74,7 +74,7 @@ export default class SteramProvider extends PlayerResource {
 				videoPlugin,
 				canvasPlugin
 			}
-		})
+		}
 		
 		let videoEndedEventTimer = null;
 		for (const content in this._streams) {

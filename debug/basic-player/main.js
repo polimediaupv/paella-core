@@ -8,9 +8,11 @@ import { createWindow } from 'paella-core/ui/floating-window';
 // specific for vite package manager: import css from paella-core
 import 'paella-core/paella-core.css';
 
-const player = new Paella('playerContainer');
-
-await player.loadManifest();
+window.addEventListener("load", async () => {
+    const player = new Paella('playerContainer');
+    
+    await player.loadManifest();
+});
 
 // UI test
 const uiTestContainer = document.getElementById("uiTest");

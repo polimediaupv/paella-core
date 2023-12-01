@@ -54,7 +54,7 @@ export default class HtmlVideoPlugin extends VideoPlugin {
         return "html";
     }
 
-    isCompatible(streamData) {
+    async isCompatible(streamData) {
         const { html } = streamData.sources;
         return html && html.some(videoData => supportsVideoType(videoData.mimetype));
     }

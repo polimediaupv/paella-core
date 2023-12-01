@@ -155,7 +155,7 @@ export default class ImageVideoPlugin extends VideoPlugin {
 		return "image";
 	}
 
-	isCompatible(streamData) {
+	async isCompatible(streamData) {
 		return streamData.sources.image != null;
 	}
 	

@@ -1,16 +1,15 @@
-import Hls from 'hls.js';
+//import Hls from 'hls.js';
 import Events, { triggerEvent } from '../core/Events';
 
-import { HlsVideo, getHlsSupport, HlsSupport, defaultHlsConfig } from './es.upv.paella.hlsVideoFormat';
+import { HlsVideo, getHlsSupport, HlsSupport, getHlsLib, defaultHlsConfig } from './es.upv.paella.hlsVideoFormat';
 import VideoPlugin from '../core/VideoPlugin';
 import VideoQualityItem from '../core/VideoQualityItem';
 
 import PaellaCoreVideoFormats from './PaellaCoreVideoFormats';
 
-const hlsSupport = getHlsSupport();
+const loadHls = async (player, streamData, video, config, cors) => {
+    const Hls = await getHlsLib();
 
-const loadHls = (player, streamData, video, config, cors) => {
-    
     if (cors.withCredentials) {
         config.xhrSetup = function(xhr,url) {
             xhr.withCredentials = cors.withCredentials;
@@ -82,6 +81,7 @@ const loadHls = (player, streamData, video, config, cors) => {
 
 export class HlsLiveVideo extends HlsVideo {
     async loadStreamData(streamData) {
+        const hlsSupport = await getHlsSupport();
         if (hlsSupport === HlsSupport.NATIVE) {
             // We delegate the load to HlsVideo, which in turn will delegate it to MP4Video'.
             streamData.sources.hls = streamData.sources.hlsLive;
@@ -90,7 +90,7 @@ export class HlsLiveVideo extends HlsVideo {
         else {
             this.player.log.debug("Loading HLS stream");
 
-            const [hls, promise] = loadHls(this.player, streamData, this.video, this._config, this._cors);
+            const [hls, promise] = await loadHls(this.player, streamData, this.video, this._config, this._cors);
             this._hls = hls;
             await promise;
 
@@ -126,7 +126,8 @@ export default class HlsLiveVideoFormat extends VideoPlugin {
         return "hlsLive";
     }
 
-    isCompatible(streamData) {
+    async isCompatible(streamData) {
+        const hlsSupport = await getHlsSupport();
         const { hlsLive } = streamData.sources;
         return hlsLive && hlsSupport;
     }

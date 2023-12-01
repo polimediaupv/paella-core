@@ -29,12 +29,12 @@ export default class TestVideoCanvasPlugin extends CanvasPlugin {
         return super.isEnabled();
     }
 
-    isCompatible(stream) {
+    async isCompatible(stream) {
         if (!Array.isArray(stream.canvas) || stream.canvas.length === 0) {
             return true;
         }
 
-        return super.isCompatible(stream);
+        return await super.isCompatible(stream);
     }
 
     getCanvasInstance(videoContainer) {

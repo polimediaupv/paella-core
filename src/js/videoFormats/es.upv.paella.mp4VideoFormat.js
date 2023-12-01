@@ -305,7 +305,7 @@ export default class Mp4VideoPlugin extends VideoPlugin {
         return "mp4";
     }
 
-    isCompatible(streamData) {
+    async isCompatible(streamData) {
         const { mp4 } = streamData.sources;
         return mp4 && supportsVideoType(mp4[0]?.mimetype);
     }

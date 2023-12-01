@@ -18,13 +18,13 @@ export default class VideoCanvasPlugin extends CanvasPlugin {
 
     get canvasType() { return "video"; }
 
-    isCompatible(stream) {
+    async isCompatible(stream) {
         if (!Array.isArray(stream.canvas) || stream.canvas.length === 0) {
             // By default, the default canvas is HTML video canvas
             return true;
         }
         
-        return super.isCompatible(stream);
+        return await super.isCompatible(stream);
     }
 
     getCanvasInstance(videoContainer) {

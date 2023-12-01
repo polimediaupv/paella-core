@@ -184,7 +184,7 @@ export default class AudioVideoPlugin extends VideoPlugin {
         return "audio";
     }
 
-    isCompatible(streamData) {
+    async isCompatible(streamData) {
         return streamData.sources.audio != null;
     }
 

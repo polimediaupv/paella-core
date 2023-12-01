@@ -9,7 +9,7 @@ export default class VideoPlugin extends Plugin {
 
     get streamType() { return "mp4"; }
 
-    isCompatible(/* streamData */) {
+    async isCompatible(/* streamData */) {
         return false;
     }
 
@@ -53,16 +53,17 @@ export function getVideoPluginWithFileUrl(player, url) {
         });
 }
 
-export function getVideoPlugin(player, streamData) {
+export async function getVideoPlugin(player, streamData) {
     const videoPlugins = getVideoPlugins(player);
     let plugin = null;
     
-    videoPlugins.some(p => {
-        if (p.isCompatible(streamData)) {
+    for (const p of videoPlugins) {
+        if (await p.isCompatible(streamData)) {
             plugin = p;
-            return true;
+            break;
         }
-    });
+    }
+    
     return plugin;
 }
 

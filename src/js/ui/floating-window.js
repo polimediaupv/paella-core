@@ -47,12 +47,12 @@ export function createWindow({
                 h: window.innerHeight
             }
             if (rect.left < 0 || rect.right > viewport.w) {
-                element.setSize(size0.w, null);
-                element.setPosition(pos0.x, null);
+                element.setSize(size0.w, undefined);
+                element.setPosition(pos0.x, undefined);
             }
             if (rect.bottom > viewport.h || rect.top < 0) {
-                element.setSize(null, size0.h);
-                element.setPosition(null, pos0.y);
+                element.setSize(undefined, size0.h);
+                element.setPosition(undefined, pos0.y);
             }                        
         }
 
@@ -97,9 +97,12 @@ export function createWindow({
 
     modalWindow.setSize = function(w, h) {
         const contentArea = modalWindow.querySelector('div.content');
-        modalWindow.style.width = w !== null ? `${w}px` : null;        
-        contentArea.style.height = h !== null ? `${h}px` : null;
-        console.log(modalWindow.getSize());
+        if (w !== undefined) {
+            modalWindow.style.width = w !== null ? `${w}px` : null;        
+        }
+        if (h !== undefined) {
+            contentArea.style.height = h !== null ? `${h}px` : null;
+        }
     }
 
     modalWindow.getSize = function() {
@@ -111,8 +114,12 @@ export function createWindow({
     }
 
     modalWindow.setPosition = function(x, y) {
-        modalWindow.style.left = x !== null ? `${x}px` : null;
-        modalWindow.style.top = y !== null ? `${y}px` : null;
+        if (x !== undefined) {
+            modalWindow.style.left = x !== null ? `${x}px` : null;
+        }
+        if (y !== undefined) {
+            modalWindow.style.top = y !== null ? `${y}px` : null;
+        }
     }
 
     modalWindow.getPosition = function() {
