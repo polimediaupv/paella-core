@@ -9,48 +9,27 @@ import PopUp from './PopUp';
 export default class PlaybackBar extends DomClass {
 	constructor(player,parent) {
 		const inlineMode = player.config.progressIndicator?.inlineMode ?? false;
-		const attributes = {
-			"class": inlineMode ? "playback-bar inline-mode" : "playback-bar top-mode"
-		};
+		const attributes = { "class": "playback-bar" };
 		super(player, { attributes, parent });
 
 		this.element.addEventListener('mouseenter', () => pauseAutoHideUiTimer(player));
 		this.element.addEventListener('mouseleave', () => resumeAutoHideUiTimer(player));
 		
-		this._buttonPluginsLeft = createElementWithHtmlText(
-			`<div class="button-plugins left-side"></div>`);
-		this._timerContainer = createElementWithHtmlText(
-			`<div class="timer-container"></div>`);
-		this._buttonPluginsRight = createElementWithHtmlText(
-			`<div class="button-plugins right-side"></div>`);
-			
-
-		const timerSide = player.config.progressIndicator?.side || "left";
+		this._topContainer = createElementWithHtmlText(`<div></div>`);
+		this._navContainer = createElementWithHtmlText('<nav></nav>');
+		this._buttonPluginsLeft = createElementWithHtmlText(`<ul></ul>`, this._navContainer);
+		this._centerContainer = createElementWithHtmlText(`<div></div>`, this._navContainer);
+		this._buttonPluginsRight = createElementWithHtmlText(`<ul></ul>`, this._navContainer);
+		
 		if (inlineMode) {
-			this.element.appendChild(this._buttonPluginsLeft);
-			if (timerSide === "left") {
-				this.element.appendChild(this._timerContainer);
-				this._progressIndicator = new ProgressIndicator(player, this);
-				this.element.appendChild(this._buttonPluginsRight);
-			}
-			else {
-				this._progressIndicator = new ProgressIndicator(player, this);
-				this.element.appendChild(this._timerContainer);
-				this.element.appendChild(this._buttonPluginsRight);
-			}
+			this._progressIndicator = new ProgressIndicator(player, this._centerContainer);
 		}
 		else {
-			this._progressIndicator = new ProgressIndicator(player, this);
-			this.element.appendChild(this._buttonPluginsLeft);
-			if (timerSide === "left") {
-				this.element.appendChild(this._timerContainer);
-				this.element.appendChild(this._buttonPluginsRight);
-			}
-			else {
-				this.element.appendChild(this._buttonPluginsRight);
-				this.element.appendChild(this._timerContainer);
-			}
+			this._progressIndicator = new ProgressIndicator(player, this._topContainer);
+			this.element.appendChild(this._topContainer);
 		}
+
+		this.element.appendChild(this._navContainer);
 
 		this.element.addEventListener("click", () => {
 			PopUp.HideAllPopUps(false);

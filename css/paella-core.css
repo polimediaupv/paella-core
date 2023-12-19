@@ -343,7 +343,6 @@ ul.menu-button-content li.menu-button-item button span.menu-title {
 	position: absolute;
 	bottom: 0px;
 	width: var(--playback-bar-width);
-	min-height: var(--playback-bar-height);
 	left: calc((100% - var(--playback-bar-width)) / 2);
 	right: calc((100% - var(--playback-bar-width)) / 2);
 	background: var(--secondary-bg-color);
@@ -353,102 +352,53 @@ ul.menu-button-content li.menu-button-item button span.menu-title {
 	container-name: playback-bar;
 }
 
-.playback-bar.inline-mode {
-	display: flex;
-	align-items: center;
-  	user-select: none;
-}
-
 .playback-bar:hover {
 	background: var(--secondary-bg-color-hover);
-}
-
-.progress-indicator {
-	width: 98%;
-	margin-left: 1%;
-	height: var(--progress-indicator-height);
-}
-
-.progress-indicator.inline-mode {
-	flex: 1;
-}
-
-.progress-indicator-timer {
-	position: absolute;
-	top:1px;
-	color: var(--main-fg-color);
-	font-size: 10px;
-	line-height: 11px;
-	padding-left: 11px;
-	pointer-events: none;
-	height: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	z-index: 1;
-}
-
-.progress-indicator-timer.left-side {
-	left: 0px;
-}
-
-.progress-indicator-timer.right-side {
-	right: 0px;
 }
 
 .playback-bar .button-plugins {
 	height: var(--button-fixed-height);
 }
 
-.playback-bar .button-plugins.left-side {
-	float: left;
-}
-
-.playback-bar .button-plugins.right-side {
-	float: right;
-}
-
-.playback-bar .button-plugins .button-plugin-container {
-	display: inline;
-}
-
-.playback-bar .button-plugins .button-plugin-container button {
-	height: var(--button-fixed-height);
-	background: none;
-	border: none;
-	float: left;
-	align-items: center;
-	align-items: center;
-    justify-content: center;
-}
-
-.playback-bar .button-plugins .button-plugin-container button.dynamic-width div.interactive-button-content {
+.playback-bar nav {
 	display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0px;
 }
 
-.playback-bar .button-plugins .button-plugin-container button.fixed-width {
+.playback-bar nav > ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+.playback-bar nav > ul > li {
+	display: flex;
+	align-items: center;
+}
+
+.playback-bar ul > li > button.dynamic-width {
+	width: auto;
+}
+
+.playback-bar ul > li > button.fixed-width {
 	width: var(--button-fixed-width);
 }
 
-.playback-bar .button-plugins button:hover {
+.playback-bar ul > li > button:hover {
 	background-color: var(--highlight-bg-color-hover);
 }
 
-.playback-bar .button-plugins button:active {
+.playback-bar ul > li > button:active {
 	background-color: var(--secondary-bg-color-hover);
 }
 
-.playback-bar .button-plugins button.dynamic-width span {
-	margin-top: 0px;
+.playback-bar ul > li > button > span {
 	color: var(--main-fg-color);
-	padding-left: 3px;
-	padding-right: 3px;
 }
 
-.playback-bar .button-plugins button i {
+.playback-bar ul > li > button > i {
 	background-size: 50% 50%;
 	width: var(--button-icon-size);
 	display: block;

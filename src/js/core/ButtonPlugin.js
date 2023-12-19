@@ -20,8 +20,6 @@ export function getRightButtonPlugins(player) {
 	return getButtonPlugins(player, "right", "playbackBar");
 }
 
-
-
 export function getNextTabIndex(player) {
 	player.__tabIndex = player.__tabIndex || 0;
 	++player.__tabIndex;
@@ -33,7 +31,7 @@ export function getCurrentTabIndex(player) {
 }
 
 export async function addButtonPlugin(plugin, buttonAreaElem) {
-	const parent = createElementWithHtmlText('<div class="button-plugin-container"></div>', buttonAreaElem);
+	const parent = createElementWithHtmlText('<li></li>', buttonAreaElem);
 	parent.plugin = plugin;
 	const tabIndex = plugin.tabIndex;
 	const ariaLabel = translate(plugin.ariaLabel);
@@ -43,45 +41,15 @@ export async function addButtonPlugin(plugin, buttonAreaElem) {
 	const name = plugin.buttonName ? `name="${plugin.buttonName}" ` : "";
 
 	if (plugin.interactive) {
-		const leftArea = createElementWithHtmlText(`
-			<div class="button-plugin-side-area left-side ${ plugin.className }"></div>
-		`, parent);
 		const button = createElementWithHtmlText(`
-			<button type="button" ${id}${name}class="button-plugin ${ plugin.className } ${ fixedSizeClass } no-icon" tabindex="${ tabIndex }" aria-label="${ ariaLabel }" title="${ description }">
-				<div class="interactive-button-content">
-					<i class="button-icon" style="pointer-events: none; display: none">${ plugin.icon }</i>
-					<span class="button-title button-title-${ plugin.titleSize }">${ plugin.title || "&nbsp;" }</span>
-				</div>
+			<button type="button" ${id}${name}class="${ plugin.className } ${ fixedSizeClass } no-icon" tabindex="${ tabIndex }" aria-label="${ ariaLabel }" title="${ description }">
 			</button>
 		`, parent);
-		const rightArea = createElementWithHtmlText(`
-			<div class="button-plugin-side-area right-side ${ plugin.className }"></div>
-		`, parent);
-		const titleContainer = button.getElementsByClassName('button-title')[0];
 
-		plugin._leftArea = leftArea;
-		plugin._rightArea = rightArea;
 		plugin._button = button;
 		plugin._container = parent;
-		plugin._titleContainer = titleContainer;
 		button._pluginData = plugin;
-		leftArea._pluginData = plugin;
-		rightArea._pluginData = plugin;
 		parent._pluginData = plugin;
-
-		// Event listeners
-		parent.addEventListener("mouseenter", async (evt) => {
-			await parent._pluginData.mouseOver(parent, evt);
-		});
-		parent.addEventListener("mouseleave", async (evt) => {
-			await parent._pluginData.mouseOut(parent, evt);
-		});
-		button.addEventListener("focus", async () => {
-			await button._pluginData.focusIn();
-		});
-		button.addEventListener("blur", async () => {
-			await button._pluginData.focusOut();
-		});
 	
 		button.addEventListener("click", (evt) => {
 			const plugin = button._pluginData;
@@ -126,19 +94,11 @@ export async function addButtonPlugin(plugin, buttonAreaElem) {
 	else {
 		const button = createElementWithHtmlText(`
 			<div ${id}${name} class="button-plugin ${ plugin.className } non-interactive ${ fixedSizeClass } no-icon" title="${ description }">
-				<div class="non-interactive-button-content">
-					<i class="button-icon" style="pointer-events: none; display: none;">${ plugin.icon }</i>
-					<span class="button-title button-title-${ plugin.titleSize }">${ plugin.title || "&nbsp;" }</span>
-				</div>
 			</div>
 		`, parent);
-		const titleContainer = button.getElementsByClassName('button-title')[0];
 
-		plugin._leftArea = null;
-		plugin._rightArea = null;
 		plugin._button = button;
 		plugin._container = parent;
-		plugin._titleContainer = titleContainer;
 		button._pluginData = plugin;
 		parent._pluginData = plugin;
 	}
@@ -147,12 +107,9 @@ export async function addButtonPlugin(plugin, buttonAreaElem) {
 export default class ButtonPlugin extends UserInterfacePlugin {
 	get type() { return "button" }
 	
-	// _container, _leftArea, _rightArea, _button and _titleContainer are loaded in PlaybackBar
+	// _container and _button are loaded in PlaybackBar
 	get container() { return this._container; }
-	get leftArea() { return this._leftArea; }
-	get rightArea() { return this._rightArea; }
 	get button() { return this._button; }
-	get titleContainer() { return this._titleContainer; }
 	get interactive() { return true; }
 	get dynamicWidth() { return false; }
 	
@@ -191,10 +148,6 @@ export default class ButtonPlugin extends UserInterfacePlugin {
 	get description() {
 		return this.config.description || this.getDescription();
 	}
-	
-	get iconElement() {
-		return this.button?.getElementsByClassName("button-icon")[0];
-	}
 
 	get minContainerSize() {
 		return this.config.minContainerSize || this.getMinContainerSize();
@@ -214,14 +167,14 @@ export default class ButtonPlugin extends UserInterfacePlugin {
 	set icon(icon) {
 		this._icon = icon;
 		if (icon) {
-			this.iconElement.innerHTML = icon;
-			this.iconElement.style.display = "";
-			this.button.classList.remove("no-icon");
+			const cur = this._button.querySelector('i') || createElementWithHtmlText(`<i></i>`, this._button);
+			cur.innerHTML = icon;
 		}
 		else {
-			this.iconElement.innerHTML = "";
-			this.iconElement.style.display = "none";
-			this.button.classList.add("no-icon");
+			const cur = this._button.querySelector('i');
+			if (cur) {
+				this._button.removeChild(cur);
+			}
 		}
 	}
 
@@ -231,7 +184,16 @@ export default class ButtonPlugin extends UserInterfacePlugin {
 
 	set title(t) {
 		this._title = t;
-		this._titleContainer.innerHTML = t;
+		if (t) {
+			const cur = this._button.querySelector('span') || createElementWithHtmlText(`<span class="button-title-${ this.titleSize }"></span>`, this._button);
+			cur.innerHTML = t;
+		}
+		else {
+			const cur = this._button.querySelector('span');
+			if (cur) {
+				this._button.removeChild(cur);
+			}
+		}
 	}
 
 	// "small", "medium", "large"
@@ -285,22 +247,6 @@ export default class ButtonPlugin extends UserInterfacePlugin {
 		if (this._button && (width > this.minContainerSize || this.parentContainer !== "playbackBar")) {
 			this._button.style.display = "block";
 		}
-	}
-	
-	async mouseOver(target) {
-
-	}
-
-	async mouseOut(target) {
-
-	}
-
-	async focusIn() {
-
-	}
-
-	async focusOut() {
-
 	}
 
 	async action() {
