@@ -6,7 +6,7 @@ export default class ManifestParser {
 
         this._metadata = this._videoManifest.metadata || {};
         this._streams = {};
-        this._frameList = {};
+        this._frameList = { frames: [] };
         this._trimming = this._videoManifest.trimming;
         this._captions = this._videoManifest.captions;
         this._visibleTimeLine = this._videoManifest.visibleTimeLine;
