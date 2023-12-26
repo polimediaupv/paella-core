@@ -60,6 +60,7 @@ For more information, please refer to the documentation on [button groups](butto
 
 **`videoContainer`**: Sets the configuration options related to the video container.
 
+- `multiStreamMaxDesyncTime` (paella-core >= 1.46.2): Maximum multi stream video desynchronization time, measured in seconds. If two multi stream videos have a `currentTime` difference greater than this value, `paella-core` will try to synchronize them by executing an `setCurrentTime()` on the unsynchronized videos. The main video against which the synchronization is measured is the one marked with the `mainAudio` tag. If the value is too low, problems with cuts or interruptions may occur. The default value is 0.2. If there are lag or freeze issues with videos that have more than one stream, try increasing the maximum desynchronization time of the videos.
 - `overPlaybackBar` (paella-core >= 1.4): If `true`, the video container will be placed above the playbar. In other words, the playbar will have an area reserved for its display, so it will never hide the video container. If `false`, the playbar will be superimposed on the video container.
 - `restorePlaybackRate` (paella-core >= 1.5): If true, user settings for playback speed will be stored in the preferences.
 - `restoreVolume` (paella-core >= 1.5): If true, user settings for volume will be stored in the preferences.

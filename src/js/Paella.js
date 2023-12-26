@@ -124,7 +124,7 @@ async function preLoadPlayer() {
     }
     const urlParamLogLevel = caseInsensitiveParams.get("loglevel");
     const logLevel = (urlParamLogLevel && Array.from(Object.keys(LOG_LEVEL)).indexOf(urlParamLogLevel.toUpperCase()) !== -1) ?
-        urlParamLogLevel :
+        urlParamLogLevel.toUpperCase() :
         this._config.logLevel || "INFO";
     this._log.setLevel(logLevel);
 

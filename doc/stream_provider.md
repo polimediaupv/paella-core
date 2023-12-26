@@ -131,5 +131,20 @@ The multiple audio control functions allow you to change the audio track of the 
 `get currentAudioTrack()`: returns the current active audio track.
 
 
+## About multi stream synchronization
 
+In multi stream videos, the Stream Provider class is in charge of ensuring that a correct synchronization is maintained at the time instant of all video streams. This synchronization is not perfect, and depends heavily on the characteristics of each video stream. To obtain an optimal synchronization, video streams should be encoded with characteristics as similar as possible in terms of bit rate and, above all, in terms of keyframes.
+
+From version 1.46.2 onwards, it is possible to control the maximum desynchronization we allow through the paella-core setting. The default value if nothing is specified is 0.2 seconds:
+
+```json
+{
+  "videoContainer": {
+    "multiStreamMaxDesyncTime": 0.5,
+    ...
+  }
+}
+```
+
+If there are lag or freeze issues with videos that have more than one stream, try increasing the maximum desynchronization time of the videos.
 

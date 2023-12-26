@@ -9,7 +9,8 @@
 			"sources": {
 				"hls": [
 					{
-						"src": "https://bitmovin-a.akamaihd.net/content/sintel/hls/playlist.m3u8",
+						"src_": "https://bitmovin-a.akamaihd.net/content/sintel/hls/playlist.m3u8",
+						"src": "https://eu-west-2b.hls.falcon.eegcloud.tv/egest/7j2RR9RRPL/master_playlist.m3u8",
 						"mimetype": "video/mp4",
 						"res": {
 							"w": "1920",

@@ -196,11 +196,23 @@ Taking this into account:
 * If you have problems in other browsers: check the [hls.js documentation](https://github.com/video-dev/hls.js) to see what features of HLS are supported. Also check the HLS specifications and recommendations for video encoding. Note that not all browsers support all codecs. Some problems may be fixed changing the hls.js configuration.
 * Please note that, although it is theoretically possible to view live video streams using the `hlsVideoFormat` plugin, it is very likely to have problems in some browsers. If you have problems with live streams, or especially low latency streams, be sure to use the `hlsLiveVideoFormat` plugin by replacing the `hls` tag with `hlsLive` in the video manifest (see the documentation of [hls live video plugin here](hls_live_video_plugin.md)).
 * If you have problems playing videos using authentication, set the `disableCache` parameter to `false` in the configuration. This mechanism prevents the browser from using the cache with `m3u8` files, and does so by adding a random parameter in the URL of the playlist file. This can cause problems with some streaming servers when getting authenticated videos.
+* If there are lag or freeze issues with videos that have more than one stream, try increasing the maximum desynchronization time of the videos in the video container settings:
+
+```json
+{
+  "videoContainer": {
+    "multiStreamMaxDesyncTime": 0.5,
+    ...
+  }
+}
+```
+
 
 Some helpful resources:
 
 - [Default Chunklist configuration from stream server leads to problems to high latency users when playing double videos](https://github.com/polimediaupv/paella-core/issues/18)
 - [Searching in HLS streams via Firefox in Paella 7.x hangs](https://github.com/polimediaupv/paella-core/issues/13)
+- [Lag, Blocking & visual glitches on firefox](https://github.com/polimediaupv/paella-core/issues/347)
 - [hls.js test page](https://hls-js.netlify.app/demo/)
 
 

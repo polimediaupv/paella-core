@@ -52,6 +52,9 @@
 
         "restorePlaybackRate": true,
         "restoreVolume": true,
+
+        "multiStreamMaxDesyncTime": 0.5,
+
         "restoreVideoLayout": {
             "enabled": true,
             "global": true

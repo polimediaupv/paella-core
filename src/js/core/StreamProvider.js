@@ -159,6 +159,9 @@ export default class SteramProvider extends PlayerResource {
 	}
 	
 	startStreamSync() {
+		const maxSync = this.player.config.videoContainer.multiStreamMaxDesyncTime ?? 0.2;
+		this.player.log.debug(`Max video desynchronization: ${ maxSync }`);
+
 		this._timeSync = true;
 		const setupSyncTimer = async () => {
 			if (!this._players.length) {
@@ -167,7 +170,6 @@ export default class SteramProvider extends PlayerResource {
 			}
 			
 			let currentTime = this.mainAudioPlayer.currentTimeSync;
-			const maxSync = 0.2;
 
 			if (this.players.length>1) {
 				for (let i = 0; i<this.players.length; ++i) {
