@@ -26,7 +26,7 @@ export class Mp4Video extends Video {
         this._config = config || {};
 
         const crossorigin = this._config.crossOrigin ?? "";
-        this.element.setAttribute("playsinline","true");
+        this.element.setAttribute("playsinline","");
         if (crossorigin !== false) {
             this.element.setAttribute("crossorigin",crossorigin);
         }
@@ -34,7 +34,7 @@ export class Mp4Video extends Video {
         this.isMainAudio = isMainAudio;
 
         // Autoplay is required to play videos in some browsers
-        this.element.setAttribute("autoplay","true");
+        this.element.setAttribute("autoplay","");
         this.element.autoplay = true;
 
         // The video is muted by default, to allow autoplay to work
@@ -119,7 +119,7 @@ export class Mp4Video extends Video {
         if (this._videoEnabled) {
             await this.waitForLoaded();
             if (v === 0) {
-                this.video.setAttribute("muted", true);
+                this.video.setAttribute("muted", "");
             }
             else {
                 this.video.removeAttribute("muted");

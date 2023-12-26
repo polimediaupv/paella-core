@@ -10,7 +10,7 @@ const g_popUps = [];
 
 function placePopUp(player, anchorElement, contentElement) {
 	if (anchorElement) {
-		anchorElement.setAttribute("aria-pressed",true);
+		anchorElement.setAttribute("aria-pressed","");
 
 		const { top, left, right, bottom, width, height } = anchorElement.getBoundingClientRect();
 		const centerX = left + width / 2;
@@ -510,7 +510,9 @@ export default class PopUp extends DomClass {
 				plugin: this.contextObject
 			});
 			if (this._anchorElement) {
-				this._anchorElement.setAttribute("aria-pressed",false);
+				try { 
+					this._anchorElement.removeAttribute("aria-expanded");
+				} catch {}
 			}
 			super.hide();
 			if (this.lastFocusElement) {
