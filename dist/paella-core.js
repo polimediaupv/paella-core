@@ -44264,7 +44264,7 @@ Hls.defaultConfig = void 0;
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"paella-core","version":"1.46.1","description":"Multistream HTML video player","main":"src/index.js","module":"dist/paella-core.js","scripts":{"build":"webpack --mode production","dev":"webpack serve --mode development --config webpack.debug.js --host 0.0.0.0","captions":"webpack serve --mode development --config webpack.captions.js","eslint":"eslint .","nomanifest":"webpack serve --mode development --config webpack.nomanifest.js","testenv":"webpack serve --mode development --config webpack.test.js --host 0.0.0.0"},"repository":{"type":"git","url":"git+https://github.com/polimediaupv/paella-core.git"},"keywords":["html","player","video","hls"],"author":"Fernando Serrano Carpena <ferserc1@gmail.com>","license":"ECL-2.0","bugs":{"url":"https://github.com/polimediaupv/paella-core/issues"},"homepage":"https://github.com/polimediaupv/paella-core#readme","devDependencies":{"@babel/core":"^7.12.10","@babel/plugin-transform-modules-commonjs":"^7.19.6","@babel/preset-env":"^7.12.11","@playwright/test":"^1.29.2","babel-loader":"^9.0.0","babel-plugin-transform-require-context":"^0.1.1","copy-webpack-plugin":"^11.0.0","css-loader":"^6.6.0","eslint":"^8.29.0","file-loader":"^6.2.0","html-webpack-plugin":"^5.5.0","source-map-loader":"^4.0.0","style-loader":"^3.3.1","svg-inline-loader":"^0.8.2","webpack":"^5.66.0","webpack-cli":"^5.0.0","webpack-dev-server":"^4.7.3"},"dependencies":{"core-js":"^3.8.2","hls.js":"^1.0.4"}}');
+module.exports = JSON.parse('{"name":"paella-core","version":"1.46.2","description":"Multistream HTML video player","main":"src/index.js","module":"dist/paella-core.js","scripts":{"build":"webpack --mode production","dev":"webpack serve --mode development --config webpack.debug.js --host 0.0.0.0","captions":"webpack serve --mode development --config webpack.captions.js","eslint":"eslint .","nomanifest":"webpack serve --mode development --config webpack.nomanifest.js","testenv":"webpack serve --mode development --config webpack.test.js --host 0.0.0.0"},"repository":{"type":"git","url":"git+https://github.com/polimediaupv/paella-core.git"},"keywords":["html","player","video","hls"],"author":"Fernando Serrano Carpena <ferserc1@gmail.com>","license":"ECL-2.0","bugs":{"url":"https://github.com/polimediaupv/paella-core/issues"},"homepage":"https://github.com/polimediaupv/paella-core#readme","devDependencies":{"@babel/core":"^7.12.10","@babel/plugin-transform-modules-commonjs":"^7.19.6","@babel/preset-env":"^7.12.11","@playwright/test":"^1.29.2","babel-loader":"^9.0.0","babel-plugin-transform-require-context":"^0.1.1","copy-webpack-plugin":"^11.0.0","css-loader":"^6.6.0","eslint":"^8.29.0","file-loader":"^6.2.0","html-webpack-plugin":"^5.5.0","source-map-loader":"^4.0.0","style-loader":"^3.3.1","svg-inline-loader":"^0.8.2","webpack":"^5.66.0","webpack-cli":"^5.0.0","webpack-dev-server":"^4.7.3"},"dependencies":{"core-js":"^3.8.2","hls.js":"^1.0.4"}}');
 
 /***/ }),
 
@@ -45071,11 +45071,14 @@ var SteramProvider = /*#__PURE__*/function (_PlayerResource) {
   }, {
     key: "startStreamSync",
     value: function startStreamSync() {
-      var _this3 = this;
+      var _this$player$config$v,
+        _this3 = this;
+      var maxSync = (_this$player$config$v = this.player.config.videoContainer.multiStreamMaxDesyncTime) !== null && _this$player$config$v !== void 0 ? _this$player$config$v : 0.2;
+      this.player.log.debug("Max video desynchronization: ".concat(maxSync));
       this._timeSync = true;
       var setupSyncTimer = /*#__PURE__*/function () {
         var _ref2 = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee4() {
-          var currentTime, maxSync, i, secPlayer, playerTime, trimmedCurrentTime;
+          var currentTime, i, secPlayer, playerTime, trimmedCurrentTime;
           return StreamProvider_regeneratorRuntime().wrap(function _callee4$(_context4) {
             while (1) switch (_context4.prev = _context4.next) {
               case 0:
@@ -45087,7 +45090,6 @@ var SteramProvider = /*#__PURE__*/function (_PlayerResource) {
                 return _context4.abrupt("return");
               case 3:
                 currentTime = _this3.mainAudioPlayer.currentTimeSync;
-                maxSync = 0.2;
                 if (_this3.players.length > 1) {
                   for (i = 0; i < _this3.players.length; ++i) {
                     secPlayer = _this3.players[i];
@@ -45103,35 +45105,35 @@ var SteramProvider = /*#__PURE__*/function (_PlayerResource) {
 
                 // Check trimming
                 if (!_this3.isTrimEnabled) {
-                  _context4.next = 28;
+                  _context4.next = 27;
                   break;
                 }
                 trimmedCurrentTime = currentTime - _this3.trimStart;
                 if (!(_this3.trimEnd <= currentTime)) {
-                  _context4.next = 19;
+                  _context4.next = 18;
                   break;
                 }
-                _context4.next = 11;
+                _context4.next = 10;
                 return _this3.executeAction("pause");
-              case 11:
-                _context4.next = 13;
+              case 10:
+                _context4.next = 12;
                 return _this3.setCurrentTime(0);
-              case 13:
+              case 12:
                 _this3.stopStreamSync();
                 currentTime = 0;
                 (0,Events/* triggerIfReady */.Ss)(_this3.player, Events/* default */.ZP.ENDED, {});
                 return _context4.abrupt("return");
-              case 19:
+              case 18:
                 if (!(currentTime < _this3.trimStart)) {
-                  _context4.next = 24;
+                  _context4.next = 23;
                   break;
                 }
-                _context4.next = 22;
+                _context4.next = 21;
                 return _this3.setCurrentTime(0);
-              case 22:
+              case 21:
                 currentTime = _this3.trimStart;
                 trimmedCurrentTime = 0;
-              case 24:
+              case 23:
                 (0,Events/* triggerIfReady */.Ss)(_this3.player, Events/* default */.ZP.TIMEUPDATE, {
                   currentTime: trimmedCurrentTime
                 });
@@ -45140,9 +45142,9 @@ var SteramProvider = /*#__PURE__*/function (_PlayerResource) {
                     setupSyncTimer();
                   }
                 }, 250);
-                _context4.next = 29;
+                _context4.next = 28;
                 break;
-              case 28:
+              case 27:
                 if (_this3._timeSync) {
                   (0,Events/* triggerIfReady */.Ss)(_this3.player, Events/* default */.ZP.TIMEUPDATE, {
                     currentTime: currentTime
@@ -45151,7 +45153,7 @@ var SteramProvider = /*#__PURE__*/function (_PlayerResource) {
                     setupSyncTimer();
                   }, 250);
                 }
-              case 29:
+              case 28:
               case "end":
                 return _context4.stop();
             }
@@ -49591,7 +49593,9 @@ var ManifestParser = /*#__PURE__*/function () {
     this._videoManifest = JSON.parse(JSON.stringify(manifestData));
     this._metadata = this._videoManifest.metadata || {};
     this._streams = {};
-    this._frameList = {};
+    this._frameList = {
+      frames: []
+    };
     this._trimming = this._videoManifest.trimming;
     this._captions = this._videoManifest.captions;
     this._visibleTimeLine = this._videoManifest.visibleTimeLine;
@@ -49843,7 +49847,7 @@ function _preLoadPlayer() {
             _iterator.f();
           }
           urlParamLogLevel = caseInsensitiveParams.get("loglevel");
-          logLevel = urlParamLogLevel && Array.from(Object.keys(LOG_LEVEL)).indexOf(urlParamLogLevel.toUpperCase()) !== -1 ? urlParamLogLevel : this._config.logLevel || "INFO";
+          logLevel = urlParamLogLevel && Array.from(Object.keys(LOG_LEVEL)).indexOf(urlParamLogLevel.toUpperCase()) !== -1 ? urlParamLogLevel.toUpperCase() : this._config.logLevel || "INFO";
           this._log.setLevel(logLevel);
 
           // Load localization dictionaries
