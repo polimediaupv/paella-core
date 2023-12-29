@@ -76,7 +76,7 @@
 - [Canvas audio plugins (paella-core >= 1.1)](audio_canvas_plugin.md): used to provide a viewing area for audio streams.
 - [Canvas button plugins (paella-core >= 1.7)](canvas_button_plugin.md): used to add buttons to the video canvas.
 - [Event plugins](event_log_plugins.md): capture events to trigger actions using a plugin.
-- [Keyboard Shortcut plugins](key_shortucts.md): add shortcuts to handle player actions.
+- [Keyboard Shortcut plugins](key_shortcuts.md): add shortcuts to handle player actions.
 - [Progress Indicator plugins (paella-core >=1.2)](progress_indicator_plugin.md): customization of the playback bar.
 - [Exported plugin classes](exported_plugins.md): in this document you can check the list of the built-in plugin classes exported by `paella-core`. You can extend these plugins in your player to extend their default features.
 - [Predefined plugins](predefined_plugins.md): List of plugins included in `paella-core`
