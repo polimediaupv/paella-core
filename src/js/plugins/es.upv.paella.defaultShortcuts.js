@@ -9,6 +9,7 @@ import defaultVolumeMidIcon from "../../icons/volume-mid.svg"
 import defaultVolumeHighIcon from "../../icons/volume-high.svg"
 import PlayerState from "../core/PlayerState";
 import TimeLinePopUp from "../core/TimeLinePopUp";
+import { isVolumeApiAvailable } from '../core/VideoPlugin';
 
 import PaellaCorePlugins from "./PaellaCorePlugins";
 
@@ -96,15 +97,17 @@ export default class DefaultKeyShortcutsPlugin extends KeyShortcutPlugin {
     }
 
     async incrementVolume(percent) {
-        const volume = await this.player.videoContainer.streamProvider.volume();
-        const newVolume = Math.min(Math.max(0, volume + percent * 0.01), 1);
-        await this.player.videoContainer.setVolume(newVolume);
-        const icon = this.getVolumeIcon(newVolume);
-        this.player.videoContainer.message.show({
-            text: `${ Math.round(newVolume * 100) }%`,
-            position: VideoContainerMessagePosition.CENTER_MIDDLE,
-            icon
-        });
+        if (isVolumeApiAvailable(this.player)) {
+            const volume = await this.player.videoContainer.streamProvider.volume();
+            const newVolume = Math.min(Math.max(0, volume + percent * 0.01), 1);
+            await this.player.videoContainer.setVolume(newVolume);
+            const icon = this.getVolumeIcon(newVolume);
+            this.player.videoContainer.message.show({
+                text: `${ Math.round(newVolume * 100) }%`,
+                position: VideoContainerMessagePosition.CENTER_MIDDLE,
+                icon
+            });
+        }
     }
 
     closePopUp() {
