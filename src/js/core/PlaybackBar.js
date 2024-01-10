@@ -22,10 +22,10 @@ export default class PlaybackBar extends DomClass {
 		this._buttonPluginsRight = createElementWithHtmlText(`<ul></ul>`, this._navContainer);
 		
 		if (inlineMode) {
-			this._progressIndicator = new ProgressIndicator(player, this._centerContainer);
+			this._progressIndicator = new ProgressIndicator(player, this._centerContainer, this);
 		}
 		else {
-			this._progressIndicator = new ProgressIndicator(player, this._topContainer);
+			this._progressIndicator = new ProgressIndicator(player, this._topContainer, this);
 			this.element.appendChild(this._topContainer);
 		}
 

@@ -36,11 +36,26 @@
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
+	flex: 0;
+}
+
+.playback-bar nav > div {
+	flex: 1;
 }
 
 .playback-bar nav > ul > li {
 	display: flex;
 	align-items: center;
+}
+
+.playback-bar ul > li > button {
+	height: var(--button-fixed-height);
+	background: none;
+	border: none;
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .playback-bar ul > li > button.dynamic-width {
@@ -64,13 +79,15 @@
 }
 
 .playback-bar ul > li > button > i {
-	background-size: 50% 50%;
 	width: var(--button-icon-size);
-	display: block;
-	background-repeat: no-repeat;
-	background-position: 3px 7px;
-	margin-left: auto;
-	margin-right: auto;
+	fill: var(--main-fg-color);
+	display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button > i > svg path {
+	fill: var(--main-fg-color);
 }
 
 /* non-interactive buttons **/
