@@ -1,6 +1,7 @@
 .player-container {
     position: relative;
     overflow: hidden;
+    font-family: sans-serif;
 }
 
 svg {

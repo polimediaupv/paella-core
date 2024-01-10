@@ -210,18 +210,13 @@ button > i > svg path {
 	display: none;
 }
 
-.playback-bar .timer-container.left-side {
-	float: left;
-	display: block;
-}
-
-.playback-bar .timer-container.right-side {
-	float: right;
-	display: block;
-}
-
 .progress-indicator {
 	position: relative;
+	height: var(--progress-indicator-height);
+	font-size: var(--progress-indicator-font-size);
+	padding-left: 2px;
+	padding-right: 2px;
+	color: var(--main-fg-color);
 }
 
 .progress-indicator canvas {
@@ -290,12 +285,21 @@ button > i > svg path {
 	pointer-events: none;
 }
 
-.timer-container .progress-indicator-timer {
-	position: static;
+.progress-indicator-timer {
+	position: absolute;
 	height: 100%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	pointer-events: none;
+}
+
+.progress-indicator-timer.left-side {
+	left: 2px;
+}
+
+.progress-indicator-timer.right-side {
+	right: 2px;
 }
 
 

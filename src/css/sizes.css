@@ -5,6 +5,7 @@
     --button-fixed-width-sm: 40px;
     --button-fixed-height-sm: 40px;
     --progress-indicator-height: 10px;
+    --progress-indicator-font-size: 11px;
     --playback-bar-height: calc(var(--button-fixed-height) + var(--progress-indicator-height));
     --playback-bar-height-sm: calc(var(--button-fixed-height-sm) + var(--progress-indicator-height));
     --button-icon-size: calc(var(--button-fixed-width) / 2);
