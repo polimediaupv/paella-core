@@ -26,8 +26,8 @@ function updateFrameThumbnail(offsetX,time) {
 	if (frame) {
 		this._frameThumbnail.style.display = "block";
 		const thumbWidth = this._frameThumbnail.getBoundingClientRect().width;
-		const playbackBar = this.playbackBar;
-		const { top, left, bottom, width, height } = playbackBar.getBoundingClientRect();
+		const playbackBar = this.playbackBar.element;
+		const { width, height } = playbackBar.getBoundingClientRect();
 		const centerX = width / 2;
 
 		this.frameThumbnail.style.bottom = `${ height }px`;
@@ -113,6 +113,7 @@ export default class ProgressIndicator extends DomClass {
 		<canvas class="progress-canvas canvas-layer-1"></canvas>
 		`;
 		super(player, { attributes, children, parent });
+		this._playbackBar = playbackBar;
 
 		const parentContainer = getTimerParentContainer.apply(this, [player.config, playbackBar]);
 
@@ -297,7 +298,7 @@ export default class ProgressIndicator extends DomClass {
 	}
 
 	get playbackBar() {
-		return this.element.parentElement;
+		return this._playbackBar;
 	}
 
 	get canvasLayer0() {

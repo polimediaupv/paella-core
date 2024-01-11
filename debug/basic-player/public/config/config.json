@@ -27,12 +27,12 @@
     "progressIndicator": {
         "showTotal": true,
         "parentContainer": "progressIndicator",
-        "side": "right",
+        "side": "left",
         "visible": true,
         "showHandler": true,
         "hideHandlerOnMouseOut": true,
         "showRemainingProgress": true,
-        "inlineMode": true
+        "inlineMode": false
     },
 
     "preferences": {
