@@ -32,13 +32,18 @@ export default Object.freeze({
 	LOG: "paella:log"
 });
 
-export function bindEvent(player, event, callback, unregisterOnUnload = true) {
+export function bindEvent(player, events, callback, unregisterOnUnload = true) {
 	player.__eventListeners__ = player.__eventListeners__ || {};
-	player.__eventListeners__[event] = player.__eventListeners__[event] || [];
-	player.__eventListeners__[event].push({
-		callback,
-		unregisterOnUnload
-	});
+	if (!Array.isArray(events)) {
+		events = [events];
+	}
+	events.forEach(event => {
+		player.__eventListeners__[event] = player.__eventListeners__[event] || [];
+		player.__eventListeners__[event].push({
+			callback,
+			unregisterOnUnload
+		});
+	})
 	return callback;
 }
 

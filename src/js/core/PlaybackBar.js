@@ -1,9 +1,9 @@
 import { DomClass, createElementWithHtmlText } from './dom';
 
-import ProgressIndicator from './ProgressIndicator';
 import { loadPluginsOfType, unloadPluginsOfType } from './plugin_tools'
 import { addButtonPlugin } from './ButtonPlugin';
 import { pauseAutoHideUiTimer, resumeAutoHideUiTimer } from './utils';
+import { createProgressIndicator } from './progress-indicator';
 import PopUp from './PopUp';
 
 export default class PlaybackBar extends DomClass {
@@ -22,12 +22,15 @@ export default class PlaybackBar extends DomClass {
 		this._buttonPluginsRight = createElementWithHtmlText(`<ul></ul>`, this._navContainer);
 		
 		if (inlineMode) {
-			this._progressIndicator = new ProgressIndicator(player, this._centerContainer, this);
+			this._progressIndicator = createProgressIndicator({ container: this._centerContainer });
 		}
 		else {
-			this._progressIndicator = new ProgressIndicator(player, this._topContainer, this);
 			this.element.appendChild(this._topContainer);
+			this._progressIndicator = createProgressIndicator({ container: this._topContainer });
 		}
+		this._progressIndicator.onChange(async (currentTime) => {
+			await player.videoContainer.setCurrentTime(currentTime);
+		});
 
 		this.element.appendChild(this._navContainer);
 
@@ -74,7 +77,22 @@ export default class PlaybackBar extends DomClass {
 			}
 		});
 
-		await this._progressIndicator.loadPlugins();
+		// TODO: Progress indicator plugins
+		//await this._progressIndicator.loadPlugins();
+		const duration = await this.player.videoContainer.duration();
+		this._progressIndicator.setDuration(duration);		
+
+		this.player.bindEvent([this.player.Events.TIMEUPDATE, this.player.Events.SEEK], (event) => {
+			this._progressIndicator.setCurrentTime(event.newTime ?? event.currentTime);
+		});
+
+		this.player.bindEvent(this.player.Events.TRIMMING_CHANGED, async (event) => {
+			const newDuration = event.end - event.start;
+			this._progressIndicator.setDuration(newDuration);
+			const currentTime = await this.player.videoContainer.currentTime();
+			this._progressIndicator.setCurrentTime(currentTime);
+		});
+
 		this.onResize();
 	}
 
@@ -87,7 +105,8 @@ export default class PlaybackBar extends DomClass {
 		this._buttonPluginsLeft.innerHTML = ""
 		this._buttonPluginsRight.innerHTML = "";
 
-		await this._progressIndicator.unloadPlugins();
+		// TODO: Progress indicator plugins
+		//await this._progressIndicator.unloadPlugins();
 	}
 	
 	hideUserInterface() {
@@ -129,6 +148,6 @@ export default class PlaybackBar extends DomClass {
 	onResize() {
 		const { containerSize } = this;
 		this._enabledPlugins.forEach(plugin => plugin.onResize(containerSize));
-		this.progressIndicator.onResize();
+		//this.progressIndicator.onResize();
 	}
 }

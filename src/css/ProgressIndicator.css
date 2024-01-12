@@ -1,0 +1,109 @@
+.progress-indicator {
+    --progress-indicator-height: 5px;
+    --progress-handler-height: 22px;
+    --progress-handler-width: 22px;
+    --progress-handler-color: white;
+    --progress-handler-border: 2px solid black;
+    --progress-handler-radius: 50%;
+    --elapsed-color: red;
+    --remaining-color: gray;
+    --bar-radius: 10px;
+    --progress-handler-shadow: 0 0 4px 0 rgb(0 0 0 / 40%);
+    position: relative;
+    user-select: none;
+    flex-grow: 1;
+    margin-top: calc(var(--progress-handler-height) / 2 - var(--progress-indicator-height) / 2);
+}
+
+.progress-indicator:hover {
+    --progress-handler-color: cornflowerblue;
+}
+
+.progress-indicator:active {
+    --progress-handler-color: rgb(81, 120, 193);
+    --progress-handler-radius: 8px;
+}
+
+.progress-indicator>.elapsed {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    width: 50%;
+    height: var(--progress-indicator-height);
+    background-color: var(--elapsed-color);
+    border-start-start-radius: var(--bar-radius);
+    border-end-start-radius: var(--bar-radius);
+    user-select: none;
+}
+
+.progress-indicator>.remaining {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    width: 50%;
+    height: var(--progress-indicator-height);
+    background-color: var(--remaining-color);
+    border-end-end-radius: var(--bar-radius);
+    border-start-end-radius: var(--bar-radius);
+    user-select: none;
+}
+
+.progress-indicator>input[type=range] {
+    position: absolute;
+    background: transparent;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    width: 100%;
+    height: var(--progress-indicator-height);
+    z-index: 1;
+    margin: 0;
+    user-select: none;
+}
+
+input[type=range] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+    margin: 10px 0;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: var(--progress-handler-width);
+    height: var(--progress-handler-width);
+    background: var(--progress-handler-color);
+    border: var(--progress-handler-border);
+    border-radius: var(--progress-handler-radius);
+    margin-top: 0px;
+    box-sizing: border-box;
+    box-shadow: var(--progress-handler-shadow);
+}
+
+input[type=range]::-moz-range-thumb {
+    width: var(--progress-handler-width);
+    height: var(--progress-handler-width);
+    background: var(--progress-handler-color);
+    border: var(--progress-handler-border);
+    border-radius: var(--progress-handler-radius);
+    margin-top: 0px;
+    box-sizing: border-box;
+    box-shadow: var(--progress-handler-shadow);
+}
+
+input[type=range]:focus {
+    outline: none;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+    outline: none;
+}
+
+input[type=range]:focus::-moz-range-track {
+    outline: none;
+}
