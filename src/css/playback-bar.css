@@ -1,0 +1,259 @@
+.playback-bar {
+	position: absolute;
+	bottom: 0px;
+	width: var(--playback-bar-width);
+	left: calc((100% - var(--playback-bar-width)) / 2);
+	right: calc((100% - var(--playback-bar-width)) / 2);
+	background: var(--secondary-bg-color);
+	background: var(--main-bg-gradient);
+	z-index: 100;
+	container-type: inline-size;
+	container-name: playback-bar;
+}
+
+.playback-bar:hover {
+	background: var(--secondary-bg-color-hover);
+}
+
+.playback-bar .button-plugins {
+	height: var(--button-fixed-height);
+}
+
+.playback-bar nav {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0px;
+}
+
+.playback-bar nav > ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	flex: 0;
+    display: flex;
+}
+
+.playback-bar nav > div {
+	flex: 1;
+}
+
+.playback-bar nav > ul > li {
+	display: flex;
+	align-items: center;
+}
+
+.playback-bar nav > ul > li > .side-container.hidden {
+    display: none;
+}
+
+.playback-bar nav > ul > li > .side-container.hidden:focus-within {
+    display: block;
+}
+
+.playback-bar nav > ul > li > .side-container.hidden:hover {
+    display: block;
+}
+
+.playback-bar ul > li > button {
+	height: var(--button-fixed-height);
+	background: none;
+	border: none;
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.playback-bar ul > li > button.dynamic-width {
+	width: auto;
+}
+
+.playback-bar ul > li > button.fixed-width {
+	width: var(--button-fixed-width);
+}
+
+.playback-bar ul > li > button:hover {
+	background-color: var(--highlight-bg-color-hover);
+}
+
+.playback-bar ul > li > button:active {
+	background-color: var(--secondary-bg-color-hover);
+}
+
+.playback-bar ul > li > button > span {
+	color: var(--main-fg-color);
+}
+
+.playback-bar ul > li > button > i {
+	width: var(--button-icon-size);
+	fill: var(--main-fg-color);
+	display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button > i > svg path {
+	fill: var(--main-fg-color);
+}
+
+/* non-interactive buttons **/
+.playback-bar .button-plugins .button-plugin-container div.non-interactive {
+	height: var(--button-fixed-height);
+	background: none;
+	border: none;
+	float: left;
+	box-sizing: border-box;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+	pointer-events: none;
+}
+
+.playback-bar .button-plugins .button-plugin-container div.dynamic-width div.non-interactive-button-content {
+	display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+}
+
+.playback-bar .button-plugins .button-plugin-container div.non-interactive.fixed-width {
+	width: var(--button-fixed-width);
+}
+
+.playback-bar .button-plugins div.non-interactive i {
+	background-size: 50% 50%;
+	width: var(--button-icon-size);
+	display: block;
+	background-repeat: no-repeat;
+	background-position: 3px 7px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.playback-bar .button-plugins div.non-interactive span {
+	display: block;
+	text-align: center;
+	margin-top: -23px;
+}
+
+.playback-bar .button-plugins div.no-icon span {
+	line-height: var(--button-fixed-height);
+    margin-top: 0px;
+	color: var(--main-fg-color);
+}
+
+.playback-bar .button-plugins div.dynamic-width span {
+	margin-top: 0px;
+	color: var(--main-fg-color);
+	padding-left: 3px;
+	padding-right: 3px;
+}
+
+.playback-bar .button-plugins .button-plugin-container div.non-interactive {
+	padding: 2px 6px 3px 6px;
+}
+.video-container .button-plugins .button-plugin-container div.non-interactive {
+	padding: 2px 6px 3px 6px;
+}
+
+.playback-bar .button-plugins div.non-interactive i svg {
+	width: 100%;
+    height: 100%;
+    fill: var(--main-fg-color);
+	color: var(--main-fg-color);
+}
+
+
+/* Fix default iPad button padding */
+.playback-bar .button-plugins .button-plugin-container button {
+	padding: 0px 6px 0px 6px;
+}
+.video-container .button-plugins .button-plugin-container button {
+	padding: 0px 6px 0px 6px;
+}
+
+.button-plugins span.button-title {
+    display: block;
+}
+
+.button-plugins span.button-title.button-title-small {
+	margin-top: -13px;
+    font-size: 8px;
+}
+
+.button-plugins span.button-title.button-title-medium {
+	margin-top: -14px;
+    font-size: 10px;
+}
+
+.button-plugins span.button-title.button-title-large {
+	margin-top: -16px;
+    font-size: 12px;
+}
+
+.button-plugins span.button-title:empty {
+	margin-top: 0 !important;
+}
+
+
+.playback-bar .button-plugins button i svg {
+	width: 100%;
+    height: 100%;
+    fill: var(--main-fg-color);
+	color: var(--main-fg-color);
+}
+
+.playback-bar .button-plugin-side-area {
+	display: inline;
+	color: var(--main-fg-color);
+	height: 40px;
+	line-height: 40px;
+}
+
+.playback-bar .timer-container {
+	height: 40px;
+	line-height: 40px;
+	display: none;
+}
+
+@container player-container (max-width: 700px) {
+	.playback-bar {
+		min-height: var(--playback-bar-height-sm);
+	}
+}
+
+@container playback-bar (max-width: 700px) {
+
+	.playback-bar .button-plugins button i {
+		width: var(--button-icon-size-sm);
+	}
+
+	.playback-bar .button-plugins {
+		height: var(--button-fixed-height-sm);
+	}
+
+	.playback-bar .button-plugins .button-plugin-container button {
+		height: var(--button-fixed-height-sm);
+	}
+
+	.playback-bar .button-plugins .button-plugin-container button.fixed-width {
+		width: var(--button-fixed-width-sm);
+	}
+
+	.playback-bar .button-plugins .button-plugin-container div.non-interactive {
+		height: var(--button-fixed-height-sm);
+	}
+
+	.playback-bar .button-plugins .button-plugin-container div.non-interactive.fixed-width {
+		width: var(--button-fixed-width-sm);
+	}
+
+	.playback-bar .button-plugins div.non-interactive i {
+		width: var(--button-icon-size-sm);
+	}
+
+	.playback-bar .button-plugins div.no-icon span {
+		line-height: var(--button-fixed-height-sm);
+	}
+}

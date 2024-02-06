@@ -77,10 +77,12 @@ export default class PlaybackBar extends DomClass {
 			}
 		});
 
-		// TODO: Progress indicator plugins
-		//await this._progressIndicator.loadPlugins();
 		const duration = await this.player.videoContainer.duration();
-		this._progressIndicator.setDuration(duration);		
+		this._progressIndicator.setDuration(duration);
+
+		this.player.frameList.frames.forEach(frameData => {
+			this._progressIndicator.addMarker({ time: frameData.time, duration });
+		});
 
 		this.player.bindEvent([this.player.Events.TIMEUPDATE, this.player.Events.SEEK], (event) => {
 			this._progressIndicator.setCurrentTime(event.newTime ?? event.currentTime);

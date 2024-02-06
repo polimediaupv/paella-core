@@ -4,6 +4,7 @@ import { createElementWithHtmlText } from './dom';
 import Events, { triggerEvent } from './Events';
 import { translate } from './Localization';
 import PopUp from './PopUp';
+import PlayButtonPlugin from '../plugins/es.upv.paella.playPauseButton';
 
 export function getButtonPlugins(player, side = "any", parent = "playbackBar") {
 	return getPluginsOfType(player, "button")
@@ -74,6 +75,41 @@ export async function addButtonPlugin(plugin, buttonAreaElem) {
 			}
 		});
 
+		let addHiddenTimer = null;
+		const clearHideTimer = () => {
+			if (addHiddenTimer) {
+				clearTimeout(addHiddenTimer);
+				addHiddenTimer = null;
+			}
+		}
+		const addHiddenClass = () => {
+			clearHideTimer();
+			addHiddenTimer = setTimeout(() => {
+				if (plugin.leftSideContainerPresent) {
+					plugin.leftSideContainer.classList.add("hidden");
+				}
+				if (plugin.rightSideContainerPresent) {
+					plugin.rightSideContainer.classList.add("hidden");
+				}
+				addHiddenTimer = null;
+			}, 300);
+		}
+
+		const removeHiddenClass = () => {
+			clearHideTimer();
+			if (plugin.leftSideContainerPresent) {
+				plugin.leftSideContainer.classList.remove("hidden");
+			}
+			if (plugin.rightSideContainerPresent) {
+				plugin.rightSideContainer.classList.remove("hidden");
+			}
+		}
+
+		button.addEventListener("focus", removeHiddenClass);
+		button.addEventListener("mouseover", removeHiddenClass);
+		button.addEventListener("mouseout", addHiddenClass);
+		button.addEventListener("blur", addHiddenClass);
+
 		const clickWithSpacebar = plugin.player.config.accessibility?.clickWithSpacebar !== undefined ? 
 				plugin.player.config.accessibility?.clickWithSpacebar: true;
 		if (!clickWithSpacebar) {
@@ -102,6 +138,13 @@ export async function addButtonPlugin(plugin, buttonAreaElem) {
 		button._pluginData = plugin;
 		parent._pluginData = plugin;
 	}
+}
+
+const getSideContainer = () => {
+	const container = document.createElement('span');
+	container.classList.add("side-container");
+	container.classList.add("hidden");
+	return container;
 }
 
 export default class ButtonPlugin extends UserInterfacePlugin {
@@ -247,6 +290,32 @@ export default class ButtonPlugin extends UserInterfacePlugin {
 		if (this._button && (width > this.minContainerSize || this.parentContainer !== "playbackBar")) {
 			this._button.style.display = null;
 		}
+	}
+
+	#leftSideContainer = null;
+	get leftSideContainer() {
+		if (!this.#leftSideContainer) {
+			this.#leftSideContainer = getSideContainer();
+			this.container.appendChild(this.#leftSideContainer);
+		}
+		return this.#leftSideContainer;
+	}
+
+	get leftSideContainerPresent() {
+		return this.#leftSideContainer !== null;
+	}
+
+	#rightSideContainer = null;
+	get rightSideContainer() {
+		if (!this.#rightSideContainer) {
+			this.#rightSideContainer = getSideContainer();0
+			this.container.appendChild(this.#rightSideContainer);
+		}
+		return this.#rightSideContainer;
+	}
+
+	get rightSideContainerPresent() {
+		return this.#rightSideContainer !== null;
 	}
 
 	async action() {

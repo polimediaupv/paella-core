@@ -91,6 +91,12 @@ export async function loadKeyShortcutPlugins(player) {
             return;
         }
 
+        // Do not process arrow keys if the focused element is a range input
+        const activeElement = document.activeElement;
+        if (/input/i.test(activeElement.tagName) && /range/i.test(activeElement.type) && /Arrow/i.test(event.code)) {
+            return;
+        }
+
         // Exclude the action key when there are something focused, if the space bar is
         // being used as click action
         const clickWithSpacebar = player.config.accessibility?.clickWithSpacebar !== undefined ? 

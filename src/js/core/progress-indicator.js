@@ -2,9 +2,12 @@
 export function createProgressIndicator({ container, duration = 1000, currentTime = 0, precision = 100 }) {
     container.classList.add('progress-indicator');
     container.innerHTML = `
-        <div class="elapsed"></div>
-        <div class="remaining"></div>
-        <input type="range" min="0" max="${duration * precision}" value="${currentTime * precision}" class="slider">
+        <div class="range-container">
+            <div class="elapsed"></div>
+            <div class="remaining"></div>
+            <ul class="markers-container"></ul>
+            <input type="range" min="0" max="${duration * precision}" value="${currentTime * precision}" class="slider">
+        </div>
     `;
 
     const elapsed = container.querySelector('.elapsed');
@@ -20,6 +23,14 @@ export function createProgressIndicator({ container, duration = 1000, currentTim
         elapsed,
         remaining,
         range,
+
+        markersContainer: container.querySelector('.markers-container'),
+
+        addMarker({ time, duration }) {
+            const marker = document.createElement('li');
+            marker.style.left = `${time / duration * 100}%`;
+            this.markersContainer.appendChild(marker);
+        },
 
         updateRemaining() {
             const position = this.range.value / this.range.max * 100;
@@ -46,15 +57,12 @@ export function createProgressIndicator({ container, duration = 1000, currentTim
         }
     };
 
-    
-    range.addEventListener('pointerdown', (evt) => {
+    range.addEventListener('pointerdown', () => {
         seeking = true;
-        range.setPointerCapture(evt.pointerId);
     });
 
-    range.addEventListener('pointerup', (evt) => {
+    range.addEventListener('pointerup', () => {
         seeking = false;
-        range.releasePointerCapture(evt.pointerId);
         if (typeof(onChangeCallback) === 'function') {
             onChangeCallback(range.value / precision);
         }

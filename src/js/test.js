@@ -1,1 +1,0 @@
-export const sayHello = () => { console.log("Hello from paella-basic-player"); }
