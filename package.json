@@ -7,12 +7,11 @@
   },
   "version": "2.0.0",
   "description": "Multistream HTML video player",
-  "main": "dist/paella-core.js",
+  "main": "./src/js/index.js",
   "files": [
-    "dist/paella-core.css",
-    "dist/paella-core.js"
+    "dist/paella-core.css"
   ],
-  "module": "dist/paella-core.js",
+  "module": "./src/js/index.js",
   "type": "module",
   "scripts": {
     "dev": "vite",
