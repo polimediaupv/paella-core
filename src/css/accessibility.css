@@ -1,0 +1,25 @@
+
+@media (forced-colors: active) {
+    /* selected menu item */
+    ul.menu-button-content li.menu-button-item button.selected {
+		border: 2px solid white;
+	}
+
+    /* Progress indicator */
+    .progress-indicator-content {
+        border: 5px solid white;
+        box-sizing: border-box;
+    }
+
+    .progress-indicator-remaining {
+        border: 3px solid gray;
+        box-sizing: border-box;
+    }
+
+    .progress-indicator-handler {
+        border: 5px solid white;
+        box-sizing: border-box;
+    }
+    
+
+}

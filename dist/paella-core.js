@@ -824,10 +824,9 @@ const Fi = "paella-core", $i = {
   ".": "./src/js/index.js",
   "./*": "./src/js/*",
   "./paella-core.css": "./dist/paella-core.css"
-}, Bi = "2.0.0", Hi = "Multistream HTML video player", Gi = "dist/paella-core.js", zi = [
-  "dist/paella-core.css",
-  "dist/paella-core.js"
-], Ki = "dist/paella-core.js", Wi = "module", ji = {
+}, Bi = "2.0.0", Hi = "Multistream HTML video player", Gi = "./src/js/index.js", zi = [
+  "dist/paella-core.css"
+], Ki = "./src/js/index.js", Wi = "module", ji = {
   dev: "vite",
   build: "vite build --emptyOutDir"
 }, Qi = {
