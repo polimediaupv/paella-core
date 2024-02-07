@@ -4,7 +4,7 @@ import { createElementWithHtmlText } from './dom';
 import Events, { triggerEvent } from './Events';
 import { translate } from './Localization';
 import PopUp from './PopUp';
-import PlayButtonPlugin from '../plugins/es.upv.paella.playPauseButton';
+import { sanitizeHTML } from './utils';
 
 export function getButtonPlugins(player, side = "any", parent = "playbackBar") {
 	return getPluginsOfType(player, "button")
@@ -43,7 +43,7 @@ export async function addButtonPlugin(plugin, buttonAreaElem) {
 
 	if (plugin.interactive) {
 		const button = createElementWithHtmlText(`
-			<button type="button" ${id}${name}class="${ plugin.className } ${ fixedSizeClass } no-icon" tabindex="${ tabIndex }" aria-label="${ ariaLabel }" title="${ description }">
+			<button type="button" ${id}${name}class="${ plugin.className } ${ fixedSizeClass }" tabindex="${ tabIndex }" aria-label="${ ariaLabel }" title="${ description }">
 			</button>
 		`, parent);
 
@@ -64,6 +64,8 @@ export async function addButtonPlugin(plugin, buttonAreaElem) {
 				plugin: plugin
 			});
 			plugin.action(evt);
+			
+			
 			evt.stopPropagation();
 
 			// We remove the focus on the button click event, because otherwise the user
@@ -208,6 +210,10 @@ export default class ButtonPlugin extends UserInterfacePlugin {
 	}
 	
 	set icon(icon) {
+		if (typeof icon === "string") {
+			icon = sanitizeHTML(icon);
+		}
+
 		this._icon = icon;
 		if (icon) {
 			const cur = this._button.querySelector('i') || createElementWithHtmlText(`<i></i>`, this._button);
@@ -316,6 +322,37 @@ export default class ButtonPlugin extends UserInterfacePlugin {
 
 	get rightSideContainerPresent() {
 		return this.#rightSideContainer !== null;
+	}
+
+	get stateText() {
+		return null;
+	}
+
+	get stateIcon() {
+		return null;
+	}
+
+	setState({ text = null, icon = null } = {}) {
+		this._statusText = text;
+		this._statusIcon = icon;
+		this.#updateStateCallbacks.forEach(cb => cb(this));
+		if (this._statusIcon) {
+			this.icon = this._statusIcon;
+		}
+		if (this._statusText) {
+			this.title = this._statusText;
+		}
+	}
+
+	#updateStateCallbacks = [];
+
+	onStateChange(cb) {
+		if (typeof cb === "function") {
+			this.#updateStateCallbacks.push(cb);
+		}
+		else {
+			this.player.log.warn("Invalid callback for ButtonPlugin.onStateChange");
+		}
 	}
 
 	async action() {

@@ -1,12 +1,12 @@
-var st = (i, e, t) => {
+var nt = (i, e, t) => {
   if (!e.has(i))
     throw TypeError("Cannot " + t);
 };
-var O = (i, e, t) => (st(i, e, "read from private field"), t ? t.call(i) : e.get(i)), Te = (i, e, t) => {
+var R = (i, e, t) => (nt(i, e, "read from private field"), t ? t.call(i) : e.get(i)), ve = (i, e, t) => {
   if (e.has(i))
     throw TypeError("Cannot add the same private member more than once");
   e instanceof WeakSet ? e.add(i) : e.set(i, t);
-}, Ie = (i, e, t, s) => (st(i, e, "write to private field"), s ? s.call(i, t) : e.set(i, t), t);
+}, xe = (i, e, t, s) => (nt(i, e, "write to private field"), s ? s.call(i, t) : e.set(i, t), t);
 const f = Object.freeze({
   PLAY: "paella:play",
   PAUSE: "paella:pause",
@@ -53,7 +53,7 @@ function C(i, e, t = {}) {
 function ee(i, e, t = {}) {
   i.ready && C(i, e, t);
 }
-function wi(i) {
+function bi(i) {
   if (i.__eventListeners__)
     for (const e in i.__eventListeners__)
       i.__eventListeners__[e] = i.__eventListeners__[e].filter((t) => t.unregisterOnUnload == !1), i.log.debug("Unregister event: " + i.__eventListeners__[e]);
@@ -66,7 +66,7 @@ class ae {
     return this._player;
   }
 }
-function Ct({ tag: i = "div", attributes: e = {}, children: t = "", innerText: s = "", parent: n = null }) {
+function bt({ tag: i = "div", attributes: e = {}, children: t = "", innerText: s = "", parent: n = null }) {
   const a = document.createElement(i);
   a.innerText = s;
   for (let r in e)
@@ -79,9 +79,9 @@ function w(i, e = null) {
   const s = t.children[0];
   return e && e.appendChild(s), s;
 }
-class M extends ae {
+class U extends ae {
   constructor(e, { tag: t = "div", attributes: s = [], children: n = "", parent: a = null }) {
-    super(e), this._element = Ct({ tag: t, attributes: s, children: n, parent: a }), Object.defineProperty(this, t, {
+    super(e), this._element = bt({ tag: t, attributes: s, children: n, parent: a }), Object.defineProperty(this, t, {
       get: () => this._element
     });
   }
@@ -112,7 +112,7 @@ class M extends ae {
     this.removeFromParent(), e.appendChild(this._element);
   }
 }
-const bt = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+const Lt = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
     <g transform="matrix(-0.620305,0,0,0.839332,25.2077,0.462208)">
@@ -132,7 +132,7 @@ const bt = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
         <path d="M23,17L23,4.998C23,4.203 22.684,3.44 22.122,2.878C21.56,2.316 20.797,2 20.002,2C20.001,2 19.999,2 19.998,2C19.203,2 18.44,2.316 17.878,2.878C17.316,3.44 17,4.203 17,4.998C17,9.375 17,17 17,17L4.998,17C4.203,17 3.44,17.316 2.878,17.878C2.316,18.44 2,19.203 2,19.998C2,19.999 2,20.001 2,20.002C2,20.797 2.316,21.56 2.878,22.122C3.44,22.684 4.203,23 4.998,23C9.375,23 17,23 17,23L17,35.002C17,35.797 17.316,36.56 17.878,37.122C18.44,37.684 19.203,38 19.998,38C19.999,38 20.001,38 20.002,38C20.797,38 21.56,37.684 22.122,37.122C22.684,36.56 23,35.797 23,35.002C23,30.625 23,23 23,23L35.002,23C35.797,23 36.56,22.684 37.122,22.122C37.684,21.56 38,20.797 38,20.002C38,20.001 38,19.999 38,19.998C38,19.203 37.684,18.44 37.122,17.878C36.56,17.316 35.797,17 35.002,17C30.625,17 23,17 23,17Z"/>
     </g>
 </svg>`, I = [];
-function nt(i, e, t) {
+function at(i, e, t) {
   if (e) {
     e.setAttribute("aria-pressed", !0);
     const { top: s, left: n, right: a, bottom: r, width: o, height: l } = e.getBoundingClientRect(), c = n + o / 2, h = s + l / 2, u = document.body.scrollTop, p = window.innerWidth, y = window.innerHeight, _ = window.innerWidth / 2, m = window.innerHeight / 2;
@@ -152,15 +152,15 @@ function nt(i, e, t) {
     }, 100);
   }
 }
-function Ci(i) {
+function Li(i) {
   i.__hidePopUpActionContainer || (i.__hidePopUpActionContainer = w('<div class="hide-popup-action-container"></div>'), i.videoContainer.element.appendChild(i.__hidePopUpActionContainer), i.__hidePopUpActionContainer.style.position = "absolute", i.__hidePopUpActionContainer.style.left = "0px", i.__hidePopUpActionContainer.style.top = "0px", i.__hidePopUpActionContainer.style.right = "0px", i.__hidePopUpActionContainer.style.bottom = "0px", i.__hidePopUpActionContainer.style.zIndex = 500, i.__hidePopUpActionContainer.addEventListener("click", (e) => {
     D.HideAllPopUps(!1), e.stopPropagation();
   })), i.__hidePopUpActionContainer.style.display = "block";
 }
-function bi(i) {
+function Ei(i) {
   i.__hidePopUpActionContainer && (i.__hidePopUpActionContainer.style.display = "none");
 }
-function Li(i, e, t, s) {
+function Pi(i, e, t, s) {
   const l = e.left - i.x, c = e.top - i.y, h = i.width - l, u = i.height - c;
   switch (!0) {
     case (l <= 10 && c <= 10 && s):
@@ -185,7 +185,7 @@ function Li(i, e, t, s) {
       return "";
   }
 }
-class D extends M {
+class D extends U {
   static GetPopUps() {
     return I;
   }
@@ -226,7 +226,7 @@ class D extends M {
       class: `${a ? "popup-container" : "popup-container no-modal"} ${l}`
     };
     r = r || o;
-    const h = e.getCustomPluginIcon("paella-core", "dock-popup") || bt, u = e.getCustomPluginIcon("paella-core", "close-popup") || ie, p = `
+    const h = e.getCustomPluginIcon("paella-core", "dock-popup") || Lt, u = e.getCustomPluginIcon("paella-core", "close-popup") || ie, p = `
 		<div class="popup-content${o ? " resizeable" : ""}${r ? " moveable" : " fixed"}">
 			<div class="border-top-left"></div><div class="border-top-center"></div><div class="border-top-right"></div>
 			<div class="title-bar">
@@ -261,7 +261,7 @@ class D extends M {
         };
         this._dragActionData = {
           popUp: this,
-          action: Li(g, A, b, this._resizeable),
+          action: Pi(g, A, b, this._resizeable),
           event: m,
           initialPosition: A
         };
@@ -286,7 +286,7 @@ class D extends M {
       this._dragActionData = null, this._element.style.pointerEvents = "", m.stopPropagation();
     }), this._contentElement.addEventListener("click", (m) => {
       m.stopPropagation();
-    }), this._anchorElement = s, s && nt(e, s, this.contentElement), this._parentPopUp = null, this.hide();
+    }), this._anchorElement = s, s && at(e, s, this.contentElement), this._parentPopUp = null, this.hide();
   }
   dock() {
     this._moved = !1, this._centerContainer.style.height = "", this.hide(), this.show();
@@ -344,7 +344,7 @@ class D extends M {
     this.centerContainer.innerHTML = "", typeof e == "string" ? this._popupContent = w(e, this.centerContainer) : (this._popupContent = e, this.centerContainer.appendChild(e));
   }
   show(e = null, t = null) {
-    this._anchorElement && !this._moved && nt(this.player, this._anchorElement, this.contentElement), e && this.setParent(e), this._parentPopUp = t, t && t.addChild(this), super.show(), D.HideNonAncestors(this), this._closeOnClickOut && Ci(this.player), C(this.player, f.SHOW_POPUP, {
+    this._anchorElement && !this._moved && at(this.player, this._anchorElement, this.contentElement), e && this.setParent(e), this._parentPopUp = t, t && t.addChild(this), super.show(), D.HideNonAncestors(this), this._closeOnClickOut && Li(this.player), C(this.player, f.SHOW_POPUP, {
       popUp: this,
       plugin: this.contextObject
     });
@@ -355,7 +355,7 @@ class D extends M {
     }), this._parentPopUp && this._parentPopUp.removeChild(this), C(this.player, f.HIDE_POPUP, {
       popUp: this,
       plugin: this.contextObject
-    }), this._anchorElement && this._anchorElement.setAttribute("aria-pressed", !1), super.hide(), this.lastFocusElement && this.lastFocusElement.focus()), I.some((e) => e.isVisible && e._closeOnClickOut) || bi(this.player);
+    }), this._anchorElement && this._anchorElement.setAttribute("aria-pressed", !1), super.hide(), this.lastFocusElement && this.lastFocusElement.focus()), I.some((e) => e.isVisible && e._closeOnClickOut) || Ei(this.player);
   }
   // Child popUp management
   addChild(e) {
@@ -369,18 +369,18 @@ class D extends M {
     e !== -1 && (I.splice(e, 1), this.removeFromParent());
   }
 }
-function Lt(i) {
+function Et(i) {
   return new Promise((e, t) => {
     fetch(i).then((s) => s.text()).then((s) => {
       e(s);
     }).catch((s) => t(s));
   });
 }
-function Et(i) {
+function Pt(i) {
   const e = new URLSearchParams(window.location.search);
   return e.has(i) ? e.get(i) : null;
 }
-function Pt(i) {
+function St(i) {
   const e = window.location.hash.replace("#", "?"), t = new URLSearchParams(e);
   return t.has(i) ? t.get(i) : null;
 }
@@ -388,20 +388,20 @@ function $(i, e) {
   const t = e || "/";
   return i = i.map((s, n) => (n && (s = s.replace(new RegExp("^" + t), "")), n !== i.length - 1 && (s = s.replace(new RegExp(t + "$"), "")), s)), i.join(t);
 }
-function St(i) {
+function Tt(i) {
   return new RegExp("^([a-z]+://|//)", "i").test(i) || /^\//.test(i);
 }
-function Ce(i) {
+function Le(i) {
   try {
     return new URL(i).pathname.split("/").pop();
   } catch {
     return i.split("/").pop();
   }
 }
-function Tt(i) {
+function It(i) {
   return i.split(".").reduce((e, t, s, n) => s < n.length - 1 ? e !== "" ? `${e}.${t}` : t : e, "");
 }
-function ze(i) {
+function Ke(i) {
   const e = (t) => {
     const s = t.split("/").reduce((n, a, r, o) => r < o.length - 1 ? n !== "" ? `${n}/${a}` : a : n, "");
     return (t[0] === "/" ? `/${s}` : s) + "/";
@@ -413,19 +413,19 @@ function ze(i) {
     return e(i);
   }
 }
-function Ke(i) {
-  return Ce(i).split(".").pop();
+function We(i) {
+  return Le(i).split(".").pop();
 }
 function K(i, e) {
-  return St(e) ? e : $([i.manifestUrl, e]);
-}
-function It(i) {
-  i.__hideTimerPaused__ = !0;
+  return Tt(e) ? e : $([i.manifestUrl, e]);
 }
 function xt(i) {
+  i.__hideTimerPaused__ = !0;
+}
+function kt(i) {
   i.__hideTimerPaused__ = !1;
 }
-function kt(i, e = "hideUiTime") {
+function Dt(i, e = "hideUiTime") {
   var a;
   i.__hideTimer__ = null;
   const t = async () => D.IsSomePopUpVisible() ? (i.log.debug("UI not hidden because there are visible pop ups"), !1) : i.__hideTimerPaused__ ? (i.log.debug("UI not hidden because the auto hide timer is paused"), !1) : s() ? (i.log.debug("UI not hidden because there is a focused element"), !1) : (await i.hideUserInterface(), !0);
@@ -456,14 +456,14 @@ function kt(i, e = "hideUiTime") {
     n();
   });
 }
-function Dt(i) {
+function At(i) {
   i.__hideTimer__ && (clearTimeout(i.__hideTimer__), delete i.__hideTimer__);
 }
-function Oe(i) {
+function Fe(i) {
   const e = Math.floor(i / 60 / 60), t = Math.floor(i / 60) - e * 60, s = Math.floor(i % 60);
   return (e > 0 ? e.toString().padStart(2, "0") + ":" : "") + t.toString().padStart(2, "0") + ":" + s.toString().padStart(2, "0");
 }
-function ve(i) {
+function Ce(i) {
   const t = /^(?:(\d+):){0,1}(\d+):(\d+)(\.\d+)?$/.exec(i);
   if (t) {
     const s = t[1] !== void 0 ? Number(t[1]) : 0, n = Number(t[2]), a = Number(t[3]);
@@ -471,7 +471,7 @@ function ve(i) {
   }
   return null;
 }
-function Fe(i) {
+function $e(i) {
   const t = /^(?:(\d+):){0,1}(\d+):(\d+)\.(\d+)?$/.exec(i);
   if (t) {
     const s = t[1] !== void 0 ? Number(t[1]) : 0, n = Number(t[2]), a = Number(t[3]), r = t[4] && Number(t[4]) || 0;
@@ -485,7 +485,7 @@ function Y(i, e, t = 365) {
   let n = `expires=${s.toUTCString()}`;
   document.cookie = `${i}=${e};${n};path=/;SameSite=None;` + (/Apple/.test(navigator.vendor) ? "" : "Secure;");
 }
-function At(i, e, t, s, n = 365) {
+function Rt(i, e, t, s, n = 365) {
   i.cookieConsent.getConsentForType(e) && Y(t, s, n);
 }
 function z(i) {
@@ -499,18 +499,18 @@ function z(i) {
   }
   return "";
 }
-function Ei(i) {
+function Si(i) {
   const e = z(i), t = Number(e);
   return e !== "" && !isNaN(t) ? t : null;
 }
-function Pi(i) {
+function Ti(i) {
   try {
     return JSON.parse(z(i));
   } catch {
     return null;
   }
 }
-function We(i, e = !0) {
+function je(i, e = !0) {
   return new Promise((t) => {
     const s = document.createElement("link");
     s.setAttribute("rel", "stylesheet"), s.setAttribute("href", i), s.onload = () => t(s);
@@ -518,7 +518,7 @@ function We(i, e = !0) {
     e && n.appendChild(s), t();
   });
 }
-function Rt(i) {
+function Mt(i) {
   document.getElementsByTagName("head")[0].removeChild(i);
 }
 function ge(i, e, t = !0) {
@@ -532,54 +532,63 @@ function ge(i, e, t = !0) {
     })) : typeof n == "object" && a ? ge(n, a, t) : i[s] = e[s];
   }
 }
-const aa = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+function Ut(i, { excludedTags: e = null } = {}) {
+  const t = document.createElement("div");
+  t.innerHTML = i;
+  const s = ["script"];
+  return e && s.push(...e), s.flatMap((n) => Array.from(t.getElementsByTagName(n))).forEach((n) => {
+    n.parentElement.removeChild(n);
+  }), t.innerHTML;
+}
+const oa = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  clearAutoHideTimer: Dt,
+  clearAutoHideTimer: At,
   getCookie: z,
-  getFileExtension: Ke,
-  getHashParameter: Pt,
-  getJSONCookie: Pi,
-  getNumericCookie: Ei,
-  getUrlFileName: Ce,
-  getUrlParameter: Et,
-  isAbsoluteUrl: St,
+  getFileExtension: We,
+  getHashParameter: St,
+  getJSONCookie: Ti,
+  getNumericCookie: Si,
+  getUrlFileName: Le,
+  getUrlParameter: Pt,
+  isAbsoluteUrl: Tt,
   joinPath: $,
-  loadStyle: We,
-  loadSvgIcon: Lt,
+  loadStyle: je,
+  loadSvgIcon: Et,
   mergeObjects: ge,
-  pauseAutoHideUiTimer: It,
-  removeExtension: Tt,
-  removeFileName: ze,
+  pauseAutoHideUiTimer: xt,
+  removeExtension: It,
+  removeFileName: Ke,
   resolveResourcePath: K,
-  resumeAutoHideUiTimer: xt,
-  secondsToTime: Oe,
+  resumeAutoHideUiTimer: kt,
+  sanitizeHTML: Ut,
+  secondsToTime: Fe,
   setCookie: Y,
-  setCookieIfAllowed: At,
-  setupAutoHideUiTimer: kt,
-  timeToMilliseconds: Fe,
-  timeToSeconds: ve,
-  unloadStyle: Rt
+  setCookieIfAllowed: Rt,
+  setupAutoHideUiTimer: Dt,
+  timeToMilliseconds: $e,
+  timeToSeconds: Ce,
+  unloadStyle: Mt
 }, Symbol.toStringTag, { value: "Module" }));
-async function Si(i, e) {
+async function Ii(i, e) {
   return e.log.debug("Using default configuration loading function."), (await fetch(i)).json();
 }
-async function Ti(i, e) {
-  return e.log.debug("Using default getVideoId function"), Pt("id") || Et("id") || i.fallbackId;
+async function xi(i, e) {
+  return e.log.debug("Using default getVideoId function"), St("id") || Pt("id") || i.fallbackId;
 }
-async function Ii(i, e, t, s) {
+async function ki(i, e, t, s) {
   return s.log.debug("Using default getManifestUrl function"), $([i, e]);
 }
-async function xi(i, e, t, s) {
+async function Di(i, e, t, s) {
   return s.log.debug("Using default getManifestFileUrl function"), $([i, e]);
 }
-async function ki(i, e, t) {
+async function Ai(i, e, t) {
   t.log.debug("Using default loadVideoManifest function");
   const s = await fetch(i);
   if (s.ok)
     return await s.json();
   throw new Error(t.translate("Error loading video manifest: $1 $2", [s.status, s.statusText]));
 }
-const Di = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+const Ri = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 256 256" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
     <g transform="matrix(1,0,0,1,3,-3.88857)">
@@ -594,18 +603,18 @@ const Di = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
     </defs>
 </svg>
 `;
-class Ai extends M {
+class Mi extends U {
   constructor(e) {
     super(e, { parent: e.containerElement }), this.element.className = "loader-container";
   }
   async create() {
-    w(`<i>${Di}</i>`, this.element);
+    w(`<i>${Ri}</i>`, this.element);
   }
   get debug() {
     return !1;
   }
 }
-const Ri = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+const Ui = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 256 256" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
     <g id="Cancel" transform="matrix(5.54545,6.8353e-32,6.8353e-32,5.54545,-2567.37,-10735.5)">
@@ -613,11 +622,11 @@ const Ri = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
     </g>
 </svg>
 `;
-class xe extends M {
+class ke extends U {
   constructor(e, t = "") {
     super(e, { parent: e.containerElement }), this.element.className = "error-container", w(`
             <div>
-                <i>${Ri}</i>
+                <i>${Ui}</i>
                 <p>${t}</p>
             </div>`, this.element);
   }
@@ -674,26 +683,26 @@ class re extends W {
   getManifestData(e) {
   }
 }
-const be = [];
-async function Mi(i) {
-  await R(i, "video", (e) => {
-    be.push(e);
+const Ee = [];
+async function Vi(i) {
+  await M(i, "video", (e) => {
+    Ee.push(e);
   });
 }
-async function Ui(i) {
-  be.slice(0);
+async function Ni(i) {
+  Ee.slice(0);
 }
-function Mt(i) {
-  if (be.length === 0)
+function Vt(i) {
+  if (Ee.length === 0)
     throw Error("No video plugins loaded. Note that `loadVideoPlugins()` must to be called before using `getVideoPlugins()`.");
-  return be;
+  return Ee;
 }
-function Vi(i, e) {
-  const t = Ke(e);
-  return Mt().find((n) => n.getCompatibleFileExtensions().indexOf(t) !== -1);
+function Oi(i, e) {
+  const t = We(e);
+  return Vt().find((n) => n.getCompatibleFileExtensions().indexOf(t) !== -1);
 }
-async function Ni(i, e) {
-  const t = Mt();
+async function Fi(i, e) {
+  const t = Vt();
   let s = null;
   for (const n of t)
     if (await n.isCompatible(e)) {
@@ -702,7 +711,7 @@ async function Ni(i, e) {
     }
   return s;
 }
-async function Oi() {
+async function $i() {
   return await new Promise((e) => {
     const t = document.createElement("audio"), s = setTimeout(() => e(!1), 100);
     t.addEventListener("volumechange", (n) => {
@@ -710,7 +719,7 @@ async function Oi() {
     }), t.volume = 0.5;
   });
 }
-class je extends M {
+class Qe extends U {
   constructor(e, t, s) {
     const n = {
       class: "video-player"
@@ -718,7 +727,7 @@ class je extends M {
     super(t, { tag: e, attributes: n, parent: s }), this._streamProvider = null, this._streamData = null, this._ready = !1;
   }
   async isVolumeApiAvailable() {
-    return await Oi();
+    return await $i();
   }
   get streamData() {
     return this._streamData;
@@ -809,7 +818,7 @@ class je extends M {
     this._enabled = !1;
   }
 }
-class Ee extends ae {
+class Se extends ae {
   get moduleName() {
     return this.player.log.warn(`Incomplete player module definition: '${__filename}.moduleName'`), "-";
   }
@@ -820,62 +829,62 @@ class Ee extends ae {
     return null;
   }
 }
-const Fi = "paella-core", $i = {
+const Bi = "paella-core", Hi = {
   ".": "./src/js/index.js",
   "./*": "./src/js/*",
   "./paella-core.css": "./dist/paella-core.css"
-}, Bi = "2.0.0", Hi = "Multistream HTML video player", Gi = "./src/js/index.js", zi = [
+}, Gi = "2.0.0", zi = "Multistream HTML video player", Ki = "./src/js/index.js", Wi = [
   "dist/paella-core.css"
-], Ki = "./src/js/index.js", Wi = "module", ji = {
+], ji = "./src/js/index.js", Qi = "module", Zi = {
   dev: "vite",
   build: "vite build --emptyOutDir"
-}, Qi = {
+}, qi = {
   type: "git",
   url: "git+https://github.com/polimediaupv/paella-player.git"
-}, Zi = [
+}, Yi = [
   "html",
   "player",
   "video",
   "hls"
-], qi = "Fernando Serrano Carpena <ferserc1@gmail.com>", Yi = "ECL-2.0", Ji = {
+], Ji = "Fernando Serrano Carpena <ferserc1@gmail.com>", Xi = "ECL-2.0", es = {
   url: "https://github.com/polimediaupv/paella-player/issues"
-}, Xi = "https://github.com/polimediaupv/paella-player#readme", es = {
+}, ts = "https://github.com/polimediaupv/paella-player#readme", is = {
   vite: "^5.0.8"
-}, ts = {
+}, ss = {
   "@ferserc1/input-style-unifier": "^0.0.1",
   "hls.js": "^1.0.4"
-}, fe = {
-  name: Fi,
-  exports: $i,
-  version: Bi,
-  description: Hi,
-  main: Gi,
-  files: zi,
-  module: Ki,
-  type: Wi,
-  scripts: ji,
-  repository: Qi,
-  keywords: Zi,
-  author: qi,
-  license: Yi,
-  bugs: Ji,
-  homepage: Xi,
-  devDependencies: es,
-  dependencies: ts
+}, ye = {
+  name: Bi,
+  exports: Hi,
+  version: Gi,
+  description: zi,
+  main: Ki,
+  files: Wi,
+  module: ji,
+  type: Qi,
+  scripts: Zi,
+  repository: qi,
+  keywords: Yi,
+  author: Ji,
+  license: Xi,
+  bugs: es,
+  homepage: ts,
+  devDependencies: is,
+  dependencies: ss
 };
-let ke = null;
-class j extends Ee {
+let De = null;
+class j extends Se {
   static Get() {
-    return ke || (ke = new j()), ke;
+    return De || (De = new j()), De;
   }
   get moduleName() {
     return "paella-core default video formats";
   }
   get moduleVersion() {
-    return fe.version;
+    return ye.version;
   }
 }
-function is(i) {
+function ns(i) {
   return new Promise((e, t) => {
     const s = new Image();
     s.addEventListener("load", (n) => {
@@ -885,12 +894,12 @@ function is(i) {
     }), s.src = i;
   });
 }
-function ss(i, e, t) {
+function as(i, e, t) {
   return new Promise((s, n) => {
     e.oncanplay = () => s(), e.onerror = () => n(new Error(i.translate("Error loading audio: $1", [t]))), e.src = K(i, t), s();
   });
 }
-class ns extends je {
+class rs extends Qe {
   constructor(e, t, s) {
     super("audio", e, t), this.isMainAudio = s, this._ready = !1;
   }
@@ -951,11 +960,11 @@ class ns extends je {
     const t = this.player.videoManifest.metadata.preview;
     if (!t || t == null)
       throw new Error("Invalid video manifest data: preview image is required");
-    if (this._previewImage = await is(t), this._imageContainer = document.createElement("div"), this._imageContainer.className = "image-container", this.parent.appendChild(this._imageContainer), this._imageContainer.appendChild(this._previewImage), this._source = e.sources.audio && e.sources.audio[0], !this._source)
+    if (this._previewImage = await ns(t), this._imageContainer = document.createElement("div"), this._imageContainer.className = "image-container", this.parent.appendChild(this._imageContainer), this._imageContainer.appendChild(this._previewImage), this._source = e.sources.audio && e.sources.audio[0], !this._source)
       throw new Error("Invalid source in audio only video stream");
     if (!this.isMainAudioPlayer)
       throw new Error("Audio only video stream must be main audio player. Check the role property at video manifest");
-    await ss(this.player, this.audio, this._source.src);
+    await as(this.player, this.audio, this._source.src);
     const s = () => {
       const n = this.player.videoContainer.baseVideoRect.offsetWidth / this.player.videoContainer.baseVideoRect.offsetHeight, a = this._previewImage.width / this._previewImage.height;
       n > a ? (this._previewImage.classList.add("landscape"), this._previewImage.classList.remove("portrait")) : (this._previewImage.classList.add("portrait"), this._previewImage.classList.remove("landscape"));
@@ -966,7 +975,7 @@ class ns extends je {
     }), window.addEventListener("resize", (n) => s()), s(), this._ready = !0;
   }
 }
-class as extends re {
+class os extends re {
   getPluginModuleInstance() {
     return j.Get();
   }
@@ -980,7 +989,7 @@ class as extends re {
     return e.sources.audio != null;
   }
   async getVideoInstance(e, t) {
-    return new ns(this.player, e, t);
+    return new rs(this.player, e, t);
   }
   getCompatibleFileExtensions() {
     return ["m4a", "mp3"];
@@ -993,18 +1002,18 @@ class as extends re {
     };
   }
 }
-let _e = null;
-function Ut(i) {
+let we = null;
+function Nt(i) {
   if (!i)
     return !1;
-  _e || (_e = document.createElement("video"));
-  let e = _e.canPlayType(i);
+  we || (we = document.createElement("video"));
+  let e = we.canPlayType(i);
   if (e === "maybe" || e === "probably")
     return !0;
   if (/video\/mp4/i.test(i))
-    return e = _e.canPlayType("video/mp4"), e === "maybe" || e === "probably";
+    return e = we.canPlayType("video/mp4"), e === "maybe" || e === "probably";
 }
-class Qe extends je {
+class Ze extends Qe {
   constructor(e, t, s, n) {
     super("video", e, t), this._config = n || {};
     const a = this._config.crossOrigin ?? "";
@@ -1100,7 +1109,7 @@ class Qe extends je {
     });
   }
 }
-class rs extends re {
+class ls extends re {
   getPluginModuleInstance() {
     return j.Get();
   }
@@ -1113,10 +1122,10 @@ class rs extends re {
   async isCompatible(e) {
     var s;
     const { mp4: t } = e.sources;
-    return t && Ut((s = t[0]) == null ? void 0 : s.mimetype);
+    return t && Nt((s = t[0]) == null ? void 0 : s.mimetype);
   }
   async getVideoInstance(e, t) {
-    return new Qe(this.player, e, t, this.config);
+    return new Ze(this.player, e, t, this.config);
   }
   getCompatibleFileExtensions() {
     return ["m4v", "mp4"];
@@ -1165,7 +1174,7 @@ class te {
     return e.quality - this.quality;
   }
 }
-class at {
+class rt {
   constructor({
     id: e,
     name: t,
@@ -1194,7 +1203,7 @@ class at {
     this._selected = e;
   }
 }
-const rt = {
+const ot = {
   autoStartLoad: !0,
   startPosition: -1,
   capLevelToPlayerSize: !0,
@@ -1240,7 +1249,7 @@ const rt = {
   abrBandWidthFactor: 0.95,
   abrBandWidthUpFactor: 0.7,
   minAutoBitrate: 0
-}, ot = {
+}, lt = {
   withCredentials: !0,
   requestHeaders: {
     "Access-Control-Allow-Headers": "Content-Type, Accept, X-Requested-With",
@@ -1252,17 +1261,17 @@ const rt = {
   MEDIA_SOURCE_EXTENSIONS: 1,
   NATIVE: 2
 };
-let De = null;
-async function Ze() {
-  return De || (console.debug("Loading HLS.js"), De = (await import("./hls-FataH-6s.js")).default), De;
+let Ae = null;
+async function qe() {
+  return Ae || (console.debug("Loading HLS.js"), Ae = (await import("./hls-FataH-6s.js")).default), Ae;
 }
-async function V(i = !1) {
-  const e = await Ze(), t = document.createElement("video");
+async function N(i = !1) {
+  const e = await qe(), t = document.createElement("video");
   return t.canPlayType("application/vnd.apple.mpegurl") && i ? T.NATIVE : e.isSupported() ? T.MEDIA_SOURCE_EXTENSIONS : t.canPlayType("application/vnd.apple.mpegurl") ? T.NATIVE : T.UNSUPPORTED;
 }
-const os = async (i, e, t, s, n) => {
+const cs = async (i, e, t, s, n) => {
   var l, c;
-  const a = await Ze();
+  const a = await qe();
   n.withCredentials && (s.xhrSetup = function(h, u) {
     h.withCredentials = n.withCredentials;
     for (const p in n.requestHeaders) {
@@ -1310,19 +1319,19 @@ const os = async (i, e, t, s, n) => {
     }, 1e3);
   })];
 };
-class Vt extends Qe {
+class Ot extends Ze {
   constructor(e, t, s, n) {
     super(e, t, n, s), this._config = this._config || {
       audioTrackLabel: s.audioTrackLabel || "name",
       enableCache: s.enableCache || !1
     };
-    for (const a in rt)
-      this._config[a] = rt[a];
+    for (const a in ot)
+      this._config[a] = ot[a];
     for (const a in s.hlsConfig)
       this._config[a] = s.hlsConfig[a];
     this._cors = {};
-    for (const a in ot)
-      this._cors[a] = ot[a];
+    for (const a in lt)
+      this._cors[a] = lt[a];
     for (const a in s.corsConfig)
       this._cors[a] = s.corsConfig[a];
     this._ready = !1, this._autoQuality = !0, this._forceNative = s.forceNative || !1;
@@ -1335,7 +1344,7 @@ class Vt extends Qe {
   }
   async loadStreamData(e) {
     var s, n;
-    if (await V(this.forceNative) === T.NATIVE) {
+    if (await N(this.forceNative) === T.NATIVE) {
       e.sources.mp4 = e.sources.hls;
       const a = await super.loadStreamData(e), r = await this.getAudioTracks();
       return this._currentAudioTrack = r.find((o) => o.selected), this._autoQuality = new te({
@@ -1352,7 +1361,7 @@ class Vt extends Qe {
       this.player.log.debug("Loading HLS stream");
       const a = ((n = (s = e == null ? void 0 : e.sources) == null ? void 0 : s.hls) == null ? void 0 : n.length) && e.sources.hls[0];
       this._config.audioTrackLabel = (a == null ? void 0 : a.audioLabel) || this._config.audioTrackLabel;
-      const [r, o] = await os(this.player, e, this.video, this._config, this._cors);
+      const [r, o] = await cs(this.player, e, this.video, this._config, this._cors);
       this._hls = r, await o, this.video.pause(), this._autoQuality = new te({
         label: "auto",
         shortLabel: "auto",
@@ -1377,7 +1386,7 @@ class Vt extends Qe {
       return this._disabledProperties.duration;
   }
   async waitForLoaded() {
-    if (await V(this.forceNative) === T.NATIVE)
+    if (await N(this.forceNative) === T.NATIVE)
       return super.waitForLoaded();
     await new Promise((t, s) => {
       const n = () => {
@@ -1388,7 +1397,7 @@ class Vt extends Qe {
   }
   async getQualities() {
     const e = [];
-    return e.push(this._autoQuality), await V(this.forceNative) === T.MEDIA_SOURCE_EXTENSIONS && (this._hls.levels.forEach((s, n) => {
+    return e.push(this._autoQuality), await N(this.forceNative) === T.MEDIA_SOURCE_EXTENSIONS && (this._hls.levels.forEach((s, n) => {
       e.push(new te({
         index: n,
         // TODO: should be level.id??
@@ -1400,7 +1409,7 @@ class Vt extends Qe {
     }), e.sort((s, n) => s.res.h - n.res.h)), e;
   }
   async setQuality(e) {
-    const t = await V(this.forceNative);
+    const t = await N(this.forceNative);
     if (this._videoEnabled) {
       if (!(e instanceof te))
         throw Error("Invalid parameter setting video quality. VideoQualityItem object expected.");
@@ -1413,18 +1422,18 @@ class Vt extends Qe {
   async supportsMultiaudio() {
     var t;
     await this.waitForLoaded();
-    const e = await V(this.forceNative);
+    const e = await N(this.forceNative);
     return e === T.MEDIA_SOURCE_EXTENSIONS ? this._hls.audioTracks.length > 1 : e === T.NATIVE ? ((t = this.video.audioTracks) == null ? void 0 : t.length) > 1 : !1;
   }
   async getAudioTracks() {
     await this.waitForLoaded();
-    const e = this._config.audioTrackLabel || "name", t = await V(this.forceNative);
-    return t === T.MEDIA_SOURCE_EXTENSIONS ? this._hls.audioTracks.map((n) => new at({
+    const e = this._config.audioTrackLabel || "name", t = await N(this.forceNative);
+    return t === T.MEDIA_SOURCE_EXTENSIONS ? this._hls.audioTracks.map((n) => new rt({
       id: n.id,
       name: n[e],
       language: n.lang,
       selected: this._hls.audioTrack === n.id
-    })) : t === T.NATIVE ? Array.from(this.video.audioTracks).map((n) => new at({
+    })) : t === T.NATIVE ? Array.from(this.video.audioTracks).map((n) => new rt({
       id: n.id,
       name: n.label,
       language: n.language,
@@ -1433,7 +1442,7 @@ class Vt extends Qe {
   }
   async setCurrentAudioTrack(e) {
     await this.waitForLoaded();
-    const s = (await this.getAudioTracks()).find((a) => a.id === e.id), n = await V(this.forceNative);
+    const s = (await this.getAudioTracks()).find((a) => a.id === e.id), n = await N(this.forceNative);
     return n === T.MEDIA_SOURCE_EXTENSIONS && s ? this._hls.audioTrack = s.id : n === T.NATIVE && s && Array.from(this.video.audioTracks).forEach((a) => {
       a.id === s.id ? a.enabled = !0 : a.enabled = !1;
     }), this._currentAudioTrack = s, s;
@@ -1445,7 +1454,7 @@ class Vt extends Qe {
     this.video.removeEventListener("canplay", this._hls._videoEventListener), this.video.src = "", this._hls.destroy(), this._ready = !1;
   }
 }
-class ls extends re {
+class us extends re {
   getPluginModuleInstance() {
     return j.Get();
   }
@@ -1457,10 +1466,10 @@ class ls extends re {
   }
   async isCompatible(e) {
     const { hls: t } = e.sources;
-    return t && await V();
+    return t && await N();
   }
   async getVideoInstance(e, t) {
-    return new Vt(this.player, e, this.config, t);
+    return new Ot(this.player, e, this.config, t);
   }
   getCompatibleFileExtensions() {
     return ["m3u8"];
@@ -1474,9 +1483,9 @@ class ls extends re {
     };
   }
 }
-const cs = async (i, e, t, s, n) => {
+const ds = async (i, e, t, s, n) => {
   var l, c;
-  const a = await Ze();
+  const a = await qe();
   n.withCredentials && (s.xhrSetup = function(h, u) {
     h.withCredentials = n.withCredentials;
     for (const p in n.requestHeaders) {
@@ -1510,13 +1519,13 @@ const cs = async (i, e, t, s, n) => {
     }, t.addEventListener("canplay", r._videoEventListener);
   })];
 };
-class us extends Vt {
+class hs extends Ot {
   async loadStreamData(e) {
-    if (await V() === T.NATIVE)
+    if (await N() === T.NATIVE)
       return e.sources.hls = e.sources.hlsLive, super.loadStreamData(e);
     {
       this.player.log.debug("Loading HLS stream");
-      const [s, n] = await cs(this.player, e, this.video, this._config, this._cors);
+      const [s, n] = await ds(this.player, e, this.video, this._config, this._cors);
       this._hls = s, await n, this._autoQuality = new te({
         label: "auto",
         shortLabel: "auto",
@@ -1530,7 +1539,7 @@ class us extends Vt {
     }
   }
 }
-class ds extends re {
+class ps extends re {
   getPluginModuleInstance() {
     return j.Get();
   }
@@ -1541,14 +1550,14 @@ class ds extends re {
     return "hlsLive";
   }
   async isCompatible(e) {
-    const t = await V(), { hlsLive: s } = e.sources;
+    const t = await N(), { hlsLive: s } = e.sources;
     return s && t;
   }
   async getVideoInstance(e, t) {
-    return new us(this.player, e, this.config, t);
+    return new hs(this.player, e, this.config, t);
   }
 }
-class hs extends Qe {
+class gs extends Ze {
   constructor(e, t, s) {
     super(e, t, s);
   }
@@ -1562,7 +1571,7 @@ class hs extends Qe {
     }), this.video.addEventListener("ended", this._endedCallback), await this.waitForLoaded(), this.player.log.debug(`es.upv.paella.htmlVideoFormat (${this.streamData.content}): video loaded and ready.`), this.saveDisabledProperties(this.video);
   }
 }
-class ps extends re {
+class ms extends re {
   getPluginModuleInstance() {
     return j.Get();
   }
@@ -1574,17 +1583,17 @@ class ps extends re {
   }
   async isCompatible(e) {
     const { html: t } = e.sources;
-    return t && t.some((s) => Ut(s.mimetype));
+    return t && t.some((s) => Nt(s.mimetype));
   }
   async getVideoInstance(e, t) {
-    return new hs(this.player, e, t);
+    return new gs(this.player, e, t);
   }
   getCompatibleFileExtensions() {
     return ["m4v", "mp4", "ogg", "webm", "ogv"];
   }
   getManifestData(e) {
     const t = (s) => {
-      switch (Ke(s)) {
+      switch (We(s)) {
         case "mp4":
         case "m4v":
           return "video/mp4";
@@ -1605,7 +1614,7 @@ class ps extends re {
     };
   }
 }
-function Nt(i) {
+function Ft(i) {
   let e = this._currentSource.frames[0];
   this._currentSource.frames.some((t) => {
     if (t.time <= this._currentTime)
@@ -1614,27 +1623,27 @@ function Nt(i) {
       return !0;
   }), this.img.src = e.src;
 }
-function gs() {
+function fs() {
   this._startTimestamp = Date.now();
   const i = () => {
     this._timer = setTimeout(i, 250);
     const e = Date.now(), t = e - this._startTimestamp;
-    this._currentTime += t / 1e3, this._startTimestamp = e, Nt.apply(this, [this._currentTime]);
+    this._currentTime += t / 1e3, this._startTimestamp = e, Ft.apply(this, [this._currentTime]);
   };
   i();
 }
-function ms() {
+function ys() {
   this._timer && (clearTimeout(this._timer), this._timer = null);
 }
-class fs extends je {
+class _s extends Qe {
   constructor(e, t) {
     super("img", e, t), this._currentTime = 0, this._startTimesamp = 0, this._playbackRate = 1, this._timer = null, this.video = this.domElement;
   }
   async play() {
-    gs.apply(this);
+    fs.apply(this);
   }
   async pause() {
-    ms.apply(this);
+    ys.apply(this);
   }
   async duration() {
     return this._currentSource.duration;
@@ -1646,7 +1655,7 @@ class fs extends je {
     return this._currentTime;
   }
   async setCurrentTime(e) {
-    this._currentTime = e, Nt.apply(this, [e]);
+    this._currentTime = e, Ft.apply(this, [e]);
   }
   async volume() {
     return 0;
@@ -1687,7 +1696,7 @@ class fs extends je {
     }), !0;
   }
 }
-class ys extends re {
+class vs extends re {
   getPluginModuleInstance() {
     return j.Get();
   }
@@ -1701,15 +1710,15 @@ class ys extends re {
     return e.sources.image != null;
   }
   async getVideoInstance(e, t) {
-    return new fs(this.player, e, this.config, t);
+    return new _s(this.player, e, this.config, t);
   }
 }
-const we = (i) => {
+const be = (i) => {
   var e, t, s;
   return `alt:${((e = i.keyModifiers) == null ? void 0 : e.altKey) || !1}, ctrl:${((t = i.keyModifiers) == null ? void 0 : t.ctrlKey) || !1}, shift:${((s = i.keyModifiers) == null ? void 0 : s.shiftKey) || !1}`;
-}, _s = (i) => `${i.keyCode}_${we(i)}`, vs = (i) => {
+}, ws = (i) => `${i.keyCode}_${be(i)}`, Cs = (i) => {
   i.keyModifiers = i.keyModifiers || {}, i.keyModifiers.altKey = i.keyModifiers.altKey || !1, i.keyModifiers.shiftKey = i.keyModifiers.shiftKey || !1, i.keyModifiers.ctrlKey = i.keyModifiers.ctrlKey || !1;
-}, ws = (i) => {
+}, bs = (i) => {
   const e = [];
   for (const t in i.__shortcuts__)
     i.__shortcuts__[t].forEach((n) => {
@@ -1717,14 +1726,14 @@ const we = (i) => {
     });
   return e;
 };
-async function Cs(i) {
+async function Ls(i) {
   if (i.__shortcuts__ = i.__shortcuts__ || {}, !window.__paella_shortcuts_player__)
     window.__paella_shortcuts_player__ = i;
   else {
     i.log.warn("Warning: more than one paella player instance with enabled shortcut plugins."), i.log.warn("Check your code to ensure that only one instance of paella player registers keyboard shortcut plugins.");
     return;
   }
-  await R(i, "keyshortcut", async (e) => {
+  await M(i, "keyshortcut", async (e) => {
     (await e.getKeys()).forEach((n) => {
       i.__shortcuts__[n.keyCode] = i.__shortcuts__[n.keyCode] || [], n.plugin = e, i.__shortcuts__[n.keyCode].push(n);
     });
@@ -1736,13 +1745,13 @@ async function Cs(i) {
     for (const n in i.__shortcuts__) {
       const a = i.__shortcuts__[n], r = {};
       a.length > 0 && a.forEach((o) => {
-        const l = _s(o);
-        if (vs(o), !r[l])
+        const l = ws(o);
+        if (Cs(o), !r[l])
           r[l] = o;
         else {
           i.log.warn(`Collision detected in shortcut for key code ${n}`);
           const c = r[l];
-          i.log.warn("Enabled shortcut:"), i.log.warn(`plugin: ${c.plugin.name}, keyCode: ${c.keyCode}, modifiers: ${we(c)}, description: ${c.description}`), i.log.warn("Collision shortcut (disabled):"), i.log.warn(`plugin: ${o.plugin.name}, keyCode: ${o.keyCode}, modifiers: ${we(o)}, description: ${o.description}`), o.disabled = !0;
+          i.log.warn("Enabled shortcut:"), i.log.warn(`plugin: ${c.plugin.name}, keyCode: ${c.keyCode}, modifiers: ${be(c)}, description: ${c.description}`), i.log.warn("Collision shortcut (disabled):"), i.log.warn(`plugin: ${o.plugin.name}, keyCode: ${o.keyCode}, modifiers: ${be(o)}, description: ${o.description}`), o.disabled = !0;
         }
       });
     }
@@ -1758,11 +1767,11 @@ async function Cs(i) {
     a && await a.forEach(async (l) => {
       var p, y, _, m, g, d;
       const c = !((p = l.keyModifiers) != null && p.altKey) || ((y = l.keyModifiers) == null ? void 0 : y.altKey) && e.altKey, h = !((_ = l.keyModifiers) != null && _.ctrlKey) || ((m = l.keyModifiers) == null ? void 0 : m.ctrlKey) && e.ctrlKey, u = !((g = l.keyModifiers) != null && g.shiftKey) || ((d = l.keyModifiers) == null ? void 0 : d.shiftKey) && e.shiftKey;
-      c && h && u && !l.disabled ? await l.action(e) : c && h && u && l.disabled && (i.log.warn("Shortcut not triggered due to collision:"), i.log.warn(`plugin: ${l.plugin.name}, keyCode: ${l.keyCode}, modifiers: ${we(l)}, description: ${l.description}`));
+      c && h && u && !l.disabled ? await l.action(e) : c && h && u && l.disabled && (i.log.warn("Shortcut not triggered due to collision:"), i.log.warn(`plugin: ${l.plugin.name}, keyCode: ${l.keyCode}, modifiers: ${be(l)}, description: ${l.description}`));
     });
   }, window.addEventListener("keyup", i.__paella_key_event_listener__);
 }
-async function bs(i) {
+async function Es(i) {
   delete i.__shortcuts__, i == window.__paella_shortcuts_player__ && (window.removeEventListener("keyup", i.__paella_key_event_listener__), delete window.__paella_key_event_listener__, delete window.__paella_shortcuts_player__);
 }
 const x = {
@@ -1841,7 +1850,7 @@ const x = {
   ScrollLock: "ScrollLock",
   Pause: "Pause"
 };
-class Ls extends W {
+class Ps extends W {
   get type() {
     return "keyshortcut";
   }
@@ -1878,7 +1887,7 @@ const S = Object.freeze({
     n.removeChild(a);
   }, t), a;
 };
-class Es extends M {
+class Ss extends U {
   constructor(e, t) {
     const s = { class: "video-container-message" };
     super(e, { attributes: s, parent: t }), this._topLeftContainer = w('<div class="container top-left"></div>', this.element), this._topMiddleContainer = w('<div class="container top-middle"></div>', this.element), this._topRightContainer = w('<div class="container top-right"></div>', this.element), this._centerLeftContainer = w('<div class="container center-left"></div>', this.element), this._centerMiddleContainer = w('<div class="container center-middle"></div>', this.element), this._centerRightContainer = w('<div class="container center-right"></div>', this.element), this._bottomLeftContainer = w('<div class="container bottom-left"></div>', this.element), this._bottomMiddleContainer = w('<div class="container bottom-middle"></div>', this.element), this._bottomRightContainer = w('<div class="container bottom-right"></div>', this.element);
@@ -1915,14 +1924,14 @@ class Es extends M {
     }
   }
 }
-const Ps = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+const Ts = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 34 31" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
     <g id="volume-mute" serif:id="volume mute" transform="matrix(1,0,0,1,-123,-4.71142)">
         <path d="M142,28.522L142,31.68C142,32.961 140.961,34 139.68,34L131.499,25L127.375,25C126.063,25 125,23.937 125,22.625L125,16.375C125,15.063 126.063,14 127.375,14L127.478,14L142,28.522ZM151.228,34.983L123,6.756L125.044,4.711L132.848,12.516L139.68,5C140.961,5 142,6.039 142,7.32L142,21.667L153.272,32.939L151.228,34.983Z"/>
     </g>
 </svg>
-`, Ss = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+`, Is = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 34 31" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
     <g id="volume-low" serif:id="volume low" transform="matrix(1,0,0,1,-165,-5)">
@@ -1936,7 +1945,7 @@ const Ps = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
         </g>
     </g>
 </svg>
-`, Ts = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+`, xs = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 34 31" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
     <g id="volume-mid" serif:id="volume mid" transform="matrix(1,0,0,1,-165,-5)">
@@ -1953,7 +1962,7 @@ const Ps = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
         </g>
     </g>
 </svg>
-`, Is = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+`, ks = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 34 31" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
     <g transform="matrix(1,0,0,1,-164.25,-6)">
@@ -1979,21 +1988,21 @@ const Ps = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
   UNLOADING_PLAYER: 6,
   ERROR: 7
 });
-function Ae(i) {
+function Re(i) {
   i.__timeLinePopUp || (i.__timeLinePopUp = {
     popUps: [],
     current: null
   });
 }
-class he extends M {
+class he extends U {
   static HideUserInterface(e) {
-    if (Ae(e), e.__timeLinePopUp.current) {
+    if (Re(e), e.__timeLinePopUp.current) {
       const t = e.__timeLinePopUp.current;
       e.__timeLinePopUp.current.hide(!0), e.__timeLinePopUp.current = t;
     }
   }
   static ShowUserInterface(e) {
-    Ae(e), e.__timeLinePopUp.current && e.__timeLinePopUp.current.show(!0);
+    Re(e), e.__timeLinePopUp.current && e.__timeLinePopUp.current.show(!0);
   }
   static HideAll(e) {
     var t;
@@ -2005,7 +2014,7 @@ class he extends M {
     }), e.__timeLinePopUp.popUps.slice(0), delete e.__timeLinePopUp);
   }
   constructor(e, t = null) {
-    Ae(e);
+    Re(e);
     const s = {
       class: "timeline-popup-content"
     }, n = e.containerElement;
@@ -2033,19 +2042,19 @@ class he extends M {
     e && (this.element.innerHTML = "", this.element.appendChild(e));
   }
 }
-let Re = null;
-class oe extends Ee {
+let Me = null;
+class oe extends Se {
   static Get() {
-    return Re || (Re = new oe()), Re;
+    return Me || (Me = new oe()), Me;
   }
   get moduleName() {
     return "paella-core default plugins";
   }
   get moduleVersion() {
-    return fe.version;
+    return ye.version;
   }
 }
-class xs extends Ls {
+class Ds extends Ps {
   getPluginModuleInstance() {
     return oe.Get();
   }
@@ -2053,7 +2062,7 @@ class xs extends Ls {
     return super.name || "es.upv.paella.defaultShortcuts";
   }
   getVolumeIcon(e) {
-    return e === 0 ? this.player.getCustomPluginIcon(this.name, "volumeMuteIcon") || Ps : e < 0.3 ? this.player.getCustomPluginIcon(this.name, "volumeLowIcon") || Ss : e < 0.6 ? this.player.getCustomPluginIcon(this.name, "volumeMidIcon") || Ts : this.player.getCustomPluginIcon(this.name, "volumeHighIcon") || Is;
+    return e === 0 ? this.player.getCustomPluginIcon(this.name, "volumeMuteIcon") || Ts : e < 0.3 ? this.player.getCustomPluginIcon(this.name, "volumeLowIcon") || Is : e < 0.6 ? this.player.getCustomPluginIcon(this.name, "volumeMidIcon") || xs : this.player.getCustomPluginIcon(this.name, "volumeHighIcon") || ks;
   }
   toggleCaptions() {
     var e, t, s;
@@ -2250,9 +2259,9 @@ class xs extends Ls {
     ];
   }
 }
-async function ks(i) {
+async function As(i) {
   const e = [];
-  await R(i, "captions", async (t) => {
+  await M(i, "captions", async (t) => {
     e.push(t);
   });
   for (let t in e) {
@@ -2260,7 +2269,7 @@ async function ks(i) {
     n.forEach((r) => a.addCaptions(r));
   }
 }
-class Ot extends W {
+class $t extends W {
   get type() {
     return "captions";
   }
@@ -2271,7 +2280,7 @@ class Ot extends W {
     return this.player.log.warn(`CaptionsPlugin ${this.name}: getCaptions() is not implemented.`), [];
   }
 }
-class Ft {
+class Bt {
   get cues() {
     return this._cues;
   }
@@ -2301,22 +2310,22 @@ class Ft {
     else
       throw Error("Invalid cue caption format: must be an array of strings or a string");
     if (typeof t == "string")
-      a.start = ve(t), a.startString = t;
+      a.start = Ce(t), a.startString = t;
     else if (typeof t == "number")
-      a.start = t, a.startString = Oe(t);
+      a.start = t, a.startString = Fe(t);
     else
       throw Error("Invalid cue timestamp format: must be a valid time string or a number of seconds");
     if (typeof s == "string")
-      a.end = ve(s), a.endString = s;
+      a.end = Ce(s), a.endString = s;
     else if (typeof s == "number")
-      a.end = s, a.endString = Oe(s);
+      a.end = s, a.endString = Fe(s);
     else
       throw Error("Invalid cue timestamp format: must be a valid time string or a number of seconds");
     return this._cues.push(a), a;
   }
   getCue(e) {
     if (typeof e == "string")
-      e = ve(e);
+      e = Ce(e);
     else if (typeof e != "number")
       throw Error("Invalid time instant format getting cue");
     let t = null;
@@ -2326,36 +2335,36 @@ class Ft {
     }), t;
   }
 }
-function lt(i, e) {
+function ct(i, e) {
   const t = {}, n = new DOMParser().parseFromString(e, "text/xml");
   return Array.from(n.getElementsByTagName("div")).forEach((a) => {
     const r = a.getAttribute("xml:lang") || "unknonw";
-    t[r] = t[r] || new Ft(i.translate(r), r), Array.from(a.getElementsByTagName("p")).forEach((o) => {
-      const l = Fe(o.getAttribute("begin"));
+    t[r] = t[r] || new Bt(i.translate(r), r), Array.from(a.getElementsByTagName("p")).forEach((o) => {
+      const l = $e(o.getAttribute("begin"));
       t[r].addCue({
         label: `caption_${o.getAttribute("xml:id") || l}`,
         start: l / 1e3,
-        end: Fe(o.getAttribute("end")) / 1e3,
+        end: $e(o.getAttribute("end")) / 1e3,
         captions: o.innerHTML
       });
     });
   }), t;
 }
-class Ds {
+class Rs {
   constructor(e, t = "") {
-    this.player = e, this._text = t, this._captions = lt(this.player, t);
+    this.player = e, this._text = t, this._captions = ct(this.player, t);
   }
   get text() {
     return this._text;
   }
   set text(e) {
-    this._text = e, this._captions = lt(e);
+    this._text = e, this._captions = ct(e);
   }
   get captions() {
     return this._captions;
   }
 }
-class As extends Ot {
+class Ms extends $t {
   getPluginModuleInstance() {
     return oe.Get();
   }
@@ -2374,7 +2383,7 @@ class As extends Ot {
           if (o.ok) {
             let l = await o.text();
             l = l.replace(/[^\x09\x0A\x0D\x20-\xFF\x85\xA0-\uD7FF\uE000-\uFDCF\uFDE0-\uFFFD]/gm, ""), l = l.replace(/&\w+;/gmi, ""), l = l.replaceAll("<br>", "");
-            const c = new Ds(this.player, l);
+            const c = new Rs(this.player, l);
             Object.entries(c.captions).forEach(([h, u]) => {
               e.push(u);
             }), n();
@@ -2386,7 +2395,7 @@ class As extends Ot {
     }), await Promise.allSettled(t), e;
   }
 }
-class qe extends W {
+class Ye extends W {
   constructor(e, t, s) {
     super(e, t, s), this.__uiPlugin = !0;
   }
@@ -2394,34 +2403,34 @@ class qe extends W {
     return null;
   }
 }
-let Ye = "en", $t = "";
+let Je = "en", Ht = "";
 const se = {};
-function Bt(i) {
-  const e = se[Ye] || {}, t = se[$t] || {};
+function Gt(i) {
+  const e = se[Je] || {}, t = se[Ht] || {};
   return e[i] || t[i] || i;
 }
-function Ht(i) {
-  Ye = i;
+function zt(i) {
+  Je = i;
 }
-function Gt() {
-  return Ye;
+function Kt() {
+  return Je;
 }
-function zt(i, e) {
+function Wt(i, e) {
   se[i] = se[i] || {};
   for (const t in e) {
     const s = e[t];
     se[i][t] = s;
   }
 }
-function Kt() {
+function jt() {
   return se;
 }
-function Wt(i) {
+function Qt(i) {
   return i.config.defaultLanguage || navigator.language;
 }
-let jt = Bt, Qt = Ht, Zt = Gt, qt = zt, Yt = Kt, Jt = Wt;
+let Zt = Gt, qt = zt, Yt = Kt, Jt = Wt, Xt = jt, ei = Qt;
 function ne(i, e = null) {
-  const t = jt(i);
+  const t = Zt(i);
   if (Array.isArray(e)) {
     let s = t;
     return e.forEach((n, a) => {
@@ -2431,26 +2440,20 @@ function ne(i, e = null) {
   } else
     return t;
 }
-function ct(i) {
-  Qt(i);
+function ut(i) {
+  qt(i);
 }
-function Rs() {
-  return Zt();
-}
-function pe(i, e) {
-  qt(i, e);
-}
-function Ms() {
+function Us() {
   return Yt();
 }
-function Xt(i) {
-  return Jt(i);
+function pe(i, e) {
+  Jt(i, e);
 }
-function Us(i) {
-  jt = i;
+function Vs() {
+  return Xt();
 }
-function Vs(i) {
-  Qt = i;
+function ti(i) {
+  return ei(i);
 }
 function Ns(i) {
   Zt = i;
@@ -2465,12 +2468,18 @@ function $s(i) {
   Jt = i;
 }
 function Bs(i) {
-  $t = Xt(i);
+  Xt = i;
 }
-function ei(i) {
+function Hs(i) {
+  ei = i;
+}
+function Gs(i) {
+  Ht = ti(i);
+}
+function ii(i) {
   return i.__tabIndex = i.__tabIndex || 0, ++i.__tabIndex, i.__tabIndex;
 }
-function ra(i) {
+function la(i) {
   return i.__tabIndex || 0;
 }
 async function me(i, e) {
@@ -2480,7 +2489,7 @@ async function me(i, e) {
   const s = i.tabIndex, n = ne(i.ariaLabel), a = ne(i.description), r = i.dynamicWidth ? "dynamic-width" : "fixed-width", o = i.id ? `id="${i.id}" ` : "", l = i.buttonName ? `name="${i.buttonName}" ` : "";
   if (i.interactive) {
     const u = w(`
-			<button type="button" ${o}${l}class="${i.className} ${r} no-icon" tabindex="${s}" aria-label="${n}" title="${a}">
+			<button type="button" ${o}${l}class="${i.className} ${r}" tabindex="${s}" aria-label="${n}" title="${a}">
 			</button>
 		`, t);
     i._button = u, i._container = t, u._pluginData = i, t._pluginData = i, u.addEventListener("click", (d) => {
@@ -2512,16 +2521,17 @@ async function me(i, e) {
     i._button = u, i._container = t, u._pluginData = i, t._pluginData = i;
   }
 }
-const ut = () => {
+const dt = () => {
   const i = document.createElement("span");
   return i.classList.add("side-container"), i.classList.add("hidden"), i;
 };
-var H, G;
-class ti extends qe {
+var H, G, fe;
+class si extends Ye {
   constructor() {
     super(...arguments);
-    Te(this, H, null);
-    Te(this, G, null);
+    ve(this, H, null);
+    ve(this, G, null);
+    ve(this, fe, []);
   }
   get type() {
     return "button";
@@ -2561,7 +2571,7 @@ class ti extends qe {
     return this.config.tabIndex || this.getTabIndex();
   }
   getTabIndex() {
-    return ei(this.player);
+    return ii(this.player);
   }
   getDescription() {
     return "";
@@ -2579,7 +2589,7 @@ class ti extends qe {
     return this._icon || (this._icon = ""), this._icon;
   }
   set icon(t) {
-    if (this._icon = t, t) {
+    if (typeof t == "string" && (t = Ut(t)), this._icon = t, t) {
       const s = this._button.querySelector("i") || w("<i></i>", this._button);
       s.innerHTML = t;
     } else {
@@ -2638,16 +2648,28 @@ class ti extends qe {
     this._button && (t > this.minContainerSize || this.parentContainer !== "playbackBar") && (this._button.style.display = null);
   }
   get leftSideContainer() {
-    return O(this, H) || (Ie(this, H, ut()), this.container.appendChild(O(this, H))), O(this, H);
+    return R(this, H) || (xe(this, H, dt()), this.container.appendChild(R(this, H))), R(this, H);
   }
   get leftSideContainerPresent() {
-    return O(this, H) !== null;
+    return R(this, H) !== null;
   }
   get rightSideContainer() {
-    return O(this, G) || (Ie(this, G, ut()), this.container.appendChild(O(this, G))), O(this, G);
+    return R(this, G) || (xe(this, G, dt()), this.container.appendChild(R(this, G))), R(this, G);
   }
   get rightSideContainerPresent() {
-    return O(this, G) !== null;
+    return R(this, G) !== null;
+  }
+  get stateText() {
+    return null;
+  }
+  get stateIcon() {
+    return null;
+  }
+  setState({ text: t = null, icon: s = null } = {}) {
+    this._statusText = t, this._statusIcon = s, R(this, fe).forEach((n) => n(this)), this._statusIcon && (this.icon = this._statusIcon), this._statusText && (this.title = this._statusText);
+  }
+  onStateChange(t) {
+    typeof t == "function" ? R(this, fe).push(t) : this.player.log.warn("Invalid callback for ButtonPlugin.onStateChange");
   }
   async action() {
     this.player.log.warn(`Action not implemented in button plugin ${this.name}`);
@@ -2656,22 +2678,22 @@ class ti extends qe {
     t < this.minContainerSize ? this.hide() : this.show();
   }
 }
-H = new WeakMap(), G = new WeakMap();
-const Hs = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+H = new WeakMap(), G = new WeakMap(), fe = new WeakMap();
+const zs = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 23 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
     <g id="play" transform="matrix(1.36051e-16,0.480277,-0.550439,1.55927e-16,74.9184,-144.269)">
         <path d="M325.373,94.327L350.358,136.107L300.387,136.107L325.373,94.327Z"/>
     </g>
 </svg>
-`, Gs = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+`, Ks = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 24 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
     <g id="pause" transform="matrix(1,0,0,0.956522,-48,-7.65217)">
         <path d="M64,8L72,8L72,31L64,31L64,8ZM48,8L56,8L56,31L48,31L48,8Z"/>
     </g>
 </svg>
-`, zs = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+`, Ws = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 40 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
     <g transform="matrix(1.94013e-16,0.689169,-0.784942,2.23746e-16,110.436,-203.562)">
@@ -2684,7 +2706,7 @@ const Hs = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
     </g>
 </svg>
 `;
-class Ks extends ti {
+class js extends si {
   getPluginModuleInstance() {
     return oe.Get();
   }
@@ -2692,7 +2714,7 @@ class Ks extends ti {
     return super.name || "es.upv.paella.playPauseButton";
   }
   async load() {
-    const e = this.player.getCustomPluginIcon(this.name, "play") || Hs, t = this.player.getCustomPluginIcon(this.name, "pause") || Gs, s = this.player.getCustomPluginIcon(this.name, "replay") || zs;
+    const e = this.player.getCustomPluginIcon(this.name, "play") || zs, t = this.player.getCustomPluginIcon(this.name, "pause") || Ks, s = this.player.getCustomPluginIcon(this.name, "replay") || Ws;
     this.icon = e, k(this.player, f.PLAY, () => {
       this.icon = t;
     }), k(this.player, f.PAUSE, () => {
@@ -2707,10 +2729,10 @@ class Ks extends ti {
     await this.player.paused() ? await this.player.videoContainer.play() : await this.player.videoContainer.pause();
   }
 }
-const dt = "(?:\\d*:){1,2}\\d*(?:\\.\\d+)?", Ws = `(${dt})\\s*\\-\\->\\s*(${dt})`, js = {
-  cueTiming: new RegExp(Ws)
-}, Qs = (i, e, t, s) => {
-  const n = js.cueTiming.exec(e);
+const ht = "(?:\\d*:){1,2}\\d*(?:\\.\\d+)?", Qs = `(${ht})\\s*\\-\\->\\s*(${ht})`, Zs = {
+  cueTiming: new RegExp(Qs)
+}, qs = (i, e, t, s) => {
+  const n = Zs.cueTiming.exec(e);
   if (n) {
     const a = s[t - 1], r = [];
     for (let o = 1; t + o < s.length && s[t + o] !== ""; ++o)
@@ -2723,29 +2745,29 @@ const dt = "(?:\\d*:){1,2}\\d*(?:\\.\\d+)?", Ws = `(${dt})\\s*\\-\\->\\s*(${dt})
     });
   }
 };
-function ht(i) {
-  const e = new Ft();
+function pt(i) {
+  const e = new Bt();
   return i !== "" && (i = i.replace(/\r\n/gm, `
 `), i = i.replace(/\r/gm, `
 `), i.split(/\n/).forEach((t, s, n) => {
-    Qs(e, t, s, n);
+    qs(e, t, s, n);
   })), e;
 }
-class Zs {
+class Ys {
   constructor(e = "") {
-    this._text = e, this._captions = ht(e);
+    this._text = e, this._captions = pt(e);
   }
   get text() {
     return this._text;
   }
   set text(e) {
-    this._text = e, this._captions = ht(e);
+    this._text = e, this._captions = pt(e);
   }
   get captions() {
     return this._captions;
   }
 }
-class qs extends Ot {
+class Js extends $t {
   getPluginModuleInstance() {
     return oe.Get();
   }
@@ -2762,7 +2784,7 @@ class qs extends Ot {
         if (/vtt/i.test(s.format)) {
           const r = K(this.player, s.url), o = await fetch(r);
           if (o.ok) {
-            const l = await o.text(), c = new Zs(l);
+            const l = await o.text(), c = new Ys(l);
             c.captions.label = s.text, c.captions.language = s.lang, e.push(c.captions), n();
           } else
             a();
@@ -2772,47 +2794,47 @@ class qs extends Ot {
     }), await Promise.allSettled(t), e;
   }
 }
-function Pe(i, e) {
-  return ci(i, "layout").filter((s) => s.config && s.config.enabled && s.canApply(e));
+function Te(i, e) {
+  return di(i, "layout").filter((s) => s.config && s.config.enabled && s.canApply(e));
 }
-function ii(i, e) {
-  const t = Pe(i, e), s = [];
+function ni(i, e) {
+  const t = Te(i, e), s = [];
   return t.forEach((n) => {
     s.push(...n.getValidContentIds(e));
   }), s;
 }
-function Ys(i, e) {
+function Xs(i, e) {
   const t = [];
-  return ci(i, "layout").filter((s) => {
+  return di(i, "layout").filter((s) => {
     var n, a;
     if ((n = s.config) != null && n.enabled && ((a = s.config) != null && a.validContent))
       return s.config.validContent.every((r) => r.content.length === e);
   }).forEach((s) => s.config.validContent.forEach((n) => t.push(n.content))), t;
 }
-function si(i, e, t) {
-  const s = Pe(i, e);
+function ai(i, e, t) {
+  const s = Te(i, e);
   let n = null;
   return s.some((a) => {
     if (a.getValidContentIds(e).indexOf(t) !== -1)
       return n = a, !0;
   }), n;
 }
-function Js(i, e) {
-  const t = Pe(i, e), s = ii(i, e);
+function en(i, e) {
+  const t = Te(i, e), s = ni(i, e);
   let n = [];
   return t.forEach((a) => {
     n = [...n, ...a.config.validContent];
   }), n.filter((a) => s.indexOf(a.id) !== -1);
 }
-function ni(i, e, t, s = null) {
-  const n = si(i, e, t);
+function ri(i, e, t, s = null) {
+  const n = ai(i, e, t);
   if (n) {
     const a = n.getLayoutStructure(e, t, s);
     return a.plugin = n, a;
   }
   return null;
 }
-class le extends qe {
+class le extends Ye {
   get type() {
     return "layout";
   }
@@ -2888,7 +2910,7 @@ class le extends qe {
     return [];
   }
 }
-function Xs(i) {
+function tn(i) {
   return {
     icon: i.icon,
     position: i.position,
@@ -2901,17 +2923,17 @@ function Xs(i) {
     }
   };
 }
-async function en(i, e) {
+async function sn(i, e) {
   const t = [];
-  return await R(
+  return await M(
     i,
     "canvasButton",
     async (s) => {
       i.log.debug(` Canvas button plugin: ${s.name}`), t.push(s);
     }
-  ), t.filter((s) => s.content.indexOf(e.content) !== -1).map((s) => Xs(s));
+  ), t.filter((s) => s.content.indexOf(e.content) !== -1).map((s) => tn(s));
 }
-class oa extends qe {
+class ca extends Ye {
   get type() {
     return "canvasButton";
   }
@@ -2928,7 +2950,7 @@ class oa extends qe {
     return this.config.tabIndex || this.getTabIndex();
   }
   getTabIndex() {
-    return ei(this.player);
+    return ii(this.player);
   }
   get description() {
     return this.config.description || this.getDescription();
@@ -2965,19 +2987,19 @@ class oa extends qe {
     this.player.log.warn(`Action not implemented in canvas button plugin ${this.name}`);
   }
 }
-const $e = [];
-async function tn(i) {
-  await R(i, "canvas", (e) => {
-    $e.push(e);
+const Be = [];
+async function nn(i) {
+  await M(i, "canvas", (e) => {
+    Be.push(e);
   });
 }
-async function sn(i) {
+async function an(i) {
 }
-function nn(i, e) {
-  if ($e.length === 0)
+function rn(i, e) {
+  if (Be.length === 0)
     throw Error("No canvas plugins loaded. Note that `loadCanvasPlugins()` must to be called before use `getCanvasPlugins()`");
   let t = null;
-  return $e.some((s) => {
+  return Be.some((s) => {
     if (s.isCompatible(e))
       return t = s, !0;
   }), t;
@@ -2986,7 +3008,7 @@ const L = Object.freeze({
   LEFT: "left",
   CENTER: "center",
   RIGHT: "right"
-}), an = function({
+}), on = function({
   icon: i,
   tabIndex: e,
   ariaLabel: t,
@@ -3007,19 +3029,19 @@ const L = Object.freeze({
         <button ${c}><i class="button-icon" style="pointer-events: none">${i}</i></button>
     `);
   return this.buttonsArea.appendChild(h), h.addEventListener("click", async (u) => (await r(o), u.stopPropagation(), !1)), h;
-}, Be = async (i, e, t, s, n) => {
+}, He = async (i, e, t, s, n) => {
   const a = e.plugin;
   let r = a.tabIndexStart;
-  const o = await en(i, s), l = [];
+  const o = await sn(i, s), l = [];
   return [
     ...o,
     ...a.getVideoCanvasButtons(e, s.content, s, t)
   ].forEach((h) => {
     h.tabIndex = r++, h.content = n;
-    const u = an.apply(t, [h]);
+    const u = on.apply(t, [h]);
     l.push(u);
   }), l;
-}, He = (i, e, t) => {
+}, Ge = (i, e, t) => {
   let { tabIndexStart: s } = e.plugin;
   t.sort((n, a) => {
     const r = n.getBoundingClientRect().left, o = a.getBoundingClientRect().left;
@@ -3028,7 +3050,7 @@ const L = Object.freeze({
     n.setAttribute("tabindex", s++);
   });
 };
-class ai extends M {
+class oi extends U {
   constructor(e, t, s) {
     super(t, { tag: e, parent: s }), this.element.className = "video-canvas", this._userArea = null, this._buttonsArea = w(`
         <div class="button-area">
@@ -3051,7 +3073,7 @@ class ai extends M {
     this.buttonsArea.style.display = "none";
   }
 }
-class ri extends W {
+class li extends W {
   get type() {
     return "canvas";
   }
@@ -3065,40 +3087,40 @@ class ri extends W {
     throw Error(`${this.name} canvas plugin: getCanvasInstance() not implemented`);
   }
 }
-let Me = null;
-class Q extends Ee {
+let Ue = null;
+class Q extends Se {
   static Get() {
-    return Me || (Me = new Q()), Me;
+    return Ue || (Ue = new Q()), Ue;
   }
   get moduleName() {
     return "paella-core default video layouts";
   }
   get moduleVersion() {
-    return fe.version;
+    return ye.version;
   }
 }
-const Je = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+const Xe = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
     <g transform="matrix(0.920758,0,0,0.920758,2.50561,1.21236)">
         <path d="M11.937,17.699L11.937,21.044C11.937,21.656 11.573,22.209 11.012,22.451C10.45,22.693 9.798,22.578 9.354,22.158L1.874,15.1C1.568,14.811 1.394,14.408 1.394,13.986C1.394,13.564 1.568,13.161 1.874,12.872L9.354,5.814C9.798,5.394 10.45,5.279 11.012,5.521C11.573,5.763 11.937,6.316 11.937,6.928L11.937,10.272L22.937,10.272C23.783,10.272 24.469,10.958 24.469,11.804L24.469,16.168C24.469,17.014 23.783,17.699 22.937,17.699L11.937,17.699ZM26.063,23.11L26.063,19.765C26.063,19.153 26.427,18.6 26.988,18.358C27.55,18.116 28.201,18.231 28.646,18.651L36.126,25.709C36.432,25.999 36.606,26.402 36.606,26.823C36.606,27.245 36.432,27.648 36.126,27.937L28.646,34.996C28.201,35.415 27.55,35.53 26.988,35.288C26.427,35.046 26.063,34.493 26.063,33.882L26.063,30.537L15.063,30.537C14.217,30.537 13.531,29.851 13.531,29.005L13.531,24.641C13.531,23.795 14.217,23.11 15.063,23.11L26.063,23.11Z"/>
     </g>
 </svg>
-`, Le = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+`, Pe = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
     <g transform="matrix(-0.620305,0,0,0.839332,25.2077,0.462208)">
         <path d="M-20.625,8.591C-20.625,6.174 -17.975,4.215 -14.704,4.215L31.492,4.215C34.763,4.215 37.413,6.174 37.413,8.591L37.413,35.582C37.413,37.998 34.763,39.957 31.492,39.957L-14.704,39.957C-17.975,39.957 -20.625,37.998 -20.625,35.582L-20.625,8.591ZM1.285,12.825L8.1,7.789L-15.786,7.789L-15.786,25.442L-8.972,20.406L6.737,32.016L16.994,24.435L1.285,12.825Z" />
     </g>
 </svg>
-`, ye = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+`, _e = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
     <g>
         <path d="M18,13.029L18,26.971C18,27.509 17.786,28.025 17.406,28.406C17.025,28.786 16.509,29 15.971,29L3.029,29C2.491,29 1.975,28.786 1.594,28.406C1.214,28.025 1,27.509 1,26.971L1,13.029C1,12.491 1.214,11.975 1.594,11.594C1.975,11.214 2.491,11 3.029,11L15.971,11C16.509,11 17.025,11.214 17.406,11.594C17.786,11.975 18,12.491 18,13.029ZM39,13.029L39,26.971C39,27.509 38.786,28.025 38.406,28.406C38.025,28.786 37.509,29 36.971,29L24.029,29C23.491,29 22.975,28.786 22.594,28.406C22.214,28.025 22,27.509 22,26.971L22,13.029C22,12.491 22.214,11.975 22.594,11.594C22.975,11.214 23.491,11 24.029,11L36.971,11C37.509,11 38.025,11.214 38.406,11.594C38.786,11.975 39,12.491 39,13.029ZM21,7L21,33L19,33L19,7L21,7Z"/>
     </g>
 </svg>
-`, rn = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+`, ln = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
     <g transform="matrix(-0.620305,0,0,0.839332,25.2077,0.462208)">
@@ -3111,7 +3133,7 @@ const Je = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
     </g>
 </svg>
 `;
-class pt extends le {
+class gt extends le {
   getPluginModuleInstance() {
     return Q.Get();
   }
@@ -3125,7 +3147,7 @@ class pt extends le {
     this.pipContentIds = this.config.pipContentIds || [], this.allowSwitchSide = this.config.allowSwitchSide !== void 0 ? this.config.allowSwitchSide : !0;
   }
   getVideoCanvasButtons(e, t, s, n) {
-    const a = this.player.getCustomPluginIcon(this.name, "iconMaximize") || Le, r = this.player.getCustomPluginIcon(this.name, "iconSideBySide") || ye, o = this.player.getCustomPluginIcon(this.name, "iconSwitchSide") || Je, l = this.player.getCustomPluginIcon(this.name, "iconClose") || ie, c = this.player.getCustomPluginIcon(this.name, "iconPiP") || rn, h = () => this._currentContent.find((_) => _.id === t), u = () => h().size === 25, p = () => h().size > 50, y = [];
+    const a = this.player.getCustomPluginIcon(this.name, "iconMaximize") || Pe, r = this.player.getCustomPluginIcon(this.name, "iconSideBySide") || _e, o = this.player.getCustomPluginIcon(this.name, "iconSwitchSide") || Xe, l = this.player.getCustomPluginIcon(this.name, "iconClose") || ie, c = this.player.getCustomPluginIcon(this.name, "iconPiP") || ln, h = () => this._currentContent.find((_) => _.id === t), u = () => h().size === 25, p = () => h().size > 50, y = [];
     return u() || p() ? y.push({
       icon: r,
       position: L.LEFT,
@@ -3205,7 +3227,7 @@ class pt extends le {
     };
   }
 }
-const oi = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+const ci = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
     <g transform="matrix(-0.620305,0,0,0.839332,25.2077,0.462208)">
@@ -3218,8 +3240,8 @@ const oi = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
     </g>
 </svg>
 `;
-let N = 0;
-const Xe = [
+let O = 0;
+const et = [
   // First layout: side by side
   {
     id: "side-by-side",
@@ -3314,17 +3336,17 @@ const Xe = [
     buttons: []
   }
 ];
-function on(i) {
-  return N = (N + 1) % Xe.length, et(i);
+function cn(i) {
+  return O = (O + 1) % et.length, tt(i);
 }
 function ue(i, e) {
-  return N = e < Xe.length ? e : N, et(i);
+  return O = e < et.length ? e : O, tt(i);
 }
-function et(i) {
-  let e = JSON.parse(JSON.stringify(Xe[N]));
+function tt(i) {
+  let e = JSON.parse(JSON.stringify(et[O]));
   return e.videos[0].content = i[0], e.videos[1].content = i[1], e;
 }
-class ln extends le {
+class un extends le {
   getPluginModuleInstance() {
     return Q.Get();
   }
@@ -3336,7 +3358,7 @@ class ln extends le {
   }
   async load() {
     let e = z("dualVideoLayoutIndex");
-    e !== "" && (N = Number(e)), this.player.log.debug("Dual video layout loaded");
+    e !== "" && (O = Number(e)), this.player.log.debug("Dual video layout loaded");
   }
   getValidStreams(e) {
     return super.getValidStreams(e).filter((t) => t.length === 2);
@@ -3346,7 +3368,7 @@ class ln extends le {
     this._currentContent[0] = t, this._currentContent[1] = e, this.player.videoContainer.updateLayout();
   }
   async switchMinimized() {
-    on(this._currentContent), await this.player.videoContainer.updateLayout();
+    cn(this._currentContent), await this.player.videoContainer.updateLayout();
   }
   async minimizeVideo(e) {
     let t = !0;
@@ -3354,7 +3376,7 @@ class ln extends le {
       const s = this._currentContent[0], n = this._currentContent[1];
       this._currentContent[0] = n, this._currentContent[1] = s, t = !1;
     }
-    N === 1 && t ? ue(this._currentContent, 2) : ue(this._currentContent, 1), await this.player.videoContainer.updateLayout();
+    O === 1 && t ? ue(this._currentContent, 2) : ue(this._currentContent, 1), await this.player.videoContainer.updateLayout();
   }
   async maximizeVideo(e) {
     let t = !0;
@@ -3362,13 +3384,13 @@ class ln extends le {
       const s = this._currentContent[0], n = this._currentContent[1];
       this._currentContent[0] = n, this._currentContent[1] = s, t = !1;
     }
-    N === 1 && t ? ue(this._currentContent, 2) : ue(this._currentContent, 1), await this.player.videoContainer.updateLayout();
+    O === 1 && t ? ue(this._currentContent, 2) : ue(this._currentContent, 1), await this.player.videoContainer.updateLayout();
   }
   async setSideBySide() {
     ue(this._currentContent, 0), await this.player.videoContainer.updateLayout();
   }
   get minimizedContent() {
-    return N === 0 ? "" : this._currentContent[1];
+    return O === 0 ? "" : this._currentContent[1];
   }
   async closeVideo(e) {
     const s = this.player.videoContainer.validContentIds.filter((n) => n.indexOf("-") === -1).find((n) => n != e);
@@ -3379,7 +3401,7 @@ class ln extends le {
       return [
         // Swap
         {
-          icon: this.player.getCustomPluginIcon(this.name, "iconRotate") || oi,
+          icon: this.player.getCustomPluginIcon(this.name, "iconRotate") || ci,
           position: L.LEFT,
           title: this.player.translate("Swap position of the videos"),
           ariaLabel: this.player.translate("Swap position of the videos"),
@@ -3390,7 +3412,7 @@ class ln extends le {
         },
         // Minimize
         {
-          icon: this.player.getCustomPluginIcon(this.name, "iconMaximize") || Le,
+          icon: this.player.getCustomPluginIcon(this.name, "iconMaximize") || Pe,
           position: L.LEFT,
           title: this.player.translate("Maximize video"),
           ariaLabel: this.player.translate("Maximize video"),
@@ -3414,7 +3436,7 @@ class ln extends le {
     {
       const a = [];
       return t === this.minimizedContent ? (a.push({
-        icon: this.player.getCustomPluginIcon(this.name, "iconMaximize") || Le,
+        icon: this.player.getCustomPluginIcon(this.name, "iconMaximize") || Pe,
         position: L.LEFT,
         title: this.player.translate("Maximize video"),
         ariaLabel: this.player.translate("Maximize video"),
@@ -3423,7 +3445,7 @@ class ln extends le {
           await this.switchContent();
         }
       }), a.push({
-        icon: this.player.getCustomPluginIcon(this.name, "iconSwitchSide") || Je,
+        icon: this.player.getCustomPluginIcon(this.name, "iconSwitchSide") || Xe,
         position: L.LEFT,
         title: this.player.translate("Place the video on the other side of the screen"),
         ariaLabel: this.player.translate("Place the video on the other side of the screen"),
@@ -3441,7 +3463,7 @@ class ln extends le {
           await this.closeVideo(t);
         }
       })) : (a.push({
-        icon: this.player.getCustomPluginIcon(this.name, "iconMinimize") || bt,
+        icon: this.player.getCustomPluginIcon(this.name, "iconMinimize") || Lt,
         position: L.LEFT,
         title: this.player.translate("Minimize video"),
         ariaLabel: this.player.translate("Minimize video"),
@@ -3450,7 +3472,7 @@ class ln extends le {
           await this.switchContent();
         }
       }), a.push({
-        icon: this.player.getCustomPluginIcon(this.name, "iconSideBySide") || ye,
+        icon: this.player.getCustomPluginIcon(this.name, "iconSideBySide") || _e,
         position: L.LEFT,
         title: this.player.translate("Put the videos side by side"),
         ariaLabel: this.player.translate("Put the videos side by side"),
@@ -3477,7 +3499,7 @@ class ln extends le {
       const r = z("dualVideoLayoutContent0"), o = z("dualVideoLayoutContent1");
       r !== "" && o !== "" && this._currentContent.indexOf(r) !== -1 && this._currentContent.indexOf(o) !== -1 && (this._currentContent[0] = r, this._currentContent[1] = o);
     }
-    const s = et(this._currentContent), n = {
+    const s = tt(this._currentContent), n = {
       id: s.id,
       player: this.player,
       name: { es: "Dos streams con posición dinámica" },
@@ -3485,10 +3507,10 @@ class ln extends le {
       videos: s.videos,
       buttons: []
     };
-    return Y("dualVideoLayoutIndex", N), Y("dualVideoLayoutContent0", this._currentContent[0]), Y("dualVideoLayoutContent1", this._currentContent[1]), n;
+    return Y("dualVideoLayoutIndex", O), Y("dualVideoLayoutContent0", this._currentContent[0]), Y("dualVideoLayoutContent1", this._currentContent[1]), n;
   }
 }
-const gt = {
+const mt = {
   id: "pip-left",
   name: { es: "Dos streams imagen dentro de imagen" },
   hidden: !1,
@@ -3521,7 +3543,7 @@ const gt = {
     }
   ],
   buttons: []
-}, cn = {
+}, dn = {
   id: "pip-right",
   name: { es: "Dos streams imagen dentro de imagen a la derecha" },
   hidden: !1,
@@ -3555,7 +3577,7 @@ const gt = {
   ],
   buttons: []
 };
-class un extends le {
+class hn extends le {
   getPluginModuleInstance() {
     return Q.Get();
   }
@@ -3566,13 +3588,13 @@ class un extends le {
     return "dual-video-pip";
   }
   async load() {
-    this._currentLayout = gt, this.dualVideoContentIds = this.config.dualVideoContentIds || [];
+    this._currentLayout = mt, this.dualVideoContentIds = this.config.dualVideoContentIds || [];
   }
   getValidStreams(e) {
     return super.getValidStreams(e).filter((t) => t.length === 2);
   }
   getVideoCanvasButtons(e, t, s, n) {
-    const a = this.player.getCustomPluginIcon(this.name, "iconClose") || ie, r = this.player.getCustomPluginIcon(this.name, "iconSwitchSide") || Je, o = this.player.getCustomPluginIcon(this.name, "iconMaximize") || Le, l = this.player.getCustomPluginIcon(this.name, "iconSideBySide") || ye, c = [
+    const a = this.player.getCustomPluginIcon(this.name, "iconClose") || ie, r = this.player.getCustomPluginIcon(this.name, "iconSwitchSide") || Xe, o = this.player.getCustomPluginIcon(this.name, "iconMaximize") || Pe, l = this.player.getCustomPluginIcon(this.name, "iconSideBySide") || _e, c = [
       {
         icon: a,
         position: L.RIGHT,
@@ -3616,7 +3638,7 @@ class un extends le {
     }), c;
   }
   switchSide() {
-    this._currentLayout.id === "pip-left" ? this._currentLayout = cn : this._currentLayout = gt;
+    this._currentLayout.id === "pip-left" ? this._currentLayout = dn : this._currentLayout = mt;
   }
   switchSources() {
     const e = this._pipVideo;
@@ -3629,7 +3651,7 @@ class un extends le {
     return a.player = this.player, a.videos[0].content = this._fullVideo, a.videos[1].content = this._pipVideo, a;
   }
 }
-class dn extends le {
+class pn extends le {
   getPluginModuleInstance() {
     return Q.Get();
   }
@@ -3655,7 +3677,7 @@ class dn extends le {
   getVideoCanvasButtons(e, t, s, n) {
     return this._multiStream ? [
       {
-        icon: this.player.getCustomPluginIcon(this.name, "iconSideBySide") || ye,
+        icon: this.player.getCustomPluginIcon(this.name, "iconSideBySide") || _e,
         position: L.LEFT,
         title: this.player.translate("Two videos 50%"),
         ariaLabel: this.player.translate("Two videos 50%"),
@@ -3705,7 +3727,7 @@ class dn extends le {
     return e.length > 1 && (this._multiStream = !0), n;
   }
 }
-class hn extends le {
+class gn extends le {
   getPluginModuleInstance() {
     return Q.Get();
   }
@@ -3726,7 +3748,7 @@ class hn extends le {
     ];
   }
   getVideoCanvasButtons(e, t, s, n) {
-    const a = this.player.getCustomPluginIcon(this.name, "iconSideBySide") || ye, r = [];
+    const a = this.player.getCustomPluginIcon(this.name, "iconSideBySide") || _e, r = [];
     return this._multiStream && r.push({
       icon: a,
       position: L.LEFT,
@@ -3757,7 +3779,7 @@ class hn extends le {
     };
   }
 }
-const pn = {
+const mn = {
   videos: [
     {
       content: {},
@@ -3796,11 +3818,11 @@ const pn = {
     }
   ]
 };
-function gn(i) {
-  let e = JSON.parse(JSON.stringify(pn));
+function fn(i) {
+  let e = JSON.parse(JSON.stringify(mn));
   return e.videos[0].content = i[0], e.videos[1].content = i[1], e.videos[2].content = i[2], e;
 }
-class mn extends le {
+class yn extends le {
   getPluginModuleInstance() {
     return Q.Get();
   }
@@ -3826,7 +3848,7 @@ class mn extends le {
       const { content: a } = this.validContent.find((r) => r.id === t);
       this._currentContent = a;
     }
-    const s = gn(this._currentContent);
+    const s = fn(this._currentContent);
     return {
       player: this.player,
       name: { es: "Three streams with dynamic position" },
@@ -3839,7 +3861,7 @@ class mn extends le {
             this.switchContent();
           },
           label: "Switch",
-          icon: oi,
+          icon: ci,
           layer: 2,
           ariaLabel: "Swap the position of the videos",
           title: "Swap the position of the videos"
@@ -3848,7 +3870,7 @@ class mn extends le {
     };
   }
 }
-class fn extends ai {
+class _n extends oi {
   constructor(e, t) {
     super("div", e, t), this.element.classList.add("image-canvas");
   }
@@ -3856,7 +3878,7 @@ class fn extends ai {
     e.element.style.width = "100%", e.element.style.height = "100%";
   }
 }
-class yn extends ri {
+class vn extends li {
   get name() {
     return super.name || "es.upv.paella.audioCanvas";
   }
@@ -3864,10 +3886,10 @@ class yn extends ri {
     return "audio";
   }
   getCanvasInstance(e) {
-    return new fn(this.player, e);
+    return new _n(this.player, e);
   }
 }
-class _n extends ai {
+class wn extends oi {
   constructor(e, t) {
     super("div", e, t);
   }
@@ -3875,7 +3897,7 @@ class _n extends ai {
     e.element.style.width = "100%", e.element.style.height = "100%";
   }
 }
-class vn extends ri {
+class Cn extends li {
   get name() {
     return super.name || "es.upv.paella.videoCanvas";
   }
@@ -3886,10 +3908,10 @@ class vn extends ri {
     return !Array.isArray(e.canvas) || e.canvas.length === 0 ? !0 : await super.isCompatible(e);
   }
   getCanvasInstance(e) {
-    return new _n(this.player, e);
+    return new wn(this.player, e);
   }
 }
-class li extends W {
+class ui extends W {
   get type() {
     return "data";
   }
@@ -3906,9 +3928,9 @@ class li extends W {
     throw Error(`DataPlugin.remove() not implemented in data plugin '${this.name}'`);
   }
 }
-class wn extends ae {
+class bn extends ae {
   constructor(e) {
-    super(e), this._dataPlugins = {}, R(this.player, "data", async (t) => {
+    super(e), this._dataPlugins = {}, M(this.player, "data", async (t) => {
       var s;
       (s = t.context) == null || s.forEach((n) => {
         this._dataPlugins[n] = this._dataPlugins[n] || [], this._dataPlugins[n].push(t);
@@ -3954,21 +3976,21 @@ class wn extends ae {
       return await s.remove(e, t);
   }
 }
-let Ue = null;
-class Se extends Ee {
+let Ve = null;
+class Ie extends Se {
   static Get() {
-    return Ue || (Ue = new Se()), Ue;
+    return Ve || (Ve = new Ie()), Ve;
   }
   get moduleName() {
     return "paella-core default data plugins";
   }
   get moduleVersion() {
-    return fe.version;
+    return ye.version;
   }
 }
-class Cn extends li {
+class Ln extends ui {
   getPluginModuleInstance() {
-    return Se.Get();
+    return Ie.Get();
   }
   get name() {
     return super.name || "es.upv.paella.cookieDataPlugin";
@@ -4000,9 +4022,9 @@ class Cn extends li {
     Y(s, ""), this.player.log.debug(`CookieDataPlugin.remove: ${s}`);
   }
 }
-class bn extends li {
+class En extends ui {
   getPluginModuleInstance() {
-    return Se.Get();
+    return Ie.Get();
   }
   get name() {
     return super.name || "es.upv.paella.localStorageDataPlugin";
@@ -4034,21 +4056,15 @@ class bn extends li {
     localStorage.setItem(s, ""), this.player.log.debug(`LocalStorageDataPlugin.remove: ${s}`);
   }
 }
-const Ln = [
+const Pn = [
   {
-    plugin: as,
+    plugin: os,
     config: {
       enabled: !1
     }
   },
   {
-    plugin: ls,
-    config: {
-      enabled: !1
-    }
-  },
-  {
-    plugin: ds,
+    plugin: us,
     config: {
       enabled: !1
     }
@@ -4060,49 +4076,49 @@ const Ln = [
     }
   },
   {
-    plugin: ys,
+    plugin: ms,
     config: {
       enabled: !1
     }
   },
   {
-    plugin: rs,
+    plugin: vs,
     config: {
       enabled: !1
     }
   },
   {
-    plugin: xs,
+    plugin: ls,
     config: {
       enabled: !1
     }
   },
   {
-    plugin: As,
+    plugin: Ds,
     config: {
       enabled: !1
     }
   },
   {
-    plugin: Ks,
+    plugin: Ms,
     config: {
       enabled: !1
     }
   },
   {
-    plugin: qs,
+    plugin: js,
     config: {
       enabled: !1
     }
   },
   {
-    plugin: pt,
+    plugin: Js,
     config: {
       enabled: !1
     }
   },
   {
-    plugin: ln,
+    plugin: gt,
     config: {
       enabled: !1
     }
@@ -4114,25 +4130,25 @@ const Ln = [
     }
   },
   {
-    plugin: dn,
-    config: {
-      enabled: !1
-    }
-  },
-  {
     plugin: hn,
     config: {
       enabled: !1
     }
   },
   {
-    plugin: pt,
+    plugin: pn,
     config: {
       enabled: !1
     }
   },
   {
-    plugin: mn,
+    plugin: gn,
+    config: {
+      enabled: !1
+    }
+  },
+  {
+    plugin: gt,
     config: {
       enabled: !1
     }
@@ -4152,23 +4168,29 @@ const Ln = [
   {
     plugin: Cn,
     config: {
+      enabled: !1
+    }
+  },
+  {
+    plugin: Ln,
+    config: {
       enabled: !1,
       context: ["default"]
     }
   },
   {
-    plugin: bn,
+    plugin: En,
     config: {
       enable: !0,
       context: ["default"]
     }
   }
 ];
-function En() {
+function Sn() {
   const i = ["modal", "timeline", "no-modal"], e = () => this.player.log.warn(`Invalid popUpType set in "${this.name}" plugin. Alowed types are "modal", "timeline" and "no-modal"`);
   return i.indexOf(this.config.popUpType) !== -1 ? this.config.popUpType : i.indexOf(this.popUpType) !== -1 ? (this.config.popUpType && e(), this.popUpType) : (e(), "modal");
 }
-class Ge extends ti {
+class ze extends si {
   constructor() {
     super(...arguments), this._refreshContent = !0;
   }
@@ -4241,7 +4263,7 @@ class Ge extends ti {
       }
     else {
       this._popUp = null;
-      const t = En.apply(this);
+      const t = Sn.apply(this);
       if (t === "modal" || t === "no-modal") {
         const { clickOutside: n, closeButton: a } = this.closeActions;
         this._popUp = new D(this.player, e, this.button, this, t === "modal", this.moveable, this.resizeable, this.customPopUpClass), this._popUp.setCloseActions({ clickOutside: n, closeButton: a });
@@ -4252,9 +4274,9 @@ class Ge extends ti {
     }
   }
 }
-class Pn extends Ge {
+class Tn extends ze {
   async load() {
-    this._iconPath && (this.icon = await Lt(this._iconPath));
+    this._iconPath && (this.icon = await Et(this._iconPath));
   }
   get groupName() {
     var e;
@@ -4268,10 +4290,10 @@ class Pn extends Ge {
   }
   async getContent() {
     const e = w('<div class="button-group"></div>');
-    return this._firstItem = null, this._initialized || (this.player.log.debug(`Load button plugins into "${this.groupName}" container`), await R(this.player, "button", async (t) => {
+    return this._firstItem = null, this._initialized || (this.player.log.debug(`Load button plugins into "${this.groupName}" container`), await M(this.player, "button", async (t) => {
       this.player.log.debug(` Button plugin: ${t.name}`);
       const s = w('<div class="button-plugin-wrapper"></div>', e);
-      if (t instanceof Ge && (t.parentPopUp = this._popUp), await me(t, s), w(`<a class="button-description">${ne(t.description)}</a>`, s).addEventListener("click", (a) => {
+      if (t instanceof ze && (t.parentPopUp = this._popUp), await me(t, s), w(`<a class="button-description">${ne(t.description)}</a>`, s).addEventListener("click", (a) => {
         t.action(), a.stopPropagation();
       }), !this._firstItem) {
         const a = s.getElementsByTagName("button");
@@ -4300,11 +4322,11 @@ class Pn extends Ge {
     t && (t.style.display = null);
   }
 }
-const tt = (i, e, t, s = {}) => {
+const it = (i, e, t, s = {}) => {
   const n = new i(e, t);
   return t = n.name || t, t ? (e.config.plugins && e.config.plugins[t] && ge(s, e.config.plugins[t], !1), n._config = s, n) : (e.log.warn(`The instance of the ${i.name} plugin cannot be created because it is being loaded explicitly and does not have the name property implemented.`), null);
 };
-function it(i, e, t, s, n = !1) {
+function st(i, e, t, s, n = !1) {
   const a = t.type;
   let r = -1;
   if (i.__pluginData__.pluginInstances[a] && i.__pluginData__.pluginInstances[a].find((l, c) => {
@@ -4321,27 +4343,27 @@ function it(i, e, t, s, n = !1) {
     i.log.debug(`Plugin module imported: ${l}: v${c}`), i.__pluginModules.push(o);
   }
 }
-function Sn(i, e) {
+function In(i, e) {
   let t = null, s = { enabled: !0 };
   if (typeof e == "function" ? t = e : typeof e == "object" && typeof e.plugin == "function" && (t = e.plugin, s = e.config), !t)
     i.log.warn("Error importing plugin with explicit import API. Check the 'plugins' array at init params");
   else {
-    const n = tt(t, i, null, s);
+    const n = it(t, i, null, s);
     if (!n)
       i.log.warn(`Unable to create an instance of the plugin ${t.name}`);
     else {
       const a = n.constructor.name;
-      it(i, a, n, t, !0);
+      st(i, a, n, t, !0);
     }
   }
 }
-function la(i, e) {
+function ua(i, e) {
   const t = i.config;
   e.keys().forEach((s) => {
     const n = e(s), a = s.substring(2, s.length - 3);
     if (t.plugins[a]) {
-      const r = n.default, o = tt(r, i, a, {});
-      it(i, s, o, r, !1);
+      const r = n.default, o = it(r, i, a, {});
+      st(i, s, o, r, !1);
     } else if (/^[a-z0-9]+$/i.test(a)) {
       i.__pluginModules = i.__pluginModules || [];
       const r = n.default, o = new r(i);
@@ -4352,7 +4374,7 @@ function la(i, e) {
     }
   });
 }
-function Tn(i) {
+function xn(i) {
   const e = i.config;
   if (i.__pluginData__ = i.__pluginData__ || {
     pluginClasses: [],
@@ -4360,25 +4382,25 @@ function Tn(i) {
   }, i.__pluginData__.pluginClasses.length !== 0)
     return;
   [
-    ...Ln,
+    ...Pn,
     ...i.initParams.plugins
   ].forEach((s) => {
-    Sn(i, s);
+    In(i, s);
   });
   const { buttonGroups: t } = e;
   t && t.forEach((s, n) => {
-    const a = `button_group_${n}`, r = tt(Pn, i, a, s);
-    r._iconPath = $([i.configResourcesUrl, s.icon]), it(i, r.type, r, `ButtonGroupPlugin${n}`, !1);
+    const a = `button_group_${n}`, r = it(Tn, i, a, s);
+    r._iconPath = $([i.configResourcesUrl, s.icon]), st(i, r.type, r, `ButtonGroupPlugin${n}`, !1);
   }), i.log.debug("Plugins have been registered:");
 }
-function In(i) {
+function kn(i) {
   delete i.__pluginData__;
 }
-function ci(i, e) {
+function di(i, e) {
   var t;
   return ((t = i.__pluginData__) == null ? void 0 : t.pluginInstances[e]) || [];
 }
-async function R(i, e, t = null, s = null) {
+async function M(i, e, t = null, s = null) {
   if (!i.__pluginData__.pluginInstances[e]) {
     i.log.info(`There are no defined plugins of type '${e}'`);
     return;
@@ -4401,13 +4423,13 @@ async function R(i, e, t = null, s = null) {
     }
   }
 }
-async function ui(i, e) {
+async function hi(i, e) {
   var t;
   (t = i.__pluginData__.pluginInstances[e]) == null || t.forEach(async (s) => {
     await s.unload();
   });
 }
-function xn(i) {
+function Dn(i) {
   var t;
   const e = (s, n) => {
     if (!s)
@@ -4415,7 +4437,7 @@ function xn(i) {
   };
   e(i.streams, "missing 'streams' object."), e(i.streams.length > 0, "the 'streams' array is empty."), e((t = i.metadata) == null ? void 0 : t.preview, "the 'metadata.preview' field is required.");
 }
-class kn extends ae {
+class An extends ae {
   constructor(e, t) {
     super(e, t), this._videoContainer = t, this._streamData = null, this._streams = null, this._players = [], this._mainAudioPlayer = null, this._streamSyncTimer = null, this._trimming = {
       enabled: !1,
@@ -4429,12 +4451,12 @@ class kn extends ae {
     this._streamData.length === 1 && (t = this._streamData[0].content), e.some((n) => {
       if (n.role === "mainAudio")
         return t = n.content, !0;
-    }), this.player.log.debug("Finding compatible video plugins"), await tn(this.player);
+    }), this.player.log.debug("Finding compatible video plugins"), await nn(this.player);
     for (const n of this._streamData) {
-      const a = nn(this.player, n);
+      const a = rn(this.player, n);
       if (!a)
         throw Error(`Canvas plugin not found: ${n.canvas}`);
-      const r = n.content === t, o = await Ni(this.player, n);
+      const r = n.content === t, o = await Fi(this.player, n);
       if (!o)
         throw Error(`Incompatible stream type: ${n.content}`);
       this._streams[n.content] = {
@@ -4457,7 +4479,7 @@ class kn extends ae {
       throw this.player.log.error("The video stream containing the audio track could not be identified. The `role` attribute must be specified in the main video stream, or the `defaultAudioStream` attribute must be set correctly in the player configuration."), new Error("The video stream containing the audio track could not be identified.");
   }
   async unload() {
-    this.stopStreamSync(), await sn(this.player);
+    this.stopStreamSync(), await an(this.player);
   }
   get players() {
     return this._players;
@@ -4648,47 +4670,47 @@ class kn extends ae {
     return this.mainAudioPlayer.currentAudioTrack;
   }
 }
-function Dn(i, e) {
-  return Array.isArray[e] || (e = [e]), Vi(i, e).getManifestData(e);
+function Rn(i, e) {
+  return Array.isArray[e] || (e = [e]), Oi(i, e).getManifestData(e);
 }
-async function An(i) {
+async function Mn(i) {
   return { w: 1280, h: 720 };
 }
-async function di(i) {
+async function pi(i) {
   var e;
   for (const t in this.streamProvider.streams) {
     const s = ((e = i == null ? void 0 : i.videos) == null ? void 0 : e.find((a) => a.content === t)) != null, n = this.streamProvider.streams[t];
     s && !n.player.isEnabled ? await n.player.enable() : !s && n.player.isEnabled && await n.player.disable();
   }
 }
-function hi() {
+function gi() {
   for (const i in this.streamProvider.streams) {
     const e = this.streamProvider.streams[i];
     e.canvas.element.style.display = "none", this._hiddenVideos.appendChild(e.canvas.element);
   }
 }
-async function Rn() {
+async function Un() {
   var c, h;
-  const i = ni(this.player, this.streamProvider.streamData, this._layoutId, this._mainLayoutContent);
-  await di.apply(this, [i]), hi.apply(this);
-  const e = await An(this.player), t = this.elementSize, s = 100 / e.w, n = 100 / e.h, a = t.w / t.h, r = e.w / e.h, o = a > r ? { w: t.h * r, h: t.h } : { w: t.w, h: t.w / r };
+  const i = ri(this.player, this.streamProvider.streamData, this._layoutId, this._mainLayoutContent);
+  await pi.apply(this, [i]), gi.apply(this);
+  const e = await Mn(this.player), t = this.elementSize, s = 100 / e.w, n = 100 / e.h, a = t.w / t.h, r = e.w / e.h, o = a > r ? { w: t.h * r, h: t.h } : { w: t.w, h: t.w / r };
   if (this.baseVideoRect.style.width = o.w + "px", this.baseVideoRect.style.height = o.h + "px", this.baseVideoRect.classList.remove("dynamic"), (c = i == null ? void 0 : i.videos) != null && c.length) {
     const u = [];
     for (const p of i.videos) {
       const y = this.streamProvider.streams[p.content], { stream: _, player: m, canvas: g } = y, d = await m.getDimensions(), b = d.w / d.h;
       let A = Number.MAX_VALUE, E = null;
-      g.buttonsArea.innerHTML = "", u.push(await Be(this.player, i, g, p, p.content)), p.rect.forEach((J) => {
+      g.buttonsArea.innerHTML = "", u.push(await He(this.player, i, g, p, p.content)), p.rect.forEach((J) => {
         const Z = /^(\d+.?\d*)\/(\d+.?\d*)$/.exec(J.aspectRatio), X = Z ? Number(Z[1]) / Number(Z[2]) : 1, B = Math.abs(b - X);
         B < A && (E = J, A = B);
       }), g.element.style.display = "block", g.element.style.position = "absolute", g.element.style.left = `${(E == null ? void 0 : E.left) * s}%`, g.element.style.top = `${(E == null ? void 0 : E.top) * n}%`, g.element.style.width = `${(E == null ? void 0 : E.width) * s}%`, g.element.style.height = `${(E == null ? void 0 : E.height) * n}%`, g.element.style.zIndex = p.layer, this.baseVideoRect.appendChild(g.element);
     }
     setTimeout(() => {
-      He(this.player, i, u.flat());
+      Ge(this.player, i, u.flat());
     }, 100);
   }
   const l = this.baseVideoRect.getElementsByClassName("video-layout-button");
   return Array.from(l).forEach((u) => this.baseVideoRect.removeChild(u)), (h = i == null ? void 0 : i.buttons) == null || h.forEach((u) => {
-    const p = Ct({
+    const p = bt({
       tag: "button",
       attributes: {
         class: "video-layout-button",
@@ -4713,10 +4735,10 @@ async function Rn() {
     }), this._layoutButtons.push(p);
   }), !0;
 }
-async function Mn() {
+async function Vn() {
   var r, o, l, c, h, u;
-  const i = ni(this.player, this.streamProvider.streamData, this._layoutId, this._mainLayoutContent);
-  await di.apply(this, [i]), hi.apply(this), this.baseVideoRect.style.width = "", this.baseVideoRect.style.height = "", this.baseVideoRect.style.display = "flex", this.baseVideoRect.classList.add("dynamic"), this.baseVideoRect.innerHTML = "";
+  const i = ri(this.player, this.streamProvider.streamData, this._layoutId, this._mainLayoutContent);
+  await pi.apply(this, [i]), gi.apply(this), this.baseVideoRect.style.width = "", this.baseVideoRect.style.height = "", this.baseVideoRect.style.display = "flex", this.baseVideoRect.classList.add("dynamic"), this.baseVideoRect.innerHTML = "";
   const e = this.element.clientWidth, t = this.element.clientHeight, s = e > t;
   if (this.baseVideoRect.classList.remove("align-center"), this.baseVideoRect.classList.remove("align-top"), this.baseVideoRect.classList.remove("align-bottom"), this.baseVideoRect.classList.remove("align-left"), this.baseVideoRect.classList.remove("align-right"), s) {
     const p = ((o = (r = this.player.config.videoContainer) == null ? void 0 : r.dynamicLayout) == null ? void 0 : o.landscapeVerticalAlignment) || "align-center";
@@ -4728,8 +4750,8 @@ async function Mn() {
   const n = this.baseVideoRect.clientWidth, a = this.element.clientHeight;
   if (((h = i == null ? void 0 : i.videos) == null ? void 0 : h.length) === 1) {
     const p = [], y = [], _ = i.videos[0], m = this.streamProvider.streams[_.content], { player: g, canvas: d } = m;
-    d.buttonsArea.innerHTML = "", y.push(await Be(this.player, i, d, _, _.content)), d.element.style = {}, d.element.style.display = "block", d.element.style.width = "100%", d.element.style.height = "100%", d.element.style.overflow = "hidden", d.element.style.position = "relative", p.push(d.element), d.element.sortIndex = 0, p.forEach((b) => this.baseVideoRect.appendChild(b)), setTimeout(() => {
-      He(this.player, i, y.flat());
+    d.buttonsArea.innerHTML = "", y.push(await He(this.player, i, d, _, _.content)), d.element.style = {}, d.element.style.display = "block", d.element.style.width = "100%", d.element.style.height = "100%", d.element.style.overflow = "hidden", d.element.style.position = "relative", p.push(d.element), d.element.sortIndex = 0, p.forEach((b) => this.baseVideoRect.appendChild(b)), setTimeout(() => {
+      Ge(this.player, i, y.flat());
     }, 100);
   } else if ((u = i == null ? void 0 : i.videos) != null && u.length) {
     let p = 0;
@@ -4737,7 +4759,7 @@ async function Mn() {
     for (const m of i.videos) {
       const g = this.streamProvider.streams[m.content], { player: d, canvas: b } = g, A = await d.getDimensions(), E = A.w / A.h, J = n, Z = a, X = (s ? J : Z) * m.size / 100;
       let B = Math.round(s ? X : X * E), ce = Math.round(s ? X / E : X);
-      B > J && (B = J, ce = Math.round(B / E)), ce > Z && (ce = Z, B = Math.round(ce * E)), b.buttonsArea.innerHTML = "", _.push(await Be(this.player, i, b, m, m.content)), b.element.style = {}, b.element.style.display = "block", b.element.style.width = `${B}px`, b.element.style.height = `${ce}px`, b.element.style.overflow = "hidden", b.element.style.position = "relative", b.element.sortIndex = p++, y.push(b.element);
+      B > J && (B = J, ce = Math.round(B / E)), ce > Z && (ce = Z, B = Math.round(ce * E)), b.buttonsArea.innerHTML = "", _.push(await He(this.player, i, b, m, m.content)), b.element.style = {}, b.element.style.display = "block", b.element.style.width = `${B}px`, b.element.style.height = `${ce}px`, b.element.style.overflow = "hidden", b.element.style.position = "relative", b.element.sortIndex = p++, y.push(b.element);
     }
     if (s) {
       const m = w('<div class="landscape-container"></div>', this.baseVideoRect);
@@ -4745,12 +4767,12 @@ async function Mn() {
     } else
       y.forEach((m) => this.baseVideoRect.appendChild(m));
     setTimeout(() => {
-      He(this.player, i, _.flat());
+      Ge(this.player, i, _.flat());
     }, 100);
   }
   return !0;
 }
-class Un extends M {
+class Nn extends U {
   constructor(e, t) {
     var r;
     const s = "base-video-rect", n = {
@@ -4763,7 +4785,7 @@ class Un extends M {
         `;
     super(e, { attributes: n, children: a, parent: t }), this._hiddenVideos = this.element.getElementsByClassName("hidden-videos-container")[0], this._baseVideoRect = this.element.getElementsByClassName(s)[0], this.element.addEventListener("click", async () => {
       await this.paused() ? await this.play() : await this.pause();
-    }), this._ready = !1, this._players = [], this._streamProvider = new kn(this.player, this.baseVideoRect);
+    }), this._ready = !1, this._players = [], this._streamProvider = new An(this.player, this.baseVideoRect);
   }
   get layoutId() {
     return this._layoutId;
@@ -4789,7 +4811,7 @@ class Un extends M {
     return this._validContentSettings;
   }
   get validLayouts() {
-    return Pe(this.player, this.streamData);
+    return Te(this.player, this.streamData);
   }
   get streamData() {
     return this._streamData;
@@ -4801,7 +4823,7 @@ class Un extends M {
     return this._streamProvider;
   }
   async create() {
-    this._baseVideoRect.style.display = "none", await R(this.player, "layout"), await Mi(this.player);
+    this._baseVideoRect.style.display = "none", await M(this.player, "layout"), await Vi(this.player);
   }
   async load(e) {
     var o, l, c, h, u, p, y, _, m, g;
@@ -4810,7 +4832,7 @@ class Un extends M {
       this._layoutId = await this.player.preferences.get("videoLayout", { global: d }) || this.player.config.defaultLayout, this._mainLayoutContent = await this.player.preferences.get("videoLayoutMainContent", { global: d }) || null;
     } else
       this._layoutId = this.player.config.defaultLayout, this._mainLayoutContent = null;
-    await this.streamProvider.load(e), this._validContentIds = ii(this.player, e), this._validContentSettings = Js(this.player, e), await this.updateLayout(null, !0);
+    await this.streamProvider.load(e), this._validContentIds = ni(this.player, e), this._validContentSettings = en(this.player, e), await this.updateLayout(null, !0);
     const t = w(
       '<div class="button-plugins left-side"></div>',
       this.element
@@ -4818,7 +4840,7 @@ class Un extends M {
       '<div class="button-plugins right-side"></div>',
       this.element
     );
-    this._buttonPlugins = [t, s], this.player.log.debug("Loading videoContainer button plugins"), await R(this.player, "button", async (d) => {
+    this._buttonPlugins = [t, s], this.player.log.debug("Loading videoContainer button plugins"), await M(this.player, "button", async (d) => {
       this.player.log.debug(` Button plugin: ${d.name}`), d.side === "left" ? await me(d, t) : d.side === "right" && await me(d, s);
     }, async (d) => d.parentContainer === "videoContainer" ? await d.isEnabled() : !1), this._baseVideoRect.style.display = "";
     const n = await this.player.preferences.get("volume", { global: !0 }), a = await this.player.preferences.get("playbackRate", { global: !0 }), r = await this.player.preferences.get("lastKnownTime", { global: !1 });
@@ -4836,10 +4858,10 @@ class Un extends M {
       }
       d();
     }
-    this._messageContainer = new Es(this.player, this.element), this._ready = !0;
+    this._messageContainer = new Ss(this.player, this.element), this._ready = !0;
   }
   async unload() {
-    this.removeFromParent(), await ui(this.player, "layout"), await Ui(this.player), await this.streamProvider.unload();
+    this.removeFromParent(), await hi(this.player, "layout"), await Ni(this.player), await this.streamProvider.unload();
   }
   // Return true if the layout this.layoutId is compatible with the current stream data.
   async updateLayout(e = null) {
@@ -4851,8 +4873,8 @@ class Un extends M {
     this._updateInProgress = !0;
     let s = !0;
     this._layoutButtons = [], (!this._layoutId || this._validContentIds.indexOf(this._layoutId) === -1) && (this._layoutId = this.player.config.defaultLayout, this._mainLayoutContent = null, this._validContentIds.indexOf(this._layoutId) === -1 && (this._layoutId = this._validContentIds[0]), s = !1);
-    const n = si(this.player, this.streamProvider.streamData, this._layoutId);
-    return n.layoutType === "static" ? s = Rn.apply(this) : n.layoutType === "dynamic" && (s = Mn.apply(this)), this._updateInProgress = !1, s;
+    const n = ai(this.player, this.streamProvider.streamData, this._layoutId);
+    return n.layoutType === "static" ? s = Un.apply(this) : n.layoutType === "dynamic" && (s = Vn.apply(this)), this._updateInProgress = !1, s;
   }
   hideUserInterface() {
     if (this._layoutButtons && this._buttonPlugins) {
@@ -4966,7 +4988,7 @@ class Un extends M {
     this.baseVideoRect.removeChild(e);
   }
 }
-const Vn = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+const On = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 300 300" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
     <rect id="Play" x="0" y="0" width="300" height="300" style="fill:none;"/>
@@ -4980,7 +5002,7 @@ const Vn = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
         </g>
     </g>
 </svg>
-`, Nn = `
+`, Fn = `
     background-color: #e4e4e4;
     width: 100%;
     height: 100%;
@@ -4991,9 +5013,9 @@ const Vn = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
     position: absolute;
     top: 50%;
     transform: translateY(-50%); 
-`, Ve = `
+`, Ne = `
     width: 100%;
-`, On = `
+`, $n = `
     position: absolute; 
     top: 0px; 
     left: 0px; 
@@ -5003,34 +5025,34 @@ const Vn = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
     align-content: center;
     justify-content: center;
     align-items: center;
-`, Fn = `
+`, Bn = `
     pointer-events: none;
     width: 20%;
     max-width: 400px;
     min-width: 100px;
     opacity: 0.6;
-`, $n = `
+`, Hn = `
     display: block;
     width: 20%;
     background: none;
     border: none;
     cursor: pointer;
 `;
-class Bn extends M {
+class Gn extends U {
   constructor(e, t, s, n) {
     const a = {
       class: "preview-container",
-      style: Nn,
+      style: Fn,
       role: "button",
       "aria-label": "Play video"
     };
     super(e, { attributes: a, parent: t }), this._img = w(`
-        <div style="${Ve}">
-            ${s ? `<img style="${Ve}" src="${s}" class="preview-image-landscape" alt=""/>` : ""}
-            ${n ? `<img style="${Ve}" src="${n}" class="preview-image-portrait" alt=""/>` : ""}
-            <div style="${On}">
-                <button style="${$n}" role="button" aria-label="Play video">
-                    <i class="preview-play-icon" style="${Fn}">${Vn}</i>
+        <div style="${Ne}">
+            ${s ? `<img style="${Ne}" src="${s}" class="preview-image-landscape" alt=""/>` : ""}
+            ${n ? `<img style="${Ne}" src="${n}" class="preview-image-portrait" alt=""/>` : ""}
+            <div style="${$n}">
+                <button style="${Hn}" role="button" aria-label="Play video">
+                    <i class="preview-play-icon" style="${Bn}">${On}</i>
                 </button>
             </div>
         </div>
@@ -5051,7 +5073,7 @@ class Bn extends M {
     this._img.setAttribute("src", e);
   }
 }
-function mt({ container: i, duration: e = 1e3, currentTime: t = 0, precision: s = 100 }) {
+function ft({ container: i, duration: e = 1e3, currentTime: t = 0, precision: s = 100 }) {
   i.classList.add("progress-indicator"), i.innerHTML = `
         <div class="range-container">
             <div class="elapsed"></div>
@@ -5093,11 +5115,11 @@ function mt({ container: i, duration: e = 1e3, currentTime: t = 0, precision: s 
     c.updateRemaining();
   }), c.updateRemaining(), c;
 }
-class Hn extends M {
+class zn extends U {
   constructor(e, t) {
     var a;
     const s = ((a = e.config.progressIndicator) == null ? void 0 : a.inlineMode) ?? !1, n = { class: "playback-bar" };
-    super(e, { attributes: n, parent: t }), this.element.addEventListener("mouseenter", () => It(e)), this.element.addEventListener("mouseleave", () => xt(e)), this._topContainer = w("<div></div>"), this._navContainer = w("<nav></nav>"), this._buttonPluginsLeft = w("<ul></ul>", this._navContainer), this._centerContainer = w("<div></div>", this._navContainer), this._buttonPluginsRight = w("<ul></ul>", this._navContainer), s ? this._progressIndicator = mt({ container: this._centerContainer }) : (this.element.appendChild(this._topContainer), this._progressIndicator = mt({ container: this._topContainer })), this._progressIndicator.onChange(async (r) => {
+    super(e, { attributes: n, parent: t }), this.element.addEventListener("mouseenter", () => xt(e)), this.element.addEventListener("mouseleave", () => kt(e)), this._topContainer = w("<div></div>"), this._navContainer = w("<nav></nav>"), this._buttonPluginsLeft = w("<ul></ul>", this._navContainer), this._centerContainer = w("<div></div>", this._navContainer), this._buttonPluginsRight = w("<ul></ul>", this._navContainer), s ? this._progressIndicator = ft({ container: this._centerContainer }) : (this.element.appendChild(this._topContainer), this._progressIndicator = ft({ container: this._topContainer })), this._progressIndicator.onChange(async (r) => {
       await e.videoContainer.setCurrentTime(r);
     }), this.element.appendChild(this._navContainer), this.element.addEventListener("click", () => {
       D.HideAllPopUps(!1);
@@ -5110,7 +5132,7 @@ class Hn extends M {
     this._enabled = e, this._enabled ? this.showUserInterface() : this.hide();
   }
   async load() {
-    this._enabledPlugins = [], this.player.log.debug("Loading button plugins"), await R(this.player, "button", async (t) => {
+    this._enabledPlugins = [], this.player.log.debug("Loading button plugins"), await M(this.player, "button", async (t) => {
       this.player.log.debug(` Button plugin: ${t.name}`), this._enabledPlugins.push(t), t.side === "left" ? await me(t, this.buttonPluginsLeft) : t.side === "right" && await me(t, this.buttonPluginsRight);
     }, async (t) => t.parentContainer === "playbackBar" ? await t.isEnabled() : !1);
     const e = await this.player.videoContainer.duration();
@@ -5126,7 +5148,7 @@ class Hn extends M {
     }), this.onResize();
   }
   async unload() {
-    this.removeFromParent(), await ui(this.player, "button"), this._buttonPluginsLeft.innerHTML = "", this._buttonPluginsRight.innerHTML = "";
+    this.removeFromParent(), await hi(this.player, "button"), this._buttonPluginsLeft.innerHTML = "", this._buttonPluginsRight.innerHTML = "";
   }
   hideUserInterface() {
     this.player.log.debug("Hide playback bar user interface"), this.hide();
@@ -5159,14 +5181,14 @@ class Hn extends M {
     this._enabledPlugins.forEach((t) => t.onResize(e));
   }
 }
-const pi = [
+const mi = [
   { maxWidth: 400, className: "size-s" },
   { maxWidth: 600, className: "size-m" },
   { maxWidth: 900, className: "size-l" },
   { maxWidth: 1100, className: "size-xl" },
   { className: "size-xxl" }
-], Gn = (i) => pi.find((e) => e.maxWidth && e.maxWidth >= i || e.maxWidth === void 0).className;
-class zn extends M {
+], Kn = (i) => mi.find((e) => e.maxWidth && e.maxWidth >= i || e.maxWidth === void 0).className;
+class Wn extends U {
   constructor(e, t) {
     const s = {
       class: "captions-canvas visible-ui"
@@ -5187,13 +5209,13 @@ class zn extends M {
     k(this.player, f.TIMEUPDATE, n), k(this.player, f.SEEK, n), k(this.player, f.RESIZE, () => this.resize()), k(this.player, f.SHOW_UI, () => this.element.classList.add("visible-ui")), k(this.player, f.HIDE_UI, () => this.element.classList.remove("visible-ui"));
   }
   async load() {
-    await ks(this.player);
+    await As(this.player);
   }
   unload() {
   }
   resize() {
-    const e = Gn(this._captionsContainer.clientWidth);
-    pi.forEach((t) => this.element.classList.remove(t.className)), this.element.classList.add(e);
+    const e = Kn(this._captionsContainer.clientWidth);
+    mi.forEach((t) => this.element.classList.remove(t.className)), this.element.classList.add(e);
   }
   addCaptions(e) {
     this._captions.push(e), C(this.player, f.CAPTIONS_CHANGED, { captions: this._captions });
@@ -5226,8 +5248,8 @@ class zn extends M {
     this.currentCaptions && C(this.player, f.CAPTIONS_DISABLED), this._currentCaptions = null, this.hide();
   }
 }
-async function Kn(i) {
-  await R(i, "eventLog", async (e) => {
+async function jn(i) {
+  await M(i, "eventLog", async (e) => {
     e.events.forEach((t) => {
       k(i, t, async (s) => {
         await e.onEvent(t, s);
@@ -5235,9 +5257,9 @@ async function Kn(i) {
     });
   });
 }
-async function Wn(i) {
+async function Qn(i) {
 }
-class ca extends W {
+class da extends W {
   get type() {
     return "eventLog";
   }
@@ -5248,10 +5270,10 @@ class ca extends W {
     this.player.log.warn(`${this.name}: onEvent() function is not overwritten.`);
   }
 }
-const gi = (i) => !1, mi = (i) => i.description;
-class jn {
+const fi = (i) => !1, yi = (i) => i.description;
+class Zn {
   constructor(e, t) {
-    this._player = e, this._cookieConsentData = e.config.cookieConsent || [], this._getConsentCallback = t.getConsent || gi, this._getDescriptionCallback = t.getDescription || mi, this._cookieConsentData.forEach((s) => {
+    this._player = e, this._cookieConsentData = e.config.cookieConsent || [], this._getConsentCallback = t.getConsent || fi, this._getDescriptionCallback = t.getDescription || yi, this._cookieConsentData.forEach((s) => {
       s.description = this._getDescriptionCallback(s);
     }), this.updateConsentData();
   }
@@ -5273,20 +5295,20 @@ const P = Object.freeze({
   DEBUG: 4,
   VERBOSE: 5
 });
-let fi = P.INFO;
-const yi = (i, e = null) => {
+let _i = P.INFO;
+const vi = (i, e = null) => {
   const t = typeof i == "string" ? P[i.toUpperCase()] : i;
   if (t < P.DISABLED || t > P.VERBOSE)
     throw Error(`setLogLevel: invalid log level ${t}`);
-  e ? (e.__logSettings = e.__logSettings || {}, e.__logSettings.logLevel = t) : fi = t;
-}, _i = (i = null) => i ? i.__logSettings.logLevel : fi, de = ({
+  e ? (e.__logSettings = e.__logSettings || {}, e.__logSettings.logLevel = t) : _i = t;
+}, wi = (i = null) => i ? i.__logSettings.logLevel : _i, de = ({
   msg: i,
   level: e = P.INFO,
   player: t = null,
   context: s = "paella-core"
 }) => {
-  t && !t.__logSettings && yi(t, P.INFO);
-  const n = _i(t);
+  t && !t.__logSettings && vi(t, P.INFO);
+  const n = wi(t);
   if (e < P.DISABLED)
     throw Error(`printMessage: invalid log level ${e}`);
   if (t && C(t, f.LOG, { severity: e, context: s, message: i, currentLogLevel: n }), e <= n)
@@ -5309,9 +5331,9 @@ const yi = (i, e = null) => {
     }
 }, q = {
   setLevel: (i, e = null) => {
-    yi(i, e);
+    vi(i, e);
   },
-  currentLevel: (i = null) => _i(i),
+  currentLevel: (i = null) => wi(i),
   error: (i, e = null, t = "paella-core") => {
     de({
       msg: i,
@@ -5353,7 +5375,7 @@ const yi = (i, e = null) => {
     });
   }
 };
-class Qn {
+class qn {
   constructor(e, t = "paella-core") {
     this._player = e, this._context = t;
   }
@@ -5385,34 +5407,34 @@ class Qn {
     q.verbose(e, this._player, t || this._context);
   }
 }
-const ft = {}, Ne = '{ "global": {}, "videos": {} }';
-async function yt() {
+const yt = {}, Oe = '{ "global": {}, "videos": {} }';
+async function _t() {
   switch (this.source.name) {
     case "cookie":
       try {
         return JSON.parse(z("preferences"));
       } catch {
-        return JSON.parse(Ne);
+        return JSON.parse(Oe);
       }
     case "dataPlugin":
       try {
-        return await this.player.data.read(this.source.context, {}) || JSON.parse(Ne);
+        return await this.player.data.read(this.source.context, {}) || JSON.parse(Oe);
       } catch {
-        return JSON.parse(Ne);
+        return JSON.parse(Oe);
       }
   }
 }
-async function Zn(i) {
+async function Yn(i) {
   switch (this.source.name) {
     case "cookie":
-      At(this.player, this.source.consentType, "preferences", JSON.stringify(i));
+      Rt(this.player, this.source.consentType, "preferences", JSON.stringify(i));
       break;
     case "dataPlugin":
       await this.player.data.write(this.source.context, {}, i);
       break;
   }
 }
-class qn extends ae {
+class Jn extends ae {
   constructor(e) {
     super(e);
     const { currentSource: t, sources: s } = e.config.preferences || {
@@ -5427,19 +5449,19 @@ class qn extends ae {
       throw Error("Invalid configuration in preferences. Check the configuration file.");
   }
   async set(e, t, { global: s = !1 } = {}) {
-    const n = await yt.apply(this);
-    s ? n.global[e] = t : (n.videos[this.player.videoId] = n.videos[this.player.videoId] || {}, n.videos[this.player.videoId][e] = t), await Zn.apply(this, [n]);
+    const n = await _t.apply(this);
+    s ? n.global[e] = t : (n.videos[this.player.videoId] = n.videos[this.player.videoId] || {}, n.videos[this.player.videoId][e] = t), await Yn.apply(this, [n]);
   }
   async get(e, { global: t = !1 } = {}) {
-    const s = await yt.apply(this);
+    const s = await _t.apply(this);
     return t ? s.global[e] : s.videos[this.player.videoId] && s.videos[this.player.videoId][e] || void 0;
   }
 }
-function Yn(i) {
+function Xn(i) {
   var e;
   (e = this._skinData) != null && e.configOverrides && ge(i, this._skinData.configOverrides);
 }
-async function Jn() {
+async function ea() {
   var i;
   if ((i = this._skinData) != null && i.styleSheets) {
     const e = [];
@@ -5448,14 +5470,14 @@ async function Jn() {
         if (this._externalResourcesAllowed) {
           const s = $([this._skinUrl, t]);
           e.push(new Promise(async (n) => {
-            await We(s, !1), n();
+            await je(s, !1), n();
           }));
         } else
           throw new Error("No external resources allowed loading skin object");
     }), await Promise.allSettled(e);
   }
 }
-async function Xn() {
+async function ta() {
   var i;
   if (this.player.__skinStyleSheets__ = this.player.__skinStyleSheets__ || [], (i = this._skinData) != null && i.styleSheets) {
     const e = [];
@@ -5468,19 +5490,19 @@ async function Xn() {
       else {
         const s = $([this._skinUrl, t]);
         e.push(new Promise(async (n) => {
-          const a = await We(s);
+          const a = await je(s);
           this.player.__skinStyleSheets__.push(a), n();
         }));
       }
     }), await Promise.allSettled(e);
   }
 }
-function _t() {
+function vt() {
   this.player.__skinStyleSheets__ = this.player.__skinStyleSheets__ || [], this.player.__skinStyleSheets__.forEach((i) => {
-    Rt(i);
+    Mt(i);
   }), this.player.__skinStyleSheets__ = [];
 }
-async function ea() {
+async function ia() {
   var i;
   Array.isArray((i = this._skinData) == null ? void 0 : i.icons) && await Promise.all(this._skinData.icons.map(({ plugin: e, identifier: t, icon: s }) => new Promise(async (n, a) => {
     const r = document.createElement("div");
@@ -5493,7 +5515,7 @@ async function ea() {
       throw new Error("No external resources allowed loading skin object");
   })));
 }
-async function ta() {
+async function sa() {
   var i;
   Array.isArray((i = this._skinData) == null ? void 0 : i.icons) && await Promise.all(this._skinData.icons.map(({ plugin: e, identifier: t, icon: s }) => new Promise(async (n, a) => {
     const r = document.createElement("div");
@@ -5509,7 +5531,7 @@ async function ta() {
     }
   })));
 }
-class ia {
+class na {
   constructor(e) {
     this._player = e;
   }
@@ -5518,7 +5540,7 @@ class ia {
   }
   async loadSkin(e) {
     if (typeof e == "string") {
-      this._skinUrl = ze(e), this._externalResourcesAllowed = !0;
+      this._skinUrl = Ke(e), this._externalResourcesAllowed = !0;
       const t = await fetch(e);
       if (!t.ok)
         throw new Error(`Error loading skin from URL ${e}`);
@@ -5526,7 +5548,7 @@ class ia {
     } else
       typeof e == "object" && (this._skinUrl = "", this._externalResourcesAllowed = !1, this._skinData = e);
     try {
-      await Jn.apply(this), await ea.apply(this), (this._player.state === v.LOADED || this._player.state === v.MANIFEST) && await this._player.reload();
+      await ea.apply(this), await ia.apply(this), (this._player.state === v.LOADED || this._player.state === v.MANIFEST) && await this._player.reload();
     } catch (t) {
       throw this._skinUrl = "", this._externalResourcesAllowed = !0, this._skinData = {}, t;
     }
@@ -5538,7 +5560,7 @@ class ia {
     })), this._skinUrl = null, this._skinData = {}, (this._player.state === v.LOADED || this._player.state === v.MANIFEST) && this._player.reload();
   }
 }
-class sa {
+class aa {
   constructor(e, t) {
     this._player = t, this._videoManifest = JSON.parse(JSON.stringify(e)), this._metadata = this._videoManifest.metadata || {}, this._streams = {}, this._frameList = {}, this._trimming = this._videoManifest.trimming, this._captions = this._videoManifest.captions, this._visibleTimeLine = this._videoManifest.visibleTimeLine;
     function s() {
@@ -5626,7 +5648,7 @@ class sa {
     return this._visibleTimeLine;
   }
 }
-const U = Object.freeze([
+const V = Object.freeze([
   "UNLOADED",
   "LOADING_MANIFEST",
   "MANIFEST",
@@ -5636,21 +5658,21 @@ const U = Object.freeze([
   "UNLOADING_PLAYER",
   "ERROR"
 ]);
-function vi() {
+function Ci() {
   var t, s, n, a, r, o, l, c;
   const i = ((s = (t = this.videoManifest) == null ? void 0 : t.metadata) == null ? void 0 : s.preview) && K(this, (a = (n = this.videoManifest) == null ? void 0 : n.metadata) == null ? void 0 : a.preview) || this.defaultVideoPreview, e = ((o = (r = this.videoManifest) == null ? void 0 : r.metadata) == null ? void 0 : o.previewPortrait) && K(this, (c = (l = this.videoManifest) == null ? void 0 : l.metadata) == null ? void 0 : c.previewPortrait) || this.defaultVideoPreviewPortrait;
-  this._previewContainer = new Bn(this, this._containerElement, i, e);
+  this._previewContainer = new Gn(this, this._containerElement, i, e);
 }
-async function vt() {
-  this._playerState = v.LOADING_MANIFEST, this._manifestLoaded = !0, this.log.debug("Loading paella player"), this._config = await this.initParams.loadConfig(this.configUrl, this), Yn.apply(this.skin, [this._config]), Bs(this), this._defaultVideoPreview = this._config.defaultVideoPreview || this._initParams.defaultVideoPreview || "", this._defaultVideoPreviewPortrait = this._config.defaultVideoPreviewPortrait || this._initParams.defaultVideoPreviewPortrait || "", this._cookieConsent = new jn(this, {
+async function wt() {
+  this._playerState = v.LOADING_MANIFEST, this._manifestLoaded = !0, this.log.debug("Loading paella player"), this._config = await this.initParams.loadConfig(this.configUrl, this), Xn.apply(this.skin, [this._config]), Gs(this), this._defaultVideoPreview = this._config.defaultVideoPreview || this._initParams.defaultVideoPreview || "", this._defaultVideoPreviewPortrait = this._config.defaultVideoPreviewPortrait || this._initParams.defaultVideoPreviewPortrait || "", this._cookieConsent = new Zn(this, {
     getConsent: this._initParams.getCookieConsentFunction,
     getDescription: this._initParams.getCookieDescriptionFunction
-  }), this._preferences = new qn(this);
+  }), this._preferences = new Jn(this);
   const i = new URLSearchParams(window.location.search), e = new URLSearchParams();
   for (const [n, a] of i)
     e.append(n.toLowerCase(), a);
   const t = e.get("loglevel"), s = t && Array.from(Object.keys(P)).indexOf(t.toUpperCase()) !== -1 ? t : this._config.logLevel || "INFO";
-  this._log.setLevel(s), await this._initParams.loadDictionaries(this), Tn(this), await Kn(this), await Cs(this), this._videoContainer = new Un(this, this._containerElement), await this.videoContainer.create();
+  this._log.setLevel(s), await this._initParams.loadDictionaries(this), xn(this), await jn(this), await Ls(this), this._videoContainer = new Nn(this, this._containerElement), await this.videoContainer.create();
   for (const n of this.pluginModules) {
     const a = n.getDictionaries && await n.getDictionaries();
     if (a)
@@ -5658,36 +5680,36 @@ async function vt() {
         pe(r, a[r]);
   }
 }
-async function wt() {
+async function Ct() {
   var i, e;
-  this.log.debug("Video manifest loaded:"), this.log.debug(this.videoManifest), this._data = new wn(this);
-  for (const t in ft) {
-    const s = ft[t];
+  this.log.debug("Video manifest loaded:"), this.log.debug(this.videoManifest), this._data = new bn(this);
+  for (const t in yt) {
+    const s = yt[t];
     pe(t, s);
   }
   if (this._playerState = v.MANIFEST, C(this, f.MANIFEST_LOADED), (e = (i = this.videoManifest) == null ? void 0 : i.metadata) != null && e.preview)
-    vi.apply(this);
+    Ci.apply(this);
   else
     throw new Error("No preview image found in video manifest, and no default preview image defined.");
-  xn(this._videoManifest), __paella_instances__.length === 1 && (this._loadKeypressHandler = this._loadKeypressHandler || (async (t) => {
+  Dn(this._videoManifest), __paella_instances__.length === 1 && (this._loadKeypressHandler = this._loadKeypressHandler || (async (t) => {
     /space/i.test(t.code) && await this.play();
   }), window.addEventListener("keypress", this._loadKeypressHandler, !0));
 }
-class ua {
+class ha {
   constructor(e, t = {}) {
-    this._log = new Qn(this), this._packageData = fe, this._log.setLevel(P.VERBOSE), window.__paella_instances__ = window.__paella_instances__ || [], window.__paella_instances__.push(this), this.log.debug("New paella player instance"), typeof e == "string" && (e = document.getElementById(e)), e.classList.add("player-container"), this.log.debug("Loading skin manager"), this._skin = new ia(this), this._containerElement = e, this._initParams = t, this._initParams.manifestFileName = this._initParams.manifestFileName || "data.json", this._initParams.loadConfig = this._initParams.loadConfig || Si, this._initParams.getVideoId = this._initParams.getVideoId || Ti, this._initParams.getManifestUrl = this._initParams.getManifestUrl || Ii, this._initParams.getManifestFileUrl = this._initParams.getManifestFileUrl || xi, this._initParams.loadVideoManifest = this._initParams.loadVideoManifest || ki, this._initParams.customPluginContext = this._initParams.customPluginContext || [], this._initParams.translateFunction = this._initParams.translateFunction || Bt, this._initParams.getLanguageFunction = this._initParams.getLanguageFunction || Gt, this._initParams.setLanguageFunction = this._initParams.setLanguageFunction || Ht, this._initParams.addDictionaryFunction = this._initParams.addDictionaryFunction || zt, this._initParams.getDictionariesFunction = this._initParams.getDictionariesFunction || Kt, this._initParams.getDefaultLanguageFunction = this._initParams.getDefaultLanguageFunction || Wt, this._initParams.Loader = this._initParams.customLoader || Ai, this._initParams.getCookieConsentFunction = this._initParams.getCookieConsentFunction || gi, this._initParams.getCookieDescriptionFunction = this._initParams.getCookieDescriptionFunction || mi, this._initParams.loadDictionaries = this._initParams.loadDictionaries || async function(a) {
+    this._log = new qn(this), this._packageData = ye, this._log.setLevel(P.VERBOSE), window.__paella_instances__ = window.__paella_instances__ || [], window.__paella_instances__.push(this), this.log.debug("New paella player instance"), typeof e == "string" && (e = document.getElementById(e)), e.classList.add("player-container"), this.log.debug("Loading skin manager"), this._skin = new na(this), this._containerElement = e, this._initParams = t, this._initParams.manifestFileName = this._initParams.manifestFileName || "data.json", this._initParams.loadConfig = this._initParams.loadConfig || Ii, this._initParams.getVideoId = this._initParams.getVideoId || xi, this._initParams.getManifestUrl = this._initParams.getManifestUrl || ki, this._initParams.getManifestFileUrl = this._initParams.getManifestFileUrl || Di, this._initParams.loadVideoManifest = this._initParams.loadVideoManifest || Ai, this._initParams.customPluginContext = this._initParams.customPluginContext || [], this._initParams.translateFunction = this._initParams.translateFunction || Gt, this._initParams.getLanguageFunction = this._initParams.getLanguageFunction || Kt, this._initParams.setLanguageFunction = this._initParams.setLanguageFunction || zt, this._initParams.addDictionaryFunction = this._initParams.addDictionaryFunction || Wt, this._initParams.getDictionariesFunction = this._initParams.getDictionariesFunction || jt, this._initParams.getDefaultLanguageFunction = this._initParams.getDefaultLanguageFunction || Qt, this._initParams.Loader = this._initParams.customLoader || Mi, this._initParams.getCookieConsentFunction = this._initParams.getCookieConsentFunction || fi, this._initParams.getCookieDescriptionFunction = this._initParams.getCookieDescriptionFunction || yi, this._initParams.loadDictionaries = this._initParams.loadDictionaries || async function(a) {
       pe("en", {
         Hello: "Hello",
         World: "World"
       }), pe("es", {
         Hello: "Hola",
         World: "Mundo"
-      }), ct(navigator.language.substring(0, 2));
+      }), ut(navigator.language.substring(0, 2));
     };
     const s = this._initParams.plugins || [];
     this._initParams.plugins = [
       ...s
-    ], Us(this._initParams.translateFunction), Vs(this._initParams.setLanguageFunction), Ns(this._initParams.getLanguageFunction), Os(this._initParams.addDictionaryFunction), Fs(this._initParams.getDictionariesFunction), $s(this._initParams.getDefaultLanguageFunction), this._config = null, this._defaultVideoPreview = "", this._defaultVideoPreviewPortrait = "", this._videoId = null, this._manifestUrl = null, this._manifestFileUrl = null, this._manifestData = null, this._videoManifest = null, this._playerLoaded = !1;
+    ], Ns(this._initParams.translateFunction), Os(this._initParams.setLanguageFunction), Fs(this._initParams.getLanguageFunction), $s(this._initParams.addDictionaryFunction), Bs(this._initParams.getDictionariesFunction), Hs(this._initParams.getDefaultLanguageFunction), this._config = null, this._defaultVideoPreview = "", this._defaultVideoPreviewPortrait = "", this._videoId = null, this._manifestUrl = null, this._manifestFileUrl = null, this._manifestData = null, this._videoManifest = null, this._playerLoaded = !1;
     const n = () => {
       this.resize();
     };
@@ -5711,7 +5733,7 @@ class ua {
     return this._playerState;
   }
   get stateText() {
-    return U[this.state];
+    return V[this.state];
   }
   get Events() {
     return f;
@@ -5726,25 +5748,25 @@ class ua {
     return ne(e, t);
   }
   setLanguage(e) {
-    ct(e);
+    ut(e);
   }
   getLanguage() {
-    return Rs();
+    return Us();
   }
   addDictionary(e, t) {
     pe(e, t);
   }
   getDictionaries() {
-    return Ms();
+    return Vs();
   }
   getDefaultLanguage() {
-    return Xt(this);
+    return ti(this);
   }
   bindEvent(e, t, s = !0) {
     k(this, e, (n) => t(n), s);
   }
   getShortcuts() {
-    return ws(this);
+    return bs(this);
   }
   getPlugin(e, t = null) {
     if (t) {
@@ -5863,7 +5885,7 @@ class ua {
     return v;
   }
   get PlayerStateNames() {
-    return U;
+    return V;
   }
   // Manifest query functions
   get metadata() {
@@ -5900,19 +5922,19 @@ class ua {
   }
   async loadUrl(e, { title: t, duration: s, preview: n, previewPortrait: a } = {}) {
     if (this._playerState !== v.UNLOADED)
-      throw new Error(this.translate("loadUrl(): Invalid current player state: $1", [U[this._playerState]]));
+      throw new Error(this.translate("loadUrl(): Invalid current player state: $1", [V[this._playerState]]));
     if (this._manifestLoaded)
-      throw new Error(this.translate("loadUrl(): Invalid current player state: $1", [U[this._playerState]]));
+      throw new Error(this.translate("loadUrl(): Invalid current player state: $1", [V[this._playerState]]));
     if (!e)
       throw new Error(this.translate("loadUrl(): No URL specified."));
-    Array.isArray(e) || (e = [e]), t || (t = Ce(e[0]), this.log.warn("Paella.loadUrl(): no title specified. Using URL file name as video name."));
+    Array.isArray(e) || (e = [e]), t || (t = Le(e[0]), this.log.warn("Paella.loadUrl(): no title specified. Using URL file name as video name."));
     try {
-      if (await vt.apply(this), !n && (this.defaultVideoPreview !== "" || this.defaultVideoPreviewPortrait !== ""))
+      if (await wt.apply(this), !n && (this.defaultVideoPreview !== "" || this.defaultVideoPreviewPortrait !== ""))
         n = this.defaultVideoPreview, a = this.defaultVideoPreviewPortrait, this.log.warn("Paella.loadUrl(): no preview image specified. Using default preview image.");
       else if (!n && !a)
         throw new Error("Paella.loadUrl(): no preview image specified and no default preview image configured.");
-      this._videoId = Tt(Ce(e[0])), this._manifestUrl = ze(e[0]), this._manifestFileUrl = e[0], this.log.debug(`Loading video with identifier '${this.videoId}' from URL '${this.manifestFileUrl}'`);
-      const r = Ys(this, e.length)[0];
+      this._videoId = It(Le(e[0])), this._manifestUrl = Ke(e[0]), this._manifestFileUrl = e[0], this.log.debug(`Loading video with identifier '${this.videoId}' from URL '${this.manifestFileUrl}'`);
+      const r = Xs(this, e.length)[0];
       this._videoManifest = {
         metadata: {
           duration: s,
@@ -5921,35 +5943,35 @@ class ua {
           previewPortrait: a
         },
         streams: e.map((o, l) => ({
-          sources: Dn(this, o),
+          sources: Rn(this, o),
           content: r[l],
           role: l === 0 ? "mainAudio" : null
         }))
-      }, await wt.apply(this);
+      }, await Ct.apply(this);
     } catch (r) {
-      throw this._playerState = v.ERROR, this.log.error(r), this._errorContainer = new xe(this, this.translate(r.message)), r;
+      throw this._playerState = v.ERROR, this.log.error(r), this._errorContainer = new ke(this, this.translate(r.message)), r;
     }
   }
   async loadManifest() {
     if (this._playerState !== v.UNLOADED)
-      throw new Error(this.translate("loadManifest(): Invalid current player state: $1", [U[this._playerState]]));
+      throw new Error(this.translate("loadManifest(): Invalid current player state: $1", [V[this._playerState]]));
     if (!this._manifestLoaded)
       try {
-        if (await vt.apply(this), this._videoId = await this.initParams.getVideoId(this._config, this), this.videoId === null)
+        if (await wt.apply(this), this._videoId = await this.initParams.getVideoId(this._config, this), this.videoId === null)
           throw new Error("No video identifier specified");
-        this._manifestUrl = await this.initParams.getManifestUrl(this.repositoryUrl, this.videoId, this._config, this), this._manifestFileUrl = await this.initParams.getManifestFileUrl(this._manifestUrl, this.manifestFileName, this._config, this), this.log.debug(`Loading video with identifier '${this.videoId}' from URL '${this.manifestFileUrl}'`), this._videoManifest = await this.initParams.loadVideoManifest(this.manifestFileUrl, this._config, this), this._videoManifest.metadata = this._videoManifest.metadata || {}, !this._videoManifest.metadata.preview && (this.defaultVideoPreview !== "" || this.defaultVideoPreviewPortrait !== "") && (this._videoManifest.metadata.preview = this.defaultVideoPreview, this._videoManifest.metadata.previewPortrait = this.defaultVideoPreviewPortrait, this.log.warn("Paella.loadUrl(): no preview image specified. Using default preview image.")), this._manifestParser = new sa(this.videoManifest, this), _t.apply(this.skin), await ta.apply(this.skin), await Xn.apply(this.skin), await wt.apply(this);
+        this._manifestUrl = await this.initParams.getManifestUrl(this.repositoryUrl, this.videoId, this._config, this), this._manifestFileUrl = await this.initParams.getManifestFileUrl(this._manifestUrl, this.manifestFileName, this._config, this), this.log.debug(`Loading video with identifier '${this.videoId}' from URL '${this.manifestFileUrl}'`), this._videoManifest = await this.initParams.loadVideoManifest(this.manifestFileUrl, this._config, this), this._videoManifest.metadata = this._videoManifest.metadata || {}, !this._videoManifest.metadata.preview && (this.defaultVideoPreview !== "" || this.defaultVideoPreviewPortrait !== "") && (this._videoManifest.metadata.preview = this.defaultVideoPreview, this._videoManifest.metadata.previewPortrait = this.defaultVideoPreviewPortrait, this.log.warn("Paella.loadUrl(): no preview image specified. Using default preview image.")), this._manifestParser = new aa(this.videoManifest, this), vt.apply(this.skin), await sa.apply(this.skin), await ta.apply(this.skin), await Ct.apply(this);
       } catch (e) {
-        throw this._playerState = v.ERROR, this.log.error(e), this._errorContainer = new xe(this, this.translate(e.message)), e;
+        throw this._playerState = v.ERROR, this.log.error(e), this._errorContainer = new ke(this, this.translate(e.message)), e;
       }
   }
   async loadPlayer() {
     var e, t, s;
     try {
-      if (this._captionsCanvas = new zn(this, this._containerElement), this._playerState !== v.MANIFEST)
-        throw new Error(this.translate("loadPlayer(): Invalid current player state: $1", [U[this._playerState]]));
-      this._playerState = v.LOADING_PLAYER, (e = this._previewContainer) == null || e.removeFromParent(), this._loader = new this.initParams.Loader(this), await this._loader.create(), await this.videoContainer.load((t = this.videoManifest) == null ? void 0 : t.streams), C(this, f.STREAM_LOADED), this._playbackBar = new Hn(this, this.containerElement), await this._playbackBar.load(), this._hideUiTime = ((s = this.config.ui) == null ? void 0 : s.hideUITimer) ?? 5e3, kt(this), this._captionsCanvas.load(), this._playerState = v.LOADED, C(this, f.PLAYER_LOADED), !(this.videoManifest.metadata.visibleTimeLine ?? !0) && this.playbackBar.progressIndicator.hideTimeLine(), this._loader.debug || (this._loader.removeFromParent(), this._loader = null);
+      if (this._captionsCanvas = new Wn(this, this._containerElement), this._playerState !== v.MANIFEST)
+        throw new Error(this.translate("loadPlayer(): Invalid current player state: $1", [V[this._playerState]]));
+      this._playerState = v.LOADING_PLAYER, (e = this._previewContainer) == null || e.removeFromParent(), this._loader = new this.initParams.Loader(this), await this._loader.create(), await this.videoContainer.load((t = this.videoManifest) == null ? void 0 : t.streams), C(this, f.STREAM_LOADED), this._playbackBar = new zn(this, this.containerElement), await this._playbackBar.load(), this._hideUiTime = ((s = this.config.ui) == null ? void 0 : s.hideUITimer) ?? 5e3, Dt(this), this._captionsCanvas.load(), this._playerState = v.LOADED, C(this, f.PLAYER_LOADED), !(this.videoManifest.metadata.visibleTimeLine ?? !0) && this.playbackBar.progressIndicator.hideTimeLine(), this._loader.debug || (this._loader.removeFromParent(), this._loader = null);
     } catch (n) {
-      throw this._playerState = v.ERROR, this._loader && (this._loader.removeFromParent(), this._loader = null), this._errorContainer = new xe(this, n.message), n;
+      throw this._playerState = v.ERROR, this._loader && (this._loader.removeFromParent(), this._loader = null), this._errorContainer = new ke(this, n.message), n;
     }
   }
   async load() {
@@ -5963,7 +5985,7 @@ class ua {
       case v.LOADED:
         break;
       default:
-        throw new Error(this.translate("Could not load player: state transition in progress: $1", [U[this.state]]));
+        throw new Error(this.translate("Could not load player: state transition in progress: $1", [V[this.state]]));
     }
   }
   async unload() {
@@ -5978,20 +6000,20 @@ class ua {
         await this.unloadPlayer(), await this.unloadManifest();
         break;
       default:
-        throw new Error(this.translate("Could not unload player: state transition in progress: $1", [U[this.state]]));
+        throw new Error(this.translate("Could not unload player: state transition in progress: $1", [V[this.state]]));
     }
   }
   async unloadManifest() {
     var e;
     if (this._playerState !== v.MANIFEST && this._playerState !== v.ERROR)
-      throw new Error(this.translate("unloadManifest(): Invalid current player state: $1", [U[this._playerState]]));
-    this._errorContainer && (this._errorContainer.removeFromParent(), this._errorContainer = null), this._playerState = v.UNLOADING_MANIFEST, this.log.debug("Unloading paella player"), await Wn(), await bs(this), await In(this), this._manifestLoaded = !1, (e = this._previewContainer) == null || e.removeFromParent(), this._preferences = null, this._playerState = v.UNLOADED, _t.apply(this.skin);
+      throw new Error(this.translate("unloadManifest(): Invalid current player state: $1", [V[this._playerState]]));
+    this._errorContainer && (this._errorContainer.removeFromParent(), this._errorContainer = null), this._playerState = v.UNLOADING_MANIFEST, this.log.debug("Unloading paella player"), await Qn(), await Es(this), await kn(this), this._manifestLoaded = !1, (e = this._previewContainer) == null || e.removeFromParent(), this._preferences = null, this._playerState = v.UNLOADED, vt.apply(this.skin);
   }
   async unloadPlayer() {
     var e, t, s, n, a;
     if (this._playerState !== v.LOADED && this._playerState !== v.ERROR)
-      throw new Error(this.translate("unloadManifest(): Invalid current player state: $1", [U[this._playerState]]));
-    this._errorContainer && (this._errorContainer.removeFromParent(), this._errorContainer = null), this._playerState = v.UNLOADING_PLAYER, await ((e = this._videoContainer) == null ? void 0 : e.unload()), this._videoContainer = null, await ((t = this._playbackBar) == null ? void 0 : t.unload()), this._playbackBar = null, (s = this._captionsCanvas) == null || s.unload(), this._captionsCanvas = null, Dt(this), C(this, f.PLAYER_UNLOADED), D.Unload(), he.Unload(this), (a = (n = this.videoManifest) == null ? void 0 : n.metadata) != null && a.preview && vi.apply(this), wi(this), this._playerState = v.MANIFEST;
+      throw new Error(this.translate("unloadManifest(): Invalid current player state: $1", [V[this._playerState]]));
+    this._errorContainer && (this._errorContainer.removeFromParent(), this._errorContainer = null), this._playerState = v.UNLOADING_PLAYER, await ((e = this._videoContainer) == null ? void 0 : e.unload()), this._videoContainer = null, await ((t = this._playbackBar) == null ? void 0 : t.unload()), this._playbackBar = null, (s = this._captionsCanvas) == null || s.unload(), this._captionsCanvas = null, At(this), C(this, f.PLAYER_UNLOADED), D.Unload(), he.Unload(this), (a = (n = this.videoManifest) == null ? void 0 : n.metadata) != null && a.preview && Ci.apply(this), bi(this), this._playerState = v.MANIFEST;
   }
   async reload(e = null) {
     switch (this.state) {
@@ -6073,7 +6095,7 @@ class ua {
     return this._requestedCustomIcons || [];
   }
 }
-class da extends Ge {
+class pa extends ze {
   get closeOnSelect() {
     return this.config.closeOnSelect === void 0 && (this.buttonType !== "check" ? this.config.closeOnSelect = !0 : this.config.closeOnSelect = !1), this.config.closeOnSelect;
   }
@@ -6153,7 +6175,7 @@ class da extends Ge {
     this.refreshContent = !0, await super.showPopUp();
   }
 }
-class ha extends W {
+class ga extends W {
   get type() {
     return "progressIndicator";
   }
@@ -6172,99 +6194,99 @@ class ha extends W {
   }
 }
 export {
-  ns as AudioOnlyVideo,
-  at as AudioTrackData,
-  as as AudioVideoPlugin,
-  Pn as ButtonGroupPlugin,
-  ti as ButtonPlugin,
-  ai as Canvas,
-  oa as CanvasButtonPlugin,
+  rs as AudioOnlyVideo,
+  rt as AudioTrackData,
+  os as AudioVideoPlugin,
+  Tn as ButtonGroupPlugin,
+  si as ButtonPlugin,
+  oi as Canvas,
+  ca as CanvasButtonPlugin,
   L as CanvasButtonPosition,
-  ri as CanvasPlugin,
-  Ft as Captions,
-  Ot as CaptionsPlugin,
-  Ds as DFXPParser,
-  wn as Data,
-  li as DataPlugin,
-  xs as DefaultKeyShortcutsPlugin,
-  As as DfxpManifestCaptionsPlugin,
-  M as DomClass,
-  pt as DualVideoDynamicLayoutPlugin,
-  ln as DualVideoLayoutPlugin,
-  ca as EventLogPlugin,
+  li as CanvasPlugin,
+  Bt as Captions,
+  $t as CaptionsPlugin,
+  Rs as DFXPParser,
+  bn as Data,
+  ui as DataPlugin,
+  Ds as DefaultKeyShortcutsPlugin,
+  Ms as DfxpManifestCaptionsPlugin,
+  U as DomClass,
+  gt as DualVideoDynamicLayoutPlugin,
+  un as DualVideoLayoutPlugin,
+  da as EventLogPlugin,
   f as Events,
   T as HlsSupport,
-  Vt as HlsVideo,
-  ls as HlsVideoFormatPlugin,
-  fs as ImageVideo,
-  ys as ImageVideoFormatPlugin,
+  Ot as HlsVideo,
+  us as HlsVideoFormatPlugin,
+  _s as ImageVideo,
+  vs as ImageVideoFormatPlugin,
   x as KeyCodes,
-  Ls as KeyShortcutPlugin,
+  Ps as KeyShortcutPlugin,
   P as LOG_LEVEL,
-  Ai as Loader,
-  Qn as Log,
-  sa as ManifestParser,
-  da as MenuButtonPlugin,
-  Qe as Mp4Video,
-  rs as Mp4VideoFormatPlugin,
-  ua as Paella,
-  Ks as PlayPauseButtonPlugin,
+  Mi as Loader,
+  qn as Log,
+  aa as ManifestParser,
+  pa as MenuButtonPlugin,
+  Ze as Mp4Video,
+  ls as Mp4VideoFormatPlugin,
+  ha as Paella,
+  js as PlayPauseButtonPlugin,
   ae as PlayerResource,
   v as PlayerState,
-  U as PlayerStateNames,
+  V as PlayerStateNames,
   W as Plugin,
-  Ee as PluginModule,
+  Se as PluginModule,
   D as PopUp,
-  Ge as PopUpButtonPlugin,
-  ha as ProgressIndicatorPlugin,
-  dn as SingleVideoLayoutPlugin,
-  mn as TripleVideoLayoutPlugin,
-  qe as UserInterfacePlugin,
-  je as Video,
-  _n as VideoCanvas,
-  vn as VideoCanvasPlugin,
+  ze as PopUpButtonPlugin,
+  ga as ProgressIndicatorPlugin,
+  pn as SingleVideoLayoutPlugin,
+  yn as TripleVideoLayoutPlugin,
+  Ye as UserInterfacePlugin,
+  Qe as Video,
+  wn as VideoCanvas,
+  Cn as VideoCanvasPlugin,
   S as VideoContainerMessagePosition,
   le as VideoLayout,
   re as VideoPlugin,
   te as VideoQualityItem,
-  qs as VttManifestCaptionsPlugin,
-  Zs as WebVTTParser,
+  Js as VttManifestCaptionsPlugin,
+  Ys as WebVTTParser,
   pe as addDictionary,
   k as bindEvent,
-  xn as checkManifestIntegrity,
-  Ct as createElement,
+  Dn as checkManifestIntegrity,
+  bt as createElement,
   w as createElementWithHtmlText,
-  zt as defaultAddDictionaryFunction,
-  gi as defaultGetCookieConsentCallback,
-  mi as defaultGetCookieDescriptionCallback,
-  Wt as defaultGetDefaultLanguageFunction,
-  Kt as defaultGetDictionariesFunction,
-  Gt as defaultGetLanguageFunction,
-  xi as defaultGetManifestFileUrlFunction,
-  Ii as defaultGetManifestUrlFunction,
-  Ti as defaultGetVideoIdFunction,
-  rt as defaultHlsConfig,
-  Si as defaultLoadConfigFunction,
-  ki as defaultLoadVideoManifestFunction,
-  Ht as defaultSetLanguageFunction,
-  Bt as defaultTranslateFunction,
-  ra as getCurrentTabIndex,
-  Xt as getDefaultLanguage,
-  Ms as getDictionaries,
-  V as getHlsSupport,
-  Rs as getLanguage,
-  ei as getNextTabIndex,
-  ci as getPluginsOfType,
-  ws as getShortcuts,
-  la as importPlugins,
-  Oi as isVolumeApiAvailable,
-  R as loadPluginsOfType,
+  Wt as defaultAddDictionaryFunction,
+  fi as defaultGetCookieConsentCallback,
+  yi as defaultGetCookieDescriptionCallback,
+  Qt as defaultGetDefaultLanguageFunction,
+  jt as defaultGetDictionariesFunction,
+  Kt as defaultGetLanguageFunction,
+  Di as defaultGetManifestFileUrlFunction,
+  ki as defaultGetManifestUrlFunction,
+  xi as defaultGetVideoIdFunction,
+  ot as defaultHlsConfig,
+  Ii as defaultLoadConfigFunction,
+  Ai as defaultLoadVideoManifestFunction,
+  zt as defaultSetLanguageFunction,
+  Gt as defaultTranslateFunction,
+  la as getCurrentTabIndex,
+  ti as getDefaultLanguage,
+  Vs as getDictionaries,
+  N as getHlsSupport,
+  Us as getLanguage,
+  ii as getNextTabIndex,
+  di as getPluginsOfType,
+  bs as getShortcuts,
+  ua as importPlugins,
+  $i as isVolumeApiAvailable,
+  M as loadPluginsOfType,
   q as log,
-  lt as parseDFXP,
-  ht as parseWebVTT,
-  ct as setLanguage,
+  ct as parseDFXP,
+  pt as parseWebVTT,
+  ut as setLanguage,
   ne as translate,
   C as triggerEvent,
   ee as triggerIfReady,
-  aa as utils
+  oa as utils
 };

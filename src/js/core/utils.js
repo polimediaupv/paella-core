@@ -315,3 +315,21 @@ export function mergeObjects(baseData, extendData, mergeArrays = true) {
         }
     }
 }
+
+export function sanitizeHTML(html, { excludedTags = null } = {}) {
+    const div = document.createElement('div');
+    div.innerHTML = html;
+
+    const exclude = ["script"];
+    if (excludedTags) {
+        exclude.push(...excludedTags);
+    }
+    
+    exclude.flatMap(tag => Array.from(div.getElementsByTagName(tag)))
+        .forEach(tag => {
+            const parent = tag.parentElement;
+            parent.removeChild(tag)
+        });
+
+    return div.innerHTML;
+}

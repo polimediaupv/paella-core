@@ -214,8 +214,31 @@
 	border: none;
 	box-sizing: border-box;
 	display: flex;
+	gap: 3px;
 	align-items: center;
 	justify-content: center;
+}
+
+.playback-bar ul > li > button.fixed-width {
+	display: grid;
+	grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+	align-items: center;
+    justify-items: center;
+}
+
+.playback-bar ul > li > button.fixed-width > i {
+	grid-column-start: 1;
+	grid-row-start: 1;
+	z-index: 1;
+}
+
+.playback-bar ul > li > button.fixed-width > span {
+	grid-column-start: 1;
+	grid-row-start: 1;
+	z-index: 1;
+	color: var(--main-fg-color);
+	text-shadow: 0px 0px 2px var(--main-bg-color);
 }
 
 .playback-bar ul > li > button.dynamic-width {
@@ -239,11 +262,16 @@
 }
 
 .playback-bar ul > li > button > i {
-	width: var(--button-icon-size);
+	width: 90%;
+	height: 90%;
 	fill: var(--main-fg-color);
 	display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.playback-bar ul > li > button > i > svg {
+	height: 100%;
 }
 
 button > i > svg path {
