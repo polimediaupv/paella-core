@@ -3,7 +3,10 @@ import { DomClass, createElementWithHtmlText } from './dom';
 import { loadPluginsOfType, unloadPluginsOfType } from './plugin_tools'
 import { addButtonPlugin } from './ButtonPlugin';
 import { pauseAutoHideUiTimer, resumeAutoHideUiTimer } from './utils';
-import { createProgressIndicator } from './progress-indicator';
+import { createProgressIndicator } from './progress-indicator.js';
+import PlaybackBarPopUp from './PlaybackBarPopUp.js';
+
+// TODO: Deprecated. Remove all references to PopUp
 import PopUp from './PopUp';
 
 export default class PlaybackBar extends DomClass {
@@ -11,6 +14,8 @@ export default class PlaybackBar extends DomClass {
 		const inlineMode = player.config.progressIndicator?.inlineMode ?? false;
 		const attributes = { "class": "playback-bar" };
 		super(player, { attributes, parent });
+
+		this._popUp = new PlaybackBarPopUp(this);
 
 		this.element.addEventListener('mouseenter', () => pauseAutoHideUiTimer(player));
 		this.element.addEventListener('mouseleave', () => resumeAutoHideUiTimer(player));
@@ -39,6 +44,10 @@ export default class PlaybackBar extends DomClass {
 		});
 
 		this._enabled = true;
+	}
+
+	get popUp() {
+		return this._popUp;
 	}
 
 	get enabled() {

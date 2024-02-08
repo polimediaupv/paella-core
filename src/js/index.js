@@ -23,7 +23,6 @@ import PopUpButtonPlugin from './core/PopUpButtonPlugin';
 import MenuButtonPlugin from './core/MenuButtonPlugin';
 import VideoLayout from './core/VideoLayout';
 import VideoPlugin, { Video, isVolumeApiAvailable } from './core/VideoPlugin';
-import ProgressIndicatorPlugin from './core/ProgressIndicatorPlugin';
 import Events, { bindEvent, triggerEvent, triggerIfReady } from './core/Events';
 import PlayerResource from './core/PlayerResource';
 import CanvasPlugin, { CanvasButtonPosition, Canvas } from './core/CanvasPlugin';
@@ -135,7 +134,6 @@ export {
     MenuButtonPlugin,
     VideoLayout,
     VideoPlugin,
-    ProgressIndicatorPlugin,
     Video,
     Canvas,
     CanvasButtonPosition,
