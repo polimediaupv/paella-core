@@ -9,6 +9,7 @@ import DefaultKeyShortcutsPlugin from "./plugins/es.upv.paella.defaultShortcuts"
 import DfxpManifestCaptionsPlugin from "./plugins/es.upv.paella.dfxpManifestCaptionsPlugin";
 import PlayPauseButtonPlugin from "./plugins/es.upv.paella.playPauseButton";
 import VttManifestCaptionsPlugin from "./plugins/es.upv.paella.vttManifestCaptionsPlugin";
+import CurrentTimeLabelPlugin from "./plugins/es.upv.paella.currentTimeLabelPlugin";
 
 import DualVideoDynamicLayout from "./layouts/es.upv.paella.dualVideoDynamic";
 import DualVideoLayout from "./layouts/es.upv.paella.dualVideo";
@@ -80,6 +81,12 @@ export default [
     },
     {
         plugin: VttManifestCaptionsPlugin,
+        config: {
+            enabled: false
+        }
+    },
+    {
+        plugin: CurrentTimeLabelPlugin,
         config: {
             enabled: false
         }

@@ -78,7 +78,7 @@ import AudioVideoPlugin, { AudioOnlyVideo } from './videoFormats/es.upv.paella.a
 
 // Buttons
 import PlayPauseButtonPlugin from './plugins/es.upv.paella.playPauseButton';
-
+import CurrentTimeLabelPlugin from './plugins/es.upv.paella.currentTimeLabelPlugin';
 // Shortcuts
 import DefaultKeyShortcutsPlugin from './plugins/es.upv.paella.defaultShortcuts';
 
@@ -209,6 +209,7 @@ export {
     DefaultKeyShortcutsPlugin,
 
     PlayPauseButtonPlugin,
+    CurrentTimeLabelPlugin,
 
     VttManifestCaptionsPlugin,
     DfxpManifestCaptionsPlugin,

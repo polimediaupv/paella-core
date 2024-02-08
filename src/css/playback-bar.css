@@ -274,7 +274,68 @@
 	height: 100%;
 }
 
-button > i > svg path {
+.playback-bar i > svg path {
 	fill: var(--main-fg-color);
 }
 
+/* non-interactive buttons */
+.playback-bar ul > li > div {
+	height: var(--button-fixed-height);
+	background: none;
+	border: none;
+	box-sizing: border-box;
+	display: flex;
+	gap: 3px;
+	align-items: center;
+	justify-content: center;
+}
+
+.playback-bar ul > li > div.fixed-width {
+	display: grid;
+	grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+	align-items: center;
+    justify-items: center;
+}
+
+.playback-bar ul > li > div.fixed-width > i {
+	grid-column-start: 1;
+	grid-row-start: 1;
+	z-index: 1;
+}
+
+.playback-bar ul > li > div.fixed-width > span {
+	grid-column-start: 1;
+	grid-row-start: 1;
+	z-index: 1;
+	color: var(--main-fg-color);
+	text-shadow: 0px 0px 2px var(--main-bg-color);
+}
+
+.playback-bar ul > li > div.dynamic-width {
+	width: auto;
+}
+
+.playback-bar ul > li > div.fixed-width {
+	width: var(--button-fixed-width);
+}
+
+.playback-bar ul > li > div > span {
+	color: var(--main-fg-color);
+    text-wrap: nowrap;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+.playback-bar ul > li > div > i {
+	width: 90%;
+	height: 90%;
+	fill: var(--main-fg-color);
+	display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.playback-bar ul > li > div > i > svg {
+	height: 100%;
+}

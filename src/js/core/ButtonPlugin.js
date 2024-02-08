@@ -43,9 +43,13 @@ export async function addButtonPlugin(plugin, buttonAreaElem) {
 
 	if (plugin.interactive) {
 		const button = createElementWithHtmlText(`
-			<button type="button" ${id}${name}class="${ plugin.className } ${ fixedSizeClass }" tabindex="${ tabIndex }" aria-label="${ ariaLabel }" title="${ description }">
+			<button type="button" ${id}${name}class="${ fixedSizeClass }" tabindex="${ tabIndex }" aria-label="${ ariaLabel }" title="${ description }">
 			</button>
 		`, parent);
+
+		if (plugin.className !== "") {
+			button.classList.add(plugin.className);
+		}
 
 		plugin._button = button;
 		plugin._container = parent;
@@ -128,10 +132,14 @@ export async function addButtonPlugin(plugin, buttonAreaElem) {
 				} 
 			});
 		}
+
+		if (plugin.className !== "") {
+			button.classList.add(plugin.className);
+		}
 	}
 	else {
 		const button = createElementWithHtmlText(`
-			<div ${id}${name} class="button-plugin ${ plugin.className } non-interactive ${ fixedSizeClass } no-icon" title="${ description }">
+			<div ${id}${name} class="non-interactive ${ fixedSizeClass }" title="${ description }">
 			</div>
 		`, parent);
 
@@ -139,6 +147,10 @@ export async function addButtonPlugin(plugin, buttonAreaElem) {
 		plugin._container = parent;
 		button._pluginData = plugin;
 		parent._pluginData = plugin;
+
+		if (plugin.className !== "") {
+			button.classList.add(plugin.className);
+		}
 	}
 }
 
