@@ -1,6 +1,5 @@
 
 import KeyShortcutPlugin, { KeyCodes } from "../core/KeyShortcutPlugin";
-import PopUp from "../core/PopUp";
 import { VideoContainerMessagePosition } from "../core/VideoContainerMessage";
 
 import defaultVolumeMuteIcon from "../../icons/volume-mute"
@@ -8,7 +7,6 @@ import defaultVolumeLowIcon from "../../icons/volume-low"
 import defaultVolumeMidIcon from "../../icons/volume-mid"
 import defaultVolumeHighIcon from "../../icons/volume-high"
 import PlayerState from "../core/PlayerState";
-import TimeLinePopUp from "../core/TimeLinePopUp";
 
 import PaellaCorePlugins from "./PaellaCorePlugins";
 
@@ -108,9 +106,7 @@ export default class DefaultKeyShortcutsPlugin extends KeyShortcutPlugin {
     }
 
     closePopUp() {
-        if (!PopUp.HideTopPopUp() && !TimeLinePopUp.HideAll(this.player)) {
-            document.activeElement?.blur()
-        }
+        
     }
 
     async decreaseSpeed() {

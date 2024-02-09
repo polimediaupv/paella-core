@@ -1,6 +1,5 @@
 
 import Events, { bindEvent } from './Events';
-import PopUp from './PopUp';
 
 export function loadSvgIcon(url) {
     return new Promise((resolve,reject) => {
@@ -102,13 +101,7 @@ export function setupAutoHideUiTimer(player, hideUiTimePropertyName = "hideUiTim
 
     const hideUserInterface = async () => {
         //player.__hideTimer__ = null;
-        const visible = PopUp.IsSomePopUpVisible();
-        if (visible) {
-            player.log.debug("UI not hidden because there are visible pop ups");
-            //setupTimer();
-            return false;
-        }
-        else if (player.__hideTimerPaused__) {
+        if (player.__hideTimerPaused__) {
             player.log.debug("UI not hidden because the auto hide timer is paused");
             //setupTimer();
             return false;

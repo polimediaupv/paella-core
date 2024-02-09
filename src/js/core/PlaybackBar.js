@@ -6,9 +6,6 @@ import { pauseAutoHideUiTimer, resumeAutoHideUiTimer } from './utils';
 import { createProgressIndicator } from './progress-indicator.js';
 import PlaybackBarPopUp from './PlaybackBarPopUp.js';
 
-// TODO: Deprecated. Remove all references to PopUp
-import PopUp from './PopUp';
-
 export default class PlaybackBar extends DomClass {
 	constructor(player,parent) {
 		const inlineMode = player.config.progressIndicator?.inlineMode ?? false;
@@ -38,10 +35,6 @@ export default class PlaybackBar extends DomClass {
 		});
 
 		this.element.appendChild(this._navContainer);
-
-		this.element.addEventListener("click", () => {
-			PopUp.HideAllPopUps(false);
-		});
 
 		this._enabled = true;
 	}

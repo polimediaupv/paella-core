@@ -22,8 +22,6 @@ import VideoContainer, {
 import PreviewContainer from './core/PreviewContainer';
 import PlaybackBar from './core/PlaybackBar';
 import Events, { bindEvent, triggerEvent, unregisterEvents } from './core/Events';
-import TimeLinePopUp from './core/TimeLinePopUp';
-import PopUp from './core/PopUp';
 import Data from './core/Data';
 import CaptionCanvas from './captions/CaptionsCanvas';
 import { loadLogEventPlugins, unloadLogEventPlugins } from "./core/EventLogPlugin";
@@ -805,10 +803,6 @@ export default class Paella {
         
         triggerEvent(this, Events.PLAYER_UNLOADED);
         
-        PopUp.Unload();
-        
-        TimeLinePopUp.Unload(this);
-        
         if (this.videoManifest?.metadata?.preview) {
             buildPreview.apply(this);
         }
@@ -863,7 +857,6 @@ export default class Paella {
             this._uiHidden = true;
             this.videoContainer?.hideUserInterface();
             this.playbackBar?.hideUserInterface();
-            TimeLinePopUp.HideUserInterface(this);
             triggerEvent(this, Events.HIDE_UI);
         }
     }
@@ -871,7 +864,6 @@ export default class Paella {
     async showUserInterface() {
         this.videoContainer?.showUserInterface();
         this.playbackBar?.showUserInterface();
-        TimeLinePopUp.ShowUserInterface(this);
         this._uiHidden && triggerEvent(this, Events.SHOW_UI);
         this._uiHidden = false;
     }

@@ -1,7 +1,5 @@
 import ButtonPlugin from './ButtonPlugin';
-import PopUp from './PopUp';
 import { createElementWithHtmlText } from './dom';
-import TimeLinePopUp from './TimeLinePopUp';
 
 function resolvePopUpType() {
 	const types = ["modal","timeline","no-modal"];
@@ -98,38 +96,6 @@ export default class PopUpButtonPlugin extends ButtonPlugin {
 	}
 	
 	async showPopUp() {
-		const parentContainer = this.player.isFullscreen ? this.player.containerElement : document.body;
-		
-		if (!this._popUp) {
-			this._popUp = null;
-			const type = resolvePopUpType.apply(this);
-			if (type === "modal" || type === "no-modal") {
-				const { clickOutside, closeButton } = this.closeActions;
-				this._popUp = new PopUp(this.player, parentContainer, this.button, this, type === "modal", this.moveable, this.resizeable, this.customPopUpClass);
-				this._popUp.setCloseActions({ clickOutside, closeButton });
-			}
-			else if (type === "timeline") {
-				this._popUp = new TimeLinePopUp(this.player, this);
-			}
-			const content = await this.getContent();
-			this._popUp.title = this.menuTitle;
-			this._popUp.setContent(content);
-			this._popUp.show(parentContainer, this._parentPopUp);
-			this.refreshContent = false;
-		}
-		else if (this.popUpType === "timeline" && this._popUp.isVisible) {
-			this._popUp.hide();
-		}
-		else if (this._popUp.isVisible) {
-			this._popUp.hide();
-		}
-		else {
-			if (this.refreshContent) {
-				const content = await this.getContent();
-				this._popUp.setContent(content);
-				this.refreshContent = false;
-			}
-			this._popUp.show(parentContainer, this._parentPopUp);
-		}
+		throw new Error("showPopUp method not implemented");
 	}
 }

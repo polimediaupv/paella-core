@@ -1,7 +1,6 @@
 
 import PopUpButtonPlugin from './PopUpButtonPlugin';
 import { createElementWithHtmlText } from './dom';
-import PopUp from './PopUp';
 
 export default class MenuButtonPlugin extends PopUpButtonPlugin {
 	
@@ -171,8 +170,9 @@ export default class MenuButtonPlugin extends PopUpButtonPlugin {
 	}
 	
 	closeMenu() {
+		throw new Error("MenuButtonPlugin::closeMenu() function not implemented.");
 		if (this.config.closeParentPopUp) {
-			PopUp.HideAllPopUps(false);
+			
 		}
 		else {
 			this._popUp.hide();

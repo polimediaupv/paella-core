@@ -1,7 +1,6 @@
 
 import Paella, { PlayerStateNames } from './Paella';
 import PlayerState from './core/PlayerState';
-import PopUp from './core/PopUp';
 import * as utils from './core/utils';
 import {
     defaultLoadConfigFunction,
@@ -111,7 +110,6 @@ export {
     Paella,
     PlayerState,
     PlayerStateNames,
-    PopUp,
     utils,
     defaultLoadConfigFunction,
     defaultGetVideoIdFunction,

@@ -3,7 +3,6 @@ import { getPluginsOfType } from './plugin_tools';
 import { createElementWithHtmlText } from './dom';
 import Events, { triggerEvent } from './Events';
 import { translate } from './Localization';
-import PopUp from './PopUp';
 import { sanitizeHTML } from './utils';
 
 export function getButtonPlugins(player, side = "any", parent = "playbackBar") {
@@ -58,12 +57,6 @@ export async function addButtonPlugin(plugin, buttonAreaElem) {
 	
 		button.addEventListener("click", (evt) => {
 			const plugin = button._pluginData;
-			if (plugin.closePopUps && plugin.popUp) {
-				PopUp.HideNonAncestors(plugin.popUp);
-			}
-			else if (plugin.closePopUps) {
-				PopUp.HideAllPopUps(false);
-			}
 			triggerEvent(plugin.player, Events.BUTTON_PRESS, {
 				plugin: plugin
 			});
