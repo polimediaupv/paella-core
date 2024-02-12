@@ -393,25 +393,34 @@ export default class SteramProvider extends PlayerResource {
 
 		const qualities = await player.getQualities();
 		const total = qualities.length;
-		let index = -1;
-		qualities.some((q,i) => {
-			if (quality.index === q.index) {
-				index = i;
-			}
-			return index !== -1;
-		});
+		const index = qualities.findIndex(q => q.index === quality.index);
 
 		if (index>=0) {
 			const qualityFactor = index / total;
-			for (const content in this.streams) {
-				const stream = this.streams[content];
+
+			// If the video is currently playing and some of the players do not
+			// support changing the quality while playing, we need to pause.
+			const pauseRequired = !await player.paused() && Object.values(this.streams)
+				.some(stream => stream.player.qualityChangeNeedsPause);
+			if (pauseRequired) {
+				await this.pause();
+			}
+
+			// Change the quality for each separate stream. This waits until all
+			// streams have loaded the video far enough to start playing.
+			await Promise.all(Object.values(this.streams).map(async (stream) => {
 				const streamQualities = (await stream.player.getQualities()) || [];
-				this.player.log.debug(streamQualities);
+				this.player.log.debug("Stream qualities:", streamQualities);
 				if (streamQualities.length>1) {
 					const qualityIndex = Math.round(streamQualities.length * qualityFactor);
 					const selectedQuality = streamQualities[qualityIndex];
 					await stream.player.setQuality(selectedQuality);
 				}
+			}));
+
+			// If we paused before changing the quality, we have to resume now as well.
+			if (pauseRequired) {
+				await this.play();
 			}
 		}
 	}

@@ -1,6 +1,7 @@
 import VideoPlugin, { Video } from 'paella-core/js/core/VideoPlugin';
 import { resolveResourcePath } from 'paella-core/js/core/utils';
 import PaellaCoreVideoFormats from './PaellaCoreVideoFormats';
+import VideoQualityItem from 'paella-core/js/core/VideoQualityItem';
 
 let video = null;
 
@@ -32,10 +33,6 @@ export class Mp4Video extends Video {
         }
 
         this.isMainAudio = isMainAudio;
-
-        // Autoplay is required to play videos in some browsers
-        this.element.setAttribute("autoplay","");
-        this.element.autoplay = true;
 
         // The video is muted by default, to allow autoplay to work
         if (!isMainAudio) {
@@ -164,16 +161,55 @@ export class Mp4Video extends Video {
     }
 
     async getQualities() {
-        // TODO: implement this
+        if (!this._qualities) {
+            this._qualities = this._sources.map((src, i) => new VideoQualityItem({
+                index: i,
+                label: `${src.res.w}x${src.res.h}`,
+                shortLabel: `${src.res.h}p`,
+                width: src.res.w,
+                height: src.res.h,
+                src: src.src,
+            }));
+        }
+
+        return this._qualities;
     }
 
-    async setQuality(/* q */) {
-        // TODO: implement this
+    get qualityChangeNeedsPause() {
+      return true;
+    }
+
+    async setQuality(q) {
+        if (!(q instanceof VideoQualityItem)) {
+            throw new Error('Invalid parameter setting video quality');
+        }
+
+        this.player.log.debug(`org.opencast.paella.mp4MultiQualityVideoFormat: Change video quality to ${q.shortLabel}`);
+
+        // Clear data, set the `src` attribute to the new video file and then
+        // set some values to previous values.
+        const currentTime = this.video.currentTime;
+        const playbackRate = this.video.playbackRate;
+        this.clearStreamData();
+        this.video.src = q.src;
+        this.video.currentTime = currentTime;
+        this.video.playbackRate = playbackRate;
+        this.video.addEventListener('ended', this._endedCallback);
+        this._currentQuality = q.index;
+
+        // Wait for the `canplay` event to know that the video has loaded sufficiently.
+        await new Promise(resolve => {
+            const f = () => {
+                this._ready = true;
+                this.video.removeEventListener('canplay', f);
+                resolve(null);
+            };
+            this.video.addEventListener('canplay', f);
+        });
     }
 
     get currentQuality() {
-        // TODO: implement this
-        return 0;
+        return this._qualities[this._currentQuality];
     }
 
     async getDimensions() {
@@ -225,6 +261,11 @@ export class Mp4Video extends Video {
             }
         }
         
+        // Set `autoplay` as this improves loading the video, for some reason.
+        this.video.setAttribute("autoplay","");
+        this.video.autoplay = true;
+        const wasMuted = this.video.muted;
+        this.video.muted = true;
         this.video.src = resolveResourcePath(this.player, this._currentSource.src);
         this._endedCallback = this._endedCallback || (() => {
             if (typeof(this._videoEndedCallback) == "function") {
@@ -233,7 +274,17 @@ export class Mp4Video extends Video {
         });
         this.video.addEventListener("ended", this._endedCallback);
 
-        await this.waitForLoaded();
+        // Wait until the video has loaded to play at least a bit.
+        await new Promise(resolve => {
+            const f = () => {
+                this.video.removeEventListener('canplay', f);
+                this.video.autoplay = false;
+                this.video.muted = wasMuted;
+                this.video.pause();
+                resolve();
+            };
+            this.video.addEventListener('canplay', f);
+        });
 
         this.player.log.debug(`es.upv.paella.mp4VideoFormat (${ this.streamData.content }): video loaded and ready.`);
         this.saveDisabledProperties(this.video);
@@ -277,7 +328,6 @@ export class Mp4Video extends Video {
                         reject(new Error(this.player.translate("Error loading video: $1. Code: $2 $3", [this.video.src, this.video.error, this.video.error.message])));
                     }
                     else if (this.video.readyState >= 2) {
-                        this.video.pause(); // Pause the video because it is loaded in autoplay mode
                         this._ready = true;
                         resolve();
                     }
