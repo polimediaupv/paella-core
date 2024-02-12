@@ -191,6 +191,7 @@ export class Mp4Video extends Video {
         const currentTime = this.video.currentTime;
         const playbackRate = this.video.playbackRate;
         this.clearStreamData();
+        this.video.autoplay = true;
         this.video.src = q.src;
         this.video.currentTime = currentTime;
         this.video.playbackRate = playbackRate;
@@ -201,6 +202,8 @@ export class Mp4Video extends Video {
         await new Promise(resolve => {
             const f = () => {
                 this._ready = true;
+                this.video.autoplay = false;
+                this.video.pause();
                 this.video.removeEventListener('canplay', f);
                 resolve(null);
             };
