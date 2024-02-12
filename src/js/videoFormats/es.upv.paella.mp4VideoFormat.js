@@ -250,7 +250,47 @@ export class Mp4Video extends Video {
         this._sources.sort((a,b) => {
             return Number(a.res.w) - Number(b.res.w);
         });
-        this._currentQuality = this._sources.length - 1;
+
+
+        // Select a fitting initial quality
+        const screenRes = [window.screen.width, window.screen.height]
+            .map(x => x * window.devicePixelRatio);
+        let screenMin = Math.min(screenRes[0], screenRes[1]);
+        let screenMax = Math.max(screenRes[0], screenRes[1]);
+
+        // This is the test recommended by MDN:
+        // https://developer.mozilla.org/en-US/docs/Web/HTTP/Browser_detection_using_the_user_agent
+        //
+        // Of course, ideally one wouldn't have to look at the user agent string
+        // at all and would get the information one wants via different means.
+        // But for what we want to query, there are no different means. The
+        // `devicePixelRatio` helps only marginally. Network speed information
+        // API is still unstable. Since this is only the initial quality and
+        // this test works well the vast majority of times, it makes sense to
+        // just use it. We use something between 720p and 1080p as resolution
+        // target. The YouTube app seems to use 720p as default.
+        const isMobile = /Mobi/i.test(window.navigator.userAgent);
+        if (isMobile) {
+            screenMin = Math.max(screenMin, 900);
+            screenMax = Math.max(screenMin, 1600);
+        }
+
+        // Find the largest video that still fully fits inside the screen. The
+        // array is already sorted in ascending order. Note that we only
+        // compare the minimums and maximums to not run into landscape vs.
+        // portrait mode problems. Ideally, we would change the quality when
+        // the device is turned, but that would be way more involved.
+        let quality = 0;
+        for (let i = 1; i < this._sources.length; i += 1) {
+            const src = this._sources[i];
+            const srcMin = Math.min(src.res.w, src.res.h);
+            const srcMax = Math.max(src.res.w, src.res.h);
+            if (srcMin <= screenMin && srcMax <= screenMax) {
+                quality = i;
+            }
+        }
+
+        this._currentQuality = quality;
         this._currentSource = this._sources[this._currentQuality];
 
         if (!this.isMainAudioPlayer) {
