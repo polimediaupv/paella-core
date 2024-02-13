@@ -27,6 +27,9 @@
     --button-icon-size-sm: calc(var(--button-fixed-width-sm) / 2);
 	--progress-indicator-handler-size: 20px;
     --playback-bar-width: 100%;
+    --small-text-size: 10px;
+    --medium-text-size: 12px;
+    --large-text-size: 14px;
 }
 
 /* isu variables */

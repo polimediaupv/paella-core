@@ -293,7 +293,7 @@ function $t({ tag: i = "div", attributes: e = {}, children: t = "", innerText: s
     a.setAttribute(r, e[r]);
   return a.innerHTML = t, n && n.appendChild(a), a;
 }
-function _(i, e = null) {
+function y(i, e = null) {
   const t = document.createElement("div");
   t.innerHTML = i;
   const s = t.children[0];
@@ -352,7 +352,7 @@ class Fi extends O {
     super(e, { parent: e.containerElement }), this.element.className = "loader-container";
   }
   async create() {
-    _(`<i>${Ui}</i>`, this.element);
+    y(`<i>${Ui}</i>`, this.element);
   }
   get debug() {
     return !1;
@@ -368,7 +368,7 @@ const Oi = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 `;
 class Fe extends O {
   constructor(e, t = "") {
-    super(e, { parent: e.containerElement }), this.element.className = "error-container", _(`
+    super(e, { parent: e.containerElement }), this.element.className = "error-container", y(`
             <div>
                 <i>${Oi}</i>
                 <p>${t}</p>
@@ -1026,9 +1026,9 @@ const ps = async (i, e, t, s, n) => {
   const r = new a(s), o = ((c = (l = e == null ? void 0 : e.sources) == null ? void 0 : l.hls) == null ? void 0 : c.length) > 0 && e.sources.hls[0];
   return [r, new Promise((h, u) => {
     let d = !1;
-    r.on(a.Events.LEVEL_SWITCHED, (y, p) => {
+    r.on(a.Events.LEVEL_SWITCHED, (_, p) => {
       i.log.debug(`HLS: quality level switched to ${p.level}`), d || (r.currentLevel = -1, d = !0), C(i, g.VIDEO_QUALITY_CHANGED, {});
-    }), r.on(a.Events.ERROR, (y, p) => {
+    }), r.on(a.Events.ERROR, (_, p) => {
       if (p.fatal)
         switch (p.type) {
           case a.ErrorTypes.NETWORK_ERROR:
@@ -1240,13 +1240,13 @@ const ms = async (i, e, t, s, n) => {
   const r = new a(s), o = ((c = (l = e == null ? void 0 : e.sources) == null ? void 0 : l.hlsLive) == null ? void 0 : c.length) > 0 && e.sources.hlsLive[0];
   return s.initialQualityLevel !== void 0 && s.initialQualityLevel, [r, new Promise((h, u) => {
     let d = !1;
-    r.on(a.Events.LEVEL_SWITCHED, (w, y) => {
-      (void 0).player.log.debug(`HLS: quality level switched to ${y.level}`), d || (r.currentLevel = -1, d = !0), C(i, g.VIDEO_QUALITY_CHANGED, {});
-    }), r.on(a.Events.ERROR, (w, y) => {
-      if (y.fatal)
-        switch (y.type) {
+    r.on(a.Events.LEVEL_SWITCHED, (w, _) => {
+      (void 0).player.log.debug(`HLS: quality level switched to ${_.level}`), d || (r.currentLevel = -1, d = !0), C(i, g.VIDEO_QUALITY_CHANGED, {});
+    }), r.on(a.Events.ERROR, (w, _) => {
+      if (_.fatal)
+        switch (_.type) {
           case a.ErrorTypes.NETWORK_ERROR:
-            y.details === a.ErrorDetails.MANIFEST_LOAD_ERROR ? u(Error("hlsVideoFormatPlugin: unrecoverable error in HLS player. The video is not available")) : (i.log.warn("hlsVideoFormatPlugin: Fatal network error. Try to recover"), r.startLoad());
+            _.details === a.ErrorDetails.MANIFEST_LOAD_ERROR ? u(Error("hlsVideoFormatPlugin: unrecoverable error in HLS player. The video is not available")) : (i.log.warn("hlsVideoFormatPlugin: Fatal network error. Try to recover"), r.startLoad());
             break;
           case a.ErrorTypes.MEDIA_ERROR:
             i.log.warn("hlsVideoFormatPlugin: Fatal media error encountered. Try to recover"), r.recoverMediaError();
@@ -1509,8 +1509,8 @@ async function Ts(i) {
       return;
     const a = i.__shortcuts__[e.code];
     a && await a.forEach(async (l) => {
-      var d, m, v, w, y, p;
-      const c = !((d = l.keyModifiers) != null && d.altKey) || ((m = l.keyModifiers) == null ? void 0 : m.altKey) && e.altKey, h = !((v = l.keyModifiers) != null && v.ctrlKey) || ((w = l.keyModifiers) == null ? void 0 : w.ctrlKey) && e.ctrlKey, u = !((y = l.keyModifiers) != null && y.shiftKey) || ((p = l.keyModifiers) == null ? void 0 : p.shiftKey) && e.shiftKey;
+      var d, m, v, w, _, p;
+      const c = !((d = l.keyModifiers) != null && d.altKey) || ((m = l.keyModifiers) == null ? void 0 : m.altKey) && e.altKey, h = !((v = l.keyModifiers) != null && v.ctrlKey) || ((w = l.keyModifiers) == null ? void 0 : w.ctrlKey) && e.ctrlKey, u = !((_ = l.keyModifiers) != null && _.shiftKey) || ((p = l.keyModifiers) == null ? void 0 : p.shiftKey) && e.shiftKey;
       c && h && u && !l.disabled ? await l.action(e) : c && h && u && l.disabled && (i.log.warn("Shortcut not triggered due to collision:"), i.log.warn(`plugin: ${l.plugin.name}, keyCode: ${l.keyCode}, modifiers: ${Se(l)}, description: ${l.description}`));
     });
   }, window.addEventListener("keyup", i.__paella_key_event_listener__);
@@ -1621,7 +1621,7 @@ const T = Object.freeze({
   BOTTOM_RIGHT: "bottomRight"
 }), U = (i, e, t, s, n) => {
   s = s || "", t = t || 1e3;
-  const a = _(`
+  const a = y(`
         <div class="message-content ${s}">
             ${i ? `<i class="icon">${i}</i>` : ""}
             ${e ? `<p class="text">${e}</p>` : ""}
@@ -1634,7 +1634,7 @@ const T = Object.freeze({
 class Ds extends O {
   constructor(e, t) {
     const s = { class: "video-container-message" };
-    super(e, { attributes: s, parent: t }), this._topLeftContainer = _('<div class="container top-left"></div>', this.element), this._topMiddleContainer = _('<div class="container top-middle"></div>', this.element), this._topRightContainer = _('<div class="container top-right"></div>', this.element), this._centerLeftContainer = _('<div class="container center-left"></div>', this.element), this._centerMiddleContainer = _('<div class="container center-middle"></div>', this.element), this._centerRightContainer = _('<div class="container center-right"></div>', this.element), this._bottomLeftContainer = _('<div class="container bottom-left"></div>', this.element), this._bottomMiddleContainer = _('<div class="container bottom-middle"></div>', this.element), this._bottomRightContainer = _('<div class="container bottom-right"></div>', this.element);
+    super(e, { attributes: s, parent: t }), this._topLeftContainer = y('<div class="container top-left"></div>', this.element), this._topMiddleContainer = y('<div class="container top-middle"></div>', this.element), this._topRightContainer = y('<div class="container top-right"></div>', this.element), this._centerLeftContainer = y('<div class="container center-left"></div>', this.element), this._centerMiddleContainer = y('<div class="container center-middle"></div>', this.element), this._centerRightContainer = y('<div class="container center-right"></div>', this.element), this._bottomLeftContainer = y('<div class="container bottom-left"></div>', this.element), this._bottomMiddleContainer = y('<div class="container bottom-middle"></div>', this.element), this._bottomRightContainer = y('<div class="container bottom-right"></div>', this.element);
   }
   show({ icon: e = null, text: t = "", timeout: s = 1e3, position: n = T.CENTER_MIDDLE, cssClass: a = "" }) {
     switch (n) {
@@ -2172,11 +2172,11 @@ function ga(i) {
 }
 async function _e(i, e) {
   var c, h;
-  const t = _("<li></li>", e);
+  const t = y("<li></li>", e);
   t.plugin = i;
   const s = i.tabIndex, n = le(i.ariaLabel), a = le(i.description), r = i.dynamicWidth ? "dynamic-width" : "fixed-width", o = i.id ? `id="${i.id}" ` : "", l = i.buttonName ? `name="${i.buttonName}" ` : "";
   if (i.interactive) {
-    const u = _(`
+    const u = y(`
 			<button type="button" ${o}${l}class="${r}" tabindex="${s}" aria-label="${n}" title="${a}">
 			</button>
 		`, t);
@@ -2202,7 +2202,7 @@ async function _e(i, e) {
       p.keyCode == 32 && p.preventDefault();
     })), i.className !== "" && u.classList.add(i.className);
   } else {
-    const u = _(`
+    const u = y(`
 			<div ${o}${l} class="non-interactive ${r}" title="${a}">
 			</div>
 		`, t);
@@ -2278,7 +2278,7 @@ class rt extends nt {
   }
   set icon(t) {
     if (typeof t == "string" && (t = Ot(t)), this._icon = t, t) {
-      const s = this._button.querySelector("i") || _("<i></i>", this._button);
+      const s = this._button.querySelector("i") || y("<i></i>", this._button);
       s.innerHTML = t;
     } else {
       const s = this._button.querySelector("i");
@@ -2290,7 +2290,7 @@ class rt extends nt {
   }
   set title(t) {
     if (this._title = t, t) {
-      const s = this._button.querySelector("span") || _(`<span class="button-title-${this.titleSize}"></span>`, this._button);
+      const s = this._button.querySelector("span") || y(`<span class="button-title-${this.titleSize}"></span>`, this._button);
       s.innerHTML = t;
     } else {
       const s = this._button.querySelector("span");
@@ -2740,7 +2740,7 @@ const b = Object.freeze({
     throw new Error("Error in video layout definition. getVideoCanvasButtons(): missing 'click' function.");
   let c = `class="align-${a}${n ? " " + n : ""}"`;
   t && (c += ` aria-label="${t}"`), s && (c += ` title="${s}"`), e !== void 0 && (c += ` tabindex="${e}"`), l !== void 0 && (c += ` name="${l}"`);
-  const h = _(`
+  const h = y(`
         <button ${c}><i class="button-icon" style="pointer-events: none">${i}</i></button>
     `);
   return this.buttonsArea.appendChild(h), h.addEventListener("click", async (u) => (await r(o), u.stopPropagation(), !1)), h;
@@ -2767,7 +2767,7 @@ const b = Object.freeze({
 };
 class di extends O {
   constructor(e, t, s) {
-    super(t, { tag: e, parent: s }), this.element.className = "video-canvas", this._userArea = null, this._buttonsArea = _(`
+    super(t, { tag: e, parent: s }), this.element.className = "video-canvas", this._userArea = null, this._buttonsArea = y(`
         <div class="button-area">
         </div>
         `, this.element);
@@ -2898,8 +2898,8 @@ class wt extends de {
       ariaLabel: this.player.translate("Switch side"),
       name: this.name + ":iconSwitchSide",
       click: async () => {
-        const v = this._currentContent[0].id, w = this._currentContent[1].id, y = this._currentContent[0].size, p = this._currentContent[1].size;
-        this._currentContent[0].id = w, this._currentContent[0].size = p, this._currentContent[1].id = v, this._currentContent[1].size = y, await this.player.videoContainer.updateLayout();
+        const v = this._currentContent[0].id, w = this._currentContent[1].id, _ = this._currentContent[0].size, p = this._currentContent[1].size;
+        this._currentContent[0].id = w, this._currentContent[0].size = p, this._currentContent[1].id = v, this._currentContent[1].size = _, await this.player.videoContainer.updateLayout();
       }
     }), m.push({
       icon: l,
@@ -2908,7 +2908,7 @@ class wt extends de {
       ariaLabel: this.player.translate("Close video"),
       name: this.name + ":iconClose",
       click: async () => {
-        const w = this.player.videoContainer.validContentIds.filter((y) => y.indexOf("-") === -1).find((y) => y != t);
+        const w = this.player.videoContainer.validContentIds.filter((_) => _.indexOf("-") === -1).find((_) => _ != t);
         await this.player.videoContainer.setLayout(w);
       }
     }), this.pipContentIds.length > 0 && m.push({
@@ -3975,7 +3975,7 @@ class Ye extends rt {
     };
   }
   async getContent() {
-    return _("<p>Pop Up Button Plugin Content</p>");
+    return y("<p>Pop Up Button Plugin Content</p>");
   }
   get popUpType() {
     return this.config.popUpType || "modal";
@@ -4002,11 +4002,11 @@ class An extends Ye {
     return !1;
   }
   async getContent() {
-    const e = _('<div class="button-group"></div>');
+    const e = y('<div class="button-group"></div>');
     return this._firstItem = null, this._initialized || (this.player.log.debug(`Load button plugins into "${this.groupName}" container`), await A(this.player, "button", async (t) => {
       this.player.log.debug(` Button plugin: ${t.name}`);
-      const s = _('<div class="button-plugin-wrapper"></div>', e);
-      if (t instanceof Ye && (t.parentPopUp = this._popUp), await _e(t, s), _(`<a class="button-description">${le(t.description)}</a>`, s).addEventListener("click", (a) => {
+      const s = y('<div class="button-plugin-wrapper"></div>', e);
+      if (t instanceof Ye && (t.parentPopUp = this._popUp), await _e(t, s), y(`<a class="button-description">${le(t.description)}</a>`, s).addEventListener("click", (a) => {
         t.action(), a.stopPropagation();
       }), !this._firstItem) {
         const a = s.getElementsByTagName("button");
@@ -4410,12 +4410,12 @@ async function $n() {
   if (this.baseVideoRect.style.width = o.w + "px", this.baseVideoRect.style.height = o.h + "px", this.baseVideoRect.classList.remove("dynamic"), (c = i == null ? void 0 : i.videos) != null && c.length) {
     const u = [];
     for (const d of i.videos) {
-      const m = this.streamProvider.streams[d.content], { stream: v, player: w, canvas: y } = m, p = await w.getDimensions(), L = p.w / p.h;
+      const m = this.streamProvider.streams[d.content], { stream: v, player: w, canvas: _ } = m, p = await w.getDimensions(), L = p.w / p.h;
       let N = Number.MAX_VALUE, P = null;
-      y.buttonsArea.innerHTML = "", u.push(await qe(this.player, i, y, d, d.content)), d.rect.forEach((ee) => {
+      _.buttonsArea.innerHTML = "", u.push(await qe(this.player, i, _, d, d.content)), d.rect.forEach((ee) => {
         const j = /^(\d+.?\d*)\/(\d+.?\d*)$/.exec(ee.aspectRatio), te = j ? Number(j[1]) / Number(j[2]) : 1, $ = Math.abs(L - te);
         $ < N && (P = ee, N = $);
-      }), y.element.style.display = "block", y.element.style.position = "absolute", y.element.style.left = `${(P == null ? void 0 : P.left) * s}%`, y.element.style.top = `${(P == null ? void 0 : P.top) * n}%`, y.element.style.width = `${(P == null ? void 0 : P.width) * s}%`, y.element.style.height = `${(P == null ? void 0 : P.height) * n}%`, y.element.style.zIndex = d.layer, this.baseVideoRect.appendChild(y.element);
+      }), _.element.style.display = "block", _.element.style.position = "absolute", _.element.style.left = `${(P == null ? void 0 : P.left) * s}%`, _.element.style.top = `${(P == null ? void 0 : P.top) * n}%`, _.element.style.width = `${(P == null ? void 0 : P.width) * s}%`, _.element.style.height = `${(P == null ? void 0 : P.height) * n}%`, _.element.style.zIndex = d.layer, this.baseVideoRect.appendChild(_.element);
     }
     setTimeout(() => {
       Ze(this.player, i, u.flat());
@@ -4462,7 +4462,7 @@ async function Bn() {
   }
   const n = this.baseVideoRect.clientWidth, a = this.element.clientHeight;
   if (((h = i == null ? void 0 : i.videos) == null ? void 0 : h.length) === 1) {
-    const d = [], m = [], v = i.videos[0], w = this.streamProvider.streams[v.content], { player: y, canvas: p } = w;
+    const d = [], m = [], v = i.videos[0], w = this.streamProvider.streams[v.content], { player: _, canvas: p } = w;
     p.buttonsArea.innerHTML = "", m.push(await qe(this.player, i, p, v, v.content)), p.element.style = {}, p.element.style.display = "block", p.element.style.width = "100%", p.element.style.height = "100%", p.element.style.overflow = "hidden", p.element.style.position = "relative", d.push(p.element), p.element.sortIndex = 0, d.forEach((L) => this.baseVideoRect.appendChild(L)), setTimeout(() => {
       Ze(this.player, i, m.flat());
     }, 100);
@@ -4470,13 +4470,13 @@ async function Bn() {
     let d = 0;
     const m = [], v = [];
     for (const w of i.videos) {
-      const y = this.streamProvider.streams[w.content], { player: p, canvas: L } = y, N = await p.getDimensions(), P = N.w / N.h, ee = n, j = a, te = (s ? ee : j) * w.size / 100;
+      const _ = this.streamProvider.streams[w.content], { player: p, canvas: L } = _, N = await p.getDimensions(), P = N.w / N.h, ee = n, j = a, te = (s ? ee : j) * w.size / 100;
       let $ = Math.round(s ? te : te * P), he = Math.round(s ? te / P : te);
       $ > ee && ($ = ee, he = Math.round($ / P)), he > j && (he = j, $ = Math.round(he * P)), L.buttonsArea.innerHTML = "", v.push(await qe(this.player, i, L, w, w.content)), L.element.style = {}, L.element.style.display = "block", L.element.style.width = `${$}px`, L.element.style.height = `${he}px`, L.element.style.overflow = "hidden", L.element.style.position = "relative", L.element.sortIndex = d++, m.push(L.element);
     }
     if (s) {
-      const w = _('<div class="landscape-container"></div>', this.baseVideoRect);
-      m.forEach((y) => w.appendChild(y));
+      const w = y('<div class="landscape-container"></div>', this.baseVideoRect);
+      m.forEach((_) => w.appendChild(_));
     } else
       m.forEach((w) => this.baseVideoRect.appendChild(w));
     setTimeout(() => {
@@ -4539,17 +4539,17 @@ class Hn extends O {
     this._baseVideoRect.style.display = "none", await A(this.player, "layout"), await $i(this.player);
   }
   async load(e) {
-    var o, l, c, h, u, d, m, v, w, y;
+    var o, l, c, h, u, d, m, v, w, _;
     if (this._streamData = e, (l = (o = this.player.config.videoContainer) == null ? void 0 : o.restoreVideoLayout) != null && l.enabled) {
       const p = (h = (c = this.player.config.videoContainer) == null ? void 0 : c.restoreVideoLayout) == null ? void 0 : h.global;
       this._layoutId = await this.player.preferences.get("videoLayout", { global: p }) || this.player.config.defaultLayout, this._mainLayoutContent = await this.player.preferences.get("videoLayoutMainContent", { global: p }) || null;
     } else
       this._layoutId = this.player.config.defaultLayout, this._mainLayoutContent = null;
     await this.streamProvider.load(e), this._validContentIds = li(this.player, e), this._validContentSettings = rn(this.player, e), await this.updateLayout(null, !0);
-    const t = _(
+    const t = y(
       '<div class="button-plugins left-side"></div>',
       this.element
-    ), s = _(
+    ), s = y(
       '<div class="button-plugins right-side"></div>',
       this.element
     );
@@ -4566,7 +4566,7 @@ class Hn extends O {
         setTimeout(p, 1e3);
       };
       if (r) {
-        const L = await this.player.preferences.get("lastKnownTime", { global: !1 }), N = await this.duration(), P = (y = (w = this.player.config.videoContainer) == null ? void 0 : w.restoreLastTime) == null ? void 0 : y.remainingSeconds;
+        const L = await this.player.preferences.get("lastKnownTime", { global: !1 }), N = await this.duration(), P = (_ = (w = this.player.config.videoContainer) == null ? void 0 : w.restoreLastTime) == null ? void 0 : _.remainingSeconds;
         N - L > P && await this.setCurrentTime(L);
       }
       p();
@@ -4759,7 +4759,7 @@ class Qn extends O {
       role: "button",
       "aria-label": "Play video"
     };
-    super(e, { attributes: a, parent: t }), this._img = _(`
+    super(e, { attributes: a, parent: t }), this._img = y(`
         <div style="${ze}">
             ${s ? `<img style="${ze}" src="${s}" class="preview-image-landscape" alt=""/>` : ""}
             ${n ? `<img style="${ze}" src="${n}" class="preview-image-portrait" alt=""/>` : ""}
@@ -4830,7 +4830,7 @@ function bt({ container: i, duration: e = 1e3, currentTime: t = 0, precision: s 
 }
 const Ke = (i) => {
   const e = document.createElement("section");
-  return e.innerHTML = `
+  return e.classList.add("pop-up"), e.innerHTML = `
         <header>
             <h2>title</h2>
         </header>
@@ -4853,13 +4853,13 @@ class qn {
     x(this, Z, {
       parent: null,
       get left() {
-        return this._section = this._section || Ke(this.parent), this._section.className = "left", this._section;
+        return this._section = this._section || Ke(this.parent), this.parent.classList.add("left"), this.parent.classList.remove("right"), this._section;
       },
       get right() {
-        return this._section = this._section || Ke(this.parent), this._section.className = "left", this._section;
+        return this._section = this._section || Ke(this.parent), this.parent.classList.remove("left"), this.parent.classList.add("right"), this._section;
       },
       get wide() {
-        return this._section = this._section || Ke(this.parent), this._section.className = "left", this._section;
+        return this._section = this._section || Ke(this.parent), this.parent.classList.add("left"), this.parent.classList.add("right"), this._section;
       }
     });
     x(this, oe, {
@@ -4910,10 +4910,10 @@ De = new WeakMap(), q = new WeakMap(), Z = new WeakMap(), oe = new WeakMap(), we
 class Zn extends O {
   constructor(e, t) {
     var a;
-    const s = ((a = e.config.progressIndicator) == null ? void 0 : a.inlineMode) ?? !1, n = { class: "playback-bar" };
-    super(e, { attributes: n, parent: t }), this._popUp = new qn(this), this.element.addEventListener("mouseenter", () => Mt(e)), this.element.addEventListener("mouseleave", () => Rt(e)), this._topContainer = _("<div></div>"), this._navContainer = _("<nav></nav>"), this._buttonPluginsLeft = _("<ul></ul>", this._navContainer), this._centerContainer = _("<div></div>", this._navContainer), this._buttonPluginsRight = _("<ul></ul>", this._navContainer), s ? this._progressIndicator = bt({ container: this._centerContainer }) : (this.element.appendChild(this._topContainer), this._progressIndicator = bt({ container: this._topContainer })), this._progressIndicator.onChange(async (r) => {
+    const s = ((a = e.config.progressIndicator) == null ? void 0 : a.inlineMode) ?? !1, n = { class: "playback-bar-container" };
+    super(e, { attributes: n, parent: t }), this._popUp = new qn(this), this.element.addEventListener("mouseenter", () => Mt(e)), this.element.addEventListener("mouseleave", () => Rt(e)), this._playbackBarContainer = y('<section class="playback-bar"></section>', this.element), this._topContainer = y("<div></div>"), this._navContainer = y("<nav></nav>"), this._buttonPluginsLeft = y("<ul></ul>", this._navContainer), this._centerContainer = y("<div></div>", this._navContainer), this._buttonPluginsRight = y("<ul></ul>", this._navContainer), s ? this._progressIndicator = bt({ container: this._centerContainer }) : (this._playbackBarContainer.appendChild(this._topContainer), this._progressIndicator = bt({ container: this._topContainer })), this._progressIndicator.onChange(async (r) => {
       await e.videoContainer.setCurrentTime(r);
-    }), this.element.appendChild(this._navContainer), this._enabled = !0;
+    }), this._playbackBarContainer.appendChild(this._navContainer), this._enabled = !0;
   }
   get popUp() {
     return this._popUp;
@@ -4986,7 +4986,7 @@ class Jn extends O {
     const s = {
       class: "captions-canvas visible-ui"
     };
-    super(e, { tag: "div", attributes: s, parent: t }), this._captionsContainer = _(`
+    super(e, { tag: "div", attributes: s, parent: t }), this._captionsContainer = y(`
             <div class="text-container">
             </div>
         `, this.element), this._captions = [], this.hide(), this._currentCaptions = null;
@@ -5893,13 +5893,13 @@ class va extends Ye {
     return this.config.closeOnSelect === void 0 && (this.buttonType !== "check" ? this.config.closeOnSelect = !0 : this.config.closeOnSelect = !1), this.config.closeOnSelect;
   }
   async getContent() {
-    const e = _('<ul class="menu-button-content"></ul>');
+    const e = y('<ul class="menu-button-content"></ul>');
     this.menuTitle;
     const t = await this.getMenu();
     this._menuItems = t;
     let s = !1, n = null;
     return t.forEach((a) => {
-      const r = _('<li class="menu-button-item"></li>', e);
+      const r = y('<li class="menu-button-item"></li>', e);
       let o = "";
       this.buttonType === "button" ? o = "menu-item-type-button" : this.buttonType === "check" ? o = "menu-item-type-button" + (a.selected ? " selected" : "") : this.buttonType === "radio" && (o = "menu-item-type-button", !s && a.selected && (o += " selected", s = !0));
       let l = "";
@@ -5917,7 +5917,7 @@ class va extends Ye {
 				` : c && (l = `
 				<span class="menu-title"></span>
 				`);
-      const h = _(
+      const h = y(
         `
 				<button class="${o}" aria-label="${a.title}" title="${a.title}">${l}</button>`,
         r
@@ -6029,7 +6029,7 @@ export {
   D as bindEvent,
   Nn as checkManifestIntegrity,
   $t as createElement,
-  _ as createElementWithHtmlText,
+  y as createElementWithHtmlText,
   Yt as defaultAddDictionaryFunction,
   Li as defaultGetCookieConsentCallback,
   Ei as defaultGetCookieDescriptionCallback,

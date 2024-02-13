@@ -2,6 +2,8 @@
 
 const buildSectionContainer = (parent) => {
     const section = document.createElement('section');
+    section.classList.add('pop-up');
+
 
     // TODO: Title bar, pop navigator button
     section.innerHTML = `
@@ -33,19 +35,22 @@ export default class PlaybackBarPopUp {
 
         get left() {
             this._section = this._section || buildSectionContainer(this.parent);
-            this._section.className = 'left';
+            this.parent.classList.add('left');
+            this.parent.classList.remove('right');
             return this._section;
         },
 
         get right() {
             this._section = this._section || buildSectionContainer(this.parent);
-            this._section.className = 'left';
+            this.parent.classList.remove('left');
+            this.parent.classList.add('right');
             return this._section;
         },
 
         get wide() {
             this._section = this._section || buildSectionContainer(this.parent);
-            this._section.className = 'left';
+            this.parent.classList.add('left');
+            this.parent.classList.add('right');
             return this._section;
         }
     };

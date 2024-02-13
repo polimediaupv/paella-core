@@ -61,25 +61,6 @@
 	padding: 2px 6px 3px 6px;
 }
 
-.button-group span.button-title {
-    display: block;
-}
-
-.button-group span.button-title.button-title-small {
-	margin-top: -16px;
-    font-size: 8px;
-}
-
-.button-group span.button-title.button-title-medium {
-	margin-top: -17px;
-    font-size: 10px;
-}
-
-.button-group span.button-title.button-title-large {
-	margin-top: -19px;
-    font-size: 12px;
-}
-
 .button-group span.button-title:empty {
 	margin-top: 0 !important;
 }
@@ -90,19 +71,6 @@
     padding-left: 3px;
     padding-right: 3px;
 }
-
-.button-group button.dynamic-width span.button-title-small {
-    margin-top: 0px;
-}
-
-.button-group button.dynamic-width span.button-title-medium {
-    margin-top: 0px;
-}
-
-.button-group button.dynamic-width span.button-title-large {
-    margin-top: 0px;
-}
-
 
 .button-group button i svg {
 	width: 100%;
