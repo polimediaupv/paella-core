@@ -7,21 +7,36 @@ const buildSectionContainer = (parent) => {
 
     // TODO: Title bar, pop navigator button
     section.innerHTML = `
-        <header>
+        <header class="pop-up-title">
+            <button><</button>
             <h2>title</h2>
         </header>
-        <article>
+        <article class="pop-up-content">
         </article>
     `;
     parent.appendChild(section);
 
     section.setTitle = (title) => {
-        section.querySelector('header h2').textContent = title;
+        section.querySelector('header.pop-up-title h2').textContent = title;
     };
 
+    section.popButton = () => section.querySelector('header.pop-up-title button');
+
+    section.onPopClicked = (callback) => {
+        if (section._clickCallback) {
+            section.popButton().removeEventListener('click', section._clickCallback);
+        }
+        section._clickCallback = callback;
+        section.popButton().addEventListener('click', callback);
+    };
+
+    section.hidePopButton = () => section.popButton().style.display = 'none';
+
+    section.showPopButton = () => section.popButton().style.display = '';
+
     section.setContent = (content) => {
-        section.querySelector('article').innerHTML = '';
-        section.querySelector('article').appendChild(content);
+        section.querySelector('article.pop-up-content').innerHTML = '';
+        section.querySelector('article.pop-up-content').appendChild(content);
     };
 
     return section;
@@ -58,23 +73,32 @@ export default class PlaybackBarPopUp {
         current: null,
         stack: [],
         side: null,
-        push(content, side) {
-            if (this.side !== side) {
+        push({ content, side = 'left', parent = null }) {
+            if (this.side !== side || this.current !== parent) {
                 this.stack = [];
                 this.side = side;
+                console.log("Clear stack");
             }
             else {
                 this.stack.push(this.current);
+                console.log("Push to stack");
+                console.log(this.stack);
             }
             this.current = content;
         },
-        pop(side) {
-            if (this.side === side) {
-                this.current = this.stack.pop();
-            }
-            else {
-                throw new Error(`PlaybackBarPopUp.contentManager.pop(): Invalid side provide. Current stack side is '${this.side}', but requested side is '${side}'.`);
-            }
+        pop() {
+            this.current = this.stack.pop();
+            console.log("Pop from stack: ");
+            console.log(this.stack);
+            console.log("Current: ");
+            console.log(this.current);
+            return this.current;
+        },
+        get popAvailable() {
+            return this.stack.length > 0;
+        },
+        get parent() {
+            return this.stack.length > 0 && this.stack[this.stack.length - 1] || null;
         }
     };
     #title = "";
@@ -95,41 +119,45 @@ export default class PlaybackBarPopUp {
         this.#title = title;
     }
 
-    show({ content, attachLeft = false, attachRight = false }) {
+    show({ content, parent = null, attachLeft = false, attachRight = false }) {
         if (!content) {
             throw new Error('PlaybackBarPopUp.show(): No content provided.');
         }
 
-        if (attachLeft === true && attachRight === true) {
-            this.#showWide(content);
-        }
-        else if (attachLeft === true) {
-            this.#showLeft(content);
-        }
-        else if (attachRight === true) {
-            this.#showRight(content);
-        }
-        else {
-            throw new Error('PlaybackBarPopUp.show(): Invalid attachments point provided.');
-        }
+        const [container,side] = (() => {
+            if (attachLeft === true && attachRight === true) {
+                return [this.#popUpContainer.wide,'wide'];
+            }
+            else if (attachLeft === true) {
+                return [this.#popUpContainer.left,'left'];
+            }
+            else if (attachRight === true) {
+                return [this.#popUpContainer.right,'right'];
+            }
+        })();
+
+        this.#contentManager.push({ content, parent, side});
+        container.setContent(content);
+        this.#checkPopButton(container);
     }
 
     hide() {
 
     }
 
-    #showWide(content) {
-        this.#contentManager.push(content, 'wide');
-        this.#popUpContainer.wide.setContent(content);
-    }
-
-    #showLeft(content) {
-        this.#contentManager.push(content, 'left');
-        this.#popUpContainer.left.setContent(content);
-    }
-
-    #showRight(content) {
-        this.#contentManager.push(content, 'right');
-        this.#popUpContainer.right.setContent(content);
+    #checkPopButton(container) {
+        if (this.#contentManager.popAvailable) {
+            container.showPopButton();
+            container.onPopClicked(() => {
+                const content = this.#contentManager.pop();
+                if (content) {
+                    container.setContent(content);
+                }
+                this.#checkPopButton(container);
+            });
+        }
+        else {
+            container.hidePopButton();
+        }
     }
 }
