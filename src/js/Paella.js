@@ -614,6 +614,8 @@ export default class Paella {
                 })
             };
 
+            this._manifestParser = new ManifestParser(this.videoManifest, this);
+
             await postLoadPlayer.apply(this);
         }
         catch (err) {
