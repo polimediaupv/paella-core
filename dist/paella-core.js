@@ -44272,7 +44272,7 @@ Hls.defaultConfig = void 0;
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"paella-core","version":"1.46.3","description":"Multistream HTML video player","main":"src/index.js","module":"dist/paella-core.js","scripts":{"build":"webpack --mode production","dev":"webpack serve --mode development --config webpack.debug.js --host 0.0.0.0","captions":"webpack serve --mode development --config webpack.captions.js","eslint":"eslint .","nomanifest":"webpack serve --mode development --config webpack.nomanifest.js","testenv":"webpack serve --mode development --config webpack.test.js --host 0.0.0.0"},"repository":{"type":"git","url":"git+https://github.com/polimediaupv/paella-core.git"},"keywords":["html","player","video","hls"],"author":"Fernando Serrano Carpena <ferserc1@gmail.com>","license":"ECL-2.0","bugs":{"url":"https://github.com/polimediaupv/paella-core/issues"},"homepage":"https://github.com/polimediaupv/paella-core#readme","devDependencies":{"@babel/core":"^7.12.10","@babel/plugin-transform-modules-commonjs":"^7.19.6","@babel/preset-env":"^7.12.11","@playwright/test":"^1.29.2","babel-loader":"^9.0.0","babel-plugin-transform-require-context":"^0.1.1","copy-webpack-plugin":"^11.0.0","css-loader":"^6.6.0","eslint":"^8.29.0","file-loader":"^6.2.0","html-webpack-plugin":"^5.5.0","source-map-loader":"^4.0.0","style-loader":"^3.3.1","svg-inline-loader":"^0.8.2","webpack":"^5.66.0","webpack-cli":"^5.0.0","webpack-dev-server":"^4.7.3"},"dependencies":{"core-js":"^3.8.2","hls.js":"^1.0.4"}}');
+module.exports = JSON.parse('{"name":"paella-core","version":"1.46.4","description":"Multistream HTML video player","main":"src/index.js","module":"dist/paella-core.js","scripts":{"build":"webpack --mode production","dev":"webpack serve --mode development --config webpack.debug.js --host 0.0.0.0","captions":"webpack serve --mode development --config webpack.captions.js","eslint":"eslint .","nomanifest":"webpack serve --mode development --config webpack.nomanifest.js","testenv":"webpack serve --mode development --config webpack.test.js --host 0.0.0.0"},"repository":{"type":"git","url":"git+https://github.com/polimediaupv/paella-core.git"},"keywords":["html","player","video","hls"],"author":"Fernando Serrano Carpena <ferserc1@gmail.com>","license":"ECL-2.0","bugs":{"url":"https://github.com/polimediaupv/paella-core/issues"},"homepage":"https://github.com/polimediaupv/paella-core#readme","devDependencies":{"@babel/core":"^7.12.10","@babel/plugin-transform-modules-commonjs":"^7.19.6","@babel/preset-env":"^7.12.11","@playwright/test":"^1.29.2","babel-loader":"^9.0.0","babel-plugin-transform-require-context":"^0.1.1","copy-webpack-plugin":"^11.0.0","css-loader":"^6.6.0","eslint":"^8.29.0","file-loader":"^6.2.0","html-webpack-plugin":"^5.5.0","source-map-loader":"^4.0.0","style-loader":"^3.3.1","svg-inline-loader":"^0.8.2","webpack":"^5.66.0","webpack-cli":"^5.0.0","webpack-dev-server":"^4.7.3"},"dependencies":{"core-js":"^3.8.2","hls.js":"^1.0.4"}}');
 
 /***/ }),
 
@@ -50512,23 +50512,24 @@ var Paella = /*#__PURE__*/function () {
                   };
                 })
               };
-              _context2.next = 28;
+              this._manifestParser = new ManifestParser(this.videoManifest, this);
+              _context2.next = 29;
               return postLoadPlayer.apply(this);
-            case 28:
-              _context2.next = 36;
+            case 29:
+              _context2.next = 37;
               break;
-            case 30:
-              _context2.prev = 30;
+            case 31:
+              _context2.prev = 31;
               _context2.t0 = _context2["catch"](9);
               this._playerState = PlayerState/* default */.Z.ERROR;
               this.log.error(_context2.t0);
               this._errorContainer = new ErrorContainer(this, this.translate(_context2.t0.message));
               throw _context2.t0;
-            case 36:
+            case 37:
             case "end":
               return _context2.stop();
           }
-        }, _callee2, this, [[9, 30]]);
+        }, _callee2, this, [[9, 31]]);
       }));
       function loadUrl(_x2) {
         return _loadUrl.apply(this, arguments);
