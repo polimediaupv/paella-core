@@ -914,8 +914,7 @@ export default class Paella {
     }
     
     isFullScreenSupported() {
-        return this.containerElement.requestFullscreen ||
-            this.containerElement.webkitRequestFullScreen;
+        return true;
     }
     
     async enterFullscreen() {
@@ -926,6 +925,18 @@ export default class Paella {
         else if (this.containerElement.webkitRequestFullScreen) {
             this.log.debug("Safari enter fullscreen");
             result = this.containerElement.webkitRequestFullScreen();
+        }
+        else {
+            // If a proper fullscreen is not supported, we just span the whole viewport.
+            this.containerElement.style.position = "fixed";
+            this.containerElement.style.top = "0";
+            this.containerElement.style.bottom = "0";
+            this.containerElement.style.left = "0";
+            this.containerElement.style.right = "0";
+            this.containerElement.style.zIndex = "50000";
+
+            triggerEvent(this, Events.FULLSCREEN_CHANGED, { status: true });
+            triggerEvent(this, Events.ENTER_FULLSCREEN);
         }
         setTimeout(() => this.resize(), 500);
         return result;
@@ -939,11 +950,23 @@ export default class Paella {
             this.log.debug("Safari exit fullscreen");
             return document.webkitCancelFullScreen();
         }
+        else {
+            this.containerElement.style.position = null;
+            this.containerElement.style.top = null;
+            this.containerElement.style.bottom = null;
+            this.containerElement.style.left = null;
+            this.containerElement.style.right = null;
+            this.containerElement.style.zIndex = null;
+
+            triggerEvent(this, Events.FULLSCREEN_CHANGED, { status: false });
+            triggerEvent(this, Events.EXIT_FULLSCREEN);
+        }
     }
     
     get isFullscreen() {
         return  document.fullscreenElement === this.containerElement ||
-                document.webkitFullscreenElement === this.containerElement;
+                document.webkitFullscreenElement === this.containerElement ||
+                this.containerElement.style.position === "fixed";
     }
 
     addCustomPluginIcon(pluginName, iconName, svgData) {
