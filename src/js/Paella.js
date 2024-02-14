@@ -914,7 +914,17 @@ export default class Paella {
     }
     
     isFullScreenSupported() {
-        return true;
+        const playerRect = this.containerElement.getBoundingClientRect();
+        const bodyRect = document.body.getBoundingClientRect();
+        const playerSpansFullBody = playerRect.x === bodyRect.x
+            && playerRect.y === bodyRect.y
+            && playerRect.width === bodyRect.width
+            && playerRect.height === bodyRect.height;
+
+        return !playerSpansFullBody;
+        return this.containerElement.requestFullscreen ||
+            this.containerElement.webkitRequestFullScreen ||
+            !playerSpansFullBody;
     }
     
     async enterFullscreen() {
