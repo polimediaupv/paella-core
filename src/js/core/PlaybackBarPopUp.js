@@ -48,51 +48,58 @@ export default class PlaybackBarPopUp {
     #popUpContainer = {
         parent: null,
 
+        get container() {
+            this._container = this._container || buildSectionContainer(this.parent);
+            return this._container;
+        },
+
         get left() {
-            this._section = this._section || buildSectionContainer(this.parent);
             this.parent.classList.add('left');
             this.parent.classList.remove('right');
-            return this._section;
+            return this.container;
         },
 
         get right() {
-            this._section = this._section || buildSectionContainer(this.parent);
             this.parent.classList.remove('left');
             this.parent.classList.add('right');
-            return this._section;
+            return this.container;
         },
 
         get wide() {
-            this._section = this._section || buildSectionContainer(this.parent);
             this.parent.classList.add('left');
             this.parent.classList.add('right');
-            return this._section;
+            return this.container;
+        },
+
+        set title(title) {
+            this.container.querySelector('header.pop-up-title > h2').textContent = title;
         }
     };
+
     #contentManager = {
         current: null,
+        title: "",
         stack: [],
+        titles: [],
         side: null,
-        push({ content, side = 'left', parent = null }) {
+        push({ title, content, side = 'left', parent = null }) {
             if (this.side !== side || this.current !== parent) {
                 this.stack = [];
+                this.titles = [];
                 this.side = side;
-                console.log("Clear stack");
+                this.title = title;
             }
             else {
+                this.titles.push(this.title);
                 this.stack.push(this.current);
-                console.log("Push to stack");
-                console.log(this.stack);
             }
             this.current = content;
+            this.title = title;
         },
         pop() {
             this.current = this.stack.pop();
-            console.log("Pop from stack: ");
-            console.log(this.stack);
-            console.log("Current: ");
-            console.log(this.current);
-            return this.current;
+            this.title = this.titles.pop();
+            return [this.current, this.title];
         },
         get popAvailable() {
             return this.stack.length > 0;
@@ -101,6 +108,7 @@ export default class PlaybackBarPopUp {
             return this.stack.length > 0 && this.stack[this.stack.length - 1] || null;
         }
     };
+
     #title = "";
 
     constructor(playbackBar) {
@@ -109,6 +117,7 @@ export default class PlaybackBarPopUp {
         this.#element.className = 'pop-up-wrapper';
         playbackBar.element.prepend(this.#element);
         this.#popUpContainer.parent = this.#element;
+        this.#element.classList.add('hidden');
     }
 
     get title() {
@@ -117,12 +126,16 @@ export default class PlaybackBarPopUp {
 
     set title(title) {
         this.#title = title;
+        this.#popUpContainer.title = title;
     }
 
-    show({ content, parent = null, attachLeft = false, attachRight = false }) {
+    show({ content, title = null, parent = null, attachLeft = false, attachRight = false }) {
         if (!content) {
             throw new Error('PlaybackBarPopUp.show(): No content provided.');
         }
+
+        this.#playbackBar.element.classList.add('pop-up-active');
+        this.#element.classList.remove('hidden');
 
         const [container,side] = (() => {
             if (attachLeft === true && attachRight === true) {
@@ -136,22 +149,33 @@ export default class PlaybackBarPopUp {
             }
         })();
 
-        this.#contentManager.push({ content, parent, side});
+        this.#contentManager.push({ title, content, parent, side});
         container.setContent(content);
+        if (title) {
+            this.title = title;
+        }
         this.#checkPopButton(container);
     }
 
     hide() {
+        this.#playbackBar.element.classList.remove('pop-up-active');
+        this.#element.classList.add('hidden');
+    }
 
+    get isHidden() {
+        return this.#element.classList.contains('hidden');
     }
 
     #checkPopButton(container) {
         if (this.#contentManager.popAvailable) {
             container.showPopButton();
             container.onPopClicked(() => {
-                const content = this.#contentManager.pop();
+                const [content,title] = this.#contentManager.pop();
                 if (content) {
                     container.setContent(content);
+                }
+                if (title) {
+                    this.title = title;
                 }
                 this.#checkPopButton(container);
             });

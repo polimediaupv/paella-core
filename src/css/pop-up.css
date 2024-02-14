@@ -6,6 +6,10 @@
     justify-content: center;
 }
 
+.pop-up-wrapper.hidden {
+    display: none;
+}
+
 .pop-up-wrapper.left {
     justify-content: left;
 }
@@ -30,6 +34,8 @@
 .pop-up-wrapper .pop-up header {
     padding-top: 5px;
     padding-bottom: 5px;
+    display: flex;
+    gap: 4px;
 }
 
 .pop-up-wrapper .pop-up header > h1,h2,h3,h4,h5,p {
