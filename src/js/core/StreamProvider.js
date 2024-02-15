@@ -159,7 +159,7 @@ export default class SteramProvider extends PlayerResource {
 	}
 	
 	startStreamSync() {
-		const maxSync = this.player.config.videoContainer.multiStreamMaxDesyncTime ?? 0.2;
+		const maxSync = this.player.config.videoContainer?.multiStreamMaxDesyncTime ?? 0.2;
 		this.player.log.debug(`Max video desynchronization: ${ maxSync }`);
 
 		this._timeSync = true;
