@@ -284,10 +284,10 @@ export default class Paella {
         // Load status flags
         this._playerLoaded = false;
 
-        const resize = () => {
+        this._resizeEventListener = () => {
             this.resize();
         }
-        window.addEventListener("resize", resize);
+        window.addEventListener("resize", this._resizeEventListener);
         
         this.containerElement.addEventListener("fullscreenchange", () => {
             triggerEvent(this, Events.FULLSCREEN_CHANGED, { status: this.isFullscreen });
@@ -823,6 +823,37 @@ export default class Paella {
         
         unregisterEvents(this);
         this._playerState = PlayerState.MANIFEST;
+    }
+
+    /**
+     * Unloads and then completely removes this Paella instance. Reverts all
+     * effects of the constructor. This method is useful for SPAs where the
+     * instance should be completely removed on navigation, for example. The
+     * Paella instance cannot be used anymore after this method is called.
+     */
+    async destroy() {
+        await this.unload();
+
+        // Now undo every side effects that the constructor caused, in reverse order.
+        window.removeEventListener("resize", this._resizeEventListener);
+
+        setTranslateFunction(defaultTranslateFunction);
+        setSetLanguageFunction(defaultSetLanguageFunction);
+        setGetLanguageFunction(defaultGetLanguageFunction);
+        setAddDictionaryFunction(defaultAddDictionaryFunction);
+        setGetDictionariesFunction(defaultGetDictionariesFunction);
+        setGetDefaultLanguageFunction(defaultGetDefaultLanguageFunction);
+
+        // The constructor add `player-container` to the element's class list,
+        // but we don't know if it was present before. We just leave it as this
+        // is unlikely to cause problems.
+
+        if (window.__paella_instances__ && typeof(window.__paella_instances__) === "array") {
+            const index = window.__paella_instances__.indexOf(this);
+            if (index > -1) {
+                window.__paella_instances__.splice(index, 1);
+            }
+        }
     }
 
     async reload(onUnloadFn = null) {
