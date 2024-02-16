@@ -7224,7 +7224,7 @@ function loadStyle(url) {
     if (addToHeader) {
       head.appendChild(link);
     }
-    resolve();
+    resolve(link);
   });
 }
 function unloadStyle(link) {
@@ -15033,12 +15033,18 @@ var Mp4Video = /*#__PURE__*/function (_Video) {
                 }
               };
               this.video.addEventListener("ended", this._endedCallback);
+
+              // It's necessary to play the video because some browsers don't update the
+              // readyState property until the video is played.
               _context14.next = 16;
-              return this.waitForLoaded();
+              return this.video.play();
             case 16:
+              _context14.next = 18;
+              return this.waitForLoaded();
+            case 18:
               this.player.log.debug("es.upv.paella.mp4VideoFormat (".concat(this.streamData.content, "): video loaded and ready."));
               this.saveDisabledProperties(this.video);
-            case 18:
+            case 20:
             case "end":
               return _context14.stop();
           }
@@ -44272,7 +44278,7 @@ Hls.defaultConfig = void 0;
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"paella-core","version":"1.46.5","description":"Multistream HTML video player","main":"src/index.js","module":"dist/paella-core.js","scripts":{"build":"webpack --mode production","dev":"webpack serve --mode development --config webpack.debug.js --host 0.0.0.0","captions":"webpack serve --mode development --config webpack.captions.js","eslint":"eslint .","nomanifest":"webpack serve --mode development --config webpack.nomanifest.js","testenv":"webpack serve --mode development --config webpack.test.js --host 0.0.0.0"},"repository":{"type":"git","url":"git+https://github.com/polimediaupv/paella-core.git"},"keywords":["html","player","video","hls"],"author":"Fernando Serrano Carpena <ferserc1@gmail.com>","license":"ECL-2.0","bugs":{"url":"https://github.com/polimediaupv/paella-core/issues"},"homepage":"https://github.com/polimediaupv/paella-core#readme","devDependencies":{"@babel/core":"^7.12.10","@babel/plugin-transform-modules-commonjs":"^7.19.6","@babel/preset-env":"^7.12.11","@playwright/test":"^1.29.2","babel-loader":"^9.0.0","babel-plugin-transform-require-context":"^0.1.1","copy-webpack-plugin":"^11.0.0","css-loader":"^6.6.0","eslint":"^8.29.0","file-loader":"^6.2.0","html-webpack-plugin":"^5.5.0","source-map-loader":"^4.0.0","style-loader":"^3.3.1","svg-inline-loader":"^0.8.2","webpack":"^5.66.0","webpack-cli":"^5.0.0","webpack-dev-server":"^4.7.3"},"dependencies":{"core-js":"^3.8.2","hls.js":"^1.0.4"}}');
+module.exports = JSON.parse('{"name":"paella-core","version":"1.46.6","description":"Multistream HTML video player","main":"src/index.js","module":"dist/paella-core.js","scripts":{"build":"webpack --mode production","dev":"webpack serve --mode development --config webpack.debug.js --host 0.0.0.0","captions":"webpack serve --mode development --config webpack.captions.js","eslint":"eslint .","nomanifest":"webpack serve --mode development --config webpack.nomanifest.js","testenv":"webpack serve --mode development --config webpack.test.js --host 0.0.0.0"},"repository":{"type":"git","url":"git+https://github.com/polimediaupv/paella-core.git"},"keywords":["html","player","video","hls"],"author":"Fernando Serrano Carpena <ferserc1@gmail.com>","license":"ECL-2.0","bugs":{"url":"https://github.com/polimediaupv/paella-core/issues"},"homepage":"https://github.com/polimediaupv/paella-core#readme","devDependencies":{"@babel/core":"^7.12.10","@babel/plugin-transform-modules-commonjs":"^7.19.6","@babel/preset-env":"^7.12.11","@playwright/test":"^1.29.2","babel-loader":"^9.0.0","babel-plugin-transform-require-context":"^0.1.1","copy-webpack-plugin":"^11.0.0","css-loader":"^6.6.0","eslint":"^8.29.0","file-loader":"^6.2.0","html-webpack-plugin":"^5.5.0","source-map-loader":"^4.0.0","style-loader":"^3.3.1","svg-inline-loader":"^0.8.2","webpack":"^5.66.0","webpack-cli":"^5.0.0","webpack-dev-server":"^4.7.3"},"dependencies":{"core-js":"^3.8.2","hls.js":"^1.0.4"}}');
 
 /***/ }),
 
@@ -49820,18 +49826,18 @@ function preLoadPlayer() {
   return _preLoadPlayer.apply(this, arguments);
 } // Used in the last step of loadManifest and loadUrl
 function _preLoadPlayer() {
-  _preLoadPlayer = Paella_asyncToGenerator( /*#__PURE__*/Paella_regeneratorRuntime().mark(function _callee19() {
+  _preLoadPlayer = Paella_asyncToGenerator( /*#__PURE__*/Paella_regeneratorRuntime().mark(function _callee20() {
     var urlSearch, caseInsensitiveParams, _iterator, _step, _step$value, name, value, urlParamLogLevel, logLevel, _iterator2, _step2, module, dict, lang;
-    return Paella_regeneratorRuntime().wrap(function _callee19$(_context19) {
-      while (1) switch (_context19.prev = _context19.next) {
+    return Paella_regeneratorRuntime().wrap(function _callee20$(_context20) {
+      while (1) switch (_context20.prev = _context20.next) {
         case 0:
           this._playerState = PlayerState/* default */.Z.LOADING_MANIFEST;
           this._manifestLoaded = true;
           this.log.debug("Loading paella player");
-          _context19.next = 5;
+          _context20.next = 5;
           return this.initParams.loadConfig(this.configUrl, this);
         case 5:
-          this._config = _context19.sent;
+          this._config = _context20.sent;
           // Override config.json options from skin
           overrideSkinConfig.apply(this.skin, [this._config]);
           (0,Localization/* setupDefaultLanguage */.fo)(this);
@@ -49860,70 +49866,70 @@ function _preLoadPlayer() {
           this._log.setLevel(logLevel);
 
           // Load localization dictionaries
-          _context19.next = 21;
+          _context20.next = 21;
           return this._initParams.loadDictionaries(this);
         case 21:
           (0,plugin_tools/* registerPlugins */.zb)(this);
 
           // EventLogPlugin plugins are loaded first, so that all lifecycle events can be captured.
-          _context19.next = 24;
+          _context20.next = 24;
           return (0,EventLogPlugin/* loadLogEventPlugins */.$_)(this);
         case 24:
-          _context19.next = 26;
+          _context20.next = 26;
           return (0,KeyShortcutPlugin/* loadKeyShortcutPlugins */.L)(this);
         case 26:
           // Create video container.
           this._videoContainer = new VideoContainer_VideoContainer(this, this._containerElement);
 
           // This function will load the video plugins
-          _context19.next = 29;
+          _context20.next = 29;
           return this.videoContainer.create();
         case 29:
           // Load plugin modules dictionaries
           _iterator2 = Paella_createForOfIteratorHelper(this.pluginModules);
-          _context19.prev = 30;
+          _context20.prev = 30;
           _iterator2.s();
         case 32:
           if ((_step2 = _iterator2.n()).done) {
-            _context19.next = 43;
+            _context20.next = 43;
             break;
           }
           module = _step2.value;
-          _context19.t0 = module.getDictionaries;
-          if (!_context19.t0) {
-            _context19.next = 39;
+          _context20.t0 = module.getDictionaries;
+          if (!_context20.t0) {
+            _context20.next = 39;
             break;
           }
-          _context19.next = 38;
+          _context20.next = 38;
           return module.getDictionaries();
         case 38:
-          _context19.t0 = _context19.sent;
+          _context20.t0 = _context20.sent;
         case 39:
-          dict = _context19.t0;
+          dict = _context20.t0;
           if (dict) {
             for (lang in dict) {
               (0,Localization/* addDictionary */.BF)(lang, dict[lang]);
             }
           }
         case 41:
-          _context19.next = 32;
+          _context20.next = 32;
           break;
         case 43:
-          _context19.next = 48;
+          _context20.next = 48;
           break;
         case 45:
-          _context19.prev = 45;
-          _context19.t1 = _context19["catch"](30);
-          _iterator2.e(_context19.t1);
+          _context20.prev = 45;
+          _context20.t1 = _context20["catch"](30);
+          _iterator2.e(_context20.t1);
         case 48:
-          _context19.prev = 48;
+          _context20.prev = 48;
           _iterator2.f();
-          return _context19.finish(48);
+          return _context20.finish(48);
         case 51:
         case "end":
-          return _context19.stop();
+          return _context20.stop();
       }
-    }, _callee19, this, [[30, 45, 48, 51]]);
+    }, _callee20, this, [[30, 45, 48, 51]]);
   }));
   return _preLoadPlayer.apply(this, arguments);
 }
@@ -49931,12 +49937,12 @@ function postLoadPlayer() {
   return _postLoadPlayer.apply(this, arguments);
 }
 function _postLoadPlayer() {
-  _postLoadPlayer = Paella_asyncToGenerator( /*#__PURE__*/Paella_regeneratorRuntime().mark(function _callee21() {
+  _postLoadPlayer = Paella_asyncToGenerator( /*#__PURE__*/Paella_regeneratorRuntime().mark(function _callee22() {
     var _this$videoManifest7,
       _this6 = this;
     var lang, dict;
-    return Paella_regeneratorRuntime().wrap(function _callee21$(_context21) {
-      while (1) switch (_context21.prev = _context21.next) {
+    return Paella_regeneratorRuntime().wrap(function _callee22$(_context22) {
+      while (1) switch (_context22.prev = _context22.next) {
         case 0:
           this.log.debug("Video manifest loaded:");
           this.log.debug(this.videoManifest);
@@ -49954,7 +49960,7 @@ function _postLoadPlayer() {
 
           // The video preview is required
           if ((_this$videoManifest7 = this.videoManifest) !== null && _this$videoManifest7 !== void 0 && (_this$videoManifest7 = _this$videoManifest7.metadata) !== null && _this$videoManifest7 !== void 0 && _this$videoManifest7.preview) {
-            _context21.next = 10;
+            _context22.next = 10;
             break;
           }
           throw new Error("No preview image found in video manifest, and no default preview image defined.");
@@ -49966,21 +49972,21 @@ function _postLoadPlayer() {
           // Register a keyboard event to enable the playback button, but only if there are only one player in the page
           if (__paella_instances__.length === 1) {
             this._loadKeypressHandler = this._loadKeypressHandler || /*#__PURE__*/function () {
-              var _ref3 = Paella_asyncToGenerator( /*#__PURE__*/Paella_regeneratorRuntime().mark(function _callee20(evt) {
-                return Paella_regeneratorRuntime().wrap(function _callee20$(_context20) {
-                  while (1) switch (_context20.prev = _context20.next) {
+              var _ref3 = Paella_asyncToGenerator( /*#__PURE__*/Paella_regeneratorRuntime().mark(function _callee21(evt) {
+                return Paella_regeneratorRuntime().wrap(function _callee21$(_context21) {
+                  while (1) switch (_context21.prev = _context21.next) {
                     case 0:
                       if (!/space/i.test(evt.code)) {
-                        _context20.next = 3;
+                        _context21.next = 3;
                         break;
                       }
-                      _context20.next = 3;
+                      _context21.next = 3;
                       return _this6.play();
                     case 3:
                     case "end":
-                      return _context20.stop();
+                      return _context21.stop();
                   }
-                }, _callee20);
+                }, _callee21);
               }));
               return function (_x3) {
                 return _ref3.apply(this, arguments);
@@ -49991,9 +49997,9 @@ function _postLoadPlayer() {
           }
         case 13:
         case "end":
-          return _context21.stop();
+          return _context22.stop();
       }
-    }, _callee21, this);
+    }, _callee22, this);
   }));
   return _postLoadPlayer.apply(this, arguments);
 }
@@ -50082,10 +50088,10 @@ var Paella = /*#__PURE__*/function () {
 
     // Load status flags
     this._playerLoaded = false;
-    var resize = function resize() {
+    this._resizeEventListener = function () {
       _this.resize();
     };
-    window.addEventListener("resize", resize);
+    window.addEventListener("resize", this._resizeEventListener);
     this.containerElement.addEventListener("fullscreenchange", function () {
       (0,Events/* triggerEvent */.qe)(_this, Events/* default */.ZP.FULLSCREEN_CHANGED, {
         status: _this.isFullscreen
@@ -50863,46 +50869,93 @@ var Paella = /*#__PURE__*/function () {
       }
       return unloadPlayer;
     }()
+    /**
+     * Unloads and then completely removes this Paella instance. Reverts all
+     * effects of the constructor. This method is useful for SPAs where the
+     * instance should be completely removed on navigation, for example. The
+     * Paella instance cannot be used anymore after this method is called.
+     */
   }, {
-    key: "reload",
+    key: "destroy",
     value: function () {
-      var _reload = Paella_asyncToGenerator( /*#__PURE__*/Paella_regeneratorRuntime().mark(function _callee9() {
-        var onUnloadFn,
-          _args9 = arguments;
+      var _destroy = Paella_asyncToGenerator( /*#__PURE__*/Paella_regeneratorRuntime().mark(function _callee9() {
+        var index;
         return Paella_regeneratorRuntime().wrap(function _callee9$(_context9) {
           while (1) switch (_context9.prev = _context9.next) {
             case 0:
-              onUnloadFn = _args9.length > 0 && _args9[0] !== undefined ? _args9[0] : null;
-              _context9.t0 = this.state;
-              _context9.next = _context9.t0 === PlayerState/* default */.Z.UNLOADED ? 4 : _context9.t0 === PlayerState/* default */.Z.MANIFEST ? 5 : _context9.t0 === PlayerState/* default */.Z.LOADED ? 8 : 11;
-              break;
-            case 4:
-              return _context9.abrupt("break", 11);
-            case 5:
-              _context9.next = 7;
-              return this.unloadManifest();
-            case 7:
-              return _context9.abrupt("break", 11);
-            case 8:
-              _context9.next = 10;
+              _context9.next = 2;
               return this.unload();
-            case 10:
-              return _context9.abrupt("break", 11);
-            case 11:
-              if (!(typeof onUnloadFn === "function")) {
-                _context9.next = 14;
-                break;
+            case 2:
+              // Now undo every side effects that the constructor caused, in reverse order.
+              window.removeEventListener("resize", this._resizeEventListener);
+              (0,Localization/* setTranslateFunction */.Gj)(Localization/* defaultTranslateFunction */.Pb);
+              (0,Localization/* setSetLanguageFunction */.n1)(Localization/* defaultSetLanguageFunction */.D$);
+              (0,Localization/* setGetLanguageFunction */.Ji)(Localization/* defaultGetLanguageFunction */.cN);
+              (0,Localization/* setAddDictionaryFunction */.fe)(Localization/* defaultAddDictionaryFunction */.Xx);
+              (0,Localization/* setGetDictionariesFunction */.Fv)(Localization/* defaultGetDictionariesFunction */.m6);
+              (0,Localization/* setGetDefaultLanguageFunction */.gc)(Localization/* defaultGetDefaultLanguageFunction */.eJ);
+
+              // The constructor add `player-container` to the element's class list,
+              // but we don't know if it was present before. We just leave it as this
+              // is unlikely to cause problems.
+
+              if (window.__paella_instances__ && typeof window.__paella_instances__ === "array") {
+                index = window.__paella_instances__.indexOf(this);
+                if (index > -1) {
+                  window.__paella_instances__.splice(index, 1);
+                }
               }
-              _context9.next = 14;
-              return onUnloadFn();
-            case 14:
-              _context9.next = 16;
-              return this.load();
-            case 16:
+            case 10:
             case "end":
               return _context9.stop();
           }
         }, _callee9, this);
+      }));
+      function destroy() {
+        return _destroy.apply(this, arguments);
+      }
+      return destroy;
+    }()
+  }, {
+    key: "reload",
+    value: function () {
+      var _reload = Paella_asyncToGenerator( /*#__PURE__*/Paella_regeneratorRuntime().mark(function _callee10() {
+        var onUnloadFn,
+          _args10 = arguments;
+        return Paella_regeneratorRuntime().wrap(function _callee10$(_context10) {
+          while (1) switch (_context10.prev = _context10.next) {
+            case 0:
+              onUnloadFn = _args10.length > 0 && _args10[0] !== undefined ? _args10[0] : null;
+              _context10.t0 = this.state;
+              _context10.next = _context10.t0 === PlayerState/* default */.Z.UNLOADED ? 4 : _context10.t0 === PlayerState/* default */.Z.MANIFEST ? 5 : _context10.t0 === PlayerState/* default */.Z.LOADED ? 8 : 11;
+              break;
+            case 4:
+              return _context10.abrupt("break", 11);
+            case 5:
+              _context10.next = 7;
+              return this.unloadManifest();
+            case 7:
+              return _context10.abrupt("break", 11);
+            case 8:
+              _context10.next = 10;
+              return this.unload();
+            case 10:
+              return _context10.abrupt("break", 11);
+            case 11:
+              if (!(typeof onUnloadFn === "function")) {
+                _context10.next = 14;
+                break;
+              }
+              _context10.next = 14;
+              return onUnloadFn();
+            case 14:
+              _context10.next = 16;
+              return this.load();
+            case 16:
+            case "end":
+              return _context10.stop();
+          }
+        }, _callee10, this);
       }));
       function reload() {
         return _reload.apply(this, arguments);
@@ -50912,13 +50965,13 @@ var Paella = /*#__PURE__*/function () {
   }, {
     key: "resize",
     value: function () {
-      var _resize = Paella_asyncToGenerator( /*#__PURE__*/Paella_regeneratorRuntime().mark(function _callee10() {
+      var _resize = Paella_asyncToGenerator( /*#__PURE__*/Paella_regeneratorRuntime().mark(function _callee11() {
         var _this$videoContainer2,
           _this$playbackBar,
           _this4 = this;
         var getSize;
-        return Paella_regeneratorRuntime().wrap(function _callee10$(_context10) {
-          while (1) switch (_context10.prev = _context10.next) {
+        return Paella_regeneratorRuntime().wrap(function _callee11$(_context11) {
+          while (1) switch (_context11.prev = _context11.next) {
             case 0:
               (_this$videoContainer2 = this.videoContainer) === null || _this$videoContainer2 === void 0 || _this$videoContainer2.updateLayout();
               (_this$playbackBar = this.playbackBar) === null || _this$playbackBar === void 0 || _this$playbackBar.onResize();
@@ -50943,9 +50996,9 @@ var Paella = /*#__PURE__*/function () {
               }
             case 3:
             case "end":
-              return _context10.stop();
+              return _context11.stop();
           }
-        }, _callee10, this);
+        }, _callee11, this);
       }));
       function resize() {
         return _resize.apply(this, arguments);
@@ -50955,17 +51008,17 @@ var Paella = /*#__PURE__*/function () {
   }, {
     key: "hideUserInterface",
     value: function () {
-      var _hideUserInterface = Paella_asyncToGenerator( /*#__PURE__*/Paella_regeneratorRuntime().mark(function _callee11() {
+      var _hideUserInterface = Paella_asyncToGenerator( /*#__PURE__*/Paella_regeneratorRuntime().mark(function _callee12() {
         var _this$videoContainer3;
         var _this$videoContainer4, _this$playbackBar2;
-        return Paella_regeneratorRuntime().wrap(function _callee11$(_context11) {
-          while (1) switch (_context11.prev = _context11.next) {
+        return Paella_regeneratorRuntime().wrap(function _callee12$(_context12) {
+          while (1) switch (_context12.prev = _context12.next) {
             case 0:
-              _context11.next = 2;
+              _context12.next = 2;
               return (_this$videoContainer3 = this.videoContainer) === null || _this$videoContainer3 === void 0 ? void 0 : _this$videoContainer3.paused();
             case 2:
-              if (_context11.sent) {
-                _context11.next = 8;
+              if (_context12.sent) {
+                _context12.next = 8;
                 break;
               }
               this._uiHidden = true;
@@ -50975,9 +51028,9 @@ var Paella = /*#__PURE__*/function () {
               (0,Events/* triggerEvent */.qe)(this, Events/* default */.ZP.HIDE_UI);
             case 8:
             case "end":
-              return _context11.stop();
+              return _context12.stop();
           }
-        }, _callee11, this);
+        }, _callee12, this);
       }));
       function hideUserInterface() {
         return _hideUserInterface.apply(this, arguments);
@@ -50987,10 +51040,10 @@ var Paella = /*#__PURE__*/function () {
   }, {
     key: "showUserInterface",
     value: function () {
-      var _showUserInterface = Paella_asyncToGenerator( /*#__PURE__*/Paella_regeneratorRuntime().mark(function _callee12() {
+      var _showUserInterface = Paella_asyncToGenerator( /*#__PURE__*/Paella_regeneratorRuntime().mark(function _callee13() {
         var _this$videoContainer5, _this$playbackBar3;
-        return Paella_regeneratorRuntime().wrap(function _callee12$(_context12) {
-          while (1) switch (_context12.prev = _context12.next) {
+        return Paella_regeneratorRuntime().wrap(function _callee13$(_context13) {
+          while (1) switch (_context13.prev = _context13.next) {
             case 0:
               (_this$videoContainer5 = this.videoContainer) === null || _this$videoContainer5 === void 0 || _this$videoContainer5.showUserInterface();
               (_this$playbackBar3 = this.playbackBar) === null || _this$playbackBar3 === void 0 || _this$playbackBar3.showUserInterface();
@@ -50999,9 +51052,9 @@ var Paella = /*#__PURE__*/function () {
               this._uiHidden = false;
             case 5:
             case "end":
-              return _context12.stop();
+              return _context13.stop();
           }
-        }, _callee12, this);
+        }, _callee13, this);
       }));
       function showUserInterface() {
         return _showUserInterface.apply(this, arguments);
@@ -51011,28 +51064,28 @@ var Paella = /*#__PURE__*/function () {
   }, {
     key: "play",
     value: function () {
-      var _play = Paella_asyncToGenerator( /*#__PURE__*/Paella_regeneratorRuntime().mark(function _callee13() {
-        return Paella_regeneratorRuntime().wrap(function _callee13$(_context13) {
-          while (1) switch (_context13.prev = _context13.next) {
+      var _play = Paella_asyncToGenerator( /*#__PURE__*/Paella_regeneratorRuntime().mark(function _callee14() {
+        return Paella_regeneratorRuntime().wrap(function _callee14$(_context14) {
+          while (1) switch (_context14.prev = _context14.next) {
             case 0:
               if (this._loadKeypressHandler) {
                 window.removeEventListener('keypress', this._loadKeypressHandler, true);
                 this._loadKeypressHandler = null;
               }
               if (this.videoContainer.ready) {
-                _context13.next = 4;
+                _context14.next = 4;
                 break;
               }
-              _context13.next = 4;
+              _context14.next = 4;
               return this.loadPlayer();
             case 4:
-              _context13.next = 6;
+              _context14.next = 6;
               return this.videoContainer.play();
             case 6:
             case "end":
-              return _context13.stop();
+              return _context14.stop();
           }
-        }, _callee13, this);
+        }, _callee14, this);
       }));
       function play() {
         return _play.apply(this, arguments);
@@ -51042,18 +51095,18 @@ var Paella = /*#__PURE__*/function () {
   }, {
     key: "pause",
     value: function () {
-      var _pause = Paella_asyncToGenerator( /*#__PURE__*/Paella_regeneratorRuntime().mark(function _callee14() {
+      var _pause = Paella_asyncToGenerator( /*#__PURE__*/Paella_regeneratorRuntime().mark(function _callee15() {
         var _this$videoContainer6;
-        return Paella_regeneratorRuntime().wrap(function _callee14$(_context14) {
-          while (1) switch (_context14.prev = _context14.next) {
+        return Paella_regeneratorRuntime().wrap(function _callee15$(_context15) {
+          while (1) switch (_context15.prev = _context15.next) {
             case 0:
-              _context14.next = 2;
+              _context15.next = 2;
               return (_this$videoContainer6 = this.videoContainer) === null || _this$videoContainer6 === void 0 ? void 0 : _this$videoContainer6.pause();
             case 2:
             case "end":
-              return _context14.stop();
+              return _context15.stop();
           }
-        }, _callee14, this);
+        }, _callee15, this);
       }));
       function pause() {
         return _pause.apply(this, arguments);
@@ -51063,22 +51116,22 @@ var Paella = /*#__PURE__*/function () {
   }, {
     key: "paused",
     value: function () {
-      var _paused = Paella_asyncToGenerator( /*#__PURE__*/Paella_regeneratorRuntime().mark(function _callee15() {
-        return Paella_regeneratorRuntime().wrap(function _callee15$(_context15) {
-          while (1) switch (_context15.prev = _context15.next) {
+      var _paused = Paella_asyncToGenerator( /*#__PURE__*/Paella_regeneratorRuntime().mark(function _callee16() {
+        return Paella_regeneratorRuntime().wrap(function _callee16$(_context16) {
+          while (1) switch (_context16.prev = _context16.next) {
             case 0:
               if (this.videoContainer) {
-                _context15.next = 4;
+                _context16.next = 4;
                 break;
               }
-              return _context15.abrupt("return", true);
+              return _context16.abrupt("return", true);
             case 4:
-              return _context15.abrupt("return", this.videoContainer.paused());
+              return _context16.abrupt("return", this.videoContainer.paused());
             case 5:
             case "end":
-              return _context15.stop();
+              return _context16.stop();
           }
-        }, _callee15, this);
+        }, _callee16, this);
       }));
       function paused() {
         return _paused.apply(this, arguments);
@@ -51088,18 +51141,18 @@ var Paella = /*#__PURE__*/function () {
   }, {
     key: "stop",
     value: function () {
-      var _stop = Paella_asyncToGenerator( /*#__PURE__*/Paella_regeneratorRuntime().mark(function _callee16() {
+      var _stop = Paella_asyncToGenerator( /*#__PURE__*/Paella_regeneratorRuntime().mark(function _callee17() {
         var _this$videoContainer7;
-        return Paella_regeneratorRuntime().wrap(function _callee16$(_context16) {
-          while (1) switch (_context16.prev = _context16.next) {
+        return Paella_regeneratorRuntime().wrap(function _callee17$(_context17) {
+          while (1) switch (_context17.prev = _context17.next) {
             case 0:
-              _context16.next = 2;
+              _context17.next = 2;
               return (_this$videoContainer7 = this.videoContainer) === null || _this$videoContainer7 === void 0 ? void 0 : _this$videoContainer7.stop();
             case 2:
             case "end":
-              return _context16.stop();
+              return _context17.stop();
           }
-        }, _callee16, this);
+        }, _callee17, this);
       }));
       function stop() {
         return _stop.apply(this, arguments);
@@ -51114,11 +51167,11 @@ var Paella = /*#__PURE__*/function () {
   }, {
     key: "enterFullscreen",
     value: function () {
-      var _enterFullscreen = Paella_asyncToGenerator( /*#__PURE__*/Paella_regeneratorRuntime().mark(function _callee17() {
+      var _enterFullscreen = Paella_asyncToGenerator( /*#__PURE__*/Paella_regeneratorRuntime().mark(function _callee18() {
         var _this5 = this;
         var result;
-        return Paella_regeneratorRuntime().wrap(function _callee17$(_context17) {
-          while (1) switch (_context17.prev = _context17.next) {
+        return Paella_regeneratorRuntime().wrap(function _callee18$(_context18) {
+          while (1) switch (_context18.prev = _context18.next) {
             case 0:
               result = null;
               if (this.containerElement.requestFullscreen) {
@@ -51130,12 +51183,12 @@ var Paella = /*#__PURE__*/function () {
               setTimeout(function () {
                 return _this5.resize();
               }, 500);
-              return _context17.abrupt("return", result);
+              return _context18.abrupt("return", result);
             case 4:
             case "end":
-              return _context17.stop();
+              return _context18.stop();
           }
-        }, _callee17, this);
+        }, _callee18, this);
       }));
       function enterFullscreen() {
         return _enterFullscreen.apply(this, arguments);
@@ -51145,27 +51198,27 @@ var Paella = /*#__PURE__*/function () {
   }, {
     key: "exitFullscreen",
     value: function () {
-      var _exitFullscreen = Paella_asyncToGenerator( /*#__PURE__*/Paella_regeneratorRuntime().mark(function _callee18() {
-        return Paella_regeneratorRuntime().wrap(function _callee18$(_context18) {
-          while (1) switch (_context18.prev = _context18.next) {
+      var _exitFullscreen = Paella_asyncToGenerator( /*#__PURE__*/Paella_regeneratorRuntime().mark(function _callee19() {
+        return Paella_regeneratorRuntime().wrap(function _callee19$(_context19) {
+          while (1) switch (_context19.prev = _context19.next) {
             case 0:
               if (!(document.exitFullscreen && this.isFullscreen)) {
-                _context18.next = 4;
+                _context19.next = 4;
                 break;
               }
-              return _context18.abrupt("return", document.exitFullscreen());
+              return _context19.abrupt("return", document.exitFullscreen());
             case 4:
               if (!(document.webkitCancelFullScreen && this.isFullscreen)) {
-                _context18.next = 7;
+                _context19.next = 7;
                 break;
               }
               this.log.debug("Safari exit fullscreen");
-              return _context18.abrupt("return", document.webkitCancelFullScreen());
+              return _context19.abrupt("return", document.webkitCancelFullScreen());
             case 7:
             case "end":
-              return _context18.stop();
+              return _context19.stop();
           }
-        }, _callee18, this);
+        }, _callee19, this);
       }));
       function exitFullscreen() {
         return _exitFullscreen.apply(this, arguments);
