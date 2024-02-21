@@ -233,6 +233,9 @@ export class Mp4Video extends Video {
         });
         this.video.addEventListener("ended", this._endedCallback);
 
+        // It's necessary to play the video because some browsers don't update the
+        // readyState property until the video is played.
+        await this.video.play();
         await this.waitForLoaded();
 
         this.player.log.debug(`es.upv.paella.mp4VideoFormat (${ this.streamData.content }): video loaded and ready.`);
