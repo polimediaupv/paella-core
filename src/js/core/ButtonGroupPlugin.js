@@ -26,6 +26,7 @@ export default class ButtonGroupPlugin extends PopUpButtonPlugin {
 
     async getContent() {
         const content = createElementWithHtmlText('<div class="button-group"></div>');
+        this._content = content;
 
         // Get the button plugins with "parentContainer" === this.groupName
         this._firstItem = null;
@@ -88,7 +89,7 @@ export default class ButtonGroupPlugin extends PopUpButtonPlugin {
 	}
 
     get buttons() {
-        return Array.from(this.popUp.element.getElementsByClassName('button-plugin'));
+        return this._content && Array.from(this._content.getElementsByClassName('button-plugin'));
     }
 
     hideButtonContainer(btn) {

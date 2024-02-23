@@ -18,6 +18,7 @@ export default class MenuButtonPlugin extends PopUpButtonPlugin {
 
 	async getContent() {
 		const content = createElementWithHtmlText(`<ul class="menu-button-content"></ul>`);
+		this._content = content;
 
 		const title = this.menuTitle;
 		const menuItems = await this.getMenu();

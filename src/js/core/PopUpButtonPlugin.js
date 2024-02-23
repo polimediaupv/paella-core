@@ -87,15 +87,24 @@ export default class PopUpButtonPlugin extends ButtonPlugin {
 	}
 	
 	hidePopUp() {
-		if (this.closeParentPopUp) {
-			PopUp.HideAllPopUps(false);
-		}
-		else if (this._popUp) {
-			this._popUp.hide();
+		if (!this.player.playbackBar.popUp.isHidden) {
+			this.player.playbackBar.popUp.hide();
 		}
 	}
 	
 	async showPopUp() {
-		throw new Error("showPopUp method not implemented");
+		if (this.player.playbackBar.popUp.isHidden) {
+			const content = await this.getContent();
+			this.player.playbackBar.popUp.show({
+				title: this.menuTitle,
+				content,
+				attachRight: this.popUpType === "timeline" || this.side === "right",
+				attachLeft: this.popUpType === "timeline" || this.side === "left",
+				parent: this.parentPopUp
+			});
+		}
+		else {
+			this.player.playbackBar.popUp.hide();
+		}
 	}
 }
