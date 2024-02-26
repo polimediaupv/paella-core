@@ -163,6 +163,12 @@
     gap: 4px;
 }
 
+.playback-bar-container.pop-up-active {
+    position: relative;
+    z-index: 100;
+    pointer-events: all;
+}
+
 .playback-bar {
 	bottom: 0px;
 	width: var(--playback-bar-width);

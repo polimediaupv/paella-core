@@ -93,9 +93,10 @@ export default class PopUpButtonPlugin extends ButtonPlugin {
 	}
 	
 	async showPopUp() {
-		if (this.player.playbackBar.popUp.isHidden) {
+		const popUp = this.player.playbackBar.popUp;
+		if (popUp.isHidden || this._contentId !== popUp.currentContentId) {
 			const content = await this.getContent();
-			this.player.playbackBar.popUp.show({
+			this._contentId = popUp.show({
 				title: this.menuTitle,
 				content,
 				attachRight: this.popUpType === "timeline" || this.side === "right",
@@ -104,7 +105,7 @@ export default class PopUpButtonPlugin extends ButtonPlugin {
 			});
 		}
 		else {
-			this.player.playbackBar.popUp.hide();
+			popUp.hide();
 		}
 	}
 }

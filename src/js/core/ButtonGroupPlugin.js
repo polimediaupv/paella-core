@@ -78,7 +78,7 @@ export default class ButtonGroupPlugin extends PopUpButtonPlugin {
             }
         }, 50);
 
-        this.buttons.forEach(btn => {
+        this.buttons?.forEach(btn => {
             if (btn.style.display === 'none') {
                 this.hideButtonContainer(btn);
             }

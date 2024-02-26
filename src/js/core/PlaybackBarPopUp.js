@@ -42,6 +42,14 @@ const buildSectionContainer = (parent) => {
     return section;
 }
 
+function* getPopUpId() {
+    let id = 0;
+    while (true) {
+        console.log(id);
+        yield id++;
+    }
+}
+
 export default class PlaybackBarPopUp {
     #playbackBar = null;
     #element = null;
@@ -118,6 +126,10 @@ export default class PlaybackBarPopUp {
         playbackBar.element.prepend(this.#element);
         this.#popUpContainer.parent = this.#element;
         this.#element.classList.add('hidden');
+        this.#playbackBar.element.addEventListener('click', (evt) => {
+            evt.stopPropagation();
+            this.hide();
+        });
     }
 
     get title() {
@@ -127,6 +139,11 @@ export default class PlaybackBarPopUp {
     set title(title) {
         this.#title = title;
         this.#popUpContainer.title = title;
+    }
+
+    #currentContentId = -1;
+    get currentContentId() {
+        return this.#currentContentId;
     }
 
     show({ content, title = null, parent = null, attachLeft = false, attachRight = false }) {
@@ -155,9 +172,12 @@ export default class PlaybackBarPopUp {
             this.title = title;
         }
         this.#checkPopButton(container);
+        this.#currentContentId = getPopUpId();
+        return this.#currentContentId;
     }
-
+    
     hide() {
+        this.#currentContentId = -1;
         this.#playbackBar.element.classList.remove('pop-up-active');
         this.#element.classList.add('hidden');
     }
