@@ -34,6 +34,10 @@ export default class MenuButtonPlugin extends PopUpButtonPlugin {
 		//}
 		
 		menuItems.forEach(item => {
+			// TODO: Create different menus depending on the item type
+			//  - button: <nav> with buttons
+			//  - check: <form> with checkboxes and labels
+			//  - radio: <form> with radio buttons and labels
 			const itemElem = createElementWithHtmlText(`<li class="menu-button-item"></li>`, content);
 			let className = "";
 			if (this.buttonType === "button") {
@@ -163,7 +167,7 @@ export default class MenuButtonPlugin extends PopUpButtonPlugin {
 	
 	buttonType() {
 		// check, radio or button
-		return "button";	
+		return "radio";	
 	}
 	
 	itemSelected(itemData,menuItems) {
@@ -171,13 +175,7 @@ export default class MenuButtonPlugin extends PopUpButtonPlugin {
 	}
 	
 	closeMenu() {
-		throw new Error("MenuButtonPlugin::closeMenu() function not implemented.");
-		if (this.config.closeParentPopUp) {
-			
-		}
-		else {
-			this._popUp.hide();
-		}
+		this.player.playbackBar.popUp.hide();
 	}
 
 	async showPopUp() {
