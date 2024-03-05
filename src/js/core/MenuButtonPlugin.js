@@ -2,6 +2,75 @@
 import PopUpButtonPlugin from './PopUpButtonPlugin';
 import { createElementWithHtmlText } from './dom';
 
+const titleElement = (title) => title ? `<span class="menu-title">${title}</span>` : "";
+const iconElement = (icon) => icon ? `<i class="menu-icon">${icon}</i>` : "";
+const ariaLabel = (title) => title ? `aria-label="${title}"` : "";
+
+const itemTypes = {
+	button({ id = 0, title = null, icon = null, showTitle = true, allItems, plugin }) {
+		const item = createElementWithHtmlText(`
+			<button class="menu-button-item" ${ariaLabel(title)} data-id="${id}">
+				${ iconElement(icon) }
+				${ showTitle ? titleElement(title) : "" }
+			</button>
+		`);
+		item.addEventListener("click", () => {
+			const item = allItems.find(item => item.id === id);
+			plugin.itemSelected(item, allItems);
+		});
+
+		return item;
+	},
+
+	input({ type, id = 0, title = null, icon = null, showTitle = true, onItemSelected, selectedItems }) {
+		const selected = selectedItems[id] ?? false;
+		const item = createElementWithHtmlText(`
+			<label class="menu-button-item">
+				<input type="${type}" ${ selected ? `checked` : "" } value="${id}" ${ariaLabel(title)} data-id="${id}">
+				${ iconElement(icon) }
+				${ showTitle ? titleElement(title) : "" }
+			</label>
+		`);
+		item.querySelector("input").addEventListener("change", evt => onItemSelected(evt.target));
+		return item;
+	},
+
+	check({ plugin, id = 0, title = null, icon = null, showTitle = true, allItems, selectedItems }) {
+		return this.input({ type: "checkbox", id, title, icon, showTitle, selectedItems, onItemSelected: (target) => {
+			const item = allItems.find(item => item.id === id);
+			selectedItems[id] = target.checked;
+			plugin.itemSelected(item, allItems);
+		}});
+	},
+
+	radio({ plugin, id = 0, title = null, icon = null, showTitle = true, allItems, selectedItems }) {
+		return this.input({ type: "radio", id, title, icon, showTitle, selectedItems, onItemSelected: (target) => {
+			let item = null;
+			selectedItems[id] = true;
+			allItems.forEach(currentItem => {
+				if (currentItem.id === id) {
+					item = currentItem;
+				}
+				else {
+					selectedItems[currentItem.id] = false;
+				}
+			});
+			plugin.itemSelected(item, allItems);
+		}});
+	}
+}
+
+function getMenuItem(item, buttonType, container, allItems, selectedItems) {
+	const itemElem = itemTypes[buttonType]({
+		...item,
+		plugin: this,
+		allItems,
+		selectedItems
+	});
+	container.appendChild(itemElem);
+	return itemElem;
+}
+
 export default class MenuButtonPlugin extends PopUpButtonPlugin {
 	
 	get closeOnSelect() {
@@ -16,123 +85,37 @@ export default class MenuButtonPlugin extends PopUpButtonPlugin {
 		return this.config.closeOnSelect;
 	}
 
+	setSelected(id, value) {
+		if (this._selectedItems) {
+			this._selectedItems[id] = value;
+		}
+	}
+
 	async getContent() {
-		const content = createElementWithHtmlText(`<ul class="menu-button-content"></ul>`);
+		const content = createElementWithHtmlText(`<fieldset class="menu-button-content"></fieldset>`);
 		this._content = content;
 
 		const title = this.menuTitle;
 		const menuItems = await this.getMenu();
 		this._menuItems = menuItems;
-		let radioItemChecked = false;
 		let firstItem = null;
-		//if (title !== null && title instanceof Element) {
-		//	const titleElem = createElementWithHtmlText(`<li class="menu-button-title"></li>`, content);
-		//	titleElem.appendChild(title);
-		//}
-		//else if (title !== null) {
-		//	createElementWithHtmlText(`<li class="menu-button-title">${this.player.translate(title)}</li>`, content);
-		//}
 		
-		menuItems.forEach(item => {
-			// TODO: Create different menus depending on the item type
-			//  - button: <nav> with buttons
-			//  - check: <form> with checkboxes and labels
-			//  - radio: <form> with radio buttons and labels
-			const itemElem = createElementWithHtmlText(`<li class="menu-button-item"></li>`, content);
-			let className = "";
-			if (this.buttonType === "button") {
-				className = "menu-item-type-button";
-			}
-			else if (this.buttonType === "check") {
-				className = "menu-item-type-button" + (item.selected ? " selected" :  "");
-			}
-			else if (this.buttonType === "radio") {
-				className = "menu-item-type-button";
-				if (!radioItemChecked && item.selected) {
-					className += " selected";
-					radioItemChecked = true;
-				}
-			}
-			let itemContent = "";
-			
-			const menuTitleElement = item.title instanceof Element ? item.title : null;
-			if (item.icon && item.title && this.showTitles && !menuTitleElement) {
-				itemContent = `
-				<i class="menu-icon">${ item.icon }</i>
-				<span class="menu-title">${ item.title }</span>
-				`;
-				
-			}
-			if (item.icon && menuTitleElement && this.showTitles) {
-				itemContent = `
-				<i class="menu-icon">${ item.icon }</i>
-				<span class="menu-title"></span>
-				`;
-				
-			}
-			else if (item.icon) {
-				itemContent = `
-				<i class="menu-icon">${ item.icon }</i>
-				`;
-			}
-			else if (item.title && !menuTitleElement) {
-				itemContent = `
-				<span class="menu-title">${ item.title }</span>
-				`;
-			}
-			else if (menuTitleElement) {
-				itemContent = `
-				<span class="menu-title"></span>
-				`;
-			}
-			
-			const itemButton = createElementWithHtmlText(`
-				<button class="${ className }" aria-label="${ item.title }" title="${ item.title }">${ itemContent }</button>`
-				, itemElem);
-			if (menuTitleElement) {
-				const menuTitleContainer = itemButton.getElementsByClassName("menu-title")[0];
-				menuTitleContainer.appendChild(menuTitleElement);
-			}
-			if (!firstItem) {
-				firstItem = itemButton;
-			}
-			item.buttonElement = itemButton;
-			itemButton._itemData = item;
-			itemButton.addEventListener("click", (evt) => {
-				if (this.buttonType === "check") {
-					evt.target._itemData.selected = !evt.target._itemData.selected;
-					evt.target._itemData.selected ?
-						evt.target.classList.add("selected") :
-						evt.target.classList.remove("selected");
-				}
-				else if (this.buttonType === "radio") {
-					this.menuItems.forEach(i => {
-						i.selected = false;
-						i.buttonElement.classList.remove("selected");
-					});
-					evt.target._itemData.selected = !evt.target._itemData.selected;
-					evt.target._itemData.selected ?
-						evt.target.classList.add("selected") :
-						evt.target.classList.remove("selected");
-				}
-				this.itemSelected(evt.target._itemData, this._menuItems);
-				evt.stopPropagation();
-				
-				if (this.closeOnSelect) {
-					this.closeMenu();
+		if (!this._selectedItems) {
+			this._selectedItems = {};
+			// The `selected` property of the menu items is used to set the initial state. Once initialized, the
+			// selection value is managed by the plugin and the `selected` property is ignored.
+			this._menuItems.forEach(itemData => {
+				if (itemData.selected !== undefined && itemData.selected !== null) {
+					this._selectedItems[itemData.id] = itemData.selected;
 				}
 			});
-			
-			// Remove "width" and "height" options from `svg` if is set to any percentage
-			const svgs = itemButton.getElementsByTagName("svg");
-			if (svgs.length>0) {
-				/%$/.test(svgs[0].getAttribute("width")) && svgs[0].removeAttribute("width");
-				/%$/.test(svgs[0].getAttribute("height")) && svgs[0].removeAttribute("height");
-			}
-		});
+		}
+
+		const itemElems = menuItems.map(item => getMenuItem.apply(this, [item, this.buttonType(), content, menuItems, this._selectedItems]))
+		firstItem = itemElems[0];
 		
 		setTimeout(() => {
-			firstItem.focus();
+			firstItem && firstItem.focus();
 		}, 50);
 
 		return content;
