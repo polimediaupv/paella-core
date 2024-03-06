@@ -106,6 +106,7 @@ import "../css/playback-bar.css";
 import "../css/accessibility.css";
 import "../css/pop-up.css";
 import "../css/vars.css";
+import "../css/menu-button.css";
 
 export {
     Paella,

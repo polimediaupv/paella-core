@@ -1,0 +1,30 @@
+fieldset.menu-button-content {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    border: 0;
+    padding: 0;
+    gap: 4px;
+}
+
+fieldset.menu-button-content button {
+    padding: 5px;
+    text-align: left;
+    background: none;
+    border: 0;
+    color: var(--main-fg-color);
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    border-radius: 6px;
+}
+
+fieldset.menu-button-content button:hover {
+    background: var(--highlight-bg-color-hover);
+}
+
+fieldset.menu-button-content svg {
+    stroke: var(--main-fg-color);
+    width: 30px;
+    height: auto;
+}

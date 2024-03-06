@@ -14,9 +14,13 @@ const itemTypes = {
 				${ showTitle ? titleElement(title) : "" }
 			</button>
 		`);
-		item.addEventListener("click", () => {
+		item.addEventListener("click", evt => {
 			const item = allItems.find(item => item.id === id);
 			plugin.itemSelected(item, allItems);
+			evt.stopPropagation();
+			if (plugin.closeOnSelect) {
+				plugin.closeMenu();
+			}
 		});
 
 		return item;
@@ -121,9 +125,9 @@ export default class MenuButtonPlugin extends PopUpButtonPlugin {
 		return content;
 	}
 
-	//get menuTitle() {
-	//	return this.config.menuTitle || null;
-	//}
+	get menuTitle() {
+		return this.config.menuTitle || null;
+	}
 	
 	async getMenu() {
 		const items = [
