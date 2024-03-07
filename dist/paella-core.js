@@ -14612,20 +14612,27 @@ var Mp4Video = /*#__PURE__*/function (_Video) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
               if (!this._videoEnabled) {
-                _context.next = 6;
+                _context.next = 11;
                 break;
               }
-              _context.next = 3;
+              _context.prev = 1;
+              _context.next = 4;
               return this.waitForLoaded();
-            case 3:
+            case 4:
               return _context.abrupt("return", this.video.play());
-            case 6:
-              this._disabledProperties.paused = false;
             case 7:
+              _context.prev = 7;
+              _context.t0 = _context["catch"](1);
+            case 9:
+              _context.next = 12;
+              break;
+            case 11:
+              this._disabledProperties.paused = false;
+            case 12:
             case "end":
               return _context.stop();
           }
-        }, _callee, this);
+        }, _callee, this, [[1, 7]]);
       }));
       function play() {
         return _play.apply(this, arguments);
@@ -14943,7 +14950,6 @@ var Mp4Video = /*#__PURE__*/function (_Video) {
   }, {
     key: "currentQuality",
     get: function get() {
-      // TODO: implement this
       return 0;
     }
   }, {
@@ -15009,14 +15015,16 @@ var Mp4Video = /*#__PURE__*/function (_Video) {
               streamData = _args14.length > 0 && _args14[0] !== undefined ? _args14[0] : null;
               this._streamData = this._streamData || streamData;
               this.player.log.debug("es.upv.paella.mp4VideoFormat: loadStreamData");
-              this._sources = null;
-              this._currentQuality = 0;
-              this._sources = streamData.sources.mp4;
-              this._sources.sort(function (a, b) {
-                return Number(a.res.w) - Number(b.res.w);
-              });
-              this._currentQuality = this._sources.length - 1;
-              this._currentSource = this._sources[this._currentQuality];
+              if (!this._currentSource) {
+                this._sources = null;
+                this._currentQuality = 0;
+                this._sources = streamData.sources.mp4;
+                this._sources.sort(function (a, b) {
+                  return Number(a.res.w) - Number(b.res.w);
+                });
+                this._currentQuality = this._sources.length - 1;
+                this._currentSource = this._sources[this._currentQuality];
+              }
               if (!this.isMainAudioPlayer) {
                 this.video.muted = true;
               }
@@ -15036,8 +15044,15 @@ var Mp4Video = /*#__PURE__*/function (_Video) {
 
               // It's necessary to play the video because some browsers don't update the
               // readyState property until the video is played.
-              _context14.next = 16;
+              _context14.prev = 9;
+              _context14.next = 12;
               return this.video.play();
+            case 12:
+              _context14.next = 16;
+              break;
+            case 14:
+              _context14.prev = 14;
+              _context14.t0 = _context14["catch"](9);
             case 16:
               _context14.next = 18;
               return this.waitForLoaded();
@@ -15048,7 +15063,7 @@ var Mp4Video = /*#__PURE__*/function (_Video) {
             case "end":
               return _context14.stop();
           }
-        }, _callee14, this);
+        }, _callee14, this, [[9, 14]]);
       }));
       function loadStreamData() {
         return _loadStreamData.apply(this, arguments);
@@ -15064,8 +15079,9 @@ var Mp4Video = /*#__PURE__*/function (_Video) {
             case 0:
               this.video.src = "";
               this.video.removeEventListener("ended", this._endedCallback);
+              this.video.removeEventListener("loadeddata", this._handleLoadedCallback);
               this._ready = false;
-            case 3:
+            case 4:
             case "end":
               return _context15.stop();
           }
@@ -15129,25 +15145,20 @@ var Mp4Video = /*#__PURE__*/function (_Video) {
     value: function waitForLoaded() {
       var _this3 = this;
       return new Promise(function (resolve, reject) {
+        if (_this3.video.readyState >= 2) {
+          _this3._ready = true;
+        }
         if (_this3.ready) {
           resolve();
         } else {
-          var startWaitTimer = function startWaitTimer() {
-            _this3._waitTimer && clearTimeout(_this3._waitTimer);
-            _this3._waitTimer = null;
-            if (_this3.video.error) {
-              reject(new Error(_this3.player.translate("Error loading video: $1. Code: $2 $3", [_this3.video.src, _this3.video.error, _this3.video.error.message])));
-            } else if (_this3.video.readyState >= 2) {
-              _this3.video.pause(); // Pause the video because it is loaded in autoplay mode
+          _this3._handleLoadedCallback = function (evt) {
+            if (_this3.video.readyState >= 2) {
+              _this3.video.pause();
               _this3._ready = true;
               resolve();
-            } else {
-              _this3._waitTimer = setTimeout(function () {
-                return startWaitTimer();
-              }, 100);
             }
           };
-          startWaitTimer();
+          _this3.video.addEventListener("loadeddata", _this3._handleLoadedCallback);
         }
       });
     }
@@ -44278,7 +44289,7 @@ Hls.defaultConfig = void 0;
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"paella-core","version":"1.46.6","description":"Multistream HTML video player","main":"src/index.js","module":"dist/paella-core.js","scripts":{"build":"webpack --mode production","dev":"webpack serve --mode development --config webpack.debug.js --host 0.0.0.0","captions":"webpack serve --mode development --config webpack.captions.js","eslint":"eslint .","nomanifest":"webpack serve --mode development --config webpack.nomanifest.js","testenv":"webpack serve --mode development --config webpack.test.js --host 0.0.0.0"},"repository":{"type":"git","url":"git+https://github.com/polimediaupv/paella-core.git"},"keywords":["html","player","video","hls"],"author":"Fernando Serrano Carpena <ferserc1@gmail.com>","license":"ECL-2.0","bugs":{"url":"https://github.com/polimediaupv/paella-core/issues"},"homepage":"https://github.com/polimediaupv/paella-core#readme","devDependencies":{"@babel/core":"^7.12.10","@babel/plugin-transform-modules-commonjs":"^7.19.6","@babel/preset-env":"^7.12.11","@playwright/test":"^1.29.2","babel-loader":"^9.0.0","babel-plugin-transform-require-context":"^0.1.1","copy-webpack-plugin":"^11.0.0","css-loader":"^6.6.0","eslint":"^8.29.0","file-loader":"^6.2.0","html-webpack-plugin":"^5.5.0","source-map-loader":"^4.0.0","style-loader":"^3.3.1","svg-inline-loader":"^0.8.2","webpack":"^5.66.0","webpack-cli":"^5.0.0","webpack-dev-server":"^4.7.3"},"dependencies":{"core-js":"^3.8.2","hls.js":"^1.0.4"}}');
+module.exports = JSON.parse('{"name":"paella-core","version":"1.47.0","description":"Multistream HTML video player","main":"src/index.js","module":"dist/paella-core.js","scripts":{"build":"webpack --mode production","dev":"webpack serve --mode development --config webpack.debug.js --host 0.0.0.0","captions":"webpack serve --mode development --config webpack.captions.js","eslint":"eslint .","nomanifest":"webpack serve --mode development --config webpack.nomanifest.js","testenv":"webpack serve --mode development --config webpack.test.js --host 0.0.0.0"},"repository":{"type":"git","url":"git+https://github.com/polimediaupv/paella-core.git"},"keywords":["html","player","video","hls"],"author":"Fernando Serrano Carpena <ferserc1@gmail.com>","license":"ECL-2.0","bugs":{"url":"https://github.com/polimediaupv/paella-core/issues"},"homepage":"https://github.com/polimediaupv/paella-core#readme","devDependencies":{"@babel/core":"^7.12.10","@babel/plugin-transform-modules-commonjs":"^7.19.6","@babel/preset-env":"^7.12.11","@playwright/test":"^1.29.2","babel-loader":"^9.0.0","babel-plugin-transform-require-context":"^0.1.1","copy-webpack-plugin":"^11.0.0","css-loader":"^6.6.0","eslint":"^8.29.0","file-loader":"^6.2.0","html-webpack-plugin":"^5.5.0","source-map-loader":"^4.0.0","style-loader":"^3.3.1","svg-inline-loader":"^0.8.2","webpack":"^5.66.0","webpack-cli":"^5.0.0","webpack-dev-server":"^4.7.3"},"dependencies":{"core-js":"^3.8.2","hls.js":"^1.0.4"}}');
 
 /***/ }),
 
@@ -44471,6 +44482,7 @@ __webpack_require__.d(__webpack_exports__, {
   parseDFXP: () => (/* reexport */ DFXPParser/* parseDFXP */.l),
   parseWebVTT: () => (/* reexport */ WebVTTParser/* parseWebVTT */.n),
   setLanguage: () => (/* reexport */ Localization/* setLanguage */.m0),
+  supportsVideoType: () => (/* reexport */ es_upv_paella_mp4VideoFormat.supportsVideoType),
   translate: () => (/* reexport */ Localization/* translate */.Iu),
   triggerEvent: () => (/* reexport */ Events/* triggerEvent */.qe),
   triggerIfReady: () => (/* reexport */ Events/* triggerIfReady */.Ss),
@@ -45710,7 +45722,7 @@ var SteramProvider = /*#__PURE__*/function (_PlayerResource) {
     key: "setQuality",
     value: function () {
       var _setQuality = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee21(quality) {
-        var player, qualities, total, index, qualityFactor, content, stream, streamQualities, qualityIndex, selectedQuality;
+        var player, isPaused, qualities, total, index, qualityFactor, content, stream, streamQualities, qualityIndex, selectedQuality;
         return StreamProvider_regeneratorRuntime().wrap(function _callee21$(_context21) {
           while (1) switch (_context21.prev = _context21.next) {
             case 0:
@@ -45719,54 +45731,70 @@ var SteramProvider = /*#__PURE__*/function (_PlayerResource) {
             case 2:
               player = _context21.sent;
               _context21.next = 5;
-              return player.getQualities();
+              return this.paused();
             case 5:
+              isPaused = _context21.sent;
+              if (isPaused) {
+                _context21.next = 10;
+                break;
+              }
+              this.player.log.debug("Quality change started. Pausing video.");
+              _context21.next = 10;
+              return this.pause();
+            case 10:
+              _context21.next = 12;
+              return player.getQualities();
+            case 12:
               qualities = _context21.sent;
               total = qualities.length;
-              index = -1;
-              qualities.some(function (q, i) {
-                if (quality.index === q.index) {
-                  index = i;
-                }
-                return index !== -1;
+              index = qualities.findIndex(function (q) {
+                return quality.index === q.index;
               });
               if (!(index >= 0)) {
-                _context21.next = 29;
+                _context21.next = 35;
                 break;
               }
               qualityFactor = index / total;
               _context21.t0 = StreamProvider_regeneratorRuntime().keys(this.streams);
-            case 12:
+            case 18:
               if ((_context21.t1 = _context21.t0()).done) {
-                _context21.next = 29;
+                _context21.next = 35;
                 break;
               }
               content = _context21.t1.value;
               stream = this.streams[content];
-              _context21.next = 17;
+              _context21.next = 23;
               return stream.player.getQualities();
-            case 17:
+            case 23:
               _context21.t2 = _context21.sent;
               if (_context21.t2) {
-                _context21.next = 20;
+                _context21.next = 26;
                 break;
               }
               _context21.t2 = [];
-            case 20:
+            case 26:
               streamQualities = _context21.t2;
               this.player.log.debug(streamQualities);
               if (!(streamQualities.length > 1)) {
-                _context21.next = 27;
+                _context21.next = 33;
                 break;
               }
               qualityIndex = Math.round(streamQualities.length * qualityFactor);
               selectedQuality = streamQualities[qualityIndex];
-              _context21.next = 27;
+              _context21.next = 33;
               return stream.player.setQuality(selectedQuality);
-            case 27:
-              _context21.next = 12;
+            case 33:
+              _context21.next = 18;
               break;
-            case 29:
+            case 35:
+              if (isPaused) {
+                _context21.next = 39;
+                break;
+              }
+              this.player.log.debug("Quality change finished. Resuming video.");
+              _context21.next = 39;
+              return this.play();
+            case 39:
             case "end":
               return _context21.stop();
           }

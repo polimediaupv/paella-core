@@ -391,15 +391,17 @@ export default class SteramProvider extends PlayerResource {
 	async setQuality(quality) {
 		const player = await this.getQualityReferencePlayer();
 
+		// The video is paused to stop the synchronization timer, and then it is resumed
+		// if it was playing after the quality change.
+		const isPaused = await this.paused();
+		if (!isPaused) {
+			this.player.log.debug("Quality change started. Pausing video.");
+			await this.pause();
+		}
+
 		const qualities = await player.getQualities();
 		const total = qualities.length;
-		let index = -1;
-		qualities.some((q,i) => {
-			if (quality.index === q.index) {
-				index = i;
-			}
-			return index !== -1;
-		});
+		const index = qualities.findIndex(q => quality.index === q.index);
 
 		if (index>=0) {
 			const qualityFactor = index / total;
@@ -413,6 +415,11 @@ export default class SteramProvider extends PlayerResource {
 					await stream.player.setQuality(selectedQuality);
 				}
 			}
+		}
+
+		if (!isPaused) {
+			this.player.log.debug("Quality change finished. Resuming video.");
+			await this.play();
 		}
 	}
 
