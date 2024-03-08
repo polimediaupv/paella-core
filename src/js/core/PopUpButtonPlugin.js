@@ -82,6 +82,15 @@ export default class PopUpButtonPlugin extends ButtonPlugin {
 		return content;
 	}
 
+	async checkRefreshContent() {
+		if (this.refreshContent) {
+			const content = await this.getContent();
+			this._currentContent.innerHTML = "";
+			const children = Array.from(content.children);
+			children.forEach(child => this._currentContent.appendChild(child));
+		}
+	}
+
 	get popUpType() {
 		return this.config.popUpType || "modal"; // "timeline" or "no-modal"
 	}
@@ -96,6 +105,7 @@ export default class PopUpButtonPlugin extends ButtonPlugin {
 		const popUp = this.player.playbackBar.popUp;
 		if (popUp.isHidden || this._contentId !== popUp.currentContentId) {
 			const content = await this.getContent();
+			this._currentContent = content;
 			this._contentId = popUp.show({
 				title: this.menuTitle,
 				content,

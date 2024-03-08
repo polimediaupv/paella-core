@@ -126,6 +126,7 @@ export default class PlaybackBarPopUp {
         playbackBar.element.prepend(this.#element);
         this.#popUpContainer.parent = this.#element;
         this.#element.classList.add('hidden');
+        this.#element.addEventListener('click', evt => evt.stopPropagation());
         this.#playbackBar.element.addEventListener('click', (evt) => {
             evt.stopPropagation();
             this.hide();

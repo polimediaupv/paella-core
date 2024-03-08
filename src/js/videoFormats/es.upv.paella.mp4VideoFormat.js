@@ -26,7 +26,7 @@ export class Mp4Video extends Video {
         this._config = config || {};
 
         const crossorigin = this._config.crossOrigin ?? "";
-        this.element.setAttribute("playsinline","true");
+        this.element.setAttribute("playsinline","");
         if (crossorigin !== false) {
             this.element.setAttribute("crossorigin",crossorigin);
         }
@@ -34,7 +34,7 @@ export class Mp4Video extends Video {
         this.isMainAudio = isMainAudio;
 
         // Autoplay is required to play videos in some browsers
-        this.element.setAttribute("autoplay","true");
+        this.element.setAttribute("autoplay","");
         this.element.autoplay = true;
 
         // The video is muted by default, to allow autoplay to work
@@ -47,8 +47,13 @@ export class Mp4Video extends Video {
 
     async play() { 
         if (this._videoEnabled) {
-            await this.waitForLoaded();
-            return this.video.play();
+            try {
+                await this.waitForLoaded();
+                return this.video.play();
+            }
+            catch (e) {
+                // Prevent AbortError exception
+            }
         }
         else {
             this._disabledProperties.paused = false;
@@ -119,7 +124,7 @@ export class Mp4Video extends Video {
         if (this._videoEnabled) {
             await this.waitForLoaded();
             if (v === 0) {
-                this.video.setAttribute("muted", true);
+                this.video.setAttribute("muted", "");
             }
             else {
                 this.video.removeAttribute("muted");
@@ -164,15 +169,13 @@ export class Mp4Video extends Video {
     }
 
     async getQualities() {
-        // TODO: implement this
+
     }
 
     async setQuality(/* q */) {
-        // TODO: implement this
     }
 
     get currentQuality() {
-        // TODO: implement this
         return 0;
     }
 
@@ -204,15 +207,17 @@ export class Mp4Video extends Video {
         this._streamData = this._streamData || streamData;
         this.player.log.debug("es.upv.paella.mp4VideoFormat: loadStreamData");
 
-        this._sources = null;
-        this._currentQuality = 0;
-
-        this._sources = streamData.sources.mp4;
-        this._sources.sort((a,b) => {
-            return Number(a.res.w) - Number(b.res.w);
-        });
-        this._currentQuality = this._sources.length - 1;
-        this._currentSource = this._sources[this._currentQuality];
+        if (!this._currentSource) {
+            this._sources = null;
+            this._currentQuality = 0;
+    
+            this._sources = streamData.sources.mp4;
+            this._sources.sort((a,b) => {
+                return Number(a.res.w) - Number(b.res.w);
+            });
+            this._currentQuality = this._sources.length - 1;
+            this._currentSource = this._sources[this._currentQuality];
+        }
 
         if (!this.isMainAudioPlayer) {
             this.video.muted = true;
@@ -232,12 +237,17 @@ export class Mp4Video extends Video {
             }
         });
         this.video.addEventListener("ended", this._endedCallback);
-
+        
         // It's necessary to play the video because some browsers don't update the
         // readyState property until the video is played.
-        await this.video.play();
+        try {
+            await this.video.play();
+        }
+        catch (err) {
+            // Prevent AbortError exception
+        }
         await this.waitForLoaded();
-
+        
         this.player.log.debug(`es.upv.paella.mp4VideoFormat (${ this.streamData.content }): video loaded and ready.`);
         this.saveDisabledProperties(this.video);
     }
@@ -245,6 +255,7 @@ export class Mp4Video extends Video {
     async clearStreamData() {
         this.video.src = "";
         this.video.removeEventListener("ended", this._endedCallback);
+        this.video.removeEventListener("loadeddata", this._handleLoadedCallback);
         this._ready = false;
     }
 
@@ -269,27 +280,22 @@ export class Mp4Video extends Video {
 
     waitForLoaded() {
         return new Promise((resolve,reject) => {
+            if (this.video.readyState>=2) {
+                this._ready = true;
+            }
+
             if (this.ready) {
                 resolve();
             }
             else {
-                const startWaitTimer = () => {
-                    this._waitTimer && clearTimeout(this._waitTimer);
-                    this._waitTimer = null;
-                    if (this.video.error) {
-                        reject(new Error(this.player.translate("Error loading video: $1. Code: $2 $3", [this.video.src, this.video.error, this.video.error.message])));
-                    }
-                    else if (this.video.readyState >= 2) {
-                        this.video.pause(); // Pause the video because it is loaded in autoplay mode
+                this._handleLoadedCallback = evt => {
+                    if (this.video.readyState>=2) {
+                        this.video.pause();
                         this._ready = true;
                         resolve();
                     }
-                    else {
-                        this._waitTimer = setTimeout(() => startWaitTimer(), 100);
-                    }
                 }
-
-                startWaitTimer();
+                this.video.addEventListener("loadeddata", this._handleLoadedCallback);
             }
         })
     }
@@ -308,7 +314,7 @@ export default class Mp4VideoPlugin extends VideoPlugin {
         return "mp4";
     }
 
-    async isCompatible(streamData) {
+    isCompatible(streamData) {
         const { mp4 } = streamData.sources;
         return mp4 && supportsVideoType(mp4[0]?.mimetype);
     }
