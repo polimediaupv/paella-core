@@ -39,6 +39,7 @@ export class Mp4Video extends Video {
 
         // The video is muted by default, to allow autoplay to work
         if (!isMainAudio) {
+            this.element.setAttribute("muted", "");
             this.element.muted = true;
         }
 
