@@ -57,13 +57,15 @@ export default class PreviewContainer extends DomClass {
         };
         super(player, {attributes, parent: parentElement});
 
+        const icon = this.player.getCustomPluginIcon("previewContainer","play") || PlayIcon;
+
         this._img = createElementWithHtmlText(`
         <div style="${g_imgStyle}">
             ${ backgroundImage ? `<img style="${g_imgStyle}" src="${backgroundImage}" class="preview-image-landscape" alt=""/>` : "" }
             ${ backgroundImagePortrait ? `<img style="${g_imgStyle}" src="${backgroundImagePortrait}" class="preview-image-portrait" alt=""/>` : "" }
             <div style="${ g_iconContainerStyle }">
                 <button style="${g_buttonStyle}" role="button" aria-label="Play video">
-                    <i class="preview-play-icon" style="${ g_iconStyle }">${ PlayIcon }</i>
+                    <i class="preview-play-icon" style="${ g_iconStyle }">${ icon }</i>
                 </button>
             </div>
         </div>

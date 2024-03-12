@@ -14,7 +14,8 @@ export default class Loader extends DomClass {
     }
 
     async create() {
-        createElementWithHtmlText(`<i>${ProgressIndicatorIcon}</i>`, this.element);
+        const icon = this.player.getCustomPluginIcon("loader","progressIndicator") || ProgressIndicatorIcon;
+        createElementWithHtmlText(`<i>${icon}</i>`, this.element);
     }
 
     get debug() {

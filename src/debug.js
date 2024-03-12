@@ -17,7 +17,7 @@ import {
 	addDictionary
 } from 'paella-core/js/core/Localization';
 
-import testIcon from './icons/play_icon_fullscreen.svg';
+import testIcon from './icons/play.svg';
 import { createElementWithHtmlText } from './js/core/dom';
 import Loader from './js/core/Loader';
 
@@ -52,7 +52,7 @@ const getCookieConsentData = () => {
 }
 
 const initParams = {
-	customLoader: CustomLoader,
+	//customLoader: CustomLoader,
 
 	plugins: [
 		PlayPauseButton,
@@ -208,6 +208,10 @@ window.onload = async () => {
 		paella.log.debug("Show user interface");
 	}, false);
 
+	// Icono de play
+	paella.addCustomPluginIcon("previewContainer","play", testIcon);
+	// Spinner, está animado por CSS, para cambiar la animación hay que tocar los estilos
+	paella.addCustomPluginIcon("loader","progressIndicator", testIcon);
 	paella.loadManifest()
 		.then(() => {
 			//paella.addCustomPluginIcon("es.upv.paella.playPauseButton","play",testIcon);
