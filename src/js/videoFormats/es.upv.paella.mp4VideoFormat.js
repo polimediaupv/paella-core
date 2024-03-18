@@ -247,8 +247,8 @@ export class Mp4Video extends Video {
         catch (err) {
             // Prevent AbortError exception
         }
-        await this.waitForLoaded();
-        
+        await this.waitForLoaded(true);
+
         this.player.log.debug(`es.upv.paella.mp4VideoFormat (${ this.streamData.content }): video loaded and ready.`);
         this.saveDisabledProperties(this.video);
     }
@@ -279,9 +279,12 @@ export class Mp4Video extends Video {
         return this._videoEnabled;
     }
 
-    waitForLoaded() {
+    waitForLoaded(pauseOnLoaded) {
         return new Promise((resolve,reject) => {
             if (this.video.readyState>=2) {
+                if (pauseOnLoaded) {
+                    this.video.pause();
+                }
                 this._ready = true;
             }
 
@@ -291,7 +294,9 @@ export class Mp4Video extends Video {
             else {
                 this._handleLoadedCallback = evt => {
                     if (this.video.readyState>=2) {
-                        this.video.pause();
+                        if (pauseOnLoaded) {
+                            this.video.pause();
+                        }
                         this._ready = true;
                         resolve();
                     }
