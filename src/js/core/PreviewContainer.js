@@ -1,18 +1,8 @@
 
 import { DomClass, createElementWithHtmlText } from './dom';
 
-const g_style = `
-    background-color: #e4e4e4;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%); 
-`
+import 'paella-core/styles/PreviewContainer.css';
+
 const g_imgStyle = `
     width: 100%;
 `;
@@ -51,7 +41,6 @@ export default class PreviewContainer extends DomClass {
     constructor(player, parentElement,backgroundImage,backgroundImagePortrait) {
         const attributes = {
             "class": "preview-container",
-            "style": g_style,
             "role": "button",
             "aria-label": "Play video"
         };

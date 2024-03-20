@@ -10,6 +10,7 @@
     --main-bg-gradient: linear-gradient(0deg, rgba(32,32,32,1) 0%, rgba(32,32,32,0.49531687675070024) 72%, rgba(32,32,32,0.08355217086834732) 100%);
     --main-border-color: rgba(125,125,125,0.4);
     --video-container-background-color: #e4e4e4;
+    --preview-container-background-color: #e4e4e4;
     --base-video-rect-background-color: #8a8a8a;
     --main-outline-color: var(--highlight-bg-color-hover);
 }
