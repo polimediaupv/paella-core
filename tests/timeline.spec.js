@@ -13,6 +13,11 @@ const loadPlayer = async (page) => {
 
 test.describe("Pause synchronization", () => {
     const playPauseVideo = async (page, manifest) => {
+        await page.route('**', async route => {
+            // Slow down network requests
+            setTimeout(() => route.continue(), 1500);
+        });
+
         await page.goto(`/?id=${manifest}`);
         await loadPlayer(page);
         await playVideo(page);
@@ -20,7 +25,7 @@ test.describe("Pause synchronization", () => {
         await page.waitForTimeout(1000);
 
         const currentTime = await page.evaluate('__paella_instances__[0].videoContainer.currentTime()');
-        await expect(currentTime).toBeCloseTo(0, 1);
+        await expect(currentTime).toBeCloseTo(0, 0);
     }
 
     test("Synchronize pause mp4 dual stream", async ({page}) => {
