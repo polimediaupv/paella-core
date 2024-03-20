@@ -182,9 +182,10 @@ const loadHls = (player, streamData, video, config, cors) => {
         // There are some kind of bug in HLS.js that causes that some
         // streams are not loaded until calling video.play()
         // This is a workaround for this problem
-        setTimeout(() => {
+        setTimeout(async () => {
             if (!ready) {
-                video.play();
+                await video.play();
+                await video.pause();
             }
         }, 1000);
     })];

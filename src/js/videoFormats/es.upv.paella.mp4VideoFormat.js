@@ -248,6 +248,7 @@ export class Mp4Video extends Video {
             // Prevent AbortError exception
         }
         await this.waitForLoaded();
+        await this.video.pause();
         
         this.player.log.debug(`es.upv.paella.mp4VideoFormat (${ this.streamData.content }): video loaded and ready.`);
         this.saveDisabledProperties(this.video);

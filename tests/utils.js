@@ -30,7 +30,7 @@ export const playVideo = async (page) => {
     await waitState(page, PlayerState.LOADED);
     await expect(await getState(page)).toBe(PlayerState.LOADED);
 }
-
+export const pauseVideo = async (page) => await page.evaluate(`${player}.pause()`);
 export const checkPlayVideo = async (page) => {
     await loadPlayer(page);
     await playVideo(page);

@@ -1,5 +1,5 @@
 const { test, expect } = require('@playwright/test');
-import { playVideo } from './utils';
+import { playVideo, pauseVideo } from './utils';
 
 const loadPlayer = async (page) => {
     await page.evaluate(`
@@ -10,6 +10,39 @@ const loadPlayer = async (page) => {
             .catch(err => console.error(err));
     `);
 }
+
+test.describe("Pause synchronization", () => {
+    const playPauseVideo = async (page, manifest) => {
+        await page.goto(`/?id=${manifest}`);
+        await loadPlayer(page);
+        await playVideo(page);
+        await pauseVideo(page);
+        await page.waitForTimeout(1000);
+
+        const currentTime = await page.evaluate('__paella_instances__[0].videoContainer.currentTime()');
+        await expect(currentTime).toBeCloseTo(0, 1);
+    }
+
+    test("Synchronize pause mp4 dual stream", async ({page}) => {
+        await playPauseVideo(page, 'belmar-multiresolution-remote');        
+    });
+
+    test("Synchronize pause mp4 single stream", async ({page}) => {
+        await playPauseVideo(page, 'belmar-single');        
+    });
+
+    test("Synchronize pause mp4 trimming", async ({page}) => {
+        await playPauseVideo(page, 'belmar-trimming');        
+    });
+
+    test("Synchronize pause hls dual stream", async ({page}) => {
+        await playPauseVideo(page, 'hls-multiquality');        
+    });
+
+    test("Synchronize pause hls single stream", async ({page}) => {
+        await playPauseVideo(page, 'hls-single');        
+    });
+});
 
 test.describe("Seek video", () => {
     test("Seeking html video", async ({page}) => {
