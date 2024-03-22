@@ -1,15 +1,52 @@
-import PopUpButtonPlugin from './PopUpButtonPlugin';
+import MenuButtonPlugin from './MenuButtonPlugin';
 import { createElementWithHtmlText } from './dom';
 import { loadPluginsOfType } from './plugin_tools';
 import { addButtonPlugin } from './ButtonPlugin';
 import { translate } from './Localization';
 import { loadSvgIcon } from './utils';
 
-export default class ButtonGroupPlugin extends PopUpButtonPlugin {
+export default class ButtonGroupPlugin extends MenuButtonPlugin {
+    get closeOnSelect() {
+        return this.config.closeOnSelect ?? false;
+    }
+
     async load() {
         if (this._iconPath) {
             this.icon = await loadSvgIcon(this._iconPath);
         }
+    }
+
+    async getContent() {
+        if (!this._buttonPlugins) {
+            this._buttonPlugins = [];
+            await loadPluginsOfType(this.player,"button",async (plugin) => {
+                this.player.log.debug(`Load button plugins into "${this.groupName}" container`);
+                this._buttonPlugins.push(plugin);
+
+                plugin.setObserver(this);
+            }, async plugin => {
+                const containerName = plugin.parentContainer;
+                if (containerName === this.groupName) {
+                    return await plugin.isEnabled();
+                }
+                else {
+                    return false;
+                }
+            });
+        }
+        return await super.getContent();
+    }
+
+    onIconChanged(plugin,prevIcon,newIcon) {
+        // TODO: Change icon in menu button, if menu is open
+    }
+
+    onTitleChanged(plugin,prevTitle,newTitle) {
+        // TODO: Change text in menu button, if menu is open
+    }
+
+    onStateChanged(plugin,prevText,newText,prevIcon,newIcon) {
+        // TODO: Change text and icon in menu button, if menu is open
     }
 
     get groupName() {
@@ -24,49 +61,26 @@ export default class ButtonGroupPlugin extends PopUpButtonPlugin {
         return false;
     }
 
-    async getContent() {
-        const content = createElementWithHtmlText('<div class="button-group"></div>');
-        this._content = content;
+    buttonType() {
+        return "button";
+    }
 
-        // Get the button plugins with "parentContainer" === this.groupName
-        this._firstItem = null;
-        if (!this._initialized) {
-            this.player.log.debug(`Load button plugins into "${this.groupName}" container`);
+    async getMenu() {
+        return this._buttonPlugins.map(plugin => {
+            return {
+                id: plugin.name,
+                title: plugin.title || plugin.description,
+                icon: plugin.icon
+            }
+        });
+    }
 
-            await loadPluginsOfType(this.player,"button",async (plugin) => {
-                this.player.log.debug(` Button plugin: ${ plugin.name }`);
-                const pluginWrapper = createElementWithHtmlText('<div class="button-plugin-wrapper"></div>', content);
-
-                // Configure the parent pop up if the plugin is a 
-                // PopUpButtonPlugin
-                if (plugin instanceof PopUpButtonPlugin) {
-                    plugin.parentPopUp = this._popUp;
-                }
-
-                await addButtonPlugin(plugin, pluginWrapper);
-                const descriptionText = createElementWithHtmlText(`<a class="button-description">${ translate(plugin.description) }</a>`, pluginWrapper);
-                descriptionText.addEventListener("click", (evt) => {
-                    plugin.action();
-                    evt.stopPropagation();
-                });
-
-                if (!this._firstItem) {
-                    const button = pluginWrapper.getElementsByTagName("button");
-                    this._firstItem = button && button[0];
-                }
-            }, async plugin => {
-                const containerName = plugin.parentContainer;
-                if (containerName === this.groupName) {
-                    return await plugin.isEnabled();
-                }
-                else {
-                    return false;
-                }
-            });
-            this._initialized = true;
+    itemSelected(itemData, menuItems) {
+        const plugin = this._buttonPlugins.find(plugin => plugin.name === itemData.id);
+        if (plugin) {
+            const event = new Event("menuitemselected");
+            plugin.action(event, this.currentContent);
         }
-
-        return content;
     }
 
     async showPopUp() {

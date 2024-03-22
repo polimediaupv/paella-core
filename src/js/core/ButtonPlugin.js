@@ -60,7 +60,7 @@ export async function addButtonPlugin(plugin, buttonAreaElem) {
 			triggerEvent(plugin.player, Events.BUTTON_PRESS, {
 				plugin: plugin
 			});
-			plugin.action(evt);
+			plugin.action(evt, null);
 			
 			
 			evt.stopPropagation();
@@ -154,6 +154,13 @@ const getSideContainer = () => {
 	return container;
 }
 
+
+export class ButtonPluginObserver {
+	onIconChanged(plugin,prevIcon,newIcon) {}
+	onTitleChanged(plugin,prevTitle,newTitle) {}
+	onStateChanged(plugin,prevText,newText,prevIcon,newIcon) {}
+}
+
 export default class ButtonPlugin extends UserInterfacePlugin {
 	get type() { return "button" }
 	
@@ -206,6 +213,21 @@ export default class ButtonPlugin extends UserInterfacePlugin {
 	getMinContainerSize() {
 		return 0;
 	}
+
+	setObserver(observer) {
+		if (observer instanceof ButtonPluginObserver) {
+			this._observer = observer;
+		}
+		else if (typeof observer.onIconChanged === "function" ||
+			typeof observer.onTitleChanged === "function" ||
+			typeof observer.onStateChanged === "function")
+		{
+			this._observer = observer;
+		}
+		else {
+			throw new Error("Invalid observer for ButtonPlugin");
+		}
+	}
 	
 	get icon() {
 		if (!this._icon) {
@@ -220,15 +242,19 @@ export default class ButtonPlugin extends UserInterfacePlugin {
 		}
 
 		this._icon = icon;
-		if (icon) {
+		if (icon && this._button instanceof HTMLElement) {
 			const cur = this._button.querySelector('i') || createElementWithHtmlText(`<i></i>`, this._button);
 			cur.innerHTML = icon;
 		}
-		else {
+		else if (this._button instanceof HTMLElement){
 			const cur = this._button.querySelector('i');
 			if (cur) {
 				this._button.removeChild(cur);
 			}
+		}
+
+		if (this._observer?.onIconChanged) {
+			this._observer.onIconChanged(this, this._icon, icon);
 		}
 	}
 
@@ -238,15 +264,19 @@ export default class ButtonPlugin extends UserInterfacePlugin {
 
 	set title(t) {
 		this._title = t;
-		if (t) {
+		if (t && this._button instanceof HTMLElement) {
 			const cur = this._button.querySelector('span') || createElementWithHtmlText(`<span class="button-title-${ this.titleSize }"></span>`, this._button);
 			cur.innerHTML = t;
 		}
-		else {
+		else if (this._button instanceof HTMLElement){
 			const cur = this._button.querySelector('span');
 			if (cur) {
 				this._button.removeChild(cur);
 			}
+		}
+
+		if (this._observer?.onTitleChanged) {
+			this._observer.onTitleChanged(this, this._title, t);
 		}
 	}
 
@@ -338,6 +368,8 @@ export default class ButtonPlugin extends UserInterfacePlugin {
 	}
 
 	setState({ text = null, icon = null } = {}) {
+		const prevText = this._statusText;
+		const prevIcon = this._statusIcon;
 		this._statusText = text;
 		this._statusIcon = icon;
 		this.#updateStateCallbacks.forEach(cb => cb(this));
@@ -347,6 +379,8 @@ export default class ButtonPlugin extends UserInterfacePlugin {
 		if (this._statusText) {
 			this.title = this._statusText;
 		}
+
+		this._observer?.onStateChanged?.(this, prevText, text, prevIcon, icon);
 	}
 
 	#updateStateCallbacks = [];
@@ -360,7 +394,7 @@ export default class ButtonPlugin extends UserInterfacePlugin {
 		}
 	}
 
-	async action() {
+	async action(event, callerContainer = null) {
 		this.player.log.warn(`Action not implemented in button plugin ${ this.name }`);	
 	}
 

@@ -36,7 +36,8 @@ export default class PopUpButtonPlugin extends ButtonPlugin {
 		return false;
 	}
 
-	async action() {
+	async action(evt, caller) {
+		this.parentPopUp = caller;
 		await this.showPopUp();
 	}
 	
@@ -75,6 +76,10 @@ export default class PopUpButtonPlugin extends ButtonPlugin {
 			clickOutside,
 			closeButton
 		}
+	}
+
+	get currentContent() {
+		return this._currentContent;
 	}
 
 	async getContent() {

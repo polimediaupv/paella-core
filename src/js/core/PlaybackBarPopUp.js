@@ -53,6 +53,7 @@ function* getPopUpId() {
 export default class PlaybackBarPopUp {
     #playbackBar = null;
     #element = null;
+    #content = [];
     #popUpContainer = {
         parent: null,
 
@@ -152,29 +153,51 @@ export default class PlaybackBarPopUp {
             throw new Error('PlaybackBarPopUp.show(): No content provided.');
         }
 
+        if (this.#content.length && content !== this.#content[this.#content.length - 1]) {
+            // Clear content
+            this.#content = [];
+        }
+        this.#content.push(content);
+
         this.#playbackBar.element.classList.add('pop-up-active');
         this.#element.classList.remove('hidden');
 
-        const [container,side] = (() => {
-            if (attachLeft === true && attachRight === true) {
-                return [this.#popUpContainer.wide,'wide'];
-            }
-            else if (attachLeft === true) {
-                return [this.#popUpContainer.left,'left'];
-            }
-            else if (attachRight === true) {
-                return [this.#popUpContainer.right,'right'];
-            }
-        })();
+        const container = buildSectionContainer(this.#element);
 
-        this.#contentManager.push({ title, content, parent, side});
+        // const [container,side] = (() => {
+        //     if (attachLeft === true && attachRight === true) {
+        //         return [this.#popUpContainer.wide,'wide'];
+        //     }
+        //     else if (attachLeft === true) {
+        //         return [this.#popUpContainer.left,'left'];
+        //     }
+        //     else if (attachRight === true) {
+        //         return [this.#popUpContainer.right,'right'];
+        //     }
+        // })();
+
+        //this.#contentManager.push({ title, content, parent, side});
+        if (attachLeft === true) {
+            this.#element.classList.add('left');
+        }
+        else {
+            this.#element.classList.remove('left');
+        }
+
+        if (attachRight === true) {
+            this.#element.classList.add('right');
+        }
+        else {
+            this.#element.classList.remove('right');
+        }
         container.setContent(content);
         if (title) {
             this.title = title;
         }
         this.#checkPopButton(container);
-        this.#currentContentId = getPopUpId();
-        return this.#currentContentId;
+        //this.#currentContentId = getPopUpId();
+        //return this.#currentContentId;
+        return 0;
     }
     
     hide() {
