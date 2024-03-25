@@ -54,70 +54,6 @@ export default class PlaybackBarPopUp {
     #playbackBar = null;
     #element = null;
     #content = [];
-    #popUpContainer = {
-        parent: null,
-
-        get container() {
-            this._container = this._container || buildSectionContainer(this.parent);
-            return this._container;
-        },
-
-        get left() {
-            this.parent.classList.add('left');
-            this.parent.classList.remove('right');
-            return this.container;
-        },
-
-        get right() {
-            this.parent.classList.remove('left');
-            this.parent.classList.add('right');
-            return this.container;
-        },
-
-        get wide() {
-            this.parent.classList.add('left');
-            this.parent.classList.add('right');
-            return this.container;
-        },
-
-        set title(title) {
-            this.container.querySelector('header.pop-up-title > h2').textContent = title;
-        }
-    };
-
-    #contentManager = {
-        current: null,
-        title: "",
-        stack: [],
-        titles: [],
-        side: null,
-        push({ title, content, side = 'left', parent = null }) {
-            if (this.side !== side || this.current !== parent) {
-                this.stack = [];
-                this.titles = [];
-                this.side = side;
-                this.title = title;
-            }
-            else {
-                this.titles.push(this.title);
-                this.stack.push(this.current);
-            }
-            this.current = content;
-            this.title = title;
-        },
-        pop() {
-            this.current = this.stack.pop();
-            this.title = this.titles.pop();
-            return [this.current, this.title];
-        },
-        get popAvailable() {
-            return this.stack.length > 0;
-        },
-        get parent() {
-            return this.stack.length > 0 && this.stack[this.stack.length - 1] || null;
-        }
-    };
-
     #title = "";
 
     constructor(playbackBar) {
@@ -125,7 +61,6 @@ export default class PlaybackBarPopUp {
         this.#element = document.createElement('aside');
         this.#element.className = 'pop-up-wrapper';
         playbackBar.element.prepend(this.#element);
-        this.#popUpContainer.parent = this.#element;
         this.#element.classList.add('hidden');
         this.#element.addEventListener('click', evt => evt.stopPropagation());
         this.#playbackBar.element.addEventListener('click', (evt) => {
@@ -140,7 +75,6 @@ export default class PlaybackBarPopUp {
 
     set title(title) {
         this.#title = title;
-        this.#popUpContainer.title = title;
     }
 
     #currentContentId = -1;
@@ -153,8 +87,13 @@ export default class PlaybackBarPopUp {
             throw new Error('PlaybackBarPopUp.show(): No content provided.');
         }
 
-        if (this.#content.length && content !== this.#content[this.#content.length - 1]) {
+        content.setAttribute("data-pop-up-content-id", getPopUpId().next().value);
+        const currentContent = this.#content.length && this.#content[this.#content.length - 1];
+        const parentId = parent && parent.getAttribute("data-pop-up-content-id");
+
+        if (currentContent && currentContent.getAttribute("data-pop-up-content-id") !== parentId) {
             // Clear content
+            this.#element.innerHTML = "";
             this.#content = [];
         }
         this.#content.push(content);
@@ -164,19 +103,6 @@ export default class PlaybackBarPopUp {
 
         const container = buildSectionContainer(this.#element);
 
-        // const [container,side] = (() => {
-        //     if (attachLeft === true && attachRight === true) {
-        //         return [this.#popUpContainer.wide,'wide'];
-        //     }
-        //     else if (attachLeft === true) {
-        //         return [this.#popUpContainer.left,'left'];
-        //     }
-        //     else if (attachRight === true) {
-        //         return [this.#popUpContainer.right,'right'];
-        //     }
-        // })();
-
-        //this.#contentManager.push({ title, content, parent, side});
         if (attachLeft === true) {
             this.#element.classList.add('left');
         }
@@ -194,9 +120,6 @@ export default class PlaybackBarPopUp {
         if (title) {
             this.title = title;
         }
-        this.#checkPopButton(container);
-        //this.#currentContentId = getPopUpId();
-        //return this.#currentContentId;
         return 0;
     }
     
@@ -208,24 +131,5 @@ export default class PlaybackBarPopUp {
 
     get isHidden() {
         return this.#element.classList.contains('hidden');
-    }
-
-    #checkPopButton(container) {
-        if (this.#contentManager.popAvailable) {
-            container.showPopButton();
-            container.onPopClicked(() => {
-                const [content,title] = this.#contentManager.pop();
-                if (content) {
-                    container.setContent(content);
-                }
-                if (title) {
-                    this.title = title;
-                }
-                this.#checkPopButton(container);
-            });
-        }
-        else {
-            container.hidePopButton();
-        }
     }
 }
