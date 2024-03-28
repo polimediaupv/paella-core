@@ -42,12 +42,9 @@ const buildSectionContainer = (parent) => {
     return section;
 }
 
-function* getPopUpId() {
-    let id = 0;
-    while (true) {
-        console.log(id);
-        yield id++;
-    }
+let g_popUpId = 0;
+function getPopUpId() {
+    return ++g_popUpId;
 }
 
 export default class PlaybackBarPopUp {
@@ -75,19 +72,24 @@ export default class PlaybackBarPopUp {
 
     set title(title) {
         this.#title = title;
+        
     }
 
-    #currentContentId = -1;
+    get currentContent() {
+        return this.#content.length && this.#content[this.#content.length - 1];
+    }
+
     get currentContentId() {
-        return this.#currentContentId;
+        return this.currentContent?.dataContentId ?? -1;
     }
 
-    show({ content, title = null, parent = null, attachLeft = false, attachRight = false }) {
+    show({ content, title = "", parent = null, attachLeft = false, attachRight = false }) {
         if (!content) {
             throw new Error('PlaybackBarPopUp.show(): No content provided.');
         }
 
-        content.setAttribute("data-pop-up-content-id", getPopUpId().next().value);
+        content.setAttribute("data-pop-up-content-id", getPopUpId());
+        content.dataContentId = content.getAttribute("data-pop-up-content-id");
         const currentContent = this.#content.length && this.#content[this.#content.length - 1];
         const parentId = parent && parent.getAttribute("data-pop-up-content-id");
 
@@ -96,12 +98,17 @@ export default class PlaybackBarPopUp {
             this.#element.innerHTML = "";
             this.#content = [];
         }
+        else if (currentContent) {
+            currentContent.container.classList.add('out');
+        }
+        ;
         this.#content.push(content);
 
         this.#playbackBar.element.classList.add('pop-up-active');
         this.#element.classList.remove('hidden');
 
         const container = buildSectionContainer(this.#element);
+        content.container = container;
 
         if (attachLeft === true) {
             this.#element.classList.add('left');
@@ -117,14 +124,23 @@ export default class PlaybackBarPopUp {
             this.#element.classList.remove('right');
         }
         container.setContent(content);
-        if (title) {
-            this.title = title;
+        if (this.#content.length > 1) {
+            container.onPopClicked(() => {
+                this.#content.pop();
+                this.#content[this.#content.length - 1].container.classList.remove('out');
+                this.#element.removeChild(container);
+            });
         }
-        return 0;
+        else {
+            container.hidePopButton();
+        }
+        
+        this.title = title;
+        
+        return content.dataContentId;
     }
     
     hide() {
-        this.#currentContentId = -1;
         this.#playbackBar.element.classList.remove('pop-up-active');
         this.#element.classList.add('hidden');
     }
