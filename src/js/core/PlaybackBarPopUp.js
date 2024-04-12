@@ -8,7 +8,12 @@ const buildSectionContainer = (parent) => {
     // TODO: Title bar, pop navigator button
     section.innerHTML = `
         <header class="pop-up-title">
-            <button><</button>
+            <button class="action-back">
+                <svg width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M15 6l-6 6l6 6" />
+                </svg>
+            </button>
             <h2>title</h2>
         </header>
         <article class="pop-up-content">
@@ -108,6 +113,7 @@ export default class PlaybackBarPopUp {
         this.#element.classList.remove('hidden');
 
         const container = buildSectionContainer(this.#element);
+        container.setTitle(title);
         content.container = container;
 
         if (attachLeft === true) {

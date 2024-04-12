@@ -112,7 +112,7 @@ export default class PopUpButtonPlugin extends ButtonPlugin {
 			const content = await this.getContent();
 			this._currentContent = content;
 			this._contentId = popUp.show({
-				title: this.menuTitle,
+				title: this.menuTitle || this.description,
 				content,
 				attachRight: this.popUpType === "timeline" || this.side === "right",
 				attachLeft: this.popUpType === "timeline" || this.side === "left",
