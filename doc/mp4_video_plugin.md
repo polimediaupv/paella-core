@@ -63,6 +63,25 @@ To prevent the `crossorigin` attribute from being added to the `<video>` element
 }
 ```
 
+### Prevent video download
+
+There is no way to prevent the user from downloading an mp4 video, as this is a feature that is natively implemented by the browser, but we can make it a bit more complicated by preventing the context menu of the video from being shown. There is no API implemented for this, but it is easy to do it through the `PLAYER_LOADED` event. What we'll do is intercept the native `contextmenu` event of the `video` elements:
+
+```js
+...
+const player = new Paella('playerContainer', {...});
+
+player.bindEvent(Events.PLAYER_LOADED, () => {
+  player.videoContainer.streamProvider.players.forEach(player => {
+    player.video?.addEventListener("contextmenu", (e) => {
+      e.preventDefault();
+    });
+  });
+});
+
+await player.loadManifest();
+...
+```
 
 ## Video manifest format
 
