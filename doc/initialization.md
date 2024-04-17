@@ -31,6 +31,8 @@ paella.loadManifest()
     .catch(e => console.error(e));
 ```
 
+Please, read this [important note about autoplay](about_autoplay.md). Currently, `paella-core` does not support automatic playback of videos of any kind. If a video is loaded directly using the `load()` function described above, it will only work if that call is triggered by a user event, such as a `click`.
+
 ## 2. Initialization parameters
 
 ```javascript

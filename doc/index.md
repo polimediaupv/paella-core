@@ -80,6 +80,7 @@
 - [Progress Indicator plugins (paella-core >=1.2)](progress_indicator_plugin.md): customization of the playback bar.
 - [Exported plugin classes](exported_plugins.md): in this document you can check the list of the built-in plugin classes exported by `paella-core`. You can extend these plugins in your player to extend their default features.
 - [Predefined plugins](predefined_plugins.md): List of plugins included in `paella-core`
+- [Important note about autoplay](about_autoplay.md)
 
 ## Customization
 
