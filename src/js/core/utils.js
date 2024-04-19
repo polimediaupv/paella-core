@@ -326,3 +326,21 @@ export function sanitizeHTML(html, { excludedTags = null } = {}) {
 
     return div.innerHTML;
 }
+
+let video = null;
+
+export function supportsVideoType(type) {
+    if (!type) return false;
+    if (!video) {
+        video = document.createElement("video");
+    }
+
+    let canPlay = video.canPlayType(type);
+    if (canPlay === "maybe" || canPlay === "probably") {
+        return true;
+    }
+    else if (/video\/mp4/i.test(type)) {
+        canPlay = video.canPlayType("video/mp4");
+        return canPlay === "maybe" || canPlay === "probably";
+    }
+}

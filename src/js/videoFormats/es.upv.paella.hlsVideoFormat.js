@@ -1,4 +1,4 @@
-import { Mp4Video } from "./es.upv.paella.mp4VideoFormat";
+import { HtmlVideo } from './es.upv.paella.htmlVideoFormat';
 import VideoPlugin from '../core/VideoPlugin';
 import VideoQualityItem from '../core/VideoQualityItem';
 import AudioTrackData from "../core/AudioTrackData";
@@ -207,7 +207,7 @@ const loadHls = async (player, streamData, video, config, cors) => {
     })];
 }
 
-export class HlsVideo extends Mp4Video {
+export class HlsVideo extends HtmlVideo {
     constructor(player, parent, config, isMainAudio) {
         super(player, parent, isMainAudio, config);
         
