@@ -420,17 +420,22 @@ export default class VideoContainer extends DomClass {
         const playbackRate = await this.player.preferences.get("playbackRate", { global: true });
         const lastKnownTime = await this.player.preferences.get("lastKnownTime", { global: false });
 
-        if (this.player.config.videoContainer?.restoreVolume && storedVolume !== null && storedVolume !== undefined) {
-            await this.streamProvider.setVolume(storedVolume);
-        }
-        if (this.player.config.videoContainer?.restorePlaybackRate && playbackRate !== null && playbackRate !== undefined) {
-            await this.streamProvider.setPlaybackRate(playbackRate);
-        }
-        
+        await this.streamProvider.setVolume(0);
         if (this.player.videoManifest.trimming) {
             await this.player.videoContainer.setTrimming(this.player.videoManifest.trimming);
         }
 
+        if (this.player.config.videoContainer?.restoreVolume && storedVolume !== null && storedVolume !== undefined) {
+            await this.streamProvider.setVolume(storedVolume);
+        }
+        else {
+            await this.streamProvider.setVolume(1);
+        }
+
+        if (this.player.config.videoContainer?.restorePlaybackRate && playbackRate !== null && playbackRate !== undefined) {
+            await this.streamProvider.setPlaybackRate(playbackRate);
+        }
+        
         if (this.player.config.videoContainer?.restoreLastTime?.enabled && !this.streamProvider.isLiveStream)
         {
             const saveCurrentTime = async () => {

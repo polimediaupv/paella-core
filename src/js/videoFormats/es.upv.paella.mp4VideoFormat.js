@@ -224,6 +224,7 @@ export class Mp4Video extends Video {
             this.video.muted = true;
         }
 
+        // This property is set in VideoPlugin.initVolume()
         if (this._initialVolume) {
             this.video.volume = this._initialVolume;
             if (this._initialVolume === 0) {
