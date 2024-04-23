@@ -43,6 +43,9 @@ fieldset.menu-button-content .button-state {
 
 .menu-button-item {
     padding: 2px 7px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .menu-button-item input[type="radio"] {
