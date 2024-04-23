@@ -40,3 +40,15 @@ fieldset.menu-button-content .button-state {
     flex-direction: column;
     align-items: center;
 }
+
+.menu-button-item {
+    padding: 2px 7px;
+}
+
+.menu-button-item input[type="radio"] {
+    display: none;
+}
+
+.menu-button-item:has(input[type="radio"]:checked) {
+    background: red;
+}

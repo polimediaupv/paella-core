@@ -128,7 +128,7 @@ export default class MenuButtonPlugin extends PopUpButtonPlugin {
 		}
 
 		const menuName = self.crypto.randomUUID();
-		const itemElems = menuItems.map(item => getMenuItem.apply(this, [item, this.buttonType(), content, menuItems, menuName, this._selectedItems]))
+		const itemElems = menuItems.map(item => getMenuItem.apply(this, [item, this.buttonType, content, menuItems, menuName, this._selectedItems]))
 		firstItem = itemElems[0];
 		
 		setTimeout(() => {
@@ -165,7 +165,7 @@ export default class MenuButtonPlugin extends PopUpButtonPlugin {
 		return true;
 	}
 	
-	buttonType() {
+	get buttonType() {
 		// check, radio or button
 		return "radio";	
 	}
