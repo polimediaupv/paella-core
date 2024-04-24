@@ -3322,7 +3322,7 @@ var MenuButtonPlugin = /*#__PURE__*/function (_PopUpButtonPlugin) {
     value: function () {
       var _getContent = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         var _this = this;
-        var content, title, menuItems, radioItemChecked, firstItem;
+        var content, title, menuItems, radioItemChecked, firstItem, tabIndex;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
@@ -3341,6 +3341,7 @@ var MenuButtonPlugin = /*#__PURE__*/function (_PopUpButtonPlugin) {
               //else if (title !== null) {
               //	createElementWithHtmlText(`<li class="menu-button-title">${this.player.translate(title)}</li>`, content);
               //}
+              tabIndex = this.tabIndex;
               menuItems.forEach(function (item) {
                 var itemElem = (0,dom/* createElementWithHtmlText */.jS)("<li class=\"menu-button-item\"></li>", content);
                 var className = "";
@@ -3369,7 +3370,7 @@ var MenuButtonPlugin = /*#__PURE__*/function (_PopUpButtonPlugin) {
                 } else if (menuTitleElement) {
                   itemContent = "\n\t\t\t\t<span class=\"menu-title\"></span>\n\t\t\t\t";
                 }
-                var itemButton = (0,dom/* createElementWithHtmlText */.jS)("\n\t\t\t\t<button class=\"".concat(className, "\" aria-label=\"").concat(item.title, "\" title=\"").concat(item.title, "\">").concat(itemContent, "</button>"), itemElem);
+                var itemButton = (0,dom/* createElementWithHtmlText */.jS)("\n\t\t\t\t<button class=\"".concat(className, "\" aria-label=\"").concat(item.title, "\" title=\"").concat(item.title, "\" tabindex=\"").concat(tabIndex, "\">").concat(itemContent, "</button>"), itemElem);
                 if (menuTitleElement) {
                   var menuTitleContainer = itemButton.getElementsByClassName("menu-title")[0];
                   menuTitleContainer.appendChild(menuTitleElement);
@@ -3409,7 +3410,7 @@ var MenuButtonPlugin = /*#__PURE__*/function (_PopUpButtonPlugin) {
                 firstItem.focus();
               }, 50);
               return _context.abrupt("return", content);
-            case 11:
+            case 12:
             case "end":
               return _context.stop();
           }
@@ -15043,6 +15044,8 @@ var Mp4Video = /*#__PURE__*/function (_Video) {
               if (!this.isMainAudioPlayer) {
                 this.video.muted = true;
               }
+
+              // This property is set in VideoPlugin.initVolume()
               if (this._initialVolume) {
                 this.video.volume = this._initialVolume;
                 if (this._initialVolume === 0) {
@@ -16364,6 +16367,41 @@ ___CSS_LOADER_EXPORT___.push([module.id, `:root {
 
 /***/ }),
 
+/***/ 5254:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Z: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7537);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3645);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, `.preview-container {
+    background-color: var(--preview-container-background-color);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+`, "",{"version":3,"sources":["webpack://./src/css/PreviewContainer.css"],"names":[],"mappings":"AAAA;IACI,2DAA2D;IAC3D,WAAW;IACX,YAAY;IACZ,aAAa;IACb,mBAAmB;IACnB,uBAAuB;IACvB,eAAe;IACf,kBAAkB;IAClB,QAAQ;IACR,2BAA2B;AAC/B","sourcesContent":[".preview-container {\n    background-color: var(--preview-container-background-color);\n    width: 100%;\n    height: 100%;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    cursor: pointer;\n    position: absolute;\n    top: 50%;\n    transform: translateY(-50%);\n}\n"],"sourceRoot":""}]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ 5352:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
@@ -16996,10 +17034,11 @@ ___CSS_LOADER_EXPORT___.push([module.id, `
     --main-bg-gradient: linear-gradient(0deg, rgba(32,32,32,1) 0%, rgba(32,32,32,0.49531687675070024) 72%, rgba(32,32,32,0.08355217086834732) 100%);
     --main-border-color: rgba(125,125,125,0.4);
     --video-container-background-color: #e4e4e4;
+    --preview-container-background-color: #e4e4e4;
     --base-video-rect-background-color: #8a8a8a;
     --main-outline-color: var(--highlight-bg-color-hover);
 }
-`, "",{"version":3,"sources":["webpack://./src/css/colors.css"],"names":[],"mappings":";AACA;IACI,sBAAsB;IACtB,gCAAgC;IAChC,iCAAiC;IACjC,mCAAmC;IACnC,8CAA8C;IAC9C,0BAA0B;IAC1B,+BAA+B;IAC/B,+IAA+I;IAC/I,0CAA0C;IAC1C,2CAA2C;IAC3C,2CAA2C;IAC3C,qDAAqD;AACzD","sourcesContent":["\n:root {\n    --main-fg-color: white;\n    --main-bg-color: rgba(0,0,0,0.8);\n    --main-bg-color-hover: rgb(0,0,0);\n    --secondary-bg-color: rgb(32,32,32);\n    --secondary-bg-color-hover: rgba(32,32,32,0.8);\n    --highlight-bg-color: #A00;\n    --highlight-bg-color-hover: red;\n    --main-bg-gradient: linear-gradient(0deg, rgba(32,32,32,1) 0%, rgba(32,32,32,0.49531687675070024) 72%, rgba(32,32,32,0.08355217086834732) 100%);\n    --main-border-color: rgba(125,125,125,0.4);\n    --video-container-background-color: #e4e4e4;\n    --base-video-rect-background-color: #8a8a8a;\n    --main-outline-color: var(--highlight-bg-color-hover);\n}\n"],"sourceRoot":""}]);
+`, "",{"version":3,"sources":["webpack://./src/css/colors.css"],"names":[],"mappings":";AACA;IACI,sBAAsB;IACtB,gCAAgC;IAChC,iCAAiC;IACjC,mCAAmC;IACnC,8CAA8C;IAC9C,0BAA0B;IAC1B,+BAA+B;IAC/B,+IAA+I;IAC/I,0CAA0C;IAC1C,2CAA2C;IAC3C,6CAA6C;IAC7C,2CAA2C;IAC3C,qDAAqD;AACzD","sourcesContent":["\n:root {\n    --main-fg-color: white;\n    --main-bg-color: rgba(0,0,0,0.8);\n    --main-bg-color-hover: rgb(0,0,0);\n    --secondary-bg-color: rgb(32,32,32);\n    --secondary-bg-color-hover: rgba(32,32,32,0.8);\n    --highlight-bg-color: #A00;\n    --highlight-bg-color-hover: red;\n    --main-bg-gradient: linear-gradient(0deg, rgba(32,32,32,1) 0%, rgba(32,32,32,0.49531687675070024) 72%, rgba(32,32,32,0.08355217086834732) 100%);\n    --main-border-color: rgba(125,125,125,0.4);\n    --video-container-background-color: #e4e4e4;\n    --preview-container-background-color: #e4e4e4;\n    --base-video-rect-background-color: #8a8a8a;\n    --main-outline-color: var(--highlight-bg-color-hover);\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -44308,7 +44347,7 @@ Hls.defaultConfig = void 0;
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"paella-core","version":"1.48.1","description":"Multistream HTML video player","main":"src/index.js","module":"dist/paella-core.js","scripts":{"build":"webpack --mode production","dev":"webpack serve --mode development --config webpack.debug.js --host 0.0.0.0","captions":"webpack serve --mode development --config webpack.captions.js","eslint":"eslint .","nomanifest":"webpack serve --mode development --config webpack.nomanifest.js","testenv":"webpack serve --mode development --config webpack.test.js --host 0.0.0.0"},"repository":{"type":"git","url":"git+https://github.com/polimediaupv/paella-core.git"},"keywords":["html","player","video","hls"],"author":"Fernando Serrano Carpena <ferserc1@gmail.com>","license":"ECL-2.0","bugs":{"url":"https://github.com/polimediaupv/paella-core/issues"},"homepage":"https://github.com/polimediaupv/paella-core#readme","devDependencies":{"@babel/core":"^7.12.10","@babel/plugin-transform-modules-commonjs":"^7.19.6","@babel/preset-env":"^7.12.11","@playwright/test":"^1.29.2","babel-loader":"^9.0.0","babel-plugin-transform-require-context":"^0.1.1","copy-webpack-plugin":"^11.0.0","css-loader":"^6.6.0","eslint":"^8.29.0","file-loader":"^6.2.0","html-webpack-plugin":"^5.5.0","source-map-loader":"^4.0.0","style-loader":"^3.3.1","svg-inline-loader":"^0.8.2","webpack":"^5.66.0","webpack-cli":"^5.0.0","webpack-dev-server":"^4.7.3"},"dependencies":{"core-js":"^3.8.2","hls.js":"^1.0.4"}}');
+module.exports = JSON.parse('{"name":"paella-core","version":"1.48.2","description":"Multistream HTML video player","main":"src/index.js","module":"dist/paella-core.js","scripts":{"build":"webpack --mode production","dev":"webpack serve --mode development --config webpack.debug.js --host 0.0.0.0","captions":"webpack serve --mode development --config webpack.captions.js","eslint":"eslint .","nomanifest":"webpack serve --mode development --config webpack.nomanifest.js","testenv":"webpack serve --mode development --config webpack.test.js --host 0.0.0.0"},"repository":{"type":"git","url":"git+https://github.com/polimediaupv/paella-core.git"},"keywords":["html","player","video","hls"],"author":"Fernando Serrano Carpena <ferserc1@gmail.com>","license":"ECL-2.0","bugs":{"url":"https://github.com/polimediaupv/paella-core/issues"},"homepage":"https://github.com/polimediaupv/paella-core#readme","devDependencies":{"@babel/core":"^7.12.10","@babel/plugin-transform-modules-commonjs":"^7.19.6","@babel/preset-env":"^7.12.11","@playwright/test":"^1.29.2","babel-loader":"^9.0.0","babel-plugin-transform-require-context":"^0.1.1","copy-webpack-plugin":"^11.0.0","css-loader":"^6.6.0","eslint":"^8.29.0","file-loader":"^6.2.0","html-webpack-plugin":"^5.5.0","source-map-loader":"^4.0.0","style-loader":"^3.3.1","svg-inline-loader":"^0.8.2","webpack":"^5.66.0","webpack-cli":"^5.0.0","webpack-dev-server":"^4.7.3"},"dependencies":{"core-js":"^3.8.2","hls.js":"^1.0.4"}}');
 
 /***/ }),
 
@@ -46750,29 +46789,38 @@ var VideoContainer_VideoContainer = /*#__PURE__*/function (_DomClass) {
               });
             case 40:
               lastKnownTime = _context7.sent;
-              if (!((_this$player$config$v4 = this.player.config.videoContainer) !== null && _this$player$config$v4 !== void 0 && _this$player$config$v4.restoreVolume && storedVolume !== null && storedVolume !== undefined)) {
-                _context7.next = 44;
-                break;
-              }
-              _context7.next = 44;
-              return this.streamProvider.setVolume(storedVolume);
-            case 44:
-              if (!((_this$player$config$v5 = this.player.config.videoContainer) !== null && _this$player$config$v5 !== void 0 && _this$player$config$v5.restorePlaybackRate && playbackRate !== null && playbackRate !== undefined)) {
-                _context7.next = 47;
-                break;
-              }
-              _context7.next = 47;
-              return this.streamProvider.setPlaybackRate(playbackRate);
-            case 47:
+              _context7.next = 43;
+              return this.streamProvider.setVolume(0);
+            case 43:
               if (!this.player.videoManifest.trimming) {
-                _context7.next = 50;
+                _context7.next = 46;
                 break;
               }
-              _context7.next = 50;
+              _context7.next = 46;
               return this.player.videoContainer.setTrimming(this.player.videoManifest.trimming);
-            case 50:
+            case 46:
+              if (!((_this$player$config$v4 = this.player.config.videoContainer) !== null && _this$player$config$v4 !== void 0 && _this$player$config$v4.restoreVolume && storedVolume !== null && storedVolume !== undefined)) {
+                _context7.next = 51;
+                break;
+              }
+              _context7.next = 49;
+              return this.streamProvider.setVolume(storedVolume);
+            case 49:
+              _context7.next = 53;
+              break;
+            case 51:
+              _context7.next = 53;
+              return this.streamProvider.setVolume(1);
+            case 53:
+              if (!((_this$player$config$v5 = this.player.config.videoContainer) !== null && _this$player$config$v5 !== void 0 && _this$player$config$v5.restorePlaybackRate && playbackRate !== null && playbackRate !== undefined)) {
+                _context7.next = 56;
+                break;
+              }
+              _context7.next = 56;
+              return this.streamProvider.setPlaybackRate(playbackRate);
+            case 56:
               if (!((_this$player$config$v6 = this.player.config.videoContainer) !== null && _this$player$config$v6 !== void 0 && (_this$player$config$v6 = _this$player$config$v6.restoreLastTime) !== null && _this$player$config$v6 !== void 0 && _this$player$config$v6.enabled && !this.streamProvider.isLiveStream)) {
-                _context7.next = 64;
+                _context7.next = 70;
                 break;
               }
               saveCurrentTime = /*#__PURE__*/function () {
@@ -46810,32 +46858,32 @@ var VideoContainer_VideoContainer = /*#__PURE__*/function (_DomClass) {
                 };
               }();
               if (!lastKnownTime) {
-                _context7.next = 63;
+                _context7.next = 69;
                 break;
               }
-              _context7.next = 55;
+              _context7.next = 61;
               return this.player.preferences.get('lastKnownTime', {
                 global: false
               });
-            case 55:
+            case 61:
               time = _context7.sent;
-              _context7.next = 58;
+              _context7.next = 64;
               return this.duration();
-            case 58:
+            case 64:
               duration = _context7.sent;
               remainingSeconds = (_this$player$config$v7 = this.player.config.videoContainer) === null || _this$player$config$v7 === void 0 || (_this$player$config$v7 = _this$player$config$v7.restoreLastTime) === null || _this$player$config$v7 === void 0 ? void 0 : _this$player$config$v7.remainingSeconds;
               if (!(duration - time > remainingSeconds)) {
-                _context7.next = 63;
+                _context7.next = 69;
                 break;
               }
-              _context7.next = 63;
+              _context7.next = 69;
               return this.setCurrentTime(time);
-            case 63:
+            case 69:
               saveCurrentTime();
-            case 64:
+            case 70:
               this._messageContainer = new VideoContainerMessage/* default */.Z(this.player, this.element);
               this._ready = true;
-            case 66:
+            case 72:
             case "end":
               return _context7.stop();
           }
@@ -47357,6 +47405,37 @@ var VideoContainer_VideoContainer = /*#__PURE__*/function (_DomClass) {
   return VideoContainer;
 }(dom/* DomClass */.FZ);
 
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js!./src/css/PreviewContainer.css
+var PreviewContainer = __webpack_require__(5254);
+;// CONCATENATED MODULE: ./src/css/PreviewContainer.css
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+var PreviewContainer_options = {};
+
+PreviewContainer_options.styleTagTransform = (styleTagTransform_default());
+PreviewContainer_options.setAttributes = (setAttributesWithoutAttributes_default());
+
+      PreviewContainer_options.insert = insertBySelector_default().bind(null, "head");
+    
+PreviewContainer_options.domAPI = (styleDomAPI_default());
+PreviewContainer_options.insertStyleElement = (insertStyleElement_default());
+
+var PreviewContainer_update = injectStylesIntoStyleTag_default()(PreviewContainer/* default */.Z, PreviewContainer_options);
+
+
+
+
+       /* harmony default export */ const css_PreviewContainer = (PreviewContainer/* default */.Z && PreviewContainer/* default */.Z.locals ? PreviewContainer/* default */.Z.locals : undefined);
+
 // EXTERNAL MODULE: ./src/icons/play_icon_fullscreen.svg
 var play_icon_fullscreen = __webpack_require__(6304);
 var play_icon_fullscreen_default = /*#__PURE__*/__webpack_require__.n(play_icon_fullscreen);
@@ -47375,13 +47454,13 @@ function PreviewContainer_assertThisInitialized(self) { if (self === void 0) { t
 function PreviewContainer_isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 function PreviewContainer_getPrototypeOf(o) { PreviewContainer_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return PreviewContainer_getPrototypeOf(o); }
 
-var g_style = "\n    background-color: #e4e4e4;\n    width: 100%;\n    height: 100%;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    cursor: pointer;\n    position: absolute;\n    top: 50%;\n    transform: translateY(-50%); \n";
+
 var g_imgStyle = "\n    width: 100%;\n";
 var g_iconContainerStyle = "\n    position: absolute; \n    top: 0px; \n    left: 0px; \n    right: 0px; \n    bottom: 0px; \n    display: flex;\n    align-content: center;\n    justify-content: center;\n    align-items: center;\n";
 var g_iconStyle = "\n    pointer-events: none;\n    width: 20%;\n    max-width: 400px;\n    min-width: 100px;\n    opacity: 0.6;\n";
 var g_buttonStyle = "\n    display: block;\n    width: 20%;\n    background: none;\n    border: none;\n    cursor: pointer;\n";
 
-var PreviewContainer = /*#__PURE__*/function (_DomClass) {
+var PreviewContainer_PreviewContainer = /*#__PURE__*/function (_DomClass) {
   PreviewContainer_inherits(PreviewContainer, _DomClass);
   var _super = PreviewContainer_createSuper(PreviewContainer);
   function PreviewContainer(player, parentElement, backgroundImage, backgroundImagePortrait) {
@@ -47389,7 +47468,6 @@ var PreviewContainer = /*#__PURE__*/function (_DomClass) {
     PreviewContainer_classCallCheck(this, PreviewContainer);
     var attributes = {
       "class": "preview-container",
-      "style": g_style,
       "role": "button",
       "aria-label": "Play video"
     };
@@ -49874,7 +49952,7 @@ function buildPreview() {
   var _this$videoManifest, _this$videoManifest2, _this$videoManifest3, _this$videoManifest4;
   var preview = ((_this$videoManifest = this.videoManifest) === null || _this$videoManifest === void 0 || (_this$videoManifest = _this$videoManifest.metadata) === null || _this$videoManifest === void 0 ? void 0 : _this$videoManifest.preview) && (0,utils.resolveResourcePath)(this, (_this$videoManifest2 = this.videoManifest) === null || _this$videoManifest2 === void 0 || (_this$videoManifest2 = _this$videoManifest2.metadata) === null || _this$videoManifest2 === void 0 ? void 0 : _this$videoManifest2.preview) || this.defaultVideoPreview;
   var previewPortrait = ((_this$videoManifest3 = this.videoManifest) === null || _this$videoManifest3 === void 0 || (_this$videoManifest3 = _this$videoManifest3.metadata) === null || _this$videoManifest3 === void 0 ? void 0 : _this$videoManifest3.previewPortrait) && (0,utils.resolveResourcePath)(this, (_this$videoManifest4 = this.videoManifest) === null || _this$videoManifest4 === void 0 || (_this$videoManifest4 = _this$videoManifest4.metadata) === null || _this$videoManifest4 === void 0 ? void 0 : _this$videoManifest4.previewPortrait) || this.defaultVideoPreviewPortrait;
-  this._previewContainer = new PreviewContainer(this, this._containerElement, preview, previewPortrait);
+  this._previewContainer = new PreviewContainer_PreviewContainer(this, this._containerElement, preview, previewPortrait);
 }
 
 
