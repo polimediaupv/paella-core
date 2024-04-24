@@ -246,6 +246,7 @@
         "es.upv.paella.playPauseButton": {
             "enabled": true,
             "order": 1,
+            "tabIndex": 1,
             "container": "playbackBar",
             "side": "left",
             "description": "Play/pause",
@@ -367,7 +368,8 @@
         "es.upv.paella.dynamicWidthButton": {
             "enabled": true,
             "parentContainer_": "videoContainer",
-            "order": 5
+            "order": 5,
+            "tabIndex": 3
         },
 
         "es.upv.paella.canvasButtonPluginTest": {
@@ -391,6 +393,8 @@
             "resizeable": true,
             "popUpType": "no-modal",
             "minContainerSize": 500,
+            "tabIndex": 2,
+            "order": 2,
             "closeActions": {
                 "clickOutside": false,
                 "closeButton": true

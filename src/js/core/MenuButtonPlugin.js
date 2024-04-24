@@ -34,7 +34,8 @@ export default class MenuButtonPlugin extends PopUpButtonPlugin {
 		//else if (title !== null) {
 		//	createElementWithHtmlText(`<li class="menu-button-title">${this.player.translate(title)}</li>`, content);
 		//}
-		
+
+		const tabIndex = this.tabIndex;
 		menuItems.forEach(item => {
 			const itemElem = createElementWithHtmlText(`<li class="menu-button-item"></li>`, content);
 			let className = "";
@@ -85,7 +86,7 @@ export default class MenuButtonPlugin extends PopUpButtonPlugin {
 			}
 			
 			const itemButton = createElementWithHtmlText(`
-				<button class="${ className }" aria-label="${ item.title }" title="${ item.title }">${ itemContent }</button>`
+				<button class="${ className }" aria-label="${ item.title }" title="${ item.title }" tabindex="${ tabIndex }">${ itemContent }</button>`
 				, itemElem);
 			if (menuTitleElement) {
 				const menuTitleContainer = itemButton.getElementsByClassName("menu-title")[0];
