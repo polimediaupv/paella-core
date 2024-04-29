@@ -88,6 +88,8 @@ export function getHlsSupport(forceNative = false) {
 }
 
 const loadHls = (player, streamData, video, config, cors) => {
+    // Save video name to debug multivideo videos
+    video.name = streamData.content;
     
     if (cors.withCredentials) {
         config.xhrSetup = function(xhr,url) {
@@ -109,7 +111,7 @@ const loadHls = (player, streamData, video, config, cors) => {
         let autoQualitySet = false;
 
         hls.on(Hls.Events.LEVEL_SWITCHED, (evt, data) => {
-            player.log.debug(`HLS: quality level switched to ${data.level}`);
+            player.log.debug(`HLS: quality level switched to ${data.level} (${video.name})`);
             if (!autoQualitySet) {
                 hls.currentLevel = -1;
                 autoQualitySet = true;
@@ -122,46 +124,46 @@ const loadHls = (player, streamData, video, config, cors) => {
                 switch (data.type) {
                 case Hls.ErrorTypes.NETWORK_ERROR:
                     if (data.details === Hls.ErrorDetails.MANIFEST_LOAD_ERROR) {
-                        reject(Error("hlsVideoFormatPlugin: unrecoverable error in HLS player. The video is not available"));
+                        reject(Error(`hlsVideoFormatPlugin: unrecoverable error in HLS player. The video is not available (${video.name})`));
                     }
                     else {
-                        player.log.warn("hlsVideoFormatPlugin: Fatal network error. Try to recover");
+                        player.log.warn(`hlsVideoFormatPlugin: Fatal network error. Try to recover (${video.name})`);
                         hls.startLoad();
                     }
                     break;
                 case Hls.ErrorTypes.MEDIA_ERROR:
-                    player.log.warn("hlsVideoFormatPlugin: Fatal media error encountered. Try to recover");
+                    player.log.warn(`hlsVideoFormatPlugin: Fatal media error encountered. Try to recover (${video.name})`);
                     hls.recoverMediaError()
                     break;
                 default:
                     hls.destroy();
-                    reject(Error("hlsVideoFormat: Fatal error. Can not recover"));
+                    reject(Error(`hlsVideoFormat: Fatal error. Can not recover (${video.name})`));
                 }
             }
             else {
-                player.log.warn('HLS: error');
+                player.log.warn(`HLS: error (${video?.name})`);
                 player.log.warn(data.details);
             }
         });
 
         hls.on(Hls.Events.LEVEL_SWITCHING, () => {
-            player.log.debug("HLS media attached");
+            player.log.debug(`HLS media attached (${video?.name})`);
         });
 
         hls.on(Hls.Events.MEDIA_ATTACHED, () => {
-            player.log.debug("HLS media attached");
+            player.log.debug(`HLS media attached (${video?.name})`);
         });
 
         hls.on(Hls.Events.MEDIA_DETACHING, () => {
-            player.log.debug("HLS media detaching");
+            player.log.debug(`HLS media detaching (${video?.name})`);
         });
 
         hls.on(Hls.Events.MEDIA_DETACHED, () => {
-            player.log.debug("HLS media detached");
+            player.log.debug(`HLS media detached (${video?.name})`);
         });
 
         hls.on(Hls.Events.MANIFEST_PARSED, () => {
-            player.log.debug("HLS manifest parsed");
+            player.log.debug(`HLS manifest parsed (${video?.name})`);
             hls.startLoad(-1);
         });
 
@@ -255,7 +257,7 @@ export class HlsVideo extends Mp4Video {
             return result;
         }
         else {
-            this.player.log.debug("Loading HLS stream");
+            this.player.log.debug(`Loading HLS stream ${streamData?.content}}`);
 
             const hlsStream = streamData?.sources?.hls?.length && streamData.sources.hls[0];
             this._config.audioTrackLabel = hlsStream?.audioLabel || this._config.audioTrackLabel;

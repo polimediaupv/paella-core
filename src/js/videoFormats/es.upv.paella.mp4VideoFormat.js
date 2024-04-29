@@ -103,7 +103,18 @@ export class Mp4Video extends Video {
     async setCurrentTime(t) {
         if (this._videoEnabled) {
             await this.waitForLoaded();
-            return this.video.currentTime = t;
+            const dur = this.video.duration;
+            if (t >= dur) {
+              // Buffer to end to protect multivideo of slightly different duration
+              this.video.currentTime = dur - 1;
+            }
+            else if (t < 0) {
+              this.video.currentTime = 0;
+            }
+            else {
+              this.video.currentTime = t;
+            }
+            return t;
         }
         else {
             this._disabledProperties.currentTime = t;
