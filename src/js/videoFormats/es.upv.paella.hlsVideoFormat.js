@@ -309,11 +309,15 @@ export class HlsVideo extends Mp4Video {
         else {
             await (new Promise((resolve,reject) => {
                 const checkReady = () => {
-                    // readyState === 2: HAVE_CURRENT_DATA. Data is available for the current playback
-                    // position, but not enought to actually play more than one frame. In firefox, the
-                    // video returns readyState === 2 when the video reaches the end, so the correct
-                    // comparision here is >= instead of >
-                    if (this.video.readyState >= 2) {
+                    // Make a special case to allow Firefox to play at readyState 2.
+                    // Browsers like Safari drop from readyState 3 to readyState 2 when the video is
+                    // buffering and cannot be played. Chrome moves quickly between ready state
+                    // 2 to 3 when it is able to play and is not impacted by this issue.
+                    if (/Firefox/.test(navigator.userAgent) && this.video.readyState == 2) {
+                        this._ready = true;
+                        resolve();
+                    }
+                    else if (this.video.readyState > 2) {
                         this._ready = true;
                         resolve();
                     }
