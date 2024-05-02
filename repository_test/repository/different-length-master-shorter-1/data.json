@@ -1,0 +1,32 @@
+{
+	"metadata": {
+		"duration": 300,
+		"title": "Presenter 5min - presentation 4min 40seg",
+		"preview": "https://repository.paellaplayer.upv.es/different_length_times_videos/video_5min.jpg"
+	},
+	"streams": [
+		{
+			"sources": {
+				"mp4": [
+					{
+						"src": "https://repository.paellaplayer.upv.es/different_length_times_videos/video_5min.mp4",
+						"mimetype": "video/mp4"
+					}
+				]
+			},
+			"content":"presenter",
+			"role": "mainAudio"
+		},
+		{
+			"sources": {
+				"mp4": [
+					{
+						"src": "https://repository.paellaplayer.upv.es/different_length_times_videos/video_4min_40s.mp4",
+						"mimetype": "video/mp4"
+					}
+				]
+			},
+			"content":"presentation"
+		}
+	]
+}
