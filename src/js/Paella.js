@@ -947,8 +947,15 @@ export default class Paella {
     }
     
     isFullScreenSupported() {
-        return this.containerElement.requestFullscreen ||
-            this.containerElement.webkitRequestFullScreen;
+        const allowedToGoFullScreen = (
+            window.document.fullscreenEnabled ||
+            window.document.webkitFullscreenEnabled
+        );
+        const canRequestToGoFullScreen = (
+            this.containerElement.requestFullscreen ||
+            this.containerElement.webkitRequestFullScreen
+        );
+        return allowedToGoFullScreen && canRequestToGoFullScreen;
     }
     
     async enterFullscreen() {
