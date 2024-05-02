@@ -18,10 +18,26 @@ fieldset.menu-button-content button {
     align-items: center;
     justify-content: space-between;
     border-radius: 6px;
+    padding: 1.1em 1.5em;
+    border-radius: 11px;;
 }
 
 fieldset.menu-button-content button:hover {
     background: var(--highlight-bg-color-hover);
+}
+
+fieldset.menu-button-content label {
+    cursor: pointer;
+    padding: 1.1em 1.5em;
+    border-radius: 11px;;
+}
+
+fieldset.menu-button-content label:hover {
+    background: var(--highlight-bg-color-hover);
+}
+
+fieldset.menu-button-content label:has(input[type="radio"]:checked) {
+    cursor: default;
 }
 
 fieldset.menu-button-content svg {
