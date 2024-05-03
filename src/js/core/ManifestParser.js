@@ -112,6 +112,12 @@ export default class ManifestParser {
                 frames: this._videoManifest.frameList
             }
         }
+        else {
+            this._frameList = {
+                targetContent: null,
+                frames: []
+            }
+        }
 
         this._frameList.getImage = (time, ignoreTrimming = false) => {
             if (this._player?.videoContainer && this._player._videoContainer.isTrimEnabled && !ignoreTrimming) {
