@@ -9,7 +9,7 @@
 			"sources": {
 				"mp4": [
 					{
-						"src": "https://repository.paellaplayer.upv.es/different_length_times_videos/video_5min.mp4",
+						"src": "https://repository.paellaplayer.upv.es/different_length_times_videos/video_4min_40s.mp4",
 						"mimetype": "video/mp4"
 					}
 				]
@@ -21,7 +21,7 @@
 			"sources": {
 				"mp4": [
 					{
-						"src": "https://repository.paellaplayer.upv.es/different_length_times_videos/video_4min_40s.mp4",
+						"src": "https://repository.paellaplayer.upv.es/different_length_times_videos/video_5min.mp4",
 						"mimetype": "video/mp4"
 					}
 				]
