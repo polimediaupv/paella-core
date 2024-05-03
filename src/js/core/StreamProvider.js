@@ -90,14 +90,17 @@ export default class SteramProvider extends PlayerResource {
 			}
 			
 			await s.player.load(s.stream, this);
-			await s.canvas.loadCanvas(s.player);		
-			s.player.onVideoEnded(() => {
-				if (videoEndedEventTimer === null) {
-					triggerIfReady(this.player, Events.ENDED);
-					videoEndedEventTimer = setTimeout(() => {
-						videoEndedEventTimer = null;
-					}, 2000);
-				}
+			await s.canvas.loadCanvas(s.player);
+			s.player.onVideoEnded(async () => {
+				// Pause all streams, to prevent other vídeos from playing, when not all the
+				// streams have the same duration.
+				this.executeAction("pause");
+				
+				// Set current time to 0 to put the video in the initial state
+				this.executeAction("setCurrentTime", 0);
+
+				// Trigger the ended event
+				triggerIfReady(this.player, Events.ENDED);
 			})
 			this._players.push(s.player);
 		}
@@ -347,12 +350,13 @@ export default class SteramProvider extends PlayerResource {
 			return this.trimEnd - this.trimStart;	
 		}
 		else {
-			return (await this.executeAction("duration"))[0];
+			return await this.durationIgnoringTrimming();
 		}
 	}
 	
 	async durationIgnoringTrimming() {
-		return (await this.executeAction("duration"))[0];
+		const result = (await this.executeAction("duration")).reduce((acc, val) => Math.min(acc, val), Number.MAX_VALUE);
+		return result;
 	}
 
 	async playbackRate() {
