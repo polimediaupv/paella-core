@@ -21,7 +21,7 @@ export default class CurrentTimeLabelPlugin extends ButtonPlugin {
 
             if (this.config.showTotalTime) {
                 const duration = await this.player.videoContainer.duration();
-                newTitle += `/${secondsToTime(duration)}`;
+                newTitle += ` / ${secondsToTime(duration)}`;
             }
 
             this.title = newTitle;
