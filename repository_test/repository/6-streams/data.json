@@ -1,15 +1,15 @@
 {
 	"metadata": {
 		"duration": 300,
-		"title": "Presenter 5min - presentation 4min 40seg",
+		"title": "6 streams demo video",
 		"preview": "https://repository.paellaplayer.upv.es/6-streams/preview.png"
 	},
 	"streams": [
 		{
 			"sources": {
-				"mp4": [
+				"hls": [
 					{
-						"src": "https://repository.paellaplayer.upv.es/6-streams/thispersondoesnotexist-1.mp4",
+						"src": "https://repository.paellaplayer.upv.es/6-streams/thispersondoesnotexist-1/thispersondoesnotexist-1-master.m3u8",
 						"mimetype": "video/mp4"
 					}
 				]
@@ -19,9 +19,9 @@
 		},
 		{
 			"sources": {
-				"mp4": [
+				"hls": [
 					{
-						"src": "https://repository.paellaplayer.upv.es/6-streams/thispersondoesnotexist-2.mp4",
+						"src": "https://repository.paellaplayer.upv.es/6-streams/thispersondoesnotexist-2/thispersondoesnotexist-2-master.m3u8",
 						"mimetype": "video/mp4"
 					}
 				]
@@ -30,9 +30,9 @@
 		},
 		{
 			"sources": {
-				"mp4": [
+				"hls": [
 					{
-						"src": "https://repository.paellaplayer.upv.es/6-streams/thispersondoesnotexist-3.mp4",
+						"src": "https://repository.paellaplayer.upv.es/6-streams/thispersondoesnotexist-3/thispersondoesnotexist-3-master.m3u8",
 						"mimetype": "video/mp4"
 					}
 				]
@@ -41,9 +41,9 @@
 		},
 		{
 			"sources": {
-				"mp4": [
+				"hls": [
 					{
-						"src": "https://repository.paellaplayer.upv.es/6-streams/thispersondoesnotexist-4.mp4",
+						"src": "https://repository.paellaplayer.upv.es/6-streams/thispersondoesnotexist-4/thispersondoesnotexist-4-master.m3u8",
 						"mimetype": "video/mp4"
 					}
 				]
@@ -52,9 +52,9 @@
 		},
 		{
 			"sources": {
-				"mp4": [
+				"hls": [
 					{
-						"src": "https://repository.paellaplayer.upv.es/6-streams/thispersondoesnotexist-5.mp4",
+						"src": "https://repository.paellaplayer.upv.es/6-streams/thispersondoesnotexist-5/thispersondoesnotexist-5-master.m3u8",
 						"mimetype": "video/mp4"
 					}
 				]
@@ -63,9 +63,9 @@
 		},
 		{
 			"sources": {
-				"mp4": [
+				"hls": [
 					{
-						"src": "https://repository.paellaplayer.upv.es/6-streams/thispersondoesnotexist-6.mp4",
+						"src": "https://repository.paellaplayer.upv.es/6-streams/thispersondoesnotexist-6/thispersondoesnotexist-6-master.m3u8",
 						"mimetype": "video/mp4"
 					}
 				]
