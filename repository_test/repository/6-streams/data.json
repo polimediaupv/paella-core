@@ -1,0 +1,76 @@
+{
+	"metadata": {
+		"duration": 300,
+		"title": "Presenter 5min - presentation 4min 40seg",
+		"preview": "https://repository.paellaplayer.upv.es/6-streams/preview.png"
+	},
+	"streams": [
+		{
+			"sources": {
+				"mp4": [
+					{
+						"src": "https://repository.paellaplayer.upv.es/6-streams/thispersondoesnotexist-1.mp4",
+						"mimetype": "video/mp4"
+					}
+				]
+			},
+			"content":"presenter-1",
+			"role": "mainAudio"
+		},
+		{
+			"sources": {
+				"mp4": [
+					{
+						"src": "https://repository.paellaplayer.upv.es/6-streams/thispersondoesnotexist-2.mp4",
+						"mimetype": "video/mp4"
+					}
+				]
+			},
+			"content":"presenter-2"
+		},
+		{
+			"sources": {
+				"mp4": [
+					{
+						"src": "https://repository.paellaplayer.upv.es/6-streams/thispersondoesnotexist-3.mp4",
+						"mimetype": "video/mp4"
+					}
+				]
+			},
+			"content":"presenter-3"
+		},
+		{
+			"sources": {
+				"mp4": [
+					{
+						"src": "https://repository.paellaplayer.upv.es/6-streams/thispersondoesnotexist-4.mp4",
+						"mimetype": "video/mp4"
+					}
+				]
+			},
+			"content":"presenter-4"
+		},
+		{
+			"sources": {
+				"mp4": [
+					{
+						"src": "https://repository.paellaplayer.upv.es/6-streams/thispersondoesnotexist-5.mp4",
+						"mimetype": "video/mp4"
+					}
+				]
+			},
+			"content":"presenter-5"
+		},
+		{
+			"sources": {
+				"mp4": [
+					{
+						"src": "https://repository.paellaplayer.upv.es/6-streams/thispersondoesnotexist-6.mp4",
+						"mimetype": "video/mp4"
+					}
+				]
+			},
+			"content":"presenter-6"
+		}
+	]
+}
