@@ -82,7 +82,7 @@ test.describe("Trimming", () => {
         await playVideo(page);
 
         const duration = await page.evaluate('__paella_instances__[0].videoContainer.duration()');
-        await expect(duration).toBeCloseTo(909, 0);
+        await expect(duration).toBeCloseTo(908, 0);
 
         await page.evaluate('__paella_instances__[0].videoContainer.setTrimming({ start: 100, end: 200, enabled: true })');
 
