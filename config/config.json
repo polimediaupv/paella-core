@@ -120,6 +120,12 @@
             "enabled": true,
             "side": "right"
         },
+        "es.upv.paella.nStreams": {
+            "enabled": true,
+            "contentId": "n-streams",
+            "icon": "present-mode-4.svg",
+            "title": "Multiple streams"
+        },
         "es.upv.paella.singleVideo": {
             "enabled": false,
             "dualVideoContentIds": [

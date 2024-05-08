@@ -16,6 +16,7 @@ import DualVideoPiPLayout from "paella-core/js/layouts/es.upv.paella.dualVideoPi
 import SingleVideoLayout from "paella-core/js/layouts/es.upv.paella.singleVideo";
 import SingleVideoDynamicLayout from "paella-core/js/layouts/es.upv.paella.singleVideoDynamic";
 import TripleVideoLayout from "paella-core/js/layouts/es.upv.paella.tripleVideo";
+import NStreamsVideoLayout from "paella-core/js/layouts/es.upv.paella.nStreams";
 
 import AudioCanvasPlugin from "paella-core/js/canvas/es.upv.paella.audioCanvas";
 import VideoCanvasPlugin from "paella-core/js/canvas/es.upv.paella.videoCanvas";
@@ -121,6 +122,12 @@ export default [
     },
     {
         plugin: TripleVideoLayout,
+        config: {
+            enabled: false
+        }
+    },
+    {
+        plugin: NStreamsVideoLayout,
         config: {
             enabled: false
         }
