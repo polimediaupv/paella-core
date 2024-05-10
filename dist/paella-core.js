@@ -1026,7 +1026,7 @@ const ot = {
 };
 let Re = null;
 async function Ze() {
-  return Re || (console.debug("Loading HLS.js"), Re = (await import("./hls-FataH-6s.js")).default), Re;
+  return Re || (console.debug("Loading HLS.js"), Re = (await import("./hls-Bn4nRHGF.js")).default), Re;
 }
 async function V(i = !1) {
   const e = await Ze(), t = document.createElement("video");
@@ -2527,7 +2527,7 @@ class Jn extends Xe {
       let n = re(t);
       if (this.config.showTotalTime) {
         const s = await this.player.videoContainer.duration();
-        n += `/${re(s)}`;
+        n += ` / ${re(s)}`;
       }
       this.title = n;
     };
@@ -4338,32 +4338,29 @@ class Fs extends le {
   async load(e) {
     this._streamData = e, this._streams = {};
     let t = this.player.config.defaultAudioStream || "presenter";
-    this._streamData.length === 1 && (t = this._streamData[0].content), e.some((s) => {
-      if (s.role === "mainAudio")
-        return t = s.content, !0;
+    this._streamData.length === 1 && (t = this._streamData[0].content), e.some((n) => {
+      if (n.role === "mainAudio")
+        return t = n.content, !0;
     }), this.player.log.debug("Finding compatible video plugins"), await ns(this.player);
-    for (const s of this._streamData) {
-      const a = as(this.player, s);
-      if (!a)
-        throw Error(`Canvas plugin not found: ${s.canvas}`);
-      const r = s.content === t, o = await Ni(this.player, s);
-      if (!o)
-        throw Error(`Incompatible stream type: ${s.content}`);
-      this._streams[s.content] = {
-        stream: s,
-        isMainAudio: r,
-        videoPlugin: o,
-        canvasPlugin: a
+    for (const n of this._streamData) {
+      const s = as(this.player, n);
+      if (!s)
+        throw Error(`Canvas plugin not found: ${n.canvas}`);
+      const a = n.content === t, r = await Ni(this.player, n);
+      if (!r)
+        throw Error(`Incompatible stream type: ${n.content}`);
+      this._streams[n.content] = {
+        stream: n,
+        isMainAudio: a,
+        videoPlugin: r,
+        canvasPlugin: s
       };
     }
-    let n = null;
-    for (const s in this._streams) {
-      const a = this._streams[s];
-      a.canvas = await a.canvasPlugin.getCanvasInstance(this._videoContainer), a.player = await a.videoPlugin.getVideoInstance(a.canvas.element, a.isMainAudio), t === s ? (this._mainAudioPlayer = a.player, a.player.initVolume(1)) : a.player.initVolume(0), await a.player.load(a.stream, this), await a.canvas.loadCanvas(a.player), a.player.onVideoEnded(() => {
-        n === null && (se(this.player, g.ENDED), n = setTimeout(() => {
-          n = null;
-        }, 2e3));
-      }), this._players.push(a.player);
+    for (const n in this._streams) {
+      const s = this._streams[n];
+      s.canvas = await s.canvasPlugin.getCanvasInstance(this._videoContainer), s.player = await s.videoPlugin.getVideoInstance(s.canvas.element, s.isMainAudio), t === n ? (this._mainAudioPlayer = s.player, s.player.initVolume(1)) : s.player.initVolume(0), await s.player.load(s.stream, this), await s.canvas.loadCanvas(s.player), s.player.onVideoEnded(() => {
+        this.executeAction("pause"), this.executeAction("setCurrentTime", 0), se(this.player, g.ENDED);
+      }), this._players.push(s.player);
     }
     if (this.mainAudioPlayer === null)
       throw this.player.log.error("The video stream containing the audio track could not be identified. The `role` attribute must be specified in the main video stream, or the `defaultAudioStream` attribute must be set correctly in the player configuration."), new Error("The video stream containing the audio track could not be identified.");
@@ -4507,10 +4504,10 @@ class Fs extends le {
     return this.mainAudioPlayer ? await this.mainAudioPlayer.setVolume(e) : (await this.executeAction("setVolume", [e]))[0];
   }
   async duration() {
-    return this.isTrimEnabled ? this.trimEnd - this.trimStart : (await this.executeAction("duration"))[0];
+    return this.isTrimEnabled ? this.trimEnd - this.trimStart : await this.durationIgnoringTrimming();
   }
   async durationIgnoringTrimming() {
-    return (await this.executeAction("duration"))[0];
+    return (await this.executeAction("duration")).reduce((t, n) => Math.min(t, n), Number.MAX_VALUE);
   }
   async playbackRate() {
     return (await this.executeAction("playbackRate"))[0];
@@ -5577,10 +5574,13 @@ class ma {
         } else
           return null;
       }
-    }, this._videoManifest.frameList && !Array.isArray(this._videoManifest.frameList) && typeof this._videoManifest.frameList == "object" && typeof this._videoManifest.frameList.targetContent == "string" && Array.isArray(this._videoManifest.frameList.frames) ? this._frameList = this._videoManifest.frameList : Array.isArray(this._videoManifest.frameList) && (this._frameList = {
+    }, this._videoManifest.frameList && !Array.isArray(this._videoManifest.frameList) && typeof this._videoManifest.frameList == "object" && typeof this._videoManifest.frameList.targetContent == "string" && Array.isArray(this._videoManifest.frameList.frames) ? this._frameList = this._videoManifest.frameList : Array.isArray(this._videoManifest.frameList) ? this._frameList = {
       targetContent: null,
       frames: this._videoManifest.frameList
-    }), this._frameList.getImage = (s, a = !1) => {
+    } : this._frameList = {
+      targetContent: null,
+      frames: []
+    }, this._frameList.getImage = (s, a = !1) => {
       var r, o;
       return (r = this._player) != null && r.videoContainer && this._player._videoContainer.isTrimEnabled && !a ? s += this._player.videoContainer.trimStart : !((o = this._player) != null && o._videoContainer) && !a && console.warn("frameList.getImage(): player instance is null. The trimming information will be ignored."), [...this._frameList.frames].sort((l, c) => c.time - l.time).find((l) => l.time < s);
     }, Object.defineProperty(this._frameList, "isEmpty", {
