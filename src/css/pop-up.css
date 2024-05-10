@@ -4,6 +4,8 @@
     pointer-events: none;
     display: flex;
     justify-content: center;
+    height: 100%;
+    align-items: flex-end;
 }
 
 .pop-up-wrapper.hidden {
@@ -29,6 +31,9 @@
     box-sizing: border-box;
     padding: 15px;
     border-radius: 7px;
+    max-height: 80%;
+    overflow: auto;
+
 }
 
 .pop-up-wrapper .pop-up.out {
