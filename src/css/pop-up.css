@@ -32,8 +32,9 @@
     padding: 15px;
     border-radius: 7px;
     max-height: 80%;
-    overflow: auto;
-
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
 }
 
 .pop-up-wrapper .pop-up.out {
@@ -60,6 +61,7 @@
 .pop-up-wrapper .pop-up article {
     padding-top: 9px;
     padding-bottom: 9px;
+    overflow: auto;
 }
 
 .pop-up-wrapper .pop-up article p {
