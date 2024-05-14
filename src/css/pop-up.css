@@ -21,7 +21,9 @@
 }
 
 .pop-up-wrapper.left.right {
-    display: block;
+    display: grid;
+    align-items: end;
+    grid-template-columns: 1fr;
 }
 
 .pop-up-wrapper .pop-up {

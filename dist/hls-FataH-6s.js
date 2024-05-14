@@ -1306,7 +1306,16 @@ function Nn(a, e, t) {
   if (a.byteLength !== 16)
     throw new RangeError("Invalid system id");
   let s, i;
-  s = 0, i = new Uint8Array();
+  if (e) {
+    s = 1, i = new Uint8Array(e.length * 16);
+    for (let o = 0; o < e.length; o++) {
+      const l = e[o];
+      if (l.byteLength !== 16)
+        throw new RangeError("Invalid key");
+      i.set(l, o * 16);
+    }
+  } else
+    s = 0, i = new Uint8Array();
   let r;
   s > 0 ? (r = new Uint8Array(4), e.length > 0 && new DataView(r.buffer).setUint32(0, e.length, !1)) : r = new Uint8Array();
   const n = new Uint8Array(4);
