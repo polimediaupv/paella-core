@@ -2434,14 +2434,16 @@ class Wn extends Xe {
   }
   async load() {
     const e = this.player.getCustomPluginIcon(this.name, "play") || Gn, t = this.player.getCustomPluginIcon(this.name, "pause") || zn, n = this.player.getCustomPluginIcon(this.name, "replay") || Kn;
-    this.icon = e, A(this.player, g.PLAY, () => {
-      this.icon = t;
+    this.icon = e, this.player.translate(this.config.ariaLabelPause || "pause");
+    const s = this.player.translate(this.config.ariaLabelPlay || "play"), a = this.config.ariaKeyshortcuts || "k";
+    A(this.player, g.PLAY, () => {
+      this.icon = t, this.button.ariaKeyshortcuts = a, this.button.ariaLabel = s, this.button.title = this.config.ariaLabelPause || s;
     }), A(this.player, g.PAUSE, () => {
-      this.icon = e;
+      this.icon = e, this.button.ariaKeyshortcuts = a, this.button.ariaLabel = s, this.button.title = this.config.ariaLabelPause || s;
     }), A(this.player, g.ENDED, () => {
-      this.icon = n;
+      this.icon = n, this.button.ariaKeyshortcuts = a, this.button.ariaLabel = s, this.button.title = this.config.ariaLabelPause || s;
     }), A(this.player, g.STOP, () => {
-      this.icon = e;
+      this.icon = e, this.button.ariaKeyshortcuts = a, this.button.ariaLabel = s, this.button.title = this.config.ariaLabelPause || s;
     });
   }
   async action() {
