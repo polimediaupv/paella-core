@@ -27,27 +27,27 @@ export default class PlayButtonPlugin extends ButtonPlugin {
 		const shortcutKey = this.config.ariaKeyshortcuts || "k";
 		bindEvent(this.player, Events.PLAY, () => {
 			this.icon = pauseIcon;
-			this._button.ariaKeyshortcuts = this.config.ariaKeyshortcuts || shortcutKey ;
-			this._button.ariaLabel = this.config.ariaLabelPause || titlePause;
-			this._button.title = this.config.ariaLabelPause || titlePause;
+			this.button.ariaKeyshortcuts = shortcutKey;
+			this.button.ariaLabel = titlePause;
+			this.button.title = titlePause;
 		});
 		bindEvent(this.player, Events.PAUSE, () => {
 			this.icon = playIcon;
-			this._button.ariaKeyshortcuts = this.config.ariaKeyshortcuts || shortcutKey ;
-			this._button.ariaLabel = this.config.ariaLabelPause || titlePlay ;
-			this._button.title = this.config.ariaLabelPause || titlePlay;
+			this.button.ariaKeyshortcuts = shortcutKey;
+			this.button.ariaLabel = titlePlay;
+			this.button.title = this.config.ariaLabelPause || titlePlay;
 		});
 		bindEvent(this.player, Events.ENDED, () => {
 			this.icon = replayIcon;
-			this._button.ariaKeyshortcuts = this.config.ariaKeyshortcuts || shortcutKey ;
-			this._button.ariaLabel = this.config.ariaLabelPause || titlePlay ;
-			this._button.title = this.config.ariaLabelPause || titlePlay;
+			this.button.ariaKeyshortcuts = shortcutKey;
+			this.button.ariaLabel = titlePlay;
+			this.button.title = this.config.ariaLabelPause || titlePlay;
 		});
 		bindEvent(this.player, Events.STOP, () => {
 			this.icon = playIcon;
-			this._button.ariaKeyshortcuts = this.config.ariaKeyshortcuts || shortcutKey ;
-			this._button.ariaLabel = this.config.ariaLabelPause || titlePlay ;
-			this._button.title = this.config.ariaLabelPause || titlePlay;
+			this.button.ariaKeyshortcuts = shortcutKey;
+			this.button.ariaLabel = titlePlay;
+			this.button.title = this.config.ariaLabelPause || titlePlay;
 		});
 	}
 	
