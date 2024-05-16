@@ -22,32 +22,32 @@ export default class PlayButtonPlugin extends ButtonPlugin {
 		const pauseIcon = this.player.getCustomPluginIcon(this.name,"pause") || defaultPauseIcon;
 		const replayIcon = this.player.getCustomPluginIcon(this.name,"replay") || defaultReplayIcon;
 		this.icon = playIcon;
-		const defaultTitlePause = "pause";
-		const defaultTitlePlay = "play";
-		const defaultShortcutKey = "k";
+		const titlePause = this.player.translate(this.config.ariaLabelPause || "pause");
+		const titlePlay = this.player.translate(this.config.ariaLabelPlay || "play");
+		const shortcutKey = this.config.ariaKeyshortcuts || "k";
 		bindEvent(this.player, Events.PLAY, () => {
 			this.icon = pauseIcon;
-			this._button.ariaKeyshortcuts = this.config.ariaKeyshortcuts || defaultShortcutKey ;
-			this._button.ariaLabel = this.config.ariaLabelPause || defaultTitlePause;
-			this._button.title = this.config.ariaLabelPause || defaultTitlePause;
+			this._button.ariaKeyshortcuts = this.config.ariaKeyshortcuts || shortcutKey ;
+			this._button.ariaLabel = this.config.ariaLabelPause || titlePause;
+			this._button.title = this.config.ariaLabelPause || titlePause;
 		});
 		bindEvent(this.player, Events.PAUSE, () => {
 			this.icon = playIcon;
-			this._button.ariaKeyshortcuts = this.config.ariaKeyshortcuts || defaultShortcutKey ;
-			this._button.ariaLabel = this.config.ariaLabelPause || defaultTitlePlay ;
-			this._button.title = this.config.ariaLabelPause || defaultTitlePlay;
+			this._button.ariaKeyshortcuts = this.config.ariaKeyshortcuts || shortcutKey ;
+			this._button.ariaLabel = this.config.ariaLabelPause || titlePlay ;
+			this._button.title = this.config.ariaLabelPause || titlePlay;
 		});
 		bindEvent(this.player, Events.ENDED, () => {
 			this.icon = replayIcon;
-			this._button.ariaKeyshortcuts = this.config.ariaKeyshortcuts || defaultShortcutKey ;
-			this._button.ariaLabel = this.config.ariaLabelPause || defaultTitlePlay ;
-			this._button.title = this.config.ariaLabelPause || defaultTitlePlay;
+			this._button.ariaKeyshortcuts = this.config.ariaKeyshortcuts || shortcutKey ;
+			this._button.ariaLabel = this.config.ariaLabelPause || titlePlay ;
+			this._button.title = this.config.ariaLabelPause || titlePlay;
 		});
 		bindEvent(this.player, Events.STOP, () => {
 			this.icon = playIcon;
-			this._button.ariaKeyshortcuts = this.config.ariaKeyshortcuts || defaultShortcutKey ;
-			this._button.ariaLabel = this.config.ariaLabelPause || defaultTitlePlay ;
-			this._button.title = this.config.ariaLabelPause || defaultTitlePlay;
+			this._button.ariaKeyshortcuts = this.config.ariaKeyshortcuts || shortcutKey ;
+			this._button.ariaLabel = this.config.ariaLabelPause || titlePlay ;
+			this._button.title = this.config.ariaLabelPause || titlePlay;
 		});
 	}
 	
