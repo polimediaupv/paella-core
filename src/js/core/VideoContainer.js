@@ -263,9 +263,11 @@ async function updateLayoutDynamic() {
 
         if (isGridAlign) {
             this.baseVideoRect.classList.add("grid-align");
+            this.baseVideoRect.classList.remove("flex-align");
         }
         else {
             this.baseVideoRect.classList.add("flex-align");
+            this.baseVideoRect.classList.remove("grid-align");
         }
 
         setTimeout(() => {
