@@ -79,6 +79,29 @@ const myInputField = document.createElement('textarea');
 myInputField.addEventListener('keyup', evt => evt.stopPropagation());
 ```
 
+## Pause shortcuts
+
+You can pause the capture of keyboard shortcuts using the `pauseCaptureShortcuts` function and resume it using `resumeCaptureShortcuts`:
+
+```js
+import { pauseCaptureShortcuts, resumeCaptureShortucts } from 'paella-core';
+
+...
+
+pauseCaptureShortcuts(player);
+...
+resumeCaptureShortcuts(player);
+```
+
+You also have access to these functions through the paella player instance:
+
+```js
+player.pauseCaptureShortcuts();
+...
+player.resumeCaptureShortcuts();
+```
+
+
 ## Multiple paella player in the same page
 
 If a web site is being developed that will have more than one active video player, it is the responsibility of the programmer to ensure that only one of them loads keyboard shortcut plugins. Keyboard shortcuts are recorded in the browser window, which is a global resource for the entire page. If there were more than one video player listening for keyboard events, it would be the case that all players on the page would act simultaneously.

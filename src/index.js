@@ -44,7 +44,12 @@ import DFXPParser, { parseDFXP } from './js/captions/DFXPParser';
 import CaptionsPlugin from 'paella-core/js/captions/CaptionsPlugin';
 import Captions from 'paella-core/js/captions/Captions';
 
-import KeyShortcutPlugin, { KeyCodes, getShortcuts } from './js/core/KeyShortcutPlugin';
+import KeyShortcutPlugin, { 
+    KeyCodes,
+    getShortcuts,
+    pauseCaptureShortcuts,
+    resumeCaptureShortcuts
+} from './js/core/KeyShortcutPlugin';
 
 import { VideoContainerMessagePosition } from './js/core/VideoContainerMessage';
 
@@ -181,6 +186,8 @@ export {
     KeyShortcutPlugin,
     KeyCodes,
     getShortcuts,
+    pauseCaptureShortcuts,
+    resumeCaptureShortcuts,
 
     defaultTranslateFunction,
     defaultSetLanguageFunction,
