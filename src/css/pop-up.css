@@ -26,6 +26,10 @@
     grid-template-columns: 1fr;
 }
 
+.pop-up-wrapper.left.right.hidden {
+    display: none;
+}
+
 .pop-up-wrapper .pop-up {
     pointer-events: all;
     background-color: var(--main-bg-color);
