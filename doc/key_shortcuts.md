@@ -79,7 +79,7 @@ const myInputField = document.createElement('textarea');
 myInputField.addEventListener('keyup', evt => evt.stopPropagation());
 ```
 
-## Pause shortcuts
+## Pause shortcuts (paella-core >= 1.49.0)
 
 You can pause the capture of keyboard shortcuts using the `pauseCaptureShortcuts` function and resume it using `resumeCaptureShortcuts`:
 
