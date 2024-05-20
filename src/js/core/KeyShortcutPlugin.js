@@ -30,6 +30,14 @@ export const getShortcuts = (player) => {
     return enabledShortcuts;
 }
 
+export const pauseCaptureShortcuts = (player) => {
+    player.__pauseCaptureShortcuts__ = true;
+}
+
+export const resumeCaptureShortcuts = (player) => {
+    player.__pauseCaptureShortcuts__ = false;
+}
+
 export async function loadKeyShortcutPlugins(player) {
     player.__shortcuts__ = player.__shortcuts__ || {};
 
@@ -82,6 +90,11 @@ export async function loadKeyShortcutPlugins(player) {
     });
 
     player.__paella_key_event_listener__ = async (event) => {
+        if (player.__pauseCaptureShortcuts__) {
+            player.log.info("Capture shortcuts paused. Ignoring loadKeyShortcutPlugins call.");
+            return;
+        }
+        
         const validFocus = () => document.activeElement && document.activeElement !== document.body && !/video/i.test(document.activeElement.tagName);
 
         // Do not process the key if focus is outside paella-core container, but

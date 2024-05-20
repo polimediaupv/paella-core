@@ -41,7 +41,12 @@ import DFXPParser, { parseDFXP } from './captions/DFXPParser';
 import CaptionsPlugin from './captions/CaptionsPlugin';
 import Captions from './captions/Captions';
 
-import KeyShortcutPlugin, { KeyCodes, getShortcuts } from './core/KeyShortcutPlugin';
+import KeyShortcutPlugin, {
+    KeyCodes,
+    getShortcuts,
+    pauseCaptureShortcuts,
+    resumeCaptureShortcuts
+} from './core/KeyShortcutPlugin';
 
 import { VideoContainerMessagePosition } from './core/VideoContainerMessage';
 
@@ -186,6 +191,8 @@ export {
     KeyShortcutPlugin,
     KeyCodes,
     getShortcuts,
+    pauseCaptureShortcuts,
+    resumeCaptureShortcuts,
 
     defaultTranslateFunction,
     defaultSetLanguageFunction,

@@ -25,7 +25,13 @@ import Events, { bindEvent, triggerEvent, unregisterEvents } from './core/Events
 import Data from './core/Data';
 import CaptionCanvas from './captions/CaptionsCanvas';
 import { loadLogEventPlugins, unloadLogEventPlugins } from "./core/EventLogPlugin";
-import { loadKeyShortcutPlugins, unloadKeyShortcutPlugins, getShortcuts } from "./core/KeyShortcutPlugin";
+import {
+    loadKeyShortcutPlugins,
+    unloadKeyShortcutPlugins,
+    getShortcuts,
+    pauseCaptureShortcuts,
+    resumeCaptureShortcuts
+} from "./core/KeyShortcutPlugin";
 import { checkManifestIntegrity } from "./core/StreamProvider";
 import CookieConsent, {
     defaultGetCookieConsentCallback,
@@ -357,6 +363,14 @@ export default class Paella {
 
     getShortcuts() {
         return getShortcuts(this);
+    }
+
+    pauseCaptureShortcuts() {
+        return pauseCaptureShortcuts(this);
+    }
+
+    resumeCaptureShortcuts() {
+        return resumeCaptureShortcuts(this);
     }
 
     getPlugin(name, type = null) {
