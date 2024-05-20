@@ -2703,8 +2703,10 @@ function unregisterEvents(player) {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   CZ: () => (/* binding */ unloadKeyShortcutPlugins),
 /* harmony export */   L: () => (/* binding */ loadKeyShortcutPlugins),
+/* harmony export */   Ov: () => (/* binding */ pauseCaptureShortcuts),
 /* harmony export */   ZP: () => (/* binding */ KeyShortcutPlugin),
 /* harmony export */   gg: () => (/* binding */ getShortcuts),
+/* harmony export */   jV: () => (/* binding */ resumeCaptureShortcuts),
 /* harmony export */   mW: () => (/* binding */ KeyCodes)
 /* harmony export */ });
 /* harmony import */ var paella_core_js_core_Plugin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(9076);
@@ -2754,6 +2756,12 @@ var getShortcuts = function getShortcuts(player) {
     });
   }
   return enabledShortcuts;
+};
+var pauseCaptureShortcuts = function pauseCaptureShortcuts(player) {
+  player.__pauseCaptureShortcuts__ = true;
+};
+var resumeCaptureShortcuts = function resumeCaptureShortcuts(player) {
+  player.__pauseCaptureShortcuts__ = false;
 };
 function loadKeyShortcutPlugins(_x) {
   return _loadKeyShortcutPlugins.apply(this, arguments);
@@ -2861,31 +2869,38 @@ function _loadKeyShortcutPlugins() {
               return _regeneratorRuntime().wrap(function _callee5$(_context6) {
                 while (1) switch (_context6.prev = _context6.next) {
                   case 0:
+                    if (!player.__pauseCaptureShortcuts__) {
+                      _context6.next = 3;
+                      break;
+                    }
+                    player.log.info("Capture shortcuts paused. Ignoring loadKeyShortcutPlugins call.");
+                    return _context6.abrupt("return");
+                  case 3:
                     validFocus = function validFocus() {
                       return document.activeElement && document.activeElement !== document.body && !/video/i.test(document.activeElement.tagName);
                     }; // Do not process the key if focus is outside paella-core container, but
                     // catch key events if the focus is on body
                     if (!(!player.containerElement.contains(document.activeElement) && !_PopUp__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .Z.Contains(document.activeElement) && document.activeElement !== document.body)) {
-                      _context6.next = 3;
-                      break;
-                    }
-                    return _context6.abrupt("return");
-                  case 3:
-                    // Exclude the action key when there are something focused, if the space bar is
-                    // being used as click action
-                    clickWithSpacebar = ((_player$config$access = player.config.accessibility) === null || _player$config$access === void 0 ? void 0 : _player$config$access.clickWithSpacebar) !== undefined ? (_player$config$access2 = player.config.accessibility) === null || _player$config$access2 === void 0 ? void 0 : _player$config$access2.clickWithSpacebar : true;
-                    if (!(clickWithSpacebar && event.code === "Space" && validFocus())) {
                       _context6.next = 6;
                       break;
                     }
                     return _context6.abrupt("return");
                   case 6:
-                    shortcut = player.__shortcuts__[event.code];
-                    if (!shortcut) {
-                      _context6.next = 10;
+                    // Exclude the action key when there are something focused, if the space bar is
+                    // being used as click action
+                    clickWithSpacebar = ((_player$config$access = player.config.accessibility) === null || _player$config$access === void 0 ? void 0 : _player$config$access.clickWithSpacebar) !== undefined ? (_player$config$access2 = player.config.accessibility) === null || _player$config$access2 === void 0 ? void 0 : _player$config$access2.clickWithSpacebar : true;
+                    if (!(clickWithSpacebar && event.code === "Space" && validFocus())) {
+                      _context6.next = 9;
                       break;
                     }
-                    _context6.next = 10;
+                    return _context6.abrupt("return");
+                  case 9:
+                    shortcut = player.__shortcuts__[event.code];
+                    if (!shortcut) {
+                      _context6.next = 13;
+                      break;
+                    }
+                    _context6.next = 13;
                     return shortcut.forEach( /*#__PURE__*/function () {
                       var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(s) {
                         var _s$keyModifiers, _s$keyModifiers2, _s$keyModifiers3, _s$keyModifiers4, _s$keyModifiers5, _s$keyModifiers6;
@@ -2920,7 +2935,7 @@ function _loadKeyShortcutPlugins() {
                         return _ref3.apply(this, arguments);
                       };
                     }());
-                  case 10:
+                  case 13:
                   case "end":
                     return _context6.stop();
                 }
@@ -6413,6 +6428,8 @@ var es_upv_paella_singleVideo = __webpack_require__(8785);
 var es_upv_paella_singleVideoDynamic = __webpack_require__(6126);
 // EXTERNAL MODULE: ./src/js/layouts/es.upv.paella.tripleVideo.js
 var es_upv_paella_tripleVideo = __webpack_require__(2128);
+// EXTERNAL MODULE: ./src/js/layouts/es.upv.paella.nStreams.js
+var es_upv_paella_nStreams = __webpack_require__(669);
 // EXTERNAL MODULE: ./src/js/canvas/es.upv.paella.audioCanvas.js
 var es_upv_paella_audioCanvas = __webpack_require__(1993);
 // EXTERNAL MODULE: ./src/js/canvas/es.upv.paella.videoCanvas.js
@@ -6420,6 +6437,7 @@ var es_upv_paella_videoCanvas = __webpack_require__(6280);
 // EXTERNAL MODULE: ./src/js/data/es.upv.paella.cookieDataPlugin.js
 var es_upv_paella_cookieDataPlugin = __webpack_require__(6016);
 ;// CONCATENATED MODULE: ./paella_plugins.js
+
 
 
 
@@ -6521,6 +6539,11 @@ var es_upv_paella_cookieDataPlugin = __webpack_require__(6016);
   }
 }, {
   plugin: es_upv_paella_tripleVideo["default"],
+  config: {
+    enabled: false
+  }
+}, {
+  plugin: es_upv_paella_nStreams["default"],
   config: {
     enabled: false
   }
@@ -9214,6 +9237,113 @@ var DualVideoPiPLayout = /*#__PURE__*/function (_VideoLayout) {
 
 /***/ }),
 
+/***/ 669:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ NStreamsVideoLayout)
+/* harmony export */ });
+/* harmony import */ var paella_core_js_core_VideoLayout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3063);
+/* harmony import */ var _PaellaCoreLayouts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4493);
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw new Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw new Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+var NStreamsVideoLayout = /*#__PURE__*/function (_VideoLayout) {
+  _inherits(NStreamsVideoLayout, _VideoLayout);
+  var _super = _createSuper(NStreamsVideoLayout);
+  function NStreamsVideoLayout() {
+    _classCallCheck(this, NStreamsVideoLayout);
+    return _super.apply(this, arguments);
+  }
+  _createClass(NStreamsVideoLayout, [{
+    key: "getPluginModuleInstance",
+    value: function getPluginModuleInstance() {
+      return _PaellaCoreLayouts__WEBPACK_IMPORTED_MODULE_1__["default"].Get();
+    }
+  }, {
+    key: "name",
+    get: function get() {
+      return "es.upv.paella.nStreams";
+    }
+  }, {
+    key: "layoutType",
+    get: function get() {
+      return "dynamic";
+    }
+  }, {
+    key: "validContent",
+    get: function get() {
+      // Generate the `validContent` object in configuration, using the content of the video manifest
+      this.config.validContent = [{
+        id: this.config.contentId,
+        content: this.player.videoManifest.streams.map(function (s) {
+          return s.content;
+        }),
+        icon: this.config.icon,
+        title: this.config.title
+      }];
+      return this.config.validContent;
+    }
+  }, {
+    key: "load",
+    value: function () {
+      var _load = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee);
+      }));
+      function load() {
+        return _load.apply(this, arguments);
+      }
+      return load;
+    }()
+  }, {
+    key: "getVideoCanvasButtons",
+    value: function getVideoCanvasButtons(layoutStructure, content, video, videoCanvas) {
+      return [];
+    }
+  }, {
+    key: "getLayoutStructure",
+    value: function getLayoutStructure(streamData, contentId, mainContent) {
+      return {
+        id: "n-streams",
+        alignType: "grid",
+        videos: streamData.map(function (s) {
+          return {
+            content: s.content,
+            visible: true
+          };
+        })
+      };
+    }
+  }]);
+  return NStreamsVideoLayout;
+}(paella_core_js_core_VideoLayout__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .ZP);
+
+
+/***/ }),
+
 /***/ 8785:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -11267,7 +11397,7 @@ var PlayButtonPlugin = /*#__PURE__*/function (_ButtonPlugin) {
     value: function () {
       var _load = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         var _this = this;
-        var playIcon, pauseIcon, replayIcon;
+        var playIcon, pauseIcon, replayIcon, titlePause, titlePlay, shortcutKey;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
@@ -11275,19 +11405,34 @@ var PlayButtonPlugin = /*#__PURE__*/function (_ButtonPlugin) {
               pauseIcon = this.player.getCustomPluginIcon(this.name, "pause") || (paella_core_icons_pause_svg__WEBPACK_IMPORTED_MODULE_3___default());
               replayIcon = this.player.getCustomPluginIcon(this.name, "replay") || (paella_core_icons_replay_svg__WEBPACK_IMPORTED_MODULE_4___default());
               this.icon = playIcon;
+              titlePause = this.player.translate(this.config.ariaLabelPause || "pause");
+              titlePlay = this.player.translate(this.config.ariaLabelPlay || "play");
+              shortcutKey = this.config.ariaKeyshortcuts || "k";
               (0,paella_core_js_core_Events__WEBPACK_IMPORTED_MODULE_1__/* .bindEvent */ .GT)(this.player, paella_core_js_core_Events__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .ZP.PLAY, function () {
                 _this.icon = pauseIcon;
+                _this.button.ariaKeyshortcuts = shortcutKey;
+                _this.button.ariaLabel = titlePause;
+                _this.button.title = titlePause;
               });
               (0,paella_core_js_core_Events__WEBPACK_IMPORTED_MODULE_1__/* .bindEvent */ .GT)(this.player, paella_core_js_core_Events__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .ZP.PAUSE, function () {
                 _this.icon = playIcon;
+                _this.button.ariaKeyshortcuts = shortcutKey;
+                _this.button.ariaLabel = titlePlay;
+                _this.button.title = _this.config.ariaLabelPause || titlePlay;
               });
               (0,paella_core_js_core_Events__WEBPACK_IMPORTED_MODULE_1__/* .bindEvent */ .GT)(this.player, paella_core_js_core_Events__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .ZP.ENDED, function () {
                 _this.icon = replayIcon;
+                _this.button.ariaKeyshortcuts = shortcutKey;
+                _this.button.ariaLabel = titlePlay;
+                _this.button.title = _this.config.ariaLabelPause || titlePlay;
               });
               (0,paella_core_js_core_Events__WEBPACK_IMPORTED_MODULE_1__/* .bindEvent */ .GT)(this.player, paella_core_js_core_Events__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .ZP.STOP, function () {
                 _this.icon = playIcon;
+                _this.button.ariaKeyshortcuts = shortcutKey;
+                _this.button.ariaLabel = titlePlay;
+                _this.button.title = _this.config.ariaLabelPause || titlePlay;
               });
-            case 8:
+            case 11:
             case "end":
               return _context.stop();
           }
@@ -13585,11 +13730,14 @@ var HlsVideo = /*#__PURE__*/function (_Mp4Video) {
               _context4.next = 6;
               return new Promise(function (resolve, reject) {
                 var checkReady = function checkReady() {
-                  // readyState === 2: HAVE_CURRENT_DATA. Data is available for the current playback
-                  // position, but not enought to actually play more than one frame. In firefox, the
-                  // video returns readyState === 2 when the video reaches the end, so the correct
-                  // comparision here is >= instead of >
-                  if (_this3.video.readyState >= 2) {
+                  // Make a special case to allow Firefox to play at readyState 2.
+                  // Browsers like Safari drop from readyState 3 to readyState 2 when the video is
+                  // buffering and cannot be played. Chrome moves quickly between ready state
+                  // 2 to 3 when it is able to play and is not impacted by this issue.
+                  if (/Firefox/.test(navigator.userAgent) && _this3.video.readyState == 2) {
+                    _this3._ready = true;
+                    resolve();
+                  } else if (_this3.video.readyState > 2) {
                     _this3._ready = true;
                     resolve();
                   } else {
@@ -16639,6 +16787,23 @@ ___CSS_LOADER_EXPORT___.push([module.id, `
 	justify-content: space-around;
 }
 
+.base-video-rect.dynamic.grid-align .landscape-container {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
+	gap: 10px;
+	height: 100%;
+}
+
+.base-video-rect.dynamic.portrait.grid-align {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
+	gap: 10px;
+}
+
+.base-video-rect.dynamic {
+	display: flex;
+}
+
 .base-video-rect.dynamic.align-bottom .landscape-container {
 	align-items: flex-end;
 }
@@ -16806,7 +16971,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `
 	color: var(--main-fg-color);
 	height: 40px;
 	line-height: 40px;
-}`, "",{"version":3,"sources":["webpack://./src/css/VideoContainer.css"],"names":[],"mappings":";AACA;CACC,8BAA8B;CAC9B,2BAA2B;AAC5B;;AAEA;IACI,yDAAyD;IACzD,WAAW;IACX,YAAY;IACZ,aAAa;IACb,mBAAmB;IACnB,uBAAuB;CAC1B,kBAAkB;CAClB,QAAQ;CACR,2BAA2B;AAC5B;;;AAGA;CACC,sDAAsD;CACtD,QAAQ;CACR,eAAe;AAChB;;AAEA;IACI,yDAAyD;IACzD,kBAAkB;AACtB;;AAEA;CACC,aAAa;CACb,6BAA6B;CAC7B,+BAA+B;CAC/B,uCAAuC;CACvC,sBAAsB;CACtB,WAAW;CACX,YAAY;AACb;;AAEA;CACC,eAAe;CACf,mBAAmB;IAChB,uBAAuB;AAC3B;;AAEA;CACC,6BAA6B;AAC9B;;AAEA;CACC,mBAAmB;AACpB;;AAEA;CACC,sBAAsB;AACvB;;AAEA;CACC,sBAAsB;AACvB;;AAEA;CACC,aAAa;CACb,WAAW;CACX,6BAA6B;AAC9B;;AAEA;CACC,qBAAqB;AACtB;;AAEA;CACC,uBAAuB;AACxB;;AAEA;CACC,mBAAmB;AACpB;;AAEA;IACI,kBAAkB;IAClB,SAAS;IACT,YAAY;CACf,YAAY;AACb;;AAEA;IACI,UAAU;AACd;;AAEA;IACI,WAAW;AACf;;AAEA;CACC,kBAAkB;IACf,WAAW;IACX,YAAY;IACZ,QAAQ;IACR,SAAS;IACT,oBAAoB;AACxB;;AAEA;CACC,eAAe;AAChB;;AAEA;CACC,kCAAkC;CAClC,cAAc;CACd,sCAAsC;IACnC,kBAAkB;CACrB,YAAY;CACZ,WAAW;CACX,gBAAgB;IACb,iBAAiB;AACrB;;AAEA;CACC,gCAAgC;AACjC;;AAEA;CACC,aAAa;IACV,2BAA2B;IAC3B,mBAAmB;IACnB,mBAAmB;AACvB;;AAEA;CACC,eAAe;CACf,2BAA2B;CAC3B,iBAAiB;CACjB,kBAAkB;AACnB;;AAEA;CACC,iDAAiD;AAClD;;AAEA;CACC,4CAA4C;AAC7C;;AAEA;CACC,wBAAwB;CACxB,WAAW;CACX,cAAc;CACd,4BAA4B;CAC5B,4BAA4B;CAC5B,gBAAgB;AACjB;;AAEA;CACC,WAAW;IACR,YAAY;IACZ,0BAA0B;CAC7B,2BAA2B;AAC5B;;;;AAIA,4BAA4B;AAC5B;CACC,kCAAkC;CAClC,6BAA6B;IAC1B,kBAAkB;CACrB,YAAY;CACZ,WAAW;CACX,sBAAsB;CACtB,aAAa;IACV,mBAAmB;IACnB,uBAAuB;CAC1B,oBAAoB;AACrB;;AAEA;CACC,aAAa;IACV,2BAA2B;IAC3B,mBAAmB;IACnB,mBAAmB;AACvB;;AAEA;CACC,gCAAgC;AACjC;;AAEA;CACC,wBAAwB;CACxB,WAAW;CACX,cAAc;CACd,4BAA4B;CAC5B,4BAA4B;CAC5B,iBAAiB;CACjB,kBAAkB;AACnB;;AAEA;CACC,WAAW;IACR,YAAY;IACZ,0BAA0B;CAC7B,2BAA2B;AAC5B;;AAEA;CACC,aAAa;IACV,2BAA2B;IAC3B,mBAAmB;IACnB,mBAAmB;AACvB;;AAEA;CACC,cAAc;CACd,kBAAkB;AACnB;;AAEA;CACC,uCAAuC;IACpC,eAAe;CAClB,2BAA2B;AAC5B;;AAEA;CACC,eAAe;CACf,2BAA2B;CAC3B,iBAAiB;CACjB,kBAAkB;AACnB;;AAEA;CACC,eAAe;CACf,2BAA2B;CAC3B,YAAY;CACZ,iBAAiB;AAClB","sourcesContent":["\n:root {\n\t--video-container-padding: 0px;\n\t--video-container-gap: 10px;\n}\n\n.video-container {\n    background-color: var(--video-container-background-color);\n    width: 100%;\n    height: 100%;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n\tposition: absolute;\n\ttop: 50%;\n\ttransform: translateY(-50%);\n}\n\n\n.video-container.over-playback-bar {\n\theight: calc(100% - var(--playback-bar-height) - 30px);\n\ttop: 0px;\n\ttransform: none;\n}\n\n.base-video-rect {\n    background-color: var(--base-video-rect-background-color);\n    position: relative;\n}\n\n.base-video-rect.dynamic {\n\tdisplay: flex;\n\tbackground-color: transparent;\n\tgap: var(--video-container-gap);\n\tpadding: var(--video-container-padding);\n\tbox-sizing: border-box;\n\twidth: 100%;\n\theight: 100%;\n}\n\n.base-video-rect.dynamic.portrait {\n\tflex-wrap: wrap;\n\talign-items: center;\n    justify-content: center;\n}\n\n.base-video-rect.dynamic.landscape {\n\tjustify-content: space-around;\n}\n\n.base-video-rect.dynamic {\n\talign-items: center;\n}\n\n.base-video-rect.dynamic.portrait.align-left {\n\tjustify-content: start;\n}\n\n.base-video-rect.dynamic.portrait.align-right {\n\tjustify-content: right;\n}\n\n.base-video-rect.dynamic .landscape-container {\n\tdisplay: flex;\n\twidth: 100%;\n\tjustify-content: space-around;\n}\n\n.base-video-rect.dynamic.align-bottom .landscape-container {\n\talign-items: flex-end;\n}\n\n.base-video-rect.dynamic.align-top .landscape-container {\n\talign-items: flex-start;\n}\n\n.base-video-rect.dynamic.align-center .landscape-container {\n\talign-items: center;\n}\n\n.video-container .button-plugins {\n    position: absolute;\n    top: 10px;\n    height: 40px;\n\tz-index: 100;\n}\n\n.video-container .button-plugins.left-side {\n    left: 10px;\n}\n\n.video-container .button-plugins.right-side {\n    right: 10px;\n}\n\n.video-container .user-area {\n\tposition: absolute;\n    width: 100%;\n    height: 100%;\n    top: 0px;\n    left: 0px;\n    pointer-events: none;\n}\n\n.video-container .button-plugins .button-plugin-container {\n\tdisplay: inline;\n}\n\n.video-container .button-plugins .button-plugin-container button {\n\theight: var(--button-fixed-height);\n\tdisplay: block;\n\tbackground-color: var(--main-bg-color);\n    border-radius: 6px;\n\tborder: none;\n\tfloat: left;\n\tmargin-left: 2px;\n    margin-right: 2px;\n}\n\n.video-container .button-plugins .button-plugin-container button.fixed-width {\n\twidth: var(--button-fixed-width);\n}\n\n.video-container .button-plugins .button-plugin-container button.dynamic-width div.interactive-button-content {\n\tdisplay: flex;\n    justify-content: flex-start;\n    align-items: center;\n    flex-direction: row;\n}\n\n.video-container .button-plugins button.dynamic-width span {\n\tmargin-top: 0px;\n\tcolor: var(--main-fg-color);\n\tpadding-left: 3px;\n\tpadding-right: 3px;\n}\n\n.video-container .button-plugins button:hover {\n\tbackground-color: var(--highlight-bg-color-hover);\n}\n\n.video-container .button-plugins button:active {\n\tbackground-color: var(--main-bg-color-hover);\n}\n\n.video-container .button-plugins button i {\n\tbackground-size: 50% 50%;\n\twidth: 20px;\n\tdisplay: block;\n\tbackground-repeat: no-repeat;\n\tbackground-position: 3px 7px;\n\tmargin-left: 5px;\n}\n\n.video-container .button-plugins button i svg {\n\twidth: 100%;\n    height: 100%;\n    fill: var(--main-fg-color);\n\tcolor: var(--main-fg-color);\n}\n\n\n\n/* non-interactive buttons */\n.video-container .button-plugins .button-plugin-container div.non-interactive {\n\theight: var(--button-fixed-height);\n\tbackground-color: transparent;\n    border-radius: 6px;\n\tborder: none;\n\tfloat: left;\n\tbox-sizing: border-box;\n\tdisplay: flex;\n    align-items: center;\n    justify-content: center;\n\tpointer-events: none;\n}\n\n.video-container .button-plugins .button-plugin-container div.dynamic-width div.non-interactive-button-content {\n\tdisplay: flex;\n    justify-content: flex-start;\n    align-items: center;\n    flex-direction: row;\n}\n\n.video-container .button-plugins .button-plugin-container div.non-interactive.fixed-width {\n\twidth: var(--button-fixed-width);\n}\n\n.video-container .button-plugins div i {\n\tbackground-size: 50% 50%;\n\twidth: 20px;\n\tdisplay: block;\n\tbackground-repeat: no-repeat;\n\tbackground-position: 3px 7px;\n\tmargin-left: auto;\n\tmargin-right: auto;\n}\n\n.video-container .button-plugins div i svg {\n\twidth: 100%;\n    height: 100%;\n    fill: var(--main-fg-color);\n\tcolor: var(--main-fg-color);\n}\n\n.video-container .button-plugins .button-plugin-container div.dynamic-width div.non-interactive-button-content {\n\tdisplay: flex;\n    justify-content: flex-start;\n    align-items: center;\n    flex-direction: row;\n}\n\n.video-container .button-plugins div.non-interactive span {\n\tdisplay: block;\n\ttext-align: center;\n}\n\n.video-container .button-plugins div.no-icon span {\n\tline-height: var(--button-fixed-height);\n    margin-top: 0px;\n\tcolor: var(--main-fg-color);\n}\n\n.video-container .button-plugins div.dynamic-width span {\n\tmargin-top: 0px;\n\tcolor: var(--main-fg-color);\n\tpadding-left: 3px;\n\tpadding-right: 3px;\n}\n\n.video-container .button-plugin-side-area {\n\tdisplay: inline;\n\tcolor: var(--main-fg-color);\n\theight: 40px;\n\tline-height: 40px;\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/css/VideoContainer.css"],"names":[],"mappings":";AACA;CACC,8BAA8B;CAC9B,2BAA2B;AAC5B;;AAEA;IACI,yDAAyD;IACzD,WAAW;IACX,YAAY;IACZ,aAAa;IACb,mBAAmB;IACnB,uBAAuB;CAC1B,kBAAkB;CAClB,QAAQ;CACR,2BAA2B;AAC5B;;;AAGA;CACC,sDAAsD;CACtD,QAAQ;CACR,eAAe;AAChB;;AAEA;IACI,yDAAyD;IACzD,kBAAkB;AACtB;;AAEA;CACC,aAAa;CACb,6BAA6B;CAC7B,+BAA+B;CAC/B,uCAAuC;CACvC,sBAAsB;CACtB,WAAW;CACX,YAAY;AACb;;AAEA;CACC,eAAe;CACf,mBAAmB;IAChB,uBAAuB;AAC3B;;AAEA;CACC,6BAA6B;AAC9B;;AAEA;CACC,mBAAmB;AACpB;;AAEA;CACC,sBAAsB;AACvB;;AAEA;CACC,sBAAsB;AACvB;;AAEA;CACC,aAAa;CACb,WAAW;CACX,6BAA6B;AAC9B;;AAEA;CACC,aAAa;CACb,0DAA0D;CAC1D,SAAS;CACT,YAAY;AACb;;AAEA;CACC,aAAa;CACb,0DAA0D;CAC1D,SAAS;AACV;;AAEA;CACC,aAAa;AACd;;AAEA;CACC,qBAAqB;AACtB;;AAEA;CACC,uBAAuB;AACxB;;AAEA;CACC,mBAAmB;AACpB;;AAEA;IACI,kBAAkB;IAClB,SAAS;IACT,YAAY;CACf,YAAY;AACb;;AAEA;IACI,UAAU;AACd;;AAEA;IACI,WAAW;AACf;;AAEA;CACC,kBAAkB;IACf,WAAW;IACX,YAAY;IACZ,QAAQ;IACR,SAAS;IACT,oBAAoB;AACxB;;AAEA;CACC,eAAe;AAChB;;AAEA;CACC,kCAAkC;CAClC,cAAc;CACd,sCAAsC;IACnC,kBAAkB;CACrB,YAAY;CACZ,WAAW;CACX,gBAAgB;IACb,iBAAiB;AACrB;;AAEA;CACC,gCAAgC;AACjC;;AAEA;CACC,aAAa;IACV,2BAA2B;IAC3B,mBAAmB;IACnB,mBAAmB;AACvB;;AAEA;CACC,eAAe;CACf,2BAA2B;CAC3B,iBAAiB;CACjB,kBAAkB;AACnB;;AAEA;CACC,iDAAiD;AAClD;;AAEA;CACC,4CAA4C;AAC7C;;AAEA;CACC,wBAAwB;CACxB,WAAW;CACX,cAAc;CACd,4BAA4B;CAC5B,4BAA4B;CAC5B,gBAAgB;AACjB;;AAEA;CACC,WAAW;IACR,YAAY;IACZ,0BAA0B;CAC7B,2BAA2B;AAC5B;;;;AAIA,4BAA4B;AAC5B;CACC,kCAAkC;CAClC,6BAA6B;IAC1B,kBAAkB;CACrB,YAAY;CACZ,WAAW;CACX,sBAAsB;CACtB,aAAa;IACV,mBAAmB;IACnB,uBAAuB;CAC1B,oBAAoB;AACrB;;AAEA;CACC,aAAa;IACV,2BAA2B;IAC3B,mBAAmB;IACnB,mBAAmB;AACvB;;AAEA;CACC,gCAAgC;AACjC;;AAEA;CACC,wBAAwB;CACxB,WAAW;CACX,cAAc;CACd,4BAA4B;CAC5B,4BAA4B;CAC5B,iBAAiB;CACjB,kBAAkB;AACnB;;AAEA;CACC,WAAW;IACR,YAAY;IACZ,0BAA0B;CAC7B,2BAA2B;AAC5B;;AAEA;CACC,aAAa;IACV,2BAA2B;IAC3B,mBAAmB;IACnB,mBAAmB;AACvB;;AAEA;CACC,cAAc;CACd,kBAAkB;AACnB;;AAEA;CACC,uCAAuC;IACpC,eAAe;CAClB,2BAA2B;AAC5B;;AAEA;CACC,eAAe;CACf,2BAA2B;CAC3B,iBAAiB;CACjB,kBAAkB;AACnB;;AAEA;CACC,eAAe;CACf,2BAA2B;CAC3B,YAAY;CACZ,iBAAiB;AAClB","sourcesContent":["\n:root {\n\t--video-container-padding: 0px;\n\t--video-container-gap: 10px;\n}\n\n.video-container {\n    background-color: var(--video-container-background-color);\n    width: 100%;\n    height: 100%;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n\tposition: absolute;\n\ttop: 50%;\n\ttransform: translateY(-50%);\n}\n\n\n.video-container.over-playback-bar {\n\theight: calc(100% - var(--playback-bar-height) - 30px);\n\ttop: 0px;\n\ttransform: none;\n}\n\n.base-video-rect {\n    background-color: var(--base-video-rect-background-color);\n    position: relative;\n}\n\n.base-video-rect.dynamic {\n\tdisplay: flex;\n\tbackground-color: transparent;\n\tgap: var(--video-container-gap);\n\tpadding: var(--video-container-padding);\n\tbox-sizing: border-box;\n\twidth: 100%;\n\theight: 100%;\n}\n\n.base-video-rect.dynamic.portrait {\n\tflex-wrap: wrap;\n\talign-items: center;\n    justify-content: center;\n}\n\n.base-video-rect.dynamic.landscape {\n\tjustify-content: space-around;\n}\n\n.base-video-rect.dynamic {\n\talign-items: center;\n}\n\n.base-video-rect.dynamic.portrait.align-left {\n\tjustify-content: start;\n}\n\n.base-video-rect.dynamic.portrait.align-right {\n\tjustify-content: right;\n}\n\n.base-video-rect.dynamic .landscape-container {\n\tdisplay: flex;\n\twidth: 100%;\n\tjustify-content: space-around;\n}\n\n.base-video-rect.dynamic.grid-align .landscape-container {\n\tdisplay: grid;\n\tgrid-template-columns: repeat(auto-fill, minmax(30%, 1fr));\n\tgap: 10px;\n\theight: 100%;\n}\n\n.base-video-rect.dynamic.portrait.grid-align {\n\tdisplay: grid;\n\tgrid-template-columns: repeat(auto-fill, minmax(40%, 1fr));\n\tgap: 10px;\n}\n\n.base-video-rect.dynamic {\n\tdisplay: flex;\n}\n\n.base-video-rect.dynamic.align-bottom .landscape-container {\n\talign-items: flex-end;\n}\n\n.base-video-rect.dynamic.align-top .landscape-container {\n\talign-items: flex-start;\n}\n\n.base-video-rect.dynamic.align-center .landscape-container {\n\talign-items: center;\n}\n\n.video-container .button-plugins {\n    position: absolute;\n    top: 10px;\n    height: 40px;\n\tz-index: 100;\n}\n\n.video-container .button-plugins.left-side {\n    left: 10px;\n}\n\n.video-container .button-plugins.right-side {\n    right: 10px;\n}\n\n.video-container .user-area {\n\tposition: absolute;\n    width: 100%;\n    height: 100%;\n    top: 0px;\n    left: 0px;\n    pointer-events: none;\n}\n\n.video-container .button-plugins .button-plugin-container {\n\tdisplay: inline;\n}\n\n.video-container .button-plugins .button-plugin-container button {\n\theight: var(--button-fixed-height);\n\tdisplay: block;\n\tbackground-color: var(--main-bg-color);\n    border-radius: 6px;\n\tborder: none;\n\tfloat: left;\n\tmargin-left: 2px;\n    margin-right: 2px;\n}\n\n.video-container .button-plugins .button-plugin-container button.fixed-width {\n\twidth: var(--button-fixed-width);\n}\n\n.video-container .button-plugins .button-plugin-container button.dynamic-width div.interactive-button-content {\n\tdisplay: flex;\n    justify-content: flex-start;\n    align-items: center;\n    flex-direction: row;\n}\n\n.video-container .button-plugins button.dynamic-width span {\n\tmargin-top: 0px;\n\tcolor: var(--main-fg-color);\n\tpadding-left: 3px;\n\tpadding-right: 3px;\n}\n\n.video-container .button-plugins button:hover {\n\tbackground-color: var(--highlight-bg-color-hover);\n}\n\n.video-container .button-plugins button:active {\n\tbackground-color: var(--main-bg-color-hover);\n}\n\n.video-container .button-plugins button i {\n\tbackground-size: 50% 50%;\n\twidth: 20px;\n\tdisplay: block;\n\tbackground-repeat: no-repeat;\n\tbackground-position: 3px 7px;\n\tmargin-left: 5px;\n}\n\n.video-container .button-plugins button i svg {\n\twidth: 100%;\n    height: 100%;\n    fill: var(--main-fg-color);\n\tcolor: var(--main-fg-color);\n}\n\n\n\n/* non-interactive buttons */\n.video-container .button-plugins .button-plugin-container div.non-interactive {\n\theight: var(--button-fixed-height);\n\tbackground-color: transparent;\n    border-radius: 6px;\n\tborder: none;\n\tfloat: left;\n\tbox-sizing: border-box;\n\tdisplay: flex;\n    align-items: center;\n    justify-content: center;\n\tpointer-events: none;\n}\n\n.video-container .button-plugins .button-plugin-container div.dynamic-width div.non-interactive-button-content {\n\tdisplay: flex;\n    justify-content: flex-start;\n    align-items: center;\n    flex-direction: row;\n}\n\n.video-container .button-plugins .button-plugin-container div.non-interactive.fixed-width {\n\twidth: var(--button-fixed-width);\n}\n\n.video-container .button-plugins div i {\n\tbackground-size: 50% 50%;\n\twidth: 20px;\n\tdisplay: block;\n\tbackground-repeat: no-repeat;\n\tbackground-position: 3px 7px;\n\tmargin-left: auto;\n\tmargin-right: auto;\n}\n\n.video-container .button-plugins div i svg {\n\twidth: 100%;\n    height: 100%;\n    fill: var(--main-fg-color);\n\tcolor: var(--main-fg-color);\n}\n\n.video-container .button-plugins .button-plugin-container div.dynamic-width div.non-interactive-button-content {\n\tdisplay: flex;\n    justify-content: flex-start;\n    align-items: center;\n    flex-direction: row;\n}\n\n.video-container .button-plugins div.non-interactive span {\n\tdisplay: block;\n\ttext-align: center;\n}\n\n.video-container .button-plugins div.no-icon span {\n\tline-height: var(--button-fixed-height);\n    margin-top: 0px;\n\tcolor: var(--main-fg-color);\n}\n\n.video-container .button-plugins div.dynamic-width span {\n\tmargin-top: 0px;\n\tcolor: var(--main-fg-color);\n\tpadding-left: 3px;\n\tpadding-right: 3px;\n}\n\n.video-container .button-plugin-side-area {\n\tdisplay: inline;\n\tcolor: var(--main-fg-color);\n\theight: 40px;\n\tline-height: 40px;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -18445,6 +18610,7 @@ var map = {
 	"./es.upv.paella.dualVideo.js": 7236,
 	"./es.upv.paella.dualVideoDynamic.js": 675,
 	"./es.upv.paella.dualVideoPiP.js": 6593,
+	"./es.upv.paella.nStreams.js": 669,
 	"./es.upv.paella.singleVideo.js": 8785,
 	"./es.upv.paella.singleVideoDynamic.js": 6126,
 	"./es.upv.paella.tripleVideo.js": 2128
@@ -44347,7 +44513,7 @@ Hls.defaultConfig = void 0;
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"paella-core","version":"1.48.2","description":"Multistream HTML video player","main":"src/index.js","module":"dist/paella-core.js","scripts":{"build":"webpack --mode production","dev":"webpack serve --mode development --config webpack.debug.js --host 0.0.0.0","captions":"webpack serve --mode development --config webpack.captions.js","eslint":"eslint .","nomanifest":"webpack serve --mode development --config webpack.nomanifest.js","testenv":"webpack serve --mode development --config webpack.test.js --host 0.0.0.0"},"repository":{"type":"git","url":"git+https://github.com/polimediaupv/paella-core.git"},"keywords":["html","player","video","hls"],"author":"Fernando Serrano Carpena <ferserc1@gmail.com>","license":"ECL-2.0","bugs":{"url":"https://github.com/polimediaupv/paella-core/issues"},"homepage":"https://github.com/polimediaupv/paella-core#readme","devDependencies":{"@babel/core":"^7.12.10","@babel/plugin-transform-modules-commonjs":"^7.19.6","@babel/preset-env":"^7.12.11","@playwright/test":"^1.29.2","babel-loader":"^9.0.0","babel-plugin-transform-require-context":"^0.1.1","copy-webpack-plugin":"^11.0.0","css-loader":"^6.6.0","eslint":"^8.29.0","file-loader":"^6.2.0","html-webpack-plugin":"^5.5.0","source-map-loader":"^4.0.0","style-loader":"^3.3.1","svg-inline-loader":"^0.8.2","webpack":"^5.66.0","webpack-cli":"^5.0.0","webpack-dev-server":"^4.7.3"},"dependencies":{"core-js":"^3.8.2","hls.js":"^1.0.4"}}');
+module.exports = JSON.parse('{"name":"paella-core","version":"1.49.0","description":"Multistream HTML video player","main":"src/index.js","module":"dist/paella-core.js","scripts":{"build":"webpack --mode production","dev":"webpack serve --mode development --config webpack.debug.js --host 0.0.0.0","captions":"webpack serve --mode development --config webpack.captions.js","eslint":"eslint .","nomanifest":"webpack serve --mode development --config webpack.nomanifest.js","testenv":"webpack serve --mode development --config webpack.test.js --host 0.0.0.0"},"repository":{"type":"git","url":"git+https://github.com/polimediaupv/paella-core.git"},"keywords":["html","player","video","hls"],"author":"Fernando Serrano Carpena <ferserc1@gmail.com>","license":"ECL-2.0","bugs":{"url":"https://github.com/polimediaupv/paella-core/issues"},"homepage":"https://github.com/polimediaupv/paella-core#readme","devDependencies":{"@babel/core":"^7.12.10","@babel/plugin-transform-modules-commonjs":"^7.19.6","@babel/preset-env":"^7.12.11","@playwright/test":"^1.29.2","babel-loader":"^9.0.0","babel-plugin-transform-require-context":"^0.1.1","copy-webpack-plugin":"^11.0.0","css-loader":"^6.6.0","eslint":"^8.29.0","file-loader":"^6.2.0","html-webpack-plugin":"^5.5.0","source-map-loader":"^4.0.0","style-loader":"^3.3.1","svg-inline-loader":"^0.8.2","webpack":"^5.66.0","webpack-cli":"^5.0.0","webpack-dev-server":"^4.7.3"},"dependencies":{"core-js":"^3.8.2","hls.js":"^1.0.4"}}');
 
 /***/ }),
 
@@ -44355,7 +44521,7 @@ module.exports = JSON.parse('{"name":"paella-core","version":"1.48.2","descripti
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"May the force be with you":"Möge die Macht mit dir sein!","Digit1":"1","Digit2":"2","Digit3":"3","Digit4":"4","Digit5":"5","Digit6":"6","Digit7":"7","Digit8":"8","Digit9":"9","Digit0":"0","KeyA":"A","KeyB":"B","KeyC":"C","KeyD":"D","KeyE":"E","KeyF":"F","KeyG":"G","KeyH":"H","KeyI":"I","KeyJ":"J","KeyK":"K","KeyL":"L","KeyM":"M","KeyN":"N","KeyO":"O","KeyP":"P","KeyQ":"Q","KeyR":"R","KeyS":"S","KeyT":"T","KeyU":"U","KeyV":"V","KeyW":"W","KeyX":"X","KeyY":"Y","KeyZ":"Z","Comma":",","Period":".","Semicolon":";","Quote":"\'","BracketLeft":"[","BracketRight":"]","Backquote":"`","Backslash":"\\\\","Minus":"-","Equal":"=","AltLeft":"Alt","AltRight":"Alt","CapsLock":"Feststelltaste","ControlLeft":"Strg","ControlRight":"Strg","OSLeft":"OSLinks","OSRight":"OSRechts","ShiftLeft":"ShiftLinks","ShiftRight":"ShiftRechts","ContextMenu":"Menü-Taste","Enter":"Enter","Space":"Leertaste","Tab":"Tabulator","Delete":"Entf","End":"Ende","Help":"Hilfe","Home":"Pos1","Insert":"Einf","PageDown":"Bild Unten","PageUp":"Bild Oben","ArrowDown":"Pfeil nach unten","ArrowLeft":"Pfeil nach links","ArrowRight":"Pfeil nach rechts","ArrowUp":"Pfeil nach oben","Escape":"Escape","PrintScreen":"Druck","ScrollLock":"Rollen","Pause":"Pause","Put the videos side by side":"Videos nebeneinander platzieren","Minimize video":"Video minimieren","Close video":"Video schließen","Place the video on the other side of the screen":"Das Video auf die andere Bildschirmseite platzieren","Maximize video":"Video maximieren","Swap position of the videos":"Videopositionen tauschen","loadManifest(): Invalid current player state: $1":"loadManifest(): Aktueller Wiedergabestatus ungültig: $1","loadPlayer(): Invalid current player state: $1":"loadPlayer(): Aktueller Wiedergabestatus ungültig: $1","Could not load player: state transition in progress: $1":"Player konnte nicht geladen werden: Statusübergang in Arbeit: $1","Could not unload player: state transition in progress: $1":"Player konnte nicht entfernt werden: Statusübergang in Arbeit: $1","unloadManifest(): Invalid current player state: $1":"unloadManifest(): Aktuell ungültiger Player-Status: $1","Error loading video manifest: $1 $2":"Fehler beim Laden der Videoinformationen: $1 $2","Play/pause":"Wiedergabe/Pause","Select the active audio track":"Aktive Audiospur auswählen","Toggle audio mute":"Audio-Stummschaltung umschalten","Toggle play/pause":"Wiedergabe/Pause umschalten","Toggle captions":"Untertitel umschalten","Backward $1 seconds":"Zurück $1 Sekunden","Forward $1 seconds":"Vorwärts $1 Sekunden","Volume up 10%":"Lautstärke um 10% erhöhen","Volume down 10%":"Lautstärke um 10% verringern","Close pop-up":"Pop-up Fenster schließen","Decrease playback speed":"Wiedergabegeschwindigkeit verringern","Increase playback speed":"Wiedergabegeschwindigkeit erhöhen","Swap between side by side and minimized video":"Wechsel zwischen Video nebeneinander und minimiert","Swap the position of the videos":"Wechsel der Videopositionen","Dual stream 50%":"Dual-Stream 50%","Two videos 50%":"Zwei Videos 50%"}');
+module.exports = JSON.parse('{"May the force be with you":"Möge die Macht mit dir sein!","Digit1":"1","Digit2":"2","Digit3":"3","Digit4":"4","Digit5":"5","Digit6":"6","Digit7":"7","Digit8":"8","Digit9":"9","Digit0":"0","KeyA":"A","KeyB":"B","KeyC":"C","KeyD":"D","KeyE":"E","KeyF":"F","KeyG":"G","KeyH":"H","KeyI":"I","KeyJ":"J","KeyK":"K","KeyL":"L","KeyM":"M","KeyN":"N","KeyO":"O","KeyP":"P","KeyQ":"Q","KeyR":"R","KeyS":"S","KeyT":"T","KeyU":"U","KeyV":"V","KeyW":"W","KeyX":"X","KeyY":"Y","KeyZ":"Z","Comma":",","Period":".","Semicolon":";","Quote":"\'","BracketLeft":"[","BracketRight":"]","Backquote":"`","Backslash":"\\\\","Minus":"-","Equal":"=","AltLeft":"Alt","AltRight":"Alt","CapsLock":"Feststelltaste","ControlLeft":"Strg","ControlRight":"Strg","OSLeft":"OSLinks","OSRight":"OSRechts","ShiftLeft":"ShiftLinks","ShiftRight":"ShiftRechts","ContextMenu":"Menü-Taste","Enter":"Enter","Space":"Leertaste","Tab":"Tabulator","Delete":"Entf","End":"Ende","Help":"Hilfe","Home":"Pos1","Insert":"Einf","PageDown":"Bild Unten","PageUp":"Bild Oben","ArrowDown":"Pfeil nach unten","ArrowLeft":"Pfeil nach links","ArrowRight":"Pfeil nach rechts","ArrowUp":"Pfeil nach oben","Escape":"Escape","PrintScreen":"Druck","ScrollLock":"Rollen","Pause":"Pause","Put the videos side by side":"Videos nebeneinander platzieren","Minimize video":"Video minimieren","Close video":"Video schließen","Place the video on the other side of the screen":"Das Video auf die andere Bildschirmseite platzieren","Maximize video":"Video maximieren","Swap position of the videos":"Videopositionen tauschen","loadManifest(): Invalid current player state: $1":"loadManifest(): Aktueller Wiedergabestatus ungültig: $1","loadPlayer(): Invalid current player state: $1":"loadPlayer(): Aktueller Wiedergabestatus ungültig: $1","Could not load player: state transition in progress: $1":"Player konnte nicht geladen werden: Statusübergang in Arbeit: $1","Could not unload player: state transition in progress: $1":"Player konnte nicht entfernt werden: Statusübergang in Arbeit: $1","unloadManifest(): Invalid current player state: $1":"unloadManifest(): Aktuell ungültiger Player-Status: $1","Error loading video manifest: $1 $2":"Fehler beim Laden der Videoinformationen: $1 $2","Play/pause":"Wiedergabe/Pause","Select the active audio track":"Aktive Audiospur auswählen","Toggle audio mute":"Audio-Stummschaltung umschalten","Toggle play/pause":"Wiedergabe/Pause umschalten","Toggle captions":"Untertitel umschalten","Backward $1 seconds":"Zurück $1 Sekunden","Forward $1 seconds":"Vorwärts $1 Sekunden","Volume up 10%":"Lautstärke um 10% erhöhen","Volume down 10%":"Lautstärke um 10% verringern","Close pop-up":"Pop-up Fenster schließen","Decrease playback speed":"Wiedergabegeschwindigkeit verringern","Increase playback speed":"Wiedergabegeschwindigkeit erhöhen","Swap between side by side and minimized video":"Wechsel zwischen Video nebeneinander und minimiert","Swap the position of the videos":"Wechsel der Videopositionen","Dual stream 50%":"Dual-Stream 50%","Two videos 50%":"Zwei Videos 50%","play":"spielen","pause":"pause"}');
 
 /***/ }),
 
@@ -44371,7 +44537,7 @@ module.exports = JSON.parse('{"May the force be with you":"May the force be with
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"May the force be with you":"Que la fuerza te acompañe","Digit1":"1","Digit2":"2","Digit3":"3","Digit4":"4","Digit5":"5","Digit6":"6","Digit7":"7","Digit8":"8","Digit9":"9","Digit0":"0","KeyA":"A","KeyB":"B","KeyC":"C","KeyD":"D","KeyE":"E","KeyF":"F","KeyG":"G","KeyH":"H","KeyI":"I","KeyJ":"J","KeyK":"K","KeyL":"L","KeyM":"M","KeyN":"N","KeyO":"O","KeyP":"P","KeyQ":"Q","KeyR":"R","KeyS":"S","KeyT":"T","KeyU":"U","KeyV":"V","KeyW":"W","KeyX":"X","KeyY":"Y","KeyZ":"Z","Comma":",","Period":".","Semicolon":";","Quote":"\'","BracketLeft":"[","BracketRight":"]","Backquote":"`","Backslash":"\\\\","Minus":"-","Equal":"=","AltLeft":"Alt","AltRight":"Alt","CapsLock":"Bloqueo May.","ControlLeft":"Ctrl","ControlRight":"Ctrl","OSLeft":"OSLeft","OSRight":"OSRight","ShiftLeft":"Mayúsculas","ShiftRight":"Mayúsculas","ContextMenu":"ContextMenu","Enter":"Intro","Space":"Espacio","Tab":"Tabulador","Delete":"Borrar","End":"Fin","Help":"Ayuda","Home":"Inicio","Insert":"Insertar","PageDown":"Re. Pag","PageUp":"Av. Pag","ArrowDown":"Flecha abajo","ArrowLeft":"Flecha izq.","ArrowRight":"Flecha der.","ArrowUp":"Flecha Arriba","Escape":"Escape","PrintScreen":"PrintScreen","ScrollLock":"ScrollLock","Pause":"Pausa","Put the videos side by side":"Colocar los vídeos uno junto al otro","Minimize video":"Minimizar vídeo","Close video":"Cerrar el video","Place the video on the other side of the screen":"Colocar el vídeo al otro lado de la pantalla","Maximize video":"Maximizar vídeo","Swap position of the videos":"Intercambiar posición de los vídeos","loadManifest(): Invalid current player state: $1":"loadManifest(): Estado actual del reproductor no válido: $1","loadPlayer(): Invalid current player state: $1":"loadPlayer(): Estado actual del reproductor no válido: $1","Could not load player: state transition in progress: $1":"No se puede cargar el reproductor: transición de estado en progreso: $1","Could not unload player: state transition in progress: $1":"No se puede descargar el reproductor: transición de estado en progreso $1","unloadManifest(): Invalid current player state: $1":"unloadManifest(): Estado actual del reprodutor no válido: $1","Error loading video manifest: $1 $2":"Error cargando la información del vídeo: $1 $2","Play/pause":"Reproducir/pausar","Select the active audio track":"Seleccione la pista de audio activa","Toggle audio mute":"Conmutar el silencio de audio","Toggle play/pause":"Activar la reproducción/pausa","Toggle captions":"Alternar subtítulos","Backward $1 seconds":"Volver hacia atrás $1 segundos","Forward $1 seconds":"Ir hacia adelante $1 segundos","Volume up 10%":"Aumenta el volumen un 10%.","Volume down 10%":"Reduce el volumen un 10%.","Close pop-up":"Cerrar ventana emergente","Decrease playback speed":"Reducir la velocidad de reproducción","Increase playback speed":"Aumentar la velocidad de reproducción","Swap between side by side and minimized video":"Cambiar la disposición de los dos vídeos entre minimizado y del mismo tamaño","Swap the position of the videos":"Intercambiar la posición de los vídeos","Dual stream 50%":"Dos streams al 50%","Two videos 50%":"Dos streams al 50%"}');
+module.exports = JSON.parse('{"May the force be with you":"Que la fuerza te acompañe","Digit1":"1","Digit2":"2","Digit3":"3","Digit4":"4","Digit5":"5","Digit6":"6","Digit7":"7","Digit8":"8","Digit9":"9","Digit0":"0","KeyA":"A","KeyB":"B","KeyC":"C","KeyD":"D","KeyE":"E","KeyF":"F","KeyG":"G","KeyH":"H","KeyI":"I","KeyJ":"J","KeyK":"K","KeyL":"L","KeyM":"M","KeyN":"N","KeyO":"O","KeyP":"P","KeyQ":"Q","KeyR":"R","KeyS":"S","KeyT":"T","KeyU":"U","KeyV":"V","KeyW":"W","KeyX":"X","KeyY":"Y","KeyZ":"Z","Comma":",","Period":".","Semicolon":";","Quote":"\'","BracketLeft":"[","BracketRight":"]","Backquote":"`","Backslash":"\\\\","Minus":"-","Equal":"=","AltLeft":"Alt","AltRight":"Alt","CapsLock":"Bloqueo May.","ControlLeft":"Ctrl","ControlRight":"Ctrl","OSLeft":"OSLeft","OSRight":"OSRight","ShiftLeft":"Mayúsculas","ShiftRight":"Mayúsculas","ContextMenu":"ContextMenu","Enter":"Intro","Space":"Espacio","Tab":"Tabulador","Delete":"Borrar","End":"Fin","Help":"Ayuda","Home":"Inicio","Insert":"Insertar","PageDown":"Re. Pag","PageUp":"Av. Pag","ArrowDown":"Flecha abajo","ArrowLeft":"Flecha izq.","ArrowRight":"Flecha der.","ArrowUp":"Flecha Arriba","Escape":"Escape","PrintScreen":"PrintScreen","ScrollLock":"ScrollLock","Pause":"Pausa","Put the videos side by side":"Colocar los vídeos uno junto al otro","Minimize video":"Minimizar vídeo","Close video":"Cerrar el video","Place the video on the other side of the screen":"Colocar el vídeo al otro lado de la pantalla","Maximize video":"Maximizar vídeo","Swap position of the videos":"Intercambiar posición de los vídeos","loadManifest(): Invalid current player state: $1":"loadManifest(): Estado actual del reproductor no válido: $1","loadPlayer(): Invalid current player state: $1":"loadPlayer(): Estado actual del reproductor no válido: $1","Could not load player: state transition in progress: $1":"No se puede cargar el reproductor: transición de estado en progreso: $1","Could not unload player: state transition in progress: $1":"No se puede descargar el reproductor: transición de estado en progreso $1","unloadManifest(): Invalid current player state: $1":"unloadManifest(): Estado actual del reprodutor no válido: $1","Error loading video manifest: $1 $2":"Error cargando la información del vídeo: $1 $2","Play/pause":"Reproducir/pausar","Select the active audio track":"Seleccione la pista de audio activa","Toggle audio mute":"Conmutar el silencio de audio","Toggle play/pause":"Activar la reproducción/pausa","Toggle captions":"Alternar subtítulos","Backward $1 seconds":"Volver hacia atrás $1 segundos","Forward $1 seconds":"Ir hacia adelante $1 segundos","Volume up 10%":"Aumenta el volumen un 10%.","Volume down 10%":"Reduce el volumen un 10%.","Close pop-up":"Cerrar ventana emergente","Decrease playback speed":"Reducir la velocidad de reproducción","Increase playback speed":"Aumentar la velocidad de reproducción","Swap between side by side and minimized video":"Cambiar la disposición de los dos vídeos entre minimizado y del mismo tamaño","Swap the position of the videos":"Intercambiar la posición de los vídeos","Dual stream 50%":"Dos streams al 50%","Two videos 50%":"Dos streams al 50%","play":"reproducir","pause":"pausar"}');
 
 /***/ })
 
@@ -44547,6 +44713,8 @@ __webpack_require__.d(__webpack_exports__, {
   log: () => (/* reexport */ log),
   parseDFXP: () => (/* reexport */ DFXPParser/* parseDFXP */.l),
   parseWebVTT: () => (/* reexport */ WebVTTParser/* parseWebVTT */.n),
+  pauseCaptureShortcuts: () => (/* reexport */ KeyShortcutPlugin/* pauseCaptureShortcuts */.Ov),
+  resumeCaptureShortcuts: () => (/* reexport */ KeyShortcutPlugin/* resumeCaptureShortcuts */.jV),
   setLanguage: () => (/* reexport */ Localization/* setLanguage */.m0),
   supportsVideoType: () => (/* reexport */ es_upv_paella_mp4VideoFormat.supportsVideoType),
   translate: () => (/* reexport */ Localization/* translate */.Iu),
@@ -44962,11 +45130,11 @@ var SteramProvider = /*#__PURE__*/function (_PlayerResource) {
   StreamProvider_createClass(SteramProvider, [{
     key: "load",
     value: function () {
-      var _load = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee(streamData) {
+      var _load = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee2(streamData) {
         var _this2 = this;
         var mainAudioContent, videoEndedEventTimer, content, s;
-        return StreamProvider_regeneratorRuntime().wrap(function _callee$(_context) {
-          while (1) switch (_context.prev = _context.next) {
+        return StreamProvider_regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
             case 0:
               this._streamData = streamData;
               this._streams = {};
@@ -44981,7 +45149,7 @@ var SteramProvider = /*#__PURE__*/function (_PlayerResource) {
                 }
               });
               this.player.log.debug("Finding compatible video plugins");
-              _context.next = 8;
+              _context2.next = 8;
               return (0,CanvasPlugin/* loadCanvasPlugins */.yJ)(this.player);
             case 8:
               // Find video plugins for each stream
@@ -45003,57 +45171,68 @@ var SteramProvider = /*#__PURE__*/function (_PlayerResource) {
                 };
               });
               videoEndedEventTimer = null;
-              _context.t0 = StreamProvider_regeneratorRuntime().keys(this._streams);
+              _context2.t0 = StreamProvider_regeneratorRuntime().keys(this._streams);
             case 11:
-              if ((_context.t1 = _context.t0()).done) {
-                _context.next = 29;
+              if ((_context2.t1 = _context2.t0()).done) {
+                _context2.next = 29;
                 break;
               }
-              content = _context.t1.value;
+              content = _context2.t1.value;
               s = this._streams[content];
-              _context.next = 16;
+              _context2.next = 16;
               return s.canvasPlugin.getCanvasInstance(this._videoContainer);
             case 16:
-              s.canvas = _context.sent;
-              _context.next = 19;
+              s.canvas = _context2.sent;
+              _context2.next = 19;
               return s.videoPlugin.getVideoInstance(s.canvas.element, s.isMainAudio);
             case 19:
-              s.player = _context.sent;
+              s.player = _context2.sent;
               if (mainAudioContent === content) {
                 this._mainAudioPlayer = s.player;
                 s.player.initVolume(1);
               } else {
                 s.player.initVolume(0);
               }
-              _context.next = 23;
+              _context2.next = 23;
               return s.player.load(s.stream, this);
             case 23:
-              _context.next = 25;
+              _context2.next = 25;
               return s.canvas.loadCanvas(s.player);
             case 25:
-              s.player.onVideoEnded(function () {
-                if (videoEndedEventTimer === null) {
-                  (0,Events/* triggerIfReady */.Ss)(_this2.player, Events/* default */.ZP.ENDED);
-                  videoEndedEventTimer = setTimeout(function () {
-                    videoEndedEventTimer = null;
-                  }, 2000);
-                }
-              });
+              s.player.onVideoEnded( /*#__PURE__*/StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee() {
+                return StreamProvider_regeneratorRuntime().wrap(function _callee$(_context) {
+                  while (1) switch (_context.prev = _context.next) {
+                    case 0:
+                      // Pause all streams, to prevent other vídeos from playing, when not all the
+                      // streams have the same duration.
+                      _this2.executeAction("pause");
+
+                      // Set current time to 0 to put the video in the initial state
+                      _this2.executeAction("setCurrentTime", 0);
+
+                      // Trigger the ended event
+                      (0,Events/* triggerIfReady */.Ss)(_this2.player, Events/* default */.ZP.ENDED);
+                    case 3:
+                    case "end":
+                      return _context.stop();
+                  }
+                }, _callee);
+              })));
               this._players.push(s.player);
-              _context.next = 11;
+              _context2.next = 11;
               break;
             case 29:
               if (!(this.mainAudioPlayer === null)) {
-                _context.next = 32;
+                _context2.next = 32;
                 break;
               }
               this.player.log.error("The video stream containing the audio track could not be identified. The `role` attribute must be specified in the main video stream, or the `defaultAudioStream` attribute must be set correctly in the player configuration.");
               throw new Error("The video stream containing the audio track could not be identified.");
             case 32:
             case "end":
-              return _context.stop();
+              return _context2.stop();
           }
-        }, _callee, this);
+        }, _callee2, this);
       }));
       function load(_x) {
         return _load.apply(this, arguments);
@@ -45063,18 +45242,18 @@ var SteramProvider = /*#__PURE__*/function (_PlayerResource) {
   }, {
     key: "unload",
     value: function () {
-      var _unload = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee2() {
-        return StreamProvider_regeneratorRuntime().wrap(function _callee2$(_context2) {
-          while (1) switch (_context2.prev = _context2.next) {
+      var _unload = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee3() {
+        return StreamProvider_regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
             case 0:
               this.stopStreamSync();
-              _context2.next = 3;
+              _context3.next = 3;
               return (0,CanvasPlugin/* unloadCanvasPlugins */.Ke)(this.player);
             case 3:
             case "end":
-              return _context2.stop();
+              return _context3.stop();
           }
-        }, _callee2, this);
+        }, _callee3, this);
       }));
       function unload() {
         return _unload.apply(this, arguments);
@@ -45127,14 +45306,14 @@ var SteramProvider = /*#__PURE__*/function (_PlayerResource) {
   }, {
     key: "setTrimming",
     value: function () {
-      var _setTrimming = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee3(_ref) {
+      var _setTrimming = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee4(_ref2) {
         var enabled, start, end, currentTime;
-        return StreamProvider_regeneratorRuntime().wrap(function _callee3$(_context3) {
-          while (1) switch (_context3.prev = _context3.next) {
+        return StreamProvider_regeneratorRuntime().wrap(function _callee4$(_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
             case 0:
-              enabled = _ref.enabled, start = _ref.start, end = _ref.end;
+              enabled = _ref2.enabled, start = _ref2.start, end = _ref2.end;
               if (!(start >= end)) {
-                _context3.next = 3;
+                _context4.next = 3;
                 break;
               }
               throw Error("Error setting trimming: start time (".concat(start, ") must be lower than end time ").concat(end));
@@ -45144,18 +45323,18 @@ var SteramProvider = /*#__PURE__*/function (_PlayerResource) {
                 start: start,
                 end: end
               };
-              _context3.next = 6;
+              _context4.next = 6;
               return this.currentTime();
             case 6:
-              currentTime = _context3.sent;
+              currentTime = _context4.sent;
               (0,Events/* triggerIfReady */.Ss)(this.player, Events/* default */.ZP.TIMEUPDATE, {
                 currentTime: enabled ? start + currentTime : currentTime
               });
             case 8:
             case "end":
-              return _context3.stop();
+              return _context4.stop();
           }
-        }, _callee3, this);
+        }, _callee4, this);
       }));
       function setTrimming(_x2) {
         return _setTrimming.apply(this, arguments);
@@ -45172,17 +45351,17 @@ var SteramProvider = /*#__PURE__*/function (_PlayerResource) {
       this.player.log.debug("Max video desynchronization: ".concat(maxSync));
       this._timeSync = true;
       var setupSyncTimer = /*#__PURE__*/function () {
-        var _ref2 = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee4() {
+        var _ref3 = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee5() {
           var currentTime, i, secPlayer, playerTime, trimmedCurrentTime;
-          return StreamProvider_regeneratorRuntime().wrap(function _callee4$(_context4) {
-            while (1) switch (_context4.prev = _context4.next) {
+          return StreamProvider_regeneratorRuntime().wrap(function _callee5$(_context5) {
+            while (1) switch (_context5.prev = _context5.next) {
               case 0:
                 if (_this3._players.length) {
-                  _context4.next = 3;
+                  _context5.next = 3;
                   break;
                 }
                 _this3.player.log.warn("Player not yet loaded. Waiting for video sync.");
-                return _context4.abrupt("return");
+                return _context5.abrupt("return");
               case 3:
                 currentTime = _this3.mainAudioPlayer.currentTimeSync;
                 if (_this3.players.length > 1) {
@@ -45200,30 +45379,30 @@ var SteramProvider = /*#__PURE__*/function (_PlayerResource) {
 
                 // Check trimming
                 if (!_this3.isTrimEnabled) {
-                  _context4.next = 27;
+                  _context5.next = 27;
                   break;
                 }
                 trimmedCurrentTime = currentTime - _this3.trimStart;
                 if (!(_this3.trimEnd <= currentTime)) {
-                  _context4.next = 18;
+                  _context5.next = 18;
                   break;
                 }
-                _context4.next = 10;
+                _context5.next = 10;
                 return _this3.executeAction("pause");
               case 10:
-                _context4.next = 12;
+                _context5.next = 12;
                 return _this3.setCurrentTime(0);
               case 12:
                 _this3.stopStreamSync();
                 currentTime = 0;
                 (0,Events/* triggerIfReady */.Ss)(_this3.player, Events/* default */.ZP.ENDED, {});
-                return _context4.abrupt("return");
+                return _context5.abrupt("return");
               case 18:
                 if (!(currentTime < _this3.trimStart)) {
-                  _context4.next = 23;
+                  _context5.next = 23;
                   break;
                 }
-                _context4.next = 21;
+                _context5.next = 21;
                 return _this3.setCurrentTime(0);
               case 21:
                 currentTime = _this3.trimStart;
@@ -45237,7 +45416,7 @@ var SteramProvider = /*#__PURE__*/function (_PlayerResource) {
                     setupSyncTimer();
                   }
                 }, 250);
-                _context4.next = 28;
+                _context5.next = 28;
                 break;
               case 27:
                 if (_this3._timeSync) {
@@ -45250,12 +45429,12 @@ var SteramProvider = /*#__PURE__*/function (_PlayerResource) {
                 }
               case 28:
               case "end":
-                return _context4.stop();
+                return _context5.stop();
             }
-          }, _callee4);
+          }, _callee5);
         }));
         return function setupSyncTimer() {
-          return _ref2.apply(this, arguments);
+          return _ref3.apply(this, arguments);
         };
       }();
       setupSyncTimer();
@@ -45305,39 +45484,14 @@ var SteramProvider = /*#__PURE__*/function (_PlayerResource) {
   }, {
     key: "play",
     value: function () {
-      var _play = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee5() {
-        var result;
-        return StreamProvider_regeneratorRuntime().wrap(function _callee5$(_context5) {
-          while (1) switch (_context5.prev = _context5.next) {
-            case 0:
-              this.startStreamSync();
-              _context5.next = 3;
-              return this.executeAction("play");
-            case 3:
-              result = _context5.sent;
-              return _context5.abrupt("return", result);
-            case 5:
-            case "end":
-              return _context5.stop();
-          }
-        }, _callee5, this);
-      }));
-      function play() {
-        return _play.apply(this, arguments);
-      }
-      return play;
-    }()
-  }, {
-    key: "pause",
-    value: function () {
-      var _pause = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee6() {
+      var _play = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee6() {
         var result;
         return StreamProvider_regeneratorRuntime().wrap(function _callee6$(_context6) {
           while (1) switch (_context6.prev = _context6.next) {
             case 0:
-              this.stopStreamSync();
+              this.startStreamSync();
               _context6.next = 3;
-              return this.executeAction("pause");
+              return this.executeAction("play");
             case 3:
               result = _context6.sent;
               return _context6.abrupt("return", result);
@@ -45347,6 +45501,31 @@ var SteramProvider = /*#__PURE__*/function (_PlayerResource) {
           }
         }, _callee6, this);
       }));
+      function play() {
+        return _play.apply(this, arguments);
+      }
+      return play;
+    }()
+  }, {
+    key: "pause",
+    value: function () {
+      var _pause = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee7() {
+        var result;
+        return StreamProvider_regeneratorRuntime().wrap(function _callee7$(_context7) {
+          while (1) switch (_context7.prev = _context7.next) {
+            case 0:
+              this.stopStreamSync();
+              _context7.next = 3;
+              return this.executeAction("pause");
+            case 3:
+              result = _context7.sent;
+              return _context7.abrupt("return", result);
+            case 5:
+            case "end":
+              return _context7.stop();
+          }
+        }, _callee7, this);
+      }));
       function pause() {
         return _pause.apply(this, arguments);
       }
@@ -45355,21 +45534,21 @@ var SteramProvider = /*#__PURE__*/function (_PlayerResource) {
   }, {
     key: "stop",
     value: function () {
-      var _stop = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee7() {
-        return StreamProvider_regeneratorRuntime().wrap(function _callee7$(_context7) {
-          while (1) switch (_context7.prev = _context7.next) {
+      var _stop = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee8() {
+        return StreamProvider_regeneratorRuntime().wrap(function _callee8$(_context8) {
+          while (1) switch (_context8.prev = _context8.next) {
             case 0:
               this.stopStreamSync();
-              _context7.next = 3;
+              _context8.next = 3;
               return this.executeAction("pause");
             case 3:
-              _context7.next = 5;
+              _context8.next = 5;
               return this.executeAction("setCurrentTime", 0);
             case 5:
             case "end":
-              return _context7.stop();
+              return _context8.stop();
           }
-        }, _callee7, this);
+        }, _callee8, this);
       }));
       function stop() {
         return _stop.apply(this, arguments);
@@ -45379,19 +45558,19 @@ var SteramProvider = /*#__PURE__*/function (_PlayerResource) {
   }, {
     key: "paused",
     value: function () {
-      var _paused = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee8() {
-        return StreamProvider_regeneratorRuntime().wrap(function _callee8$(_context8) {
-          while (1) switch (_context8.prev = _context8.next) {
+      var _paused = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee9() {
+        return StreamProvider_regeneratorRuntime().wrap(function _callee9$(_context9) {
+          while (1) switch (_context9.prev = _context9.next) {
             case 0:
-              _context8.next = 2;
+              _context9.next = 2;
               return this.executeAction("paused");
             case 2:
-              return _context8.abrupt("return", _context8.sent[0]);
+              return _context9.abrupt("return", _context9.sent[0]);
             case 3:
             case "end":
-              return _context8.stop();
+              return _context9.stop();
           }
-        }, _callee8, this);
+        }, _callee9, this);
       }));
       function paused() {
         return _paused.apply(this, arguments);
@@ -45401,74 +45580,74 @@ var SteramProvider = /*#__PURE__*/function (_PlayerResource) {
   }, {
     key: "setCurrentTime",
     value: function () {
-      var _setCurrentTime = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee9(t) {
+      var _setCurrentTime = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee10(t) {
         var duration, prevTime, returnValue, result, newTime, _result, _newTime, currentTime;
-        return StreamProvider_regeneratorRuntime().wrap(function _callee9$(_context9) {
-          while (1) switch (_context9.prev = _context9.next) {
+        return StreamProvider_regeneratorRuntime().wrap(function _callee10$(_context10) {
+          while (1) switch (_context10.prev = _context10.next) {
             case 0:
-              _context9.next = 2;
+              _context10.next = 2;
               return this.duration();
             case 2:
-              duration = _context9.sent;
+              duration = _context10.sent;
               if (t < 0) {
                 t = 0;
               } else if (t > duration) {
                 t = duration;
               }
-              _context9.next = 6;
+              _context10.next = 6;
               return this.executeAction("currentTime");
             case 6:
-              prevTime = _context9.sent[0];
+              prevTime = _context10.sent[0];
               returnValue = null;
               if (!this.isTrimEnabled) {
-                _context9.next = 20;
+                _context10.next = 20;
                 break;
               }
               t = t + this.trimStart;
               t = t >= this.trimEnd ? this.trimEnd : t;
-              _context9.next = 13;
+              _context10.next = 13;
               return this.executeAction("setCurrentTime", [t]);
             case 13:
-              result = _context9.sent[0];
-              _context9.next = 16;
+              result = _context10.sent[0];
+              _context10.next = 16;
               return this.executeAction("currentTime");
             case 16:
-              newTime = _context9.sent[0];
+              newTime = _context10.sent[0];
               returnValue = {
                 result: result,
                 prevTime: prevTime - this.trimStart,
                 newTime: newTime - this.trimStart
               };
-              _context9.next = 27;
+              _context10.next = 27;
               break;
             case 20:
-              _context9.next = 22;
+              _context10.next = 22;
               return this.executeAction("setCurrentTime", [t]);
             case 22:
-              _result = _context9.sent[0];
-              _context9.next = 25;
+              _result = _context10.sent[0];
+              _context10.next = 25;
               return this.executeAction("currentTime");
             case 25:
-              _newTime = _context9.sent[0];
+              _newTime = _context10.sent[0];
               returnValue = {
                 result: _result,
                 prevTime: prevTime,
                 newTime: _newTime
               };
             case 27:
-              _context9.next = 29;
+              _context10.next = 29;
               return this.currentTime();
             case 29:
-              currentTime = _context9.sent;
+              currentTime = _context10.sent;
               (0,Events/* triggerIfReady */.Ss)(this.player, Events/* default */.ZP.TIMEUPDATE, {
                 currentTime: currentTime
               });
-              return _context9.abrupt("return", returnValue);
+              return _context10.abrupt("return", returnValue);
             case 32:
             case "end":
-              return _context9.stop();
+              return _context10.stop();
           }
-        }, _callee9, this);
+        }, _callee10, this);
       }));
       function setCurrentTime(_x3) {
         return _setCurrentTime.apply(this, arguments);
@@ -45478,27 +45657,27 @@ var SteramProvider = /*#__PURE__*/function (_PlayerResource) {
   }, {
     key: "currentTime",
     value: function () {
-      var _currentTime = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee10() {
+      var _currentTime = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee11() {
         var currentTime;
-        return StreamProvider_regeneratorRuntime().wrap(function _callee10$(_context10) {
-          while (1) switch (_context10.prev = _context10.next) {
+        return StreamProvider_regeneratorRuntime().wrap(function _callee11$(_context11) {
+          while (1) switch (_context11.prev = _context11.next) {
             case 0:
-              _context10.next = 2;
+              _context11.next = 2;
               return this.mainAudioPlayer.currentTime();
             case 2:
-              currentTime = _context10.sent;
+              currentTime = _context11.sent;
               if (!this.isTrimEnabled) {
-                _context10.next = 7;
+                _context11.next = 7;
                 break;
               }
-              return _context10.abrupt("return", currentTime - this.trimStart);
+              return _context11.abrupt("return", currentTime - this.trimStart);
             case 7:
-              return _context10.abrupt("return", currentTime);
+              return _context11.abrupt("return", currentTime);
             case 8:
             case "end":
-              return _context10.stop();
+              return _context11.stop();
           }
-        }, _callee10, this);
+        }, _callee11, this);
       }));
       function currentTime() {
         return _currentTime.apply(this, arguments);
@@ -45508,21 +45687,21 @@ var SteramProvider = /*#__PURE__*/function (_PlayerResource) {
   }, {
     key: "currentTimeIgnoringTrimming",
     value: function () {
-      var _currentTimeIgnoringTrimming = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee11() {
+      var _currentTimeIgnoringTrimming = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee12() {
         var currentTime;
-        return StreamProvider_regeneratorRuntime().wrap(function _callee11$(_context11) {
-          while (1) switch (_context11.prev = _context11.next) {
+        return StreamProvider_regeneratorRuntime().wrap(function _callee12$(_context12) {
+          while (1) switch (_context12.prev = _context12.next) {
             case 0:
-              _context11.next = 2;
+              _context12.next = 2;
               return this.mainAudioPlayer.currentTime();
             case 2:
-              currentTime = _context11.sent;
-              return _context11.abrupt("return", currentTime);
+              currentTime = _context12.sent;
+              return _context12.abrupt("return", currentTime);
             case 4:
             case "end":
-              return _context11.stop();
+              return _context12.stop();
           }
-        }, _callee11, this);
+        }, _callee12, this);
       }));
       function currentTimeIgnoringTrimming() {
         return _currentTimeIgnoringTrimming.apply(this, arguments);
@@ -45532,28 +45711,28 @@ var SteramProvider = /*#__PURE__*/function (_PlayerResource) {
   }, {
     key: "volume",
     value: function () {
-      var _volume = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee12() {
-        return StreamProvider_regeneratorRuntime().wrap(function _callee12$(_context12) {
-          while (1) switch (_context12.prev = _context12.next) {
+      var _volume = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee13() {
+        return StreamProvider_regeneratorRuntime().wrap(function _callee13$(_context13) {
+          while (1) switch (_context13.prev = _context13.next) {
             case 0:
               if (!this.mainAudioPlayer) {
-                _context12.next = 6;
+                _context13.next = 6;
                 break;
               }
-              _context12.next = 3;
+              _context13.next = 3;
               return this.mainAudioPlayer.volume();
             case 3:
-              return _context12.abrupt("return", _context12.sent);
+              return _context13.abrupt("return", _context13.sent);
             case 6:
-              _context12.next = 8;
+              _context13.next = 8;
               return this.executeAction("volume");
             case 8:
-              return _context12.abrupt("return", _context12.sent[0]);
+              return _context13.abrupt("return", _context13.sent[0]);
             case 9:
             case "end":
-              return _context12.stop();
+              return _context13.stop();
           }
-        }, _callee12, this);
+        }, _callee13, this);
       }));
       function volume() {
         return _volume.apply(this, arguments);
@@ -45563,28 +45742,28 @@ var SteramProvider = /*#__PURE__*/function (_PlayerResource) {
   }, {
     key: "setVolume",
     value: function () {
-      var _setVolume = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee13(v) {
-        return StreamProvider_regeneratorRuntime().wrap(function _callee13$(_context13) {
-          while (1) switch (_context13.prev = _context13.next) {
+      var _setVolume = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee14(v) {
+        return StreamProvider_regeneratorRuntime().wrap(function _callee14$(_context14) {
+          while (1) switch (_context14.prev = _context14.next) {
             case 0:
               if (!this.mainAudioPlayer) {
-                _context13.next = 6;
+                _context14.next = 6;
                 break;
               }
-              _context13.next = 3;
+              _context14.next = 3;
               return this.mainAudioPlayer.setVolume(v);
             case 3:
-              return _context13.abrupt("return", _context13.sent);
+              return _context14.abrupt("return", _context14.sent);
             case 6:
-              _context13.next = 8;
+              _context14.next = 8;
               return this.executeAction("setVolume", [v]);
             case 8:
-              return _context13.abrupt("return", _context13.sent[0]);
+              return _context14.abrupt("return", _context14.sent[0]);
             case 9:
             case "end":
-              return _context13.stop();
+              return _context14.stop();
           }
-        }, _callee13, this);
+        }, _callee14, this);
       }));
       function setVolume(_x4) {
         return _setVolume.apply(this, arguments);
@@ -45594,25 +45773,25 @@ var SteramProvider = /*#__PURE__*/function (_PlayerResource) {
   }, {
     key: "duration",
     value: function () {
-      var _duration = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee14() {
-        return StreamProvider_regeneratorRuntime().wrap(function _callee14$(_context14) {
-          while (1) switch (_context14.prev = _context14.next) {
+      var _duration = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee15() {
+        return StreamProvider_regeneratorRuntime().wrap(function _callee15$(_context15) {
+          while (1) switch (_context15.prev = _context15.next) {
             case 0:
               if (!this.isTrimEnabled) {
-                _context14.next = 4;
+                _context15.next = 4;
                 break;
               }
-              return _context14.abrupt("return", this.trimEnd - this.trimStart);
+              return _context15.abrupt("return", this.trimEnd - this.trimStart);
             case 4:
-              _context14.next = 6;
-              return this.executeAction("duration");
+              _context15.next = 6;
+              return this.durationIgnoringTrimming();
             case 6:
-              return _context14.abrupt("return", _context14.sent[0]);
+              return _context15.abrupt("return", _context15.sent);
             case 7:
             case "end":
-              return _context14.stop();
+              return _context15.stop();
           }
-        }, _callee14, this);
+        }, _callee15, this);
       }));
       function duration() {
         return _duration.apply(this, arguments);
@@ -45622,19 +45801,23 @@ var SteramProvider = /*#__PURE__*/function (_PlayerResource) {
   }, {
     key: "durationIgnoringTrimming",
     value: function () {
-      var _durationIgnoringTrimming = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee15() {
-        return StreamProvider_regeneratorRuntime().wrap(function _callee15$(_context15) {
-          while (1) switch (_context15.prev = _context15.next) {
+      var _durationIgnoringTrimming = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee16() {
+        var result;
+        return StreamProvider_regeneratorRuntime().wrap(function _callee16$(_context16) {
+          while (1) switch (_context16.prev = _context16.next) {
             case 0:
-              _context15.next = 2;
+              _context16.next = 2;
               return this.executeAction("duration");
             case 2:
-              return _context15.abrupt("return", _context15.sent[0]);
-            case 3:
+              result = _context16.sent.reduce(function (acc, val) {
+                return Math.min(acc, val);
+              }, Number.MAX_VALUE);
+              return _context16.abrupt("return", result);
+            case 4:
             case "end":
-              return _context15.stop();
+              return _context16.stop();
           }
-        }, _callee15, this);
+        }, _callee16, this);
       }));
       function durationIgnoringTrimming() {
         return _durationIgnoringTrimming.apply(this, arguments);
@@ -45644,19 +45827,19 @@ var SteramProvider = /*#__PURE__*/function (_PlayerResource) {
   }, {
     key: "playbackRate",
     value: function () {
-      var _playbackRate = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee16() {
-        return StreamProvider_regeneratorRuntime().wrap(function _callee16$(_context16) {
-          while (1) switch (_context16.prev = _context16.next) {
+      var _playbackRate = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee17() {
+        return StreamProvider_regeneratorRuntime().wrap(function _callee17$(_context17) {
+          while (1) switch (_context17.prev = _context17.next) {
             case 0:
-              _context16.next = 2;
+              _context17.next = 2;
               return this.executeAction("playbackRate");
             case 2:
-              return _context16.abrupt("return", _context16.sent[0]);
+              return _context17.abrupt("return", _context17.sent[0]);
             case 3:
             case "end":
-              return _context16.stop();
+              return _context17.stop();
           }
-        }, _callee16, this);
+        }, _callee17, this);
       }));
       function playbackRate() {
         return _playbackRate.apply(this, arguments);
@@ -45666,19 +45849,19 @@ var SteramProvider = /*#__PURE__*/function (_PlayerResource) {
   }, {
     key: "setPlaybackRate",
     value: function () {
-      var _setPlaybackRate = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee17(rate) {
-        return StreamProvider_regeneratorRuntime().wrap(function _callee17$(_context17) {
-          while (1) switch (_context17.prev = _context17.next) {
+      var _setPlaybackRate = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee18(rate) {
+        return StreamProvider_regeneratorRuntime().wrap(function _callee18$(_context18) {
+          while (1) switch (_context18.prev = _context18.next) {
             case 0:
-              _context17.next = 2;
+              _context18.next = 2;
               return this.executeAction("setPlaybackRate", [rate]);
             case 2:
-              return _context17.abrupt("return", _context17.sent[0]);
+              return _context18.abrupt("return", _context18.sent[0]);
             case 3:
             case "end":
-              return _context17.stop();
+              return _context18.stop();
           }
-        }, _callee17, this);
+        }, _callee18, this);
       }));
       function setPlaybackRate(_x5) {
         return _setPlaybackRate.apply(this, arguments);
@@ -45688,49 +45871,49 @@ var SteramProvider = /*#__PURE__*/function (_PlayerResource) {
   }, {
     key: "getQualityReferencePlayer",
     value: function () {
-      var _getQualityReferencePlayer = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee18() {
+      var _getQualityReferencePlayer = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee19() {
         var player, referenceQualities, content, stream, q;
-        return StreamProvider_regeneratorRuntime().wrap(function _callee18$(_context18) {
-          while (1) switch (_context18.prev = _context18.next) {
+        return StreamProvider_regeneratorRuntime().wrap(function _callee19$(_context19) {
+          while (1) switch (_context19.prev = _context19.next) {
             case 0:
               player = null;
               referenceQualities = [];
               if (!(Object.keys(this.streams).length > 0)) {
-                _context18.next = 16;
+                _context19.next = 16;
                 break;
               }
-              _context18.t0 = StreamProvider_regeneratorRuntime().keys(this.streams);
+              _context19.t0 = StreamProvider_regeneratorRuntime().keys(this.streams);
             case 4:
-              if ((_context18.t1 = _context18.t0()).done) {
-                _context18.next = 16;
+              if ((_context19.t1 = _context19.t0()).done) {
+                _context19.next = 16;
                 break;
               }
-              content = _context18.t1.value;
+              content = _context19.t1.value;
               stream = this.streams[content];
-              _context18.next = 9;
+              _context19.next = 9;
               return stream.player.getQualities();
             case 9:
-              _context18.t2 = _context18.sent;
-              if (_context18.t2) {
-                _context18.next = 12;
+              _context19.t2 = _context19.sent;
+              if (_context19.t2) {
+                _context19.next = 12;
                 break;
               }
-              _context18.t2 = [];
+              _context19.t2 = [];
             case 12:
-              q = _context18.t2;
+              q = _context19.t2;
               if (!player && q.length > referenceQualities.length) {
                 referenceQualities = q;
                 player = stream.player;
               }
-              _context18.next = 4;
+              _context19.next = 4;
               break;
             case 16:
-              return _context18.abrupt("return", player || this.mainAudioPlayer);
+              return _context19.abrupt("return", player || this.mainAudioPlayer);
             case 17:
             case "end":
-              return _context18.stop();
+              return _context19.stop();
           }
-        }, _callee18, this);
+        }, _callee19, this);
       }));
       function getQualityReferencePlayer() {
         return _getQualityReferencePlayer.apply(this, arguments);
@@ -45740,19 +45923,19 @@ var SteramProvider = /*#__PURE__*/function (_PlayerResource) {
   }, {
     key: "getCurrentQuality",
     value: function () {
-      var _getCurrentQuality = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee19() {
-        return StreamProvider_regeneratorRuntime().wrap(function _callee19$(_context19) {
-          while (1) switch (_context19.prev = _context19.next) {
+      var _getCurrentQuality = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee20() {
+        return StreamProvider_regeneratorRuntime().wrap(function _callee20$(_context20) {
+          while (1) switch (_context20.prev = _context20.next) {
             case 0:
-              _context19.next = 2;
+              _context20.next = 2;
               return this.getQualityReferencePlayer();
             case 2:
-              return _context19.abrupt("return", _context19.sent.currentQuality);
+              return _context20.abrupt("return", _context20.sent.currentQuality);
             case 3:
             case "end":
-              return _context19.stop();
+              return _context20.stop();
           }
-        }, _callee19, this);
+        }, _callee20, this);
       }));
       function getCurrentQuality() {
         return _getCurrentQuality.apply(this, arguments);
@@ -45762,24 +45945,24 @@ var SteramProvider = /*#__PURE__*/function (_PlayerResource) {
   }, {
     key: "getQualities",
     value: function () {
-      var _getQualities = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee20() {
+      var _getQualities = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee21() {
         var player;
-        return StreamProvider_regeneratorRuntime().wrap(function _callee20$(_context20) {
-          while (1) switch (_context20.prev = _context20.next) {
+        return StreamProvider_regeneratorRuntime().wrap(function _callee21$(_context21) {
+          while (1) switch (_context21.prev = _context21.next) {
             case 0:
-              _context20.next = 2;
+              _context21.next = 2;
               return this.getQualityReferencePlayer();
             case 2:
-              player = _context20.sent;
-              _context20.next = 5;
+              player = _context21.sent;
+              _context21.next = 5;
               return player.getQualities();
             case 5:
-              return _context20.abrupt("return", _context20.sent);
+              return _context21.abrupt("return", _context21.sent);
             case 6:
             case "end":
-              return _context20.stop();
+              return _context21.stop();
           }
-        }, _callee20, this);
+        }, _callee21, this);
       }));
       function getQualities() {
         return _getQualities.apply(this, arguments);
@@ -45789,84 +45972,84 @@ var SteramProvider = /*#__PURE__*/function (_PlayerResource) {
   }, {
     key: "setQuality",
     value: function () {
-      var _setQuality = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee21(quality) {
+      var _setQuality = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee22(quality) {
         var player, isPaused, qualities, total, index, qualityFactor, content, stream, streamQualities, qualityIndex, selectedQuality;
-        return StreamProvider_regeneratorRuntime().wrap(function _callee21$(_context21) {
-          while (1) switch (_context21.prev = _context21.next) {
+        return StreamProvider_regeneratorRuntime().wrap(function _callee22$(_context22) {
+          while (1) switch (_context22.prev = _context22.next) {
             case 0:
-              _context21.next = 2;
+              _context22.next = 2;
               return this.getQualityReferencePlayer();
             case 2:
-              player = _context21.sent;
-              _context21.next = 5;
+              player = _context22.sent;
+              _context22.next = 5;
               return this.paused();
             case 5:
-              isPaused = _context21.sent;
+              isPaused = _context22.sent;
               if (isPaused) {
-                _context21.next = 10;
+                _context22.next = 10;
                 break;
               }
               this.player.log.debug("Quality change started. Pausing video.");
-              _context21.next = 10;
+              _context22.next = 10;
               return this.pause();
             case 10:
-              _context21.next = 12;
+              _context22.next = 12;
               return player.getQualities();
             case 12:
-              qualities = _context21.sent;
+              qualities = _context22.sent;
               total = qualities.length;
               index = qualities.findIndex(function (q) {
                 return quality.index === q.index;
               });
               if (!(index >= 0)) {
-                _context21.next = 35;
+                _context22.next = 35;
                 break;
               }
               qualityFactor = index / total;
-              _context21.t0 = StreamProvider_regeneratorRuntime().keys(this.streams);
+              _context22.t0 = StreamProvider_regeneratorRuntime().keys(this.streams);
             case 18:
-              if ((_context21.t1 = _context21.t0()).done) {
-                _context21.next = 35;
+              if ((_context22.t1 = _context22.t0()).done) {
+                _context22.next = 35;
                 break;
               }
-              content = _context21.t1.value;
+              content = _context22.t1.value;
               stream = this.streams[content];
-              _context21.next = 23;
+              _context22.next = 23;
               return stream.player.getQualities();
             case 23:
-              _context21.t2 = _context21.sent;
-              if (_context21.t2) {
-                _context21.next = 26;
+              _context22.t2 = _context22.sent;
+              if (_context22.t2) {
+                _context22.next = 26;
                 break;
               }
-              _context21.t2 = [];
+              _context22.t2 = [];
             case 26:
-              streamQualities = _context21.t2;
+              streamQualities = _context22.t2;
               this.player.log.debug(streamQualities);
               if (!(streamQualities.length > 1)) {
-                _context21.next = 33;
+                _context22.next = 33;
                 break;
               }
               qualityIndex = Math.round(streamQualities.length * qualityFactor);
               selectedQuality = streamQualities[qualityIndex];
-              _context21.next = 33;
+              _context22.next = 33;
               return stream.player.setQuality(selectedQuality);
             case 33:
-              _context21.next = 18;
+              _context22.next = 18;
               break;
             case 35:
               if (isPaused) {
-                _context21.next = 39;
+                _context22.next = 39;
                 break;
               }
               this.player.log.debug("Quality change finished. Resuming video.");
-              _context21.next = 39;
+              _context22.next = 39;
               return this.play();
             case 39:
             case "end":
-              return _context21.stop();
+              return _context22.stop();
           }
-        }, _callee21, this);
+        }, _callee22, this);
       }));
       function setQuality(_x6) {
         return _setQuality.apply(this, arguments);
@@ -45876,16 +46059,16 @@ var SteramProvider = /*#__PURE__*/function (_PlayerResource) {
   }, {
     key: "supportsMultiaudio",
     value: function () {
-      var _supportsMultiaudio = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee22() {
-        return StreamProvider_regeneratorRuntime().wrap(function _callee22$(_context22) {
-          while (1) switch (_context22.prev = _context22.next) {
+      var _supportsMultiaudio = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee23() {
+        return StreamProvider_regeneratorRuntime().wrap(function _callee23$(_context23) {
+          while (1) switch (_context23.prev = _context23.next) {
             case 0:
-              return _context22.abrupt("return", this.mainAudioPlayer.supportsMultiaudio());
+              return _context23.abrupt("return", this.mainAudioPlayer.supportsMultiaudio());
             case 1:
             case "end":
-              return _context22.stop();
+              return _context23.stop();
           }
-        }, _callee22, this);
+        }, _callee23, this);
       }));
       function supportsMultiaudio() {
         return _supportsMultiaudio.apply(this, arguments);
@@ -45895,16 +46078,16 @@ var SteramProvider = /*#__PURE__*/function (_PlayerResource) {
   }, {
     key: "getAudioTracks",
     value: function () {
-      var _getAudioTracks = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee23() {
-        return StreamProvider_regeneratorRuntime().wrap(function _callee23$(_context23) {
-          while (1) switch (_context23.prev = _context23.next) {
+      var _getAudioTracks = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee24() {
+        return StreamProvider_regeneratorRuntime().wrap(function _callee24$(_context24) {
+          while (1) switch (_context24.prev = _context24.next) {
             case 0:
-              return _context23.abrupt("return", this.mainAudioPlayer.getAudioTracks());
+              return _context24.abrupt("return", this.mainAudioPlayer.getAudioTracks());
             case 1:
             case "end":
-              return _context23.stop();
+              return _context24.stop();
           }
-        }, _callee23, this);
+        }, _callee24, this);
       }));
       function getAudioTracks() {
         return _getAudioTracks.apply(this, arguments);
@@ -45914,16 +46097,16 @@ var SteramProvider = /*#__PURE__*/function (_PlayerResource) {
   }, {
     key: "setCurrentAudioTrack",
     value: function () {
-      var _setCurrentAudioTrack = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee24(track) {
-        return StreamProvider_regeneratorRuntime().wrap(function _callee24$(_context24) {
-          while (1) switch (_context24.prev = _context24.next) {
+      var _setCurrentAudioTrack = StreamProvider_asyncToGenerator( /*#__PURE__*/StreamProvider_regeneratorRuntime().mark(function _callee25(track) {
+        return StreamProvider_regeneratorRuntime().wrap(function _callee25$(_context25) {
+          while (1) switch (_context25.prev = _context25.next) {
             case 0:
-              return _context24.abrupt("return", this.mainAudioPlayer.setCurrentAudioTrack(track));
+              return _context25.abrupt("return", this.mainAudioPlayer.setCurrentAudioTrack(track));
             case 1:
             case "end":
-              return _context24.stop();
+              return _context25.stop();
           }
-        }, _callee24, this);
+        }, _callee25, this);
       }));
       function setCurrentAudioTrack(_x7) {
         return _setCurrentAudioTrack.apply(this, arguments);
@@ -46316,7 +46499,7 @@ function _updateLayoutDynamic() {
     var _layoutStructure$vide3,
       _this5 = this,
       _layoutStructure$vide4;
-    var layoutStructure, videoContainerWidth, videoContainerHeight, isLandscape, _this$player$config$v8, videoCanvasAlign, _this$player$config$v9, _videoCanvasAlign, width, height, canvasElements, buttonElements, video, videoData, player, canvas, i, _canvasElements, _buttonElements, _iterator2, _step2, _video, _videoData, _player, _canvas, res, videoAspectRatio, maxWidth, maxHeight, baseSize, videoWidth, videoHeight, landscapeContainer;
+    var layoutStructure, videoContainerWidth, videoContainerHeight, isLandscape, _this$player$config$v8, videoCanvasAlign, _this$player$config$v9, _videoCanvasAlign, width, height, isGridAlign, canvasElements, buttonElements, video, videoData, player, canvas, i, _canvasElements, _buttonElements, _iterator2, _step2, _video, _videoData, _player, _canvas, res, videoAspectRatio, maxWidth, maxHeight, baseSize, videoWidth, videoHeight, landscapeContainer;
     return VideoContainer_regeneratorRuntime().wrap(function _callee26$(_context28) {
       while (1) switch (_context28.prev = _context28.next) {
         case 0:
@@ -46327,7 +46510,6 @@ function _updateLayoutDynamic() {
           hideAllVideoPlayers.apply(this);
           this.baseVideoRect.style.width = "";
           this.baseVideoRect.style.height = "";
-          this.baseVideoRect.style.display = "flex";
           this.baseVideoRect.classList.add("dynamic");
           this.baseVideoRect.innerHTML = "";
           videoContainerWidth = this.element.clientWidth;
@@ -46351,6 +46533,7 @@ function _updateLayoutDynamic() {
           }
           width = this.baseVideoRect.clientWidth;
           height = this.element.clientHeight;
+          isGridAlign = (layoutStructure === null || layoutStructure === void 0 ? void 0 : layoutStructure.alignType) === "grid";
           if (!((layoutStructure === null || layoutStructure === void 0 || (_layoutStructure$vide3 = layoutStructure.videos) === null || _layoutStructure$vide3 === void 0 ? void 0 : _layoutStructure$vide3.length) === 1)) {
             _context28.next = 44;
             break;
@@ -46381,11 +46564,11 @@ function _updateLayoutDynamic() {
           setTimeout(function () {
             (0,CanvasPlugin/* setTabIndex */.Hl)(_this5.player, layoutStructure, buttonElements.flat());
           }, 100);
-          _context28.next = 92;
+          _context28.next = 94;
           break;
         case 44:
           if (!(layoutStructure !== null && layoutStructure !== void 0 && (_layoutStructure$vide4 = layoutStructure.videos) !== null && _layoutStructure$vide4 !== void 0 && _layoutStructure$vide4.length)) {
-            _context28.next = 92;
+            _context28.next = 94;
             break;
           }
           i = 0;
@@ -46396,15 +46579,19 @@ function _updateLayoutDynamic() {
           _iterator2.s();
         case 51:
           if ((_step2 = _iterator2.n()).done) {
-            _context28.next = 82;
+            _context28.next = 83;
             break;
           }
           _video = _step2.value;
           _videoData = this.streamProvider.streams[_video.content];
           _player = _videoData.player, _canvas = _videoData.canvas;
-          _context28.next = 57;
+          if (isGridAlign) {
+            _context28.next = 69;
+            break;
+          }
+          _context28.next = 58;
           return _player.getDimensions();
-        case 57:
+        case 58:
           res = _context28.sent;
           videoAspectRatio = res.w / res.h;
           maxWidth = width;
@@ -46420,36 +46607,37 @@ function _updateLayoutDynamic() {
             videoHeight = maxHeight;
             videoWidth = Math.round(videoHeight * videoAspectRatio);
           }
+          _canvas.element.style.width = "".concat(videoWidth, "px");
+          _canvas.element.style.height = "".concat(videoHeight, "px");
+        case 69:
           _canvas.buttonsArea.innerHTML = "";
           _context28.t2 = _buttonElements;
-          _context28.next = 70;
+          _context28.next = 73;
           return (0,CanvasPlugin/* addVideoCanvasButton */.RM)(this.player, layoutStructure, _canvas, _video, _video.content);
-        case 70:
+        case 73:
           _context28.t3 = _context28.sent;
           _context28.t2.push.call(_context28.t2, _context28.t3);
           _canvas.element.style = {};
           _canvas.element.style.display = "block";
-          _canvas.element.style.width = "".concat(videoWidth, "px");
-          _canvas.element.style.height = "".concat(videoHeight, "px");
           _canvas.element.style.overflow = "hidden";
           _canvas.element.style.position = "relative";
           _canvas.element.sortIndex = i++;
           _canvasElements.push(_canvas.element);
-        case 80:
+        case 81:
           _context28.next = 51;
           break;
-        case 82:
-          _context28.next = 87;
+        case 83:
+          _context28.next = 88;
           break;
-        case 84:
-          _context28.prev = 84;
+        case 85:
+          _context28.prev = 85;
           _context28.t4 = _context28["catch"](49);
           _iterator2.e(_context28.t4);
-        case 87:
-          _context28.prev = 87;
+        case 88:
+          _context28.prev = 88;
           _iterator2.f();
-          return _context28.finish(87);
-        case 90:
+          return _context28.finish(88);
+        case 91:
           if (isLandscape) {
             landscapeContainer = (0,dom/* createElementWithHtmlText */.jS)("<div class=\"landscape-container\"></div>", this.baseVideoRect);
             _canvasElements.forEach(function (e) {
@@ -46460,16 +46648,23 @@ function _updateLayoutDynamic() {
               return _this5.baseVideoRect.appendChild(e);
             });
           }
+          if (isGridAlign) {
+            this.baseVideoRect.classList.add("grid-align");
+            this.baseVideoRect.classList.remove("flex-align");
+          } else {
+            this.baseVideoRect.classList.add("flex-align");
+            this.baseVideoRect.classList.remove("grid-align");
+          }
           setTimeout(function () {
             (0,CanvasPlugin/* setTabIndex */.Hl)(_this5.player, layoutStructure, _buttonElements.flat());
           }, 100);
-        case 92:
+        case 94:
           return _context28.abrupt("return", true);
-        case 93:
+        case 95:
         case "end":
           return _context28.stop();
       }
-    }, _callee26, this, [[49, 84, 87, 90]]);
+    }, _callee26, this, [[49, 85, 88, 91]]);
   }));
   return _updateLayoutDynamic.apply(this, arguments);
 }
@@ -50327,6 +50522,16 @@ var Paella = /*#__PURE__*/function () {
       return (0,KeyShortcutPlugin/* getShortcuts */.gg)(this);
     }
   }, {
+    key: "pauseCaptureShortcuts",
+    value: function pauseCaptureShortcuts() {
+      return (0,KeyShortcutPlugin/* pauseCaptureShortcuts */.Ov)(this);
+    }
+  }, {
+    key: "resumeCaptureShortcuts",
+    value: function resumeCaptureShortcuts() {
+      return (0,KeyShortcutPlugin/* resumeCaptureShortcuts */.jV)(this);
+    }
+  }, {
     key: "getPlugin",
     value: function getPlugin(name) {
       var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
@@ -50638,6 +50843,7 @@ var Paella = /*#__PURE__*/function () {
               this._manifestUrl = (0,utils.removeFileName)(url[0]);
               this._manifestFileUrl = url[0];
               this.log.debug("Loading video with identifier '".concat(this.videoId, "' from URL '").concat(this.manifestFileUrl, "'"));
+              this._manifestParser = new ManifestParser(this.videoManifest, this);
               validContents = (0,VideoLayout/* getAvailableContentIds */.Fw)(this, url.length)[0];
               this._videoManifest = {
                 metadata: {
@@ -50655,7 +50861,6 @@ var Paella = /*#__PURE__*/function () {
                   };
                 })
               };
-              this._manifestParser = new ManifestParser(this.videoManifest, this);
               _context2.next = 29;
               return postLoadPlayer.apply(this);
             case 29:
@@ -51298,7 +51503,9 @@ var Paella = /*#__PURE__*/function () {
   }, {
     key: "isFullScreenSupported",
     value: function isFullScreenSupported() {
-      return this.containerElement.requestFullscreen || this.containerElement.webkitRequestFullScreen;
+      var allowedToGoFullScreen = window.document.fullscreenEnabled || window.document.webkitFullscreenEnabled;
+      var canRequestToGoFullScreen = this.containerElement.requestFullscreen || this.containerElement.webkitRequestFullScreen;
+      return allowedToGoFullScreen && canRequestToGoFullScreen;
     }
   }, {
     key: "enterFullscreen",
