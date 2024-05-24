@@ -66,23 +66,6 @@
 	justify-content: space-around;
 }
 
-.base-video-rect.dynamic.grid-align .landscape-container {
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
-	gap: 10px;
-	height: 100%;
-}
-
-.base-video-rect.dynamic.portrait.grid-align {
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
-	gap: 10px;
-}
-
-.base-video-rect.dynamic {
-	display: flex;
-}
-
 .base-video-rect.dynamic.align-bottom .landscape-container {
 	align-items: flex-end;
 }

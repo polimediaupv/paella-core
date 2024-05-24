@@ -164,6 +164,7 @@ async function updateLayoutDynamic() {
 
     this.baseVideoRect.style.width = "";
     this.baseVideoRect.style.height = "";
+    this.baseVideoRect.style.display = "flex";
     this.baseVideoRect.classList.add("dynamic");
     this.baseVideoRect.innerHTML = "";
 
@@ -192,7 +193,6 @@ async function updateLayoutDynamic() {
     const width = this.baseVideoRect.clientWidth;
     const height = this.element.clientHeight;
 
-    let isGridAlign = layoutStructure?.alignType === "grid";
     if (layoutStructure?.videos?.length === 1) {
         const canvasElements = [];
         const buttonElements = [];
@@ -223,31 +223,30 @@ async function updateLayoutDynamic() {
         for (const video of layoutStructure.videos) {
             const videoData = this.streamProvider.streams[video.content];
             const { player, canvas } = videoData;
-            if (!isGridAlign) {
-                const res = await player.getDimensions();
-                const videoAspectRatio = res.w / res.h;
-                const maxWidth = width;
-                const maxHeight = height;
-                const baseSize = (isLandscape ? maxWidth : maxHeight) * video.size / 100;
-                let videoWidth = Math.round(isLandscape ? baseSize : baseSize * videoAspectRatio);
-                let videoHeight = Math.round(isLandscape ? baseSize / videoAspectRatio : baseSize);
-                if (videoWidth>maxWidth) {
-                    videoWidth = maxWidth;
-                    videoHeight = Math.round(videoWidth / videoAspectRatio);
-                }
-                if (videoHeight>maxHeight) {
-                    videoHeight = maxHeight;
-                    videoWidth = Math.round(videoHeight * videoAspectRatio);
-                }
-                canvas.element.style.width = `${videoWidth}px`;
-                canvas.element.style.height = `${videoHeight}px`;
+            const res = await player.getDimensions();
+            const videoAspectRatio = res.w / res.h;
+            const maxWidth = width;
+            const maxHeight = height;
+            const baseSize = (isLandscape ? maxWidth : maxHeight) * video.size / 100;
+            let videoWidth = Math.round(isLandscape ? baseSize : baseSize * videoAspectRatio);
+            let videoHeight = Math.round(isLandscape ? baseSize / videoAspectRatio : baseSize);
+            if (videoWidth>maxWidth) {
+                videoWidth = maxWidth;
+                videoHeight = Math.round(videoWidth / videoAspectRatio);
+            }
+            if (videoHeight>maxHeight) {
+                videoHeight = maxHeight;
+                videoWidth = Math.round(videoHeight * videoAspectRatio);
             }
             
+
             canvas.buttonsArea.innerHTML = "";
             buttonElements.push(await addVideoCanvasButton(this.player, layoutStructure, canvas, video, video.content));
 
             canvas.element.style = {};
             canvas.element.style.display = "block";
+            canvas.element.style.width = `${videoWidth}px`;
+            canvas.element.style.height = `${videoHeight}px`;
             canvas.element.style.overflow = "hidden";
             canvas.element.style.position = "relative";
             canvas.element.sortIndex = i++;
@@ -260,16 +259,6 @@ async function updateLayoutDynamic() {
         else {
             canvasElements.forEach(e => this.baseVideoRect.appendChild(e));
         }
-
-        if (isGridAlign) {
-            this.baseVideoRect.classList.add("grid-align");
-            this.baseVideoRect.classList.remove("flex-align");
-        }
-        else {
-            this.baseVideoRect.classList.add("flex-align");
-            this.baseVideoRect.classList.remove("grid-align");
-        }
-
         setTimeout(() => {
             setTabIndex(this.player, layoutStructure, buttonElements.flat());
         }, 100);
