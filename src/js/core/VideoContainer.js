@@ -162,6 +162,8 @@ async function updateLayoutDynamic() {
 
     hideAllVideoPlayers.apply(this);
 
+    const alignGrid = layoutStructure.alignType === "grid";
+
     this.baseVideoRect.style.width = "";
     this.baseVideoRect.style.height = "";
     this.baseVideoRect.style.display = "flex";
@@ -255,8 +257,18 @@ async function updateLayoutDynamic() {
         if (isLandscape) {
             const landscapeContainer = createElementWithHtmlText(`<div class="landscape-container"></div>`, this.baseVideoRect);
             canvasElements.forEach(e => landscapeContainer.appendChild(e));
+            if (alignGrid) {
+                const columns = layoutStructure?.videos?.length / 2;
+                landscapeContainer.style.display = "grid";
+                landscapeContainer.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
+            }
         }
         else {
+            if (alignGrid) {
+                const columns = layoutStructure?.videos?.length / 3;
+                this.baseVideoRect.style.display = "grid";
+                this.baseVideoRect.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
+            }
             canvasElements.forEach(e => this.baseVideoRect.appendChild(e));
         }
         setTimeout(() => {

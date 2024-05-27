@@ -234,3 +234,7 @@
 	height: 40px;
 	line-height: 40px;
 }
+
+.video-container .landscape-container {
+	gap: 7px;
+}
