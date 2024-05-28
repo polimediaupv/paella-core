@@ -2020,10 +2020,10 @@ var addButton = function addButton(_ref) {
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) switch (_context.prev = _context.next) {
           case 0:
-            _context.next = 2;
-            return click(content);
-          case 2:
             evt.stopPropagation();
+            _context.next = 3;
+            return click(content);
+          case 3:
             return _context.abrupt("return", false);
           case 4:
           case "end":
@@ -16954,7 +16954,11 @@ ___CSS_LOADER_EXPORT___.push([module.id, `
 	color: var(--main-fg-color);
 	height: 40px;
 	line-height: 40px;
-}`, "",{"version":3,"sources":["webpack://./src/css/VideoContainer.css"],"names":[],"mappings":";AACA;CACC,8BAA8B;CAC9B,2BAA2B;AAC5B;;AAEA;IACI,yDAAyD;IACzD,WAAW;IACX,YAAY;IACZ,aAAa;IACb,mBAAmB;IACnB,uBAAuB;CAC1B,kBAAkB;CAClB,QAAQ;CACR,2BAA2B;AAC5B;;;AAGA;CACC,sDAAsD;CACtD,QAAQ;CACR,eAAe;AAChB;;AAEA;IACI,yDAAyD;IACzD,kBAAkB;AACtB;;AAEA;CACC,aAAa;CACb,6BAA6B;CAC7B,+BAA+B;CAC/B,uCAAuC;CACvC,sBAAsB;CACtB,WAAW;CACX,YAAY;AACb;;AAEA;CACC,eAAe;CACf,mBAAmB;IAChB,uBAAuB;AAC3B;;AAEA;CACC,6BAA6B;AAC9B;;AAEA;CACC,mBAAmB;AACpB;;AAEA;CACC,sBAAsB;AACvB;;AAEA;CACC,sBAAsB;AACvB;;AAEA;CACC,aAAa;CACb,WAAW;CACX,6BAA6B;AAC9B;;AAEA;CACC,qBAAqB;AACtB;;AAEA;CACC,uBAAuB;AACxB;;AAEA;CACC,mBAAmB;AACpB;;AAEA;IACI,kBAAkB;IAClB,SAAS;IACT,YAAY;CACf,YAAY;AACb;;AAEA;IACI,UAAU;AACd;;AAEA;IACI,WAAW;AACf;;AAEA;CACC,kBAAkB;IACf,WAAW;IACX,YAAY;IACZ,QAAQ;IACR,SAAS;IACT,oBAAoB;AACxB;;AAEA;CACC,eAAe;AAChB;;AAEA;CACC,kCAAkC;CAClC,cAAc;CACd,sCAAsC;IACnC,kBAAkB;CACrB,YAAY;CACZ,WAAW;CACX,gBAAgB;IACb,iBAAiB;AACrB;;AAEA;CACC,gCAAgC;AACjC;;AAEA;CACC,aAAa;IACV,2BAA2B;IAC3B,mBAAmB;IACnB,mBAAmB;AACvB;;AAEA;CACC,eAAe;CACf,2BAA2B;CAC3B,iBAAiB;CACjB,kBAAkB;AACnB;;AAEA;CACC,iDAAiD;AAClD;;AAEA;CACC,4CAA4C;AAC7C;;AAEA;CACC,wBAAwB;CACxB,WAAW;CACX,cAAc;CACd,4BAA4B;CAC5B,4BAA4B;CAC5B,gBAAgB;AACjB;;AAEA;CACC,WAAW;IACR,YAAY;IACZ,0BAA0B;CAC7B,2BAA2B;AAC5B;;;;AAIA,4BAA4B;AAC5B;CACC,kCAAkC;CAClC,6BAA6B;IAC1B,kBAAkB;CACrB,YAAY;CACZ,WAAW;CACX,sBAAsB;CACtB,aAAa;IACV,mBAAmB;IACnB,uBAAuB;CAC1B,oBAAoB;AACrB;;AAEA;CACC,aAAa;IACV,2BAA2B;IAC3B,mBAAmB;IACnB,mBAAmB;AACvB;;AAEA;CACC,gCAAgC;AACjC;;AAEA;CACC,wBAAwB;CACxB,WAAW;CACX,cAAc;CACd,4BAA4B;CAC5B,4BAA4B;CAC5B,iBAAiB;CACjB,kBAAkB;AACnB;;AAEA;CACC,WAAW;IACR,YAAY;IACZ,0BAA0B;CAC7B,2BAA2B;AAC5B;;AAEA;CACC,aAAa;IACV,2BAA2B;IAC3B,mBAAmB;IACnB,mBAAmB;AACvB;;AAEA;CACC,cAAc;CACd,kBAAkB;AACnB;;AAEA;CACC,uCAAuC;IACpC,eAAe;CAClB,2BAA2B;AAC5B;;AAEA;CACC,eAAe;CACf,2BAA2B;CAC3B,iBAAiB;CACjB,kBAAkB;AACnB;;AAEA;CACC,eAAe;CACf,2BAA2B;CAC3B,YAAY;CACZ,iBAAiB;AAClB","sourcesContent":["\n:root {\n\t--video-container-padding: 0px;\n\t--video-container-gap: 10px;\n}\n\n.video-container {\n    background-color: var(--video-container-background-color);\n    width: 100%;\n    height: 100%;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n\tposition: absolute;\n\ttop: 50%;\n\ttransform: translateY(-50%);\n}\n\n\n.video-container.over-playback-bar {\n\theight: calc(100% - var(--playback-bar-height) - 30px);\n\ttop: 0px;\n\ttransform: none;\n}\n\n.base-video-rect {\n    background-color: var(--base-video-rect-background-color);\n    position: relative;\n}\n\n.base-video-rect.dynamic {\n\tdisplay: flex;\n\tbackground-color: transparent;\n\tgap: var(--video-container-gap);\n\tpadding: var(--video-container-padding);\n\tbox-sizing: border-box;\n\twidth: 100%;\n\theight: 100%;\n}\n\n.base-video-rect.dynamic.portrait {\n\tflex-wrap: wrap;\n\talign-items: center;\n    justify-content: center;\n}\n\n.base-video-rect.dynamic.landscape {\n\tjustify-content: space-around;\n}\n\n.base-video-rect.dynamic {\n\talign-items: center;\n}\n\n.base-video-rect.dynamic.portrait.align-left {\n\tjustify-content: start;\n}\n\n.base-video-rect.dynamic.portrait.align-right {\n\tjustify-content: right;\n}\n\n.base-video-rect.dynamic .landscape-container {\n\tdisplay: flex;\n\twidth: 100%;\n\tjustify-content: space-around;\n}\n\n.base-video-rect.dynamic.align-bottom .landscape-container {\n\talign-items: flex-end;\n}\n\n.base-video-rect.dynamic.align-top .landscape-container {\n\talign-items: flex-start;\n}\n\n.base-video-rect.dynamic.align-center .landscape-container {\n\talign-items: center;\n}\n\n.video-container .button-plugins {\n    position: absolute;\n    top: 10px;\n    height: 40px;\n\tz-index: 100;\n}\n\n.video-container .button-plugins.left-side {\n    left: 10px;\n}\n\n.video-container .button-plugins.right-side {\n    right: 10px;\n}\n\n.video-container .user-area {\n\tposition: absolute;\n    width: 100%;\n    height: 100%;\n    top: 0px;\n    left: 0px;\n    pointer-events: none;\n}\n\n.video-container .button-plugins .button-plugin-container {\n\tdisplay: inline;\n}\n\n.video-container .button-plugins .button-plugin-container button {\n\theight: var(--button-fixed-height);\n\tdisplay: block;\n\tbackground-color: var(--main-bg-color);\n    border-radius: 6px;\n\tborder: none;\n\tfloat: left;\n\tmargin-left: 2px;\n    margin-right: 2px;\n}\n\n.video-container .button-plugins .button-plugin-container button.fixed-width {\n\twidth: var(--button-fixed-width);\n}\n\n.video-container .button-plugins .button-plugin-container button.dynamic-width div.interactive-button-content {\n\tdisplay: flex;\n    justify-content: flex-start;\n    align-items: center;\n    flex-direction: row;\n}\n\n.video-container .button-plugins button.dynamic-width span {\n\tmargin-top: 0px;\n\tcolor: var(--main-fg-color);\n\tpadding-left: 3px;\n\tpadding-right: 3px;\n}\n\n.video-container .button-plugins button:hover {\n\tbackground-color: var(--highlight-bg-color-hover);\n}\n\n.video-container .button-plugins button:active {\n\tbackground-color: var(--main-bg-color-hover);\n}\n\n.video-container .button-plugins button i {\n\tbackground-size: 50% 50%;\n\twidth: 20px;\n\tdisplay: block;\n\tbackground-repeat: no-repeat;\n\tbackground-position: 3px 7px;\n\tmargin-left: 5px;\n}\n\n.video-container .button-plugins button i svg {\n\twidth: 100%;\n    height: 100%;\n    fill: var(--main-fg-color);\n\tcolor: var(--main-fg-color);\n}\n\n\n\n/* non-interactive buttons */\n.video-container .button-plugins .button-plugin-container div.non-interactive {\n\theight: var(--button-fixed-height);\n\tbackground-color: transparent;\n    border-radius: 6px;\n\tborder: none;\n\tfloat: left;\n\tbox-sizing: border-box;\n\tdisplay: flex;\n    align-items: center;\n    justify-content: center;\n\tpointer-events: none;\n}\n\n.video-container .button-plugins .button-plugin-container div.dynamic-width div.non-interactive-button-content {\n\tdisplay: flex;\n    justify-content: flex-start;\n    align-items: center;\n    flex-direction: row;\n}\n\n.video-container .button-plugins .button-plugin-container div.non-interactive.fixed-width {\n\twidth: var(--button-fixed-width);\n}\n\n.video-container .button-plugins div i {\n\tbackground-size: 50% 50%;\n\twidth: 20px;\n\tdisplay: block;\n\tbackground-repeat: no-repeat;\n\tbackground-position: 3px 7px;\n\tmargin-left: auto;\n\tmargin-right: auto;\n}\n\n.video-container .button-plugins div i svg {\n\twidth: 100%;\n    height: 100%;\n    fill: var(--main-fg-color);\n\tcolor: var(--main-fg-color);\n}\n\n.video-container .button-plugins .button-plugin-container div.dynamic-width div.non-interactive-button-content {\n\tdisplay: flex;\n    justify-content: flex-start;\n    align-items: center;\n    flex-direction: row;\n}\n\n.video-container .button-plugins div.non-interactive span {\n\tdisplay: block;\n\ttext-align: center;\n}\n\n.video-container .button-plugins div.no-icon span {\n\tline-height: var(--button-fixed-height);\n    margin-top: 0px;\n\tcolor: var(--main-fg-color);\n}\n\n.video-container .button-plugins div.dynamic-width span {\n\tmargin-top: 0px;\n\tcolor: var(--main-fg-color);\n\tpadding-left: 3px;\n\tpadding-right: 3px;\n}\n\n.video-container .button-plugin-side-area {\n\tdisplay: inline;\n\tcolor: var(--main-fg-color);\n\theight: 40px;\n\tline-height: 40px;\n}"],"sourceRoot":""}]);
+}
+
+.video-container .landscape-container {
+	gap: 7px;
+}`, "",{"version":3,"sources":["webpack://./src/css/VideoContainer.css"],"names":[],"mappings":";AACA;CACC,8BAA8B;CAC9B,2BAA2B;AAC5B;;AAEA;IACI,yDAAyD;IACzD,WAAW;IACX,YAAY;IACZ,aAAa;IACb,mBAAmB;IACnB,uBAAuB;CAC1B,kBAAkB;CAClB,QAAQ;CACR,2BAA2B;AAC5B;;;AAGA;CACC,sDAAsD;CACtD,QAAQ;CACR,eAAe;AAChB;;AAEA;IACI,yDAAyD;IACzD,kBAAkB;AACtB;;AAEA;CACC,aAAa;CACb,6BAA6B;CAC7B,+BAA+B;CAC/B,uCAAuC;CACvC,sBAAsB;CACtB,WAAW;CACX,YAAY;AACb;;AAEA;CACC,eAAe;CACf,mBAAmB;IAChB,uBAAuB;AAC3B;;AAEA;CACC,6BAA6B;AAC9B;;AAEA;CACC,mBAAmB;AACpB;;AAEA;CACC,sBAAsB;AACvB;;AAEA;CACC,sBAAsB;AACvB;;AAEA;CACC,aAAa;CACb,WAAW;CACX,6BAA6B;AAC9B;;AAEA;CACC,qBAAqB;AACtB;;AAEA;CACC,uBAAuB;AACxB;;AAEA;CACC,mBAAmB;AACpB;;AAEA;IACI,kBAAkB;IAClB,SAAS;IACT,YAAY;CACf,YAAY;AACb;;AAEA;IACI,UAAU;AACd;;AAEA;IACI,WAAW;AACf;;AAEA;CACC,kBAAkB;IACf,WAAW;IACX,YAAY;IACZ,QAAQ;IACR,SAAS;IACT,oBAAoB;AACxB;;AAEA;CACC,eAAe;AAChB;;AAEA;CACC,kCAAkC;CAClC,cAAc;CACd,sCAAsC;IACnC,kBAAkB;CACrB,YAAY;CACZ,WAAW;CACX,gBAAgB;IACb,iBAAiB;AACrB;;AAEA;CACC,gCAAgC;AACjC;;AAEA;CACC,aAAa;IACV,2BAA2B;IAC3B,mBAAmB;IACnB,mBAAmB;AACvB;;AAEA;CACC,eAAe;CACf,2BAA2B;CAC3B,iBAAiB;CACjB,kBAAkB;AACnB;;AAEA;CACC,iDAAiD;AAClD;;AAEA;CACC,4CAA4C;AAC7C;;AAEA;CACC,wBAAwB;CACxB,WAAW;CACX,cAAc;CACd,4BAA4B;CAC5B,4BAA4B;CAC5B,gBAAgB;AACjB;;AAEA;CACC,WAAW;IACR,YAAY;IACZ,0BAA0B;CAC7B,2BAA2B;AAC5B;;;;AAIA,4BAA4B;AAC5B;CACC,kCAAkC;CAClC,6BAA6B;IAC1B,kBAAkB;CACrB,YAAY;CACZ,WAAW;CACX,sBAAsB;CACtB,aAAa;IACV,mBAAmB;IACnB,uBAAuB;CAC1B,oBAAoB;AACrB;;AAEA;CACC,aAAa;IACV,2BAA2B;IAC3B,mBAAmB;IACnB,mBAAmB;AACvB;;AAEA;CACC,gCAAgC;AACjC;;AAEA;CACC,wBAAwB;CACxB,WAAW;CACX,cAAc;CACd,4BAA4B;CAC5B,4BAA4B;CAC5B,iBAAiB;CACjB,kBAAkB;AACnB;;AAEA;CACC,WAAW;IACR,YAAY;IACZ,0BAA0B;CAC7B,2BAA2B;AAC5B;;AAEA;CACC,aAAa;IACV,2BAA2B;IAC3B,mBAAmB;IACnB,mBAAmB;AACvB;;AAEA;CACC,cAAc;CACd,kBAAkB;AACnB;;AAEA;CACC,uCAAuC;IACpC,eAAe;CAClB,2BAA2B;AAC5B;;AAEA;CACC,eAAe;CACf,2BAA2B;CAC3B,iBAAiB;CACjB,kBAAkB;AACnB;;AAEA;CACC,eAAe;CACf,2BAA2B;CAC3B,YAAY;CACZ,iBAAiB;AAClB;;AAEA;CACC,QAAQ;AACT","sourcesContent":["\n:root {\n\t--video-container-padding: 0px;\n\t--video-container-gap: 10px;\n}\n\n.video-container {\n    background-color: var(--video-container-background-color);\n    width: 100%;\n    height: 100%;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n\tposition: absolute;\n\ttop: 50%;\n\ttransform: translateY(-50%);\n}\n\n\n.video-container.over-playback-bar {\n\theight: calc(100% - var(--playback-bar-height) - 30px);\n\ttop: 0px;\n\ttransform: none;\n}\n\n.base-video-rect {\n    background-color: var(--base-video-rect-background-color);\n    position: relative;\n}\n\n.base-video-rect.dynamic {\n\tdisplay: flex;\n\tbackground-color: transparent;\n\tgap: var(--video-container-gap);\n\tpadding: var(--video-container-padding);\n\tbox-sizing: border-box;\n\twidth: 100%;\n\theight: 100%;\n}\n\n.base-video-rect.dynamic.portrait {\n\tflex-wrap: wrap;\n\talign-items: center;\n    justify-content: center;\n}\n\n.base-video-rect.dynamic.landscape {\n\tjustify-content: space-around;\n}\n\n.base-video-rect.dynamic {\n\talign-items: center;\n}\n\n.base-video-rect.dynamic.portrait.align-left {\n\tjustify-content: start;\n}\n\n.base-video-rect.dynamic.portrait.align-right {\n\tjustify-content: right;\n}\n\n.base-video-rect.dynamic .landscape-container {\n\tdisplay: flex;\n\twidth: 100%;\n\tjustify-content: space-around;\n}\n\n.base-video-rect.dynamic.align-bottom .landscape-container {\n\talign-items: flex-end;\n}\n\n.base-video-rect.dynamic.align-top .landscape-container {\n\talign-items: flex-start;\n}\n\n.base-video-rect.dynamic.align-center .landscape-container {\n\talign-items: center;\n}\n\n.video-container .button-plugins {\n    position: absolute;\n    top: 10px;\n    height: 40px;\n\tz-index: 100;\n}\n\n.video-container .button-plugins.left-side {\n    left: 10px;\n}\n\n.video-container .button-plugins.right-side {\n    right: 10px;\n}\n\n.video-container .user-area {\n\tposition: absolute;\n    width: 100%;\n    height: 100%;\n    top: 0px;\n    left: 0px;\n    pointer-events: none;\n}\n\n.video-container .button-plugins .button-plugin-container {\n\tdisplay: inline;\n}\n\n.video-container .button-plugins .button-plugin-container button {\n\theight: var(--button-fixed-height);\n\tdisplay: block;\n\tbackground-color: var(--main-bg-color);\n    border-radius: 6px;\n\tborder: none;\n\tfloat: left;\n\tmargin-left: 2px;\n    margin-right: 2px;\n}\n\n.video-container .button-plugins .button-plugin-container button.fixed-width {\n\twidth: var(--button-fixed-width);\n}\n\n.video-container .button-plugins .button-plugin-container button.dynamic-width div.interactive-button-content {\n\tdisplay: flex;\n    justify-content: flex-start;\n    align-items: center;\n    flex-direction: row;\n}\n\n.video-container .button-plugins button.dynamic-width span {\n\tmargin-top: 0px;\n\tcolor: var(--main-fg-color);\n\tpadding-left: 3px;\n\tpadding-right: 3px;\n}\n\n.video-container .button-plugins button:hover {\n\tbackground-color: var(--highlight-bg-color-hover);\n}\n\n.video-container .button-plugins button:active {\n\tbackground-color: var(--main-bg-color-hover);\n}\n\n.video-container .button-plugins button i {\n\tbackground-size: 50% 50%;\n\twidth: 20px;\n\tdisplay: block;\n\tbackground-repeat: no-repeat;\n\tbackground-position: 3px 7px;\n\tmargin-left: 5px;\n}\n\n.video-container .button-plugins button i svg {\n\twidth: 100%;\n    height: 100%;\n    fill: var(--main-fg-color);\n\tcolor: var(--main-fg-color);\n}\n\n\n\n/* non-interactive buttons */\n.video-container .button-plugins .button-plugin-container div.non-interactive {\n\theight: var(--button-fixed-height);\n\tbackground-color: transparent;\n    border-radius: 6px;\n\tborder: none;\n\tfloat: left;\n\tbox-sizing: border-box;\n\tdisplay: flex;\n    align-items: center;\n    justify-content: center;\n\tpointer-events: none;\n}\n\n.video-container .button-plugins .button-plugin-container div.dynamic-width div.non-interactive-button-content {\n\tdisplay: flex;\n    justify-content: flex-start;\n    align-items: center;\n    flex-direction: row;\n}\n\n.video-container .button-plugins .button-plugin-container div.non-interactive.fixed-width {\n\twidth: var(--button-fixed-width);\n}\n\n.video-container .button-plugins div i {\n\tbackground-size: 50% 50%;\n\twidth: 20px;\n\tdisplay: block;\n\tbackground-repeat: no-repeat;\n\tbackground-position: 3px 7px;\n\tmargin-left: auto;\n\tmargin-right: auto;\n}\n\n.video-container .button-plugins div i svg {\n\twidth: 100%;\n    height: 100%;\n    fill: var(--main-fg-color);\n\tcolor: var(--main-fg-color);\n}\n\n.video-container .button-plugins .button-plugin-container div.dynamic-width div.non-interactive-button-content {\n\tdisplay: flex;\n    justify-content: flex-start;\n    align-items: center;\n    flex-direction: row;\n}\n\n.video-container .button-plugins div.non-interactive span {\n\tdisplay: block;\n\ttext-align: center;\n}\n\n.video-container .button-plugins div.no-icon span {\n\tline-height: var(--button-fixed-height);\n    margin-top: 0px;\n\tcolor: var(--main-fg-color);\n}\n\n.video-container .button-plugins div.dynamic-width span {\n\tmargin-top: 0px;\n\tcolor: var(--main-fg-color);\n\tpadding-left: 3px;\n\tpadding-right: 3px;\n}\n\n.video-container .button-plugin-side-area {\n\tdisplay: inline;\n\tcolor: var(--main-fg-color);\n\theight: 40px;\n\tline-height: 40px;\n}\n\n.video-container .landscape-container {\n\tgap: 7px;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -44496,7 +44500,7 @@ Hls.defaultConfig = void 0;
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"paella-core","version":"1.49.1","description":"Multistream HTML video player","main":"src/index.js","module":"dist/paella-core.js","scripts":{"build":"webpack --mode production","dev":"webpack serve --mode development --config webpack.debug.js --host 0.0.0.0","captions":"webpack serve --mode development --config webpack.captions.js","eslint":"eslint .","nomanifest":"webpack serve --mode development --config webpack.nomanifest.js","testenv":"webpack serve --mode development --config webpack.test.js --host 0.0.0.0"},"repository":{"type":"git","url":"git+https://github.com/polimediaupv/paella-core.git"},"keywords":["html","player","video","hls"],"author":"Fernando Serrano Carpena <ferserc1@gmail.com>","license":"ECL-2.0","bugs":{"url":"https://github.com/polimediaupv/paella-core/issues"},"homepage":"https://github.com/polimediaupv/paella-core#readme","devDependencies":{"@babel/core":"^7.12.10","@babel/plugin-transform-modules-commonjs":"^7.19.6","@babel/preset-env":"^7.12.11","@playwright/test":"^1.29.2","babel-loader":"^9.0.0","babel-plugin-transform-require-context":"^0.1.1","copy-webpack-plugin":"^11.0.0","css-loader":"^6.6.0","eslint":"^8.29.0","file-loader":"^6.2.0","html-webpack-plugin":"^5.5.0","source-map-loader":"^4.0.0","style-loader":"^3.3.1","svg-inline-loader":"^0.8.2","webpack":"^5.66.0","webpack-cli":"^5.0.0","webpack-dev-server":"^4.7.3"},"dependencies":{"core-js":"^3.8.2","hls.js":"^1.0.4"}}');
+module.exports = JSON.parse('{"name":"paella-core","version":"1.49.2","description":"Multistream HTML video player","main":"src/index.js","module":"dist/paella-core.js","scripts":{"build":"webpack --mode production","dev":"webpack serve --mode development --config webpack.debug.js --host 0.0.0.0","captions":"webpack serve --mode development --config webpack.captions.js","eslint":"eslint .","nomanifest":"webpack serve --mode development --config webpack.nomanifest.js","testenv":"webpack serve --mode development --config webpack.test.js --host 0.0.0.0"},"repository":{"type":"git","url":"git+https://github.com/polimediaupv/paella-core.git"},"keywords":["html","player","video","hls"],"author":"Fernando Serrano Carpena <ferserc1@gmail.com>","license":"ECL-2.0","bugs":{"url":"https://github.com/polimediaupv/paella-core/issues"},"homepage":"https://github.com/polimediaupv/paella-core#readme","devDependencies":{"@babel/core":"^7.12.10","@babel/plugin-transform-modules-commonjs":"^7.19.6","@babel/preset-env":"^7.12.11","@playwright/test":"^1.29.2","babel-loader":"^9.0.0","babel-plugin-transform-require-context":"^0.1.1","copy-webpack-plugin":"^11.0.0","css-loader":"^6.6.0","eslint":"^8.29.0","file-loader":"^6.2.0","html-webpack-plugin":"^5.5.0","source-map-loader":"^4.0.0","style-loader":"^3.3.1","svg-inline-loader":"^0.8.2","webpack":"^5.66.0","webpack-cli":"^5.0.0","webpack-dev-server":"^4.7.3"},"dependencies":{"core-js":"^3.8.2","hls.js":"^1.0.4"}}');
 
 /***/ }),
 
@@ -44512,7 +44516,7 @@ module.exports = JSON.parse('{"May the force be with you":"Möge die Macht mit d
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"May the force be with you":"May the force be with you","Digit1":"1","Digit2":"2","Digit3":"3","Digit4":"4","Digit5":"5","Digit6":"6","Digit7":"7","Digit8":"8","Digit9":"9","Digit0":"0","KeyA":"A","KeyB":"B","KeyC":"C","KeyD":"D","KeyE":"E","KeyF":"F","KeyG":"G","KeyH":"H","KeyI":"I","KeyJ":"J","KeyK":"K","KeyL":"L","KeyM":"M","KeyN":"N","KeyO":"O","KeyP":"P","KeyQ":"Q","KeyR":"R","KeyS":"S","KeyT":"T","KeyU":"U","KeyV":"V","KeyW":"W","KeyX":"X","KeyY":"Y","KeyZ":"Z","Comma":",","Period":".","Semicolon":";","Quote":"\'","BracketLeft":"[","BracketRight":"]","Backquote":"`","Backslash":"\\\\","Minus":"-","Equal":"=","AltLeft":"Alt","AltRight":"Alt","CapsLock":"CapsLock","ControlLeft":"ControlLeft","ControlRight":"ControlRight","OSLeft":"OSLeft","OSRight":"OSRight","ShiftLeft":"ShiftLeft","ShiftRight":"ShiftRight","ContextMenu":"ContextMenu","Enter":"Enter","Space":"Space","Tab":"Tab","Delete":"Delete","End":"End","Help":"Help","Home":"Home","Insert":"Insert","PageDown":"PageDown","PageUp":"PageUp","ArrowDown":"ArrowDown","ArrowLeft":"ArrowLeft","ArrowRight":"ArrowRight","ArrowUp":"ArrowUp","Escape":"Escape","PrintScreen":"PrintScreen","ScrollLock":"ScrollLock","Pause":"Pausa","Put the videos side by side":"Put the videos side by side","Minimize video":"Minimize video","Close video":"Close video","Place the video on the other side of the screen":"Place the video on the other side of the screen","Maximize video":"Maximize video","Swap position of the videos":"Swap position of the videos","loadManifest(): Invalid current player state: $1":"loadManifest(): Invalid current player state: $1","loadPlayer(): Invalid current player state: $1":"loadPlayer(): Invalid current player state: $1","Could not load player: state transition in progress: $1":"Could not load player: state transition in progress: $1","Could not unload player: state transition in progress: $1":"Could not unload player: state transition in progress: $1","unloadManifest(): Invalid current player state: $1":"unloadManifest(): Invalid current player state: $1","Error loading video manifest: $1 $2":"Error loading video manifest: $1 $2","Play/pause":"Play/pause","Select the active audio track":"Select the active audio track","Toggle audio mute":"Toggle audio mute","Toggle play/pause":"Toggle play/pause","Toggle captions":"Toggle captions","Backward $1 seconds":"Backward $1 seconds","Forward $1 seconds":"Forward $1 seconds","Volume up 10%":"Volume up 10%","Volume down 10%":"Volume down 10%","Close pop-up":"Close pop-up","Decrease playback speed":"Decrease playback speed","Increase playback speed":"Increase playback speed","Swap between side by side and minimized video":"Swap between side by side and minimized video","Swap the position of the videos":"Swap the position of the videos"}');
+module.exports = JSON.parse('{"May the force be with you":"May the force be with you","Digit1":"1","Digit2":"2","Digit3":"3","Digit4":"4","Digit5":"5","Digit6":"6","Digit7":"7","Digit8":"8","Digit9":"9","Digit0":"0","KeyA":"A","KeyB":"B","KeyC":"C","KeyD":"D","KeyE":"E","KeyF":"F","KeyG":"G","KeyH":"H","KeyI":"I","KeyJ":"J","KeyK":"K","KeyL":"L","KeyM":"M","KeyN":"N","KeyO":"O","KeyP":"P","KeyQ":"Q","KeyR":"R","KeyS":"S","KeyT":"T","KeyU":"U","KeyV":"V","KeyW":"W","KeyX":"X","KeyY":"Y","KeyZ":"Z","Comma":",","Period":".","Semicolon":";","Quote":"\'","BracketLeft":"[","BracketRight":"]","Backquote":"`","Backslash":"\\\\","Minus":"-","Equal":"=","AltLeft":"Alt","AltRight":"Alt","CapsLock":"CapsLock","ControlLeft":"ControlLeft","ControlRight":"ControlRight","OSLeft":"OSLeft","OSRight":"OSRight","ShiftLeft":"ShiftLeft","ShiftRight":"ShiftRight","ContextMenu":"ContextMenu","Enter":"Enter","Space":"Space","Tab":"Tab","Delete":"Delete","End":"End","Help":"Help","Home":"Home","Insert":"Insert","PageDown":"PageDown","PageUp":"PageUp","ArrowDown":"ArrowDown","ArrowLeft":"ArrowLeft","ArrowRight":"ArrowRight","ArrowUp":"ArrowUp","Escape":"Escape","PrintScreen":"PrintScreen","ScrollLock":"ScrollLock","Pause":"Pause","Put the videos side by side":"Put the videos side by side","Minimize video":"Minimize video","Close video":"Close video","Place the video on the other side of the screen":"Place the video on the other side of the screen","Maximize video":"Maximize video","Swap position of the videos":"Swap position of the videos","loadManifest(): Invalid current player state: $1":"loadManifest(): Invalid current player state: $1","loadPlayer(): Invalid current player state: $1":"loadPlayer(): Invalid current player state: $1","Could not load player: state transition in progress: $1":"Could not load player: state transition in progress: $1","Could not unload player: state transition in progress: $1":"Could not unload player: state transition in progress: $1","unloadManifest(): Invalid current player state: $1":"unloadManifest(): Invalid current player state: $1","Error loading video manifest: $1 $2":"Error loading video manifest: $1 $2","Play/pause":"Play/pause","Select the active audio track":"Select the active audio track","Toggle audio mute":"Toggle audio mute","Toggle play/pause":"Toggle play/pause","Toggle captions":"Toggle captions","Backward $1 seconds":"Backward $1 seconds","Forward $1 seconds":"Forward $1 seconds","Volume up 10%":"Volume up 10%","Volume down 10%":"Volume down 10%","Close pop-up":"Close pop-up","Decrease playback speed":"Decrease playback speed","Increase playback speed":"Increase playback speed","Swap between side by side and minimized video":"Swap between side by side and minimized video","Swap the position of the videos":"Swap the position of the videos"}');
 
 /***/ }),
 
@@ -46482,7 +46486,7 @@ function _updateLayoutDynamic() {
     var _layoutStructure$vide3,
       _this5 = this,
       _layoutStructure$vide4;
-    var layoutStructure, videoContainerWidth, videoContainerHeight, isLandscape, _this$player$config$v8, videoCanvasAlign, _this$player$config$v9, _videoCanvasAlign, width, height, canvasElements, buttonElements, video, videoData, player, canvas, i, _canvasElements, _buttonElements, _iterator2, _step2, _video, _videoData, _player, _canvas, res, videoAspectRatio, maxWidth, maxHeight, baseSize, videoWidth, videoHeight, landscapeContainer;
+    var layoutStructure, alignGrid, videoContainerWidth, videoContainerHeight, isLandscape, _this$player$config$v8, videoCanvasAlign, _this$player$config$v9, _videoCanvasAlign, width, height, canvasElements, buttonElements, video, videoData, player, canvas, i, _canvasElements, _buttonElements, _iterator2, _step2, _video, _videoData, _player, _canvas, res, videoAspectRatio, maxWidth, maxHeight, baseSize, videoWidth, videoHeight, landscapeContainer, _layoutStructure$vide5, columns, _layoutStructure$vide6, _columns;
     return VideoContainer_regeneratorRuntime().wrap(function _callee26$(_context28) {
       while (1) switch (_context28.prev = _context28.next) {
         case 0:
@@ -46491,6 +46495,7 @@ function _updateLayoutDynamic() {
           return enableVideos.apply(this, [layoutStructure]);
         case 3:
           hideAllVideoPlayers.apply(this);
+          alignGrid = layoutStructure.alignType === "grid";
           this.baseVideoRect.style.width = "";
           this.baseVideoRect.style.height = "";
           this.baseVideoRect.style.display = "flex";
@@ -46518,7 +46523,7 @@ function _updateLayoutDynamic() {
           width = this.baseVideoRect.clientWidth;
           height = this.element.clientHeight;
           if (!((layoutStructure === null || layoutStructure === void 0 || (_layoutStructure$vide3 = layoutStructure.videos) === null || _layoutStructure$vide3 === void 0 ? void 0 : _layoutStructure$vide3.length) === 1)) {
-            _context28.next = 44;
+            _context28.next = 45;
             break;
           }
           canvasElements = [];
@@ -46528,9 +46533,9 @@ function _updateLayoutDynamic() {
           player = videoData.player, canvas = videoData.canvas;
           canvas.buttonsArea.innerHTML = "";
           _context28.t0 = buttonElements;
-          _context28.next = 30;
+          _context28.next = 31;
           return (0,CanvasPlugin/* addVideoCanvasButton */.RM)(this.player, layoutStructure, canvas, video, video.content);
-        case 30:
+        case 31:
           _context28.t1 = _context28.sent;
           _context28.t0.push.call(_context28.t0, _context28.t1);
           canvas.element.style = {};
@@ -46547,30 +46552,30 @@ function _updateLayoutDynamic() {
           setTimeout(function () {
             (0,CanvasPlugin/* setTabIndex */.Hl)(_this5.player, layoutStructure, buttonElements.flat());
           }, 100);
-          _context28.next = 92;
+          _context28.next = 93;
           break;
-        case 44:
+        case 45:
           if (!(layoutStructure !== null && layoutStructure !== void 0 && (_layoutStructure$vide4 = layoutStructure.videos) !== null && _layoutStructure$vide4 !== void 0 && _layoutStructure$vide4.length)) {
-            _context28.next = 92;
+            _context28.next = 93;
             break;
           }
           i = 0;
           _canvasElements = [];
           _buttonElements = [];
           _iterator2 = _createForOfIteratorHelper(layoutStructure.videos);
-          _context28.prev = 49;
+          _context28.prev = 50;
           _iterator2.s();
-        case 51:
+        case 52:
           if ((_step2 = _iterator2.n()).done) {
-            _context28.next = 82;
+            _context28.next = 83;
             break;
           }
           _video = _step2.value;
           _videoData = this.streamProvider.streams[_video.content];
           _player = _videoData.player, _canvas = _videoData.canvas;
-          _context28.next = 57;
+          _context28.next = 58;
           return _player.getDimensions();
-        case 57:
+        case 58:
           res = _context28.sent;
           videoAspectRatio = res.w / res.h;
           maxWidth = width;
@@ -46588,9 +46593,9 @@ function _updateLayoutDynamic() {
           }
           _canvas.buttonsArea.innerHTML = "";
           _context28.t2 = _buttonElements;
-          _context28.next = 70;
+          _context28.next = 71;
           return (0,CanvasPlugin/* addVideoCanvasButton */.RM)(this.player, layoutStructure, _canvas, _video, _video.content);
-        case 70:
+        case 71:
           _context28.t3 = _context28.sent;
           _context28.t2.push.call(_context28.t2, _context28.t3);
           _canvas.element.style = {};
@@ -46601,27 +46606,37 @@ function _updateLayoutDynamic() {
           _canvas.element.style.position = "relative";
           _canvas.element.sortIndex = i++;
           _canvasElements.push(_canvas.element);
-        case 80:
-          _context28.next = 51;
+        case 81:
+          _context28.next = 52;
           break;
-        case 82:
-          _context28.next = 87;
+        case 83:
+          _context28.next = 88;
           break;
-        case 84:
-          _context28.prev = 84;
-          _context28.t4 = _context28["catch"](49);
+        case 85:
+          _context28.prev = 85;
+          _context28.t4 = _context28["catch"](50);
           _iterator2.e(_context28.t4);
-        case 87:
-          _context28.prev = 87;
+        case 88:
+          _context28.prev = 88;
           _iterator2.f();
-          return _context28.finish(87);
-        case 90:
+          return _context28.finish(88);
+        case 91:
           if (isLandscape) {
             landscapeContainer = (0,dom/* createElementWithHtmlText */.jS)("<div class=\"landscape-container\"></div>", this.baseVideoRect);
             _canvasElements.forEach(function (e) {
               return landscapeContainer.appendChild(e);
             });
+            if (alignGrid) {
+              columns = (layoutStructure === null || layoutStructure === void 0 || (_layoutStructure$vide5 = layoutStructure.videos) === null || _layoutStructure$vide5 === void 0 ? void 0 : _layoutStructure$vide5.length) / 2;
+              landscapeContainer.style.display = "grid";
+              landscapeContainer.style.gridTemplateColumns = "repeat(".concat(columns, ", 1fr)");
+            }
           } else {
+            if (alignGrid) {
+              _columns = (layoutStructure === null || layoutStructure === void 0 || (_layoutStructure$vide6 = layoutStructure.videos) === null || _layoutStructure$vide6 === void 0 ? void 0 : _layoutStructure$vide6.length) / 3;
+              this.baseVideoRect.style.display = "grid";
+              this.baseVideoRect.style.gridTemplateColumns = "repeat(".concat(_columns, ", 1fr)");
+            }
             _canvasElements.forEach(function (e) {
               return _this5.baseVideoRect.appendChild(e);
             });
@@ -46629,13 +46644,13 @@ function _updateLayoutDynamic() {
           setTimeout(function () {
             (0,CanvasPlugin/* setTabIndex */.Hl)(_this5.player, layoutStructure, _buttonElements.flat());
           }, 100);
-        case 92:
-          return _context28.abrupt("return", true);
         case 93:
+          return _context28.abrupt("return", true);
+        case 94:
         case "end":
           return _context28.stop();
       }
-    }, _callee26, this, [[49, 84, 87, 90]]);
+    }, _callee26, this, [[50, 85, 88, 91]]);
   }));
   return _updateLayoutDynamic.apply(this, arguments);
 }
