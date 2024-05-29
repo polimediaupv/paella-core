@@ -73,8 +73,8 @@ const addButton = function({
     `);
     this.buttonsArea.appendChild(btn);
     btn.addEventListener('click', async (evt) => {
-        await click(content);
         evt.stopPropagation();
+        await click(content);
         return false;
     });
     return btn;
