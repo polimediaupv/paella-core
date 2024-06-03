@@ -327,6 +327,10 @@ export class HlsVideo extends HtmlVideo {
         else {
             await (new Promise((resolve,reject) => {
                 const checkReady = () => {
+                    if (this._ready) {
+                        resolve();
+                    }
+                    
                     // readyState === 2: HAVE_CURRENT_DATA. Data is available for the current playback
                     // position, but not enought to actually play more than one frame. In firefox, the
                     // video returns readyState === 2 when the video reaches the end, so the correct
