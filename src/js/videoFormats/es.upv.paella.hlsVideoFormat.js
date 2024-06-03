@@ -309,7 +309,7 @@ export class HlsVideo extends Mp4Video {
         else {
             await (new Promise((resolve,reject) => {
                 const checkReady = () => {
-		    if (this._ready) {
+                    if (this._ready) {
                         resolve();
                     }
                     // Make a special case to allow Firefox to play at readyState 2.
