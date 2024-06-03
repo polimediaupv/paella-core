@@ -309,6 +309,9 @@ export class HlsVideo extends Mp4Video {
         else {
             await (new Promise((resolve,reject) => {
                 const checkReady = () => {
+		    if (this._ready) {
+                        resolve();
+                    }
                     // Make a special case to allow Firefox to play at readyState 2.
                     // Browsers like Safari drop from readyState 3 to readyState 2 when the video is
                     // buffering and cannot be played. Chrome moves quickly between ready state
@@ -492,3 +495,4 @@ export default class HlsVideoPlugin extends VideoPlugin {
         };
     }
 }
+
