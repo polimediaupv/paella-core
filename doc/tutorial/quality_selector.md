@@ -14,6 +14,7 @@ The necessary plugin is already installed, because it belongs to the `paella-bas
             "side": "right",
             "order": "2",
             "showIcon": false,
+            "showForSingleQuality": false,
             "menuTitle": "Video Quality",
             "parentContainer": "options"
         }
@@ -24,6 +25,8 @@ The necessary plugin is already installed, because it belongs to the `paella-bas
 We already know most of the configuration options we have added: `side`, `order`, `parentContainer` and `menuTitle` are explained in the [plugin tutorial](add_plugins.md).
 
 The `showIcon` option is specific to this plugin, and indicates whether we want to show an icon on the button that displays the video quality options. If `true`, then a white box icon containing the text of the selected resolution is displayed. If the video quality labels are somewhat long, it is preferable to leave the option to `false`, which will make the width of the button fit the size of the text it contains.
+
+If the `showForSingleQuality` option is set to `true`, then the quality selector is also shown if there is only a single quality available. This can be useful so that the user can at least the current quality (even if they cannot change it). Further, when the quality selector is in a sub-menu, it can be useful to always have that button to avoid ending up with a completely empty sub-menu.
 
 To test the new icon, you can use the HLS stream example we added in the [previous tutorial](video_formats.md):
 
