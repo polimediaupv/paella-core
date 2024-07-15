@@ -21,6 +21,7 @@ function placePopUp(player, anchorElement, contentElement) {
 		const viewportHeight = window.innerHeight;
 		const viewportCenterX = window.innerWidth / 2;
 		const viewportCenterY = window.innerHeight / 2;
+		const scrollTop = document.scrollingElement.scrollTop;
 
 		// Decide where to attach the popup depending on the anchor position
 		contentElement.style.left = "";
@@ -34,7 +35,7 @@ function placePopUp(player, anchorElement, contentElement) {
 			// bottom left
 			const b = viewportHeight - (bottom - height);
 			contentElement.style.left = `${ left }px`;
-			contentElement.style.bottom = `${ b }px`;
+			contentElement.style.bottom = `${ b - scrollTop }px`;
 			contentElement.style.maxHeight = `calc(100vh - ${ b }px - 10px)`;
 		}
 		else if (viewportCenterX>centerX && viewportCenterY>centerY) {
@@ -53,7 +54,7 @@ function placePopUp(player, anchorElement, contentElement) {
 			// bottom right quadrant
 			const b = viewportHeight - (bottom - height);
 			contentElement.style.right = `${ viewportWidth - right }px`;
-			contentElement.style.bottom = `${ b }px`;
+			contentElement.style.bottom = `${ b - scrollTop }px`;
 			contentElement.style.maxHeight = `calc(100vh - ${ b }px - 10px)`;
 		}
 
