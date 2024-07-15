@@ -13009,7 +13009,7 @@ var AudioOnlyVideo = /*#__PURE__*/function (_Video) {
               if (this.player.frameList.frames.length > 0) {
                 this.audio.addEventListener("timeupdate", function (evt) {
                   var img = _this3.player.frameList.getImage(evt.target.currentTime, true);
-                  if (_this3._previewImage.src != img.url) {
+                  if (img && _this3._previewImage.src != img.url) {
                     _this3._previewImage.src = img.url;
                     _this3._previewImage.onload = function () {
                       return fixAspectRatio();
@@ -13021,8 +13021,14 @@ var AudioOnlyVideo = /*#__PURE__*/function (_Video) {
                 return fixAspectRatio();
               });
               fixAspectRatio();
+              this._endedCallback = this._endedCallback || function () {
+                if (typeof _this3._videoEndedCallback == "function") {
+                  _this3._videoEndedCallback();
+                }
+              };
+              this.audio.addEventListener("ended", this._endedCallback);
               this._ready = true;
-            case 25:
+            case 27:
             case "end":
               return _context12.stop();
           }
@@ -13032,6 +13038,27 @@ var AudioOnlyVideo = /*#__PURE__*/function (_Video) {
         return _loadStreamData.apply(this, arguments);
       }
       return loadStreamData;
+    }()
+  }, {
+    key: "clearStreamData",
+    value: function () {
+      var _clearStreamData = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee13() {
+        return _regeneratorRuntime().wrap(function _callee13$(_context13) {
+          while (1) switch (_context13.prev = _context13.next) {
+            case 0:
+              this.audio.src = "";
+              this.audio.removeEventListener("ended", this._endedCallback);
+              this._ready = false;
+            case 3:
+            case "end":
+              return _context13.stop();
+          }
+        }, _callee13, this);
+      }));
+      function clearStreamData() {
+        return _clearStreamData.apply(this, arguments);
+      }
+      return clearStreamData;
     }()
   }]);
   return AudioOnlyVideo;
@@ -13066,16 +13093,16 @@ var AudioVideoPlugin = /*#__PURE__*/function (_VideoPlugin) {
   }, {
     key: "getVideoInstance",
     value: function () {
-      var _getVideoInstance = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee13(playerContainer, isMainAudio) {
-        return _regeneratorRuntime().wrap(function _callee13$(_context13) {
-          while (1) switch (_context13.prev = _context13.next) {
+      var _getVideoInstance = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee14(playerContainer, isMainAudio) {
+        return _regeneratorRuntime().wrap(function _callee14$(_context14) {
+          while (1) switch (_context14.prev = _context14.next) {
             case 0:
-              return _context13.abrupt("return", new AudioOnlyVideo(this.player, playerContainer, isMainAudio));
+              return _context14.abrupt("return", new AudioOnlyVideo(this.player, playerContainer, isMainAudio));
             case 1:
             case "end":
-              return _context13.stop();
+              return _context14.stop();
           }
-        }, _callee13, this);
+        }, _callee14, this);
       }));
       function getVideoInstance(_x4, _x5) {
         return _getVideoInstance.apply(this, arguments);
@@ -16336,7 +16363,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `:root {
 
 .popup-container {
 	z-index: 1000;
-	position: fixed;
+	position: absolute;
 	top: 0px;
 	left: 0px;
 	height: 100vh;
@@ -16348,7 +16375,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `:root {
 }
 
 .popup-content {
-	position: fixed;
+	position: absolute;
 	background-color: var(--main-bg-color);
 	color: var(--main-fg-color);
 	box-shadow: 0px 0px 4px 0px var(--main-bg-color);
@@ -16511,7 +16538,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `:root {
 	cursor: se-resize;
 	float: left;
 }
-`, "",{"version":3,"sources":["webpack://./src/css/PopUp.css"],"names":[],"mappings":"AAAA;CACC,+BAA+B;CAC/B,4BAA4B;CAC5B,kDAAkD;CAClD,8BAA8B;AAC/B;;AAEA;CACC,aAAa;CACb,eAAe;CACf,QAAQ;CACR,SAAS;CACT,aAAa;CACb,YAAY;AACb;;AAEA;CACC,oBAAoB;AACrB;;AAEA;CACC,eAAe;CACf,sCAAsC;CACtC,2BAA2B;CAC3B,gDAAgD;CAChD,kBAAkB;CAClB,wBAAwB;CACxB,yBAAyB;CACzB,cAAc;CACd,cAAc;AACf;;AAEA;CACC,sBAAsB;CACtB,iBAAiB;CACjB,kBAAkB;CAClB,gBAAgB;CAChB,cAAc;AACf;;AAEA;CACC,YAAY;CACZ,kBAAkB;CAClB,gBAAgB;CAChB,iBAAiB;AAClB;;AAEA;CACC,mBAAmB;AACpB;;AAEA;CACC,qCAAqC;CACrC,sCAAsC;CACtC,iBAAiB;CACjB,WAAW;AACZ;;AAEA;CACC,sDAAsD;CACtD,sCAAsC;CACtC,kBAAkB;CAClB,WAAW;AACZ;;AAEA;CACC,qCAAqC;CACrC,sCAAsC;CACtC,iBAAiB;CACjB,WAAW;AACZ;;AAEA;CACC,8BAA8B;CAC9B,kBAAkB;CAClB,iBAAiB;CACjB,sBAAsB;CACtB,gBAAgB;AACjB;;AAEA;CACC,wFAAwF;CACxF,8CAA8C;CAC9C,YAAY;CACZ,kBAAkB;CAClB,aAAa;IACV,eAAe;IACf,qBAAqB;IACrB,uBAAuB;AAC3B;;AAEA;CACC,YAAY;CACZ,6CAA6C;AAC9C;;AAEA;CACC,qDAAqD;CACrD,sDAAsD;AACvD;;AAEA;CACC,sDAAsD;CACtD,2CAA2C;CAC3C,4CAA4C;AAC7C;;AAEA;CACC,kBAAkB;CAClB,QAAQ;CACR,UAAU;CACV,aAAa;AACd;;AAEA;CACC,aAAa;CACb,6BAA6B;IAC1B,sCAAsC;CACzC,kBAAkB;CAClB,eAAe;CACf,iBAAiB;AAClB;;AAEA;CACC,iDAAiD;AAClD;;AAEA;CACC,oCAAoC;CACpC,qCAAqC;CACrC,cAAc;CACd,2BAA2B;CAC3B,0BAA0B;AAC3B;;AAEA;CACC,sDAAsD;CACtD,2CAA2C;CAC3C,4CAA4C;CAC5C,WAAW;AACZ;;AAEA;CACC,qFAAqF;CACrF,cAAc;AACf;;AAEA,iDAAiD;AACjD;CACC,qBAAqB;AACtB;;AAEA;CACC,qCAAqC;CACrC,sCAAsC;CACtC,WAAW;AACZ;;AAEA;CACC,qCAAqC;CACrC,sCAAsC;CACtC,WAAW;AACZ;;AAEA;CACC,qCAAqC;CACrC,sCAAsC;CACtC,iBAAiB;CACjB,WAAW;AACZ;;AAEA;CACC,sDAAsD;CACtD,sCAAsC;CACtC,kBAAkB;CAClB,WAAW;AACZ;;AAEA;CACC,qCAAqC;CACrC,sCAAsC;CACtC,iBAAiB;CACjB,WAAW;AACZ","sourcesContent":[":root {\n\t--popup-resizeable-border: 10px;\n\t--popup-title-bar-size: 20px;\n\t--popup-title-bar-color: var(--highlight-bg-color);\n\t--popup-dock-button-size: 15px;\n}\n\n.popup-container {\n\tz-index: 1000;\n\tposition: fixed;\n\ttop: 0px;\n\tleft: 0px;\n\theight: 100vh;\n\twidth: 100vw;\n}\n\n.popup-container.no-modal {\n\tpointer-events: none;\n}\n\n.popup-content {\n\tposition: fixed;\n\tbackground-color: var(--main-bg-color);\n\tcolor: var(--main-fg-color);\n\tbox-shadow: 0px 0px 4px 0px var(--main-bg-color);\n\tborder-radius: 3px;\n\tpadding: 5px 5px 5px 5px;\n\tforced-color-adjust: none;\n\toverflow: auto;\n\tdisplay: table;\n}\n\n.popup-content.static-position {\n\tbox-sizing: border-box;\n\tuser-select: none;\n\tposition: absolute;\n\toverflow: hidden;\n\tdisplay: block;\n}\n\n.popup-content.moveable {\n\tpadding: 0px;\n\tcursor: col-resize;\n\tmin-width: 180px;\n\tmin-height: 100px;\n}\n\n.popup-container.no-modal .popup-content {\n\tpointer-events: all;\n}\n\n.popup-content.resizeable .border-top-left {\n\twidth: var(--popup-resizeable-border);\n\theight: var(--popup-resizeable-border);\n\tcursor: nw-resize;\n\tfloat: left;\n}\n\n.popup-content.resizeable .border-top-center {\n\twidth: calc(100% - var(--popup-resizeable-border) * 2);\n\theight: var(--popup-resizeable-border);\n\tcursor: row-resize;\n\tfloat: left;\n}\n\n.popup-content.resizeable .border-top-right {\n\twidth: var(--popup-resizeable-border);\n\theight: var(--popup-resizeable-border);\n\tcursor: ne-resize;\n\tfloat: left;\n}\n\n.popup-content .title-bar {\n\tfont-family: arial, sans-serif;\n\ttext-align: center;\n\tuser-select: none;\n\tbox-sizing: border-box;\n\toverflow: hidden;\n}\n\n.popup-content.moveable .title-bar {\n\tmin-height: max(var(--popup-title-bar-size), calc(var(--popup-dock-button-size) + 11px));\n\tbackground-color: var(--popup-title-bar-color);\n\tcursor: move;\n\tposition: relative;\n\tdisplay: flex;\n    flex-wrap: wrap;\n    align-content: center;\n    justify-content: center;\n}\n\n.popup-content.fixed .title-bar.not-empty {\n\tpadding: 5px;\n\tborder-bottom: 1px solid var(--main-fg-color);\n}\n\n.popup-content.moveable .title-bar .title-bar-content {\n\tpadding-left: calc(var(--popup-dock-button-size) * 2);\n\tpadding-right: calc(var(--popup-dock-button-size) * 2);\n}\n\n.popup-content.moveable.resizeable .title-bar {\n\twidth: calc(100% - var(--popup-resizeable-border) * 2);\n\tmargin-left: var(--popup-resizeable-border);\n\tmargin-right: var(--popup-resizeable-border);\n}\n\n.popup-content .popup-action-buttons {\n\tposition: absolute;\n\ttop: 3px;\n\tright: 3px;\n\tdisplay: flex;\n}\n\n.popup-content button.popup-action-button {\n\tdisplay: none;\n\tbackground-color: transparent;\n    border: 1px solid var(--main-fg-color);\n\tborder-radius: 7px;\n\tcursor: pointer;\n\tmargin-right: 2px;\n}\n\n.popup-content button.popup-action-button:hover {\n\tbackground-color: var(--highlight-bg-color-hover);\n}\n\n.popup-content button.popup-action-button i {\n\twidth: var(--popup-dock-button-size);\n\theight: var(--popup-dock-button-size);\n\tdisplay: block;\n\tcolor: var(--main-fg-color);\n\tfill: var(--main-fg-color);\n}\n\n.popup-content .center-container {\n\twidth: calc(100% - var(--popup-resizeable-border) * 2);\n\tmargin-left: var(--popup-resizeable-border);\n\tmargin-right: var(--popup-resizeable-border);\n\tfloat: left;\n}\n\n.popup-content.static-position .center-container {\n\theight: calc(100% - var(--popup-resizeable-border) * 2 - var(--popup-title-bar-size));\n\toverflow: auto;\n}\n\n/* Begin properties for static position pop up: */\n.popup-content.static-position button.popup-action-button {\n\tdisplay: inline-block;\n}\n\n.popup-content.static-position .separator-left {\n\twidth: var(--popup-resizeable-border);\n\theight: var(--popup-resizeable-border);\n\tfloat: left;\n}\n\n.popup-content.static-position .separator-right {\n\twidth: var(--popup-resizeable-border);\n\theight: var(--popup-resizeable-border);\n\tfloat: left;\n}\n\n.popup-content.static-position .border-bottom-left {\n\twidth: var(--popup-resizeable-border);\n\theight: var(--popup-resizeable-border);\n\tcursor: sw-resize;\n\tfloat: left;\n}\n\n.popup-content.static-position .border-bottom-center {\n\twidth: calc(100% - var(--popup-resizeable-border) * 2);\n\theight: var(--popup-resizeable-border);\n\tcursor: row-resize;\n\tfloat: left;\n}\n\n.popup-content.static-position .border-bottom-right {\n\twidth: var(--popup-resizeable-border);\n\theight: var(--popup-resizeable-border);\n\tcursor: se-resize;\n\tfloat: left;\n}\n"],"sourceRoot":""}]);
+`, "",{"version":3,"sources":["webpack://./src/css/PopUp.css"],"names":[],"mappings":"AAAA;CACC,+BAA+B;CAC/B,4BAA4B;CAC5B,kDAAkD;CAClD,8BAA8B;AAC/B;;AAEA;CACC,aAAa;CACb,kBAAkB;CAClB,QAAQ;CACR,SAAS;CACT,aAAa;CACb,YAAY;AACb;;AAEA;CACC,oBAAoB;AACrB;;AAEA;CACC,kBAAkB;CAClB,sCAAsC;CACtC,2BAA2B;CAC3B,gDAAgD;CAChD,kBAAkB;CAClB,wBAAwB;CACxB,yBAAyB;CACzB,cAAc;CACd,cAAc;AACf;;AAEA;CACC,sBAAsB;CACtB,iBAAiB;CACjB,kBAAkB;CAClB,gBAAgB;CAChB,cAAc;AACf;;AAEA;CACC,YAAY;CACZ,kBAAkB;CAClB,gBAAgB;CAChB,iBAAiB;AAClB;;AAEA;CACC,mBAAmB;AACpB;;AAEA;CACC,qCAAqC;CACrC,sCAAsC;CACtC,iBAAiB;CACjB,WAAW;AACZ;;AAEA;CACC,sDAAsD;CACtD,sCAAsC;CACtC,kBAAkB;CAClB,WAAW;AACZ;;AAEA;CACC,qCAAqC;CACrC,sCAAsC;CACtC,iBAAiB;CACjB,WAAW;AACZ;;AAEA;CACC,8BAA8B;CAC9B,kBAAkB;CAClB,iBAAiB;CACjB,sBAAsB;CACtB,gBAAgB;AACjB;;AAEA;CACC,wFAAwF;CACxF,8CAA8C;CAC9C,YAAY;CACZ,kBAAkB;CAClB,aAAa;IACV,eAAe;IACf,qBAAqB;IACrB,uBAAuB;AAC3B;;AAEA;CACC,YAAY;CACZ,6CAA6C;AAC9C;;AAEA;CACC,qDAAqD;CACrD,sDAAsD;AACvD;;AAEA;CACC,sDAAsD;CACtD,2CAA2C;CAC3C,4CAA4C;AAC7C;;AAEA;CACC,kBAAkB;CAClB,QAAQ;CACR,UAAU;CACV,aAAa;AACd;;AAEA;CACC,aAAa;CACb,6BAA6B;IAC1B,sCAAsC;CACzC,kBAAkB;CAClB,eAAe;CACf,iBAAiB;AAClB;;AAEA;CACC,iDAAiD;AAClD;;AAEA;CACC,oCAAoC;CACpC,qCAAqC;CACrC,cAAc;CACd,2BAA2B;CAC3B,0BAA0B;AAC3B;;AAEA;CACC,sDAAsD;CACtD,2CAA2C;CAC3C,4CAA4C;CAC5C,WAAW;AACZ;;AAEA;CACC,qFAAqF;CACrF,cAAc;AACf;;AAEA,iDAAiD;AACjD;CACC,qBAAqB;AACtB;;AAEA;CACC,qCAAqC;CACrC,sCAAsC;CACtC,WAAW;AACZ;;AAEA;CACC,qCAAqC;CACrC,sCAAsC;CACtC,WAAW;AACZ;;AAEA;CACC,qCAAqC;CACrC,sCAAsC;CACtC,iBAAiB;CACjB,WAAW;AACZ;;AAEA;CACC,sDAAsD;CACtD,sCAAsC;CACtC,kBAAkB;CAClB,WAAW;AACZ;;AAEA;CACC,qCAAqC;CACrC,sCAAsC;CACtC,iBAAiB;CACjB,WAAW;AACZ","sourcesContent":[":root {\n\t--popup-resizeable-border: 10px;\n\t--popup-title-bar-size: 20px;\n\t--popup-title-bar-color: var(--highlight-bg-color);\n\t--popup-dock-button-size: 15px;\n}\n\n.popup-container {\n\tz-index: 1000;\n\tposition: absolute;\n\ttop: 0px;\n\tleft: 0px;\n\theight: 100vh;\n\twidth: 100vw;\n}\n\n.popup-container.no-modal {\n\tpointer-events: none;\n}\n\n.popup-content {\n\tposition: absolute;\n\tbackground-color: var(--main-bg-color);\n\tcolor: var(--main-fg-color);\n\tbox-shadow: 0px 0px 4px 0px var(--main-bg-color);\n\tborder-radius: 3px;\n\tpadding: 5px 5px 5px 5px;\n\tforced-color-adjust: none;\n\toverflow: auto;\n\tdisplay: table;\n}\n\n.popup-content.static-position {\n\tbox-sizing: border-box;\n\tuser-select: none;\n\tposition: absolute;\n\toverflow: hidden;\n\tdisplay: block;\n}\n\n.popup-content.moveable {\n\tpadding: 0px;\n\tcursor: col-resize;\n\tmin-width: 180px;\n\tmin-height: 100px;\n}\n\n.popup-container.no-modal .popup-content {\n\tpointer-events: all;\n}\n\n.popup-content.resizeable .border-top-left {\n\twidth: var(--popup-resizeable-border);\n\theight: var(--popup-resizeable-border);\n\tcursor: nw-resize;\n\tfloat: left;\n}\n\n.popup-content.resizeable .border-top-center {\n\twidth: calc(100% - var(--popup-resizeable-border) * 2);\n\theight: var(--popup-resizeable-border);\n\tcursor: row-resize;\n\tfloat: left;\n}\n\n.popup-content.resizeable .border-top-right {\n\twidth: var(--popup-resizeable-border);\n\theight: var(--popup-resizeable-border);\n\tcursor: ne-resize;\n\tfloat: left;\n}\n\n.popup-content .title-bar {\n\tfont-family: arial, sans-serif;\n\ttext-align: center;\n\tuser-select: none;\n\tbox-sizing: border-box;\n\toverflow: hidden;\n}\n\n.popup-content.moveable .title-bar {\n\tmin-height: max(var(--popup-title-bar-size), calc(var(--popup-dock-button-size) + 11px));\n\tbackground-color: var(--popup-title-bar-color);\n\tcursor: move;\n\tposition: relative;\n\tdisplay: flex;\n    flex-wrap: wrap;\n    align-content: center;\n    justify-content: center;\n}\n\n.popup-content.fixed .title-bar.not-empty {\n\tpadding: 5px;\n\tborder-bottom: 1px solid var(--main-fg-color);\n}\n\n.popup-content.moveable .title-bar .title-bar-content {\n\tpadding-left: calc(var(--popup-dock-button-size) * 2);\n\tpadding-right: calc(var(--popup-dock-button-size) * 2);\n}\n\n.popup-content.moveable.resizeable .title-bar {\n\twidth: calc(100% - var(--popup-resizeable-border) * 2);\n\tmargin-left: var(--popup-resizeable-border);\n\tmargin-right: var(--popup-resizeable-border);\n}\n\n.popup-content .popup-action-buttons {\n\tposition: absolute;\n\ttop: 3px;\n\tright: 3px;\n\tdisplay: flex;\n}\n\n.popup-content button.popup-action-button {\n\tdisplay: none;\n\tbackground-color: transparent;\n    border: 1px solid var(--main-fg-color);\n\tborder-radius: 7px;\n\tcursor: pointer;\n\tmargin-right: 2px;\n}\n\n.popup-content button.popup-action-button:hover {\n\tbackground-color: var(--highlight-bg-color-hover);\n}\n\n.popup-content button.popup-action-button i {\n\twidth: var(--popup-dock-button-size);\n\theight: var(--popup-dock-button-size);\n\tdisplay: block;\n\tcolor: var(--main-fg-color);\n\tfill: var(--main-fg-color);\n}\n\n.popup-content .center-container {\n\twidth: calc(100% - var(--popup-resizeable-border) * 2);\n\tmargin-left: var(--popup-resizeable-border);\n\tmargin-right: var(--popup-resizeable-border);\n\tfloat: left;\n}\n\n.popup-content.static-position .center-container {\n\theight: calc(100% - var(--popup-resizeable-border) * 2 - var(--popup-title-bar-size));\n\toverflow: auto;\n}\n\n/* Begin properties for static position pop up: */\n.popup-content.static-position button.popup-action-button {\n\tdisplay: inline-block;\n}\n\n.popup-content.static-position .separator-left {\n\twidth: var(--popup-resizeable-border);\n\theight: var(--popup-resizeable-border);\n\tfloat: left;\n}\n\n.popup-content.static-position .separator-right {\n\twidth: var(--popup-resizeable-border);\n\theight: var(--popup-resizeable-border);\n\tfloat: left;\n}\n\n.popup-content.static-position .border-bottom-left {\n\twidth: var(--popup-resizeable-border);\n\theight: var(--popup-resizeable-border);\n\tcursor: sw-resize;\n\tfloat: left;\n}\n\n.popup-content.static-position .border-bottom-center {\n\twidth: calc(100% - var(--popup-resizeable-border) * 2);\n\theight: var(--popup-resizeable-border);\n\tcursor: row-resize;\n\tfloat: left;\n}\n\n.popup-content.static-position .border-bottom-right {\n\twidth: var(--popup-resizeable-border);\n\theight: var(--popup-resizeable-border);\n\tcursor: se-resize;\n\tfloat: left;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -44503,7 +44530,7 @@ Hls.defaultConfig = void 0;
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"paella-core","version":"1.49.3","description":"Multistream HTML video player","main":"src/index.js","module":"dist/paella-core.js","scripts":{"build":"webpack --mode production","dev":"webpack serve --mode development --config webpack.debug.js --host 0.0.0.0","captions":"webpack serve --mode development --config webpack.captions.js","eslint":"eslint .","nomanifest":"webpack serve --mode development --config webpack.nomanifest.js","testenv":"webpack serve --mode development --config webpack.test.js --host 0.0.0.0"},"repository":{"type":"git","url":"git+https://github.com/polimediaupv/paella-core.git"},"keywords":["html","player","video","hls"],"author":"Fernando Serrano Carpena <ferserc1@gmail.com>","license":"ECL-2.0","bugs":{"url":"https://github.com/polimediaupv/paella-core/issues"},"homepage":"https://github.com/polimediaupv/paella-core#readme","devDependencies":{"@babel/core":"^7.12.10","@babel/plugin-transform-modules-commonjs":"^7.19.6","@babel/preset-env":"^7.12.11","@playwright/test":"^1.29.2","babel-loader":"^9.0.0","babel-plugin-transform-require-context":"^0.1.1","copy-webpack-plugin":"^11.0.0","css-loader":"^6.6.0","eslint":"^8.29.0","file-loader":"^6.2.0","html-webpack-plugin":"^5.5.0","source-map-loader":"^4.0.0","style-loader":"^3.3.1","svg-inline-loader":"^0.8.2","webpack":"^5.66.0","webpack-cli":"^5.0.0","webpack-dev-server":"^4.7.3"},"dependencies":{"core-js":"^3.8.2","hls.js":"^1.0.4"}}');
+module.exports = JSON.parse('{"name":"paella-core","version":"1.49.4","description":"Multistream HTML video player","main":"src/index.js","module":"dist/paella-core.js","scripts":{"build":"webpack --mode production","dev":"webpack serve --mode development --config webpack.debug.js --host 0.0.0.0","captions":"webpack serve --mode development --config webpack.captions.js","eslint":"eslint .","nomanifest":"webpack serve --mode development --config webpack.nomanifest.js","testenv":"webpack serve --mode development --config webpack.test.js --host 0.0.0.0"},"repository":{"type":"git","url":"git+https://github.com/polimediaupv/paella-core.git"},"keywords":["html","player","video","hls"],"author":"Fernando Serrano Carpena <ferserc1@gmail.com>","license":"ECL-2.0","bugs":{"url":"https://github.com/polimediaupv/paella-core/issues"},"homepage":"https://github.com/polimediaupv/paella-core#readme","devDependencies":{"@babel/core":"^7.12.10","@babel/plugin-transform-modules-commonjs":"^7.19.6","@babel/preset-env":"^7.12.11","@playwright/test":"^1.29.2","babel-loader":"^9.0.0","babel-plugin-transform-require-context":"^0.1.1","copy-webpack-plugin":"^11.0.0","css-loader":"^6.6.0","eslint":"^8.29.0","file-loader":"^6.2.0","html-webpack-plugin":"^5.5.0","source-map-loader":"^4.0.0","style-loader":"^3.3.1","svg-inline-loader":"^0.8.2","webpack":"^5.66.0","webpack-cli":"^5.0.0","webpack-dev-server":"^4.7.3"},"dependencies":{"core-js":"^3.8.2","hls.js":"^1.0.4"}}');
 
 /***/ }),
 
