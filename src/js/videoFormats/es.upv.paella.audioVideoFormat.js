@@ -157,7 +157,7 @@ export class AudioOnlyVideo extends Video {
         if (this.player.frameList.frames.length > 0) {
             this.audio.addEventListener("timeupdate", evt => {
                 const img = this.player.frameList.getImage(evt.target.currentTime, true);
-                if (this._previewImage.src != img.url) {
+                if (img && this._previewImage.src != img.url) {
                     this._previewImage.src = img.url;
                     this._previewImage.onload = () => fixAspectRatio();
                 }
@@ -167,7 +167,20 @@ export class AudioOnlyVideo extends Video {
         window.addEventListener("resize", evt => fixAspectRatio());
         fixAspectRatio();
 
+        this._endedCallback = this._endedCallback || (() => {
+            if (typeof(this._videoEndedCallback) == "function") {
+                this._videoEndedCallback();
+            }
+        });
+        this.audio.addEventListener("ended", this._endedCallback);
+
         this._ready = true;
+    }
+
+    async clearStreamData() {
+        this.audio.src = "";
+        this.audio.removeEventListener("ended", this._endedCallback);
+        this._ready = false;
     }
 }
 
