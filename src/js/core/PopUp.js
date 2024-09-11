@@ -41,13 +41,13 @@ function placePopUp(player, anchorElement, contentElement) {
 		else if (viewportCenterX>centerX && viewportCenterY>centerY) {
 			// top left quadrant
 			contentElement.style.left = `${ left }px`;
-			contentElement.style.top = `${ top + height + scroll }px`;
+			contentElement.style.top = `${ top + height + scrollTop }px`;
 			contentElement.style.maxHeight = `calc(100vh - ${ top + height }px - 10px)`;
 		}
 		else if (viewportCenterX<=centerX && viewportCenterY>centerY) {
 			// top right quadrant
 			contentElement.style.right = `${ viewportWidth - right }px`;
-			contentElement.style.top = `${ top + height + scroll }px`;
+			contentElement.style.top = `${ top + height + scrollTop }px`;
 			contentElement.style.maxHeight = `calc(100vh - ${ top + height }px - 10px)`;
 		}
 		else if (viewportCenterX<=centerX && viewportCenterY<=centerY) {
