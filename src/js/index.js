@@ -74,7 +74,7 @@ import Log, {
 
 /******* Export the built-in plugin classes *******/
 // video formats
-import HlsVideoFormatPlugin, { HlsVideo, getHlsSupport, defaultHlsConfig, HlsSupport } from './videoFormats/es.upv.paella.hlsVideoFormat';
+import HtmlVideoFormatPlugin, { HtmlVideo} from './videoFormats/es.upv.paella.htmlVideoFormat';
 import Mp4VideoFormatPlugin, { Mp4Video } from './videoFormats/es.upv.paella.mp4VideoFormat';
 import ImageVideoFormatPlugin, { ImageVideo } from './videoFormats/es.upv.paella.imageVideoFormat';
 import AudioVideoPlugin, { AudioOnlyVideo } from './videoFormats/es.upv.paella.audioVideoFormat';
@@ -175,15 +175,12 @@ export {
     Data,
     DataPlugin,
 
-    HlsVideo,
-    getHlsSupport,
-    defaultHlsConfig,
-    HlsSupport,
+    HtmlVideo,
     Mp4Video,
     ImageVideo,
     AudioOnlyVideo,
 
-    HlsVideoFormatPlugin,
+    HtmlVideoFormatPlugin,
     Mp4VideoFormatPlugin,
     ImageVideoFormatPlugin,
     AudioVideoPlugin,

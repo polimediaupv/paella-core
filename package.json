@@ -37,7 +37,6 @@
     "vite": "^5.0.8"
   },
   "dependencies": {
-    "@ferserc1/input-style-unifier": "^0.0.1",
-    "hls.js": "^1.0.4"
+    "@ferserc1/input-style-unifier": "^0.0.1"
   }
 }
