@@ -1,6 +1,4 @@
 import AudioVideoPlugin from "./videoFormats/es.upv.paella.audioVideoFormat";
-import HlsVideoPlugin from "./videoFormats/es.upv.paella.hlsVideoFormat";
-import HlsLiveVideoFormat from "./videoFormats/es.upv.paella.hlsLiveVideoFormat";
 import HtmlVideoPlugin from "./videoFormats/es.upv.paella.htmlVideoFormat";
 import ImageVideoPlugin from "./videoFormats/es.upv.paella.imageVideoFormat";
 import Mp4VideoPlugin from "./videoFormats/es.upv.paella.mp4VideoFormat";
@@ -27,18 +25,6 @@ import LocalStorageDataPlugin from "./data/es.upv.paella.localStorageDataPlugin"
 export default [
     {
         plugin: AudioVideoPlugin,
-        config: {
-            enabled: false
-        }
-    },
-    {
-        plugin: HlsVideoPlugin,
-        config: {
-            enabled: false
-        }
-    },
-    {
-        plugin: HlsLiveVideoFormat,
         config: {
             enabled: false
         }
