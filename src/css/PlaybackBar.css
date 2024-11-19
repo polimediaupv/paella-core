@@ -263,6 +263,7 @@
 	top: 0px;
 	pointer-events: none;
 	opacity: 0.5;
+	width: 100%;
 }
 
 .playback-bar:hover .progress-indicator canvas {

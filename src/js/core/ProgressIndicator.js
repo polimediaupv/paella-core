@@ -21,6 +21,8 @@ export function getCurrentFrame(sortedFrameList,time) {
 	return result;
 }
 
+const g_canvasScale = 4;
+
 function updateFrameThumbnail(offsetX,time) {
 	let frame = getCurrentFrame(this.frameList, time);
 	if (frame) {
@@ -58,8 +60,8 @@ function updateCanvas() {
 		const width = this._canvas[0].clientWidth;
 		const height = this._canvas[0].clientHeight;
 		this._canvasPlugins.forEach(plugin => {
-			plugin.drawForeground(foregroundContext, width, height, this._isHover);
-			plugin.drawBackground(backgroundContext, width, height, this._isHover);
+			plugin.drawForeground(foregroundContext, width, height, this._isHover, g_canvasScale);
+			plugin.drawBackground(backgroundContext, width, height, this._isHover, g_canvasScale);
 		})
 		this._updateCanvas = false;
 	}
@@ -67,8 +69,8 @@ function updateCanvas() {
 
 function updateHeight() {
 	const size = {
-		w: this.element.offsetWidth,
-		h: this.element.offsetHeight
+		w: this.element.offsetWidth * g_canvasScale,
+		h: this.element.offsetHeight * g_canvasScale
 	};
 	this._canvas.forEach(c => {
 		c.width = size.w;
@@ -76,7 +78,7 @@ function updateHeight() {
 	});
 	const height = this._isHover ? this._minHeightHover : this._minHeight
 	this.element.style.minHeight = `${ height }px`;
-	this._canvas.forEach(canvas => canvas.height = this.element.clientHeight);
+	this._canvas.forEach(canvas => canvas.height = this.element.clientHeight * g_canvasScale);
 	updateCanvas.apply(this);
 }
 
