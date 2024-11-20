@@ -120,6 +120,8 @@ export default class MenuButtonPlugin extends PopUpButtonPlugin {
 				if (this.closeOnSelect) {
 					this.closeMenu();
 				}
+
+				document.activeElement.blur();
 			});
 			
 			// Remove "width" and "height" options from `svg` if is set to any percentage
