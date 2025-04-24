@@ -17,7 +17,8 @@
 
     "ui": {
         "hideUITimer": 2000,
-        "hideOnMouseLeave": true
+        "hideOnMouseLeave": true,
+        "preventCanvasRightClickContextMenu": false
     },
 
     "accessibility": {

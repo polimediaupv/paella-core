@@ -123,6 +123,13 @@ export class Canvas extends DomClass {
         super(player, { tag, parent });
         this.element.className = "video-canvas";
 
+        const preventVideoDownload = player.config.ui?.preventCanvasRightClickContextMenu ?? false;
+		if (preventVideoDownload) {
+			this.element.addEventListener('contextmenu', (e) => {
+				e.preventDefault();
+			});
+		}
+
         this._userArea = null;
 
         this._buttonsArea = createElementWithHtmlText(`

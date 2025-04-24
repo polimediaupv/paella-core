@@ -2078,6 +2078,7 @@ var setTabIndex = function setTabIndex(player, layoutStructure, buttons) {
 var Canvas = /*#__PURE__*/function (_DomClass) {
   _inherits(Canvas, _DomClass);
   function Canvas(tag, player, parent) {
+    var _player$config$ui$pre, _player$config$ui;
     var _this;
     _classCallCheck(this, Canvas);
     _this = _callSuper(this, Canvas, [player, {
@@ -2085,6 +2086,12 @@ var Canvas = /*#__PURE__*/function (_DomClass) {
       parent: parent
     }]);
     _this.element.className = "video-canvas";
+    var preventVideoDownload = (_player$config$ui$pre = (_player$config$ui = player.config.ui) === null || _player$config$ui === void 0 ? void 0 : _player$config$ui.preventCanvasRightClickContextMenu) !== null && _player$config$ui$pre !== void 0 ? _player$config$ui$pre : false;
+    if (preventVideoDownload) {
+      _this.element.addEventListener('contextmenu', function (e) {
+        e.preventDefault();
+      });
+    }
     _this._userArea = null;
     _this._buttonsArea = (0,dom/* createElementWithHtmlText */.h6)("\n        <div class=\"button-area\">\n        </div>\n        ", _this.element);
     return _this;
