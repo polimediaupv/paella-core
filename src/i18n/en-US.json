@@ -99,5 +99,9 @@
     "Decrease playback speed": "Decrease playback speed",
     "Increase playback speed": "Increase playback speed",
     "Swap between side by side and minimized video": "Swap between side by side and minimized video",
-    "Swap the position of the videos": "Swap the position of the videos"
+    "Swap the position of the videos": "Swap the position of the videos",
+    "Dual stream 50%": "Dual stream 50%",
+    "Two videos 50%": "Two videos 50%",
+    "play": "Play",
+    "pause": "Pause"
 }
