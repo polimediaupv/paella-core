@@ -40,7 +40,7 @@ export default class DFXPParser {
 
     set text(text) {
         this._text = text;
-        this._captions = parseDFXP(text);
+        this._captions = parseDFXP(this.player, text);
     }
 
     get captions() {
