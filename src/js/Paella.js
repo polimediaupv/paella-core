@@ -1,4 +1,3 @@
-import "regenerator-runtime/runtime";
 import {
     defaultLoadConfigFunction,
     defaultGetVideoIdFunction,
