@@ -20,21 +20,13 @@ const styleRules = {
 const imageRules = {
 	test: /\.(png|jpe?g|gif)$/i,
 	exclude: /(node_modules)/,
-	use: [
-		{
-			loader: 'file-loader'
-		}
-	]
+	type: 'asset/resource'
 }
 
 const svgRules = {
 	test: /\.(svg)$/i,
 	exclude: /(node_modules)/,
-	use: [
-		{
-			loader: 'svg-inline-loader'
-		}
-	]
+	type: 'asset/source'
 }
 
 const plugins = [];
