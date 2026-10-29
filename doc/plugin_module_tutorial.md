@@ -475,11 +475,11 @@ Before publishing the package, note that you can test it by creating a basic ext
 {
     ...
     "dependencies": {
-        "paella-core": "^1.0.36",
-		"paella-basic-plugins": "^1.0.12",
-		"paella-slide-plugins": "^1.0.10",
-		"paella-user-tracking": "^1.0.11",
-		"paella-zoom-plugin": "^1.0.10",
+        "paella-core": "1.0.36",
+		"paella-basic-plugins": "1.0.12",
+		"paella-slide-plugins": "1.0.10",
+		"paella-user-tracking": "1.0.11",
+		"paella-zoom-plugin": "1.0.10",
         "plugin-module-tutorial": "../plugin-module-tutorial"
     }
 }

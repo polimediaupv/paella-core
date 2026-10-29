@@ -51,8 +51,8 @@ Add the script commands to the `package.json` file:
 {
   ...
   "dependencies": {
-    "paella-basic-plugins": "^1.0.0-beta.2",
-    "paella-core": "^1.0.0-beta.19"
+    "paella-basic-plugins": "1.0.0-beta.2",
+    "paella-core": "1.0.0-beta.19"
   }
 }
 ```
