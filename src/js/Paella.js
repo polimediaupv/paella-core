@@ -1,4 +1,3 @@
-import "regenerator-runtime/runtime";
 import {
     defaultLoadConfigFunction,
     defaultGetVideoIdFunction,
@@ -725,6 +724,9 @@ export default class Paella {
             if (hideTimeLine) {
                 this.playbackBar.progressIndicator.hideTimeLine();
             }
+
+            // Force a resize to ensure that everything is properly placed
+            await this.resize();
             
             if (!this._loader.debug) {
                 this._loader.removeFromParent();
