@@ -3631,9 +3631,9 @@ class VideoQualityItem {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   h6: () => (/* binding */ createElementWithHtmlText),
 /* harmony export */   hW: () => (/* binding */ DomClass),
-/* harmony export */   n: () => (/* binding */ createElement),
-/* harmony export */   pn: () => (/* binding */ sanitizeHtml)
+/* harmony export */   n: () => (/* binding */ createElement)
 /* harmony export */ });
+/* unused harmony export sanitizeHtml */
 /* harmony import */ var _PlayerResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(933);
 
 
@@ -53230,7 +53230,7 @@ Hls.defaultConfig = void 0;
 (module) {
 
 "use strict";
-module.exports = /*#__PURE__*/JSON.parse('{"name":"paella-core","version":"1.50.5","description":"Multistream HTML video player","main":"src/index.js","module":"dist/paella-core.js","scripts":{"build":"webpack --mode production","dev":"webpack serve --mode development --config webpack.debug.js --host 0.0.0.0","captions":"webpack serve --mode development --config webpack.captions.js","eslint":"eslint .","nomanifest":"webpack serve --mode development --config webpack.nomanifest.js","testenv":"webpack serve --mode development --config webpack.test.js --host 0.0.0.0"},"repository":{"type":"git","url":"git+https://github.com/polimediaupv/paella-core.git"},"keywords":["html","player","video","hls"],"author":"Fernando Serrano Carpena <ferserc1@gmail.com>","license":"ECL-2.0","bugs":{"url":"https://github.com/polimediaupv/paella-core/issues"},"homepage":"https://github.com/polimediaupv/paella-core#readme","devDependencies":{"@babel/core":"8.0.9","@babel/plugin-transform-modules-commonjs":"8.0.1","@babel/preset-env":"8.0.7","@eslint/js":"10.0.1","@playwright/test":"1.64.1","babel-loader":"10.1.1","babel-plugin-transform-require-context":"0.2.0","copy-webpack-plugin":"14.0.0","css-loader":"7.1.5","eslint":"10.13.0","globals":"17.13.0","html-webpack-plugin":"5.6.8","style-loader":"4.0.0","webpack":"5.112.2","webpack-cli":"7.2.3","webpack-dev-server":"6.1.0"},"dependencies":{"hls.js":"1.7.4","webvtt-parser":"2.2.0"},"browserslist":["chrome >= 90","edge >= 90","firefox >= 90","safari >= 15","ios_saf >= 15","not dead"]}');
+module.exports = /*#__PURE__*/JSON.parse('{"name":"paella-core","version":"1.50.6","description":"Multistream HTML video player","main":"src/index.js","module":"dist/paella-core.js","scripts":{"build":"webpack --mode production","dev":"webpack serve --mode development --config webpack.debug.js --host 0.0.0.0","captions":"webpack serve --mode development --config webpack.captions.js","eslint":"eslint .","nomanifest":"webpack serve --mode development --config webpack.nomanifest.js","testenv":"webpack serve --mode development --config webpack.test.js --host 0.0.0.0"},"repository":{"type":"git","url":"git+https://github.com/polimediaupv/paella-core.git"},"keywords":["html","player","video","hls"],"author":"Fernando Serrano Carpena <ferserc1@gmail.com>","license":"ECL-2.0","bugs":{"url":"https://github.com/polimediaupv/paella-core/issues"},"homepage":"https://github.com/polimediaupv/paella-core#readme","devDependencies":{"@babel/core":"8.0.9","@babel/plugin-transform-modules-commonjs":"8.0.1","@babel/preset-env":"8.0.7","@eslint/js":"10.0.1","@playwright/test":"1.64.1","babel-loader":"10.1.1","babel-plugin-transform-require-context":"0.2.0","copy-webpack-plugin":"14.0.0","css-loader":"7.1.5","eslint":"10.13.0","globals":"17.13.0","html-webpack-plugin":"5.6.8","style-loader":"4.0.0","webpack":"5.112.2","webpack-cli":"7.2.3","webpack-dev-server":"6.1.0"},"dependencies":{"hls.js":"1.7.4","webvtt-parser":"2.2.0"},"browserslist":["chrome >= 90","edge >= 90","firefox >= 90","safari >= 15","ios_saf >= 15","not dead"]}');
 
 /***/ },
 
@@ -55442,12 +55442,11 @@ class CaptionsCanvas_CaptionCanvas extends dom/* DomClass */.hW {
       const time = offset + (evt.currentTime || evt.newTime || 0);
       if (this._currentCaptions) {
         const cue = this._currentCaptions.getCue(time);
-        this._captionsContainer.innerHTML = "";
-        if (cue) {
-          // Caption text comes from external subtitle files (WebVTT, DFXP, ...) and
-          // must be sanitized before being inserted as HTML to prevent XSS attacks.
-          this._captionsContainer.innerHTML = cue.captions.map(c => `${(0,dom/* sanitizeHtml */.pn)(c)}<br/>`).join('');
-        }
+        this._captionsContainer.replaceChildren();
+        cue && cue.captions.forEach(c => {
+          this._captionsContainer.appendChild(document.createTextNode(c));
+          this._captionsContainer.appendChild(document.createElement('br'));
+        });
         this._captionsContainer.style.display = cue ? null : 'none';
         this.resize();
       }
