@@ -1,5 +1,5 @@
 
-import { DomClass, createElementWithHtmlText, sanitizeHtml } from 'paella-core/js/core/dom';
+import { DomClass, createElementWithHtmlText } from 'paella-core/js/core/dom';
 import { loadCaptionsPlugins } from 'paella-core/js/captions/CaptionsPlugin';
 import Events, { bindEvent, triggerEvent } from 'paella-core/js/core/Events';
 
@@ -40,14 +40,11 @@ export default class CaptionCanvas extends DomClass {
             const time = offset + (evt.currentTime || evt.newTime || 0);
             if (this._currentCaptions) {
                 const cue = this._currentCaptions.getCue(time);
-                this._captionsContainer.innerHTML = "";
-                if (cue) {
-                    // Caption text comes from external subtitle files (WebVTT, DFXP, ...) and
-                    // must be sanitized before being inserted as HTML to prevent XSS attacks.
-                    this._captionsContainer.innerHTML = cue.captions
-                        .map(c => `${sanitizeHtml(c)}<br/>`)
-                        .join('');
-                }
+                this._captionsContainer.replaceChildren();
+                cue && cue.captions.forEach(c => {
+                    this._captionsContainer.appendChild(document.createTextNode(c));
+                    this._captionsContainer.appendChild(document.createElement('br'));
+                });
                 this._captionsContainer.style.display = cue ? null : 'none';
                 this.resize();
             }
